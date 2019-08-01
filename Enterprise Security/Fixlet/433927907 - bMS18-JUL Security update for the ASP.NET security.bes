@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-JUL: Security update for the ASP.NET security feature bypass vulnerability - Visual Studio 2013 Update 5 - ASP.NET Web Frameworks and Tools - KB4339279</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>A security feature bypass vulnerability exists in ASP.NET when the number of incorrect login attempts is not validated. This update resolves that vulnerability. <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Note:</B> This security update is also referenced under KB4339279.&nbsp;</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+171 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>exists regapp "devenv.exe" whose (version of it = "12.0.40629")</Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DevDiv\MVCToolsVS11\Servicing\5.0\VisualStudio12"   whose  (    value "Version" of it as string as version = "5.2" AND value "Version" of it as string as version < "5.2.60629.0"  )  of registry]]></Relevance>
+		<Relevance>not pending restart "837f6db64e64ed3a5ec130a0f2344d0c43ef6218"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>179366200</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4339279</SourceID>
+		<SourceReleaseDate>2018-07-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-8171</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Jul 2018 11:22:07 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:visual_studio:2013:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 26 Feb 2019 21:34:49 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AspNetWebFrameworksToolsVS2013-KB4339279.exe sha1:837f6db64e64ed3a5ec130a0f2344d0c43ef6218 size:179366200 https://download.microsoft.com/download/1/A/7/1A7678D6-40B9-4D34-9716-06357B2F436F/AspNetWebFrameworksToolsVS2013-KB4339279.exe sha256:c5e414f312a13066a7143b9791647c4398cabb0ba8b0f210827e9cabeeda26ae
+
+waithidden __Download\AspNetWebFrameworksToolsVS2013-KB4339279.exe /quiet /norestart
+
+action may require restart "837f6db64e64ed3a5ec130a0f2344d0c43ef6218"</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

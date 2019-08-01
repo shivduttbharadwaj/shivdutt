@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Acrobat DC 2019.012.20035 Available - Adobe Acrobat DC - Continuous Track</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P>Adobe has released a new version of Adobe Acrobat DC. Use the action below to update Adobe Acrobat DC to the latest version (2019.012.20035).</P> <P><B>Note:</B> Affected computers might report back as 'Pending Restart' once the patch runs successfully but will not report back their final status until the computer is restarted.</P> <P><SPAN id=fixletLinks></SPAN><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade Adobe Acrobat DC regardless of whether or not Adobe Acrobat DC is running" action will close any running instance of Adobe Acrobat DC on the client machines. Schedule the update to occur at a time when a service interruption is acceptable.</SPAN></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+366 MB 
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists regapp "acrobat.exe"</Relevance>
+		<Relevance>(exists key "HKLM\Software\Adobe\Adobe Acrobat\6.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\7.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\8.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\9.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\10.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\11.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\2015\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\DC\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\2017\" of it) of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[version of operating system >= "6.1"]]></Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "8")]]></Relevance>
+		<Relevance><![CDATA[(exists key whose (value "DisplayName" of it as string contains "Adobe Acrobat DC" AND (it>"15.0.0" and it < "19.012.20035") of (value "DisplayVersion" of it as string as version)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Relevance>exists matches (regex "\d*\.\d*\.20\d*") of (value "DisplayVersion" of it as string) of keys whose (value "DisplayName" of it as string contains "Adobe Acrobat DC") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>384483328</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2019-06-13</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 14 Jun 2019 18:03:34 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:acrobat_dc:19.012.20035:*:*:*:continuous:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Acrobat</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 19 Jun 2019 21:36:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AcrobatDCUpd1901220035.msp sha1:eb1501148550fc09552aae185ae088b55cdeb033 size:384483328 http://ardownload.adobe.com/pub/adobe/acrobat/win/AcrobatDC/1901220035/AcrobatDCUpd1901220035.msp sha256:ec24baf0442a7459fadab863cafb6480225b7d52cad4680f1db0155f64029c76
+
+wait msiexec.exe /p "__Download\AcrobatDCUpd1901220035.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "eb1501148550fc09552aae185ae088b55cdeb033"</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Adobe Acrobat DC regardless of whether or not Adobe Acrobat DC is running.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AcrobatDCUpd1901220035.msp sha1:eb1501148550fc09552aae185ae088b55cdeb033 size:384483328 http://ardownload.adobe.com/pub/adobe/acrobat/win/AcrobatDC/1901220035/AcrobatDCUpd1901220035.msp sha256:ec24baf0442a7459fadab863cafb6480225b7d52cad4680f1db0155f64029c76
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrobat /a" else "taskkill /F /IM acrobat.exe"}
+
+wait msiexec.exe /p "__Download\AcrobatDCUpd1901220035.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "eb1501148550fc09552aae185ae088b55cdeb033"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Acrobat.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=https://www.adobe.com/devnet-docs/acrobatetk/tools/ReleaseNotesDC/continuous/dccontinuousmay2019qfe.html#dccontinuousmaytwentynineteenqfe</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#acrobatwin</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

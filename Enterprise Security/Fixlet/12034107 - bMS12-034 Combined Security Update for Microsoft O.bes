@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-034: Combined Security Update for Microsoft Office, Windows, .NET Framework, and Silverlight - Office 2007 SP2/SP3</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves three publicly disclosed vulnerabilities and seven privately reported vulnerabilities in Microsoft Office, Microsoft Windows, the Microsoft .NET Framework, and Microsoft Silverlight. The most severe of these vulnerabilities could allow remote code execution if a user opens a specially crafted document or visits a malicious webpage that embeds TrueType font files. An attacker would have no way to force users to visit a malicious website. Instead, an attacker would have to convince users to visit the website, typically by getting them to click a link in an email message or Instant Messenger message that takes them to the attacker's website.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2596792.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.88 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists regapp "powerpnt.exe" whose (version of it >= "12.0.6425.1000") OR exists regapp "excel.exe" whose (version of it >= "12.0.6425.1000") OR exists regapp "winword.exe" whose (version of it >= "12.0.6425.1000") OR exists regapp "outlook.exe" whose (version of it >= "12.0.6423.1000") OR exists regapp "mspub.exe" whose (version of it >= "12.0.6423.1000") OR exists regapp "msaccess.exe" whose (version of it >= "12.0.6423.1000") OR exists regapp "infopath.exe" whose (version of it >= "12.0.6413.1000") OR exists regapp "groove.exe" whose (version of it >= "12.0.6421.1000") OR exists regapp "onenote.exe" whose (version of it >= "12.0.6415.1000") OR exists regapp "winproj.exe" whose (version of it >= "12.0.6423.1000") OR exists regapp "spdesign.exe" whose (version of it >= "12.0.6425.1000") OR  ((exists file "mso.dll" whose (version of it >= "12.0.6425.1000") of it) OR (exist file "vislib.dll" whose (version of it >= "12.0.6423.1000") of it)) of (folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\OFFICE12"))]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance>((exists key whose ((name of it equals "00002109540000000000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.4518.1088") of it) AND (not exists key whose (name of it equals "BD06943E39A2BD542A802056F0A70BC9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00002119510000000000000000F01FEC" OR name of it equals "00002109510000000000000000F01FEC" OR name of it equals "00002119310000000000000000F01FEC" OR name of it equals "00002119030000000000000000F01FEC" OR name of it equals "00002109030000000000000000F01FEC" OR name of it equals "00002119920000000000000000F01FEC" OR name of it equals "00002119610000000000000000F01FEC" OR name of it equals "00002109610000000000000000F01FEC" OR name of it equals "00002119AB0000000000000000F01FEC" OR name of it equals "00002109AB0000000000000000F01FEC" OR name of it equals "00002119F20000000000000000F01FEC" OR name of it equals "00002119440000000000000000F01FEC" OR name of it equals "00002109440000000000000000F01FEC" OR name of it equals "00002119CB0000000000000000F01FEC" OR name of it equals "00002109CB0000000000000000F01FEC" OR name of it equals "000021199A0000000000000000F01FEC" OR name of it equals "000021099A0000000000000000F01FEC" OR name of it equals "000021193A0000000000000000F01FEC" OR name of it equals "000021191A0000000000000000F01FEC" OR name of it equals "000021091A0000000000000000F01FEC" OR name of it equals "00002119A10000000000000000F01FEC" OR name of it equals "000021190E0000000000000000F01FEC" OR name of it equals "000021090E0000000000000000F01FEC" OR name of it equals "00002109A10000000000000000F01FEC" OR name of it equals "00002119330000000000000000F01FEC" OR name of it equals "00002119730000000000000000F01FEC" OR name of it equals "00002119810000000000000000F01FEC" OR name of it equals "00002109810000000000000000F01FEC" OR name of it equals "00002119B30000000000000000F01FEC" OR name of it equals "00002109B30000000000000000F01FEC" OR name of it equals "00002119A30000000000000000F01FEC" OR name of it equals "00002109A30000000000000000F01FEC" OR name of it equals "00002119530000000000000000F01FEC" OR name of it equals "00002119130000000000000000F01FEC" OR name of it equals "00002119110000000000000000F01FEC" OR name of it equals "00002109110000000000000000F01FEC" OR name of it equals "00002119410000000000000000F01FEC" OR name of it equals "00002109410000000000000000F01FEC" OR name of it equals "00002119910000000000000000F01FEC" OR name of it equals "00002109910000000000000000F01FEC" OR name of it equals "00002119710000000000000000F01FEC" OR name of it equals "00002109710000000000000000F01FEC" OR name of it equals "00002119AC0000000000000000F01FEC" OR name of it equals "00002109AC0000000000000000F01FEC" OR name of it equals "00002119210000000000000000F01FEC" OR name of it equals "00002109210000000000000000F01FEC" OR name of it equals "00002119E20000000000000000F01FEC" OR name of it equals "00002119150000000000000000F01FEC" OR name of it equals "00002109150000000000000000F01FEC" OR name of it equals "00002119350000000000000000F01FEC" OR name of it equals "00002109350000000000000000F01FEC" OR name of it equals "00002109620000000000000000F01FEC" OR name of it equals "00002119B20000000000000000F01FEC" OR name of it equals "00002119B10000000000000000F01FEC" OR name of it equals "00002109B10000000000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.6612.1000") of it) AND (not exists key whose (name of it equals "BD06943E39A2BD542A802056F0A70BC9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00002109540000000000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.4518.1084") of it) AND (not exists key whose (name of it equals "BD06943E39A2BD542A802056F0A70BC9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00002109620000000000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.6215.1000") of it) AND (not exists key whose (name of it equals "BD06943E39A2BD542A802056F0A70BC9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00002119510000000000000000F01FEC" OR name of it equals "00002109510000000000000000F01FEC" OR name of it equals "00002119310000000000000000F01FEC" OR name of it equals "00002119030000000000000000F01FEC" OR name of it equals "00002109030000000000000000F01FEC" OR name of it equals "00002119920000000000000000F01FEC" OR name of it equals "00002119610000000000000000F01FEC" OR name of it equals "00002109610000000000000000F01FEC" OR name of it equals "00002119AB0000000000000000F01FEC" OR name of it equals "00002109AB0000000000000000F01FEC" OR name of it equals "00002119F20000000000000000F01FEC" OR name of it equals "00002119440000000000000000F01FEC" OR name of it equals "00002109440000000000000000F01FEC" OR name of it equals "00002119CB0000000000000000F01FEC" OR name of it equals "00002109CB0000000000000000F01FEC" OR name of it equals "000021199A0000000000000000F01FEC" OR name of it equals "000021099A0000000000000000F01FEC" OR name of it equals "000021193A0000000000000000F01FEC" OR name of it equals "000021191A0000000000000000F01FEC" OR name of it equals "000021091A0000000000000000F01FEC" OR name of it equals "00002119A10000000000000000F01FEC" OR name of it equals "000021190E0000000000000000F01FEC" OR name of it equals "000021090E0000000000000000F01FEC" OR name of it equals "00002109A10000000000000000F01FEC" OR name of it equals "00002119330000000000000000F01FEC" OR name of it equals "00002119730000000000000000F01FEC" OR name of it equals "00002119810000000000000000F01FEC" OR name of it equals "00002109810000000000000000F01FEC" OR name of it equals "00002119B30000000000000000F01FEC" OR name of it equals "00002109B30000000000000000F01FEC" OR name of it equals "00002119A30000000000000000F01FEC" OR name of it equals "00002109A30000000000000000F01FEC" OR name of it equals "00002119530000000000000000F01FEC" OR name of it equals "00002119130000000000000000F01FEC" OR name of it equals "00002119110000000000000000F01FEC" OR name of it equals "00002109110000000000000000F01FEC" OR name of it equals "00002119410000000000000000F01FEC" OR name of it equals "00002109410000000000000000F01FEC" OR name of it equals "00002119910000000000000000F01FEC" OR name of it equals "00002109910000000000000000F01FEC" OR name of it equals "00002119710000000000000000F01FEC" OR name of it equals "00002109710000000000000000F01FEC" OR name of it equals "00002119AC0000000000000000F01FEC" OR name of it equals "00002109AC0000000000000000F01FEC" OR name of it equals "00002119210000000000000000F01FEC" OR name of it equals "00002109210000000000000000F01FEC" OR name of it equals "00002119E20000000000000000F01FEC" OR name of it equals "00002119150000000000000000F01FEC" OR name of it equals "00002109150000000000000000F01FEC" OR name of it equals "00002119350000000000000000F01FEC" OR name of it equals "00002109350000000000000000F01FEC" OR name of it equals "00002119B20000000000000000F01FEC" OR name of it equals "00002119B10000000000000000F01FEC" OR name of it equals "00002109B10000000000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.6425.1000") of it) AND (not exists key whose (name of it equals "BD06943E39A2BD542A802056F0A70BC9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00002109540000000000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.4518.1089") of it) AND (not exists key whose (name of it equals "BD06943E39A2BD542A802056F0A70BC9") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>3018848</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2596792</SourceID>
+		<SourceReleaseDate>2012-05-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-3402; CVE-2012-0159; CVE-2012-0165; CVE-2012-0167</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2007:sp2:*:*:*:*:*:*; cpe:2.3:a:microsoft:office:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch mdivwctl2007-kb2596792-fullfile-x86-glb.exe sha1:a6949309e7cc18cce4fb768a2aa76c5856d863a7 size:3018848 http://download.microsoft.com/download/5/A/4/5A478ED9-C40A-4093-AA34-38DE69D0FD6B/mdivwctl2007-kb2596792-fullfile-x86-glb.exe sha256:797e04daec314b4ab9f54ef5b1b506428e5f2aaad4ab9f52cb3eba9f450a5662
+
+waithidden __Download\mdivwctl2007-kb2596792-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "a6949309e7cc18cce4fb768a2aa76c5856d863a7"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS12-034</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

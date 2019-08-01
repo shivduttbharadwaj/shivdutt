@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Microsoft .NET Framework 3.5 SP1 Available - Windows XP/2003/Vista/2008</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released .NET Framework 3.5 SP1. .NET Framework version 3.5 SP1 builds incrementally upon .NET Framework version 2.0, .NET Framework version 3.0 and .NET Framework version 3.5, and contains a number of new feature sets which add functionality to the Framework.</P> <P>.NET Framework 3.5 SP1 includes the following components:</P> <UL> <LI>.NET Framework 2.0 <LI>.NET Framework 2.0 SP1 <LI>.NET Framework 3.0 <LI>.NET Framework 3.0 SP1 <LI>.NET Framework 3.5 <LI>Updates to existing components <LI>New components which provide additional functionality</LI></UL> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Installation of this update may take more than 20 minutes to complete.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> There are known issues associated with the installation of this update. See the Known Issues section of the release documentation for more information.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> BigFix has received reports that this patch requires the print spooler service to be running. If the print spooler service is disabled by default, it will be powered on temporarily for the duration of the patching process.</P> <P><B>Note:</B> There is no default action for this Fixlet message due to known issues associated with the installation of this patch. Please review the Known Issues section of the security bulletin prior to deploying this patch. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+231 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP") OR (name of it = "WinXP-2003") OR (name of it = "Win2003") OR (name of it = "WinVista") OR (name of it = "Win2008")) of operating system</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5" whose (exists value "SP" whose (it as string as integer >= 1) of it) of registry]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>242743296</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2008-08-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinVista|WinXP|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy Microsoft .NET Framework 3.5 SP1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch dotnetfx35.exe sha1:3dce66bae0dd71284ac7a971baed07030a186918 size:242743296 http://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe sha256:0582515bde321e072f8673e829e175ed2e7a53e803127c50253af76528e66bc1
+
+if {exists running service "Spooler"}
+wait __Download\dotnetfx35.exe /q /norestart
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+else
+delete __appendfile
+delete restartSpooler.bat
+appendfile sc config "Spooler" start= auto
+appendfile net start Spooler
+appendfile "{pathname of client folder of current site}\__Download\dotnetfx35.exe" /q /norestart
+appendfile "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+appendfile net stop Spooler
+appendfile sc config "Spooler" start= disabled
+move __appendfile restartSpooler.bat
+waithidden restartSpooler.bat
+endif
+
+action may require restart "3dce66bae0dd71284ac7a971baed07030a186918"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to learn more about Microsoft .NET Framework 3.5 SP1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/951847</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the release documentation for Microsoft .NET Framework 3.5 SP1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://download.microsoft.com/download/A/2/8/A2807F78-C861-4B66-9B31-9205C3F22252/dotNet35SP1Readme.htm</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

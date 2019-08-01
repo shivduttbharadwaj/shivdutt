@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Java Runtime Environment 8 update 201 (32-bit) Available (JRE 8 32-bit version Installed) (x64) - CPU (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been superseded by  8.211.<br /><br />Oracle has released a new version of the Java SE Runtime Environment (JRE). Use the action below to update Java to version 8, update 201.</P><SPAN id=fixletLink></SPAN><P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted. <BR><BR><B>Important Note:</B> The Java Runtime Environment update does not remove versions of JRE older than JRE 8 update 201. Multiple versions of JRE may be present on affected computers after applying the action below. Fixlet message "Multiple JRE Versions Installed" (ID 7052001) can be used to uninstall older versions of the Java Runtime Environment.</P> <P><B>Important Note: </B>Follow the link for the 'Java SE Runtime Environment (JRE) 8 update 201' download on this <A href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">page</A>. The file "jre-8u201-windows-i586.exe" must be downloaded, renamed "4a354626ab98491f109fa0981008516b599101c0", and placed in the BES Server download cache for this action to complete successfully. For more information about manually caching file downloads on the BES Server, please see the following BigFix Support Knowledge Base <A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=390">article</A>.</P> <P><STRONG>Important Note:</STRONG> For Windows Vista, Windows 7, Windows Server 2008, and Windows Server 2008 R2 users, the installation <B>may fail</B> if the User Account Control (UAC) is enabled.</P> <P><STRONG>Important Note:</STRONG> To avoid any service interruption on the client computer, use the default action only when client computers do not have any running instances of Java, Internet Explorer, or Firefox. The default action does not close any running instances these applications on the client machines. If any of these applications are running on the client computers, the default action might fail. Schedule the update to occur at a time when the client machine is not using these applications.</P> <P><STRONG>Important Note:</STRONG> Choosing the "Upgrade to the latest JRE regardless of whether or not Internet Explorer, Firefox, or Java is currently running action" will close any running instance of Internet Explorer, Firefox, or Java on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable.</P> <P><STRONG>Note:</STRONG> Use the CORRUPT PATCH Fixlet that is available for this patch to remedy corrupted JRE installations.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+63.5 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2019-2540; CVE-2018-11212; CVE-2019-2426; CVE-2019-2426; CVE-2019-2422
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[(exists value "DisplayVersion" whose ((it = "8" and it < "8.0.2010") of (it as string as version)) of keys whose (value "DisplayName" of it as string as lowercase contains "j2se runtime environment" OR value "DisplayName" of it as string as lowercase contains "runtimeenvironment" OR value "DisplayName" of it as string as lowercase starts with "java(tm)" OR value "DisplayName" of it as string as lowercase starts with "java 8") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of x32 registry) and (not exists value "DisplayVersion" whose ((it = "8" and it  >= "8.0.2010") of (it as string as version)) of keys whose (value "DisplayName" of it as string as lowercase contains "j2se runtime environment" OR value "DisplayName" of it as string as lowercase contains "runtimeenvironment" OR value "DisplayName" of it as string as lowercase starts with "java(tm)" OR value "DisplayName" of it as string as lowercase starts with "java 8") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of x32 registry)]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.0") of system folder]]></Relevance>
+		<Relevance>if (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\JavaInstallation" of registry) then (not exists value "InstallingJava8_32" whose (it = 1) of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\JavaInstallation" of registry) else true</Relevance>
+		<Relevance>NOT (it contains "Win2000" OR it contains "WinXP" OR it contains "Win2003") of name of operating system</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>66613600</DownloadSize>
+		<Source>Oracle</Source>
+		<SourceID>Oracle Critical Patch Update Advisory - January 2019</SourceID>
+		<SourceReleaseDate>2019-01-15</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2019-2540; CVE-2018-11212; CVE-2019-2426; CVE-2019-2426; CVE-2019-2422</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 17 Jan 2019 05:13:56 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-04-17</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:oracle:jre:1.8.0:update_201:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Oracle JavaRuntimeEnvironment</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 04:40:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[begin prefetch block	
+add prefetch item name = jre-8u201-windows-i586.exe sha1=4a354626ab98491f109fa0981008516b599101c0 size=66613600 url={value of setting "_BESClient_AllowCustomRepoDownloads" of client | "http://download.oracle.com/MANUAL_BES_CACHING_REQUIRED/"}jre-8u201-windows-i586.exe sha256=2caa55f2a9bffb6be596fb34f8ce14a554a60008b2764734b41a28ae15a21ea4
+end prefetch block
+
+continue if {not exists running application whose ((it = "java.exe" OR it = "javaw.exe" OR it = "javaws.exe" OR it = "iexplore.exe" OR it = "firefox.exe") of (name of it as lowercase))}
+
+// Note: update .exe will restart service automatically
+if{exists running service "JavaQuickStarterService"}
+delete __appendfile
+delete stop_javaquickstarter.bat
+appendfile net stop JavaQuickStarterService
+move __appendfile stop_javaquickstarter.bat
+waithidden stop_javaquickstarter.bat
+endif
+ 
+//if it is win2k/2k3/xp system, just invoke the .exe installer
+if {(name of it contains "Win2000" or name of it contains "WinXP" or name of it contains "Win2003") of operating system}
+waithidden __Download\jre-8u201-windows-i586.exe /s
+ 
+else
+// Remove any existing directory junction point
+dos %windir%\syswow64\cmd.exe /C fsutil reparsepoint delete "%windir%\syswow64\config\systemprofile\appdata\locallow\sun\java"
+dos %windir%\syswow64\cmd.exe /C fsutil reparsepoint delete "%windir%\syswow64\config\systemprofile\appdata\locallow\oracle\java"
+// delete java directory in 32bit version of system32, if any
+dos rmdir /q /s "%windir%\syswow64\config\systemprofile\appdata\locallow\sun\java"
+dos rmdir /q /s "%windir%\syswow64\config\systemprofile\appdata\locallow\oracle\java"
+//create a java folder under system32 folder if not exists
+if {not exist folder (system folder as string &"\config\systemprofile\appdata\locallow\oracle\java")}
+action uses wow64 redirection false
+dos mkdir "%windir%\syswow64\config\systemprofile\appdata\locallow\oracle"
+dos mkdir "%windir%\system32\config\systemprofile\appdata\locallow\oracle\java"
+endif
+
+// create ntfs junction point from 32bit version of system32 java files to sysnative version
+// (NOTE: mklink argument seems to be in native path perspective, so system32 is correct here, not sysnative)
+action uses wow64 redirection false
+dos mklink /J "%windir%\syswow64\config\systemprofile\appdata\locallow\oracle\java" "%windir%\system32\config\systemprofile\appdata\locallow\oracle\java" 
+ 
+ 
+// Finally, try to install java...
+action uses wow64 redirection false
+dos %windir%\syswow64\cmd.exe /C __Download\jre-8u201-windows-i586.exe /s
+ 
+endif
+
+action may require restart "4a354626ab98491f109fa0981008516b599101c0"
+
+continue if {((exists value "DisplayVersion" whose ((it >= "8.0.2010") of (it as string as version)) of keys whose (value "DisplayName" of it as string as lowercase contains "j2se runtime environment" OR value "DisplayName" of it as string as lowercase contains "runtimeenvironment" OR value "DisplayName" of it as string as lowercase starts with "java(tm)" OR value "DisplayName" of it as string as lowercase starts with "java 8") of it) AND (exists key whose (((it contains "java" OR it contains "j2se") AND (it contains "runtime environment" OR it contains "update")) of (value "DisplayName" of it as string as lowercase)) of it)) of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of x32 registry}]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade to the latest JRE regardless of whether or not Internet Explorer, Firefox, or Java is currently running.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[begin prefetch block	
+add prefetch item name = jre-8u201-windows-i586.exe sha1=4a354626ab98491f109fa0981008516b599101c0 size=66613600 url={value of setting "_BESClient_AllowCustomRepoDownloads" of client | "http://download.oracle.com/MANUAL_BES_CACHING_REQUIRED/"}jre-8u201-windows-i586.exe sha256=2caa55f2a9bffb6be596fb34f8ce14a554a60008b2764734b41a28ae15a21ea4
+end prefetch block
+
+
+
+// Note: update .exe will restart service automatically
+if{exists running service "JavaQuickStarterService"}
+delete __appendfile
+delete stop_javaquickstarter.bat
+appendfile net stop JavaQuickStarterService
+move __appendfile stop_javaquickstarter.bat
+waithidden stop_javaquickstarter.bat
+endif
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill java /a" else "taskkill /F /IM java.exe"}
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill javaw /a" else "taskkill /F /IM javaw.exe"}
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill javaws /a" else "taskkill /F /IM javaws.exe"}
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill iexplore /a" else "taskkill /F /IM iexplore.exe"}
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill firefox /a" else "taskkill /F /IM firefox.exe"}
+ 
+//if it is win2k/2k3/xp system, just invoke the .exe installer
+if {(name of it contains "Win2000" or name of it contains "WinXP" or name of it contains "Win2003") of operating system}
+waithidden __Download\jre-8u201-windows-i586.exe /s  
+ 
+else
+// Remove any existing directory junction point
+dos %windir%\syswow64\cmd.exe /C fsutil reparsepoint delete "%windir%\syswow64\config\systemprofile\appdata\locallow\sun\java"
+dos %windir%\syswow64\cmd.exe /C fsutil reparsepoint delete "%windir%\syswow64\config\systemprofile\appdata\locallow\oracle\java"
+// delete java directory in 32bit version of system32, if any
+dos rmdir /q /s "%windir%\syswow64\config\systemprofile\appdata\locallow\sun\java"
+dos rmdir /q /s "%windir%\syswow64\config\systemprofile\appdata\locallow\oracle\java"
+//create a java folder under system32 folder if not exists
+if {not exist folder (system folder as string &"\config\systemprofile\appdata\locallow\oracle\java")}
+action uses wow64 redirection false
+dos mkdir "%windir%\syswow64\config\systemprofile\appdata\locallow\oracle"
+dos mkdir "%windir%\system32\config\systemprofile\appdata\locallow\oracle\java"
+endif
+// create ntfs junction point from 32bit version of system32 java files to sysnative version
+// (NOTE: mklink argument seems to be in native path perspective, so system32 is correct here, not sysnative)
+action uses wow64 redirection false
+dos mklink /J "%windir%\syswow64\config\systemprofile\appdata\locallow\oracle\java" "%windir%\system32\config\systemprofile\appdata\locallow\oracle\java" 
+ 
+ 
+// Finally, try to install java...
+action uses wow64 redirection false
+dos %windir%\syswow64\cmd.exe /C __Download\jre-8u201-windows-i586.exe /s
+ 
+endif
+
+
+action may require restart "4a354626ab98491f109fa0981008516b599101c0"
+
+continue if {((exists value "DisplayVersion" whose ((it >= "8.0.2010") of (it as string as version)) of keys whose (value "DisplayName" of it as string as lowercase contains "j2se runtime environment" OR value "DisplayName" of it as string as lowercase contains "runtimeenvironment" OR value "DisplayName" of it as string as lowercase starts with "java(tm)" OR value "DisplayName" of it as string as lowercase starts with "java 8") of it) AND (exists key whose (((it contains "java" OR it contains "j2se") AND (it contains "runtime environment" OR it contains "update")) of (value "DisplayName" of it as string as lowercase)) of it)) of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of x32 registry}]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of JRE. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.oracle.com/technetwork/java/javase/8train-relnotes-latest-2153846.html</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Oracle.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://java.sun.com/javase/technologies/security/index.jsp#overview</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in cross-platform applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c1</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

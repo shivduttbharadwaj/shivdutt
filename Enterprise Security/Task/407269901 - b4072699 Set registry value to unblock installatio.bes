@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>4072699: Set registry value to unblock installation of security updates - Windows 7 / Windows Server 2008 R2 / Windows Server 2012 / Windows 8.1 / Windows Server 2012 R2 / Windows 10 / Windows Server 2016</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p>Microsoft requires a registry value to be set for the endpoints to receive security updates for Windows Operating System. The registry value will not be set if you do not have an anti-virus software installed. You can use this task to set the value.</p><p><B><FONT color=#ff0000>Important Note:</FONT></B> If you have an anti-virus software installed, contact the vendor to confirm that the software is compatible and set the registry value, instead of applying this task.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+0
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win7" OR name of it = "Win2008R2") OR name of it = "Win8.1" OR name of it = "Win10" OR name of it = "Win8" OR name of it = "Win2012" OR name of it = "Win2012R2" OR name of it = "Win2016") of operating system</Relevance>
+		<Relevance>not exists values "cadca5fe-87d3-4b96-b7fb-a231484277cc" whose (it as integer = 0) of keys "QualityCompat" of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of (x64 registries; x32 registries)</Relevance>
+		<Category>Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4072699</SourceID>
+		<SourceReleaseDate>2018-01-04</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 05 Jan 2018 08:20:21 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 04 Jun 2019 23:59:29 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\QualityCompat]" "cadca5fe-87d3-4b96-b7fb-a231484277cc"=dword:0</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4072699</ActionScript>
+		</Action>
+	</Task>
+</BES>

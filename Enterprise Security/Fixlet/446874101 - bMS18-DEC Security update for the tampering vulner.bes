@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-DEC: Security update for the tampering vulnerability in Microsoft Exchange Server 2016 - Exchange Server 2016 CU11 - KB4468741 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p><STRONG>Note:</STRONG> This update has been superseded by KB4487563.<br /><br />A tampering vulnerability exists when Microsoft Exchange Server fails to properly handle profile data. An attacker who successfully exploits&nbsp;this vulnerability could modify a targeted user&#39;s profile data.</p><br><br><p>To learn more about the&nbsp;vulnerability, see <a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-8604" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8604</a>.&nbsp;</p><br><p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> This security update is also referenced under KB4468741.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+132.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("BA952A4AF77A930438A2724B13DDFFAE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "442189DC8B9EA5040962A6BED9EC1F1F") AND exists key "InstallProperties" whose ((it = "15.1.1591.10") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "0F5DC4722E8E4E2418D114C3DB70156C" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>138780672</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4468741</SourceID>
+		<SourceReleaseDate>2018-12-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-8604</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Dec 2018 05:35:00 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4487563</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:exchange_server:2016:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>448756305</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-04-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2016</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 05:16:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Exchange2016-KB4468741-x64-en.msp sha1:04f17c69f383521f408a653530f421b95e148b74 size:138780672 https://download.microsoft.com/download/D/B/9/DB9D5FEB-A224-433D-99FE-376ED3BFF52B/Exchange2016-KB4468741-x64-en.msp sha256:688fd43c402658b1be0c6df8b4ba787c7a2d5cb370559e2f1a33353014d66e05
+
+waithidden msiexec.exe /p __Download\Exchange2016-KB4468741-x64-en.msp /quiet /norestart
+
+action may require restart "04f17c69f383521f408a653530f421b95e148b74"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4468741</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

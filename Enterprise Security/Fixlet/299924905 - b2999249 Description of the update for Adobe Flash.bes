@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2999249: Description of the update for Adobe Flash Player in Internet Explorer - Windows 8 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update addresses the vulnerability discussed in Microsoft Security Advisory (KB2999249).To find out if other security updates are available for you, see the Additional Information section at the bottom of this page.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB2999249.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+15.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB2999249~31bf3856ad364e35~x86~~6.2.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB2999249~31bf3856ad364e35~x86~~6.2.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Adobe-Flash-For-Windows-Package~31bf3856ad364e35~x86~~6.2.9200.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_adobe-flash-for-windows_31bf3856ad364e35_none_57f8fffd60741b69" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21238" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17122") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Embedded-Adobe-Flash-For-Windows-Package~31bf3856ad364e35~x86~~6.2.9200.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_adobe-flash-for-windows_31bf3856ad364e35_none_57f8fffd60741b69" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21238" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17122") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "b75519b91a9c00ddad2087b0efea6776e1479fcb"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>16265935</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2999249</SourceID>
+		<SourceReleaseDate>2014-09-19</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 24 Sep 2014 13:32:07 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8 Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 19 Dec 2016 09:31:06 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB2999249-x86.msu sha1:b75519b91a9c00ddad2087b0efea6776e1479fcb size:16265935 http://download.microsoft.com/download/4/1/D/41D85CF7-7154-4E70-A969-483431648B0F/Windows8-RT-KB2999249-x86.msu sha256:606a5ceea03c41f8dd900a81bb8ff4654bf9fe06908c3eb89a51122156b7a80f
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB2999249-x86.msu"}" /quiet /norestart
+
+action requires restart "b75519b91a9c00ddad2087b0efea6776e1479fcb"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2999249</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

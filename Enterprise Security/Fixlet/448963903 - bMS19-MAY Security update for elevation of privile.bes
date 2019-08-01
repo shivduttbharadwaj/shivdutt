@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-MAY: Security update for elevation of privilege vulnerability - Visual Studio 2015 Update 3 - KB4489639</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <DIV> <TABLE> <TBODY> <TR> <TD> <P>An elevation of privilege vulnerability exists when the Diagnostics Hub Standard Collector or the Visual Studio Standard Collector allows file creation in arbitrary locations..</P><SPAN lang=EN> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P></SPAN> <P><B>Note:</B> This security update is also referenced under KB4489639.</P></TD></TR></TBODY></TABLE><BR> <DIV class=FixletProperty> <H4>File Size:</H4>3.5 MB</DIV></DIV></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>exists keys ((names of values of keys ("E99E7F506F97F353698B58D9FC25D5E8";"E34563BB52AC50433A850EFA2736944D";"7522FE80695A42934B4D8B3FFE23EE88";"B2855BB1075376C388A848E424F374D3";"B69A170321C03423D84CE6BED30FB651") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "E5B285D12142C8B388F72660574D78C4" OR name of it = "5C4282D485AD2443BB097FE16A0BE79A" OR name of it = "E31ADFC6843AB51328A006B3CBDB6748" OR name of it = "06F460ED2256013369565B3E7EB86383" OR name of it = "6268CF9129A135932A64398E71A49D28") AND exists key "InstallProperties" whose ((it = "14.0.23107") of (value "DisplayVersion" of it as string as version)) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance>not exists keys whose (name of it contains "KB4489639" and value "PackageVersion" of it = "14.0.27533") of keys of key "HKLM\Software\Microsoft\Updates" of x32 registry</Relevance>
+		<Relevance>exists key whose ( (it = "enterprise" OR it = "professional" OR it = "community") of name of it AND value "Install" of it = 1 AND value "UpdateVersion" of it = "14.0.25420") of key "HKLM\software\microsoft\devdiv\vs\servicing\14.0" of x32 registry</Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DevDiv\Servicing\14.0\core" whose (value "UpdateVersion" of it as string as version >= "14.0.25431") of x32 registry]]></Relevance>
+		<Relevance>not pending restart "74906be3045ee77a88fd87539fef52ca4d4a3889"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>3651376</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4489639</SourceID>
+		<SourceReleaseDate>2019-05-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2019-0727</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 May 2019 07:01:35 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:visual_studio:2015:3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 May 2019 07:01:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch vs14-kb4489639_74906be3045ee77a88fd87539fef52ca4d4a3889.exe sha1:74906be3045ee77a88fd87539fef52ca4d4a3889 size:3651376 http://download.windowsupdate.com/d/msdownload/update/software/secu/2019/05/vs14-kb4489639_74906be3045ee77a88fd87539fef52ca4d4a3889.exe sha256:169c70c94a412c702dcb345e5dddb534df78b7f2573de704b5e063ed73dd0a26
+
+waithidden __Download\vs14-kb4489639_74906be3045ee77a88fd87539fef52ca4d4a3889.exe /Q /NoRestart
+
+action may require restart "74906be3045ee77a88fd87539fef52ca4d4a3889"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4469516</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

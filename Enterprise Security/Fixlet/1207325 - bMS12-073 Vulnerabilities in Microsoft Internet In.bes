@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-073: Vulnerabilities in Microsoft Internet Information Services (IIS) Could Allow Information Disclosure - FTP Service 7.5 for IIS 7.5 - Windows Server 2008 R2 Gold/SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves one publicly disclosed vulnerability and one privately reported vulnerability in Microsoft Internet Information Services (IIS). The more severe vulnerability could allow information disclosure if an attacker sends specially crafted FTP commands to the server.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB2716513.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+393 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2008R2") AND (service pack major version of it = 1 OR service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "ftpconfigext.dll" whose ((version of it >= "7.5.7601.17000" AND version of it < "7.5.7601.17550") OR (version of it >= "7.5.7600.20000" AND version of it < "7.5.7600.21224") OR (version of it >= "7.5.7601.22000" AND version of it < "7.5.7601.22009") OR (version of it < "7.5.7600.16748")) of it) OR (exists file "ftpctrlps.dll" whose ((version of it >= "7.5.7600.0" AND version of it < "7.5.7600.14294")) of it) OR (exists file "ftpmib.dll" whose ((version of it < "7.5.7600.16385")) of it) OR (exists file "ftpres.dll" whose ((version of it >= "7.5.7600.0" AND version of it < "7.5.7600.14294")) of it) OR (exists file "ftpsvc.dll" whose ((version of it >= "7.5.7601.17000" AND version of it < "7.5.7601.17855") OR (version of it >= "7.5.7600.20000" AND version of it < "7.5.7600.21224") OR (version of it >= "7.5.7601.22000" AND version of it < "7.5.7601.22009") OR (version of it >= "7.5.7600.16000" AND version of it < "7.5.7600.17034")) of it)) of (folder "INETSRV\" of (system wow64 folder))  OR ((exists file "ftpconfigext.dll" whose ((version of it >= "7.5.7601.17000" AND version of it < "7.5.7601.17550") OR (version of it >= "7.5.7600.20000" AND version of it < "7.5.7600.21224") OR (version of it >= "7.5.7601.22000" AND version of it < "7.5.7601.22009") OR (version of it < "7.5.7600.16748")) of it) OR (exists file "ftpctrlps.dll" whose ((version of it >= "7.5.7600.0" AND version of it < "7.5.7600.14294")) of it) OR (exists file "ftpmib.dll" whose ((version of it < "7.5.7600.16385")) of it) OR (exists file "ftpres.dll" whose ((version of it >= "7.5.7600.0" AND version of it < "7.5.7600.14294")) of it) OR (exists file "ftpsvc.dll" whose ((version of it >= "7.5.7601.17000" AND version of it < "7.5.7601.17855") OR (version of it >= "7.5.7600.20000" AND version of it < "7.5.7600.21224") OR (version of it >= "7.5.7601.22000" AND version of it < "7.5.7601.22009") OR (version of it >= "7.5.7600.16000" AND version of it < "7.5.7600.17034")) of it)) of  (folder "INETSRV\" of (system x64 folder))]]></Relevance>
+		<Relevance>not pending restart "df5a850c2b8e9c09a176f6c78527a2991f6c63f4"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>402609</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2716513</SourceID>
+		<SourceReleaseDate>2012-11-13</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2012-2532</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>IIS</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:iis:7.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2716513-x64.msu sha1:df5a850c2b8e9c09a176f6c78527a2991f6c63f4 size:402609 http://download.microsoft.com/download/2/3/0/23075480-C9F0-48FD-AAEE-B51A97A71AC9/Windows6.1-KB2716513-x64.msu sha256:6243d771763a0b7a2f6e72cef5997fc860d93c9198496ca6461d29c46c0577da
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2716513-x64.msu"}" /quiet /norestart
+
+action requires restart "df5a850c2b8e9c09a176f6c78527a2991f6c63f4"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS12-073</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

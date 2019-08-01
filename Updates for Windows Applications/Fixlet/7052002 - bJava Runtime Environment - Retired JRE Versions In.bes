@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Java Runtime Environment - Retired JRE Versions Installed - J2SE 1.4.0/1.4.1</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>The listed computers have retired versions of the Java Runtime Environment (JRE) installed. Versions of JRE 1.4 prior to 1.4.2 are no longer supported by Oracle. The listed computers have at least one&nbsp;supported version of JRE installed as well. Deploying the action below will uninstall JRE 1.4.0 and JRE 1.4.1.<BR><BR><B>Note:</B> Client machines may briefly display progress windows during installation of this update.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><STRONG>Important Note: </STRONG>Some applications&nbsp;and applets are written and tested against a specific version of JRE.&nbsp;Removing old versions of JRE may cause these applications and applets to no longer function.&nbsp;Please take extra caution to qualify this action before deploying to a production environment.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists key whose ((it contains "se runtime environment" OR it contains "java 2 runtime environment") of (value "DisplayName" of it as string as lowercase) AND value "DisplayVersion" of it as string as version >= "1.4.2") of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance>exists key whose ((it contains "java 2 runtime environment" AND (it contains "v1.4.0" OR it contains "v1.4.1")) of (value "DisplayName" of it as string as lowercase)) of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Category>Uninstall</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Oracle</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Apr 2011 03:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings 3rdPartyApp Oracle JavaRuntimeEnvironment</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 17 Jan 2019 05:13:56 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to uninstall retired JRE versions.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete __appendfile
+appendfile @ECHO OFF
+appendfile echo [InstallShield Silent]  > %2
+appendfile echo Version=v6.00.000  >> %2
+appendfile echo File=Response File  >> %2
+appendfile echo [File Transfer]  >> %2
+appendfile echo OverwrittenReadOnly=NoToAll  >> %2
+appendfile echo [%1-DlgOrder]  >> %2
+appendfile echo Dlg0=%1-SprintfBox-0  >> %2
+appendfile echo Count=1  >> %2
+appendfile echo [%1-SprintfBox-0]  >> %2
+appendfile echo Result=1  >> %2
+appendfile echo [Application]  >> %2
+appendfile echo Name=Java 2 Runtime Environment, SE v1.4.x  >> %2
+appendfile echo Version=1.4.x  >> %2
+appendfile echo Company=JavaSoft  >> %2
+appendfile echo Lang=0009  >> %2
+
+delete makeISS.bat
+copy __appendfile makeISS.bat
+
+delete __appendfile
+
+appendfile @ECHO OFF
+appendfile {concatenation "%0d%0a" of (it & " > NUL  2> NUL") of ("call makeISS.bat " & name of it & " %22" & pathname of client folder of current site & "\1.4.iss%22"; "start /w " & value "UninstallString" of it as string & " /s /f1%22" & pathname of client folder of current site & "\1.4.iss%22") of keys whose ((it contains "java 2 runtime environment" AND (it contains "v1.4.0" OR it contains "v1.4.1")) of (value "DisplayName" of it as string as lowercase)) of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+
+delete uninstallJRE.bat
+copy __appendfile uninstallJRE.bat
+
+wait "{pathname of client folder of site "BESSupport"}\RunQuiet.exe" uninstallJRE.bat
+
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of JRE. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://java.sun.com/javase/6/webnotes/index.html</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Oracle.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://sunsolve.sun.com/search/document.do?assetkey=1-26-102686-1</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in cross-platform applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c1</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

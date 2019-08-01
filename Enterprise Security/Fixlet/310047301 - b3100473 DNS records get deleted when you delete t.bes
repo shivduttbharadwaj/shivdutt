@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3100473: DNS records get deleted when you delete the scope on a Windows Server 2012 R2-based DHCP server - Windows Server 2012 R2 - KB3100473 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB3100473.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.97 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win2012R2" OR (name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.3" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)) of operating system</Relevance>
+		<Relevance>(((name of it = "Win2012" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win2012R2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3100473~31bf3856ad364e35~amd64~~6.3.1.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3100473~31bf3856ad364e35~amd64~~6.3.1.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-net~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-ServerCore-SKU-Foundation-Package-net~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-Package-AutoMerged-net~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-dhcpserverapi_31bf3856ad364e35_none_c5fd493c27c92b36" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18228") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-net~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-ServerCore-WOW64-Package-net~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-WOW64-Package-AutoMerged-net~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-dhcpserverapi_31bf3856ad364e35_none_69deadb86f6bba00" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18228") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-DhcpServerRole-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-dhcpserverruntime_31bf3856ad364e35_none_282eb72fa1ee8400" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18228") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-DHCPServer-Tools-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-RemoteServerAdministrationTools-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-d..ermanagementconsole_31bf3856ad364e35_none_4ed5d069f9bbf07e" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18228") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "ee270dd02c0a47ba7096f5ec954115168b0963b2"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>2067153</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3100473</SourceID>
+		<SourceReleaseDate>2016-03-14</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 22 Mar 2016 08:12:34 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2012 R2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2012R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 29 Oct 2016 10:14:51 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB3100473-x64.msu sha1:ee270dd02c0a47ba7096f5ec954115168b0963b2 size:2067153 https://download.microsoft.com/download/2/5/8/258E49CB-A488-4B59-A9AD-E5B1BCDDEF48/Windows8.1-KB3100473-x64.msu sha256:032cc71f692694f6ecd01be0e48a9f401977d4d16c2328e174638d3733d37d37
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB3100473-x64.msu"}" /quiet /norestart
+
+action requires restart "ee270dd02c0a47ba7096f5ec954115168b0963b2"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3100473</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

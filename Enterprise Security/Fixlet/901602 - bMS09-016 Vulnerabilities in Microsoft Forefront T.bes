@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-016: Vulnerabilities in Microsoft Forefront Threat Management Gateway Could Cause Denial of Service - Microsoft Forefront Threat Management Gateway, Medium Business Edition - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The listed computers have faulty installations of a patch for the vulnerability described in MS09-016. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<br /><br />Microsoft has released a security update that resolves a privately reported vulnerability and a publicly disclosed vulnerability in Microsoft Internet Security and Acceleration (ISA) Server and Microsoft Forefront Threat Management Gateway (TMG), Medium Business Edition (MBE). These vulnerabilities could allow denial of service if an attacker sends specially crafted network packages to the affected system, or information disclosure or spoofing if a user clicks on a malicious URL or visits a Web site that contains content controlled by the attacker.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB968075.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.87 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key whose (value "ProductName" of it as string = "Microsoft Forefront Threat Management Gateway" AND value "Language" of it = 1033) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Installer\Products"  of native registry</Relevance>
+		<Relevance><![CDATA[exists folder (value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft ISA Server") whose ((exists file "Cookieauthfilter.dll" whose ((version of it = "6" AND version of it < "6.0.6417.153")) of it) OR (exists file "msphlpr.dll" whose ((version of it = "6" AND version of it < "6.0.6417.153")) of it) OR (exists file "wspsrv.exe" whose ((version of it = "6" AND version of it < "6.0.6417.153")) of it) OR (exists file "Fweng.sys" whose ((version of it = "6" AND version of it < "6.0.6417.153")) of it) OR (exists file "Fweng64.sys" whose ((version of it = "6" AND version of it < "6.0.6417.153")) of it) OR (exists file "Fweng64100.sys" whose ((version of it = "6" AND version of it < "6.0.6417.100")) of it) OR (exists file "Msfpcpatch.dll" whose ((version of it = "6" AND version of it < "6.0.6417.153")) of it))]]></Relevance>
+		<Relevance>NOT(NOT exists key "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Forefront Threat Management Gateway Security Update KB968075" of registry)</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.0") of system folder]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>4058112</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB961759</SourceID>
+		<SourceReleaseDate>2009-04-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2009-0077; CVE-2009-0237</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>901601</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Forefront Threat Management Gateway</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>ForeFront</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ISATMGMBE-KB968075-ENU.msp sha1:b5bac6570ddff61b0e331ce728af7131adba3609 size:4058112 http://download.microsoft.com/download/A/C/1/AC1BE325-A129-4F22-AFF9-A9ECFFC5D476/ISATMGMBE-KB968075-ENU.msp sha256:3782323ef60f2194d0b0eead9071ca1ab1a43bdf4236eb85ed60a3791bf33db9
+
+waithidden msiexec /p __Download\ISATMGMBE-KB968075-ENU.msp REBOOT=ReallySuppress /quiet /norestart
+
+action may require restart "b5bac6570ddff61b0e331ce728af7131adba3609"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-016.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-016.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

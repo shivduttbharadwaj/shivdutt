@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-035: Vulnerabilities in Visual Studio Active Template Library Could Allow Remote Code Execution - Visual Studio 2005 SP1 64-bit Hosted Visual C++ Tools</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT color=#ff0000><STRONG>Important Note:</STRONG><FONT color=#000000> The patch that Microsoft published for the </FONT><A href="http://www.microsoft.com/downloads/details.aspx?FamilyID=43f96f2a-69c6-4c5e-b72c-0edfa35f4fc2&amp;displaylang=en">Visual Studio 64-bit Hosted Visual C++ Tools 2005 Service Pack 1 ATL Security Update</A><FONT color=#000000> vulnerability described in MS09-035 (</FONT><A href="http://download.microsoft.com/download/C/B/3/CB3B0A80-E83F-467F-9D75-92C0D6AE20FF/VS80sp1-KB973830-IA64-INTL.exe">VS80sp1-KB973830-IA64-INTL.exe</A><FONT color=#000000>) applies to Itanium (IA64) machines only. As BigFix does not support the Itanium architecture, we will not be releasing Fixlet content for this update at this time. </FONT><BR><BR><STRONG>Important Note:</STRONG></FONT>&nbsp;The relevance in this&nbsp;audit only fixlet may detect false positives&nbsp;due to incomplete information from Microsoft at this time.<A href="http://www.microsoft.com/downloads/details.aspx?FamilyID=43f96f2a-69c6-4c5e-b72c-0edfa35f4fc2&amp;displaylang=en"> </A></P> <P><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT> Selecting the first action will change this Fixlet's applicability on relevant systems to false by adding a custom registry key to these systems. To undo this action, the user will need to create a custom Fixlet to remove this registry key.</P> <P>Microsoft has released a security update that addresses several privately reported vulnerabilities in the public versions of the Microsoft Active Template Library (ATL) included with Visual Studio. This security update is specifically intended for developers of components and controls. Developers who build and redistribute components and controls using ATL should install the update provided in this bulletin and follow the guidance provided to create, and distribute to their customers, components and controls that are not vulnerable to the vulnerabilities described in this security bulletin.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack.<BR><BR><B>Note:</B> This security update is also referenced under KB973830.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+59.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(exists key "HKEY_CLASSES_ROOT\Installer\Products\" of (registry; x64 registry)) AND (exists key whose (((it contains "Visual Studio 2005" AND (it contains "Professional Edition" OR it contains "Team Suite" OR (it contains "Team Edition" AND (it contains "Developers" OR it contains "Architects" OR it contains "Testers")))) of (value "ProductName" of it as string)) and (value "Language" of it as string = "1033")) of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry)</Relevance>
+		<Relevance>exists key whose (exists key "KB926601" of it AND name of it as string starts with "Microsoft Visual Studio 2005") of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates" of registry</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance>NOT exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Microsoft Visual Studio 2005 Professional Edition - ENU\KB973830" whose (value "Installed" of it = 1) of registry</Relevance>
+		<Relevance>not exists keys whose (value "DisplayName" of it as string contains "KB973830") of keys "Patches" of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry </Relevance>
+		<Relevance>(exists key "HKLM\SOFTWARE\Microsoft\VisualStudio\8.0\VC\VC_OBJECTS_PLATFORM_INFO\Win64 (AMD64)" of it AND exists key "HKLM\SOFTWARE\Microsoft\VisualStudio\8.0\VC\VC_OBJECTS_PLATFORM_INFO\Win64 (Itanium)" of it) of registry</Relevance>
+		<Relevance>if (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\Fixlet903505" of registry) then (not exists value "Hide" whose (it = 1) of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\Fixlet903505" of registry) else true</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>62515128</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB969706</SourceID>
+		<SourceReleaseDate>2009-07-28</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2009-0901; CVE-2009-2493; CVE-2009-2495</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Visual Studio 2005</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Developer Tools, Runtimes, and Redistributables</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>P1D</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to change this Fixlet's applicability to false.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\Fixlet903505]" "Hide"=dword:00000001</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-035.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-035.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

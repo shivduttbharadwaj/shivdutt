@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS17-SEP: Security update for SharePoint Server 2010 - SharePoint Server 2010 SP2 - KB4011056 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4011190.<br /><br /><div><p>This security update resolves vulnerabilities in Microsoft Office that could allow remote code execution if a user opens a specially crafted Office file. To learn more about these vulnerabilities, see <a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-8631">Microsoft Common Vulnerabilities and Exposures CVE-2017-8631</a>.<br><br><strong>Note</strong> To apply this security update, you must have the release version of <a href="http://support.microsoft.com/kb/2687453">Service Pack 2 for Microsoft SharePoint Server 2010</a> installed on the computer.</p></div><p><B>Note:</B> This security update is also referenced under KB4011056.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+7.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ("00004109831100000100000000F01FEC";"000041096F0100000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.7015.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "036B4122B9FEB8F4091DA4F867831174" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "14.0" AND "|MICROSOFT.OFFICE.EXCEL.WEBUI.INTERNAL.DLL|MICROSOFT.OFFICE.EXCEL.WEBUI.MOBILE.DLL|XLSRV.DLL|XLSRVINTL.DLL.1033|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "MICROSOFT.OFFICE.EXCEL.WEBUI.INTERNAL.DLL" AND (item 3 of it = "14.0.7006.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 25 Aug 2017 12:21:30 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7006.1000") OR item 0 of it = "MICROSOFT.OFFICE.EXCEL.WEBUI.MOBILE.DLL" AND (item 3 of it = "14.0.7160.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 25 Aug 2017 12:21:30 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7160.5000") OR item 0 of it = "XLSRV.DLL" AND (item 3 of it = "14.0.7188.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 25 Aug 2017 12:21:30 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7188.5000") OR item 0 of it = "XLSRVINTL.DLL.1033" AND (item 3 of it = "14.0.7188.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 25 Aug 2017 12:21:30 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7188.5000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{2214B630-EF9B-4F8B-90D1-4A8F76381147}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>8048744</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4011056</SourceID>
+		<SourceReleaseDate>2017-09-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2017-8631</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Sep 2017 09:30:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4011190</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint_server:2010:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>401119001</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-11-13</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 14 Nov 2018 07:28:23 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch xlsrv2010-kb4011056-fullfile-x64-glb.exe sha1:df3f57194bc1f55d1186dafeafa1daa921f22c42 size:8048744 https://download.microsoft.com/download/0/9/A/09A26B0A-1BA3-4268-AFDB-032342AED9F3/xlsrv2010-kb4011056-fullfile-x64-glb.exe sha256:86140436cbc2587bad49262d47030b14c5b9f986e03f5d9acaec451b742733ca
+
+waithidden __Download\xlsrv2010-kb4011056-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "df3f57194bc1f55d1186dafeafa1daa921f22c42"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4011056</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

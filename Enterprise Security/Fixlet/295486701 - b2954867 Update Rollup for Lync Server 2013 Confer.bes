@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2954867: Update Rollup for Lync Server 2013 Conferencing Attendant - Lync Server 2013 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <p>The update resolves the following issue:</p> <ul><li>2954865 Conference Auto Attendant fails when users join PSTN conferences at the same time in a Lync Server 2013 environment</li></ul>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2954867.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+417 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(not exists keys ("95C6A4B6B27F08541B53ECCCA40BB6AC") whose (exists key "InstallProperties" whose ((it < "5.0.8308.0") of (value "DisplayVersion" of it as string as version)) of it) of it AND exists keys ((names of values of keys ("6932393A43ABCCA438D727D1377B27D2") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "95C6A4B6B27F08541B53ECCCA40BB6AC") AND exists key "InstallProperties" whose ((it >= "5.0.8308.0" AND it < "5.0.8308.600") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "846E3D2E9633881438261F51A6084228" of key "Patches" of it) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry]]></Relevance>
+		<Category>Update Rollup</Category>
+		<DownloadSize>427590</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2954867</SourceID>
+		<SourceReleaseDate>2014-09-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 25 Mar 2015 08:28:36 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 R2 Gold |~| Windows Server 2008 SP2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Microsoft Lync Server and Microsoft Lync</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Lync Server 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch caa_d35ed7e566eadb041a5200fdc0e51abe8815e036.cab sha1:d35ed7e566eadb041a5200fdc0e51abe8815e036 size:427590 http://download.windowsupdate.com/c/msdownload/update/software/uprl/2014/08/caa_d35ed7e566eadb041a5200fdc0e51abe8815e036.cab sha256:9f691a3fb86819ebd9f80ebcec1c08653246477d281a4308d66fa650717bfe99
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\caa_d35ed7e566eadb041a5200fdc0e51abe8815e036.cab __Download\CAA.msp
+
+waithidden msiexec.exe /p __Download\CAA.msp /quiet /norestart
+
+action may require restart "00cc0dd340aec24ed3dfdecff4a972b34faa5f52"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2954867</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

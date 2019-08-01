@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Shockwave Player - Multiple Shockwave Versions Installed - Shockwave 7 and Up</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>The listed computers have multiple versions of Adobe Shockwave Player installed. This can occur when a newer version of Shockwave Player is installed on top of a much older version, which is not properly detected and removed by the newer installer.&nbsp;BigFix recommends keeping only the latest version of Shockwave Player to properly&nbsp;guard against&nbsp;known security vulnerabilities. Deploying the action below will keep the highest installed version, and will uninstall all lower Shockwave Player versions.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display progress windows during installation of this update.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted. </P> <P><STRONG>Note: </STRONG>This Fixlet message has been tested with Shockwave version 7 and up. Behavior with&nbsp;lower versions is&nbsp;undefined.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance><![CDATA[number of ((keys "Adobe Shockwave Player" whose (exists value "UninstallString" of it AND value "DisplayVersion" of it as string as version > "10") of it) ; (keys "Shockwave" whose ((exists following text of first "Shockwave Director" of it as version) of (value "QuietDisplayName" of it as string) AND exists value "UninstallString" of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry > 1]]></Relevance>
+		<Category>Uninstall</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Apr 2011 03:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings 3rdPartyApp Adobe Shockwave</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 29 Apr 2015 10:35:28 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to uninstall older versions of Shockwave Player.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete __appendfile
+
+appendfile @ECHO OFF
+appendfile {concatenation " & " of ((preceding text of it & "unwise.exe /S" & following text of it) of (first "unwise.exe" of it) of (item 1 of it as lowercase)) of (((value "DisplayVersion" of it as string, value "UninstallString" of it as string) of keys "Adobe Shockwave Player" whose (exists value "UninstallString" of it AND value "DisplayVersion" of it as string as version > "10") of it) ; (((following text of first "Shockwave Director" of it as string) of (value "QuietDisplayName" of it as string) , value "UninstallString" of it as string) of keys "Shockwave" whose ((exists following text of first "Shockwave Director" of it as version) of (value "QuietDisplayName" of it as string) AND exists value "UninstallString" of it) of it)) whose (((numeric value of concatenation of (if length of it = 1 then "000" & it else if length of it = 2 then "00" & it else if length of it = 3 then "0" & it else it) of substrings separated by "." of it) of (pad of (item 0 of it as string as version) as string)) < maximum of ((numeric value of concatenation of (if length of it = 1 then "000" & it else if length of it = 2 then "00" & it else if length of it = 3 then "0" & it else it) of substrings separated by "." of it) of (pad of (it as string as version) as string)) of (((value "DisplayVersion" of it as string) of keys "Adobe Shockwave Player" whose (exists value "UninstallString" of it AND value "DisplayVersion" of it as string as version > "10") of it) ; (((following text of first "Shockwave Director" of it) of (value "QuietDisplayName" of it as string)) of keys "Shockwave" whose ((exists following text of first "Shockwave Director" of it as version) of (value "QuietDisplayName" of it as string) AND exists value "UninstallString" of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+
+delete uninstallShockwave.bat
+copy __appendfile uninstallShockwave.bat
+
+waithidden uninstallShockwave.bat
+
+action may require restart "ShockwaveMultipleVersionsUninstall"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Shockwave Player.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/products/shockwaveplayer/</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-006: SNMP Service Unchecked Buffer in Windows NT</Title>
+		<Description><![CDATA[
+Microsoft has released a patch to fix an unchecked buffer vulnerability in the Microsoft Simple Network Management Protocol for Windows NT. According to Microsoft, a buffer overrun is present in virtually all implementations of this service which can be exploited by an attacker to cause a denial of service. In addition, it is possible that the attacker could cause code to run on the system in LocalSystem context, potentially providing the ability to take any desired action on the system. After installing this patch, affected computers will no longer be susceptible to these vulnerabilities. <BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>File Size:</b> 158 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix\Q314147" of registry)</Relevance>
+		<Relevance>(name of operating system = "WinNT") AND (csd version of operating system is "Service Pack 6") AND ((exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix\Q246009" of registry) AND (value "Installed" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix\Q246009" of registry = 1))</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SNMP" of registry</Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry) OR (not exists value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry) OR (value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry as string does not contain "Terminal Server")</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>162568</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB314147</SourceID>
+		<SourceReleaseDate>2002-02-12</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-0053</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SNMP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q314147i.exe sha1:1c7f65f1099c5a1ef3a07cc080ee334f97b24940 size:162568 http://download.microsoft.com/download/winntsp/Patch/Q314147/NT4/EN-US/Q314147i.exe sha256:320bf7a608d84ae41c4ce9c9b98b372a2f2f0fa596498ad50ac09cc45c04337f
+wait __download\Q314147i.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-006.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-006.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

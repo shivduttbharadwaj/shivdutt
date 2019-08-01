@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-069: Vulnerabilities in Microsoft XML Core Services Could Allow Remote Code Execution - XML Core Services 4.0 - Windows 2000/XP/Vista/7 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The listed computers have faulty installations of a patch for the vulnerability described in MS08-069. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<br /><br />Microsoft has released a security update that resolves several vulnerabilities in Microsoft XML Core Services. The most severe vulnerability could allow remote code execution if a user viewed a specially crafted Web page using Internet Explorer. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB954430.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+5.42 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2000" and service pack major version of it = 4) OR (name of it = "WinXP" and (service pack major version of it = 2 OR service pack major version of it = 3) of it) OR (name of it = "Win7" and (service pack major version of it = 0 OR service pack major version of it = 1) of it) OR ((name of it = "Win2003-XP") and (service pack major version of it = 1 OR service pack major version of it = 2) of it) OR ((name of it = "WinVista" and product type of it = nt workstation product type) and (service pack major version of it = 0 OR service pack major version of it = 1 OR service pack major version of it = 2) of it)) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "Msxml4r.dll" whose (version of it < "4.10.9404.0") of it OR exists file "Msxml4.dll" whose (version of it < "4.20.9870.0") of it) of system folder]]></Relevance>
+		<Relevance>NOT(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\MSXML4SP2\Q954430" of registry)</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>5687304</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB955218</SourceID>
+		<SourceReleaseDate>2008-11-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2008-4029; CVE-2008-4033</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>806903</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>XML Core Services</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000|Win7|WinVista|WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch msxml4-KB954430-enu.exe sha1:c40d3e3035b8cea714f27532fea37c05b2d4dc65 size:5687304 http://download.microsoft.com/download/9/7/1/971f55c8-d512-494f-9c5e-7cc3f9b190ee/msxml4-KB954430-enu.exe sha256:0cacf356459b813ca293bc3342d9537f2c316fa0fd437a6009b8fc9652931f9e
+
+waithidden __Download\msxml4-KB954430-enu.exe {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/quiet /norestart" )}
+
+action may require restart "c40d3e3035b8cea714f27532fea37c05b2d4dc65"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-069.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-069.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

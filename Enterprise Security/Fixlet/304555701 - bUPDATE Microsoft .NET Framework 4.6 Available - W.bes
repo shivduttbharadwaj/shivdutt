@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Microsoft .NET Framework 4.6 Available - Windows Vista SP2 / Windows 7 SP1 / Windows 8 / Windows 8.1 / Windows Server 2008 R2 SP1 / Windows Server 2008 SP2 / Windows Server 2012 / Windows Server 2012 R2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The Microsoft .NET Framework 4.6 is a highly compatible, in-place update to the Microsoft .NET Framework 4, Microsoft .NET Framework 4.5, Microsoft .NET Framework 4.5.1 and Microsoft .NET Framework 4.5.2. The offline package can be used in situations where the web installer cannot be used due to lack of internet connectivity.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB3045557.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+62.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(((name of it = "WinVista" OR name of it = "Win2008") AND service pack major version of it = 2) OR ((name of it = "Win7" OR name of it = "Win2008R2") AND service pack major version of it = 1) OR ((name of it = "Win8" OR name of it = "Win8.1" OR name of it = "Win2012" OR name of it = "Win2012R2") AND service pack major version of it = 0 AND (not exists value "CurrentMajorVersionNumber" of it OR value "CurrentMajorVersionNumber" of it as integer < 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)) of operating system]]></Relevance>
+		<Relevance><![CDATA[not exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" of native registry OR exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (not exists key "Full" of it OR exists key "Full" whose (not exists value "Release" of it OR value "Release" of it < 393297) of it) of native registry]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>65444688</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3045557</SourceID>
+		<SourceReleaseDate>2015-07-10</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 08 Sep 2015 16:46:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 SP1 |~| Windows 8 Gold |~| Windows 8.1 Gold |~| Windows Server 2008 R2 SP1 |~| Windows Server 2008 SP2 |~| Windows Server 2012 Gold |~| Windows Server 2012 R2 Gold |~| Windows Vista SP2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1|Win2012|Win2012R2|Win2008R2|Win8|Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 08 Sep 2015 16:46:51 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP46-KB3045557-x86-x64-AllOS-ENU.exe sha1:3049a85843eaf65e89e2336d5fe6e85e416797be size:65444688 http://download.microsoft.com/download/C/3/A/C3A5200B-D33C-47E9-9D70-2F7C65DAAD94/NDP46-KB3045557-x86-x64-AllOS-ENU.exe sha256:b21d33135e67e3486b154b11f7961d8e1cfd7a603267fb60febb4a6feab5cf87
+
+waithidden __Download\NDP46-KB3045557-x86-x64-AllOS-ENU.exe /quiet /norestart
+
+action may require restart "3049a85843eaf65e89e2336d5fe6e85e416797be"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3045557</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

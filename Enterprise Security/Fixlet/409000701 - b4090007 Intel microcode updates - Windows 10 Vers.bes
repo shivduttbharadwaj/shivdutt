@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4090007: Intel microcode updates - Windows 10 Version 1709 - KB4090007 (V4.0) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4346085.<br /><br />Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB4090007.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance>(name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4090007~31bf3856ad364e35~x86~~10.0.4.3" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4090007~31bf3856ad364e35~x86~~10.0.4.3" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-CloudEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CloudNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CoreSingleLanguageEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EducationEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EducationNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseGEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-PPIProEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalEducationEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalEducationNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalWorkstationEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-WinPE-Package~31bf3856ad364e35~x86~~10.0.16299.15") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists keys ("Microsoft-Windows-Client-Features-Package0018~31bf3856ad364e35~x86~~10.0.16299.15") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-CloudEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CloudNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-CoreSingleLanguageEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EducationEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EducationNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseGEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-PPIProEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalEducationEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalEducationNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~x86~~10.0.16299.15";"Microsoft-Windows-ProfessionalWorkstationEdition~31bf3856ad364e35~x86~~10.0.16299.15") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-m..update-genuineintel_31bf3856ad364e35_none_cacad0f9adb45c06" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.16299.0" AND it < "10.0.16299.577") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "ac957abd26d06b13737372b5045e0739d4c8ddf7"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>1296689</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4090007</SourceID>
+		<SourceReleaseDate>2018-07-24</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 02 Mar 2018 11:41:22 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4346085</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-08-29</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_10:1709:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win10</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 30 Aug 2018 20:08:21 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows10.0-kb4090007-v4-x86_ac957abd26d06b13737372b5045e0739d4c8ddf7.msu sha1:ac957abd26d06b13737372b5045e0739d4c8ddf7 size:1296689 http://download.windowsupdate.com/c/msdownload/update/software/updt/2018/07/windows10.0-kb4090007-v4-x86_ac957abd26d06b13737372b5045e0739d4c8ddf7.msu sha256:19b395643be3ced1437dd1b3b671380693d034b6f7cb74127502e66b1d4405ef
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows10.0-kb4090007-v4-x86_ac957abd26d06b13737372b5045e0739d4c8ddf7.msu"}" /quiet /norestart
+
+action requires restart "ac957abd26d06b13737372b5045e0739d4c8ddf7"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4090007</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

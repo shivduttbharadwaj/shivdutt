@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3055007: Update for Office 2013 - Office 2013 SP1 - KB3055007 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB3172473.<br><br>Microsoft has released an update for Microsoft Office 2013 64-Bit Edition. This update provides the latest fixes to Microsoft Office 2013 64-Bit Edition. Additionally, this update contains stability and performance improvements.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB3055007.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.57 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ("00005119510000000100000000F01FEC";"00005119410000000100000000F01FEC";"00005109150000000100000000F01FEC";"00005119B10000000100000000F01FEC";"00005109210000000100000000F01FEC";"00005119F20000000100000000F01FEC";"00005119B30000000100000000F01FEC";"00005119350000000100000000F01FEC";"00005109B30000000100000000F01FEC";"00005109C10000000100000000F01FEC";"00005109B10000000100000000F01FEC";"00005109350000000100000000F01FEC";"00005109710000000100000000F01FEC";"00005109810000000100000000F01FEC";"00005119150000000100000000F01FEC";"00005119810000000100000000F01FEC";"00005109610000000100000000F01FEC";"00005119110000000100000000F01FEC";"00005109510000000100000000F01FEC";"00005119310000000100000000F01FEC";"00005109110000000100000000F01FEC";"00005119330000000100000000F01FEC";"00005119610000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "A33688EF39659FF4AA09238CC261CE67" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "15.0" AND "|STSLIST.DLL|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (exists key whose ((it = "15.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "STSLIST.DLL" AND (item 1 of it = true AND item 2 of it = "15.0.4767.1000" OR item 2 of it < "15.0.4767.1000")) of (value "File" of it as string as uppercase, (value "IsFullFile" of it as integer = 0 OR value "PatchGUID" of it as string as uppercase != "{FE88633A-5693-4FF9-AA90-32C82C16EC76}"), value "ComponentVersion" of it as string as version) AND ((set of (((names of values of keys "00005110310000000100000000F01FEC" of it);(names of values of keys "00005110610000000100000000F01FEC" of it);(names of values of keys "00005100610000000100000000F01FEC" of it);(names of values of keys "00005110F20000000100000000F01FEC" of it);(names of values of keys "00005110330000000100000000F01FEC" of it);(names of values of keys "00005110810000000100000000F01FEC" of it);(names of values of keys "00005100810000000100000000F01FEC" of it);(names of values of keys "00005110110000000100000000F01FEC" of it);(names of values of keys "00005100110000000100000000F01FEC" of it);(names of values of keys "00005110410000000100000000F01FEC" of it);(names of values of keys "00005100710000000100000000F01FEC" of it);(names of values of keys "00005100210000000100000000F01FEC" of it);(names of values of keys "00005110150000000100000000F01FEC" of it);(names of values of keys "00005100150000000100000000F01FEC" of it);(names of values of keys "00005110350000000100000000F01FEC" of it);(names of values of keys "00005100350000000100000000F01FEC" of it);(names of values of keys "00005110B10000000100000000F01FEC" of it);(names of values of keys "00005100B10000000100000000F01FEC" of it);(names of values of keys "00005100C10000000100000000F01FEC" of it);(names of values of keys "00005110510000000100000000F01FEC" of it);(names of values of keys "00005100510000000100000000F01FEC" of it);(names of values of keys "00005110B30000000100000000F01FEC" of it);(names of values of keys "00005100B30000000100000000F01FEC" of it)) whose (set of ("00005119310000000100000000F01FEC";"00005119610000000100000000F01FEC";"00005109610000000100000000F01FEC";"00005119F20000000100000000F01FEC";"00005119330000000100000000F01FEC";"00005119810000000100000000F01FEC";"00005109810000000100000000F01FEC";"00005119110000000100000000F01FEC";"00005109110000000100000000F01FEC";"00005119410000000100000000F01FEC";"00005109710000000100000000F01FEC";"00005109210000000100000000F01FEC";"00005119150000000100000000F01FEC";"00005109150000000100000000F01FEC";"00005119350000000100000000F01FEC";"00005109350000000100000000F01FEC";"00005119B10000000100000000F01FEC";"00005109B10000000100000000F01FEC";"00005109C10000000100000000F01FEC";"00005119510000000100000000F01FEC";"00005109510000000100000000F01FEC";"00005119B30000000100000000F01FEC";"00005109B30000000100000000F01FEC") contains it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) contains name of it)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>2689776</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3055007</SourceID>
+		<SourceReleaseDate>2015-11-03</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows 8 Gold |~| Windows Server 2008 R2 Gold |~| Windows Server 2012 Gold |~| Windows Server 2012 R2 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 16 Nov 2015 14:45:14 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB3172473</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>317247301</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-02-07</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 08 Feb 2019 05:08:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch stslist2013-kb3055007-fullfile-x64-glb.exe sha1:f71c1ce1a70b1940a349834e620395deb188ff16 size:2689776 https://download.microsoft.com/download/D/A/D/DAD11B43-C347-4C7F-944F-9588D4CF26D1/stslist2013-kb3055007-fullfile-x64-glb.exe sha256:04fb8cdbd42a9443496ec365395dc94df28ef267bf02188bff74d1b93375c444
+
+waithidden __Download\stslist2013-kb3055007-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "f71c1ce1a70b1940a349834e620395deb188ff16"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3055007</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

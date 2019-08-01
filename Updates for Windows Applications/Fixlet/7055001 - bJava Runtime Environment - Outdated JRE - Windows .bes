@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Java Runtime Environment - Outdated JRE - Windows NT</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>The listed computers have an outdated version of the Java Runtime Environment (JRE) installed. However, the latest version of JRE is not supported on Windows NT.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[NOT exists value "DisplayVersion" whose ((if (it as string = "1.5.0") then (it as string & ".00") else (it as string)) as version >= "1.6.0.20") of keys whose (value "DisplayName" of it as string as lowercase contains "j2se runtime environment" OR value "DisplayName" of it as string as lowercase starts with "java(tm)") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance>exists key whose (((it contains "java" OR it contains "j2se") AND (it contains "runtime environment" OR it contains "update")) of (value "DisplayName" of it as string as lowercase)) of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance>name of operating system = "WinNT"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Oracle</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Apr 2011 03:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings 3rdPartyApp Oracle JavaRuntimeEnvironment</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 29 Apr 2015 10:35:28 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Oracle Java Software manual download page.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://java.sun.com/javase/downloads/index.jsp</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of JRE.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://java.sun.com/javase/6/webnotes/index.html</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Oracle.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://sunsolve.sun.com/search/document.do?assetkey=1-26-102686-1</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in cross-platform applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c1</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

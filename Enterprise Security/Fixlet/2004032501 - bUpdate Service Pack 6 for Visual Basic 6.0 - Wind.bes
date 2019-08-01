@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Update: Service Pack 6 for Visual Basic 6.0 - Windows XP SP3 / Windows 2003 SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Service Pack 6 for Visual Basic 6.0 provides the latest updates to Visual Basic 6.0. It is recommended for all users of Visual Basic 6.0.<BR><B></B></P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P><STRONG> <P>Note:</STRONG> Client machines may briefly display a pop-up window during action execution.</P> <P><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+26.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "Win2003") AND service pack major version of it = 2) OR ((name of it = "WinXP") AND service pack major version of it = 3)) of operating system</Relevance>
+		<Relevance><![CDATA[version of regapp "iexplore.exe" >= "5"]]></Relevance>
+		<Relevance><![CDATA[(exists file "msadco.dll" whose (version of it >= "2.5") of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\System\msadc"))]]></Relevance>
+		<Relevance>((exists key "HKLM\SOFTWARE\Microsoft\VisualStudio\6.0\Setup\Microsoft Visual Basic" of it ) AND (Not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\6.0\ServicePacks" whose (exists value "sp6" of it) of it) ) of registry</Relevance>
+		<Relevance><![CDATA[(exists file "MSBIND.DLL" whose ((version of it < "6.1.97.82")) of it) of system folder]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>27816008</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2004-03-25</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows XP SP3 |~| Windows Server 2003 SP2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Visual Studio 6</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Developer Tools, Runtimes, and Redistributables</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Vs6sp6B.exe sha1:7ae237bcde8702cfa8aa2fcd0f3f821999228798 size:27816008 http://download.microsoft.com/download/f/0/3/f03c202d-1ce4-4267-9393-a8a4b400a982/Vs6sp6B.exe sha256:93f964bdfa5ccb8331efa51ac2f099839dbc77eda6d0e851f450e1de7b62381a
+
+waithidden __Download\Vs6sp6B.exe /Q /C /T:{pathname of windows folder}\temp\VB6SP6
+
+waithidden {pathname of windows folder}\temp\VB6SP6\setupsp6.exe /QT 
+
+action may require restart "7ae237bcde8702cfa8aa2fcd0f3f821999228798"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/en-us/download/details.aspx?id=5721</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

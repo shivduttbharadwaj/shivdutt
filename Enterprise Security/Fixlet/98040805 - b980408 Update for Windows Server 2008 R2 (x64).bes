@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>980408: Update for Windows Server 2008 R2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><SPAN>Install this update to resolve reliability issues with Windows 7 and Server 2008 R2.</SPAN></P> <P><STRONG>Note: </STRONG>Affected computers may report back as 'Pending Restart' once the patch has run successfully, this indicates the issue will not be resolved until the affected computer is restarted.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+488 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2008R2" and service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "cng.sys" whose (version of it < "6.1.7600.16385") of it) OR (exists file "ksecdd.sys" whose (version of it < "6.1.7600.16385") of it) OR (exists file "ksecpkg.sys" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20594") OR (version of it < "6.1.7600.16484")) of it)) of (( folder "\" of folder "drivers" of system x32 folder) ) OR ((exists file "cng.sys" whose (version of it < "6.1.7600.16385") of it) OR (exists file "ksecdd.sys" whose (version of it < "6.1.7600.16385") of it) OR (exists file "ksecpkg.sys" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20594") OR (version of it < "6.1.7600.16484")) of it)) of ( (folder "\" of folder "drivers" of system x64 folder)) OR ((exists file "lsasrv.dll" whose ((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20594") of it) OR (exists file "lsass.exe" whose (version of it < "6.1.7600.16385") of it) OR (exists file "secur32.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20594") OR (version of it < "6.1.7600.16385") OR (version of it < "6.1.7600.16484")) of it) OR (exists file "shell32.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20647") OR (version of it < "6.1.7600.16532")) of it) OR (exists file "sspicli.dll" whose (version of it < "6.1.7600.16385") of it) OR (exists file "sspisrv.dll" whose (version of it < "6.1.7600.16385") of it)) of (( folder "\" of (system wow64 folder)) ) OR ((exists file "lsasrv.dll" whose ((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20594") of it) OR (exists file "lsass.exe" whose (version of it < "6.1.7600.16385") of it) OR (exists file "secur32.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20594") OR (version of it < "6.1.7600.16385") OR (version of it < "6.1.7600.16484")) of it) OR (exists file "shell32.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20647") OR (version of it < "6.1.7600.16532")) of it) OR (exists file "sspicli.dll" whose (version of it < "6.1.7600.16385") of it) OR (exists file "sspisrv.dll" whose (version of it < "6.1.7600.16385") of it)) of ( (folder "\" of (system wow64 folder)))]]></Relevance>
+		<Relevance>not pending restart "c5c12381e0d25675ebc6b25d20671126e4818c24"</Relevance>
+		<Category>Update Rollup</Category>
+		<DownloadSize>502824</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB980408</SourceID>
+		<SourceReleaseDate>2010-05-25</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB980408-x64.msu sha1:c5c12381e0d25675ebc6b25d20671126e4818c24 size:8880364 http://download.microsoft.com/download/F/E/B/FEB6A341-1119-4C87-8ACE-25414A16E051/Windows6.1-KB980408-x64.msu sha256:fbff0fe6ff30953bd327ab8c8486cb70391519b6f09f2a267dd6d9f53285d5ff
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB980408-x64.msu"}" /quiet /norestart
+
+action requires restart "c5c12381e0d25675ebc6b25d20671126e4818c24"  ]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 981793.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/980408</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

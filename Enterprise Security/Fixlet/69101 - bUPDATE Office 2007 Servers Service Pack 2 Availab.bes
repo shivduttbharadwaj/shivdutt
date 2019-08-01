@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Office 2007 Servers Service Pack 2 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The 2007 Microsoft Office servers Service Pack 2 (SP2) package gives customers the latest updates to the 2007 Office server products. This service pack includes two main categories of fixes: <UL> <LI>Previously unreleased fixes that were made specifically for this service pack. <UL> <LI>In addition to providing general product fixes, SP2 includes improvements in stability, in performance, and in security.</LI></UL> <LI>All the public updates, security updates, cumulative updates, and hotfixes that were released through February 2009. </LI></UL></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+179 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists key whose ((it = "12" AND it < "12.0.6425.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((((it = "110D" OR it = "110F" OR it = "1111" OR it = "1125" OR it = "1126") AND (exists key whose ((it = "12" AND it >= "12.0.6425.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "1014") of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)) OR (it = "1017" OR it = "1106" OR it = "1018" OR it = "1109" OR it = "1016" OR it = "1108")) of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>187247680</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB953334</SourceID>
+		<SourceReleaseDate>2009-07-29</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Office-2007-Servers-SP2.exe sha1:8eca740b33bf9d46ec9ea5230df9dff9c9be80b9 size:187247680 http://download.microsoft.com/download/1/E/A/1EABAE41-7578-401A-B88A-00D94402970B/officeserver2007sp2-kb953334-x86-fullfile-en-us.exe sha256:8d096f54efbe523198fbfd2f5e080b1659bf93d1afc789fc3641d71efcd714f4
+
+waithidden __Download\Office-2007-Servers-SP2.exe /quiet /norestart
+
+action may require restart "8eca740b33bf9d46ec9ea5230df9dff9c9be80b9"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Microsoft Office 2007 Servers Service Pack 2.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=953334</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

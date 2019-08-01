@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-067: Vulnerabilities in Microsoft SharePoint Server Could Allow Remote Code Execution - Business Productivity Servers - SharePoint Server 2010 SP1/SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves one publicly disclosed vulnerability and nine privately reported vulnerabilities in Microsoft Office Server software. The most severe vulnerability could allow remote code execution in the context of the W3WP service account if an attacker sends specially crafted content to the affected server.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2553408.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.21 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((exists key whose ((name of it equals "00004109880100000100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.7015.1000") of it) AND (not exists key whose (name of it equals "D0ACD2CD2FB75DE4BAFF79829C676B3D") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00004109880100000100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.6029.1000") of it) AND (not exists key whose (name of it equals "D0ACD2CD2FB75DE4BAFF79829C676B3D") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance><![CDATA[not exists files ((values "LocalPackage" of it as string) of keys (names of keys of key "Patches" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\00004109880100000100000000F01FEC" of native registry) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry) whose (modification time of it > "Wed, 14 Aug 2013 10:49:40 +0800" as time)]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2312320</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2553408</SourceID>
+		<SourceReleaseDate>2013-09-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2013-0081; CVE-2013-1330; CVE-2013-3179</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint_server:2010:sp1:*:*:*:*:*:*; cpe:2.3:a:microsoft:sharepoint_server:2010:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch lpsrv2010-kb2553408-fullfile-x64-glb.exe sha1:0bb62bfa4f9104185d75e3d82561af028e34e391 size:2312320 http://download.microsoft.com/download/8/3/B/83B83992-C638-402B-A205-4E6E5B9CBBBA/lpsrv2010-kb2553408-fullfile-x64-glb.exe sha256:cfb2b2f850eee8232185276de2b9d655937b26ba914d289e7362317d57c5dd0d
+
+waithidden __Download\lpsrv2010-kb2553408-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "0bb62bfa4f9104185d75e3d82561af028e34e391"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-067</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>940349: Availability of a Volume Shadow Copy Service (VSS) update rollup package for Windows Server 2003 to resolve some VSS snapshot issues - Windows Server 2003 SP1/SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to improve the reliability, scalability, and memory optimization of the Volume Shadow Copy Service (VSS) in Windows Server 2003.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB940349.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+8.65 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2003") AND (service pack major version of it = 2 or service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance><![CDATA[((service pack major version of it = 2) of operating system and ((exists file "ftdisk.sys" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "partmgr.sys" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "volsnap.sys" whose ((((version of it < "5.2.3790.4143")))) of it)) of (folder "drivers" of system x64 folder) OR ((exists file "eventcls.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "swprv.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vss_ps.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vssadmin.exe" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vssapi.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vssui.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vssvc.exe" whose ((((version of it < "5.2.3790.4143")))) of it)) of (system x64 folder) OR ((exists file "ftdisk.sys" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "partmgr.sys" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "volsnap.sys" whose ((((version of it < "5.2.3790.4143")))) of it)) of (folder "drivers" of system wow64 folder) OR ((exists file "eventcls.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "swprv.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vss_ps.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vssadmin.exe" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vssapi.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vssui.dll" whose ((((version of it < "5.2.3790.4143")))) of it) OR (exists file "vssvc.exe" whose ((((version of it < "5.2.3790.4143")))) of it)) of (system wow64 folder)) or ((service pack major version of it = 1) of operating system and ((exists file "ftdisk.sys" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "partmgr.sys" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "volsnap.sys" whose ((((version of it < "5.2.3790.3002")))) of it)) of (folder "drivers" of system x64 folder) OR ((exists file "eventcls.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "swprv.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vss_ps.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vssadmin.exe" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vssapi.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vssui.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vssvc.exe" whose ((((version of it < "5.2.3790.3002")))) of it)) of (system x64 folder) OR ((exists file "ftdisk.sys" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "partmgr.sys" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "volsnap.sys" whose ((((version of it < "5.2.3790.3002")))) of it)) of (folder "drivers" of system wow64 folder) OR ((exists file "eventcls.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "swprv.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vss_ps.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vssadmin.exe" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vssapi.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vssui.dll" whose ((((version of it < "5.2.3790.3002")))) of it) OR (exists file "vssvc.exe" whose ((((version of it < "5.2.3790.3002")))) of it)) of (system wow64 folder))]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb940349-v3" of x64 registry)</Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\vss\kb940349" of x64 registry)</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>9074568</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB940349</SourceID>
+		<SourceReleaseDate>2007-09-25</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 24 Oct 2014 13:13:38 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 SP2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB940349-v3-x64-ENU.exe sha1:401cb440679df7074a8d70a5bef76da1a8b362bc size:9074568 http://download.microsoft.com/download/0/b/9/0b9806a0-a38e-4e0a-907d-647f88f5e7e2/WindowsServer2003.WindowsXP-KB940349-v3-x64-ENU.exe sha256:ed631507c6293ca2b0c9668c2e854c8a2bdc6cd1b1df0ba686efdea43020683e
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB940349-v3-x64-ENU.exe /quiet /norestart
+
+action may require restart "401cb440679df7074a8d70a5bef76da1a8b362bc"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/940349</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

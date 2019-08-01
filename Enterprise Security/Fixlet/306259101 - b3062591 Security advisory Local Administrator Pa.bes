@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3062591: Security advisory: Local Administrator Password Solution (LAPS) now available - GPO CSE</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The "Local Administrator Password Solution" (LAPS) provides management of local account passwords of domain joined computers. Passwords are stored in Active Directory (AD) and protected by ACL, so only eligible users can read it or request its reset.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB3062591.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+932 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(name of it = "Win2003" AND service pack major version of it = 2 OR ((name of it = "Win7" OR name of it = "Win2008R2") AND service pack major version of it = 1) OR (((name of it = "Win8.1" OR name of it = "Win8") OR name of it = "Win2012" OR name of it = "Win2012R2") AND service pack major version of it = 0) OR ((it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) OR (name of it = "Win2016" OR name of it starts with "Win20" AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)) of operating system</Relevance>
+		<Relevance><![CDATA[not exists key "2673A7395D1F3F54AA027F5CBC7ABFCA" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry OR not exists file "AdmPwd.dll" whose (version of it >= "6.2.0.0") of folder "LAPS\CSE" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder)]]></Relevance>
+		<Relevance>(exists value "Domain" of it AND value "Domain" of it as string as trimmed string != "") of key "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" of native registry</Relevance>
+		<Relevance>not pending restart "81c0a767557bfffa1639ca96ab0d5d0e45f07b96"</Relevance>
+		<Category>Security Advisory</Category>
+		<DownloadSize>954368</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3062591</SourceID>
+		<SourceReleaseDate>2015-05-01</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 04 May 2015 12:51:45 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows 8 Gold |~| Windows 8.1 Gold |~| Windows Server 2003 Gold |~| Windows Server 2008 Gold |~| Windows Server 2008 R2 Gold |~| Windows Server 2012 Gold |~| Windows Server 2012 R2 Gold |~| Windows Vista Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7|Win8|Win2003|Win2008|Win2008R2|Win2012|Win2012R2|WinVista|Win2016|Win10</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 08 May 2019 19:52:26 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch LAPS.x86.msi sha1:5508602ce8c59ea18a8181923924c0c806756b57 size:991232 http://download.microsoft.com/download/C/7/A/C7AAD914-A8A6-4904-88A1-29E657445D03/LAPS.x86.msi sha256:9f0fa541b472c20508973f561b0d7850a7bf779c8459f9e33471083619fd6eda
+
+waithidden msiexec.exe /q /i __Download\LAPS.x86.msi ADDLOCAL=CSE
+
+action may require restart "81c0a767557bfffa1639ca96ab0d5d0e45f07b96"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3062591</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

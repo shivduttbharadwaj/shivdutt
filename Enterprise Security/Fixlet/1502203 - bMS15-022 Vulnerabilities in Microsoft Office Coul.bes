@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-022: Vulnerabilities in Microsoft Office Could Allow Remote Code Execution - Office Web Apps 2013 Gold - KB2956158 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS15-036. Whereas this Fixlet message previously applied to Office Web Apps 2013 Gold/SP1 (x64), it now only applies to Office Web Apps 2013 Gold (x64).</P>Microsoft has released a security update that resolves vulnerabilities in Microsoft Office. The most severe of the vulnerabilities could allow remote code execution if a user opens a specially crafted Microsoft Office file. An attacker who successfully exploited the vulnerabilities could run arbitrary code in the context of the current user. Customers whose accounts are configured to have fewer user rights on the system could be less impacted than those who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2956158.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+803 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(not exists keys ("000051093511C3800100000000F01FEC";"000051093511F2400100000000F01FEC";"000051093511C8400100000000F01FEC";"00005109351125400100000000F01FEC";"000051093511C2400100000000F01FEC";"000051093511A1410100000000F01FEC") whose (exists key "InstallProperties" whose ((it != "15.0.4607.1000") of (value "DisplayVersion" of it as string as version)) of it) of it AND not exists keys ("000051093511D2400100000000F01FEC";"00005109351165400100000000F01FEC";"00005109351193400100000000F01FEC";"00005109351130400100000000F01FEC") whose (exists key "InstallProperties" whose ((it != "15.0.4433.1507" AND it != "15.0.4569.1506" AND it != "15.0.4569.1001") of (value "DisplayVersion" of it as string as version)) of it) of it AND not exists keys ("00005109351131400100000000F01FEC";"00005109351101400100000000F01FEC";"000051093511F1400100000000F01FEC";"00005109351121400100000000F01FEC";"000051093511A0C00100000000F01FEC";"00005109151100000100000000F01FEC";"00005109351111400100000000F01FEC";"000051093511E0400100000000F01FEC";"000051093511C0400100000000F01FEC";"000051093511B0400100000000F01FEC";"000051093511D0400100000000F01FEC";"00005109251100000100000000F01FEC";"00005109351180400100000000F01FEC";"00005109351140800100000000F01FEC";"00005109351110400100000000F01FEC";"00005109351160400100000000F01FEC";"00005109351190400100000000F01FEC";"00005109351170400100000000F01FEC";"00005109351140400100000000F01FEC";"00005109351150400100000000F01FEC";"00005109351161400100000000F01FEC";"000051093511E1400100000000F01FEC";"000051093511D1400100000000F01FEC";"00005109351161800100000000F01FEC";"00005109351141400100000000F01FEC";"00005109351151400100000000F01FEC";"00005109351191400100000000F01FEC") whose (exists key "InstallProperties" whose ((it != "15.0.4420.1017" AND it != "15.0.4569.1506" AND it != "15.0.4569.1001") of (value "DisplayVersion" of it as string as version)) of it) of it AND not exists keys ("00005109351112400100000000F01FEC";"000051093511A2400100000000F01FEC";"000051093511E3400100000000F01FEC") whose (exists key "InstallProperties" whose ((it != "15.0.4481.1004" AND it != "15.0.4569.1506" AND it != "15.0.4569.1001") of (value "DisplayVersion" of it as string as version)) of it) of it AND not exists keys ("000051093511B1400100000000F01FEC";"00005109351142400100000000F01FEC";"000051093511A1400100000000F01FEC";"00005109351152400100000000F01FEC";"00005109351162400100000000F01FEC";"00005109351172400100000000F01FEC";"000051093511A1800100000000F01FEC";"00005109351120400100000000F01FEC";"000051093511A1C00100000000F01FEC";"000051093511F3400100000000F01FEC") whose (exists key "InstallProperties" whose ((it != "15.0.4454.1509" AND it != "15.0.4569.1506" AND it != "15.0.4569.1001") of (value "DisplayVersion" of it as string as version)) of it) of it AND not exists keys ("00005109351122400100000000F01FEC";"00005109351181400100000000F01FEC") whose (exists key "InstallProperties" whose ((it != "15.0.4454.1004" AND it != "15.0.4569.1506" AND it != "15.0.4569.1001") of (value "DisplayVersion" of it as string as version)) of it) of it AND (exists keys ("00005109351193400100000000F01FEC";"000051093511D2400100000000F01FEC";"00005109351130400100000000F01FEC";"00005109351165400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4433.1507") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "E42034A6F3D78A548BA95DEA7D877B18" of key "Patches" of it) of it OR exists keys ("00005109351152400100000000F01FEC";"00005109351162400100000000F01FEC";"00005109351142400100000000F01FEC";"000051093511A1C00100000000F01FEC";"000051093511F3400100000000F01FEC";"000051093511A1400100000000F01FEC";"000051093511B1400100000000F01FEC";"00005109351172400100000000F01FEC";"000051093511A1800100000000F01FEC";"00005109351120400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4454.1509") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "E42034A6F3D78A548BA95DEA7D877B18" of key "Patches" of it) of it OR exists keys ("000051093511A2400100000000F01FEC";"00005109351112400100000000F01FEC";"000051093511E3400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4481.1004") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "E42034A6F3D78A548BA95DEA7D877B18" of key "Patches" of it) of it OR exists keys ("00005109351131400100000000F01FEC";"00005109151100000100000000F01FEC";"000051093511F1400100000000F01FEC";"00005109351110400100000000F01FEC";"000051093511E0400100000000F01FEC";"000051093511D0400100000000F01FEC";"000051093511C0400100000000F01FEC";"000051093511B0400100000000F01FEC";"00005109351160400100000000F01FEC";"00005109351170400100000000F01FEC";"00005109251100000100000000F01FEC";"00005109351180400100000000F01FEC";"00005109351140800100000000F01FEC";"00005109351150400100000000F01FEC";"00005109351190400100000000F01FEC";"00005109351140400100000000F01FEC";"000051093511D1400100000000F01FEC";"00005109351191400100000000F01FEC";"000051093511E1400100000000F01FEC";"00005109351161800100000000F01FEC";"00005109351161400100000000F01FEC";"00005109351111400100000000F01FEC";"00005109351101400100000000F01FEC";"000051093511A0C00100000000F01FEC";"00005109351121400100000000F01FEC";"00005109351141400100000000F01FEC";"00005109351151400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4420.1017") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "E42034A6F3D78A548BA95DEA7D877B18" of key "Patches" of it) of it OR exists keys ("00005109351181400100000000F01FEC";"00005109351122400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4454.1004") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "E42034A6F3D78A548BA95DEA7D877B18" of key "Patches" of it) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>842996384</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2956158</SourceID>
+		<SourceReleaseDate>2015-03-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2015-0085; CVE-2015-0086</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Mar 2015 02:18:48 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office_web_apps:2013:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Office Web Apps</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch wacserver2013-kb2956158-fullfile-x64-glb.exe sha1:6c234c2550e6cac9aa45224f70b7930bf53fdbc2 size:842996384 http://download.microsoft.com/download/A/9/A/A9AC627D-68E0-4AD2-AE01-AFBF8D320D04/wacserver2013-kb2956158-fullfile-x64-glb.exe sha256:66a88c07426b2db44eb4b9d387a0cd4414e78f6ffdcf73df742098c141e1466d
+
+waithidden __Download\wacserver2013-kb2956158-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "6c234c2550e6cac9aa45224f70b7930bf53fdbc2"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-022</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

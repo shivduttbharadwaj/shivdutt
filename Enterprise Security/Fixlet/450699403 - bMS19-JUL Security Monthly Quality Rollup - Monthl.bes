@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-JUL: Security Monthly Quality Rollup - Monthly Rollup - Windows Server 2008 R2 SP1 - .NET Framework 4.8 - KB4506994 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p>              A remote code execution vulnerability exists in .NET software when the software fails to check the source markup of a file. An Authentication Bypass vulnerability exists in WCF and WIF, allowing signing of SAML tokens with arbitrary symmetric keys. This vulnerability allows an attacker to impersonate another user. The vulnerability exists in WCF, WIF 3.5 and above in .NET Framework, WIF 1.0 component in Windows, WIF Nuget package, and WIF implementation in Sharepoint.  An information disclosure vulnerability exists when Exchange and Azure Active Directory allow creation of entities with Display Names having non-printable characters. <br><br>              To learn more about the vulnerabilities, go to the following Common Vulnerabilities and Exposures (CVE).            </p><ul class="sbody-free_list">          <li>            <a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-1113" id="kb-link-2" target="_self">CVE-2019-1113</a>          </li>          <li>            <a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-1006" id="kb-link-2" target="_self">CVE-2019-1006</a>          </li>          <li>            <a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-1083" id="kb-link-2" target="_self">CVE-2019-1083</a>          </li>        </ul><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4507420.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+33.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2008R2")) of operating system</Relevance>
+		<Relevance>(name of it = "Win2008R2" AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (exists key "Full" whose ((it = 528040 OR it = 528049) of value "Release" of it) of it) of native registry</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "7FA53761D8D11863495A5C876AE18C23") AND exists key "InstallProperties" whose ((it = "4.8.3761") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D6B416F78A1614337937C30E81AA3DB4" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance>not pending restart "ddd664b6926c77646789c3328d0a7533182d9224"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>35165224</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4507420</SourceID>
+		<SourceReleaseDate>2019-07-09</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2019-1006; CVE-2019-1083; CVE-2019-1113</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.8:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ndp48-kb4506994-x64_ddd664b6926c77646789c3328d0a7533182d9224.exe sha1:ddd664b6926c77646789c3328d0a7533182d9224 size:35165224 http://download.windowsupdate.com/d/msdownload/update/software/secu/2019/06/ndp48-kb4506994-x64_ddd664b6926c77646789c3328d0a7533182d9224.exe sha256:c8f497d2e85337f92b69654788983361fd52e8f852de4e0fa9aca5a922f4aa54
+
+waithidden __Download\ndp48-kb4506994-x64_ddd664b6926c77646789c3328d0a7533182d9224.exe /quiet /norestart
+
+action may require restart "ddd664b6926c77646789c3328d0a7533182d9224"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4507420</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

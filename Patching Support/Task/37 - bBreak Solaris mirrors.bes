@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Break Solaris mirrors</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><P>Use this task to break mirrors on Solaris 10 machines as a failback plan. Breaking mirrors ensure that a backup disk is in place in case of a system or hardware failure when patching. It stops the mirroring of the volume, but keeps the data in both disks.</P><br><P>Log file is located at /var/opt/BESClient/EDRDeployData/break_mirrors.log.</P><br><P><STRONG>Note:</STRONG> Disk mirrors must be established correctly, otherwise the task will fail.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance>(name of it as lowercase starts with "sunos" and version of it as string = "5.10") of operating system</Relevance>
+		<Relevance>exists pkginfo whose (name of it starts with "Perl") of pkgdb</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2015-04-13</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 28 Jul 2015 06:34:49 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 15 Aug 2016 06:40:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to break mirrors.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "Log_Dir" = "{client folder of current site}/../../EDRDeployData"
+parameter "Log_File" = "{(parameter "Log_Dir" as string)}/break_mirrors.log" 
+if {not exists folder (parameter "Log_Dir") }
+	wait mkdir -p "{parameter "Log_Dir"}"
+	continue if {exit code of action = 0}
+endif
+if {not exists file (parameter "Log_File") }
+    wait touch "{parameter "Log_File"}"
+    continue if {exit code of action = 0}
+endif
+wait perl break_mirrors.pl "{parameter "Log_File"}" > "{parameter "Log_File"}"
+continue if {exit code of action = 0}]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view more information about Volume Management from Oracle.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://docs.oracle.com/cd/E19683-01/806-6111/index.html</ActionScript>
+		</Action>
+	</Task>
+</BES>

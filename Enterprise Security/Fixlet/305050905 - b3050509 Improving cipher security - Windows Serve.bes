@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3050509: Improving cipher security - Windows Server 2003 SP2 - Disable weak ciphers</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG> <P>Note:</STRONG> This Fixlet disables or undoes the following workaround that Microsoft provided.</P> <P>This update adds support for stronger Advanced Encryption Standard (AES) cipher suites in Windows Server 2003 Service Pack 2 (SP2) and disables weaker ciphers.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P><B>Note:</B> This update is also referenced under KB3050509.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+N/A
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance>((NOT exists key "RC4 64/128" of it) OR (NOT exists value "Enabled" of key "RC4 64/128" of it) OR (value "Enabled" of key "RC4 64/128" of it != 0) OR (NOT exists key "NULL" of it) OR (NOT exists value "Enabled" of key "NULL" of it) OR (value "Enabled" of key "NULL" of it != 0) OR (NOT exists key "RC2 40/128" of it) OR (NOT exists value "Enabled" of key "RC2 40/128" of it) OR (value "Enabled" of key "RC2 40/128" of it != 0) OR (NOT exists key "RC2 56/128" of it) OR (NOT exists value "Enabled" of key "RC2 56/128" of it) OR (value "Enabled" of key "RC2 56/128" of it != 0) OR (NOT exists key "RC2 56/56" of it) OR (NOT exists value "Enabled" of key "RC2 56/56" of it) OR (value "Enabled" of key "RC2 56/56" of it != 0) OR (NOT exists key "RC4 40/128" of it) OR (NOT exists value "Enabled" of key "RC4 40/128" of it) OR (value "Enabled" of key "RC4 40/128" of it != 0) OR (NOT exists key "RC4 56/128" of it) OR (NOT exists value "Enabled" of key "RC4 56/128" of it) OR (value "Enabled" of key "RC4 56/128" of it != 0) OR (NOT exists key "RC4 64/128" of it) OR (NOT exists value "Enabled" of key "RC4 64/128" of it) OR (value "Enabled" of key "RC4 64/128" of it != 0)) of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers" of native registry</Relevance>
+		<Relevance>exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb948963" of registry</Relevance>
+		<Relevance>Not pending restart "99d77788f355c62928a2588bbe3cadde70079b16"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3050509</SourceID>
+		<SourceReleaseDate>2015-03-24</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 26 Mar 2015 14:41:11 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 SP2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 22 May 2015 08:49:02 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">waithidden reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56/56" /v "Enabled" /t REG_DWORD /d 0 /f
+waithidden reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\NULL" /v "Enabled" /t REG_DWORD /d 0 /f
+waithidden reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 40/128" /v "Enabled" /t REG_DWORD /d 0 /f
+waithidden reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 56/128" /v "Enabled" /t REG_DWORD /d 0 /f
+waithidden reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 56/56" /v "Enabled" /t REG_DWORD /d 0 /f
+waithidden reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 40/128" /v "Enabled" /t REG_DWORD /d 0 /f
+waithidden reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 56/128" /v "Enabled" /t REG_DWORD /d 0 /f
+waithidden reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 64/128" /v "Enabled" /t REG_DWORD /d 0 /f
+
+action may require restart "99d77788f355c62928a2588bbe3cadde70079b16"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3050509</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

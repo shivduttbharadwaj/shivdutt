@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2863865: Description of Microsoft Office Audit and Control Management Server 2013 Service Pack 1 (SP1) - Office 2013</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Service Pack 1 for Microsoft Office Audit and Control Management Server 2013 contains new updates which improve security, performance, and stability. Additionally, the SP is a roll-up of all previously released updates.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2863865.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.11 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[((exists key whose ((name of it equals "00005109161190400000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4505.1002"  AND value "DisplayVersion" of it as string as version < "15.0.4569.1506") of it) AND (not exists key whose (name of it equals "092F8AAC6928B4C498FA8526C4B9B4D4") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>3263088</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2863865</SourceID>
+		<SourceReleaseDate>2014-02-12</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 05 Mar 2014 11:08:28 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 R2 Gold |~| Windows Server 2012 Gold |~| Windows Server 2012 R2 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch acmserversp2013-kb2863865-fullfile-x86-glb.exe sha1:c86a1b2ab2831882fd2977d6a1f349239c240884 size:3263088 http://download.microsoft.com/download/0/E/B/0EB0564B-C888-4635-8339-86157998677F/acmserversp2013-kb2863865-fullfile-x86-glb.exe sha256:4f1bd2eda95b55183da536bd448ccfc29468ec63293d1fa6e01a562de6d0b000
+
+waithidden __Download\acmserversp2013-kb2863865-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "c86a1b2ab2831882fd2977d6a1f349239c240884"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2863865</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-069: Vulnerabilities in Microsoft XML Core Services Could Allow Remote Code Execution - XML Core Services 3.0 - Windows XP SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note</STRONG>: This bulletin has been partially superseded by MS10-051. Whereas this Fixlet message previously applied to Windows XP SP2/SP3, it now only applies to Windows XP SP2.</P> <P>Microsoft has released a security update that resolves several vulnerabilities in Microsoft XML Core Services. The most severe vulnerability could allow remote code execution if a user viewed a specially crafted Web page using Internet Explorer. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB955069.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+905 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinXP" AND (service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists file "msxml3.dll" whose (version of it < "8.100.1048.0") of it))) of ((system folder))]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows xp\sp4\kb955069" of registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>926760</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB955218</SourceID>
+		<SourceReleaseDate>2008-11-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2008-4029; CVE-2008-4033; CVE-2007-0099</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>XML Core Services</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsXP-KB955069-x86-ENU.exe sha1:fa864585a7d761ba0f940eff151672871d0e69f3 size:926760 http://download.microsoft.com/download/d/6/5/d65961a2-d09b-4560-af78-1e4f97b77359/WindowsXP-KB955069-x86-ENU.exe sha256:97c8610183e9fd861add588afb216b5ae6bccc0cbc0ee32099e0f99e2c9ded0a
+
+waithidden __Download\WindowsXP-KB955069-x86-ENU.exe /quiet /norestart
+
+action may require restart "fa864585a7d761ba0f940eff151672871d0e69f3"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-069.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-069.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3132372: Security advisory: Update for vulnerabilities in Adobe Flash Player in Internet Explorer and Microsoft Edge - Windows 8 Gold - KB3132372</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>A security issue has been identified in a Microsoft software product that could affect your system.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB3132372.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+16.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2")) of operating system</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3132372~31bf3856ad364e35~x86~~6.2.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3132372~31bf3856ad364e35~x86~~6.2.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Adobe-Flash-For-Windows-Package~31bf3856ad364e35~x86~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_adobe-flash-for-windows_31bf3856ad364e35_none_57f8fffd60741b69" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21734" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17615") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Embedded-Adobe-Flash-For-Windows-Package~31bf3856ad364e35~x86~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_adobe-flash-for-windows_31bf3856ad364e35_none_57f8fffd60741b69" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21734" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17615") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "4bf34c41b5125e2ba768265ffb20da00bac5d8e3"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>17008909</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3132372</SourceID>
+		<SourceReleaseDate>2015-12-29</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2015-8459; CVE-2015-8460; CVE-2015-8634; CVE-2015-8635; CVE-2015-8636; CVE-2015-8638; CVE-2015-8639; CVE-2015-8640; CVE-2015-8641; CVE-2015-8642; CVE-2015-8643; CVE-2015-8644; CVE-2015-8645; CVE-2015-8646; CVE-2015-8647; CVE-2015-8648; CVE-2015-8649; CVE-2015-8650; CVE-2015-8651</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 30 Dec 2015 15:32:52 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8 Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 06 Jan 2016 14:45:28 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB3132372-x86.msu sha1:4bf34c41b5125e2ba768265ffb20da00bac5d8e3 size:17008909 https://download.microsoft.com/download/6/D/1/6D1D7B83-613C-4744-B82F-3203FD88540B/Windows8-RT-KB3132372-x86.msu sha256:a465e2005549519cc6f56c6e5426a29505d23c66ff0ac71b9acff44f7735577b
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB3132372-x86.msu"}" /quiet /norestart
+
+action requires restart "4bf34c41b5125e2ba768265ffb20da00bac5d8e3"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3132372</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

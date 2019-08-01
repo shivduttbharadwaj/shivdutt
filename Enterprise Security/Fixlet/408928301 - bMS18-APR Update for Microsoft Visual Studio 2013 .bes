@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-APR: Update for Microsoft Visual Studio 2013 Update 5 - Visual Studio 2013 - KB4089283</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>This security update addresses the PDB issue that is described in CVE-2018-1037, in which a PDB file may contain uninitialized heap content in a process that updates an existing PDB file, such as mspdbsrv.exe.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> This update is also referenced under KB4089283.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.00 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists key whose ( (it = "premium" OR it = "professional" OR it = "ultimate") of name of it AND value "Install" of it = 1 AND value "UpdateVersion" of it = "12.0.40629") of key "HKLM\software\microsoft\devdiv\vs\servicing\12.0" of x32 registry | false) OR (exists key whose ( (it as string contains "Visual Studio Express 2013 for Web" OR it as string contains "Visual Studio Express 2013 for Windows Desktop" OR it as string contains "Visual Studio Express 2013 for Windows") of value "DisplayName" of it AND (it = "12.0.40629.0") of value "DisplayVersion" of it) of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of x32 registry | false)</Relevance>
+		<Relevance>not exists keys whose (name of it contains "KB4089283" and value "PackageVersion" of it = "12.0.40669") of keys of key "HKLM\Software\Microsoft\Updates" of x32 registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>3155360</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4089283</SourceID>
+		<SourceReleaseDate>2018-04-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-1037</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Apr 2018 08:32:21 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:visual_studio_2013:-:update5:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Developer Tools, Runtimes, and Redistributables</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Visual Studio 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 26 Jan 2019 02:42:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch VS12-KB4089283.exe sha1:e71cd96a75b25b84a20888277b41a0ed4550eceb size:3155360 https://download.visualstudio.microsoft.com/download/pr/12043024/f01e9b509ff587f983ebd58ffaf435db/VS12-KB4089283.exe sha256:143ed55085c46f421750917ac368ccf15099caf9fe77eeb83ee4bc0d47a8df2b
+
+waithidden __Download\VS12-KB4089283.exe /Q /NoRestart
+
+action may require restart "e71cd96a75b25b84a20888277b41a0ed4550eceb"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/en-us/help/4089283</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-082: Vulnerabilities in .NET Framework Could Allow Remote Code Execution - .NET Framework 4.5 - KB2861208 - Windows Vista SP2 / Windows Server 2008 SP2 / Windows 7 SP1 / Windows Server 2008 R2 SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities and one publicly disclosed vulnerability in Microsoft .NET Framework. The most severe of the vulnerabilities could allow remote code execution if a user visits a website containing a specially crafted OpenType font (OTF) file using a browser capable of instantiating XBAP applications.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2861208.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+13.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR ((name of it = "Win7") AND service pack major version of it = 1) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2 AND exists file "explorer.exe" of windows folder) OR ((name of it = "Win2008R2") AND service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance>((exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "0D741DA1E0EBC6D3CA11466FCD14361F") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.5.50710"  ) of it) AND (not exists key whose (name of it equals "8EF21FA6953C8473DB6F4B730C4A1245") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "0D741DA1E0EBC6D3CA11466FCD14361F") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.5.50709"  ) of it) AND (not exists key whose (name of it equals "8EF21FA6953C8473DB6F4B730C4A1245") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance><![CDATA[(((exists file "System.IdentityModel.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it) or (exists file "System.Runtime.Serialization.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it) or (exists file "System.ServiceModel.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it) or (exists file "System.Security.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it) or (exists file "System.Web.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it) or (exists file "webengine.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it) or (exists file "webengine4.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it)) of folder "Microsoft.NET\Framework\v4.0.30319" of windows folder) OR (((exists file "System.Web.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it) or (exists file "webengine.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it) or (exists file "webengine4.dll" whose ((((exists value "FileVersion"  whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "4.0.30319.17000") AND (version of it < "4.0.30319.18055"))) OR ((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "4.0.30319.19000") AND (version of it < "4.0.30319.19108"))))) of it)) of folder "Microsoft.NET\Framework64\v4.0.30319" of windows folder)]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>13687928</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2861208</SourceID>
+		<SourceReleaseDate>2013-10-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2013-3128</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2|Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP45-KB2861208-x64.exe sha1:2dc5af64a62ee63cf2f9d8f7cd5298f6444273fe size:13687928 http://download.microsoft.com/download/3/3/1/33191193-A393-44E2-A419-7D9ABBBB3261/NDP45-KB2861208-x64.exe sha256:99559b28977cc102a706bdd7bcca50895ea1b66a7745313db29b4663849cda24
+
+waithidden __Download\NDP45-KB2861208-x64.exe /quiet /norestart
+
+action may require restart "2dc5af64a62ee63cf2f9d8f7cd5298f6444273fe"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-082</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

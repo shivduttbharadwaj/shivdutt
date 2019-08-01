@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Visio 2003 Service Pack 2 for MUI Korean - Windows 2000/XP/2003 (Network/Local Installation)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+Microsoft has released Visio 2003 Service Pack 2 Multilingual User Interface (MUI). This update contains significant security enhancements, in addition to stability and performance improvements. This service pack includes updates previously released for Visio 2003 MUI. Visio 2003 MUI SP2 will install even if a publicly available update or service pack has already been installed on the affected computer.<BR><BR><b>Note:</b> Client machines may briefly display progress windows during installation of this update.<BR><BR><b>Note:</b> Some Office updates will <b>force</b> the affected computer to restart without displaying a warning message if Office applications are open when this update is run. To prevent this from happening, shut down all Office applications prior to applying this update.<BR><BR><b>Note:</b> If Windows Installer version 3.0 is installed you will need to upgrade to Windows Installer version 3.1. <BR><BR><b>Note:</b> This security update is also referenced under KB887622.<BR><BR><b>Note:</b> There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #474.
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.81 MB
+ </DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of operating system = "Win2000" AND (csd version of operating system = "Service Pack 3" OR csd version of operating system = "Service Pack 4")) OR name of operating system = "Win2003" OR name of operating system = "WinXP"</Relevance>
+		<Relevance>exists key whose ((value "ProductName" of it as string contains "Visio") AND (value "ProductName" of it as string contains "2003")) of key "HKEY_CLASSES_ROOT\Installer\Products" of registry</Relevance>
+		<Relevance><![CDATA[exists file "MSOINTL.DLL" whose (language of version block of it contains "English") of folder "1033" of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11")]]></Relevance>
+		<Relevance><![CDATA[(exists file "msiexec.exe" of system folder) AND (version of file "msiexec.exe" of system folder >= "2.0") AND (version of file "msiexec.exe" of system folder != "3.0")]]></Relevance>
+		<Relevance><![CDATA[exists file "msointl.dll" whose (language of version block of it contains "Korean" AND version of it < "11.0.6565.0") of folder "1042" of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11")                      ]]></Relevance>
+		<Relevance>exists key whose ((it contains "Visio 2003" AND it contains "User Interface Pack") of (value "ProductName" of it as string)) of key "HKCR\Installer\Products\" of registry</Relevance>
+		<Relevance>exists regapp "visio.exe" whose (version of it = "11")</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>3015448</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB892293 </SourceID>
+		<SourceReleaseDate>2005-10-18</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Visio</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 03 Nov 2016 08:59:23 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Visio2003MuiSP2-KB887622-FullFile-KOR.exe sha1:7f301a7cfca158b74ff944dbf67c3ca3ef96d897 size:3015448 http://download.microsoft.com/download/f/b/5/fb5c02f8-a109-451d-9d19-4b5d59de25f4/Visio2003MuiSP2-KB887622-FullFile-KOR.exe sha256:8dd6e928ba6f21cb950364bac24e47829d730ed948a03012e82b753f180ae7d7
+
+wait __Download\Visio2003MuiSP2-KB887622-FullFile-KOR.exe /q:a /c:"msiexec /p VISIOMUISP2-KOR.msp REBOOT=ReallySuppress /qn"
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=887622</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

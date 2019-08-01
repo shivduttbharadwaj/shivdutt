@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-044: Unsafe Functions in Office Web Components</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released a patch eliminating a security vulnerability in the Microsoft Office Web Components (OWC), which are included with many Microsoft products. Three vulnerabilities exist in the OWC which could allow an attacker to read files on the user's system, view the copy buffer of the user's system, or execute operating system commands as the user. After applying the patch the affected systems will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled. <BR><BR><B>Note</B>: Client machines may briefly display a command prompt window during installation of this update.<BR><BR><B>Note</B>: There are three Fixlet messages for this update which correspond to three versions of the patch. One version applies to Project 2002, the second to Project Server 2002, and the third to all other products that contain the Office Web Components. It is necessary to apply all relevant patches to each machine in order to provide complete protection from this vulnerability.<BR><BR><B>Note:</B> Microsoft has announced that this patch will be included in Windows XP Service Pack 2.</FONT></P> <P><FONT size=2><STRONG>Note:</STRONG> Installation of this patch requires&nbsp;Bigfix Client interacting with Desktop. Please use Fixlet Message&nbsp;540 "Enable Bigfix Client Interacting with Desktop" in BES Support site to enable.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> BigFix has received reports of shutdown issues on Windows 9x machines associated with the installation of this patch. Please test this patch prior to deployment in a production environment.<BR><BR><B>File Size:</B> 4.19 MB</FONT><BR><BR><B>Note:</B> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists regapp "powerpnt.exe" AND (it >= "9" AND it <="10") of version of regapp "powerpnt.exe") OR (exists regapp "excel.exe" AND (it >= "9" AND it <="10") of version of regapp "excel.exe") OR (exists regapp "winword.exe" AND (it >= "9" AND it <="10") of version of regapp "winword.exe") OR (exists regapp "outlook.exe" AND exists file "outllib.dll" of parent folder of regapp "outlook.exe" AND (it > "9" AND it <="10") of version of file "outllib.dll" of parent folder of regapp "outlook.exe") OR (exists regapp "msaccess.exe" AND (it >= "9" AND it <="10") of version of regapp "msaccess.exe") OR (exists regapp "frontpg.exe" AND (it >= "4" AND it <="10") of version of regapp "frontpg.exe") OR (exists key whose (value "DisplayName" of it as string contains "Microsoft BizTalk Server 2000") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry) OR (exists key whose (value "DisplayName" of it as string contains "Microsoft Internet Security and Acceleration Server") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry) OR (exists key whose (value "DisplayName" of it as string contains "Commerce Server 2000") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry) OR (exists key whose (value "DisplayName" of it as string contains "Microsoft BizTalk Server 2002") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Relevance><![CDATA[((exists key "HKEY_CLASSES_ROOT\CLSID\{0002E510-0000-0000-C000-000000000046}\InprocServer32" of registry) AND (exists file (value "" of key "HKEY_CLASSES_ROOT\CLSID\{0002E510-0000-0000-C000-000000000046}\InprocServer32" of registry as string)) AND (version of file (value "" of key "HKEY_CLASSES_ROOT\CLSID\{0002E510-0000-0000-C000-000000000046}\InprocServer32" of registry as string) < "9.0.0.6430")) OR ((exists key "HKEY_CLASSES_ROOT\CLSID\{0002E551-0000-0000-C000-000000000046}\InprocServer32" of registry) AND (exists file (value "" of key "HKEY_CLASSES_ROOT\CLSID\{0002E551-0000-0000-C000-000000000046}\InprocServer32" of registry as string)) AND (version of file (value "" of key "HKEY_CLASSES_ROOT\CLSID\{0002E551-0000-0000-C000-000000000046}\InprocServer32" of registry as string) < "10.0.4109.0"))]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>4397976</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB328130</SourceID>
+		<SourceReleaseDate>2002-08-21</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2002-0727; CVE-2002-0860; CVE-2002-0861</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Office Web Components</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2002/XP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch owcupd.exe sha1:6cc5ce3941166e0e3186fc6d3a17a5688400bb87 size:4397976 http://download.microsoft.com/download/office2000/Patch/owcupd/WIN98MeXP/EN-US/owcupd.exe sha256:88905f71a3e29d1100b2969d0f9e2e4eaaab1eeff3c7dfad723a3f34a350e417
+wait __download/owcupd.exe /Q:A /R:N
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-044.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-044</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

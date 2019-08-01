@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Apple iTunes 12.9.3 Available - Win7/Win8/Win8.1/Win10 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been superseded by iTunes 12.9.4.<br /><br />Apple has released a new version of iTunes. Use the action below to update iTunes to the latest version (12.9.3). <BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><STRONG>Note:</STRONG> After deployment of this update,&nbsp;users may briefly&nbsp;see progress windows on opening QuickTime Player.</P> <P><B>Note:</B> The iTunes upgrade will add iTunes shortcuts to the Start Menu.</P> <P><STRONG>Note:</STRONG> QuickTime is no longer bundled with iTunes as it is no longer needed. However, older media files may still require QuickTime. Please refer to Apple's KB article <A href="http://support.apple.com/kb/TS3772?viewlocale=en_US">here</A>.</P> <P><STRONG>Note:</STRONG> If the QuickTime Player&nbsp;is running, this upgrade may&nbsp;display&nbsp;a dialog box with the message "Error -108: An unknown error has occurred" or a dialog box asking you to close all&nbsp;applications running QuickTime. Clicking OK on&nbsp;either dialog box will not cause any problems with the upgrade.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade iTunes regardless of whether or not&nbsp;iTunes running action"&nbsp;will close any running instance of&nbsp;iTunes on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+256 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2019-6235; CVE-2019-6221; CVE-2018-20346; CVE-2018-20505; CVE-2018-20506; CVE-2019-6215; CVE-2019-6212; CVE-2019-6216; CVE-2019-6217; CVE-2019-6226; CVE-2019-6227; CVE-2019-6233; CVE-2019-6234; CVE-2019-6229
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(name of it = "Win7" OR name of it = "Win8" OR name of it ="Win8.1" OR name of it ="Win10") of operating system OR (it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance><![CDATA[exists regapp "iTunes.exe" whose (version of it < "12.9.3")]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2") of system folder]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>268767048</DownloadSize>
+		<Source>Apple</Source>
+		<SourceID>HT209450</SourceID>
+		<SourceReleaseDate>2019-01-24</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2019-6235; CVE-2019-6221; CVE-2018-20346; CVE-2018-20505; CVE-2018-20506; CVE-2019-6215; CVE-2019-6212; CVE-2019-6216; CVE-2019-6217; CVE-2019-6226; CVE-2019-6227; CVE-2019-6233; CVE-2019-6234; CVE-2019-6229</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 28 Jan 2019 08:42:47 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-03-26</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:apple:itunes:12.9.3:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Apple iTunes</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 27 Mar 2019 04:04:54 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// check for x64
+
+if {x64 of operating system}
+
+prefetch iTunes64Setup.exe sha1:20dc0306f6aa168a1e142465567d368670d3fdf5 size:268767048 https://secure-appldnld.apple.com/itunes12/041-31291-20190124-BBE902D6-D788-11E8-B555-8E91F34A5CAA/iTunes64Setup.exe sha256:265cc69f9e05ce167f62c1735af302d50ca5291080244d496da7a8414df7ba2d
+
+wait __Download\iTunes64Setup.exe /extract
+
+wait msiexec /i AppleApplicationSupport64.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i AppleApplicationSupport.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i AppleMobileDeviceSupport64.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i iTunes64.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart")} REGSRCH_DESKTOP_SHORTCUTS=0 ALLUSERS=1 DESKTOP_SHORTCUTS=0 REENABLEAUTORUN=0
+
+action may require restart "20dc0306f6aa168a1e142465567d368670d3fdf5"
+
+// otherwise it should be x86
+
+else
+
+prefetch iTunesSetup.exe sha1:34cbc593dc32bbe26f23d2e27b4d31f305d131d0 size:203905864 https://secure-appldnld.apple.com/itunes12/041-31290-20190124-BBE902D6-D788-11E8-B555-8E91F34A5CAA/iTunesSetup.exe sha256:26e775d83dbc9db0d522ea487eb93f1e2a298924fa869b40c6129fe14582df6b
+
+wait __Download\iTunesSetup.exe /extract
+
+wait msiexec /i AppleApplicationSupport.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i AppleMobileDeviceSupport.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i iTunes.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart")} REGSRCH_DESKTOP_SHORTCUTS=0 ALLUSERS=1 DESKTOP_SHORTCUTS=0 REENABLEAUTORUN=0
+
+action may require restart "34cbc593dc32bbe26f23d2e27b4d31f305d131d0"
+
+endif</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade iTunes regardless of whether or not iTunes is running.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// check for x64
+
+if {x64 of operating system}
+
+prefetch iTunes64Setup.exe sha1:20dc0306f6aa168a1e142465567d368670d3fdf5 size:268767048 https://secure-appldnld.apple.com/itunes12/041-31291-20190124-BBE902D6-D788-11E8-B555-8E91F34A5CAA/iTunes64Setup.exe sha256:265cc69f9e05ce167f62c1735af302d50ca5291080244d496da7a8414df7ba2d
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill iTunes /a" else "taskkill /F /IM iTunes.exe"}
+
+wait __Download\iTunes64Setup.exe /extract
+
+wait msiexec /i AppleApplicationSupport64.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i AppleApplicationSupport.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i AppleMobileDeviceSupport64.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i iTunes64.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart")} REGSRCH_DESKTOP_SHORTCUTS=0 ALLUSERS=1 DESKTOP_SHORTCUTS=0 REENABLEAUTORUN=0
+
+action may require restart "20dc0306f6aa168a1e142465567d368670d3fdf5"
+
+// otherwise it should be x86
+
+else
+
+prefetch iTunesSetup.exe sha1:34cbc593dc32bbe26f23d2e27b4d31f305d131d0 size:203905864 https://secure-appldnld.apple.com/itunes12/041-31290-20190124-BBE902D6-D788-11E8-B555-8E91F34A5CAA/iTunesSetup.exe sha256:26e775d83dbc9db0d522ea487eb93f1e2a298924fa869b40c6129fe14582df6b
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill iTunes /a" else "taskkill /F /IM iTunes.exe"}
+
+wait __Download\iTunesSetup.exe /extract
+
+wait msiexec /i AppleApplicationSupport.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i AppleMobileDeviceSupport.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+wait msiexec /i iTunes.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart")} REGSRCH_DESKTOP_SHORTCUTS=0 ALLUSERS=1 DESKTOP_SHORTCUTS=0 REENABLEAUTORUN=0
+
+action may require restart "34cbc593dc32bbe26f23d2e27b4d31f305d131d0"
+
+endif</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of iTunes.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.apple.com/itunes/download/</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Apple.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.apple.com/kb/HT1222</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

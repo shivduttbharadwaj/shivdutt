@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS17-SEP: Security update for Microsoft Office Compatibility Pack Service Pack 3 - Office Compatibility Pack SP3 - KB3213644</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><div><p>This security update resolves vulnerabilities in Microsoft Office that could allow remote code execution if a user opens a specially crafted Office file. To learn more about these vulnerabilities, see <a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-8742">Microsoft Common Vulnerabilities and Exposures CVE-2017-8742</a>.<br><br><strong>Note</strong> To apply this security update, you must have the release version of <a href="http://support.microsoft.com/kb/949585">Service Pack 3 for the 2007 Microsoft Office Suite</a> installed on the computer.</p></div><p><B>Note:</B> This security update is also referenced under KB3213644.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00002159FA0072400000000000F01FEC";"00002159FA00A1800000000000F01FEC";"00002109020090400000000000F01FEC";"000021090200A1400000000000F01FEC";"00002109020022400000000000F01FEC";"00002159FA00D1400000000000F01FEC";"00002109020042400000000000F01FEC";"00002159FA00F1400000000000F01FEC";"00002109020070400000000000F01FEC";"00002159FA0011400000000000F01FEC";"00002159FA00A0C00000000000F01FEC";"00002109020040800000000000F01FEC";"00002109020050400000000000F01FEC";"00002159FA0093400000000000F01FEC";"00002109020021400000000000F01FEC";"00002159FA00D0400000000000F01FEC";"00002109020001400000000000F01FEC";"000021090200E1400000000000F01FEC";"00002159FA00B0400000000000F01FEC";"00002109020091400000000000F01FEC";"00002109020041400000000000F01FEC";"00002159FA0052400000000000F01FEC";"00002109020061800000000000F01FEC";"000021090200E0400000000000F01FEC";"00002159FA0061800000000000F01FEC";"000021090200D0400000000000F01FEC";"00002109020010400000000000F01FEC";"00002109020020400000000000F01FEC";"000021090200B0400000000000F01FEC";"000021090200C0400000000000F01FEC";"000021090200B1400000000000F01FEC";"00002159FA00E1400000000000F01FEC";"00002159FA0062400000000000F01FEC";"00002159FA0001400000000000F01FEC";"00002109020093400000000000F01FEC";"00002109020052400000000000F01FEC";"000021090200D1400000000000F01FEC";"00002159FA0021400000000000F01FEC";"00002109020080400000000000F01FEC";"00002109020060400000000000F01FEC";"00002159FA0090400000000000F01FEC";"00002159FA0040800000000000F01FEC";"00002109020040400000000000F01FEC";"00002159FA00C0400000000000F01FEC";"000021090200A0C00000000000F01FEC";"000021090200F1400000000000F01FEC";"00002159FA00E0400000000000F01FEC";"000021090200A1800000000000F01FEC";"00002109020011400000000000F01FEC";"00002159FA0042400000000000F01FEC";"00002109020031400000000000F01FEC";"00002159FA00F3400000000000F01FEC";"00002109020081400000000000F01FEC";"00002159FA0022400000000000F01FEC";"00002159FA0040C00000000000F01FEC";"00002159FA0020400000000000F01FEC";"00002159FA0091400000000000F01FEC";"00002109020061400000000000F01FEC";"00002109020051400000000000F01FEC";"00002159FA0010400000000000F01FEC";"00002159FA0050400000000000F01FEC";"00002109020040C00000000000F01FEC";"00002159FA0040400000000000F01FEC";"00002159FA0060400000000000F01FEC";"00002159FA0070400000000000F01FEC";"00002159FA0080400000000000F01FEC";"00002159FA0061400000000000F01FEC";"00002159FA0031400000000000F01FEC";"00002159FA0041400000000000F01FEC";"00002159FA0051400000000000F01FEC";"00002109020062400000000000F01FEC";"00002109020072400000000000F01FEC";"00002159FA0081400000000000F01FEC";"00002159FA00B1400000000000F01FEC";"00002159FA00A1400000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.6612.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "A6F166A304847C94CA7AC1F46A79C6A8" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "12.0" AND "|PPCNV.DLL|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "PPCNV.DLL" AND (item 3 of it = "12.0.6776.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Sun, 03 Sep 2017 02:11:02 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "12.0.6776.5000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{3A661F6A-4840-49C7-ACA7-1C4FA6976C8A}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>1961144</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3213644</SourceID>
+		<SourceReleaseDate>2017-09-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2017-8742</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Sep 2017 09:30:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office_compatibility_pack:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Office Compatibility Pack</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 23 Jul 2019 19:37:10 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch pptconv2007-kb3213644-fullfile-x86-glb.exe sha1:ef14f6fc44f346b47a3a0298a18dcda479056385 size:1961144 https://download.microsoft.com/download/A/C/A/ACA8CC30-0035-4868-AD75-F1F4094F70C8/pptconv2007-kb3213644-fullfile-x86-glb.exe sha256:52c53ac6858f5748792326c06cdaf2e7081d26f37674387e4bb9db610cdd8156
+
+waithidden __Download\pptconv2007-kb3213644-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "ef14f6fc44f346b47a3a0298a18dcda479056385"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/3213644</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

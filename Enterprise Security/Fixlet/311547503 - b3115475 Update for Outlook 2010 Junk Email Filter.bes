@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3115475: Update for Outlook 2010 Junk Email Filter - Office 2010 SP2 - KB3115475</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update provides the latest junk email and malicious links filter definitions for Microsoft Office 2010 32-Bit Edition.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB3115475.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.40 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00004119D11000000000000000F01FEC") whose (not exists key "4CC3496C1E9792B4FB7FC804947CFD16" of key "Patches" of it) of it OR exists keys ("00004109710000000000000000F01FEC";"00004119910000000000000000F01FEC";"00004109750000000000000000F01FEC";"00004109910000000000000000F01FEC";"00004109510000000000000000F01FEC";"00004109260000000000000000F01FEC";"00004119510000000000000000F01FEC";"00004119210000000000000000F01FEC";"00004119330000000000000000F01FEC";"00004109660000000000000000F01FEC";"00004109AB0000000000000000F01FEC";"00004119AB0000000000000000F01FEC";"00004109210000000000000000F01FEC";"00004119B10000000000000000F01FEC";"000041191A0000000000000000F01FEC";"00004109A30000000000000000F01FEC";"00004119A30000000000000000F01FEC";"000041091A0000000000000000F01FEC";"00004109B10000000000000000F01FEC";"00004109810000000000000000F01FEC";"00004109D30000000000000000F01FEC";"00004109160000000000000000F01FEC";"00004109610000000000000000F01FEC";"00004109B30000000000000000F01FEC";"00004119440000000000000000F01FEC";"00004119810000000000000000F01FEC";"00004119110000000000000000F01FEC";"00004119610000000000000000F01FEC";"00004109440000000000000000F01FEC";"00004119310000000000000000F01FEC";"00004119410000000000000000F01FEC";"00004109110000000000000000F01FEC";"00004109B80000000000000000F01FEC";"00004119A10000000000000000F01FEC";"00004109A10000000000000000F01FEC";"00004119B80000000000000000F01FEC";"00004119B30000000000000000F01FEC";"00004119750000000000000000F01FEC";"00004109C10000000000000000F01FEC") whose (not exists key "4CC3496C1E9792B4FB7FC804947CFD16" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "14.0" AND "|OUTLFLTR.DAT|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "OUTLFLTR.DAT" AND (item 3 of it = "14.0.16307.618" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Tue, 12 Jul 2016 21:24:40 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.16307.618")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{C6943CC4-79E1-4B29-BFF7-8C4049C7DF61}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry) AND ((set of (((names of values of keys "00004100C10000000000000000F01FEC" of it);(names of values of keys "00004110510000000000000000F01FEC" of it);(names of values of keys "00004100510000000000000000F01FEC" of it);(names of values of keys "00004100660000000000000000F01FEC" of it);(names of values of keys "00004110310000000000000000F01FEC" of it);(names of values of keys "00004110610000000000000000F01FEC" of it);(names of values of keys "00004100610000000000000000F01FEC" of it);(names of values of keys "00004110AB0000000000000000F01FEC" of it);(names of values of keys "00004100AB0000000000000000F01FEC" of it);(names of values of keys "00004110440000000000000000F01FEC" of it);(names of values of keys "00004100440000000000000000F01FEC" of it);(names of values of keys "000041101A0000000000000000F01FEC" of it);(names of values of keys "000041001A0000000000000000F01FEC" of it);(names of values of keys "00004110A10000000000000000F01FEC" of it);(names of values of keys "00004100A10000000000000000F01FEC" of it);(names of values of keys "00004110330000000000000000F01FEC" of it);(names of values of keys "00004110810000000000000000F01FEC" of it);(names of values of keys "00004100810000000000000000F01FEC" of it);(names of values of keys "00004110B30000000000000000F01FEC" of it);(names of values of keys "00004100B30000000000000000F01FEC" of it);(names of values of keys "00004110A30000000000000000F01FEC" of it);(names of values of keys "00004100A30000000000000000F01FEC" of it);(names of values of keys "00004110110000000000000000F01FEC" of it);(names of values of keys "00004110D11000000000000000F01FEC" of it);(names of values of keys "00004100110000000000000000F01FEC" of it);(names of values of keys "00004110410000000000000000F01FEC" of it);(names of values of keys "00004110910000000000000000F01FEC" of it);(names of values of keys "00004100910000000000000000F01FEC" of it);(names of values of keys "00004100710000000000000000F01FEC" of it);(names of values of keys "00004100D30000000000000000F01FEC" of it);(names of values of keys "00004110B80000000000000000F01FEC" of it);(names of values of keys "00004100B80000000000000000F01FEC" of it);(names of values of keys "00004110210000000000000000F01FEC" of it);(names of values of keys "00004100210000000000000000F01FEC" of it);(names of values of keys "00004110750000000000000000F01FEC" of it);(names of values of keys "00004100750000000000000000F01FEC" of it);(names of values of keys "00004110B10000000000000000F01FEC" of it);(names of values of keys "00004100B10000000000000000F01FEC" of it);(names of values of keys "00004100260000000000000000F01FEC" of it);(names of values of keys "00004100160000000000000000F01FEC" of it)) whose (set of ("00004109C10000000000000000F01FEC";"00004119510000000000000000F01FEC";"00004109510000000000000000F01FEC";"00004109660000000000000000F01FEC";"00004119310000000000000000F01FEC";"00004119610000000000000000F01FEC";"00004109610000000000000000F01FEC";"00004119AB0000000000000000F01FEC";"00004109AB0000000000000000F01FEC";"00004119440000000000000000F01FEC";"00004109440000000000000000F01FEC";"000041191A0000000000000000F01FEC";"000041091A0000000000000000F01FEC";"00004119A10000000000000000F01FEC";"00004109A10000000000000000F01FEC";"00004119330000000000000000F01FEC";"00004119810000000000000000F01FEC";"00004109810000000000000000F01FEC";"00004119B30000000000000000F01FEC";"00004109B30000000000000000F01FEC";"00004119A30000000000000000F01FEC";"00004109A30000000000000000F01FEC";"00004119110000000000000000F01FEC";"00004119D11000000000000000F01FEC";"00004109110000000000000000F01FEC";"00004119410000000000000000F01FEC";"00004119910000000000000000F01FEC";"00004109910000000000000000F01FEC";"00004109710000000000000000F01FEC";"00004109D30000000000000000F01FEC";"00004119B80000000000000000F01FEC";"00004109B80000000000000000F01FEC";"00004119210000000000000000F01FEC";"00004109210000000000000000F01FEC";"00004119750000000000000000F01FEC";"00004109750000000000000000F01FEC";"00004119B10000000000000000F01FEC";"00004109B10000000000000000F01FEC";"00004109260000000000000000F01FEC";"00004109160000000000000000F01FEC") contains it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) contains name of it)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Definition Update</Category>
+		<DownloadSize>4609288</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3115475</SourceID>
+		<SourceReleaseDate>2016-07-27</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 11 Aug 2016 08:55:14 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 |~| Windows Server 2003 |~| Windows Vista |~| Windows XP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Outlook</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 11 Aug 2016 08:55:14 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch outlfltr2010-kb3115475-fullfile-x86-glb.exe sha1:16876ef3aa62d0e0b82593f5f378d138c3fd6924 size:4609288 https://download.microsoft.com/download/C/3/E/C3E65E20-CAF4-48C5-9176-BF012C1D0F39/outlfltr2010-kb3115475-fullfile-x86-glb.exe sha256:de9cdbc4ae5d924b14245f5559ab939b765eeb37c5203ba0c17ee9478a0737e2
+
+waithidden __Download\outlfltr2010-kb3115475-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "16876ef3aa62d0e0b82593f5f378d138c3fd6924"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3115475</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

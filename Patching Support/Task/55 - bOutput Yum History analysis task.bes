@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Output Yum History analysis task</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><p>Users might encounter cases where the YUM database is locked after enabling the YUM Transaction History analysis.</p> <p>Use this task so that the YUM history information is generated to a YUM History text file in /var/opt/BESClient/EDRDeployData/YumHistory in the endpoint. </p> <p>Upon selecting Take Action, configure the following settings in the Execution tab:</p> <ul> <li>The action should never end so that the user can manually stop it later, as needed</li> <li>The action must be reapplied with a specific interval.</li> <li>Do not limit the number of reapplications.</li> </ul></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true ) </Relevance>
+		<Relevance><![CDATA[version of client >= "9"]]></Relevance>
+		<Relevance><![CDATA[((name of operating system as lowercase contains "red hat") and major version of operating system >=6) or ((name of it as lowercase contains "oracle" and version of it >= "6") of operating system)or ((name of it as lowercase contains "linux centos" and version of it >= "5") of operating system)]]></Relevance>
+		<Relevance><![CDATA[exists package "yum" whose (version of it >= "3.2.28") of rpm]]></Relevance>
+		<Category></Category>
+		<Source>IBM</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2016-07-11</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 17 Aug 2016 09:26:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Aug 2016 09:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+parameter "EDR_DeployDataDir" = "{if(exist property "storage folder") then pathname of storage folder of client else pathname of client folder of current site & "/../.."}/EDRDeployData/"
+parameter "Output_File" = "{parameter "EDR_DeployDataDir"}/YumHistory"
+
+wait "/bin/bash" -c "mkdir -p '{parameter "EDR_DeployDataDir"}'"
+
+appendfile {concatenation "%0d%0a" of (it as string ) of rows of statement ("SELECT t1.tid || '|~|' || DATETIME(t1.timestamp,'unixepoch','localtime') || '|~|' || SUBSTR(COALESCE(t4.cmdline,''),0,800) || '|~|' || COALESCE(replace(group_concat(distinct t3.state),',',' '), '') || '|~|' || COUNT(t3.tid) || '|~|' || t1.rpmdb_version || '|~|' || COALESCE(t2.rpmdb_version, '') || '|~|' || COALESCE(t2.return_code, '*') || '|~|' || " & "CASE WHEN EXISTS(SELECT * FROM trans_script_stdout WHERE tid = t1.tid) THEN 1 ELSE 0 END || '|~|' || CASE WHEN EXISTS(SELECT * FROM trans_rpmdb_problems WHERE tid = t1.tid) THEN 1 ELSE 0 END || '|~|' || CASE WHEN EXISTS(SELECT * FROM trans_skip_pkgs WHERE tid = t1.tid) THEN 1 ELSE 0 END AS yum_history FROM trans_beg AS t1 " & "LEFT JOIN trans_end AS t2 ON t1.tid = t2.tid LEFT JOIN trans_data_pkgs AS t3 ON t1.tid = t3.tid AND t3.state IN ('True-Install','Dep-Install','Install','Update','Erase','Reinstall','Downgrade','Obsoleted','Obsoleting') LEFT JOIN trans_cmdline AS t4 ON t1.tid = t4.tid GROUP BY t1.tid ORDER BY t1.tid DESC LIMIT 21;") of sqlite database of file (item 0 of (pathnames of find files "history-????-??-??.sqlite" of it, it) whose (not exist (item 0 of it, pathnames of find files "history-????-??-??.sqlite" of item 1 of it) whose (item 0 of it < item 1 of it)) of folder "/var/lib/yum/history")}
+delete "{parameter "Output_File"}"
+move __appendfile "{parameter "Output_File"}"]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

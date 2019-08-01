@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS00-004: Patch Available for "RDISK Registry Enumeration File" Vulnerability</Title>
+		<Description><![CDATA[
+Microsoft has released a patch that eliminates a security vulnerability in Windows NT 4 Terminal Server Edition. The RDISK utility is used to create an Emergency Repair Disk (ERD) in order to record machine state information as a contingency against system failure. During execution, RDISK creates a temporary file containing an enumeration of the registry. The ACLs on the file allow global read permission, and as a result, a malicious user who knew that the administrator was running RDISK could open the file and read the registry enumeration information as it was being created. RDISK erases the file upon successful completion, so under normal conditions there would be no lasting vulnerability. By default, the file is not shared and therefore could not be read by other network user. After applying this patch, affected machines will no longer be susceptible to this vulnerability. <BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Note:</b> Installation of this update <b>will not be complete</b> until each affected computer is restarted. <BR><BR><b>File Size:</b> 97 KB<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of operating system = "WinNT") AND (csd version of operating system = "Service Pack 6") AND (value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry as string contains "Terminal Server")</Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix\Q249108" of registry) OR (value "Installed" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix\Q249108" of registry != 1)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>99784</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB249108</SourceID>
+		<SourceReleaseDate>2000-01-21</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2000-0089</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q249108i.EXE sha1:c18d3c5ce0d369414704d8490a51902ceb8a4a95 size:99784 http://download.microsoft.com/download/winntsp/Patch/RDISK/NT4/EN-US/Q249108i.EXE sha256:2d33ccd5145d6217e6b8b1e5634e49e7d9a103f1b6e61c8e8cfe1e7f9592d5be
+wait __download\Q249108i.EXE -q -z
+action requires restart
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS00-004.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2000/MS00-004</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

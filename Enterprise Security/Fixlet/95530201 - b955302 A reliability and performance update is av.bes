@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>955302: A reliability and performance update is available for computers that are running Windows Vista SP1 and Windows Server 2008 - Windows Server 2008 Gold - KB955302</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This is a reliability update. This update resolves some performance and reliability issues in Windows Server 2008. By applying this update, you can achieve better performance and responsiveness in various scenarios. After you install this item, you may have to restart your computer. This update is provided to you and licensed under the Windows Server 2008 License Terms.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB955302.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+891 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008"))) of operating system</Relevance>
+		<Relevance>(name of it = "Win2008" AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB955302~31bf3856ad364e35~x86~~6.0.1.1" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB955302~31bf3856ad364e35~x86~~6.0.1.1" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~x86~~6.0.6001.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_microsoft-windows-smb10-minirdr_31bf3856ad364e35_none_c028b3da63cd188d" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22175" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18068") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-lddmcore_31bf3856ad364e35_none_c523f42d8bc9c08e" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22235" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18114") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.0.6000.16386") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Package_20_for_KB936330~31bf3856ad364e35~x86~~6.0.1.18000";"Package_30_for_KB936330~31bf3856ad364e35~x86~~6.0.1.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Client-Features-Package~31bf3856ad364e35~x86~~6.0.6000.16386") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-dataclen_31bf3856ad364e35_none_46b367c7783e172c" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22211") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-dataclen_31bf3856ad364e35_none_46b367c7783e172c" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0" AND it < "6.0.6001.18098") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_20_for_KB936330~31bf3856ad364e35~x86~~6.0.1.18000";"Package_30_for_KB936330~31bf3856ad364e35~x86~~6.0.1.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Client-Features-Package~31bf3856ad364e35~x86~~6.0.6000.16386";"Package_20_for_KB936330~31bf3856ad364e35~x86~~6.0.1.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-native-80211_31bf3856ad364e35_none_9bce78a723691cea" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22183" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18075") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-e..emorydevicesservice_31bf3856ad364e35_none_6752a7d2defd92ce" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22211" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18098") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_20_for_KB936330~31bf3856ad364e35~x86~~6.0.1.18000";"Package_30_for_KB936330~31bf3856ad364e35~x86~~6.0.1.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-smb10-minirdr_31bf3856ad364e35_none_c028b3da63cd188d" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22175" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18068") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-lddmcore_31bf3856ad364e35_none_c523f42d8bc9c08e" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22235" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18114") of (default value of it as string as version)) of it) of it) of item 1 of it) OR exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.0.6001.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists key "x86_microsoft-windows-smb10-minirdr_31bf3856ad364e35_none_c028b3da63cd188d" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22175" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18068") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-lddmcore_31bf3856ad364e35_none_c523f42d8bc9c08e" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22235" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18114") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-ServerDesktopExperience~31bf3856ad364e35~x86~~6.0.6001.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-dataclen_31bf3856ad364e35_none_46b367c7783e172c" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22211" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18098") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-WirelessNetworking-Package~31bf3856ad364e35~x86~~6.0.6001.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-native-80211_31bf3856ad364e35_none_9bce78a723691cea" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6001.20000" AND it < "6.0.6001.22183" OR it >= "6.0.6001.10000" AND it < "6.0.6001.18075") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "0c494f37d6e341ad0eb8f3e0968ab66f243061f5"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>913136</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB955302</SourceID>
+		<SourceReleaseDate>2008-09-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows6.0-kb955302-x86_0c494f37d6e341ad0eb8f3e0968ab66f243061f5.msu sha1:0c494f37d6e341ad0eb8f3e0968ab66f243061f5 size:913136 http://download.windowsupdate.com/msdownload/update/software/crup/2008/09/windows6.0-kb955302-x86_0c494f37d6e341ad0eb8f3e0968ab66f243061f5.msu sha256:16fdf4419000684a2a4537c66bc334e0eb4e9e66d794be67430472264c520fec
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows6.0-kb955302-x86_0c494f37d6e341ad0eb8f3e0968ab66f243061f5.msu"}" /quiet /norestart
+
+action requires restart "0c494f37d6e341ad0eb8f3e0968ab66f243061f5"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/955302</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-079: Vulnerabilities in Microsoft Word Could Allow Remote Code Execution - Office 2010</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves eleven privately reported vulnerabilities in Microsoft Office. The vulnerabilities could allow remote code execution if a user opens a specially crafted Word file. An attacker who successfully exploited any of these vulnerabilities could gain the same user rights as the local user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2345000. <P><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</P> <P><SPAN id=dashboardLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetOfficeOverviewLink; function SetOfficeOverviewLink() { try {if (isEvansOrLater) { dashboardLink.innerHTML = Relevance('(format "<?rxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the {0}.?>" + link "<?rxlat Microsoft Office Overview Dashboard?>" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string ) as string');} else { dashboardLink.innerHTML = EvaluateRelevance('"<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the " & link "Microsoft Office Overview Dashboard" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string & "."');} } catch (e) {if (isEvansOrLater) { dashboardLink.innerHTML ='<?jxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.?>';} else { dashboardLink.innerHTML = '<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.';} } } </SCRIPT> </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+26.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((exists file "WINWORD.EXE" whose (version of it < "14.0.5123.5000") of it) OR (exists file "WORDICON.EXE" whose (version of it < "14.0.5120.5000") of it) OR (exists file "WRD12CNV.DLL" whose (version of it < "14.0.5123.5000") of it) OR (exists file "WWLIB.DLL" whose (version of it < "14.0.5123.5000") of it)) of folder (value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\14.0\Common\InstallRoot" of registry as string)]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((it = "14" AND it >= "14.0.4763.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "0011" OR it = "0012" OR it = "0013" OR it = "0014" OR it = "002F" OR it = "008B") of last 4 of (first 14 of it)) AND ((it = "0000") of last 4 of (first 24 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance><![CDATA[exists regapp "winword.exe" whose (version of it = "14" AND version of it >= "14.0.4762.1000")]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>27993544</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2293194</SourceID>
+		<SourceReleaseDate>2010-10-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2010-3214</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Word</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:word:2010:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Word2010-kb2345000-fullfile-x86-glb.exe sha1:5b37dc0fe4134492806d8cd3712208ab10f43b74 size:27993544 http://download.microsoft.com/download/A/4/2/A42A6B9A-AB32-4E95-9684-66DAB0E2BF3F/Word2010-kb2345000-fullfile-x86-glb.exe sha256:b5ce15e08b065f26ca2a935e943a58167b8782f03ed80faf609bdef645c0ecb2
+
+waithidden __Download\Word2010-kb2345000-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "5b37dc0fe4134492806d8cd3712208ab10f43b74"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-079.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS10-079.mspx</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

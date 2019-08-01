@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Office 2007 Service Pack 1 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>The 2007 Microsoft Office suite Service Pack 1 (SP1) contains significant security improvements, stability improvements, and performance improvements. Some fixes that are included with the 2007 Microsoft Office suite SP1 were previously released in separate updates. The 2007 Microsoft Office suite SP1 combines the previously released fixes into one update.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display progress windows during installation of this update.<BR><BR><B>Note:</B> Some Office updates will force the affected computer to restart without displaying a warning message if Office applications are open when this update is run. To prevent this from happening, shut down all Office applications prior to applying this update.<BR><BR><B>Note:</B> There is no uninstall feature for this download.</P> <P><FONT color=#ff0000><STRONG>Important Note</STRONG></FONT>: This update requires a large amount of space on the local system hard drive (greater than 1 GB) and will fail silently if it runs out of space.<BR><BR><SPAN><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> There are known issues associated with the installation of this update. See the Known Issues section of the Office 2007 release documentation for more information.</P></SPAN><P><B>Note:</B> There is no default action for this Fixlet message due to known issues associated with the installation of this patch. Please review the Known Issues section of the security bulletin prior to deploying this patch. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+218.25 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office12") AND exists file "MSOINTL.DLL" whose (language of version block of it contains "English") of (folders of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office12")) ]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((((length of it <= 38) AND (it contains "000000FF1CE}" AND ((it = "0011" OR it = "0012" OR it = "0013" OR it = "0014" OR it = "002E" OR it = "002F" OR it = "0030" OR it = "0031" OR it = "0033" OR it = "0035" OR it = "00CA" OR it = "0016") of last 4 of (first 14 of it)))) of (name of it)) AND exists value "DisplayName" of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\12.0" of registry</Relevance>
+		<Relevance><![CDATA[(((exists file "excel.exe" whose ((it = "12" AND it < "12.0.6214.1000") of version of it) of it) OR (exists file "groove.exe" whose ((it = "12" AND it < "12.0.6211.1000") of version of it) of it) OR (exists file "infopath.exe" whose ((it = "12" AND it < "12.0.6214.1000") of version of it) of it) OR (exists file "msaccess.exe" whose ((it = "12" AND it < "12.0.6211.1000") of version of it) of it) OR (exists file "mspub.exe" whose ((it = "12" AND it < "12.0.6211.1000") of version of it) of it) OR (exists file "onenote.exe" whose ((it = "12" AND it < "12.0.6211.1000") of version of it) of it) OR (exists file "outlook.exe" whose ((it = "12" AND it < "12.0.6212.1000") of version of it) of it) OR (exists file "powerpnt.exe" whose ((it = "12" AND it < "12.0.6211.1000") of version of it) of it) OR (exists file "winword.exe" whose ((it = "12" AND it < "12.0.6211.1000") of version of it) of it)) of folder (value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\12.0\Common\InstallRoot" of registry as string)) OR ((exists file "mso.dll" whose ((it = "12" AND it < "12.0.6213.1000") of version of it) of it) of folder ((value "CommonFilesDir" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry) as string & "\Microsoft Shared\OFFICE12"))]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>228852088</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2007-12-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch office2007sp1-kb936982-fullfile-en-us.exe sha1:9f3f1fe20261d9c298aec93921c44dc9931dde88 size:228852088 http://download.microsoft.com/download/0/8/1/08186057-e110-49fb-b455-17899cf082d8/office2007sp1-kb936982-fullfile-en-us.exe sha256:c1b993ce126082b1ef44a3121da47e70d1a5d75ae24d3a52696736b80c3c6e13
+
+wait __Download\office2007sp1-kb936982-fullfile-en-us.exe /quiet /norestart
+
+action may require restart "9f3f1fe20261d9c298aec93921c44dc9931dde88"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Microsoft Office 2007 SP1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=936982</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

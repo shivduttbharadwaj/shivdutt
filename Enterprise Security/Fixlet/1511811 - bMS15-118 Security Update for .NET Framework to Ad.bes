@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-118: Security Update for .NET Framework to Address Elevation of Privilege - Windows Server 2012 Gold / Windows 8 Gold - .NET Framework 4.6 - KB3097999 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft .NET Framework. The most severe of the vulnerabilities could allow elevation of privilege if an attacker convinces a user to navigate to a compromised website or open a link in a specially crafted email that is designed to inject client-side code into the users browser.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3097999.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+874 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND (value "CurrentVersion" of it as string is "6.2" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) AND service pack major version of it = 0) OR ((name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.2" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) AND service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (exists key "Full" whose ((it = 393295 OR it = 393297 OR it = 393273) of value "Release" of it) of it) of native registry</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3097999~31bf3856ad364e35~amd64~~6.2.1.24" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3097999~31bf3856ad364e35~amd64~~6.2.1.24" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-Embedded-NetFx4-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_netfx4-dfdll_dll_b03f5f7f11d50a3a_none_4380a7236f0186a9" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9200.20000" AND it < "4.0.9200.21701" OR it >= "4.0.9200.10000" AND it < "4.0.9200.17597") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-dfdll_dll_b03f5f7f11d50a3a_none_8b2dddfa837dafaf" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9200.20000" AND it < "4.0.9200.21701" OR it >= "4.0.9200.10000" AND it < "4.0.9200.17597") of (default value of it as string as version)) of it) of it OR exists key "msil_system.deployment_b03f5f7f11d50a3a_none_c30dda74bb5f340b" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9200.20000" AND it < "4.0.9200.21701" OR it >= "4.0.9200.10000" AND it < "4.0.9200.17597") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-system.deployment_b03f5f7f11d50a3a_none_80cf81c3abd3ecf8" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9200.20000" AND it < "4.0.9200.21701" OR it >= "4.0.9200.10000" AND it < "4.0.9200.17597") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-NetFx4-OC-Package~31bf3856ad364e35~amd64~~6.2.9200.16384";"Microsoft-Windows-NetFx4-US-OC-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_netfx4-dfdll_dll_b03f5f7f11d50a3a_none_4380a7236f0186a9" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9200.20000" AND it < "4.0.9200.21701" OR it >= "4.0.9200.10000" AND it < "4.0.9200.17597") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-dfdll_dll_b03f5f7f11d50a3a_none_8b2dddfa837dafaf" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9200.20000" AND it < "4.0.9200.21701" OR it >= "4.0.9200.10000" AND it < "4.0.9200.17597") of (default value of it as string as version)) of it) of it OR exists key "msil_system.deployment_b03f5f7f11d50a3a_none_c30dda74bb5f340b" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9200.20000" AND it < "4.0.9200.21701" OR it >= "4.0.9200.10000" AND it < "4.0.9200.17597") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-system.deployment_b03f5f7f11d50a3a_none_80cf81c3abd3ecf8" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9200.20000" AND it < "4.0.9200.21701" OR it >= "4.0.9200.10000" AND it < "4.0.9200.17597") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "1478b4bb09f97a32f6abf1ee4c6e1efc44af7400"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>895592</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3097999</SourceID>
+		<SourceReleaseDate>2015-11-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-6096</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Nov 2015 05:01:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.6:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2012|Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB3097999-x64.msu sha1:1478b4bb09f97a32f6abf1ee4c6e1efc44af7400 size:895592 https://download.microsoft.com/download/F/3/C/F3C468D3-6218-4B93-B9EA-8D6C46ACB485/Windows8-RT-KB3097999-x64.msu sha256:00b6610e131e1182c614d10542a563fe6b9bcc2b7acbd73fb941190d99d89d9a
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB3097999-x64.msu"}" /quiet /norestart
+
+action requires restart "1478b4bb09f97a32f6abf1ee4c6e1efc44af7400"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-118</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

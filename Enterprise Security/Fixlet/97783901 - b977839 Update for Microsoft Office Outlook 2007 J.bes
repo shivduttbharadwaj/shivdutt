@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>977839: Update for Microsoft Office Outlook 2007 Junk Email Filter (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P>This update has been superseded because Microsoft has stopped offering the deployed binary.<br /><br />Microsoft has released an update for Microsoft Office Outlook 2007. This update provides the latest fixes to Microsoft Office Outlook 2007. Additionally, this update contains stability and performance improvements.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<B><FONT color=#ff0000> </P> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+5.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[((exists key "HKLM\SOFTWARE\Microsoft\Office\12.0\Outlook\InstallRoot" whose (exists value "Path" of it) of registry) AND (exists file "outlfltr.dat" whose (version of it < "12.0.8203.1104") of it) of folder (value "Path" of key "HKLM\SOFTWARE\Microsoft\Office\12.0\Outlook\InstallRoot" of registry as string))]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((it >= "12.0.6215.1000" AND it <= "12.0.6425.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "0011" OR it = "0012" OR it = "0013" OR it = "0014" OR it = "002E" OR it = "002F" OR it = "0030" OR it = "0031" OR it = "0033" OR it = "0035" OR it = "00CA") of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Category>Hotfix</Category>
+		<Source>Microsoft</Source>
+		<SourceID>KB977839</SourceID>
+		<SourceReleaseDate>2010-01-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-06-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Outlook Junk Email Filter</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 17 Jun 2019 23:03:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch office2007-kb977839-fullfile-x86-glb.exe sha1:218d6bf234b05d0d0e1a3218042e2b6299e207f8 size:5598360 http://download.microsoft.com/download/C/0/0/C005FF0F-73E0-4E27-84AC-D2F0565C5704/office2007-kb977839-fullfile-x86-glb.exe sha256:0d6cb7f00b12e0495158d44d5ac641a456f47b0500ddabd7891c45566e894e26
+
+waithidden __Download\office2007-kb977839-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "218d6bf234b05d0d0e1a3218042e2b6299e207f8"</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

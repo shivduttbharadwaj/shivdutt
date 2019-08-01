@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2862152: Microsoft security advisory: Vulnerability in DirectAccess could allow security feature bypass - Windows 7 SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>A security issue has been identified in a Microsoft software product that could affect your system.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB2862152.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+824 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win7") AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "BFE.DLL" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22479"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.17514")))) of it) OR (exists file "FWPUCLNT.DLL" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22479"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18283")))) of it) OR (exists file "IKEEXT.DLL" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22479"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18283")))) of it) OR (exists file "nshwfp.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22479"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18283")))) of it)) of (system folder)]]></Relevance>
+		<Relevance>not pending restart "eac008f3d7e22b10e646d969656c48c25fadc6b4"</Relevance>
+		<Category>Security Advisory</Category>
+		<DownloadSize>844561</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2862152</SourceID>
+		<SourceReleaseDate>2013-11-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2013-3876</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 SP1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>DirectAccess</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 29 Apr 2015 19:07:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2862152-x86.msu sha1:eac008f3d7e22b10e646d969656c48c25fadc6b4 size:844561 http://download.microsoft.com/download/A/9/0/A909A843-CA90-423F-AF05-229508974B55/Windows6.1-KB2862152-x86.msu sha256:64e90c46dc94a68dc5b2da9aeb426eb07e660f5d32ab85a6111103f15e115f47
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2862152-x86.msu"}" /quiet /norestart
+
+action requires restart "eac008f3d7e22b10e646d969656c48c25fadc6b4"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2862152</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

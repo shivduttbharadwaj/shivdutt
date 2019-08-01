@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3121261: System fails back to a host copy instead of an array copy or storages go down after LUN reset in Windows Server 2012 R2 - Windows Server 2012 R2 Gold - KB3121261 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB3121261.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.91 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win2012R2" OR (name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.3" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)) of operating system</Relevance>
+		<Relevance>(((name of it = "Win2012" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win2012R2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3121261~31bf3856ad364e35~amd64~~6.3.2.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3121261~31bf3856ad364e35~amd64~~6.3.2.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-Common-Foundation-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-classpnp-minwin_31bf3856ad364e35_none_d9faf927b4d99b55" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18217") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-base~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-CoreSystem-StorageWMI-Base-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-ServerCore-SKU-Foundation-Package-base~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-Package-AutoMerged-base~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-smspaceprovider_31bf3856ad364e35_none_768ac36dd6678533" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18217") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-drivers~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-CoreSystem-PCDrivers-Drivers-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-CoreSystem-VHD-drivers-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-CoreSystem-VirtualDisk-drivers~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-ServerCore-SKU-Foundation-Package-drivers~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-Package-AutoMerged-drivers~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-storport_31bf3856ad364e35_none_965d287e90f8bc65" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18217") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-classpnp-minwin_31bf3856ad364e35_none_d9faf927b4d99b55" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18217") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-base~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-ServerCore-WOW64-Package-base~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-WOW64-Package-AutoMerged-base~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_microsoft-windows-smspaceprovider_31bf3856ad364e35_none_80df6dc00ac8472e" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18217") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-ServerCore-Drivers-Package-drivers~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Drivers-Package-drivers~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_mpio.inf_31bf3856ad364e35_none_ddd955b84d82cee2" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18217") of (default value of it as string as version)) of it) of it OR exists key "amd64_msdsm.inf_31bf3856ad364e35_none_bf4128be9a60378b" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18217") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-classpnp-minwin_31bf3856ad364e35_none_d9faf927b4d99b55" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18217") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "9f37a3954e0827aa581cb55f4ee565197f8fa937"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>7249932</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3121261</SourceID>
+		<SourceReleaseDate>2016-02-15</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 23 Feb 2016 15:01:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2012 R2 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2012R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 29 Oct 2016 10:14:51 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB3121261-v2-x64.msu sha1:9f37a3954e0827aa581cb55f4ee565197f8fa937 size:7249932 https://download.microsoft.com/download/9/F/8/9F83A775-6DFE-4AC2-A63F-870133523667/Windows8.1-KB3121261-v2-x64.msu sha256:dd6278fa2da3de07d41c73aebfbccccb0dea045e14784e3203c95d6f4907b9a1
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB3121261-v2-x64.msu"}" /quiet /norestart
+
+action requires restart "9f37a3954e0827aa581cb55f4ee565197f8fa937"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3121261</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

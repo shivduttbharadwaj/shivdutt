@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-009: Vulnerabilities in Ancillary Function Driver Could Allow Elevation of Privilege - Windows 7 Gold (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS13-093. Whereas this Fixlet message previously applied to Windows&nbsp;7&nbsp;Gold/SP1 (x64), it now only applies to Windows 7 Gold (x64).</P> <P>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Windows. The vulnerabilities could allow elevation of privilege if an attacker logs on to a user's system and runs a specially crafted application. An attacker must have valid logon credentials and be able to log on locally to exploit the vulnerabilities.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This security update is also referenced under KB2645640.<BR><BR></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+458 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win7") AND (service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "afd.sys" whose ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.17752") OR (version of it >= "6.1.7600.20000" AND version of it < "6.1.7600.21115") OR (version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.21887") OR (version of it < "6.1.7600.16937")) of it) of (folder "drivers" of system x64 folder) OR (exists file "afd.sys" whose ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.17752") OR (version of it >= "6.1.7600.20000" AND version of it < "6.1.7600.21115") OR (version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.21887") OR (version of it < "6.1.7600.16937")) of it) of (folder "drivers" of system x32 folder)]]></Relevance>
+		<Relevance>not pending restart "fc4f8687346e8cd4406af766b4b75494bb621437"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>469026</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2645640</SourceID>
+		<SourceReleaseDate>2012-02-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2012-0148</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Ancillary Function Driver</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_7:-:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2645640-x64.msu sha1:fc4f8687346e8cd4406af766b4b75494bb621437 size:469026 http://download.microsoft.com/download/3/7/A/37A09B80-16B8-4347-A24B-2543003AEFBF/Windows6.1-KB2645640-x64.msu sha256:ccb6f1c8856c41e4ef98d3126f3d3172433e1ed6d5e7b925ff6b6c31d88a3e26
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2645640-x64.msu"}" /quiet /norestart
+
+action requires restart "fc4f8687346e8cd4406af766b4b75494bb621437"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2012/MS12-009</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

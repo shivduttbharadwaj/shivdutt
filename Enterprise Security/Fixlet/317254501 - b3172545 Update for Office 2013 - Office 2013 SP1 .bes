@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3172545: Update for Office 2013 - Office 2013 SP1 - KB3172545 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft Office 2013 64-Bit Edition. This update provides the latest fixes to Microsoft Office 2013 64-Bit Edition. Additionally, this update contains stability and performance improvements.<p><B>Note:</B> This update is also referenced under KB3172545.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+10.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00005119510000000100000000F01FEC";"00005119A30000000100000000F01FEC";"000051191A0000000100000000F01FEC";"00005109150000000100000000F01FEC";"00005119B10000000100000000F01FEC";"00005119F20000000100000000F01FEC";"00005119350000000100000000F01FEC";"00005109B10000000100000000F01FEC";"000051091A0000000100000000F01FEC";"00005109350000000100000000F01FEC";"00005109A30000000100000000F01FEC";"00005109810000000100000000F01FEC";"00005119810000000100000000F01FEC";"00005109610000000100000000F01FEC";"00005109E21000000100000000F01FEC";"00005119330000000100000000F01FEC";"00005119610000000100000000F01FEC";"00005119AB0000000100000000F01FEC";"00005109210000000100000000F01FEC";"00005119410000000100000000F01FEC";"00005119A10000000100000000F01FEC";"00005109D21000000100000000F01FEC";"00005119B30000000100000000F01FEC";"00005109B30000000100000000F01FEC";"00005109C10000000100000000F01FEC";"00005109A10000000100000000F01FEC";"00005109910000000100000000F01FEC";"00005109710000000100000000F01FEC";"00005119150000000100000000F01FEC";"00005119110000000100000000F01FEC";"00005109510000000100000000F01FEC";"00005119310000000100000000F01FEC";"00005109440000000100000000F01FEC";"00005109110000000100000000F01FEC";"00005119910000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "CB2F1730D0F4CE94D8A1D946EF9A7CDD" of key "Patches" of it) of it OR exists keys ("00005109C21000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4569.1506" OR it = "15.0.4571.1503") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "CB2F1730D0F4CE94D8A1D946EF9A7CDD" of key "Patches" of it) of it OR exists keys ("000051091C0000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4753.1001" OR it = "15.0.4569.1506" OR it = "15.0.4571.1503") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "CB2F1730D0F4CE94D8A1D946EF9A7CDD" of key "Patches" of it) of it OR exists keys ("00005119440000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4753.1001" OR it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "CB2F1730D0F4CE94D8A1D946EF9A7CDD" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "15.0" AND "|CMIGRATE.EXE.X64|CMIGRATE.EXE.X86|CSI.DLL.X64|CSI.DLL.X86|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "CMIGRATE.EXE.X64" AND (item 3 of it = "15.0.4941.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Wed, 14 Jun 2017 18:21:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "15.0.4941.1000") OR item 0 of it = "CMIGRATE.EXE.X86" AND (item 3 of it = "15.0.4941.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Wed, 14 Jun 2017 18:21:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "15.0.4941.1000") OR item 0 of it = "CSI.DLL.X64" AND (item 3 of it = "15.0.4941.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Wed, 14 Jun 2017 18:21:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "15.0.4941.1000") OR item 0 of it = "CSI.DLL.X86" AND (item 3 of it = "15.0.4941.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Wed, 14 Jun 2017 18:21:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "15.0.4941.1000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{0371F2BC-4F0D-49EC-8D1A-9D64FEA9C7DD}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>10590024</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3172545</SourceID>
+		<SourceReleaseDate>2017-07-06</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Jul 2017 16:10:31 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2013:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jul 2017 16:10:31 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch csi2013-kb3172545-fullfile-x64-glb.exe sha1:7278f2711e0f63e1f2cdeaf75a59c053e8756237 size:10590024 https://download.microsoft.com/download/C/7/5/C752F185-509E-470E-934E-90ACB996B695/csi2013-kb3172545-fullfile-x64-glb.exe sha256:3afc0fc19b76852f4a82a980e1d1601eaac25629e03cff5bb1c93464a80a64ea
+
+waithidden __Download\csi2013-kb3172545-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "7278f2711e0f63e1f2cdeaf75a59c053e8756237"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/3172545</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

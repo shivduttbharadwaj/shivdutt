@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2891214: Update for the .NET Framework 4.5.1 and the .NET Framework 3.5 for Windows 8.1, Windows RT 8.1, and Windows Server 2012 R2 - Windows 8.1 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>After you upgrade to Windows 8.1, Windows RT 8.1, or Windows Server 2012 R2, you may encounter some performance issues for applications that use the Microsoft .NET Framework.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR> <P><B>Note:</B> This update is also referenced under KB2891214.</P></SPAN></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+28 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists key "WinPE-NetFx-Package~31bf3856ad364e35~x86~~6.3.9600.16384" of it) of item 0 of it AND (exists key "x86_netfx4clientcorecomp_31bf3856ad364e35_none_e0c4033b2ecbf819" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.16405") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-NetFx4-US-OC-Package~31bf3856ad364e35~x86~~6.3.9600.16384" of it) of item 0 of it AND (exists key "x86_netfx4clientcorecomp_31bf3856ad364e35_none_e0c4033b2ecbf819" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.16405") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "c7b84e11b8033ee1f763338554b7bd83b3a12eda"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>29606</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2891214</SourceID>
+		<SourceReleaseDate>2013-10-17</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 08 Jan 2015 00:29:13 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8.1 Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb2891214-x86_c7b84e11b8033ee1f763338554b7bd83b3a12eda.cab sha1:c7b84e11b8033ee1f763338554b7bd83b3a12eda size:29606  http://download.windowsupdate.com/d/msdownload/update/software/crup/2013/10/windows8.1-kb2891214-x86_c7b84e11b8033ee1f763338554b7bd83b3a12eda.cab sha256:7c17a2c19bb24827026da39b30800ad959aadccf1d05f7ff39364a05266483b3
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\DISM.exe"}" /Online /Add-Package /PackagePath:pathname of client folder of current site & "\__Download\windows8.1-kb2891214-x86_c7b84e11b8033ee1f763338554b7bd83b3a12eda.cab" /quiet /NoRestart
+
+action requires restart "c7b84e11b8033ee1f763338554b7bd83b3a12eda"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2891214</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

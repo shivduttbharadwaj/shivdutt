@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>926666: Daylight Saving Time Update - Exchange Server 2003 SP2 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>The listed computers have faulty installations of a patch for the vulnerability described in&nbsp;<A href="http://support.microsoft.com/kb/926666">Microsoft Knowledge Base Article 926666</A>. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<BR><BR>In the spring of 2007, the start dates and the end dates for daylight saving (DST) time in the United States will change to comply with the Energy Policy Act of 2005.&nbsp; DST dates in the United States will start three weeks earlier (2:00 A.M. on the second Sunday in March) and will end one week later (2:00 A.M. on the first Sunday in November). </P> <P>Microsoft calendar software such as Outlook depends on the operating system time zone information to display time information. However, Collaboration Data Objects (CDO)-based programs such as Outlook Web Access depend on separate internal time zone tables. This update modifies these internal time zone tables to match the changes in time zone settings.</P> <P>Without this update, calendar items in CDO-based programs will operate as if standard time is in effect during the extra weeks of daylight saving time.</P> <P><STRONG>Note:</STRONG> Applying this update will cause&nbsp;the Microsoft Exchange Information Store service and all dependent services to be restarted.</P> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><STRONG><FONT color=red>Important Note</FONT></STRONG>:&nbsp;Microsoft lists the "2007 time zone update for Microsoft Windows operating systems" as&nbsp;a prerequisite for this update.&nbsp; This&nbsp;Fixlet&nbsp;message does <STRONG>not</STRONG> detect the existence of the Windows&nbsp;update as&nbsp;it is not available for some older operating systems (such as Windows 2000).&nbsp; If you plan to install this update&nbsp;on a computer&nbsp;without&nbsp;the Windows update, please take extra caution to qualify this change in a test environment prior to use in a production environment.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key whose (value "DisplayName" of it as string contains "Microsoft Exchange") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\Exchange\Setup" whose (value "NewestBuild" of it as integer = 6944) of registry</Relevance>
+		<Relevance>(exists key "HKLM\Software\Microsoft\Exchange\Setup" whose (exists value "ServicePackNumber" whose (it as integer = 2) of it) of registry)</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\Updates\Exchange Server 2003\SP3\KB926666\" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "bin\Cdo.dll" whose (version of it< "6.5.7651.61" ) of it OR exists file "bin\Davex.dll" whose (version of it< "6.5.7651.61" ) of it OR exists file "bin\Excdo.dll" whose (version of it< "6.5.7651.61" ) of it OR exists file "bin\Exoledb.dll" whose (version of it< "6.5.7651.61" ) of it OR exists file "bin\Exosal.dll" whose (version of it< "6.5.7651.61" ) of it OR exists file "bin\Lsmexhc.dll" whose (version of it< "6.5.7651.61" ) of it OR exists file "bin\Madfb.dll" whose (version of it< "6.5.7651.61" ) of it OR exists file "res\Mdbmsg.dll" whose (version of it< "6.5.7651.61" ) of it OR exists file "bin\Store.exe" whose (version of it< "6.5.7651.61" ) of it) of folder (value "ExchangeServerAdmin" of key "HKLM\Software\Microsoft\Exchange\Setup" of registry as string) OR (exists file "Microsoft Shared\CDO\cdoex.dll" whose (version of it< "6.5.7651.61" ) of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string))]]></Relevance>
+		<Relevance>NOT pending restart</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>5027144</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB926666</SourceID>
+		<SourceReleaseDate>2007-01-16</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>92666601</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Apr 2019 06:11:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Exchange2003-KB926666-v2-x86-ENU.exe sha1:cc98fd83ff51a3fc2bff1ac1398e3cfbe0edd219 size:5027144 http://download.microsoft.com/download/2/2/b/22bb4dcc-66e2-41ef-9553-e01af17127a4/Exchange2003-KB926666-v2-x86-ENU.exe sha256:b699e7dce8cc0bfb84cb28e4c07d8cadcd6520a5ba923f1db2b52bf7855d834d
+
+wait __Download\Exchange2003-KB926666-v2-x86-ENU.exe /quiet /passive /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart ]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 926666.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/926666</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

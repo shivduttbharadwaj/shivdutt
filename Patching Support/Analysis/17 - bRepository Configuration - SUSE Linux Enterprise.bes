@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>Repository Configuration - SUSE Linux Enterprise</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size=2 face=Helv><FONT size=2 face=Helv><br><P>This analysis retrieves information about the registered custom repository and Subscription Management Tool (SMT) URLs on SUSE Linux Enterprise endpoints</FONT></FONT>. </P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance>name of operating system as lowercase contains "suse"</Relevance>
+		<Source>Internal</Source>
+		<SourceReleaseDate>2014-02-21</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 30 Jun 2014 19:03:31 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 15 Aug 2016 06:40:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="Repository URLs" ID="1"><![CDATA[unique values of (item 0 of it) of ((following text of first "baseurl=" of item 0 of it, maximum of (item 1 of it) of (line number of item 0 of it, line numbers of lines starting with "[" of item 1 of it) whose (item 0 of it > item 1 of it) , minimum of (item 1 of it) of (line number of item 0 of it, (line numbers of lines starting with "[" of item 1 of it; number of lines of item 1 of it)) whose (item 0 of it < item 1 of it) , line numbers of lines starting with "enabled=1" of item 1 of it) whose (item 1 of it < item 3 of it and item 2 of it >= item 3 of it)) of ((lines starting with "baseurl=" of it, it) of (files whose (not exists lines starting with "service=" of it) of folder "/etc/zypp/repos.d/"))]]></Property>
+		<Property Name="SMT URL" ID="2"><![CDATA[unique values of (item 0 of it) of ((preceding text of first match (regex "\?|$") of following text of first match (regex "url[	 ]*=[	 ]*") of item 0 of it, maximum of (item 1 of it) of (line number of item 0 of it, line numbers of lines starting with "[" of item 1 of it) whose (item 0 of it > item 1 of it) , minimum of (item 1 of it) of (line number of item 0 of it, (line numbers of lines starting with "[" of item 1 of it; number of lines of item 1 of it)) whose (item 0 of it < item 1 of it) , line numbers of lines starting with "enabled=1" of item 1 of it) whose (item 1 of it < item 3 of it and item 2 of it >= item 3 of it)) of ((lines starting with "url" of it, it) of (files of folder "/etc/zypp/services.d/"))]]></Property>
+	</Analysis>
+</BES>

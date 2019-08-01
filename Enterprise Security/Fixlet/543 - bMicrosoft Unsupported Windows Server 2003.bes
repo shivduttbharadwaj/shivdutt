@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Microsoft Unsupported: Windows Server 2003</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft no longer provides extended security update support for the following Windows Server 2003 versions. Support ended on the dates listed below.</FONT></P> <UL> <LI><FONT size=2>Windows Server 2003 Gold: April 10, 2007</FONT> <LI><FONT size=2>Windows Server 2003 SP1: April 14, 2009</FONT> <LI><FONT size=2>Windows Server 2003 SP2: July 14, 2015</FONT> </LI></UL> <P><FONT size=2>These products have reached the end of their lifecycles and Microsoft is no longer providing security updates for them. IBM&nbsp;Bigfix will continue to provide content for security patches released prior to the extended support expiration date, but will not be able to provide content for newly discovered vulnerabilities.</FONT></P> <P><FONT size=2>Microsoft recommends migrating these systems to supported versions to prevent potential exposure to vulnerabilities. Customers who require additional support for Windows Server 2003 should contact Microsoft for custom support options. See the links below for more information.</FONT></P> <P><FONT size=2><B><FONT color=#ff0000>Important Note:</FONT></B> Microsoft does not provide vulnerability information or patches for Windows Server 2003 computers. <EM><STRONG>You will not see relevant Fixlet messages for new patches.</STRONG></EM></FONT></P> <P><B>Note:</B> There is no default action for this Fixlet message because it does not have a deployment action. For more information on default actions, see IBM&nbsp;Bigfix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win2003") of operating system</Relevance>
+		<Category>Microsoft Unsupported</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2007-04-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 28 Jan 2016 03:46:04 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 24 Apr 2019 19:14:36 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Microsoft Support Lifecycle Web site.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/lifecycle/</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Microsoft Product Support Services Web site.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Windows Operating System Product Support Lifecycle FAQ.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/gp/LifeWinFAQ</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

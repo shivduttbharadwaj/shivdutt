@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-085: Vulnerabilities in Microsoft Excel Could Allow Remote Code Execution - Office 2013 (KB2817623) (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Office. The vulnerabilities could allow remote code execution if a user opens a specially crafted Office file with an affected version of Microsoft Excel or other affected Microsoft Office software. An attacker who successfully exploited the vulnerabilities could gain the same user rights as the current user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2817623.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+11.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((exists file "IGX.DLL" whose ((version of it < "15.0.4535.1504")) of it) OR (exists file "OART.DLL" whose ((version of it < "15.0.4535.1507")) of it) OR (exists file "OARTODF.DLL" whose ((version of it < "15.0.4535.1504")) of it)) of (folder (value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of native registry as string & "\Microsoft Office\Office15"))]]></Relevance>
+		<Relevance>((exists key whose ((name of it equals "00005119AB0000000100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4505.1008") of it) AND (not exists key whose (name of it equals "8A4D13FDA1A999547AF7F561DED965B1") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00005119510000000100000000F01FEC" OR name of it equals "00005109510000000100000000F01FEC" OR name of it equals "00005119310000000100000000F01FEC" OR name of it equals "00005119610000000100000000F01FEC" OR name of it equals "00005109610000000100000000F01FEC" OR name of it equals "00005119F20000000100000000F01FEC" OR name of it equals "00005119440000000100000000F01FEC" OR name of it equals "00005109440000000100000000F01FEC" OR name of it equals "000051191A0000000100000000F01FEC" OR name of it equals "000051091A0000000100000000F01FEC" OR name of it equals "00005119A10000000100000000F01FEC" OR name of it equals "00005109A10000000100000000F01FEC" OR name of it equals "00005119330000000100000000F01FEC" OR name of it equals "00005119810000000100000000F01FEC" OR name of it equals "00005109810000000100000000F01FEC" OR name of it equals "00005119110000000100000000F01FEC" OR name of it equals "00005109110000000100000000F01FEC" OR name of it equals "00005119410000000100000000F01FEC" OR name of it equals "00005119910000000100000000F01FEC" OR name of it equals "00005109910000000100000000F01FEC" OR name of it equals "00005109710000000100000000F01FEC" OR name of it equals "00005109210000000100000000F01FEC" OR name of it equals "00005119150000000100000000F01FEC" OR name of it equals "00005109150000000100000000F01FEC" OR name of it equals "00005119350000000100000000F01FEC" OR name of it equals "00005109350000000100000000F01FEC" OR name of it equals "00005119B10000000100000000F01FEC" OR name of it equals "00005109B10000000100000000F01FEC" OR name of it equals "00005109D21000000100000000F01FEC" OR name of it equals "00005109C21000000100000000F01FEC" OR name of it equals "00005119B30000000100000000F01FEC" OR name of it equals "00005109B30000000100000000F01FEC" OR name of it equals "00005119A30000000100000000F01FEC" OR name of it equals "00005109A30000000100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4420.1017") of it) AND (not exists key whose (name of it equals "8A4D13FDA1A999547AF7F561DED965B1") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>12453560</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2817623</SourceID>
+		<SourceReleaseDate>2013-10-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2013-3889</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Excel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:excel:2013:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch oart2013-kb2817623-fullfile-x64-glb.exe sha1:e4b9fb0d5d4ae993e938618c124377eb966192af size:12453560 http://download.microsoft.com/download/9/7/A/97A74176-04B9-4421-B7DF-C42F3C7F15E6/oart2013-kb2817623-fullfile-x64-glb.exe sha256:3da140b7dbcce3f7e69c6cf54b491b2fe29c4c579fcc7bda66676e2a9393762e
+
+waithidden __Download\oart2013-kb2817623-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "e4b9fb0d5d4ae993e938618c124377eb966192af"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-085</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

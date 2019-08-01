@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-081: Vulnerabilities in Windows Kernel-Mode Drivers Could Allow Remote Code Execution - KB2862330 - Windows Server 2003 SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves seven privately reported vulnerabilities in Microsoft Windows. The most severe of these vulnerabilities could allow remote code execution if a user views shared content that embeds OpenType or TrueType font files. An attacker who successfully exploited these vulnerabilities could take complete control of an affected system.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2862330.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+601 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[not ((exists file "usbccgp.sys" whose ((version of it >= "5.2.3790.5203")) of it) AND (exists file "usbd.sys" whose ((version of it >= "5.2.3790.5203")) of it) AND (exists file "usbehci.sys" whose ((version of it >= "5.2.3790.5203")) of it) AND (exists file "usbohci.sys" whose ((version of it >= "5.2.3790.5203")) of it) AND (exists file "usbport.sys" whose ((version of it >= "5.2.3790.5203")) of it) AND (exists file "usbuhci.sys" whose ((version of it >= "5.2.3790.5203")) of it)) of (folder "dllcache" of system folder)]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb2862330" of registry)</Relevance>
+		<Relevance>((exists file "usbccgp.sys" of it) OR (exists file "usbd.sys" of it) OR (exists file "usbehci.sys" of it) OR (exists file "usbohci.sys" of it) OR (exists file "usbport.sys" of it) OR (exists file "usbuhci.sys" of it)) of (folder "drivers" of system folder)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>615584</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2862330</SourceID>
+		<SourceReleaseDate>2013-10-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2013-3200</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Kernel-Mode Driverss</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2003:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB2862330-x86-ENU.exe sha1:717b0e64e2d4b89c1655a5cb333d3e51ad3f702b size:615584 http://download.microsoft.com/download/B/E/6/BE678174-AF38-4699-A1C3-158F5FFE5D1D/WindowsServer2003-KB2862330-x86-ENU.exe sha256:21ff825802a21cd8d005fdaefbb3f239e82d872ae11e8fc80bbc5cfc169b4cc3
+
+waithidden __Download\WindowsServer2003-KB2862330-x86-ENU.exe /quiet /norestart
+
+action may require restart "717b0e64e2d4b89c1655a5cb333d3e51ad3f702b"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-081</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

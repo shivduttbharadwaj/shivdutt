@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Acrobat 9.2 Available - Adobe Acrobat 9.1.3</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Adobe has released a new version of Adobe Acrobat. This update addresses a critical vulnerability that would cause the application to crash and could potentially allow an attacker to take control of the affected system. There are reports that this issue is being exploited. Use the action below to update Acrobat to the latest version (9.1.3).</P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+161.48 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2007-0048, CVE-2007-0045, CVE-2009-2564, CVE-2009-2979, CVE-2009-2980, CVE-2009-2981, CVE-2009-2982, CVE-2009-2983, CVE-2009-2984, CVE-2009-2985, CVE-2009-2986, CVE-2009-2987, CVE-2009-2988, CVE-2009-2989, CVE-2009-2990, CVE-2009-2991, CVE-2009-2992, CVE-2009-2993, CVE-2009-2994, CVE-2009-2995, CVE-2009-2996, CVE-2009-2997, CVE-2009-2998, CVE-2009-3431, CVE-2009-3458, CVE-2009-3459, CVE-2009-3460, CVE-2009-3461, CVE-2009-3462
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists regapp "acrobat.exe"</Relevance>
+		<Relevance>(exists key "HKLM\Software\Adobe\Adobe Acrobat\6.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\7.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\8.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\9.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\10.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\11.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\2015\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\DC\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\2017\" of it) of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2000" and service pack major version of it = 4) or (name of it = "WinXP" and ((it = 2 OR it = 3) of service pack major version of it)) or (name of it = "Win2003") or (name of it = "WinXP-2003") or (name of it = "WinVista" AND product type of it = nt workstation product type) or (name of it = "Win7")) of operating system</Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "6")]]></Relevance>
+		<Relevance>(exists key whose (value "DisplayName" of it as string contains "Adobe Acrobat" AND (value "DisplayName" of it as string does not contain "Security Update") AND (it = "9.1.3") of (value "DisplayVersion" of it as string as version)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)</Relevance>
+		<Relevance>exists regapp "acrobat.exe" whose (version of it = "9.1.0.163")</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>169328128</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB09-15</SourceID>
+		<SourceReleaseDate>2009-10-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2007-0048, CVE-2007-0045, CVE-2009-2564, CVE-2009-2979, CVE-2009-2980, CVE-2009-2981, CVE-2009-2982, CVE-2009-2983, CVE-2009-2984, CVE-2009-2985, CVE-2009-2986, CVE-2009-2987, CVE-2009-2988, CVE-2009-2989, CVE-2009-2990, CVE-2009-2991, CVE-2009-2992, CVE-2009-2993, CVE-2009-2994, CVE-2009-2995, CVE-2009-2996, CVE-2009-2997, CVE-2009-2998, CVE-2009-3431, CVE-2009-3458, CVE-2009-3459, CVE-2009-3460, CVE-2009-3461, CVE-2009-3462</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Apr 2011 03:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:acrobat:9.2:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Acrobat</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 13 Jul 2018 03:21:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AcrobatUpd920_all_incr.msp sha1:997b8c355f29e8690dd79cddc967ae5905e17dbb size:169328128 http://ardownload.adobe.com/pub/adobe/acrobat/win/9.x/9.2/misc/AcrobatUpd920_all_incr.msp sha256:5f865f6b54d7b77ebad27438c94e82ee054cc6591fcb733ae811d80fc3e17e29
+
+wait msiexec.exe /p "__Download\AcrobatUpd920_all_incr.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "997b8c355f29e8690dd79cddc967ae5905e17dbb"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Acrobat.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=4537</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#acrobatwin</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

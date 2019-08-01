@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Acrobat Reader DC 2018.011.20036 Available - Adobe Acrobat Reader DC - Continuous Track (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been superseded by Adobe Reader 18.011.20040.<br /><br />Adobe has released a new version of Adobe Acrobat Reader DC. Use the action below to update Adobe Acrobat Reader DC to the latest version (2018.011.20036).</P> <P><B>Note:</B> Affected computers might report back as 'Pending Restart' once the patch runs successfully, but will not report back their final status until the computer is restarted.</P> <P><SPAN id=fixletLinks><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT></SPAN> If Adobe Acrobat is installed, this update might modify existing .PDF file associations to point to Adobe Acrobat Reader DC.</P><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade Adobe Acrobat Reader DC regardless of whether or not Adobe Acrobat Reader DC is running" action will close any running instance of Adobe Acrobat Reader DC on the client machines. Schedule the update to occur at a time when a service interruption is acceptable.</SPAN></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+98.6 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2018-4872; CVE-2018-4890; CVE-2018-4904; CVE-2018-4910; CVE-2018-4917; CVE-2018-4888; CVE-2018-4892; CVE-2018-4902; CVE-2018-4911; CVE-2018-4913; CVE-2018-4879; CVE-2018-4895; CVE-2018-4898; CVE-2018-4901; CVE-2018-4915; CVE-2018-4916; CVE-2018-4918; CVE-2018-4880; CVE-2018-4881; CVE-2018-4882; CVE-2018-4883; CVE-2018-4884; CVE-2018-4885; CVE-2018-4886; CVE-2018-4887; CVE-2018-4889; CVE-2018-4891; CVE-2018-4893; CVE-2018-4894; CVE-2018-4896; CVE-2018-4897; CVE-2018-4899; CVE-2018-4900; CVE-2018-4903; CVE-2018-4905; CVE-2018-4906; CVE-2018-4907; CVE-2018-4908; CVE-2018-4909; CVE-2018-4912; CVE-2018-4914
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(name of it = "Win7" OR name of it = "Win8" OR name of it = "Win8.1" OR name of it = "Win10" OR name of it = "Win2008R2" OR name of it = "Win2012" OR name of it = "Win2012R2") of operating system</Relevance>
+		<Relevance><![CDATA[(exists key whose ((((it = "Adobe Acrobat Reader DC" OR it starts with "Adobe Acrobat Reader DC") AND (it does not contain "MUI")) of (value "DisplayName" of it as string)) AND (it>"15.0.0" AND it < "18.011.20036") of (value "DisplayVersion" of it as string as version)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "8")]]></Relevance>
+		<Relevance>not (exists key whose (value whose (name of it contains "DisplayName") of it as string contains "Adobe Acrobat 5.0" AND exists value "UninstallString" of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry AND not exists regapp "acrobat.exe" whose (version of it = "5"))</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>103362560</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB18-02</SourceID>
+		<SourceReleaseDate>2018-02-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2018-4872; CVE-2018-4890; CVE-2018-4904; CVE-2018-4910; CVE-2018-4917; CVE-2018-4888; CVE-2018-4892; CVE-2018-4902; CVE-2018-4911; CVE-2018-4913; CVE-2018-4879; CVE-2018-4895; CVE-2018-4898; CVE-2018-4901; CVE-2018-4915; CVE-2018-4916; CVE-2018-4918; CVE-2018-4880; CVE-2018-4881; CVE-2018-4882; CVE-2018-4883; CVE-2018-4884; CVE-2018-4885; CVE-2018-4886; CVE-2018-4887; CVE-2018-4889; CVE-2018-4891; CVE-2018-4893; CVE-2018-4894; CVE-2018-4896; CVE-2018-4897; CVE-2018-4899; CVE-2018-4900; CVE-2018-4903; CVE-2018-4905; CVE-2018-4906; CVE-2018-4907; CVE-2018-4908; CVE-2018-4909; CVE-2018-4912; CVE-2018-4914</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 15 Feb 2018 07:30:52 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-05-18</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:acrobat_reader_dc:18.011.20036:*:*:*:continuous:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Reader</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 04:40:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AcroRdrDCUpd1801120036.msp sha1:d7a35227be597d89c4cfd5c53d0592d44ec5bbc9 size:103362560 http://ardownload.adobe.com/pub/adobe/reader/win/AcrobatDC/1801120036/AcroRdrDCUpd1801120036.msp sha256:e7bf7c0409f4deb645abae632a925da59493bb8d45f2c861641e87be17992d0b
+
+waithidden msiexec.exe /p "__Download\AcroRdrDCUpd1801120036.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "d7a35227be597d89c4cfd5c53d0592d44ec5bbc9"</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Adobe Acrobat Reader DC regardless of whether or not Adobe Acrobat Reader DC is running.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AcroRdrDCUpd1801120036.msp sha1:d7a35227be597d89c4cfd5c53d0592d44ec5bbc9 size:103362560 http://ardownload.adobe.com/pub/adobe/reader/win/AcrobatDC/1801120036/AcroRdrDCUpd1801120036.msp sha256:e7bf7c0409f4deb645abae632a925da59493bb8d45f2c861641e87be17992d0b
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+
+waithidden msiexec.exe /p "__Download\AcroRdrDCUpd1801120036.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "d7a35227be597d89c4cfd5c53d0592d44ec5bbc9"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Acrobat Reader DC.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=6305</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#readerwin</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

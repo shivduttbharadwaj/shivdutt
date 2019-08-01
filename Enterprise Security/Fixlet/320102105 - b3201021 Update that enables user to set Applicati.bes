@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3201021: Update that enables user to set Application Pool to run as Null Virtual Account in Windows 8.1 or Windows Server 2012 R2 - Windows 8.1 - KB3201021</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer. <P><STRONG>Note: </STRONG>To install this update, you must have April 2014 update rollup for Windows RT 8.1, Windows 8.1, and Windows Server 2012 R2 (KB2919355) installed in Windows 8.1 or Windows Server 2012 R2.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</P> <P><B>Note:</B> This update is also referenced under KB3201021.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+459.9 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1")) of operating system</Relevance>
+		<Relevance>(name of it = "Win8.1" OR name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3201021~31bf3856ad364e35~x86~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3201021~31bf3856ad364e35~x86~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-IIS-WebServer-AddOn-2-Package~31bf3856ad364e35~x86~~6.3.9600.16384";"Microsoft-Windows-IIS-WebServer-AddOn-Package~31bf3856ad364e35~x86~~6.3.9600.16384";"Microsoft-Windows-IIS-WebServer-Package~31bf3856ad364e35~x86~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists keys ("Package_for_KB2919355~31bf3856ad364e35~x86~~6.3.1.14") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-p..ellibrariesbinaries_31bf3856ad364e35_none_dd46f9695fe10c78" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18523") of (default value of it as string as version)) of it) of it OR exists key "msil_microsoft.web.confi..apphostfileprovider_31bf3856ad364e35_none_9a6071ad1650bb9a" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18523") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "fb590818fa2962e9aade983605abd635bc20fa14"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>470987</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3201021</SourceID>
+		<SourceReleaseDate>2016-12-05</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 08 Dec 2016 09:41:57 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 08 Dec 2016 09:41:57 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb3201021-x86_fb590818fa2962e9aade983605abd635bc20fa14.msu sha1:fb590818fa2962e9aade983605abd635bc20fa14 size:470987 http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/11/windows8.1-kb3201021-x86_fb590818fa2962e9aade983605abd635bc20fa14.msu sha256:9b807e9eb990edba043a6e2e66632b3a79b4d9a682f442341dd5d290c0439046
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows8.1-kb3201021-x86_fb590818fa2962e9aade983605abd635bc20fa14.msu"}" /quiet /norestart
+
+action requires restart "fb590818fa2962e9aade983605abd635bc20fa14"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/3201021</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-055: Vulnerabilities in Microsoft Lync Server Could Allow Denial of Service - Lync Server 2013 - KB2992965 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves three privately reported vulnerabilities in Microsoft Lync Server. The most severe of these vulnerabilities could allow denial of service if an attacker sends a specially crafted request to a Lync server.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2992965.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+27.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[((exists keys ((if (exists key "B453B96EC22B5954AB63FB93C03F7711" of it) then (names of values of key "B453B96EC22B5954AB63FB93C03F7711" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "CFDA1098C53473E40954E9E2A7162358") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version >= "5.0.8308"   AND value "DisplayVersion" of it as string as version < "5.0.8308.803") of it) AND (not exists key whose (name of it equals "28A0F6BEC2E654945AD4A68782D8F09D") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>28626944</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2992965</SourceID>
+		<SourceReleaseDate>2014-09-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2014-4068</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 Sep 2014 00:32:54 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Microsoft Lync Server 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:lync_server:2013:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Microsoft Lync Server and Microsoft Lync</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch OcsCore.msp sha1:b6d72de9c5b58e3705242f737ca1dd5c913026d2 size:28626944 http://download.microsoft.com/download/3/7/3/37330279-8C3A-4280-A6FB-1245BB7A2A70/OcsCore.msp sha256:7b25bd46a57a449845533c606d9d5ca3cdf0c7797d324ae86011f7ddb42b2dfd
+
+waithidden msiexec.exe /p __Download\OcsCore.msp /quiet /norestart
+
+action may require restart "b6d72de9c5b58e3705242f737ca1dd5c913026d2"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS14-055</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

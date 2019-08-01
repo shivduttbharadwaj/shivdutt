@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3093503: Time zone and daylight saving time changes for Democratic People's Republic of Korea, Turkey, and Fiji in Windows - Windows 8 Gold / Windows 2012 Gold (x64) (V3.0)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR></P> <P><STRONG>Note:</STRONG> The hotfix must be manually cached for it to run correctly. For more information on how to manually cache files, see BigFix KB #<A href="http://www-01.ibm.com/support/docview.wss?uid=swg21506037">390</A>.<BR><BR><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P> <P><B>Note:</B> This update is also referenced under KB3093503.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+604 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win8" AND (value "CurrentVersion" of it as string is "6.2" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) AND service pack major version of it = 0) of operating system OR ((name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.2" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) AND service pack major version of it = 0) of operating system </Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3093503~31bf3856ad364e35~amd64~~6.2.3.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3093503~31bf3856ad364e35~amd64~~6.2.3.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~ar-SA~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~bg-BG~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~cs-CZ~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~da-DK~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~de-DE~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~el-GR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~en-GB~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~en-US~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~es-ES~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~et-EE~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~fi-FI~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~fr-FR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~he-IL~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~hr-HR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~hu-HU~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~it-IT~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~ja-JP~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~ko-KR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~lt-LT~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~lv-LV~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~nb-NO~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~nl-NL~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~pl-PL~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~pt-BR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~pt-PT~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~ro-RO~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~ru-RU~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~sk-SK~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~sl-SI~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~sr-Latn-CS~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~sv-SE~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~th-TH~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~tr-TR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~uk-UA~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~zh-CN~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~zh-HK~6.2.9200.16384";"Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~zh-TW~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_microsoft-windows-i..rnational-timezones_31bf3856ad364e35_none_b9cb6244ad3207d0" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21652") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_microsoft-windows-i..rnational-timezones_31bf3856ad364e35_none_b9cb6244ad3207d0" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21652") of (default value of it as string as version)) of it) of it) of item 1 of it) OR exists keys ("Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~ar-SA~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~bg-BG~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~cs-CZ~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~da-DK~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~de-DE~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~el-GR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~en-GB~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~en-US~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~es-ES~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~et-EE~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~fi-FI~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~fr-FR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~he-IL~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~hr-HR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~hu-HU~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~it-IT~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~ja-JP~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~ko-KR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~lt-LT~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~lv-LV~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~nb-NO~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~nl-NL~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~pl-PL~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~pt-BR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~pt-PT~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~ro-RO~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~ru-RU~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~sk-SK~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~sl-SI~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~sr-Latn-CS~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~sv-SE~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~th-TH~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~tr-TR~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~uk-UA~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~zh-CN~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~zh-HK~6.2.9200.16384";"Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~zh-TW~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-i..rnational-timezones_31bf3856ad364e35_none_af76b7f278d145d5" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21652") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-i..rnational-timezones_31bf3856ad364e35_none_af76b7f278d145d5" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21652") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-i..rnational-timezones_31bf3856ad364e35_none_af76b7f278d145d5" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21652") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "8c79eb165083172373e91e6573aba4aa9c80bfd7"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>618851</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3093503</SourceID>
+		<SourceReleaseDate>2015-10-20</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 28 Oct 2015 16:16:19 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8|Win2012</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 29 Oct 2016 10:14:51 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB3093503-v3-x64.msu sha1:8c79eb165083172373e91e6573aba4aa9c80bfd7 size:618851 http://MANUAL_BES_CACHING_REQUIRED/Windows8-RT-KB3093503-v3-x64.msu sha256:b00ab06305c392ae8276b4a312bff8a6f831bb2f8c08ef6b8a320ffeb5b54299
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB3093503-v3-x64.msu"}" /quiet /norestart
+
+action requires restart "8c79eb165083172373e91e6573aba4aa9c80bfd7" ]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/3093503</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

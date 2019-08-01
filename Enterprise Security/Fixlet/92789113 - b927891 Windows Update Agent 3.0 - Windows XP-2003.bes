@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>927891: Windows Update Agent 3.0 - Windows XP/2003/Vista/2008 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released an update for Windows Update Agent.&nbsp;Affected systems may appear to become unresponsive when Windows Update or Microsoft Update is scanning for updates that use Windows installer,&nbsp;CPU usage for the svchost process shows 100%, and/or an access violation in svchost.exe occurs that stops the Server service and Workstation service. This update is the&nbsp;second part of a two-part fix that is the comprehensive solution to the problem.</P> <P><STRONG>Note: </STRONG>Affected computers will report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted. </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.56 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinXP-2003" OR name of it = "Win2003" OR (name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008") OR (name of it = "WinVista" AND product type of it = nt workstation product type)) of operating system</Relevance>
+		<Relevance><![CDATA[disjunction of ((exists file "wuapi.dll" whose (version of it < "7.4.7600.226" as version) of it) OR (exists file "wuaucpl.cpl" whose (version of it < "7.4.7600.226" as version) of it) OR (exists file "wucltui.dll" whose (version of it < "7.4.7600.226" as version) of it) OR (exists file "wups.dll" whose (version of it < "7.4.7600.226" as version) of it) OR (exists file "wups2.dll" whose (version of it < "7.4.7600.226" as version) of it) OR (exists file "wuaueng.dll" whose (version of it < "7.4.7600.226" as version) of it) OR (exists file "wuauclt.exe" whose(version of it < "7.4.7600.226" as version) of it)) of (system wow64 folder; system x64 folder)]]></Relevance>
+		<Relevance>not pending restart "fc0ee3a9af88ef2237aac450bc94b2fc08af79f5"</Relevance>
+		<Category>Security Advisory</Category>
+		<DownloadSize>6885744</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB927891</SourceID>
+		<SourceReleaseDate>2007-05-07</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinVista|WinXP|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windowsUpdateAgent30-x64.exe sha1:fc0ee3a9af88ef2237aac450bc94b2fc08af79f5 size:7749976 http://download.windowsupdate.com/windowsupdate/redist/standalone/7.4.7600.226/windowsupdateagent30-x64.exe sha256:d500a5b5945fafc6a52fb54b7169b62c6c1137e1694184ff2eff790aa1394ece
+
+wait __Download\windowsUpdateAgent30-x64.exe /quiet /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action requires restart "fc0ee3a9af88ef2237aac450bc94b2fc08af79f5"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base article 927891.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/927891</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

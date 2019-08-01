@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>943729: Information about new Group Policy preferences in Windows 2008 - Windows 2003 SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Multiple Group Policy Preferences have been added to the Windows Server 2008 Group Policy Management Console (which are also available through the Remote Server Administration Toolset (RSAT) for Windows Vista SP1). Group Policy Preferences enable information technology professionals to configure, deploy, and manage operating system and application settings they previously were not able to manage using Group Policy. After you install this update, your computer will be able to process the new Group Policy Preference extensions. After you install this item, you may have to restart your computer.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.</P> <P><STRONG>Note: </STRONG>The following update will be applied as part of this fixlet.</P> <UL> <LI>The XmlLite update package is available for Windows Server 2003 Service Pack 1 and Windows XP Professional x64 Edition - <A href="http://support.microsoft.com/kb/914783">KB914783</A></LI></UL> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB943729.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+866 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[((Not exists file "gpprefcl.dll" of it) OR (exists file "gpprefcl.dll" whose ((version of it < "5.2.3790.4568")) of it)) of (system x64 folder)]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp20\kb943729" of x64 registry)</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>887160</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB943729</SourceID>
+		<SourceReleaseDate>2009-11-10</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 SP2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[//Update for KB914783 - Pre-requisite
+if { (number of (elements of ((set of (if (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) then elements whose (it contains "KB914783" AND it does not contain "_") of (set of ((substrings before "~" of substrings after "for_" of names of keys whose (name of it contains "for_" AND (it = 96 or it = 112 or it = 6 or it = 7) of (value "CurrentState" of it as integer)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) as uppercase)) else (nothing))))) < 1) }
+prefetch WindowsServer2003.WindowsXP-KB914783-v10-x64-ENU.exe sha1:cccc6f9fa1ed0f0eae6380ca4cef5c566d94d452 size:787768 http://download.microsoft.com/download/b/d/a/bda36181-dc55-4a6e-87ae-b200da2333b2/WindowsServer2003.WindowsXP-KB914783-v10-x64-ENU.exe sha256:b4b5f8c5d8c9e41a757c2ad9f173209e3af276701563971efa0be34e22a3f79f
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB914783-v10-x64-ENU.exe /quiet /norestart
+endif
+
+
+//Update for KB943729
+prefetch Windows-KB943729-x64-ENU.exe sha1:05f025d2d7c37d58eeb7b4d447a90a2fc7f59e9c size:887160 http://download.microsoft.com/download/c/e/5/ce5bb2b6-a1f1-40e3-b057-7b333f27b52b/Windows-KB943729-x64-ENU.exe sha256:448bdafafadc15c5c5a70365a9afca2d748536fddde764b1162ffdd0e8fa3af3
+
+waithidden __Download\Windows-KB943729-x64-ENU.exe /quiet /norestart
+
+action may require restart "05f025d2d7c37d58eeb7b4d447a90a2fc7f59e9c"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/943729</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

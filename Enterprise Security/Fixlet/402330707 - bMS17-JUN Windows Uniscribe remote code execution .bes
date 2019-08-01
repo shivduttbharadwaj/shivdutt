@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS17-JUN: Windows Uniscribe remote code execution vulnerability - Silverlight 5 - KB4023307 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><div class="kb-summary-section section">This security update resolves a vulnerability in Microsoft Silverlight. The vulnerability could allow remote code execution if a user visits a compromised website that contains a specially crafted Silverlight application. An attacker would have no way to force a user to visit a compromised website. Instead, an attacker would have to convince the user to visit the website, typically by enticing the user to click a link in either an email message or instant message that takes the user to the attacker&#39;s website.<br><br><br><br>To learn more about the vulnerability, go to <a href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2017-0283" id="kb-link-2" target="_self"> CVE-2017-0283</a>.</div><br><p><B>Note:</B> This security update is also referenced under KB4023307.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+12.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "sllauncher.exe" whose ((it = "5" AND it < "5.1.50907") of version of it) of folders (value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of native registry as string & "\Microsoft Silverlight") AND (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Silverlight" whose ((it = "5" AND it < "5.1.50907") of (value "Version" of it as string as version)) of x64 registry)) AND (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Silverlight\Components\Debugging" of registry)]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>13164256</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4023307</SourceID>
+		<SourceReleaseDate>2017-06-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2017-0283; CVE-2017-8527</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 14 Jun 2017 06:35:21 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:silverlight:5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Silverlight</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Silverlight</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 14 Jun 2017 06:35:21 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch silverlight_x64_ad8db31020463e825c0b620d93477b5321c072d8.exe sha1:ad8db31020463e825c0b620d93477b5321c072d8 size:13164256 http://download.windowsupdate.com/c/msdownload/update/software/ftpk/2017/06/silverlight_x64_ad8db31020463e825c0b620d93477b5321c072d8.exe sha256:8d263a6f42a378073b6f057f242a42076f9f4082340153c2e27ecc959c5036aa
+
+waithidden __Download\silverlight_x64_ad8db31020463e825c0b620d93477b5321c072d8.exe /q /norestart
+
+action may require restart "ad8db31020463e825c0b620d93477b5321c072d8"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4023307</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

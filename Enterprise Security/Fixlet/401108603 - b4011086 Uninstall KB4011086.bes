@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4011086: Uninstall KB4011086</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><div><br><p>Use this Fixlet to uninstall KB4011086.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+Unspecified
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>exist keys whose (exist keys whose (value "DisplayName" of it as string as lowercase contains "kb4011086") of keys "Patches" of it) of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4011086</SourceID>
+		<SourceReleaseDate>2017-09-12</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 20 Sep 2017 10:50:27 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:outlook:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Outlook</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 22 Sep 2017 11:22:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete __appendfile
+delete uninstall_Office_kb.bat
+appendfile {concatenation "%0d%0a" of ("msiexec /package {" & (character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 0 of it & "-" & character 11 of it & character 10 of it & character 9 of it & character 8 of it & "-" & character 15 of it & character 14 of it & character 13 of it & character 12 of it & "-" & character 17 of it & character 16 of it & character 19 of it & character 18 of it & "-" & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 25 of it & character 24 of it & character 27 of it & character 26 of it & character 29 of it & character 28 of it & character 31 of it & character 30 of it) of name of it & "}} /uninstall {" & (character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 0 of it & "-" & character 11 of it & character 10 of it & character 9 of it & character 8 of it & "-" & character 15 of it & character 14 of it & character 13 of it & character 12 of it & "-" & character 17 of it & character 16 of it & character 19 of it & character 18 of it & "-" & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 25 of it & character 24 of it & character 27 of it & character 26 of it & character 29 of it & character 28 of it & character 31 of it & character 30 of it) of name of keys whose (value "DisplayName" of it as string as lowercase contains "kb4011086") of keys "Patches" of it of it & "}} /qn /quiet /norestart") of keys whose (exist keys whose (value "DisplayName" of it as string as lowercase contains "kb4011086") of keys "Patches" of it) of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry}
+
+move __appendfile uninstall_Office_kb.bat
+waithidden cmd.exe /c uninstall_Office_kb.bat
+delete __appendfile
+delete uninstall_Office_kb.bat]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4011086</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

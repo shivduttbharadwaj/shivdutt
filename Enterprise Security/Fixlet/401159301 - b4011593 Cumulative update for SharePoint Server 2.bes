@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4011593: Cumulative update for SharePoint Server 2013 - SharePoint Server 2013 SP1 - KB4011593 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft SharePoint Enterprise Server 2013 . This update provides the latest fixes to Microsoft SharePoint Enterprise Server 2013 . Additionally, this update contains stability and performance improvements.<p><B>Note:</B> This update is also referenced under KB4011593.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.4 GB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00005109D51110400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4571.1502" OR it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "3EBCBFFD2A4890D49B47E314BA266FBB" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "15.0" AND "|ACCESSSERVER.RESOURCES.DLL.1025|ACCESSSERVICES.RESOURCES.DLL.1025|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "ACCESSSERVER.RESOURCES.DLL.1025" AND (item 3 of it = "15.0.4442.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Thu, 30 Nov 2017 06:56:46 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "15.0.4442.1000") OR item 0 of it = "ACCESSSERVICES.RESOURCES.DLL.1025" AND (item 3 of it = "15.0.4687.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Thu, 30 Nov 2017 06:56:46 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "15.0.4687.1000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{DFFBCBE3-84A2-4D09-B974-3E41AB62F6BB}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>1523335648</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4011593</SourceID>
+		<SourceReleaseDate>2017-12-01</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Dec 2017 04:01:23 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint_server:2013:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 15 Dec 2017 04:01:23 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ubersrv2013-kb4011593-fullfile-x64-glb.exe sha1:c813a03a582ad8c2181017fba193d49e02e52997 size:1523335648 https://download.microsoft.com/download/F/C/4/FC4A6C78-B4AB-41D9-863D-027B3992D53F/ubersrv2013-kb4011593-fullfile-x64-glb.exe sha256:2b08096876cc8bd205126abe5d479a4da21a28ca2dd9b1f871c9c3e1577b4465
+
+waithidden __Download\ubersrv2013-kb4011593-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "c813a03a582ad8c2181017fba193d49e02e52997"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4011593</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

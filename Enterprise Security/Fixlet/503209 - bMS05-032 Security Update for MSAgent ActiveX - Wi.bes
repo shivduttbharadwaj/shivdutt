@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS05-032: Security Update for MSAgent ActiveX - Windows XP/2003 (x64) - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT size=2>The listed computers have faulty installations of a patch for the vulnerability described in MS05-032. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. </FONT></P> <P><FONT size=2>Microsoft has released a patch eliminating security vulnerabilities in MSAgent ActiveX. This is a spoofing vulnerability that could enable an attacker to spoof trusted Internet content. Users could believe that they are accessing trusted Internet content. However, they are accessing malicious Internet content such as a malicious Web site. An attacker would first have to persuade a user to visit the attacker's site to attempt to exploit this vulnerability. After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities. <BR><BR><B>Note:</B> Microsoft has announced that this patch will be included in a future Service Pack or Update Rollup. <BR><BR><B>Note</B>: Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+706 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists file "agentdpv.dll" whose (version of it < "5.2.3790.1241") of folders ("msagent"; "msagent64") of windows folder OR exists file "W03a2409.dll" whose (version of it < "5.2.3790.2487") of (system x64 folder; system wow64 folder)]]></Relevance>
+		<Relevance>(exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP2\KB890046" of it OR exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows XP Version 2003\SP2\KB890046" of it) of x64 registry</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Relevance><![CDATA[((name of it = "Win2003" OR name of it = "WinXP-2003") and service pack major version of it < 2) of operating system]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>723184</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB890046</SourceID>
+		<SourceReleaseDate>2005-06-14</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<CVENames>CVE-2005-1214</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>503208</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ActiveX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003.WindowsXP-KB890046-x64-enu.exe sha1:5e6787d303609225984ab88bb21a0d56de2c90f9 size:723184 http://download.microsoft.com/download/7/6/0/760687dd-37b7-4d4c-8398-55193f411255/WindowsServer2003.WindowsXP-KB890046-x64-enu.exe sha256:08399c58ac0a7793d0f445d83756b2786ab1110e71b085a4726e4da05edbc3c1
+
+wait __Download\WindowsServer2003.WindowsXP-KB890046-x64-enu.exe /passive /quiet /norestart
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS05-030.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS05-032.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

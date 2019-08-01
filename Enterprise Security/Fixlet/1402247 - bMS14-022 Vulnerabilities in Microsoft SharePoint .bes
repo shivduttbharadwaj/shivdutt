@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-022: Vulnerabilities in Microsoft SharePoint Server Could Allow Remote Code Execution - SharePoint Designer 2013 Gold / SP1 - KB2863836 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves multiple privately reported vulnerabilities in Microsoft Office server and productivity software. The most severe of these vulnerabilities could allow remote code execution if an authenticated attacker sends specially crafted page content to a target SharePoint server.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2863836.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+12.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((exists key whose ((name of it equals "00005109710020400100000000F01FEC" OR name of it equals "00005109710050400100000000F01FEC" OR name of it equals "00005109710060400100000000F01FEC" OR name of it equals "00005109710080400100000000F01FEC" OR name of it equals "000051097100B0400100000000F01FEC" OR name of it equals "00005109710093400100000000F01FEC" OR name of it equals "000051097100A1400100000000F01FEC" OR name of it equals "000051097100E0400100000000F01FEC" OR name of it equals "00005109710041400100000000F01FEC" OR name of it equals "00005109710051400100000000F01FEC" OR name of it equals "00005109710061800100000000F01FEC" OR name of it equals "00005109710081400100000000F01FEC" OR name of it equals "000051097100B1400100000000F01FEC" OR name of it equals "00005109710042400100000000F01FEC" OR name of it equals "000051097100A1800100000000F01FEC" OR name of it equals "000051097100D1400100000000F01FEC" OR name of it equals "000051097100E1400100000000F01FEC" OR name of it equals "000051097100F1400100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4481.1005") of it) AND (not exists key whose (name of it equals "149443442D916BD4B959A2CB98621381") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00005109710060400100000000F01FEC" OR name of it equals "000051097100B0400100000000F01FEC" OR name of it equals "00005109710093400100000000F01FEC" OR name of it equals "00005109710041400100000000F01FEC" OR name of it equals "00005109710051400100000000F01FEC" OR name of it equals "00005109710061800100000000F01FEC" OR name of it equals "000051097100D1400100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4433.1507") of it) AND (not exists key whose (name of it equals "149443442D916BD4B959A2CB98621381") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00005109710020400100000000F01FEC" OR name of it equals "000051097100A1400100000000F01FEC" OR name of it equals "000051097100B1400100000000F01FEC" OR name of it equals "00005109710042400100000000F01FEC" OR name of it equals "000051097100A1800100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4454.1509") of it) AND (not exists key whose (name of it equals "149443442D916BD4B959A2CB98621381") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00005109710050400100000000F01FEC" OR name of it equals "00005109710080400100000000F01FEC" OR name of it equals "000051097100E0400100000000F01FEC" OR name of it equals "00005109710081400100000000F01FEC" OR name of it equals "000051097100E1400100000000F01FEC" OR name of it equals "000051097100F1400100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4454.1004") of it) AND (not exists key whose (name of it equals "149443442D916BD4B959A2CB98621381") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00005109710010400100000000F01FEC" OR name of it equals "00005109710020400100000000F01FEC" OR name of it equals "00005109710050400100000000F01FEC" OR name of it equals "00005109710060400100000000F01FEC" OR name of it equals "00005109710070400100000000F01FEC" OR name of it equals "00005109710080400100000000F01FEC" OR name of it equals "00005109710090400100000000F01FEC" OR name of it equals "000051097100A0C00100000000F01FEC" OR name of it equals "000051097100B0400100000000F01FEC" OR name of it equals "000051097100C0400100000000F01FEC" OR name of it equals "000051097100D0400100000000F01FEC" OR name of it equals "00005109710093400100000000F01FEC" OR name of it equals "000051097100A1400100000000F01FEC" OR name of it equals "000051097100E0400100000000F01FEC" OR name of it equals "00005109710001400100000000F01FEC" OR name of it equals "00005109710011400100000000F01FEC" OR name of it equals "00005109710021400100000000F01FEC" OR name of it equals "00005109710041400100000000F01FEC" OR name of it equals "00005109710031400100000000F01FEC" OR name of it equals "00005109710051400100000000F01FEC" OR name of it equals "00005109710061400100000000F01FEC" OR name of it equals "00005109710061800100000000F01FEC" OR name of it equals "00005109710081400100000000F01FEC" OR name of it equals "00005109710091400100000000F01FEC" OR name of it equals "000051097100B1400100000000F01FEC" OR name of it equals "00005109710042400100000000F01FEC" OR name of it equals "000051097100A1800100000000F01FEC" OR name of it equals "000051097100D1400100000000F01FEC" OR name of it equals "000051097100E1400100000000F01FEC" OR name of it equals "000051097100F1400100000000F01FEC" OR name of it equals "00005109710000000100000000F01FEC" OR name of it equals "00005109710040800100000000F01FEC" OR name of it equals "00005109710040400100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4569.1506") of it) AND (not exists key whose (name of it equals "149443442D916BD4B959A2CB98621381") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00005109710010400100000000F01FEC" OR name of it equals "00005109710070400100000000F01FEC" OR name of it equals "00005109710090400100000000F01FEC" OR name of it equals "000051097100A0C00100000000F01FEC" OR name of it equals "000051097100C0400100000000F01FEC" OR name of it equals "000051097100D0400100000000F01FEC" OR name of it equals "00005109710001400100000000F01FEC" OR name of it equals "00005109710011400100000000F01FEC" OR name of it equals "00005109710021400100000000F01FEC" OR name of it equals "00005109710031400100000000F01FEC" OR name of it equals "00005109710061400100000000F01FEC" OR name of it equals "00005109710091400100000000F01FEC" OR name of it equals "00005109710000000100000000F01FEC" OR name of it equals "00005109710040800100000000F01FEC" OR name of it equals "00005109710040400100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4420.1017") of it) AND (not exists key whose (name of it equals "149443442D916BD4B959A2CB98621381") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>13005064</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2863836</SourceID>
+		<SourceReleaseDate>2014-05-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2014-0251</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 14 May 2014 07:29:15 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint_designer:2013:gold:*:*:*:*:*:*; cpe:2.3:a:microsoft:sharepoint_designer:2013:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch spd2013-kb2863836-fullfile-x64-glb.exe sha1:1c3b5dc2898368c1ea507913afdcee85b2599113 size:13005064 http://download.microsoft.com/download/9/D/A/9DA5C7EB-8BEA-45B4-A055-D5977B497017/spd2013-kb2863836-fullfile-x64-glb.exe sha256:63fdef8a91a00e5c64dfe814bef0e7dd37397c1953800ea1af0b81a13dec4d3f
+
+waithidden __Download\spd2013-kb2863836-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "1c3b5dc2898368c1ea507913afdcee85b2599113"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS14-022</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

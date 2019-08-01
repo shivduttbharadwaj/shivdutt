@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: SQL Server 2005 Express Service Pack 3 Available</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Due to the complexity of this Service Pack, installation of SQL Server 2005 Express&nbsp;SP3 cannot be performed without user interaction and must be&nbsp;installed manually.</P> <P>Microsoft has released Service Pack&nbsp;3 for SQL Server 2005 Express. This Service Pack includes various updates and bug fixes to the data engine, database client utilities, and database client connectivity components. Additional information can be found <A href="http://msdn.microsoft.com/en-us/sqlserver/bb895958.aspx">here</A>.</P> <P><STRONG>Note:</STRONG> This Fixlet message detects default and non-default instances of SQL Server 2005 Express.</P> <P><STRONG>Note: </STRONG>Before upgrading to Service Pack 3, Microsoft recommends that you back up your databases. </P> <P><STRONG>Note:</STRONG> Applying this update may cause SQL Server and other related services on the computer to restart or shut down. The service pack should be applied when a service interruption is acceptable.</P> <P><FONT color=red><STRONG>Important Note:</STRONG></FONT> <STRONG>Back up your SQL Server 2005 Express&nbsp;databases</STRONG> - Before you install SQL Server 2005 Express SP3, back up the master, msdb, and model databases. Installing SQL Server 2005 Express SP3 modifies these databases, making them incompatible with pre-SP3 versions of SQL Server 2005 Express. Backups of these databases are required if you decide to reinstall SQL Server 2005 Express&nbsp;without SP3.</P> <P><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this patch. See the knowledge base <A href="http://msdn.microsoft.com/en-us/sqlserver/bb895958.aspx">article</A> and release notes for additional information.</P> <P><B>Note:</B> There is no default action for this Fixlet message due to known issues associated with the installation of this patch. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>disjunction of (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\SQLExpress" of (registry ; (if x64 of operating system then x64 registry else nothings)))</Relevance>
+		<Relevance><![CDATA[disjunction of(exists key whose (name of it as lowercase starts with "mssql." AND value "Edition" of key  "setup" of it as string contains "Express" AND value "Language" of key "Setup" of it as integer  = 1033 AND ((exists file "sqlservr.exe" whose (version of it < "2005.90.4035.0") of (values  "SQLBinRoot" of key "Setup" of it as folder)) OR (exists file "msmdsrv.exe" whose (version of  it < "9.0.4035.0") of (values "SQLBinRoot" of key "Setup" of it as folder)) OR (value  "PatchLevel" of key "Setup" of it as string as version < "9.2.4035"))) of it OR exists key  ("90\Tools" ; "90\DTS" ; "90\NS") whose (value "Language" of key "Setup" of it as integer =  1033 AND value "Edition" of key "setup" of it as string contains "Express" AND value  "PatchLevel" of key "Setup" of it as string as version < "9.3.4035") of it) of keys  "HKLM\Software\Microsoft\Microsoft SQL Server" of (registry ; (if x64 of operating system then x64 registry else nothings))]]></Relevance>
+		<Category>Service Pack</Category>
+		<Source>Microsoft</Source>
+		<SourceID>KB955706</SourceID>
+		<SourceReleaseDate>2008-12-15</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2005</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft on SQL Server Service Pack 3.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://msdn.microsoft.com/en-us/sqlserver/bb895958.aspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

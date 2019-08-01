@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-039: Vulnerabilities in Outlook Web Access for Exchange Server Could Allow Elevation of Privilege - Exchange Server 2007 Gold (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a security update that resolves two privately reported vulnerabilities in Outlook Web Access (OWA) for Microsoft Exchange Server. An attacker who successfully exploited these vulnerabilities could gain access to an individual OWA client's session data, allowing elevation of privilege. The attacker could then perform any action the user could perform from within the individual client's OWA session.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update&nbsp;will be included in a future&nbsp;service pack or update rollup.</P> <P><STRONG>Note:</STRONG> This security update is also referenced under KB953469.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+33.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists key whose (value "DisplayName" of it as string contains "Microsoft Exchange Server 2007" and (value "DisplayVersion" of it) < "8.1.240.6") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of x64 registry]]></Relevance>
+		<Relevance>exists value "Server Language" whose (it as string = "1033") of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Exchange" of x64 registry </Relevance>
+		<Relevance>(not exists key "HKLM\SOFTWARE\Microsoft\Updates\Exchange 2007\SP1\KB953469" of x64 registry)</Relevance>
+		<Relevance><![CDATA[(disjunction of (exists it whose (version of it < "8.0.709.0") of files ("exmime.dll") of it) OR disjunction of (exists it whose (version of it < "8.0.740.0") of files ("ese.dll";"Eseutil.exe";"Microsoft.exchange.isam.interop.dll") of it) OR disjunction of (exists it whose (version of it < "8.0.741.0") of files ("Chksgfiles.dll";"Escprint.dll";"Eseback2.dll";"Esebcli2.dll") of it) OR disjunction of (exists it whose (version of it < "8.0.744.0") of files ("setup.exe") of it) OR disjunction of (exists it whose (version of it < "8.0.750.0") of files ("Davex.dll";"Dsaccess.dll";"Dsaccessperf.dll";"Epoxy.dll";"Exprox.dll";"Msexchangeadtopologyservice.exe";"Tokenm.dll") of it) OR disjunction of (exists it whose (version of it < "8.0.783.0") of files ("Exodbesh.dll";"Exodbprx.dll";"Exoledb.dll";"Exschema.exe") of it) OR disjunction of (exists it whose (version of it < "8.0.813.0") of files ("Edgetransport.exe";"Exbpa.exchangecollector.dll";"Exbpamdb.dll";"Excdo.dll";"Exres.dll";"Exsetdata.dll";"Exsetup.exe";"Exsetupui.exe";"Extraceman.dll";"Exwriter.dll";"Interop.migbase.dll";"Interop.migbase.dll";"Isinteg.exe";"Jcb.dll";"Mad.exe";"Madfb.dll";"Mdbevent.dll";"Mdbrest.dll";"Mdbrole.dll";"Mdbsz.dll";"Mdbtask.dll";"Microsoft.exchange.antispamupdatesvc.exe";"Microsoft.exchange.assistants.dll";"Microsoft.exchange.cluster.replay.dll";"Microsoft.exchange.cluster.replayservice.exe";"Microsoft.exchange.cluster.replicaseeder.dll";"Microsoft.exchange.cluster.replicavsswriter.dll";"Microsoft.exchange.common.dll";"Microsoft.exchange.configuration.objectmodel.dll";"Microsoft.exchange.contentindexing.tasks.dll";"Microsoft.exchange.core.strings.dll";"Microsoft.exchange.data.directory.dll";"Microsoft.exchange.data.dll";"Microsoft.exchange.data.mapi.dll";"Microsoft.exchange.data.storage.clientstrings.dll";"Microsoft.exchange.data.storage.dll";"Microsoft.exchange.diagnostics.dll";"Microsoft.exchange.edgesync.common.dll";"Microsoft.exchange.edgesyncsvc.exe";"Microsoft.exchange.extensibility.internal.dll";"Microsoft.exchange.infoworker.assistantsclientresources.dll";"Microsoft.exchange.infoworker.common.dll";"Microsoft.exchange.management.detailstemplates.dll";"Microsoft.exchange.management.dll";"Microsoft.exchange.management.edge.systemmanager.dll";"Microsoft.exchange.management.snapin.esm.dll";"Microsoft.exchange.management.systemmanager.dll";"Microsoft.exchange.messagingpolicies.rules.dll";"Microsoft.exchange.monitoring.exe";"Microsoft.exchange.net.dll";"Microsoft.exchange.powershell.configuration.dll";"Microsoft.exchange.rpcoverhttpautoconfig.dll";"Microsoft.exchange.search.exsearch.exe";"Microsoft.exchange.servicehost.exe";"Microsoft.exchange.setup.common.dll";"Microsoft.exchange.storedriver.dll";"Microsoft.exchange.systemattendantmailboxservicelet.dll";"Microsoft.exchange.transport.agent.antispam.common.dll";"Microsoft.exchange.transport.agent.contentfilter.cominterop.dll";"Microsoft.exchange.transport.agent.protocolanalysis.dbaccess.dll";"Microsoft.exchange.transport.dll";"Microsoft.exchange.transport.logging.search.dll";"Microsoft.exchange.um.clientstrings.dll";"Microsoft.exchange.um.management.dll";"Microsoft.exchange.um.umcommon.dll";"Msexchangefds.exe";"Msexchangemailboxassistants.exe";"Msexchangemailsubmission.exe";"Msexchangetransport.exe";"Msexchangetransportlogsearch.exe";"Scheduleeditor.dll";"Store.exe") of it)) of folder ((value "InstallLocation" of (key whose (value "DisplayName" of it as string contains "Microsoft Exchange Server 2007") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of it) of x64 registry) as string & "bin")]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>35406336</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB953747</SourceID>
+		<SourceReleaseDate>2008-07-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2008-2248</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 20 Nov 2015 10:54:32 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Exchange2007-KB953469-x64-EN.msp sha1:e6123c7d14aab8d2267e7be65fa6000e495dda41 size:35406336 http://download.microsoft.com/download/8/e/3/8e393296-4392-4580-94f0-309aca36c05e/Exchange2007-KB953469-x64-EN.msp sha256:d23c42d9b2ec30183a57d877b6d715a0607f6fd5774093344e6a39cd3be7ec2f
+
+wait msiexec.exe /update __Download\Exchange2007-KB953469-x64-EN.msp /quiet /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart "e6123c7d14aab8d2267e7be65fa6000e495dda41"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-039.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-039.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

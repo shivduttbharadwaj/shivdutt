@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-050: Vulnerabilities in SharePoint Could Allow Elevation of Privilege - Office SharePoint Server 2007 SP2/SP3 (xlsrvwfe) (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves one publicly disclosed and five privately reported vulnerabilities in Microsoft SharePoint and Windows SharePoint Services. The most severe vulnerabilities could allow elevation of privilege if a user clicks a specially crafted URL that takes the user to a targeted SharePoint site.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2596942. <P><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</P> <P><SPAN id=dashboardLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetOfficeOverviewLink; function SetOfficeOverviewLink() { try {if (isEvansOrLater) { dashboardLink.innerHTML = Relevance('(format "<?rxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the {0}.?>" + link "<?rxlat Microsoft Office Overview Dashboard?>" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string ) as string');} else { dashboardLink.innerHTML = EvaluateRelevance('"<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the " & link "Microsoft Office Overview Dashboard" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string & "."');} } catch (e) {if (isEvansOrLater) { dashboardLink.innerHTML ='<?jxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.?>';} else { dashboardLink.innerHTML = '<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.';} } } </SCRIPT> </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.41 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(( if ( exists key whose(name of it as string equals "000021096F0100000100000000F01FEC") of it )then ( exists key whose(name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.6425.1000" ) of key "000021096F0100000100000000F01FEC" of it AND not exists key whose(name of it as string equals "10154F18848E91A4187E2C9493E3C177") of key "Patches" of key "000021096F0100000100000000F01FEC" of it) else ( false )) OR ( if ( exists key whose(name of it as string equals "000021096F0100000100000000F01FEC") of it )then ( exists key whose(name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.6612.1000" ) of key "000021096F0100000100000000F01FEC" of it AND not exists key whose(name of it as string equals "10154F18848E91A4187E2C9493E3C177") of key "Patches" of key "000021096F0100000100000000F01FEC" of it) else ( false )) OR false )  of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2530896</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2596942</SourceID>
+		<SourceReleaseDate>2012-07-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2012-1858</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint_server:2007:sp2:*:*:*:*:*:*; cpe:2.3:a:microsoft:sharepoint_server:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch xlsrvwfe2007-kb2596942-fullfile-x64-glb.exe sha1:3d987edeae127aa515409e02448a3cfde785ef79 size:2530896 http://download.microsoft.com/download/F/7/5/F7535570-B596-431C-B731-CAD409EF2B53/xlsrvwfe2007-kb2596942-fullfile-x64-glb.exe sha256:e895f8a3e13b19d0a48f64194b712f5cb00b4ef532038ebef9eab8bb3e80105d
+
+waithidden __Download\xlsrvwfe2007-kb2596942-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "3d987edeae127aa515409e02448a3cfde785ef79"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS12-050</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

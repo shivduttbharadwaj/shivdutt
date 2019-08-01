@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-020: Vulnerabilities in Internet Information Services (IIS) Could Allow Elevation of Privilege - IIS 6.0 - Windows Server 2003 SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves one publicly disclosed vulnerability and one privately reported vulnerability in Microsoft Internet Information Services (IIS). The vulnerabilities could allow elevation of privilege if an attacker sent a specially crafted HTTP request to a Web site that requires authentication. These vulnerabilities allow an attacker to bypass the IIS configuration that specifies which type of authentication is allowed, but not the file system-based access control list (ACL) check that verifies whether a file is accessible by a given user. Successful exploitation of these vulnerabilities would still restrict the attacker to the permissions granted to the anonymous user account by the file system ACLs.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update&nbsp;will be included in a future service pack or update rollup.<BR></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+986 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2003" AND (service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[disjunction of (exists file "httpext.dll" whose (version of it < "6.0.3790.4518") of it) of (folder "INETSRV" of system x64 folder; folder "INETSRV" of system wow64 folder)]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb970483" of x64 registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1010032</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB970483</SourceID>
+		<SourceReleaseDate>2009-06-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2009-1535</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>IIS</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB970483-x64-ENU.exe sha1:cf637d1d5af26b7d0449b718b3126d05e7ebac4b size:1010032 http://download.microsoft.com/download/4/1/9/419A6D4C-C028-4865-87F6-9D50B17A7142/WindowsServer2003.WindowsXP-KB970483-x64-ENU.exe sha256:a3cfb8d8031f4e100de37ebf09fbb4929d912815597310c84952b68a7f8ea90a
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB970483-x64-ENU.exe /quiet /norestart
+
+action may require restart "cf637d1d5af26b7d0449b718b3126d05e7ebac4b"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-020.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-020.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

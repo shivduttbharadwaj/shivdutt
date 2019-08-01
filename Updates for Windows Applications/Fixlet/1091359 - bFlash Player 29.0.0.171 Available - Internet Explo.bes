@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Flash Player 29.0.0.171 Available - Internet Explorer (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been superseded by 30.0.0.113.<br /><br />Adobe has released a new version of Flash Player (29.0.0.171) for Internet Explorer. Use one of the actions below to update the Flash Player ActiveX control to the latest version.</P> <P><STRONG>Important Note:</STRONG> There are two different installer packages for deploying this version of Flash Player ActiveX. Both will update your Flash Player to the latest version.</P> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG>  For the update to take effect immediately, choose the "Close Internet Explorer and deploy the Flash Player ActiveX .EXE Installer." action. The action will close any running instance of Internet Explorer on the client machines. Schedule the update to occur at a time when a service interruption is acceptable.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+19.4 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2018-4944
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[(exists folder "macromed\flash" of system folder) AND ((exists file whose (((it starts with "flash" and it ends with ".ocx") OR (it = "swflash.ocx")) of (name of it as lowercase) and version of it < "29.0.0.171") of it and not exists file whose ((it starts with "flash" and it ends with ".ocx") of (name of it as lowercase) and version of it >= "29.0.0.171") of it) of folder "macromed\flash" of system folder)]]></Relevance>
+		<Relevance>(it != "WinNT" AND it != "Win95" AND it != "Win2000" AND it!= "Win8" AND it != "Win2012" AND it != "Win8.1" AND it != "Win2012R2" AND it != "Win10") of name of operating system</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2.0") of system folder]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>20355040</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB18-16</SourceID>
+		<SourceReleaseDate>2018-05-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2018-4944</CVENames>
+		<SANSID>SANS C4</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 26 Oct 2017 09:59:21 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-06-08</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:flash_player:29.0.0.171:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe FlashPlayer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 07 Jun 2018 23:18:32 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the Flash Player ActiveX .EXE Installer.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch install_flash_player_ax.exe sha1:32af9d612ad693193524ac8b800fcb1bbf4bdf04 size:20355040 http://fpdownload.adobe.com/get/flashplayer/pdc/29.0.0.171/install_flash_player_ax.exe  sha256:313e56b3df785416240ef6d79b1caf15765c0a8eb428edc52a3286341ce9352a
+
+wait __Download\install_flash_player_ax.exe /install
+
+action may require restart "32af9d612ad693193524ac8b800fcb1bbf4bdf04"</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to close Internet Explorer and deploy the Flash Player ActiveX .EXE Installer.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch install_flash_player_ax.exe sha1:32af9d612ad693193524ac8b800fcb1bbf4bdf04 size:20355040 http://fpdownload.adobe.com/get/flashplayer/pdc/29.0.0.171/install_flash_player_ax.exe  sha256:313e56b3df785416240ef6d79b1caf15765c0a8eb428edc52a3286341ce9352a
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill iexplore /a" else "taskkill /F /IM iexplore.exe"}
+
+wait __Download\install_flash_player_ax.exe /install
+
+action may require restart "32af9d612ad693193524ac8b800fcb1bbf4bdf04"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/flashplayer/downloads.html</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#flashplayer</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in media player applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c4</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

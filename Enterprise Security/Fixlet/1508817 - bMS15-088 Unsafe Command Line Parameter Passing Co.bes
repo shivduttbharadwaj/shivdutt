@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-088: Unsafe Command Line Parameter Passing Could Allow Information Disclosure - Windows Server 2012 Gold - KB3046017 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that helps to resolve an information disclosure vulnerability in Microsoft Windows, Internet Explorer, and Microsoft Office. To exploit the vulnerability an attacker would first have to use another vulnerability in Internet Explorer to execute code in the sandboxed process. The attacker could then execute Notepad, Visio, PowerPoint, Excel, or Word with an unsafe command line parameter to effect information disclosure. To be protected from the vulnerability, customers must apply the updates provided in this bulletin, as well as the update for Internet Explorer provided in MS15-079. Likewise, customers running an affected Microsoft Office product must also install the applicable updates provided in MS15-081.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3046017.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+426 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.2" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3046017~31bf3856ad364e35~amd64~~6.2.1.1" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3046017~31bf3856ad364e35~amd64~~6.2.1.1" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-ServerCore-WOW64-Package-shell~31bf3856ad364e35~amd64~~6.2.9200.16384";"Microsoft-Windows-SKU-Foundation-Package-shell~31bf3856ad364e35~amd64~~6.2.9200.16384";"Microsoft-Windows-ServerCore-FullServer-ExtraFoundation-Package-shell~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "wow64_microsoft-windows-notepad_31bf3856ad364e35_none_b6c42bb24c7b2dc0" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21545" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17434") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-notepad_31bf3856ad364e35_none_b6c42bb24c7b2dc0" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21545") of (default value of it as string as version)) of it) of it AND exists key "amd64_microsoft-windows-notepad_31bf3856ad364e35_none_ac6f8160181a6bc5" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21545") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Embedded-Accessories-Client-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-notepadwin_31bf3856ad364e35_none_35d3cda1ec35629f" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21545" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17434") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-ServerCore-SKU-Foundation-Package-shell~31bf3856ad364e35~amd64~~6.2.9200.16384";"Microsoft-Windows-SKU-Foundation-Package-shell~31bf3856ad364e35~amd64~~6.2.9200.16384";"Microsoft-Windows-ServerCore-FullServer-ExtraFoundation-Package-shell~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-notepad_31bf3856ad364e35_none_ac6f8160181a6bc5" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21545" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17434") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-notepad_31bf3856ad364e35_none_ac6f8160181a6bc5" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21545") of (default value of it as string as version)) of it) of it AND exists key "wow64_microsoft-windows-notepad_31bf3856ad364e35_none_b6c42bb24c7b2dc0" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21545") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Client-Features-Package-shell~31bf3856ad364e35~amd64~~6.2.9200.16384";"Microsoft-Windows-ServerDesktopExperience-shell~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-notepadwin_31bf3856ad364e35_none_35d3cda1ec35629f" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21545" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17434") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Embedded-NotePad-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-notepad_31bf3856ad364e35_none_ac6f8160181a6bc5" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21545" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17434") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-notepad_31bf3856ad364e35_none_b6c42bb24c7b2dc0" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21545" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17434") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "07875d4b4b52a1de1bcf00497fe952e811de289c"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>436883</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3046017</SourceID>
+		<SourceReleaseDate>2015-08-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-2423</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Aug 2015 01:13:08 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2012:-:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2012</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB3046017-x64.msu sha1:07875d4b4b52a1de1bcf00497fe952e811de289c size:436883 http://download.microsoft.com/download/E/8/B/E8B48E85-8925-46E3-AB8A-586741955CB6/Windows8-RT-KB3046017-x64.msu sha256:60adbf15bb00255a142638d51cea187b773436654c5efdc9e8cf5e664536c687
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB3046017-x64.msu"}" /quiet /norestart
+
+action requires restart "07875d4b4b52a1de1bcf00497fe952e811de289c"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-088</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

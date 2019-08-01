@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Unblock Automatic Delivery of IE 7 - Windows XP/2003 (x64)</Title>
+		<Description><![CDATA[
+Microsoft has released the Internet Explorer 7 Blocker Toolkit that enables IT Administrators to disable automatic delivery of Internet Explorer 7 as a high-priority update via Automatic Updates and the Windows Update and Microsoft Update sites.<BR><BR>IE 7 will be distributed through Automatic Updates soon after the final version of the browser is released (planned for fourth quarter 2006).<BR><BR><b>Note:</b> The listed computers are currently blocking automatic delivery of IE 7. The action below sets the registry value "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Setup\7.0\DoNotAllowIE70" to "0" to unblock automatic delivery of IE 7. The "Block Automatic Delivery of IE 7" Task (ID 372) can be used to undo this action.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Setup\7.0" whose (value "DoNotAllowIE70" of it as integer = 1) of x64 registry</Relevance>
+		<Relevance>(name of it = "Win2003" OR name of it = "WinXP-2003") of operating system</Relevance>
+		<Category>Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2006-07-26</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Configuration UpdateBlocking</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 25 Nov 2015 08:12:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to unblock automatic delivery of Internet Explorer 7.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset64 "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Setup\7.0]" "DoNotAllowIE70"=dword:00000000</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information regarding the IE 7 Blocker Toolkit.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri"><![CDATA[http://www.microsoft.com/downloads/details.aspx?FamilyId=4516A6F7-5D44-482B-9DBD-869B4A90159C&displaylang=en]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

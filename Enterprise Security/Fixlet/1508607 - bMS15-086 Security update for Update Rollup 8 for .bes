@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-086: Security update for Update Rollup 8 for System Center 2012 Operations Manager - System Center 2012 Operations Manager - KB3071089</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>A security vulnerability exists in Microsoft System Center 2012 RTM - Operations Manager Web Console that could allow Elevation of Privilege if a user visits an affected website by way of a specially crafted URL. This update resolves that vulnerability.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB3071089.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+11.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("E4393C0D77A3F5946A18414C56AB0B85") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "CC035F0237DFEF34BA3D31D841A0779A") AND exists key "InstallProperties" whose ((it = "7.0.8560.0") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "55784648772144645BA345F5BF39704D" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>11893372</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3071089</SourceID>
+		<SourceReleaseDate>2015-08-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-2420</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Aug 2015 01:13:08 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:system_center_operations_manager:2012:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>System Center</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Operation Manager</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch kb3071089-amd64-webconsole_ced15bd94563ea1183ff179a153f2d08229a06da.cab sha1:ced15bd94563ea1183ff179a153f2d08229a06da size:11893372 http://download.windowsupdate.com/d/msdownload/update/software/secu/2015/07/kb3071089-amd64-webconsole_ced15bd94563ea1183ff179a153f2d08229a06da.cab sha256:f02911b2785ae4db9247778a371e5600dede0cf0dc9a48aae8b25d56164accae
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\kb3071089-amd64-webconsole_ced15bd94563ea1183ff179a153f2d08229a06da.cab __Download\KB3071089-AMD64-WebConsole.msp
+
+waithidden msiexec.exe /p __Download\KB3071089-AMD64-WebConsole.msp /quiet /norestart
+
+action may require restart "ced15bd94563ea1183ff179a153f2d08229a06da"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3071089</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

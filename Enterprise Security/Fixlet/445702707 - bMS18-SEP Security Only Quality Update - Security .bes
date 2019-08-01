@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-SEP: Security Only Quality Update - Security Only - Windows 7 SP1 - .NET Framework 4.6/4.6.1/4.6.2/4.7/4.7.1/4.7.2 - KB4457027 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4506963.<br /><br /><div class="kb-summary-section section"><br><p><span><span><span>This security update resolves a vulnerability in Microsoft .NET Framework that could allow remote code execution when .NET Framework processes untrusted input. An attacker who successfully exploits this vulnerability in software by using .NET Framework could take control of an affected system. The attacker could then install programs; view, change, or delete data; or create new accounts that have full user rights. Users whose accounts are configured to have fewer user rights on the system could be less affected than users who operate with administrative user rights.</span></span></span></p><br><br><p><span><span><span>To exploit the vulnerability, an attacker would first have to convince the user to open a malicious document or application.</span></span></span></p><br><br><p><span><span><span>This security update addresses the vulnerability by correcting how .NET Framework validates untrusted input.</span></span></span></p><br><br><p><span><span><span>To learn more about this vulnerability, see <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/security-guidance/advisory/CVE-2018-8421" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8421</a>.</span></span></span></p><br><br><p><strong><span class="text-base">Important</span></strong></p><br><br><ul><br>	<li><span><span><span><span><span><span>All updates for .NET Framework 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, and 4.7.2 require that the d3dcompiler_47.dll update is installed. We recommend that you install the included d3dcompiler_47.dll update before you apply this update. For more information about the d3dcompiler_47.dll update, see </span></span></span><a data-content-id="" data-content-type="" href="https://support.microsoft.com/en-us/help/4019990" managed-link="" target="_blank">KB 4019990</a><span><span><span> for Windows 7 SP1 and Windows Server 2008 R2 SP1. Or, see </span></span></span><a data-content-id="" data-content-type="" href="https://support.microsoft.com/en-us/help/4019478" managed-link="" target="_blank">KB 4019478</a><span><span><span> for Windows Server 2008 Service Pack 2 (SP2).</span></span></span></span></span></span></li><br>	<li>If you install a language pack after you install this update, you must reinstall this update. Therefore, we recommend that you install any language packs that you need before you install this update. For more information, see <a bookmark-id="" data-content-id="" data-content-type="" href="https://technet.microsoft.com/en-us/library/hh825699" managed-link="" target="_blank">Add language packs to Windows</a>.</li><br></ul><br></div><br><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4457914.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win7")) of operating system</Relevance>
+		<Relevance>(name of it = "Win7" AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (exists key "Full" whose ((it = 393295 OR it = 393297 OR it = 394254 OR it = 394271 OR it = 394802 OR it = 394806 OR it = 460798 OR it = 460805 OR it = 461308 OR it = 461310 OR it = 461808 OR it = 461814) of value "Release" of it) of it) of native registry</Relevance>
+		<Relevance><![CDATA[exists (files ("System.Workflow.Activities.dll") of (folders ("Microsoft.NET\Framework\v4.0.30319";"Microsoft.NET\Framework64\v4.0.30319") of windows folder; system folder; system x64 folders)) whose (version of it < "4.7.3180.0")]]></Relevance>
+		<Relevance>(exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "6F4B17B5214A84C33B23F09A9B599804") AND exists key "InstallProperties" whose ((it = "4.6.1081") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "1735F6DB1CAD0F03D9EDAC6C97E1823C") AND exists key "InstallProperties" whose ((it = "4.6.1055") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "8701690C78887DC3A83DFE072656E841") AND exists key "InstallProperties" whose ((it = "4.6.112") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "15FA620EBE2EFC33CA5190030835AF7A") AND exists key "InstallProperties" whose ((it = "4.6.1078") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "DA48C6FCBB16BCC3FB6BFE9612A8BDC9") AND exists key "InstallProperties" whose ((it = "4.6.106") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "A38AB0D65B76D62338491124174FDE53") AND exists key "InstallProperties" whose ((it = "4.6.129") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "E8EBCC90469BFE03EA485673BA14799F") AND exists key "InstallProperties" whose ((it = "4.7.3062") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "ADE4F36846330F83095E015564E74935") AND exists key "InstallProperties" whose ((it = "4.6.1083") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "7F1C0FCBC17622937AAEA81CF1F40CBE") AND exists key "InstallProperties" whose ((it = "4.7.2053") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "2A2ADBF772AF61D33908A7095E228189") AND exists key "InstallProperties" whose ((it = "4.6.1073") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "7CD655640CFEE16338E20E9A0B2DFEBA") AND exists key "InstallProperties" whose ((it = "4.6.1067") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "5B2BCA77FD4D20133BB507BEE52B24BB") AND exists key "InstallProperties" whose ((it = "4.6.1063") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "B4C5FD36FB3E64330A335CB7224FC4E9") AND exists key "InstallProperties" whose ((it = "4.6.1590") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "C3257C0EB6866EE3F81BBC34933EE0DD") AND exists key "InstallProperties" whose ((it = "4.7.2558") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "5D136A49A03B8DD36BC511710CD97AE3") AND exists key "InstallProperties" whose ((it = "4.6.81") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "2BF638084FAB7363780C1D50DDA251CA") AND exists key "InstallProperties" whose ((it = "4.6.127") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DFE5DF2469E003930BE70D8A3F8EEF0B" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance>not pending restart "d41e8cfe75d2d0ef99f9e1fd8c75db343027cbf0"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>2592328</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4457914</SourceID>
+		<SourceReleaseDate>2018-09-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2018-8421</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Sep 2018 06:19:54 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4506963</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.6:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.6.1:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.6.2:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.7:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.7.1:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.7.2:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>450696303</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ndp46-kb4457027-x64_d41e8cfe75d2d0ef99f9e1fd8c75db343027cbf0.exe sha1:d41e8cfe75d2d0ef99f9e1fd8c75db343027cbf0 size:2592328 http://download.windowsupdate.com/d/msdownload/update/software/secu/2018/09/ndp46-kb4457027-x64_d41e8cfe75d2d0ef99f9e1fd8c75db343027cbf0.exe sha256:93b86afafdf1af20323a3487673451191274d59d06d498362aa38e4c04b4d81a
+
+waithidden __Download\ndp46-kb4457027-x64_d41e8cfe75d2d0ef99f9e1fd8c75db343027cbf0.exe /quiet /norestart
+
+action may require restart "d41e8cfe75d2d0ef99f9e1fd8c75db343027cbf0"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4457914</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3023052: Update for Office 2013 - KB3023052 - Office 2013 SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft Office 2013 32-Bit Edition. This update provides the latest fixes to Microsoft Office 2013 32-Bit Edition. Additionally, this update contains stability and performance improvements.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB3023052.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.47 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00005119330000000000000000F01FEC";"00005119AB0000000000000000F01FEC";"00005109210000000000000000F01FEC";"00005119A10000000000000000F01FEC";"00005119B30000000000000000F01FEC";"00005109910000000000000000F01FEC";"00005109A10000000000000000F01FEC";"00005109C10000000000000000F01FEC";"00005119910000000000000000F01FEC";"00005109710000000000000000F01FEC";"00005109510000000000000000F01FEC";"00005109D21000000000000000F01FEC";"00005119440000000000000000F01FEC";"00005119110000000000000000F01FEC";"00005119510000000000000000F01FEC";"00005119310000000000000000F01FEC";"00005109440000000000000000F01FEC";"00005109110000000000000000F01FEC";"00005119F20000000000000000F01FEC";"00005119350000000000000000F01FEC";"00005119150000000000000000F01FEC";"000051191A0000000000000000F01FEC";"00005119B10000000000000000F01FEC";"00005109350000000000000000F01FEC";"00005119A30000000000000000F01FEC";"00005109A30000000000000000F01FEC";"00005109150000000000000000F01FEC";"000051091A0000000000000000F01FEC";"00005109B10000000000000000F01FEC";"00005109B30000000000000000F01FEC";"00005119810000000000000000F01FEC";"00005109E21000000000000000F01FEC";"00005109810000000000000000F01FEC";"00005109610000000000000000F01FEC";"00005119610000000000000000F01FEC";"00005119410000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DDE710CFB5468D44D94826D30E961F9B" of key "Patches" of it) of it OR exists keys ("00005109E60011400000000000F01FEC";"00005109E600A0C00000000000F01FEC";"00005109E60040400000000000F01FEC";"00005109E60040800000000000F01FEC";"00005109E60070400000000000F01FEC";"00005109C21000000000000000F01FEC";"00005109E600C0400000000000F01FEC";"00005109E60001400000000000F01FEC";"00005109E60061400000000000F01FEC";"00005109E600D1400000000000F01FEC";"00005109E60021400000000000F01FEC";"00005109E60031400000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4571.1503" OR it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "DDE710CFB5468D44D94826D30E961F9B" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>2592504</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3023052</SourceID>
+		<SourceReleaseDate>2015-07-06</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 23 Jul 2015 04:10:56 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows 8 Gold |~| Windows Server 2008 R2 Gold |~| Windows Server 2012 Gold |~| Windows Server 2012 R2 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 23 Jul 2015 04:10:56 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch fm202013-kb3023052-fullfile-x86-glb.exe sha1:2c81787993bd29ae354ffd86e4ba9b7d91e872e6 size:2592504 http://download.microsoft.com/download/4/C/9/4C9ED11C-2DE5-4430-B52E-095817C43EB5/fm202013-kb3023052-fullfile-x86-glb.exe sha256:01b09b68d184d0be06b87f0bb0b07ec1f9d1f9e88019d23b48d4937626130b62
+
+waithidden __Download\fm202013-kb3023052-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "2c81787993bd29ae354ffd86e4ba9b7d91e872e6"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3023052</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

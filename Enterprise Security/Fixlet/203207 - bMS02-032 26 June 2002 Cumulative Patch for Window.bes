@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-032: 26 June 2002 Cumulative Patch for Windows Media Player 7.1 - wm828026 installed</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released a cumulative patch that eliminates all previously addressed security vulnerabilities affecting Windows Media Player 7.1. This patch also eliminates three new security vulnerabilities, the most serious of which could be used to run code of an attacker's choice. Microsoft strongly recommends installing this patch as soon as possible. For more information on the full scope of the patch, please read the information link below. After downloading and installing this patch, the affected computers will no longer be susceptible to these vulnerabilities. <BR><BR><B>Note:</B> Affected computers will report back as 'Fixed' once the patch has run successfully, but if Windows Media Player is running while the patch installs, the vulnerability will not be closed until the affected computer is restarted.<BR><BR><B>Note:</B> Client machines may briefly display minimized progress windows during installation of this update. <BR><BR><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> This patch will not run because you have Windows Media Player update wm828026 installed. You must uninstall wm828026 through Add/Remove Programs before running this patch.<BR><BR><B>File Size:</B> 1.33 MB</FONT></P> <P> </P><P><B>Note:</B> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists regapp "wmplayer.exe" whose (version of it  >= "7.1" AND version of it < "8")]]></Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows Media Player\wm320920.1" whose (value "IsInstalled" of it = 1 AND value "PlayerVersion" of it = "7.1") of registry)</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows Media Player\wm828026" of registry</Relevance>
+		<Relevance>(not exists key "ESRemovedFixlets" of key "HKLM\Software\BigFix\EnterpriseClient" of registry) OR (not exists value "203207" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry) OR (value "203207" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry ) != 1</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB320920</SourceID>
+		<SourceReleaseDate>2002-06-26</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2002-0372; CVE-2002-0373; CVE-2002-0615</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Media Player</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-032.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-032.asp</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> if you wish to remove this Fixlet message and mark it as fixed on affected computers. In doing so, you accept the risk of not closing this vulnerability on affected computers.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\Software\BigFix\EnterpriseClient\ESRemovedFixlets]" "203207"=dword:00000001</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

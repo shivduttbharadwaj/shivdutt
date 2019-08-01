@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS04-028: Buffer Overrun in JPEG Parsing (GDI+) Could Allow Code Execution - .NET Framework 1.0 SP2 - Standalone Security Update - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS04-028. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<BR><BR>Microsoft has released a patch eliminating a security vulnerability in the processing of JPEG image formats that could allow remote code execution. The affected component, GDI+, is a graphics device interface that is used in nearly all .NET Framework applications. After downloading and installing this patch, affected computers will no longer be susceptible to this vulnerability.<BR><BR><b>Note:</b> Microsoft has announced that this patch is included in the .NET Framework 1.0 Service Pack 3. The service pack can be deployed through fixlet message #402819.<BR><BR><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><b>File Size:</b> 1.09 MB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system != "WinXP" AND name of operating system != "Win2003"</Relevance>
+		<Relevance>(exists key whose (name of it as string contains "Microsoft .NET Framework" and name of it as string contains "v1.0") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry) OR (exists key whose (value "DisplayName" of it as string contains "Microsoft .NET Framework" AND value "DisplayName" of it as string contains "1.0") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)</Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry  AND (exists value "Description" whose (it as string contains "Service Pack 2") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry))</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{752FCCBC-8F52-415A-95DE-A4209712935E}" of registry</Relevance>
+		<Relevance><![CDATA[exists file "Gdiplus.dll" whose (version of it < "5.1.3102.1360") of folder ((value "InstallRoot" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework" of registry as string) & "v1.0.3705")]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1144608</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB830348</SourceID>
+		<SourceReleaseDate>2004-12-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2004-0200</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>402823</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 15 Apr 2019 04:56:37 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch NDP1.0sp2-KB830348-X86-Enu.exe sha1:6113cd89d77525958295ccbd73b5fb8b89abd0aa size:1144608 http://download.microsoft.com/download/1/4/6/1467c2ba-4d1f-43ad-8d9b-3e8bc1c6ac3d/NDP1.0sp2-KB830348-X86-Enu.exe sha256:3c6c7eed4a0ccd2ea2ce0446359b8c752dd2a3b82332663f655e803ce0b05335
+
+wait __download\NDP1.0sp2-KB830348-X86-Enu.exe /q
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS04-028.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/ms04-028.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

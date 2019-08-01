@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2760371: Update for Office 2013 - KB2760371 - Office 2013 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft Office 2013 64-Bit Edition. This update provides the latest fixes to Microsoft Office 2013 64-Bit Edition. Additionally, this update contains stability and performance improvements.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB2760371.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.61 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((exists key whose ((name of it equals "00005119310000000100000000F01FEC" OR name of it equals "00005119F20000000100000000F01FEC" OR name of it equals "00005119330000000100000000F01FEC" OR name of it equals "00005119810000000100000000F01FEC" OR name of it equals "00005109810000000100000000F01FEC" OR name of it equals "00005119110000000100000000F01FEC" OR name of it equals "00005109110000000100000000F01FEC" OR name of it equals "00005119410000000100000000F01FEC" OR name of it equals "00005119910000000100000000F01FEC" OR name of it equals "00005109910000000100000000F01FEC" OR name of it equals "00005109210000000100000000F01FEC" OR name of it equals "00005119B10000000100000000F01FEC" OR name of it equals "00005109B10000000100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4569.1506") of it) AND (not exists key whose (name of it equals "443AED52F6FFDB148BF82524BBE8081E") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00005119310000000100000000F01FEC" OR name of it equals "00005119F20000000100000000F01FEC" OR name of it equals "00005119330000000100000000F01FEC" OR name of it equals "00005119810000000100000000F01FEC" OR name of it equals "00005109810000000100000000F01FEC" OR name of it equals "00005119110000000100000000F01FEC" OR name of it equals "00005109110000000100000000F01FEC" OR name of it equals "00005119410000000100000000F01FEC" OR name of it equals "00005119910000000100000000F01FEC" OR name of it equals "00005109910000000100000000F01FEC" OR name of it equals "00005109210000000100000000F01FEC" OR name of it equals "00005119B10000000100000000F01FEC" OR name of it equals "00005109B10000000100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4420.1017") of it) AND (not exists key whose (name of it equals "443AED52F6FFDB148BF82524BBE8081E") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>1686168</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2760371</SourceID>
+		<SourceReleaseDate>2014-09-30</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 24 Oct 2014 13:13:38 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows 8 Gold |~| Windows Server 2008 R2 Gold |~| Windows Server 2012 Gold |~| Windows Server 2012 R2 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch gfonts2013-kb2760371-fullfile-x64-glb.exe sha1:b14571e361bf757dc616819c2ef451d50a2e0e42 size:1686168 http://download.microsoft.com/download/B/C/6/BC6E5A0D-09F8-46B7-9813-587102F249AC/gfonts2013-kb2760371-fullfile-x64-glb.exe sha256:dbc198daf36f6375570ce08a0ce02651740d888948aedc834374e1383dcbb600
+
+waithidden __Download\gfonts2013-kb2760371-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "b14571e361bf757dc616819c2ef451d50a2e0e42"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2760371</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

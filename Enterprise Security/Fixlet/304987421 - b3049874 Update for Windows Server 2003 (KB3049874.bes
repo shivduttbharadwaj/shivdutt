@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3049874: Update for Windows Server 2003 (KB3049874) - Windows 2003 SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note:</STRONG> Microsoft has marked this update as Hotfix in Knowledge Base Article.</P>Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled. <P><STRONG>Note:</STRONG> There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #<A href="http://www-01.ibm.com/support/docview.wss?uid=swg21505726">474</A>. <BR><BR><B>Note:</B> This update is also referenced under KB3049874.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+513 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(not exists file "tzchange.exe" of system folder) OR (exists file "tzchange.exe" whose ((version of it < "5.2.3790.5583")) of it) of (system folder)]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb3049874" of registry)</Relevance>
+		<Relevance>not pending restart "d349d8a34eb3e9596a7c9447521ace21c545629b"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>525536</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3049874</SourceID>
+		<SourceReleaseDate>2015-03-27</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 01 Apr 2015 13:34:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch windowsserver2003-kb3049874-x86-enu_d349d8a34eb3e9596a7c9447521ace21c545629b.exe sha1:d349d8a34eb3e9596a7c9447521ace21c545629b size:525536 http://download.windowsupdate.com/c/msdownload/update/software/updt/2015/03/windowsserver2003-kb3049874-x86-enu_d349d8a34eb3e9596a7c9447521ace21c545629b.exe sha256:ed87f74b8c3933f04d7a83fa17b48c317dcc4fafda7aa566375c7efe8037506a
+
+waithidden __Download\windowsserver2003-kb3049874-x86-enu_d349d8a34eb3e9596a7c9447521ace21c545629b.exe /quiet /norestart
+
+action may require restart "d349d8a34eb3e9596a7c9447521ace21c545629b"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3049874</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

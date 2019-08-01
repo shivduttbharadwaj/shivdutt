@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Office 2007 Servers Service Pack 2 Available - SharePoint Services 3.0 SP2 Required</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG><FONT color=#ff0000>Important Note:</FONT> </STRONG>The installation of this service pack for SharePoint Server 2007, Project Server 2007, Forms Server 2007, Search Server 2008, and Search Server 2008 Express&nbsp;requires that SharePoint Services 3.0 SP2 or greater be installed. Use the action below to install SharePoint Services 3.0 SP2.</P> <P>The 2007 Microsoft Office servers Service Pack 2 (SP2) package gives customers the latest updates to the 2007 Office server products. This service pack includes two main categories of fixes: </P> <UL> <LI>Previously unreleased fixes that were made specifically for this service pack. <UL> <LI>In addition to providing general product fixes, SP2 includes improvements in stability, in performance, and in security.</LI></UL> <LI>All the public updates, security updates, cumulative updates, and hotfixes that were released through February 2009. </LI></UL></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+29.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists key whose ((it = "12" AND it < "12.0.6425.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((((it = "110D" OR it = "110F" OR it = "1111" OR it = "1125" OR it = "1126") AND (NOT exists key whose ((it = "12" AND it >= "12.0.6425.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "1014") of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry))) of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>30864144</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB953338</SourceID>
+		<SourceReleaseDate>2009-04-24</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings Windows Applications</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SharePointServ-3.0-SP2.exe sha1:1bd6d0257a1a00e983781e8c5aca36490d4954a0 size:30864144 http://download.microsoft.com/download/B/2/C/B2CFEE1B-6C7A-438B-A5EB-C9EB04CBBCC3/wssv3sp2-kb953338-x86-fullfile-en-us.exe sha256:35833977162955a9c75588ea1dbf7cd3ad914f3bbc1d290ab3159ca7233c1abe
+
+waithidden __Download\SharePointServ-3.0-SP2.exe /quiet /norestart
+
+action may require restart "1bd6d0257a1a00e983781e8c5aca36490d4954a0"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Microsoft Office 2007 Servers Service Pack 2.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=953334</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about SharePoint Services 3.0 SP2.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=953338</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-008: Cumulative Security Update of ActiveX Kill Bits - Windows Vista SP1/SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS10-034. Whereas it used to apply to Windows Vista Gold/SP1/SP2 (x64), it now only applies to Windows Vista Gold/SP1 (x64).<BR><BR>Microsoft has released a security update that addresses a privately reported vulnerability for Microsoft software. This security update is rated Critical for all supported editions of Microsoft Windows 2000 and Windows XP, Important for all supported editions of Windows Vista and Windows 7, Moderate for all supported editions of Windows Server 2003, and Low for all supported editions of Windows Server 2008 and Windows Server 2008 R2. For more information, see the subsection, Affected and Non-Affected Software, in this section<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update&nbsp;will be included in a future service pack or update rollup.</P> <P><STRONG>Note:</STRONG> This security update is also referenced under KB978262.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+220 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>NOT (((exists key "{E0ECA9C3-D669-4EF4-8231-00724ED9288F}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{C05A1FBC-1413-11D1-B05F-00805F4945F6}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{5D80A6D1-B500-47DA-82B8-EB9875F85B4D}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{0CCA191D-13A6-4E29-B746-314DEE697D83}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{2d8ed06d-3c30-438b-96ae-4d110fdc1fb8}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility" of x64 registry)</Relevance>
+		<Relevance>((name of it = "WinVista" AND product type of it = nt workstation product type) AND (service pack major version of it = 1 OR service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>not pending restart "0cd1827261e446bcba292afa8b4ab2d975b13260"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>226101</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB978262</SourceID>
+		<SourceReleaseDate>2010-02-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2010-0252</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ActiveX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_vista:-:sp1:*:*:*:*:*:*; cpe:2.3:o:microsoft:windows_vista:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB978262-x64.msu sha1:0cd1827261e446bcba292afa8b4ab2d975b13260 size:226101 http://download.microsoft.com/download/E/4/C/E4C1E175-332F-4434-AE24-95C28F353C4E/Windows6.0-KB978262-x64.msu sha256:70fe924ca81545148ff61b76e62a6cdaa04c3b2e406230352e9df3a6bc7d11bb
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB978262-x64.msu"}" /quiet /norestart
+
+action requires restart "0cd1827261e446bcba292afa8b4ab2d975b13260"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-008.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS10-008.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS98-007: Potential Denial-of-Service Vulnerability</Title>
+		<Description><![CDATA[
+Microsoft has released a patch that fixes vulnerabilities in Exchange 5.0 NNTP Service and SMTP Service. An attacker could send a series of incorrect data to either service.&nbsp; In the case of the NNTP Service (TCP/IP port 119), it would cause the Server Information Store to fail. This could in turn cause other Exchange Services to fail and prevent users from connecting to their mail folders.&nbsp; In the case of the SMTP Service (TCP/IP port 25), it would cause the Internet Mail Service to fail, but would not affect other Exchange Services. <BR><BR><b>Note: </b>Due to the complexity of this upgrade, installation of this patch must be completed manually.<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry) AND (first 3 of (version of file "admin.exe" of folder (value "AdminDest" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string) as string) = "5.0")</Relevance>
+		<Relevance><![CDATA[(exists value "Comments" of version block of file "admin.exe" of folder (value "AdminDest" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string)) AND (value "Comments" of version block of file "admin.exe" of folder (value "AdminDest" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string) >= "Service Pack 1")]]></Relevance>
+		<Relevance><![CDATA[((version of file "store.exe" of folder "bin" of folder (value "Services" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string) < "5.0.1461.55") OR (version of file "mdbmsg.dll" of folder "res" of folder (value "Services" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string) < "5.0.1461.55")) OR ((version of file "MSEXCIMC.EXE" of folder "CONNECT\MSEXCIMC\BIN" of folder (value "Services" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string)< "5.0.1461.56") OR (version of file "imcmsg.dll" of folder "res" of folder (value "Services" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string) < "5.0.1461.56" ))]]></Relevance>
+		<Relevance>(not exists key "ESRemovedFixlets" of key "HKLM\Software\BigFix\EnterpriseClient" of registry) OR (not exists value "9800701" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry) OR (value "9800701" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry ) != 1</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB188341</SourceID>
+		<SourceReleaseDate>1998-03-10</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-1999-1043</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS98-007.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/1998/MS98-007</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> if you wish to remove this Fixlet message and mark it as fixed on affected computers. In doing so, you accept the risk of not closing this vulnerability on affected computers.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\Software\BigFix\EnterpriseClient\ESRemovedFixlets]" "9800701"=dword:00000001</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

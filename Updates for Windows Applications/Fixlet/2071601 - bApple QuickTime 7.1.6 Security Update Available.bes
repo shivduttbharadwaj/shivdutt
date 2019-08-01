@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Apple QuickTime 7.1.6 Security Update Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Apple has released a security update for QuickTime Player version 7.1.6. Use the action below to deploy this security update.<BR><B><BR></B><B>Note:</B> Client machines may briefly display minimized progress windows during installation of this update.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.12 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2000" AND csd version of it = "Service Pack 4") OR name of it = "WinXP" OR name of it = "Win2003" OR name of it = "WinXP-2003") of operating system</Relevance>
+		<Relevance>exists regapp "QuickTimePlayer.exe" whose (version of it = "7.1.6")</Relevance>
+		<Relevance>not exists keys whose (value "Version" of it as string = "7.1.6.200") of keys "HKEY_LOCAL_MACHINE\Software\Apple Computer, Inc.\Quicktime\Security Updates" of registry</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2") of system folder]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1172480</DownloadSize>
+		<Source>Apple</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2007-05-29</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>SANS C5</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Apr 2011 03:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:apple:quicktime:7.1.6:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Apple QuickTime</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 Feb 2017 07:51:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SecUpdQuickTime716.msi sha1:1ab14df3c1ef6f15d082cb5c13e9898097816ea9 size:1172480 http://supportdownload.apple.com/download.info.apple.com/Apple_Support_Area/Apple_Software_Updates/Mac_OS_X/downloads/061-3451.20070529.o08v3/SecUpdQuickTime716.msi sha256:d299a68b1140208f1c649013c40b8eada4be670c646964e109ccfae6162420d8
+
+// Install
+wait msiexec /i __Download\SecUpdQuickTime716.msi /qn {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/norestart" )} DESKTOP_SHORTCUTS=0 ALLUSERS=1
+
+action may require restart</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about this security update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://docs.info.apple.com/article.html?artnum=305531</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Apple.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://docs.info.apple.com/article.html?artnum=61798</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in media player applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c5</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>982525: An update rollup is available for the .NET Framework 3.5 SP1 in Windows Vista SP2 and in Windows Server 2008 SP2 - Windows Server 2008 SP2 / Windows Vista SP2 - KB956250 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update addresses a set of known issues of the Microsoft .NET Framework 3.5 Service Pack 1.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB982525.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.96 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance>if (exists key "ApplicabilityEvaluationCache\Package_for_KB956250~31bf3856ad364e35~amd64~~6.1.6001.18242" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB956250~31bf3856ad364e35~amd64~~6.1.6001.18242" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.0.6000.16386";"Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.0.6001.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (not exists key "amd64_netfx-dfshim_dll_31bf3856ad364e35_none_4390a0c9c4e22d9b" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "x86_netfx-dfshim_dll_31bf3856ad364e35_none_e77205460c84bc65" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "amd64_netfx-mscoree_dll_31bf3856ad364e35_none_337ce1041af9517c" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "x86_netfx-mscoree_dll_31bf3856ad364e35_none_d75e4580629be046" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "amd64_netfx-mscorees_dll_31bf3856ad364e35_none_50282b1c4df8e5f7" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "x86_netfx-mscorees_dll_31bf3856ad364e35_none_f4098f98959b74c1" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "amd64_netfx-mscoree_donoteverremove_31bf3856ad364e35_none_2f368c7d32ebcabe" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "x86_netfx-mscoree_donoteverremove_31bf3856ad364e35_none_d317f0f97a8e5988" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "amd64_netfx-fw_netfxperf_dll_31bf3856ad364e35_none_8863cb5388a24610" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "x86_netfx-fw_netfxperf_dll_31bf3856ad364e35_none_2c452fcfd044d4da" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "amd64_wpf-presentationhostexe_31bf3856ad364e35_none_3636f9270488d9af" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "x86_wpf-presentationhostexe_31bf3856ad364e35_none_da185da34c2b6879" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "amd64_wpf-presentationhostproxy_31bf3856ad364e35_none_f62e7931c1ae0b8d" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "x86_wpf-presentationhostproxy_31bf3856ad364e35_none_9a0fddae09509a57" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "amd64_wpf-permregonly_31bf3856ad364e35_none_4020dab10ed0fb0d" whose (exists value "6.1.6001.18242" of keys of it) of it OR not exists key "x86_wpf-permregonly_31bf3856ad364e35_none_e4023f2d567389d7" whose (exists value "6.1.6001.18242" of keys of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)</Relevance>
+		<Relevance>not pending restart "6c0e146b93468ab0819c696f3a668efa4afa4a0b"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>5198099</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB982525</SourceID>
+		<SourceReleaseDate>2010-06-21</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 SP2 |~| Windows Vista SP2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB956250-v6001-x64.msu sha1:6c0e146b93468ab0819c696f3a668efa4afa4a0b size:5198099 https://download.microsoft.com/download/8/7/2/872DE4A3-3B46-483D-A320-6431CBDD6FB0/Windows6.0-KB956250-v6001-x64.msu sha256:454dc7a6d227d10729c08f33af2e0a6b2d31933a7d684a6c0811753b6e292d46
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB956250-v6001-x64.msu"}" /quiet /norestart
+
+action requires restart "6c0e146b93468ab0819c696f3a668efa4afa4a0b"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/982525</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

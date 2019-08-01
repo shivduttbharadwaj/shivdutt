@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Windows Installer 3.1 for Windows Server 2003 SP1 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The listed computers have faulty installations of the update described in Fixlet message 25203. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<BR><BR>Microsoft has released an update for Windows Installer version 3.1. The Windows Installer is an installation and configuration service that is required to set up numerous new software products on Microsoft operating systems. The listed computers have an earlier version of the Windows Installer. <BR><BR><B>Note:</B> Windows Installer 3.1 is required by Microsoft in order to deploy a number of Fixlet messages.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.46 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2003" AND csd version of it = "Service Pack 1") of operating system</Relevance>
+		<Relevance><![CDATA[(version of it < "3.1.4000.2435" AND version of it >="3.1.0000.0000") of file "msi.dll" of system folder ]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\HotFix\KB898715" of registry</Relevance>
+		<Relevance>not exists running application "msiexec.exe"</Relevance>
+		<Relevance>NOT pending restart</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>1536752</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB898715</SourceID>
+		<SourceReleaseDate>2005-05-17</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>25203</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Windows Installer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB898715-x86-enu.exe sha1:66682ed84d2e7d1d2ad19d99d886173a14e307c3 size:1536752 http://download.microsoft.com/download/4/8/5/4852c63a-cf27-4e83-baad-47b8372e9e9b/WindowsServer2003-KB898715-x86-enu.exe sha256:cf4591b63d920fc1c4787a5b674cf4f1abe2fef245b19b14970a0f127924841a
+
+wait __download/WindowsServer2003-KB898715-x86-enu.exe /passive /quiet /norestart
+
+action may require restart</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information on this update to Microsoft Installer 3.1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/898715/</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2899189: Update adds support for many camera-specific file formats in Windows 8.1 or Windows RT 8.1: December 2013 - Windows 8.1 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Installing the Microsoft Camera Codec Pack enables the viewing of a variety of device-specific file formats and will allow supported RAW camera files to be viewable in applications in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB2899189.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+7.04 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance><![CDATA[(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3" AND (not exists value "CurrentMajorVersionNumber" of it OR value "CurrentMajorVersionNumber" of it as integer < 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system]]></Relevance>
+		<Relevance><![CDATA[((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~0.0.0.0" whose (exists value whose ((it >= "6.3.9431.0") of (following text of last "~" of name of it as version)) of it) of it) of item 0 of it AND (not exists key "x86_microsoft-windows-cameracodec-deployment_31bf3856ad364e35_none_faddde9a9f22b537" of it OR exists key "x86_microsoft-windows-cameracodec-deployment_31bf3856ad364e35_none_faddde9a9f22b537" whose (not exists key whose (exists value whose (name of it as string as version = "6.3.9600.16453") of it) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackageIndex\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "09f2b9d64e1979a1b033e86ae066d28d1e05c01b"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>7386478</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2899189</SourceID>
+		<SourceReleaseDate>2013-12-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 30 Sep 2014 06:06:49 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8.1 Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 17 Sep 2015 06:16:38 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB2899189-x86.msu sha1:09f2b9d64e1979a1b033e86ae066d28d1e05c01b size:7386478 http://download.microsoft.com/download/1/1/5/115D0998-8AEF-40E5-B37A-4449A349825A/Windows8.1-KB2899189-x86.msu sha256:f3632c310e4293135886bef04cdcfce3d4d312e47ec6a539c7fafb281c1ef8f1
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB2899189-x86.msu"}" /quiet /norestart
+
+action requires restart "09f2b9d64e1979a1b033e86ae066d28d1e05c01b"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2899189</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

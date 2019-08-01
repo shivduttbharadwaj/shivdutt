@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-016: Vulnerabilities in Microsoft ISA Server Could Cause Denial of Service - ISA Server 2004 Standard Edition SP3 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The listed computers have faulty installations of a patch for the vulnerability described in MS09-016. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<br /><br />Microsoft has released a security update that resolves a privately reported vulnerability and a publicly disclosed vulnerability in Microsoft Internet Security and Acceleration (ISA) Server and Microsoft Forefront Threat Management Gateway (TMG), Medium Business Edition (MBE). These vulnerabilities could allow denial of service if an attacker sends specially crafted network packages to the affected system, or information disclosure or spoofing if a user clicks on a malicious URL or visits a Web site that contains content controlled by the attacker.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB960995.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.77 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists keys whose (value "DisplayName" of it as string = "Microsoft ISA Server 2004" AND value "Language" of it = 1033) of key "hklm\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance>exists keys "hklm\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft ISA Server 2004 Service Pack 3" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "fweng.sys" whose (version of it < "4.0.2167.909") of folder "drivers" of system folder) OR (exists file "Compadmin.dll" whose (version of it < "4.0.2167.909") OR exists file "Comphp.dll" whose (version of it < "4.0.2167.909") OR exists file "msfpc.dll" whose (version of it < "4.0.2167.909") OR exists file "ratlib.dll" whose (version of it < "4.0.2167.909") OR exists file "Httpfilter.dll" whose (version of it < "4.0.2167.909") OR exists file "msfpcsnp.dll" whose (version of it < "4.0.2167.909") OR exists file "msphlpr.dll" whose (version of it < "4.0.2167.909") OR exists file "Radiusauth.dll" whose (version of it < "4.0.2167.909") OR exists file "w3filter.dll" whose (version of it < "4.0.2167.909") OR exists file "wspsrv.exe" whose (version of it < "4.0.2167.909") of it) of folder ((value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft ISA Server"))]]></Relevance>
+		<Relevance>NOT((not exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft ISA Server 2004 Update KB960995" of registry))</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Fpc" of registry AND not exists file "enterprise.i" of folder (value "InstallDirectory" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Fpc" of registry as string)</Relevance>
+		<Relevance><![CDATA[(exists file "msiexec.exe" of system folder) AND (version of file "msiexec.exe" of system folder >= "3.0")]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2906112</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB961759</SourceID>
+		<SourceReleaseDate>2009-04-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2009-0077</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>901603</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>ISA Server 2004</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>ISA Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ISA2004SE-KB960995-x86-ENU.msp sha1:054b55fe077f44344da596cb0e64ca657ed9bb76 size:2906112 http://download.microsoft.com/download/8/D/5/8D548CB7-E184-4282-95C5-5947B8C191E8/ISA2004SE-KB960995-x86-ENU.msp sha256:0f1b1a93724d190dc740ba79a3a88059d8c831bec1184744526d3627c3edb6cd
+
+waithidden msiexec.exe /update __Download\ISA2004SE-KB960995-x86-ENU.msp /quiet /norestart
+
+action may require restart "054b55fe077f44344da596cb0e64ca657ed9bb76"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-016.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-016.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

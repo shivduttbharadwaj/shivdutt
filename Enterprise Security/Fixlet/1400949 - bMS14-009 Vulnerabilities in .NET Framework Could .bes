@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-009: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege - .NET Framework 4.5.1 - KB2898869 - Windows Vista SP2 / Server 2008 SP2 / 7 SP1 / Server 2008 R2 SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two publicly disclosed vulnerabilities and one privately reported vulnerability in Microsoft .NET Framework. The most severe vulnerability could allow elevation of privilege if a user visits a specially crafted website or a website containing specially crafted web content. In all cases, however, an attacker would have no way to force users to visit such websites. Instead, an attacker would have to convince users to visit the compromised website, typically by getting them to click a link in an email message or in an Instant Messenger message that takes them to the attacker's website.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2898869.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+26.0 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR ((name of it = "Win7") AND service pack major version of it = 1) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2) OR ((name of it = "Win2008R2") AND service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance>((exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "F91995E7E4655BF31BCF8824151BB860") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.5.51078"  ) of it) AND (not exists key whose (name of it equals "E7F9F0DB2B261793E9E28BB738C28ED9") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "BE4EBED704B66673BB53C5BB3C58AD73") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.5.50938"  ) of it) AND (not exists key whose (name of it equals "E7F9F0DB2B261793E9E28BB738C28ED9") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance>if (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) of operating system) then (exists file "explorer.exe" of windows folder) else (true)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>27314896</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2898869</SourceID>
+		<SourceReleaseDate>2014-02-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2014-0253</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Feb 2014 04:36:14 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2|Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.5.1:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP45-KB2898869-x64.exe sha1:8aa5629edd3ad58527c79009081b9dff5e6b4adf size:27314896 http://download.microsoft.com/download/B/8/6/B860DE1A-EA1F-4804-AD0D-056E70EDE223/NDP45-KB2898869-x64.exe sha256:b71585d718e412d532899a8cf66ec0dde1314c8f4852e00986ef0097ca66035a
+
+waithidden __Download\NDP45-KB2898869-x64.exe /quiet /norestart
+
+action may require restart "8aa5629edd3ad58527c79009081b9dff5e6b4adf"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS14-009</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

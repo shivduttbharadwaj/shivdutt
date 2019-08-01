@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Office 365 Version 15.0.5023.1000 Available - Office 2013</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><P>Use the action below to update the Office 365 - Office 2013 applications that are installed through Click-to-Run to version 15.0.5023.1000.</P> <P><STRONG>Note:</STRONG> Ensure that all the programs to be updated are closed to avoid failure to update. </P> <P>The first action is a silent update and will not display the update status. If a program is open, no prompt will appear to ask you to close the program before continuing the update. </P> <P>The second action will prompt you to close programs that are open during the update process.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>exists keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Relevance><![CDATA[Exists value "DisplayVersion" whose ((it ="15.0" and it < "15.0.5023.1000") of (it as string as version)) of keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4098622</SourceID>
+		<SourceReleaseDate>2018-04-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-1028; CVE-2018-1026; CVE-2018-1030; CVE-2018-1011; CVE-2018-1027; CVE-2018-1029</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 28 Dec 2015 14:46:37 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2013:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office 365</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 13 Apr 2018 15:44:57 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to update Office 365.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[continue if {not exists running application ("winword.exe"; "excel.exe"; "powerpnt.exe"; "onenote.exe"; "outlook.exe"; "mspub.exe"; "msaccess.exe"; "lync.exe")}
+
+waithidden {"%22" & value "ClientFolder" of key "HKLM\SOFTWARE\Microsoft\Office\15.0\ClickToRun\Configuration" of native registry as string & "\officec2rclient.exe%22 /update user updatepromptuser=False displaylevel=False updatetoversion=15.0.5023.1000"}
+
+pause while {Not exist value "DisplayVersion" whose ( it as string as version = "15.0.5023.1000") of keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry}]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to update Office 365 with status windows showing during the update process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[waithidden {"%22" & value "ClientFolder" of key "HKLM\SOFTWARE\Microsoft\Office\15.0\ClickToRun\Configuration" of native registry as string & "\officec2rclient.exe%22 /update user updatepromptuser=False updatetoversion=15.0.5023.1000"}
+
+pause while {Not exist value "DisplayVersion" whose ( it as string as version = "15.0.5023.1000") of keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry}]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/en-us/gp/office-2013-365-update</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

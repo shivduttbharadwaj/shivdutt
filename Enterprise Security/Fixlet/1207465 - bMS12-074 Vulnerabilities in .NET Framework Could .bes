@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-074: Vulnerabilities in .NET Framework Could Allow Remote Code Execution - .NET Framework 4.5 - Windows 8 Gold (x64) (KB2756872)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves five privately reported vulnerabilities in the .NET Framework. The most severe of these vulnerabilities could allow remote code execution if an attacker convinces the user of a target system to use a malicious proxy auto configuration file and then injects code into the currently running application.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This security update is also referenced under KB2756872.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+162 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win8") AND service pack major version of it = 0) of operating system AND (value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2")</Relevance>
+		<Relevance><![CDATA[exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v4" AND (not exists value "SP" of it OR value "SP" of it < 1)) of it) of registry]]></Relevance>
+		<Relevance><![CDATA[number of (elements of ((set of (if (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) then elements whose (it contains "KB2756872" AND it does not contain "_") of (set of ((substrings before "~" of substrings after "for_" of names of keys whose (name of it contains "for_" AND (it = 96 or it = 112 or it = 6 or it = 7) of (value "CurrentState" of it as integer)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) as uppercase)) else (nothing))))) < 1]]></Relevance>
+		<Relevance>not pending restart "99dcb07efbf01d02bc5e8a2d49ec1dddfd786dfb"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>170699203</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2756872</SourceID>
+		<SourceReleaseDate>2012-11-13</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2012-4777</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB2756872-x64.msu sha1:99dcb07efbf01d02bc5e8a2d49ec1dddfd786dfb size:170699203 http://download.microsoft.com/download/0/6/B/06B9D83A-8AFC-4C58-BAFB-DC3B89A2B7AF/Windows8-RT-KB2756872-x64.msu sha256:30de66e863cbd922642a20e2dbaf6b45cb8b4a9a96b6c2f2de6c45974656224a
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB2756872-x64.msu"}" /quiet /norestart
+
+action requires restart "99dcb07efbf01d02bc5e8a2d49ec1dddfd786dfb"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS12-074</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

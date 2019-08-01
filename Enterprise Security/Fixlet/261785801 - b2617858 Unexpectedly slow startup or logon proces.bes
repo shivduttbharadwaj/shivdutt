@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2617858: Unexpectedly slow startup or logon process in Windows Server 2008 R2 or in Windows 7 - Windows 7 SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR></P> <P><STRONG>Note:</STRONG> The hotfix must be manually cached for it to run correctly. For more information on how to manually cache files, see BigFix KB #<A href="http://www-01.ibm.com/support/docview.wss?uid=swg21506037">390</A>.<BR><BR><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P> <P><B>Note:</B> This update is also referenced under KB2617858.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+305 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win7")) of operating system</Relevance>
+		<Relevance>((name of it = "Win7") AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB2617858~31bf3856ad364e35~x86~~6.1.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB2617858~31bf3856ad364e35~x86~~6.1.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~x86~~6.1.7600.16385") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_microsoft-windows-wmi-core-repdrvfs-dll_31bf3856ad364e35_none_b87c762bbc149a27" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21058") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~x86~~6.1.7601.17514";"Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7601.17514") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7600.16385";"Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7601.17514") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-wmi-core-repdrvfs-dll_31bf3856ad364e35_none_b87c762bbc149a27" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1" AND it < "6.1.7601.21824") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~x86~~6.1.7600.16385";"Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~x86~~6.1.7601.17514") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-wmi-core-repdrvfs-dll_31bf3856ad364e35_none_b87c762bbc149a27" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1" AND it < "6.1.7601.21824") of (default value of it as string as version)) of it) of it) of item 1 of it) OR exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7600.16385") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_microsoft-windows-wmi-core-repdrvfs-dll_31bf3856ad364e35_none_b87c762bbc149a27" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21058") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "60ce8a6069c273da93915c71f332fd121a8eb950"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>312335</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2617858</SourceID>
+		<SourceReleaseDate>2011-09-21</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Jan 2016 07:32:48 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 SP1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 Jan 2016 09:09:24 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2617858-x86.msu sha1:60ce8a6069c273da93915c71f332fd121a8eb950 size:312335 http://MANUAL_BES_CACHING_REQUIRED/Windows6.1-KB2617858-x86.msu sha256:c3ea49c4394657ec9f042eb66f4b4004b3ea6a5b0644da1cf9d2dc581d6fb90d
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2617858-x86.msu"}" /quiet /norestart
+
+action requires restart "60ce8a6069c273da93915c71f332fd121a8eb950" ]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/2617858</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

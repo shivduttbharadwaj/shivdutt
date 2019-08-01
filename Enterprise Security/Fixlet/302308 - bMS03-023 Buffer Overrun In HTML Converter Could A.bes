@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-023: Buffer Overrun In HTML Converter Could Allow Code Execution - Windows Server 2003 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS03-023. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>Microsoft has released a patch eliminating a security vulnerability in Windows HTML Converter that results from an unchecked buffer. A specially crafted request to the HTML converter could cause the converter to fail in such a way that it could execute code in the context of the currently logged-in user. An attacker could craft a specially formed Web page or HTML e-mail that would cause the HTML converter to run arbitrary code on a user's system. After applying this patch, affected computers will no longer be susceptible to this vulnerability.<BR><BR><b>Note:</b> Microsoft has announced that this patch will be included in Windows Server 2003 Service Pack 1.<BR><BR><b>File Size:</b> 429 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2003" AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP1\KB823559" of registry</Relevance>
+		<Relevance><![CDATA[exists file "msconv97.dll" whose (version of it < "2003.1100.5426.0") of folder (value "TEXTCONV" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Shared Tools Location" of registry as string) OR exists file "html32.cnv" whose (version of it < "2003.1100.5426.0") of folder (value "TEXTCONV" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Shared Tools Location" of registry as string)]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP1\KB889101" of registry</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Relevance>not exists key "HKLM\Software\Microsoft\Updates\Windows Server 2003\SP2\KB914961" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>440096</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB823559</SourceID>
+		<SourceReleaseDate>2003-07-09</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2003-0469</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>302307</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>HTML Converter</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003-KB823559-x86-ENU.exe sha1:b42918922617e3dd4a5844b3b17766636f2384a2 size:440096 http://download.microsoft.com/download/1/8/2/18247efe-b9d4-4ecb-abf2-405e8f1f3734/WindowsServer2003-KB823559-x86-ENU.exe sha256:75cc39817b1f9bdf64f8885e20b50666adc4f4656cef4b00b07272221062352b
+wait __download/WindowsServer2003-KB823559-x86-ENU.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-023.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-023.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

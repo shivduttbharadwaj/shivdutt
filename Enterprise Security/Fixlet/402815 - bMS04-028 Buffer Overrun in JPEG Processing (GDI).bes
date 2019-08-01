@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS04-028: Buffer Overrun in JPEG Processing (GDI+) Could Allow Code Execution - Visual Studio .NET 2002</Title>
+		<Description><![CDATA[
+Microsoft has released a patch eliminating a security vulnerability in the processing of JPEG image formats that could allow remote code execution. The affected component, GDI+, is a graphics device interface that is used in nearly all .NET Framework applications. After downloading and installing this patch, affected computers will no longer be susceptible to this vulnerability.<BR><BR><b>Note:</b> Microsoft has announced that patch will be included in the Visual Studio .NET 2002 Service Pack 1.<BR><BR><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><b>File Size:</b> 2.46 MB<BR><BR><b>Note:</b> This security update is also referenced under KB830348.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win2000" OR name of operating system = "WinXP" OR name of operating system = "Win2003" OR (name of operating system = "WinNT" AND major version of operating system = 4 AND csd version of operating system contains "6" AND (not exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry) OR (not exists value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry) OR (value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry as string does not contain "Terminal Server"))</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Visual Studio\7.0\M8303481025" of registry</Relevance>
+		<Relevance>exists key whose (value "VersionMajor" of it = "7" AND value "VersionMinor" of it = "0" AND name of it as string contains "Visual Studio .NET") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance><![CDATA[NOT exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\7.0\Setup\VS\BuildNumber" whose (exists value "1033" of it AND value "1033" of it as string as version >= "7.0.9955") of registry]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2590008</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB833987</SourceID>
+		<SourceReleaseDate>2004-09-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2004-0200</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>GDI+</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT|WinXP|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch VS7.0-KB830348-X86.exe sha1:f4e79fe707e95b382ab0c6775685294ec40a5eb6 size:2590008 http://download.microsoft.com/download/a/3/9/a39dba31-2197-41a0-80b2-70ea2385386a/VS7.0-KB830348-X86.exe sha256:245c7e45e283eaf6b8cd435ffc4db5733608209306aba7fa5f90dcac45eae1be
+
+wait __download\VS7.0-KB830348-X86.exe /q
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS04-028.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/ms04-028.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Microsoft .NET Framework 1.0 Service Pack 2 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released Service Pack 2 for Microsoft .NET Framework. This critical update focuses on security topics, includes a number of bug fixes, and addresses other issues found after the initial release of the .NET Framework. <BR><BR><B>Note: </B>BigFix <B>requires</B> this update to establish a baseline for vulnerability analysis.</FONT></P> <P><FONT size=2><STRONG><FONT color=#ff0000>Important Note: </FONT></STRONG>Installation of this&nbsp;service pack&nbsp;can fail if you have installed&nbsp;any .NET Framework hot fixes released after Service Pack 2. This service pack&nbsp;must be installed&nbsp;prior to installing later hot fixes. See Microsoft KB Article <A href="http://support.microsoft.com/default.aspx/kb/899619"><FONT color=#0000ff>899619</FONT></A>&nbsp;</FONT><FONT size=2>for more information. Microsoft recommends&nbsp;uninstalling the affected hot fixes before deploying Service Pack 2. See the BigFix KB Article&nbsp;<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=314"><FONT color=#0000ff size=2>here</FONT></A>&nbsp;for an example&nbsp;custom action script which&nbsp;will remove security hot fix&nbsp;MS05-004.</FONT></P><P><B>Note:</B> This security update is also referenced under KB321884.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.43 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key whose (value "displayname" of it as string contains "Microsoft .NET Framework" AND value "displayname" of it as string contains "v1.0") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry </Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry) OR (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry  AND (not exists value "Description" whose (it as string contains "Service Pack 2") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry)) OR (exists key whose (exists value "Description" of it AND value "Description" of it as string contains "Service Pack 2" AND exists value "Installed" of it AND value "Installed" of it != 1)  of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry)</Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry OR (not exists key whose (value "Description" of it as string contains "Service Pack 3") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry))</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>6749072</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB317396</SourceID>
+		<SourceReleaseDate>2005-07-28</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista|Win2000|WinXP|Win2003|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch NDP10_SP_Q321884_En.exe sha1:8e96a61504504884bfa251c7fd1f51791a949804 size:6749072 http://download.microsoft.com/download/NETFrameworkRedistributable/Patch/2/W98NT42KMeXP/EN-US/NDP10_SP_Q321884_En.exe sha256:61504f1eeeb85568938ae0cfb023291b0ac4f5c15e42ffacb15f8a255557fe0e
+
+wait __download\NDP10_SP_Q321884_En.exe /Q
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view more information about Microsoft .NET Framework Service Pack 2.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/321884/</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4481252: Update for Silverlight DateTime calculations to handle new Japanese eras - Silverlight 5 - KB4481252 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update to Silverlight improves security, reliability, accessibility support, startup performance, enhances line-of-business support and includes several fixes to better support rich internet applications. This update is backward compatible with web applications built using previous versions of Silverlight.<p><B>Note:</B> This update is also referenced under KB4481252.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+12.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "sllauncher.exe" whose ((it = "5" AND it < "5.1.50918") of version of it) of folders (value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of native registry as string & "\Microsoft Silverlight") AND (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Silverlight" whose ((it = "5" AND it < "5.1.50918") of (value "Version" of it as string as version)) of x64 registry)) AND (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Silverlight\Components\Debugging" of registry)]]></Relevance>
+		<Category>Update Rollup</Category>
+		<DownloadSize>13153080</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4481252</SourceID>
+		<SourceReleaseDate>2019-01-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Mar 2019 22:14:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:silverlight:5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Silverlight</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ime</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Silverlight</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 18 Mar 2019 19:13:29 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch silverlight_x64_16cfdfe075ee9249845eccff913acc4386a0a1e6.exe sha1:16cfdfe075ee9249845eccff913acc4386a0a1e6 size:13153080 http://download.windowsupdate.com/d/msdownload/update/software/ftpk/2019/01/silverlight_x64_16cfdfe075ee9249845eccff913acc4386a0a1e6.exe sha256:8eb0fc1163330294d62f8cbdb1088fc3af7ab552c544f2ec1d29f3f48e199c8f
+
+waithidden __Download\silverlight_x64_16cfdfe075ee9249845eccff913acc4386a0a1e6.exe /q 
+
+action may require restart "16cfdfe075ee9249845eccff913acc4386a0a1e6"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4481252</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

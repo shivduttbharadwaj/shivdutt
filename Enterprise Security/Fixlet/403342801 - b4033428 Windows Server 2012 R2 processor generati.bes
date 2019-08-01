@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4033428: Windows Server 2012 R2 processor generation detection reliability update - Windows Server 2012 R2 - KB4033428 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB4033428.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win2012R2" OR (name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.3" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)) of operating system</Relevance>
+		<Relevance>(name of it = "Win2012R2" OR name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.3" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4033428~31bf3856ad364e35~amd64~~6.3.1.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4033428~31bf3856ad364e35~amd64~~6.3.1.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-WOW64-Package-AutoMerged-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_microsoft-windows-w..pdateclient-activex_31bf3856ad364e35_none_2b0c68cabfb225ab" whose (exists key (if (exists default value of it) then default value of it as string else "7.9") whose ((it >= "7.9.9600" AND it < "7.9.9600.18756") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-WOW64-Package-AutoMerged-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-ServerCore-SKU-Foundation-Package-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_microsoft-windows-w..owsupdateclient-aux_31bf3856ad364e35_none_e66123bbb5aa0ec7" whose (exists key (if (exists default value of it) then default value of it as string else "7.9") whose ((it >= "7.9.9600" AND it < "7.9.9600.18756") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-base~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-winsetupui_31bf3856ad364e35_none_b8bf0d23477930b1" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18756") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-ServerCore-SKU-Foundation-Package-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-Package-AutoMerged-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-w..wsupdateclient-core_31bf3856ad364e35_none_54ea0d262e25c877" whose (exists key (if (exists default value of it) then default value of it as string else "7.9") whose ((it >= "7.9.9600" AND it < "7.9.9600.18756") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-w..owsupdateclient-aux_31bf3856ad364e35_none_dc0c796981494ccc" whose (exists key (if (exists default value of it) then default value of it as string else "7.9") whose ((it >= "7.9.9600" AND it < "7.9.9600.18756") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-Package-AutoMerged-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-windowsupdateclient-ui_31bf3856ad364e35_none_6c15eb185541c10e" whose (exists key (if (exists default value of it) then default value of it as string else "7.9") whose ((it >= "7.9.9600" AND it < "7.9.9600.18756") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-w..pdateclient-activex_31bf3856ad364e35_none_20b7be788b5163b0" whose (exists key (if (exists default value of it) then default value of it as string else "7.9") whose ((it >= "7.9.9600" AND it < "7.9.9600.18756") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-GroupPolicy-ClientTools-Package-enduser~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-windowsupdate-adm_31bf3856ad364e35_none_273e14203ee8c34f" whose (exists key (if (exists default value of it) then default value of it as string else "7.9") whose ((it >= "7.9.9600" AND it < "7.9.9600.18756") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "6a48934e05183527ce3d476a15b0285d71781e72"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>3798198</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4033428</SourceID>
+		<SourceReleaseDate>2017-07-18</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 28 Jul 2017 15:07:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2012:r2:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2012R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 28 Jul 2017 15:07:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb4033428-x64_6a48934e05183527ce3d476a15b0285d71781e72.msu sha1:6a48934e05183527ce3d476a15b0285d71781e72 size:3798198 http://download.windowsupdate.com/c/msdownload/update/software/updt/2017/07/windows8.1-kb4033428-x64_6a48934e05183527ce3d476a15b0285d71781e72.msu sha256:b7c8a2a1a83bb85b404733cf125ae4f740847a358b85e34ac22517787a9d1fab
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows8.1-kb4033428-x64_6a48934e05183527ce3d476a15b0285d71781e72.msu"}" /quiet /norestart
+
+action requires restart "6a48934e05183527ce3d476a15b0285d71781e72"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4033428</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Visual J# Express Edition Service Pack 1</Title>
+		<Description><![CDATA[
+Microsoft has released Service Pack 1 for Visual Studio 2005.&nbsp; The issues addressed range in severity from places where the syntax coloring was incorrect to customer reported crashes in various scenarios.&nbsp; Overall, Service Pack 1 offers customers improvements in responsiveness, stability and performance for Visual Studio 2005.<BR><BR><b>Note:</b> Due to the complexity of this upgrade, installation of Visual J# Express Edition Service Pack 1 must be completed manually.<BR><BR><b>Note:</b> There is no default action for this Fixlet message because it does not have a deployment action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((exists key "HKEY_CLASSES_ROOT\Installer\Products\" of registry) AND (exists key whose (((it contains "Microsoft Visual J# 2005 Express Edition") of (value "ProductName" of it as string)) and (value "Language" of it as string = "1033")) of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry))</Relevance>
+		<Relevance><![CDATA[((name of it = "WinXP" AND (service pack major version of it >= 2)) OR (name of it = "Win2003" AND (service pack major version of it >= 1)) OR (name of it = "Win2000" AND (service pack major version of it >= 4)) OR (name of it = "WinVista" and product type of it = nt workstation product type)) of operating system]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists regapp "VJSExpress.exe" whose (version of it < "8.0.50727.762")]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2007-01-23</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista|WinXP|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view more information about Microsoft Visual Studio 2005 Service Pack 1. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://msdn2.microsoft.com/en-us/vstudio/bb265237.aspx</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view the Visual Studio 2005 SP1 Release Notes. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://msdn2.microsoft.com/en-us/vstudio/bb332348.aspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

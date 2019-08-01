@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-074: Vulnerabilities in Microsoft SharePoint Could Allow Elevation of Privilege - Sharepoint Workspace 2010 Gold/SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves five privately reported vulnerabilities and one publicly disclosed vulnerability in Microsoft SharePoint and Windows SharePoint Services. The most severe vulnerabilities could allow elevation of privilege if a user clicked on a specially crafted URL or visited a specially crafted Web site. For the most severe vulnerabilities, Internet Explorer 8 and Internet Explorer 9 users browsing to a SharePoint site in the Internet Zone are at a reduced risk because, by default, the XSS Filter in Internet Explorer 8 and Internet Explorer 9 helps to block the attacks in the Internet Zone. The XSS Filter in Internet Explorer 8 and Internet Explorer 9, however, is not enabled by default in the Intranet Zone.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2566445.<BR></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+18.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((exists file "GROOVE.EXE" whose ((version of it < "14.0.6106.5000")) of it) OR (exists file "INTGMAT.DLL" whose ((version of it < "14.0.6009.1000")) of it) OR (exists file "INTMAPI.DLL" whose ((version of it < "14.0.6009.1000")) of it) OR (exists file "SPWADDDA.DLL" whose ((version of it < "14.0.6009.1000")) of it) OR (exists file "SPWADDDS.DLL" whose ((version of it < "14.0.6009.1000")) of it) OR (exists file "SPWADDIF.DLL" whose ((version of it < "14.0.6009.1000")) of it) OR (exists file "SPWADDIT.DLL" whose ((version of it < "14.0.6009.1000")) of it) OR (exists file "SPWADDTO.DLL" whose ((version of it < "14.0.6009.1000")) of it)) of (parent folder of regapp "groove.exe")]]></Relevance>
+		<Relevance><![CDATA[(exists key whose (exists value "DisplayVersion" whose ((it = "14" AND it <= "14.0.6029.1000") of (it as string as version)) of it AND value "DisplayName" of it as string contains "Microsoft SharePoint Workspace 2010" of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry) OR (exists regapp "groove.exe" whose (version of it >= "14.0.4761.1000" AND version of it <= "14.0.6106.5000"))]]></Relevance>
+		<Relevance>((exists key whose ((name of it equals "00004119AB0000000000000000F01FEC" OR name of it equals "00004109AB0000000000000000F01FEC" OR name of it equals "00004119110000000000000000F01FEC" OR name of it equals "00004119D11000000000000000F01FEC" OR name of it equals "00004109110000000000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.4763.1000") of it) AND (not exists key whose (name of it equals "9BF3A733D1828CE4C91CF7D6AD2C53F9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00004119D11000000000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.4763.1063") of it) AND (not exists key whose (name of it equals "9BF3A733D1828CE4C91CF7D6AD2C53F9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00004119AB0000000000000000F01FEC" OR name of it equals "00004109AB0000000000000000F01FEC" OR name of it equals "00004119110000000000000000F01FEC" OR name of it equals "00004119D11000000000000000F01FEC" OR name of it equals "00004109110000000000000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.6029.1000") of it) AND (not exists key whose (name of it equals "9BF3A733D1828CE4C91CF7D6AD2C53F9") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>19601592</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2566445</SourceID>
+		<SourceReleaseDate>2011-09-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-1892</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint:2010:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch workspaces2010-kb2566445-fullfile-x86-glb.exe sha1:c74157048bbc9308f9ca06eff3d2d164fec66369 size:19601592 http://download.microsoft.com/download/C/B/3/CB3D19D9-7BD2-458E-A485-4BC957E5CCF9/workspaces2010-kb2566445-fullfile-x86-glb.exe sha256:9daa15737e3946bfa800da192fe14afb009b4f8c6bef4187be1f675005d24035
+
+waithidden __Download\workspaces2010-kb2566445-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "c74157048bbc9308f9ca06eff3d2d164fec66369"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-074.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS11-074.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

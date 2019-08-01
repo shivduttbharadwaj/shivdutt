@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-074: Vulnerabilities in Microsoft SharePoint Could Allow Elevation of Privilege - Groove 2007 Service Pack 2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves five privately reported vulnerabilities and one publicly disclosed vulnerability in Microsoft SharePoint and Windows SharePoint Services. The most severe vulnerabilities could allow elevation of privilege if a user clicked on a specially crafted URL or visited a specially crafted Web site. For the most severe vulnerabilities, Internet Explorer 8 and Internet Explorer 9 users browsing to a SharePoint site in the Internet Zone are at a reduced risk because, by default, the XSS Filter in Internet Explorer 8 and Internet Explorer 9 helps to block the attacks in the Internet Zone. The XSS Filter in Internet Explorer 8 and Internet Explorer 9, however, is not enabled by default in the Intranet Zone.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2552997.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.96 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[if (exists regapp "groove.exe") then (((exists file "GROOVE.EXE" whose ((version of it < "12.0.6552.5000")) of it) OR (exists file "GROOVEDOCUMENTSHARETOOL.DLL" whose ((version of it < "12.0.6504.5000")) of it) OR (exists file "GROOVEUTIL.DLL" whose ((version of it < "12.0.6562.5000")) of it) OR (exists file "GROOVEWEBPLATFORMSERVICES.DLL" whose ((version of it < "12.0.6547.5000")) of it) OR (exists file "GROOVEWEBSERVICES.DLL" whose ((version of it < "12.0.6547.5000")) of it)) of (parent folder of regapp "groove.exe")) else false]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((it >= "12.0.6215.1000" AND it <= "12.0.6425.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "00BA") of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>3102552</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2552997</SourceID>
+		<SourceReleaseDate>2011-09-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-1892</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint:2007:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch groove2007-kb2552997-fullfile-x86-glb.exe sha1:47cbe4c58d5ef94ab5b173323346362aee30a0fb size:3102552 http://download.microsoft.com/download/F/F/F/FFF7C7D1-E475-49CD-8060-BA26B6A25F62/groove2007-kb2552997-fullfile-x86-glb.exe sha256:355bc55fa438ec5ac9d3cf61ca67c52e70cb6567512c818eed2640a8852d8c0c
+
+waithidden __Download\groove2007-kb2552997-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "47cbe4c58d5ef94ab5b173323346362aee30a0fb"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-074.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS11-074.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

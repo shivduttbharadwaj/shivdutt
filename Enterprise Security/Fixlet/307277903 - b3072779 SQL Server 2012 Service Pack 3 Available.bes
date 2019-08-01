@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3072779: SQL Server 2012 Service Pack 3 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released SQL Server&nbsp;2012 Service Pack 3.&nbsp;</P> <P>Microsoft SQL Server 2012 service packs are cumulative updates and upgrade all editions and service levels of SQL Server 2012 to SP3. This service pack contains up to and including SQL Server 2012 Service Pack2 Cumulative Update 9 (CU9). <SPAN></P> <P><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT> SQL Server instances operating in a non-Microsoft cluster environment should be upgraded using the CLUSTERPASSIVE option. Please use the second action below to upgrade in these environments.</P> <P><STRONG>Note:</STRONG> This Fixlet message detects and upgrades all default and non-default instances of SQL Server 2012.</P> <P><STRONG>Note: </STRONG>Before upgrading to Service Pack 3, Microsoft recommends that you back up your databases. </P> <P><STRONG>Note:</STRONG> Once this Fixlet message has completed its action, affected computers may report back 'Pending Restart', but the Service Pack will not be installed until the affected computer is restarted.</P> <P><B>Note:</B> There is no default action for this Fixlet message because it has multiple actions, none of which is clearly recommended over the others. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display DOS windows during action execution.</P></SPAN></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+715 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance><![CDATA[(exists keys whose (exists value "CurrentVersion" whose ((it = "11" AND it < "11.0.6020.00") of (it as string as version)) of key "MSSQLServer\CurrentVersion" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (native registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it = "11" AND it < "11.0.6020.00") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (native registry)) whose (item 0 of it = item 1 of it))]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>749969088</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3072779</SourceID>
+		<SourceReleaseDate>2015-11-25</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 30 Nov 2015 15:30:20 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 23 Dec 2015 06:49:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SQLServer2012SP3-KB3072779-x86-ENU.exe sha1:03c33c5ace89fdaa9c2832dd16e23e40f29a9f90 size:749969088 https://download.microsoft.com/download/B/1/7/B17F8608-FA44-462D-A43B-00F94591540A/ENU/x86/SQLServer2012SP3-KB3072779-x86-ENU.exe sha256:a3d9fb906c1c56a4196575fb0b0c7da9a51474914d5458bd9554704ba5112191
+
+waithidden __Download\SQLServer2012SP3-KB3072779-x86-ENU.exe /Q /allinstances /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "03c33c5ace89fdaa9c2832dd16e23e40f29a9f90"</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (non-Microsoft cluster environments).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SQLServer2012SP3-KB3072779-x86-ENU.exe sha1:03c33c5ace89fdaa9c2832dd16e23e40f29a9f90 size:749969088 https://download.microsoft.com/download/B/1/7/B17F8608-FA44-462D-A43B-00F94591540A/ENU/x86/SQLServer2012SP3-KB3072779-x86-ENU.exe sha256:a3d9fb906c1c56a4196575fb0b0c7da9a51474914d5458bd9554704ba5112191
+
+waithidden __Download\SQLServer2012SP3-KB3072779-x86-ENU.exe /Q /allinstances /clusterpassive  /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "03c33c5ace89fdaa9c2832dd16e23e40f29a9f90"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to download the release notes for SQL Server 2012 Service Pack 3.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3072779</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

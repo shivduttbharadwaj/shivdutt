@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-022: Vulnerabilities in Microsoft SharePoint Server Could Allow Remote Code Execution - Project Server 2010 SP1 - KB2863922 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS15-036. Whereas this Fixlet message previously applied to Project Server 2010 SP1/SP2 (x64), it now only applies to Project Server 2010 SP1 (x64).</P>Microsoft has released a security update that resolves multiple privately reported vulnerabilities in Microsoft Office server and productivity software. The most severe of these vulnerabilities could allow remote code execution if an authenticated attacker sends specially crafted page content to a target SharePoint server.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2863922.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+8.77 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(not exists keys ("00004109130100000100000000F01FEC") whose (exists key "InstallProperties" whose ((it != "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it) of it AND exists keys ("00004109130100000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "44999FFCCE46F484E905B08978C3E95B" of key "Patches" of it) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>9191264</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2863922</SourceID>
+		<SourceReleaseDate>2014-05-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2014-0251</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 14 May 2014 07:29:15 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint_server:2010:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch pjsrv2010-kb2863922-fullfile-x64-glb.exe sha1:7f07c23c17a835c0ef8cda08c05a615cd02260ea size:9191264 http://download.microsoft.com/download/6/4/C/64C2080D-831C-49D8-80F5-FF8E91247792/pjsrv2010-kb2863922-fullfile-x64-glb.exe sha256:8607dbb350bfef191e0b0b8e8c8edd221661c8a1a772f8587c9d73d7edbe0460
+
+waithidden __Download\pjsrv2010-kb2863922-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "7f07c23c17a835c0ef8cda08c05a615cd02260ea"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS14-022</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

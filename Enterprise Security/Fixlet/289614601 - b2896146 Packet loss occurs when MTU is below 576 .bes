@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2896146: Packet loss occurs when MTU is below 576 and PMTU discovery is enabled in Windows - Windows 8.1 Gold (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P><STRONG>Note:</STRONG> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><STRONG>Note:</STRONG> This update is also referenced under KB2896146.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.01 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance>not pending restart "bddfb65a9a6ede6d34e33a5c25a42d46f63d57f8"</Relevance>
+		<Relevance><![CDATA[(((exists key "Microsoft-Windows-Common-Foundation-Package~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-tcpip-binaries_31bf3856ad364e35_none_07173fe9520f079a" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.16477") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-WinPE-SKU-Foundation-Package-net~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-tcpip-utility_31bf3856ad364e35_none_3f04af858d8fee85" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.16477") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Client-Features-Package-AutoMerged-minio~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Common-Foundation-Package~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Server-Features-Package-AutoMerged-minio~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-tcpip-binaries_31bf3856ad364e35_none_07173fe9520f079a" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.16477") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Client-Features-Package-AutoMerged-net~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-CoreSystem-CmdTools-net~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-ServerCore-SKU-Foundation-Package-net~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Server-Features-Package-AutoMerged-net~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-tcpip-utility_31bf3856ad364e35_none_3f04af858d8fee85" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.16477") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-net~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-ServerCore-WOW64-Package-net~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Server-Features-WOW64-Package-AutoMerged-net~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) of item 0 of it AND (exists key "x86_microsoft-windows-tcpip-utility_31bf3856ad364e35_none_e2e61401d5327d4f" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.16477") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Common-Foundation-Package~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-tcpip-binaries_31bf3856ad364e35_none_07173fe9520f079a" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.16477") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>2116082</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2896146</SourceID>
+		<SourceReleaseDate>2014-01-15</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 17 Feb 2015 08:05:42 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8.1 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Apr 2019 06:11:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb2896146-x64_bddfb65a9a6ede6d34e33a5c25a42d46f63d57f8.msu sha1:bddfb65a9a6ede6d34e33a5c25a42d46f63d57f8 size:2116082 http://download.windowsupdate.com/c/msdownload/update/software/htfx/2014/01/windows8.1-kb2896146-x64_bddfb65a9a6ede6d34e33a5c25a42d46f63d57f8.msu sha256:dcc4621e247f9089fd64ea31fc54c1c54b94d6449bbe2c4d100c22a78e31588e
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows8.1-kb2896146-x64_bddfb65a9a6ede6d34e33a5c25a42d46f63d57f8.msu"}" /quiet /norestart
+
+action requires restart "bddfb65a9a6ede6d34e33a5c25a42d46f63d57f8"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2896146</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

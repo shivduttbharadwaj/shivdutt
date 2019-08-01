@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-019: Flaw in ISAPI Extension for Windows Media Services Could Cause Denial of Service - Windows NT</Title>
+		<Description><![CDATA[
+Microsoft has released a patch eliminating a security vulnerability in Windows Media Services. This vulnerability affects the nsiislog.dll ISAPI extension for Windows Media Services and could potentially allow a malicious user to launch a denial of service attack on the IIS server hosting Windows Media Services. Microsoft recommends that all users running Windows Media Services apply this update.<BR><BR><b>Note: </b>If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled. <BR><BR><b>File Size: </b>216 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of operating system = "WinNT") AND (csd version of operating system = "Service Pack 6") </Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry) OR (not exists value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry) OR (value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry as string does not contain "Terminal Server")</Relevance>
+		<Relevance><![CDATA[(version of file "nsiislog.dll" of folder "Server" of (value "InstallDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NetShow" of registry as folder) < "4.1.0.3861") OR (version of file "nsiislog.dll" of folder (preceding text of first "," of (value "/SCRIPTS" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W3SVC\Parameters\Virtual Roots" of registry as string)) < "4.1.0.3861")]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>221288</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB817772</SourceID>
+		<SourceReleaseDate>2003-05-28</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2003-0227</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ISAPI Extension for Media Services</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsMedia41-KB817772-x86-ENU.exe sha1:edb760069b4dcb8eaa82d1145aa1dc112315d76a size:221288 http://download.microsoft.com/download/7/3/c/73c35094-45f4-469d-9609-2c7288abeec3/WindowsMedia41-KB817772-x86-ENU.exe sha256:f4bef4c276da484c8940a2fa422e1578525e6fb5d90a2517947c486ee1b34cad
+wait __download\WindowsMedia41-KB817772-x86-ENU.exe /Q:A /R:N
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-019.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-019.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

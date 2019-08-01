@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-065: Vulnerabilities in Microsoft Internet Information Services (IIS) Could Allow Remote Code Execution - ASP - Windows Server 2008 Gold/SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities and one publicly disclosed vulnerability in Internet Information Services (IIS). The most severe of these vulnerabilities could allow remote code execution if a client sends a specially crafted HTTP request to the server. An attacker who successfully exploited this vulnerability could take complete control of an affected system.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2124261.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+615 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it =  "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND (service pack major version of it = 1 OR service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "asp.dll" whose (((version of it >= "7.0.6001.18000") AND version of it < "7.0.6001.18497") OR ((version of it >= "7.0.6001.22000") AND version of it < "7.0.6001.22718") OR ((version of it >= "7.0.6002.18000") AND version of it < "7.0.6002.18276") OR ((version of it >= "7.0.6002.22000") AND version of it < "7.0.6002.22431")) of it) of (( folder "INETSRV\" of (system wow64 folder)) ) OR (exists file "asp.dll" whose (((version of it >= "7.0.6001.18000") AND version of it < "7.0.6001.18497") OR ((version of it >= "7.0.6001.22000") AND version of it < "7.0.6001.22718") OR ((version of it >= "7.0.6002.18000") AND version of it < "7.0.6002.18276") OR ((version of it >= "7.0.6002.22000") AND version of it < "7.0.6002.22431")) of it) of ( (folder "INETSRV\" of (system x64 folder)))]]></Relevance>
+		<Relevance>not pending restart "6a42418c41750b453d67fa94f88f830fa81df0cf"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>630649</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2267960</SourceID>
+		<SourceReleaseDate>2010-09-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2010-1899</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>IIS</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2008:-:gold:*:*:*:*:*:*; cpe:2.3:o:microsoft:windows_server_2008:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB2124261-x64.msu sha1:6a42418c41750b453d67fa94f88f830fa81df0cf size:630649 http://download.microsoft.com/download/C/D/E/CDE2AF28-83A6-4B9B-9715-F7C839694926/Windows6.0-KB2124261-x64.msu sha256:fa53b122763c9e6cd71c2be82bffb2e8aa626707244673423c300b5c987382e2
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB2124261-x64.msu"}" /quiet /norestart
+
+action requires restart "6a42418c41750b453d67fa94f88f830fa81df0cf"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-065.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS10-065.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

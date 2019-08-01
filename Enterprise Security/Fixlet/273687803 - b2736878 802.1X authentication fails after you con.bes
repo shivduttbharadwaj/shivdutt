@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2736878: 802.1X authentication fails after you connect a computer to a network in Windows 7 SP1 or Windows Server 2008 R2 SP1 - Windows 7 SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Install this Hotfix to resolve issues in Windows. For a complete listing of the issues that are included in this Hotfix, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<B><FONT color=#ff0000></P> <P>Important Note: </B></FONT> Hotfixes have no default action.<BR><BR><B>Note:</B> This update is also referenced under KB2736878.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+374 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win7")) of operating system</Relevance>
+		<Relevance>((name of it = "Win7") AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB2736878~31bf3856ad364e35~x86~~6.1.2.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB2736878~31bf3856ad364e35~x86~~6.1.2.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7601.17514") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_microsoft-windows-dot3svc_31bf3856ad364e35_none_34319b095f58ea80" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.22074") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("WinEmb-Wireless~31bf3856ad364e35~x86~~6.1.7601.17514") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_microsoft-windows-dot3svc_31bf3856ad364e35_none_34319b095f58ea80" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.22074") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "3acc3d0bec3aed1892b06ac677f9c7b9fb35a21d"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>383005</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2736878</SourceID>
+		<SourceReleaseDate>2013-05-13</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 22 Mar 2016 04:24:09 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 22 Mar 2016 04:24:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows6.1-kb2736878-v2-x86_3acc3d0bec3aed1892b06ac677f9c7b9fb35a21d.msu sha1:3acc3d0bec3aed1892b06ac677f9c7b9fb35a21d size:383005 http://download.windowsupdate.com/msdownload/update/software/htfx/2013/05/windows6.1-kb2736878-v2-x86_3acc3d0bec3aed1892b06ac677f9c7b9fb35a21d.msu sha256:0150136063c11e3a83d9b8a164bfcbccce14c32656a865b3fec58a3225243007
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows6.1-kb2736878-v2-x86_3acc3d0bec3aed1892b06ac677f9c7b9fb35a21d.msu"}" /quiet /norestart
+
+action requires restart "3acc3d0bec3aed1892b06ac677f9c7b9fb35a21d"  
+]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2736878</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-AUG: Security Only Quality Update - Security Only - Windows 8.1 - .NET Framework 4.6/4.6.1/4.6.2/4.7/4.7.1/4.7.2 - KB4344166 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><div class="kb-summary-section section"><br><p>This security update resolves an information disclosure vulnerability in Microsoft .NET Framework that could allow an attacker to access information in multi-tenant environments. The vulnerability is caused when .NET Framework is used in high-load/high-density network connections in which&nbsp;content from one stream can blend into another stream.</p><br><br><p>To exploit the vulnerability, an attacker who can access one tenant in a high-load/high-density environment could potentially trigger multi-tenanted data exposure from one customer to another.</p><br><br><p>This security update addresses the vulnerability by correcting the way that .NET Framework handles high-load/high-density network connections.</p><br>To learn more about this vulnerability, see <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/security-guidance/advisory/CVE-2018-8360" id="kb-link-2" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8360</a>.</div><br><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4345681.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+25.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1")) of operating system</Relevance>
+		<Relevance>(name of it = "Win8.1" OR name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (exists key "Full" whose ((it = 393295 OR it = 393297 OR it = 394254 OR it = 394271 OR it = 394802 OR it = 394806 OR it = 460798 OR it = 460805 OR it = 461308 OR it = 461310 OR it = 461808 OR it = 461814) of value "Release" of it) of it) of native registry</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4344166~31bf3856ad364e35~amd64~~6.3.1.2215" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4344166~31bf3856ad364e35~amd64~~6.3.1.2215" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Package_for_KB4054566~31bf3856ad364e35~amd64~~6.3.1.2126";"Package_for_KB4033369~31bf3856ad364e35~amd64~~6.3.1.1622";"Package_for_KB3186539~31bf3856ad364e35~amd64~~6.3.1.1117";"Package_for_KB3151864~31bf3856ad364e35~amd64~~6.3.1.654";"Package_for_KB3045563~31bf3856ad364e35~amd64~~6.3.1.45";"Package_for_KB3088956~31bf3856ad364e35~amd64~~6.3.1.24";"Package_for_KB3095337~31bf3856ad364e35~amd64~~6.3.1.35";"Package_for_KB3099849~31bf3856ad364e35~amd64~~6.3.1.36";"Package_for_KB3102467~31bf3856ad364e35~amd64~~6.3.1.119";"Package_for_KB3120239~31bf3856ad364e35~amd64~~6.3.1.131";"Package_for_KB3139550~31bf3856ad364e35~amd64~~6.3.1.137";"Package_for_KB3146715~31bf3856ad364e35~amd64~~6.3.1.142";"Package_for_KB3154528~31bf3856ad364e35~amd64~~6.3.1.145";"Package_for_KB3166740~31bf3856ad364e35~amd64~~6.3.1.147") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-NetFx4-OC-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-NetFx4-US-OC-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_netfx4-sos_dll_b03f5f7f11d50a3a_none_0aa086d4c26219e2" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-sos_dll_b03f5f7f11d50a3a_none_524dbdabd6de42e8" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-peverify_dll_b03f5f7f11d50a3a_none_faed290b23d2efcf" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-peverify_dll_b03f5f7f11d50a3a_none_429a5fe2384f18d5" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-msvcr120_clr_dll_31bf3856ad364e35_none_3652988750269400" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-msvcr120_clr_dll_31bf3856ad364e35_none_da33fd0397c922ca" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-msvcp120_clr_dll_31bf3856ad364e35_none_57afbabe1e1ae0b2" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-msvcp120_clr_dll_31bf3856ad364e35_none_fb911f3a65bd6f7c" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-mscorlib_ni_b03f5f7f11d50a3a_none_c68de689070cfd81" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-mscorlib_ni_b03f5f7f11d50a3a_none_0e3b1d601b892687" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-mscordbi_dll_b03f5f7f11d50a3a_none_bf271c58fe9e0b18" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-mscordbi_dll_b03f5f7f11d50a3a_none_06d45330131a341e" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-mscordacwks_dll_b03f5f7f11d50a3a_none_841fbc34e4428b08" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-mscordacwks_dll_b03f5f7f11d50a3a_none_cbccf30bf8beb40e" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-clrjit_dll_b03f5f7f11d50a3a_none_e24a61fd2b4e0ebf" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-clrjit_dll_b03f5f7f11d50a3a_none_29f798d43fca37c5" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-clr_dll_b03f5f7f11d50a3a_none_2213792d584ed718" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx4-clr_dll_b03f5f7f11d50a3a_none_69c0b0046ccb001e" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "amd64_mscorlib_b77a5c561934e089_none_e4f56f0db29b56f3" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "x86_mscorlib_b77a5c561934e089_none_2ca2a5e4c7177ff9" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17016") of (default value of it as string as version)) of it) of it OR exists key "msil_system_b77a5c561934e089_none_fa79dfcceecd686a" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17034") of (default value of it as string as version)) of it) of it OR exists key "amd64_netfx4-system_b03f5f7f11d50a3a_none_632b6a4ebffa6633" whose (exists key (if (exists default value of it) then default value of it as string else "4.0") whose ((it >= "4.0.9680.10000" AND it < "4.0.9680.17034") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-NetFx4-OC-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-NetFx4-US-OC-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (not exists key "amd64_netfx4-compatjit_dll_31bf3856ad364e35_none_271800b469af71f3" whose (exists value "4.0.9680.17016" of keys of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Embedded-NetFx4-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (not exists key "amd64_netfx4-compatjit_dll_31bf3856ad364e35_none_271800b469af71f3" whose (exists value "4.0.9680.17016" of keys of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance><![CDATA[exists (files ("sos.dll") of (folders ("Microsoft.NET\Framework\v4.0.30319";"Microsoft.NET\Framework64\v4.0.30319") of windows folder; system folder; system x64 folders)) whose (version of it < "4.7.3133.0")]]></Relevance>
+		<Relevance>not pending restart "e58a03426cc10f633a95fc49f2ef7e121db674b3"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>26807088</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4345681</SourceID>
+		<SourceReleaseDate>2018-08-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-8360</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 Aug 2018 07:29:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.6:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.6.1:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.6.2:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.7:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.7.1:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 Aug 2018 07:29:02 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb4344166-x64_e58a03426cc10f633a95fc49f2ef7e121db674b3.msu sha1:e58a03426cc10f633a95fc49f2ef7e121db674b3 size:26807088 http://download.windowsupdate.com/d/msdownload/update/software/secu/2018/08/windows8.1-kb4344166-x64_e58a03426cc10f633a95fc49f2ef7e121db674b3.msu sha256:128d36dcf9d4e45eec505cf9449b5dfd214a70366268a6d31df783f3c5f83868
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows8.1-kb4344166-x64_e58a03426cc10f633a95fc49f2ef7e121db674b3.msu"}" /quiet /norestart
+
+action requires restart "e58a03426cc10f633a95fc49f2ef7e121db674b3"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4345681</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

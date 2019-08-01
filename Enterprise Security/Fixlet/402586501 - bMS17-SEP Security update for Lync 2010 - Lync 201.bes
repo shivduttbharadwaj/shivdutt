@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS17-SEP: Security update for Lync 2010 - Lync 2010 SP2 - KB4025865</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><div><br><p>This security update resolves vulnerabilities in Microsoft Office that could allow remote code execution if a user opens a specially crafted Office file. To learn more about these vulnerabilities, see <a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-8676">Microsoft Common Vulnerabilities and Exposures CVE-2017-8676</a>, <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-8695" target="">Microsoft Common Vulnerabilities and Exposures CVE-2017-8695</a>, and <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-8696" target="">Microsoft Common Vulnerabilities and Exposures CVE-2017-8696</a>.<br><br><br><br><strong>Note</strong> To apply this security update, you must have the release version of Lync 2010&nbsp;installed on the computer.</p><br></div><br><p><B>Note:</B> This security update is also referenced under KB4025865.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+21.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists keys ((names of values of keys ("24DE958ACC2A59F40B48D238385B667A") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (exists key "InstallProperties" whose ((it >= "4.0.7577.0" AND it < "4.0.7577.4540") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "AA6C4A98DAFD25847BE8BE3B2E390184" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>22265856</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4025865</SourceID>
+		<SourceReleaseDate>2017-09-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2017-8676; CVE-2017-8695; CVE-2017-8696</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Sep 2017 09:30:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:lync:2010:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Microsoft Lync Server and Microsoft Lync</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Lync</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 13 Sep 2017 09:30:06 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Lync.msp sha1:46c2ab221b859f4ee5c183307ef37edbe46e80e3 size:22265856 https://download.microsoft.com/download/6/4/B/64B1A6E3-F8A5-4B90-A5A5-EE3FA51500DC/Lync.msp sha256:f16d716e7e84963898aad108b35913b73ea9ac73d26784ce4dba3243653abddc
+
+waithidden msiexec.exe /p __Download\Lync.msp /quiet /norestart
+
+action may require restart "46c2ab221b859f4ee5c183307ef37edbe46e80e3"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4025865</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

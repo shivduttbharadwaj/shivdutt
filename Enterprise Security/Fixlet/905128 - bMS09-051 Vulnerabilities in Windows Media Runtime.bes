@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-051: Vulnerabilities in Windows Media Runtime Could Allow Remote Code Execution - Windows Media Audio Voice Decoder - Windows Server 2003 SP1/SP2 (x64) - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The listed computers have faulty installations of a patch for the vulnerability described in MS09-051. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<br /><br />Microsoft has released a security update that resolves two privately reported vulnerabilities in Windows Media Runtime. The vulnerabilities could allow remote code execution if a user opened a specially crafted media file or received specially crafted streaming content from a Web site or any application that delivers Web content. An attacker who successfully exploited these vulnerabilities could gain the same user rights as the local user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under <FONT size=2>KB954155</FONT>.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+940 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2003" AND (service pack major version of it = 1 OR service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[((((exists file "wmspdmod.dll" whose ((service pack major version of operating system = 1 AND version of it < "10.0.0.3712") OR (service pack major version of operating system = 2 AND version of it < "10.0.0.4004")) of it))) of (( folder "SYSWOW64" of (windows folder))))]]></Relevance>
+		<Relevance>NOT((not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb954155" of x64 registry))</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>963464</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB975682</SourceID>
+		<SourceReleaseDate>2009-10-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2009-0555; CVE-2009-2525</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>905127</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Media Runtime</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB954155-x64-ENU.exe sha1:1d83ca9832d70a2ec24c83c0f4d84a228a43dd27 size:963464 http://download.microsoft.com/download/C/5/4/C546A2A6-F0DF-43B9-B1D7-03F6B557959B/WindowsServer2003.WindowsXP-KB954155-x64-ENU.exe sha256:1223ab45ccaaabf4a6737e04afd0dabc76e2b9498cbbbdc233bd95b087fe3032
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB954155-x64-ENU.exe /quiet /norestart
+
+action may require restart "1d83ca9832d70a2ec24c83c0f4d84a228a43dd27"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-051.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-051.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

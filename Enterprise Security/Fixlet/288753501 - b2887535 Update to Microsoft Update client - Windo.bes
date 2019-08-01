@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2887535: Update to Microsoft Update client - Windows 7 SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This update is also referenced under KB2887535.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+9.27 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win7") AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "wuapi.dll" whose (version of it < "7.6.7600.320") of it) OR (exists file "wuapp.exe" whose (version of it < "7.6.7600.320") of it) OR (exists file "wuauclt.exe" whose (version of it < "7.6.7600.320") of it) OR (exists file "wuaueng.dll" whose (version of it < "7.6.7600.320") of it) OR (exists file "wucltux.dll" whose (version of it < "7.6.7600.320") of it) OR (exists file "wudriver.dll" whose (version of it < "7.6.7600.320") of it) OR (exists file "wups.dll" whose (version of it < "7.6.7600.320") of it) OR (exists file "wups2.dll" whose (version of it < "7.6.7600.320") of it) OR (exists file "wuwebv.dll" whose (version of it < "7.6.7600.320") of it)) of system folder]]></Relevance>
+		<Relevance>not pending restart "e901a9994f10cf31f557e84ad27688fd368c7611"</Relevance>
+		<Relevance>Not embedded nt bit (suite mask of operating system)</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>9723600</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2887535</SourceID>
+		<SourceReleaseDate>2014-07-07</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 28 Nov 2014 08:43:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 SP1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsUpdateAgent-7.6-x86.exe sha1:e901a9994f10cf31f557e84ad27688fd368c7611 size:9723600 http://download.windowsupdate.com/windowsupdate/redist/standalone/7.6.7600.320/WindowsUpdateAgent-7.6-x86.exe sha256:9fc6856827123d0391a2c7451ccb1cbf93261442252dd87819ad5b8db72b0ec0
+
+waithidden __Download\WindowsUpdateAgent-7.6-x86.exe /quiet /norestart
+
+action may require restart "e901a9994f10cf31f557e84ad27688fd368c7611"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2887535</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

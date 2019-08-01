@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Enable custom repository support - CentOS</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>Use this task to allow YUM to perform the necessary downloads from the configured repositories on the endpoints. When the custom repository support is enabled, the Fixlets stop downloading the metadata and packages through the IBM&nbsp;Bigfix infrastructure and let YUM download the necessary files. </TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance><![CDATA[(name of it as lowercase contains "linux centos" and version of it >= "5") of operating system]]></Relevance>
+		<Relevance>not exists setting "_BESClient_CentOS_AllowYumDownloads" whose (value of it = "1") of client</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2016-05-26</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 09 Jun 2016 06:33:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 15 Aug 2016 06:40:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to enable custom repository support.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">setting "_BESClient_CentOS_AllowYumDownloads"="1" on "{parameter "action issue date" of action}" for client</ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

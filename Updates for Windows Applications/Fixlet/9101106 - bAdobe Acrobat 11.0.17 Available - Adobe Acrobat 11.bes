@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Acrobat 11.0.17 Available - Adobe Acrobat 11.x (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been superseded by Adobe Acrobat 11.0.18.<br /><br />Adobe has released a new version of Adobe Acrobat. Use the action below to update Adobe Acrobat to the latest version (11.0.17).</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><SPAN id=fixletLinks></SPAN><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade Adobe Acrobat regardless of whether or not Adobe Acrobat is running" action will close any running instance of Adobe Acrobat on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable.</SPAN></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+245 MB 
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2016-4191; CVE-2016-4192; CVE-2016-4193; CVE-2016-4194; CVE-2016-4195; CVE-2016-4196; CVE-2016-4197; CVE-2016-4198; CVE-2016-4199; CVE-2016-4200; CVE-2016-4201; CVE-2016-4202; CVE-2016-4203; CVE-2016-4204; CVE-2016-4205; CVE-2016-4206; CVE-2016-4207; CVE-2016-4208; CVE-2016-4209; CVE-2016-4210; CVE-2016-4211; CVE-2016-4212; CVE-2016-4213; CVE-2016-4214; CVE-2016-4215; CVE-2016-4250; CVE-2016-4251; CVE-2016-4252; CVE-2016-4254; CVE-2016-4255
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>((NOT x64 of operating system AND (((name of it = "WinXP") AND service pack major version of it = 3) OR (value "ProductName" of it = "Microsoft Windows Server 2003 R2") of key "HKLM\Software\Microsoft\Windows NT\CurrentVersion\" of registry)) OR ((x64 of it AND service pack major version of it = 2) of operating system AND ((name of it = "WinXP-2003" AND exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows XP Version 2003\SP3\KB930627" of x64 registry) OR ((value "ProductName" of it = "Microsoft Windows Server 2003 R2") of key "HKLM\Software\Microsoft\Windows NT\CurrentVersion\" of registry AND exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB930627" of x64 registry))) OR name of it = "Win2008" OR name of it = "Win2008R2" OR name of it = "Win7" OR name of it = "Win8" OR name of it = "Win2012" OR name of it = "Win8.1" OR name of it = "Win2012R2") of operating system OR ((it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)</Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "7")]]></Relevance>
+		<Relevance><![CDATA[(exists key whose (value "DisplayName" of it as string contains "Adobe Acrobat" AND (it >= "11.0.0" AND it < "11.0.17") of (value "DisplayVersion" of it as string as version)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>257245184</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB16-26</SourceID>
+		<SourceReleaseDate>2016-07-12</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2016-4191; CVE-2016-4192; CVE-2016-4193; CVE-2016-4194; CVE-2016-4195; CVE-2016-4196; CVE-2016-4197; CVE-2016-4198; CVE-2016-4199; CVE-2016-4200; CVE-2016-4201; CVE-2016-4202; CVE-2016-4203; CVE-2016-4204; CVE-2016-4205; CVE-2016-4206; CVE-2016-4207; CVE-2016-4208; CVE-2016-4209; CVE-2016-4210; CVE-2016-4211; CVE-2016-4212; CVE-2016-4213; CVE-2016-4214; CVE-2016-4215; CVE-2016-4250; CVE-2016-4251; CVE-2016-4252; CVE-2016-4254; CVE-2016-4255</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 12 Jul 2016 23:49:36 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2016-10-12</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Acrobat</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 04:40:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AcrobatUpd11017.msp sha1:dc82bf805da8f89441fb6cdceac60c4676d1d20b size:257245184 http://ardownload.adobe.com/pub/adobe/acrobat/win/11.x/11.0.17/misc/AcrobatUpd11017.msp sha256:a1dc28890656909942e281941af20c85d3ae4f9da8418d818062e4f887c737b8
+
+wait msiexec.exe /p "__Download\AcrobatUpd11017.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "dc82bf805da8f89441fb6cdceac60c4676d1d20b"</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Adobe Acrobat regardless of whether or not Adobe Acrobat is running.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AcrobatUpd11017.msp sha1:dc82bf805da8f89441fb6cdceac60c4676d1d20b size:257245184 http://ardownload.adobe.com/pub/adobe/acrobat/win/11.x/11.0.17/misc/AcrobatUpd11017.msp sha256:a1dc28890656909942e281941af20c85d3ae4f9da8418d818062e4f887c737b8
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrobat /a" else "taskkill /F /IM acrobat.exe"}
+
+wait msiexec.exe /p "__Download\AcrobatUpd11017.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "dc82bf805da8f89441fb6cdceac60c4676d1d20b"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Acrobat.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=6075</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#acrobatwin</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

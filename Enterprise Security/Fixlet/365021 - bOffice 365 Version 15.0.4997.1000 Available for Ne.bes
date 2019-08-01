@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Office 365 Version 15.0.4997.1000 Available for Network Share for Office 365 - Office 2013</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><p>Use the action below to update the Office 365 - Office 2013 installation source that is on the Network Share to version 15.0.4997.1000.</p></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>"Win98|WinME|Win2000|WinXP|Win2003|WinXP-2003|WinVista|Win2008" does not contain name of operating system</Relevance>
+		<Relevance>exist value whose (it as integer = 2) of settings "_BESClient_PatchMgmt_O365ProPlusRetail_2013" of client</Relevance>
+		<Relevance><![CDATA[not exists folder whose ((it = "15.0" AND it >= "15.0.4997.1000") of (name of it as version)) of folders "Office\Data" of folders "bigfix.O365ProPlusRetail.2013" of drive of windows folder]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4058103</SourceID>
+		<SourceReleaseDate>2018-01-09</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>ADV180003; CVE-2018-079; CVE-2018-0791; CVE-2018-0793; CVE-2018-0794; CVE-2018-0795; CVE-2018-0796; CVE-2018-0797; CVE-2018-0798; CVE-2018-0801; CVE-2018-0802; CVE-2018-0812</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 31 Mar 2016 07:06:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2013:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office 365</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jan 2018 14:02:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to update Office 365 Network Share - Office 2013.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[setting "_BESClient_PatchMgmt_O365ProPlusRetail_2013"=1 on "{now}" for client
+
+prefetch officedeploymenttool.exe sha1:8107f92b3f50ee516d6a397078d00d5ded922c2b size:851960 https://download.microsoft.com/download/6/2/3/6230F7A2-D8A9-478B-AC5C-57091B632FCF/officedeploymenttool_x86_4827-1000.exe sha256:0fa68b23374ee75b99c062ae81bfc8c99b7d6cad4282915f95ca9968fb3dd0a8
+
+waithidden __Download\officedeploymenttool.exe /quiet /extract:"{pathname of client folder of current site & "\__Download"}"
+
+delete configuration.xml
+delete configuration64.xml
+delete __Download\configuration.xml
+
+delete __appendfile
+
+appendfile <Configuration>
+appendfile   <Add SourcePath="{pathname of folder "bigfix.O365ProPlusRetail.2013" of drive of windows folder}" Version="15.0.4997.1000" OfficeClientEdition="32">
+appendfile     <Product ID="O365ProPlusRetail" >
+appendfile       {"<Language ID=%22" & (concatenation "%22/><Language ID=%22" of substrings separated by ";" of value of setting "_BESClient_PatchMgmt_O365ProPlusRetail_2013_lang" of client) & "%22/>"}
+appendfile     </Product>
+appendfile   </Add>
+appendfile </Configuration>
+
+move __appendfile configuration.xml
+
+waithidden __Download\setup.exe /download "{pathname of client folder of current site & "\configuration.xml"}"
+
+delete __appendfile
+
+appendfile <Configuration>
+appendfile   <Add SourcePath="{pathname of folder "bigfix.O365ProPlusRetail.2013" of drive of windows folder}" Version="15.0.4997.1000" OfficeClientEdition="64">
+appendfile     <Product ID="O365ProPlusRetail" >
+appendfile       {"<Language ID=%22" & (concatenation "%22/><Language ID=%22" of substrings separated by ";" of value of setting "_BESClient_PatchMgmt_O365ProPlusRetail_2013_lang" of client) & "%22/>"}
+appendfile     </Product>
+appendfile   </Add>
+appendfile </Configuration>
+
+move __appendfile configuration64.xml
+
+waithidden __Download\setup.exe /download "{pathname of client folder of current site & "\configuration64.xml"}"
+
+setting "_BESClient_PatchMgmt_O365ProPlusRetail_2013"=2 on "{now}" for client
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/en-us/gp/office-2013-365-update</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-JUL: Security update for SQL Server 2017 GDR - SQL Server 2017 - KB4505224 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p>A remote code execution vulnerability exists in Microsoft SQL Server when it incorrectly handles processing of internal functions. An attacker who successfully exploited this vulnerability could execute code in the context of the SQL Server Database Engine service account.&nbsp;To learn more about the vulnerability, go to&nbsp;<a data-bi-name="content-anchor-link" data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2019-1068" id="kb-link-2" managed-link="" tabindex="0" target="_blank">CVE-2019-1068</a>.</p><br><br><br><p><B>Note:</B> This security update is also referenced under KB4505224.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+446.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists keys whose (exists value "CurrentVersion" whose ((it = "14" AND it < "14.0.2027.02") of (it as string as version)) of key "MSSQLServer\CurrentVersion" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (native registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it = "14" AND it < "14.0.2027.02") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (native registry)) whose (item 0 of it = item 1 of it))]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>468460336</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4505224</SourceID>
+		<SourceReleaseDate>2019-07-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2019-1068</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sql_server:2017:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2017</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch sqlserver2017-kb4505224-x64_573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9.exe sha1:573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9 size:468460336 http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/07/sqlserver2017-kb4505224-x64_573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9.exe sha256:00dc4c8dc15b87c0a9511b64a2540618c223adecc4baf5ce697b76efa3317dfd
+
+waithidden __Download\sqlserver2017-kb4505224-x64_573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9.exe /q /allinstances /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9"</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (non-Microsoft cluster environments).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch sqlserver2017-kb4505224-x64_573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9.exe sha1:573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9 size:468460336 http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/07/sqlserver2017-kb4505224-x64_573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9.exe sha256:00dc4c8dc15b87c0a9511b64a2540618c223adecc4baf5ce697b76efa3317dfd
+
+waithidden __Download\sqlserver2017-kb4505224-x64_573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9.exe /q /allinstances /clusterpassive /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "573ca7cedf2e3df1c1fa4ce2fb1d2df6a8f24df9"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4505224</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

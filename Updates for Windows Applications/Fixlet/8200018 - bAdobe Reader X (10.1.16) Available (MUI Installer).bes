@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Reader X (10.1.16) Available (MUI Installer) - Adobe Reader X (10.x)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P>Adobe has released a new version of Adobe Reader. Use the action below to update Adobe Reader to the latest version (10.1.16).</P> <P>This update disables Adobe Updater for all Adobe applications.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><SPAN id=fixletLinks><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT></SPAN> If Adobe Acrobat is installed, this update may modify existing .PDF file associations to point to Adobe Reader 10.1.16.</P><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade Adobe Reader regardless of whether or not Adobe Reader is running" action will close any running instance of Adobe Reader on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable</SPAN></P> <P><SPAN><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG>Microsoft Windows Update KB930627 is required for both Windows XP SP2 (x64) and Windows Server 2003 SP2 (x64).</SPAN></SPAN></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+16.6 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2015-5583; CVE-2015-5586; CVE-2015-6683; CVE-2015-6684; CVE-2015-6685; CVE-2015-6686; CVE-2015-6687; CVE-2015-6688; CVE-2015-6689; CVE-2015-6690; CVE-2015-6691; CVE-2015-6692; CVE-2015-6693; CVE-2015-6694; CVE-2015-6695; CVE-2015-6696; CVE-2015-6697; CVE-2015-6698; CVE-2015-6699; CVE-2015-6700; CVE-2015-6701; CVE-2015-6702; CVE-2015-6703; CVE-2015-6704; CVE-2015-6705; CVE-2015-6706; CVE-2015-6707; CVE-2015-6708; CVE-2015-6709; CVE-2015-6710; CVE-2015-6711; CVE-2015-6712; CVE-2015-6713; CVE-2015-6714; CVE-2015-6715; CVE-2015-6716; CVE-2015-6717; CVE-2015-6718; CVE-2015-6719; CVE-2015-6720; CVE-2015-6721; CVE-2015-6722; CVE-2015-6723; CVE-2015-6724; CVE-2015-6725; CVE-2015-7614; CVE-2015-7615; CVE-2015-7616; CVE-2015-7617; CVE-2015-7618; CVE-2015-7619; CVE-2015-7620; CVE-2015-7621; CVE-2015-7622; CVE-2015-7623; CVE-2015-7624
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists regapp "acrord32.exe"</Relevance>
+		<Relevance>(exists key "2017" of it OR exists key "DC" of it OR exists key "2015" of it OR exists key "11.0" of it OR exists key "10.0" of it OR exists key "9.0" of it OR exists key "8.0" of it OR exists key "7.0" of it OR exists key "6.0" of it OR exists key "5.0" of it) of key "HKLM\Software\Adobe\Acrobat Reader\" of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "WinXP" OR name of it = "WinXPe") AND NOT x64 of it AND (service pack major version of it = 3)) or ((name of it = "WinXPe") AND x64 of it AND (service pack major version of it = 2)) or (name of it = "Win2003" AND NOT x64 of it) or (name of it = "WinXP-2003" AND x64 of it AND service pack major version of it = 2 AND exists key "hklm\software\microsoft\updates\windows xp version 2003\sp3\kb930627" of x64 registry) OR (name of it = "Win2003" AND x64 of it AND service pack major version of it = 2 AND (if (value "ProductName" of it = "Microsoft Windows Server 2003 R2") of key "HKLM\Software\Microsoft\Windows NT\CurrentVersion\" of registry then exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB930627" of x64 registry else true)) or (name of it = "WinVista" AND product type of it = nt workstation product type AND (service pack major version of it = 2)) or (name of it = "Win7") OR (name of it = "Win2008") or (name of it = "Win2008R2") or (name of it = "Win8") or (name of it = "Win8.1")) of operating system</Relevance>
+		<Relevance><![CDATA[(exists key whose ((it starts with "Adobe Reader X" and it contains "MUI") of (value "DisplayName" of it as string)  AND (it >= "10.0.0" AND it < "10.1.16") of (value "DisplayVersion" of it as string as version)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "7")]]></Relevance>
+		<Relevance>not (exists key whose (value whose (name of it contains "DisplayName") of it as string contains "Adobe Acrobat 5.0" AND exists value "UninstallString" of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry AND not exists regapp "acrobat.exe" whose (version of it = "5"))</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>17420288</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB15-24</SourceID>
+		<SourceReleaseDate>2015-10-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2015-5583; CVE-2015-5586; CVE-2015-6683; CVE-2015-6684; CVE-2015-6685; CVE-2015-6686; CVE-2015-6687; CVE-2015-6688; CVE-2015-6689; CVE-2015-6690; CVE-2015-6691; CVE-2015-6692; CVE-2015-6693; CVE-2015-6694; CVE-2015-6695; CVE-2015-6696; CVE-2015-6697; CVE-2015-6698; CVE-2015-6699; CVE-2015-6700; CVE-2015-6701; CVE-2015-6702; CVE-2015-6703; CVE-2015-6704; CVE-2015-6705; CVE-2015-6706; CVE-2015-6707; CVE-2015-6708; CVE-2015-6709; CVE-2015-6710; CVE-2015-6711; CVE-2015-6712; CVE-2015-6713; CVE-2015-6714; CVE-2015-6715; CVE-2015-6716; CVE-2015-6717; CVE-2015-6718; CVE-2015-6719; CVE-2015-6720; CVE-2015-6721; CVE-2015-6722; CVE-2015-6723; CVE-2015-6724; CVE-2015-6725; CVE-2015-7614; CVE-2015-7615; CVE-2015-7616; CVE-2015-7617; CVE-2015-7618; CVE-2015-7619; CVE-2015-7620; CVE-2015-7621; CVE-2015-7622; CVE-2015-7623; CVE-2015-7624</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 13 Oct 2015 22:38:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:reader:10.1.16:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Reader</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 04:40:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AdbeRdrUpd10116_MUI.msp sha1:59e989377ed826c4f198a9e84715c201a4457aff size:17420288 http://ardownload.adobe.com/pub/adobe/reader/win/10.x/10.1.16/misc/AdbeRdrUpd10116_MUI.msp sha256:234a22088752bcfc06eebf096e73b0e069a5d239a000bf42ace3efbb3559128b
+
+waithidden msiexec.exe /p "__Download\AdbeRdrUpd10116_MUI.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\10.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+
+delete temp.reg
+
+move __appendfile temp.reg
+
+wait regedit -s temp.reg
+
+action may require restart "59e989377ed826c4f198a9e84715c201a4457aff"</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Adobe Reader regardless of whether or not Adobe Reader is running</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AdbeRdrUpd10116_MUI.msp sha1:59e989377ed826c4f198a9e84715c201a4457aff size:17420288 http://ardownload.adobe.com/pub/adobe/reader/win/10.x/10.1.16/misc/AdbeRdrUpd10116_MUI.msp sha256:234a22088752bcfc06eebf096e73b0e069a5d239a000bf42ace3efbb3559128b
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+
+waithidden msiexec.exe /p "__Download\AdbeRdrUpd10116_MUI.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\10.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+
+delete temp.reg
+
+move __appendfile temp.reg
+
+wait regedit -s temp.reg
+
+action may require restart "59e989377ed826c4f198a9e84715c201a4457aff"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Reader.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=5991</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#readerwin</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+		<Action ID="Link6">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 930627.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/930627</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

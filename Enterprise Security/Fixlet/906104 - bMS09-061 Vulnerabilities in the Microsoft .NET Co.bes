@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-061: Vulnerabilities in the Microsoft .NET Common Language Runtime Could Allow Remote Code Execution - .NET Framework 2.0 SP1/3.5 - Windows 2000 SP4 / XP SP2- CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note</STRONG>: This bulletin has been partially superseded by MS10-060. Whereas this Fixlet message previously applied to Windows 2000 SP4, Windows XP SP2/SP3, and Windows Server 2003 SP2, it now only applies to Windows XP 2000 SP4 and Windows XP SP2.</P> <P>The listed computers have faulty installations of a patch for the vulnerability described in MS09-061. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<BR><BR>Microsoft has released a security update that resolves three privately reported vulnerabilities in Microsoft .NET Framework and Microsoft Silverlight. The vulnerabilities could allow remote code execution on a client system if a user views a specially crafted Web page using a Web browser that can run XAML Browser Applications (XBAPs) or Silverlight applications, or if an attacker succeeds in persuading a user to run a specially crafted Microsoft .NET application. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights. The vulnerabilities could also allow remote code execution on a server system running IIS, if that server allows processing ASP.NET pages and an attacker succeeds in uploading a specially crafted ASP.NET page to that server and executing it, as could be the case in a Web hosting scenario. Microsoft .NET applications, Silverlight applications, XBAPs and ASP.NET pages that are not malicious are not at risk of being compromised because of this vulnerability.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update&nbsp;will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB953300.<BR></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+5.28 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "Win2000" AND (service pack major version of it = 4)) of it) OR ((name of it = "WinXP" AND (service pack major version of it = 2)) of it)) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists file "mscordacwks.dll" whose (version of it < "2.0.50727.1873") of it) OR (exists file "mscorlib.dll" whose (version of it < "2.0.50727.1873") of it) OR (exists file "mscorwks.dll" whose (version of it < "2.0.50727.1873") of it)) of folder (Pathname of windows folder & "\Microsoft.NET\Framework\v2.0.50727"))]]></Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose ((name of it starts with "v2.0" and value "SP" of it = 1) OR (name of it starts with "v3.5" and value "SP" of it = 0)) of it) of registry</Relevance>
+		<Relevance>NOT(((not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Microsoft.NET Framework 2.0 Service Pack 1\KB953300" of it) AND (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Microsoft.NET Framework 2.0 Service Pack 1\SP1\KB953300" of it) AND (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Microsoft .NET Framework 2.0 Service Pack 1\SP1\KB953300" of it)) of registry)</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>5539680</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB974378</SourceID>
+		<SourceReleaseDate>2009-10-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2009-0090</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>906103</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000|WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP20SP1-KB953300-v2-x86.exe sha1:b19b1a3f0ff00153e0ee2a71f6707803ef482046 size:5539680 http://download.microsoft.com/download/f/8/7/f8716a44-e9dd-40da-95a8-b8cacd30ac18/NDP20SP1-KB953300-v2-x86.exe sha256:3b073e61ab991f83b67a271ca8e31248424ef1bb894c868419f797a3270f01a6
+
+waithidden __Download\NDP20SP1-KB953300-v2-x86.exe /quiet /norestart
+
+action may require restart "b19b1a3f0ff00153e0ee2a71f6707803ef482046"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-061.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-061.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

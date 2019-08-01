@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-004: Vulnerabilities in Windows Media Could Allow Remote Code Execution - DirectShow - Windows Server 2008 R2 Gold/SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Windows. The vulnerabilities could allow remote code execution if a user opens a specially crafted media file. An attacker who successfully exploited the vulnerabilities could gain the same user rights as the local user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This security update is also referenced under KB2631813.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.89 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2008R2") AND (service pack major version of it = 1 OR service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>NOT (exists names of values whose (name of it contains "CoreEdition") of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackageIndex\Product" of x64 registry)</Relevance>
+		<Relevance><![CDATA[((exists file "qdvd.dll" whose ((version of it >= "6.6.7601.17000" AND version of it < "6.6.7601.17713") OR (version of it >= "6.6.7600.20000" AND version of it < "6.6.7600.21077") OR (version of it >= "6.6.7601.21000" AND version of it < "6.6.7601.21847") OR (version of it < "6.6.7600.16905")) of it) OR (exists file "quartz.dll" whose ((version of it >= "6.6.7601.17000" AND version of it < "6.6.7601.17713") OR (version of it >= "6.6.7600.20000" AND version of it < "6.6.7600.21077") OR (version of it >= "6.6.7601.21000" AND version of it < "6.6.7601.21847") OR (version of it < "6.6.7600.16905")) of it)) of (system x64 folder) OR ((exists file "qdvd.dll" whose ((version of it >= "6.6.7601.17000" AND version of it < "6.6.7601.17713") OR (version of it >= "6.6.7600.20000" AND version of it < "6.6.7600.21077") OR (version of it >= "6.6.7601.21000" AND version of it < "6.6.7601.21847") OR (version of it < "6.6.7600.16905")) of it) OR (exists file "quartz.dll" whose ((version of it >= "6.6.7601.17000" AND version of it < "6.6.7601.17713") OR (version of it >= "6.6.7600.20000" AND version of it < "6.6.7600.21077") OR (version of it >= "6.6.7601.21000" AND version of it < "6.6.7601.21847") OR (version of it < "6.6.7600.16905")) of it)) of (system wow64 folder)]]></Relevance>
+		<Relevance>not pending restart "acb32a06811d1e0460b8b942b50422a140d193aa"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1980015</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2631813</SourceID>
+		<SourceReleaseDate>2012-01-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2012-0004</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>DirectX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2008:r2:gold:*:*:*:*:*:*; cpe:2.3:o:microsoft:windows_server_2008:r2:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2631813-x64.msu sha1:acb32a06811d1e0460b8b942b50422a140d193aa size:1980015 http://download.microsoft.com/download/7/7/5/7751E78E-3BDE-4C8A-8EEF-FF663D265CE2/Windows6.1-KB2631813-x64.msu sha256:8c4315c2c4a037dc010989c1f5d811db6bc8c4426e5002f12621d2c37863d3a2
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2631813-x64.msu"}" /quiet /norestart
+
+action requires restart "acb32a06811d1e0460b8b942b50422a140d193aa"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS12-004</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

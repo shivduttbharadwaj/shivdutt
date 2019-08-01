@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-003: Vulnerabilities in System Center Operations Manager Could Allow Elevation of Privilege - System Center Operations Manager 2007 SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft System Center Operations Manager. The vulnerabilities could allow elevation of privilege if a user visits an affected website by way of a specially crafted URL. An attacker would have no way to force users to visit such a website. Instead, an attacker would have to convince users to visit the website, typically by getting them to click a link in an email message or Instant Messenger message that takes users to the affected website.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2809182.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+5.54 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key whose (value "DisplayName" of it as string = "System Center Operations Manager 2007" AND value "Language" of it as integer = 1033 ) of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((exists file "Microsoft.EnterpriseManagement.OperationsManager.DataAbstractionLayer.dll" whose (version of it >= "6.0.6278.112") of it)) of folder "Web Console\bin" of folder ((value "InstallDirectory" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft Operations Manager\3.0\Setup" of native registry) as string)]]></Relevance>
+		<Relevance><![CDATA[((exists file "Microsoft.EnterpriseManagement.OperationsManager.DataAbstractionLayer.dll" whose (version of it < "6.0.6278.124") of it) or (exists file "Microsoft.EnterpriseManagement.OperationsManager.DataAbstractionLayer.CommonSetUp.dll" whose (version of it < "6.0.6278.124") of it) or (exists file "Microsoft.EnterpriseManagement.OperationsManager.Web.ConsoleFramework.dll" whose (version of it < "6.0.6278.124") of it)) of folder "Web Console\bin" of folder ((value "InstallDirectory" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft Operations Manager\3.0\Setup" of native registry) as string)]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>5808128</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2809182</SourceID>
+		<SourceReleaseDate>2013-03-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2013-0009; CVE-2013-0010</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>System Center Operations Manager</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>System Center Configuration Manager 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:system_center_operations_manager:2007:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Systems Management Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SCOM-KB2809182-i386.msi sha1:482635f5330e200ec9acae1ff35eecb0bd1124ba size:5808128 http://download.microsoft.com/download/B/5/D/B5DB6F79-4546-43B5-A259-2AF5F232527D/SCOM-KB2809182-i386.msi sha256:44d014a058724e080ebc54dad27aecdb31a830ce5e6b9e50e1724b18fcaaa827
+
+waithidden msiexec.exe /i __Download\SCOM-KB2809182-i386.msi /quiet /norestart
+
+action may require restart "482635f5330e200ec9acae1ff35eecb0bd1124ba"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2013/MS13-003</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

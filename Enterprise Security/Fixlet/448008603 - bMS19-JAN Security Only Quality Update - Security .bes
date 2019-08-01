@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-JAN: Security Only Quality Update - Security Only - Windows 8.1 - .NET Framework 3.5 - KB4480086 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><div class="kb-summary-section section"><br><p><span><span></span></span>This security update resolves a vulnerability in Microsoft .NET Framework that may cause an information disclosure that allows bypassing Cross-origin Resource Sharing (CORS) configurations.</p><br><br><p>An attacker who successfully exploits this vulnerability could retrieve from a web application content that is usually restricted.</p><br><br><p>This security update addresses the vulnerability by enforcing CORS configuration to prevent it from being bypassed.<br><br><span><span></span></span><span><span></span></span></p><br>To learn more about this vulnerability, see <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/security-guidance/advisory/CVE-2019-0545" id="kb-link-2" managed-link="" target="">Microsoft Common Vulnerabilities and Exposures CVE-2019-0545</a>.<br><br>&nbsp;</div><br><br><p><strong><span class="text-base">Important</span></strong></p><br><br><ul><br> <li>All updates for Windows 8.1 and Windows Server 2012 R2 require that update <a href="https://support.microsoft.com/help/2919355" originalsrc="https://support.microsoft.com/en-us/help/2919355" shash="SdHO7Kk2d3fbc28R4qQAZ8F0SsvrMosbCqU8piTDa67IERr0aEXp8i4ZRVClhAqD4hON0+pZyftjRUseuoQdEjbgZFZns8Ad+7C++1do9/XVBtS7bRBASuzzzYtq9AUWDBJL/S8Wz9wYun15t++qoLiKRwAdLtsK5/OZOWr5exs=" target="_blank"><span><span>2919355</span></span></a> is installed. We recommend that you install update <a href="https://support.microsoft.com/help/2919355" originalsrc="https://support.microsoft.com/en-us/help/2919355" shash="v69h2wrHyR67oPXEioyYsjJxsdAnQUOgYbebpCa5NeFzyFMwHDBXmA4s5SbHpuIOVY0N9TbWJJajw9QQ7ctdw4g84nGNcn5GIdUxiAltDyPGPjuUnsXHzW9QnFf7Gg22RnA9EAa33fBiUOxAWA22JyKbwsA/PODEnMiU7IIgcZk=" target="_blank"><span><span>2919355</span></span></a> on your Windows 8.1-based or Windows Server 2012 R2-based computer so that you receive updates in the future.</li><br> <li>If you install a language pack after you install this update, you must reinstall this update. Therefore, we recommend that you install any language packs that you need before you install this update. For more information, see <a bookmark-id="" data-content-id="" data-content-type="" href="https://technet.microsoft.com/en-us/library/hh825699" managed-link="" target="_blank">Add language packs to Windows</a>.</li><br></ul><br><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4481485.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1")) of operating system</Relevance>
+		<Relevance>(name of it = "Win8.1" OR name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v3.5") of it) of registry</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4480086~31bf3856ad364e35~amd64~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4480086~31bf3856ad364e35~amd64~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-NetFx2-OC-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-NetFx2-ServerCore-OC-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_netfx-system_b03f5f7f11d50a3a_none_663d9b6831075b47" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.21102") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-NetFx2-OC-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-NetFx2-ServerCore-OC-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-NetFx2-ServerCore-OC-WOW64-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "msil_system_b77a5c561934e089_none_fa79dfcceecd686a" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.21102") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance><![CDATA[exists (files ("system.dll") of (folders ("Microsoft.NET\Framework\v2.0.50727"; "Microsoft.NET\Framework64\v2.0.50727") of windows folder; (folder (value "All Assemblies In" of it as string)) of keys whose (exists value "All Assemblies In" of it) of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\AssemblyFolders" of (x32 registries; x64 registries); system folder; system x64 folders)) whose (version of it < "2.0.50727.8801")]]></Relevance>
+		<Relevance>not pending restart "977b2fe56fc2ee8d04d7d313dea0dad944449479"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>1173866</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4480086</SourceID>
+		<SourceReleaseDate>2019-01-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2019-0545</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 09 Jan 2019 05:26:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:3.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 01 Feb 2019 21:38:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb4480086-x64_977b2fe56fc2ee8d04d7d313dea0dad944449479.msu sha1:977b2fe56fc2ee8d04d7d313dea0dad944449479 size:1173866 http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/01/windows8.1-kb4480086-x64_977b2fe56fc2ee8d04d7d313dea0dad944449479.msu sha256:ece9f2db99077eb9ba71d5bf4454d62ed20b75c0ed1d65493240b5c182a41f94
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows8.1-kb4480086-x64_977b2fe56fc2ee8d04d7d313dea0dad944449479.msu"}" /quiet /norestart
+
+action requires restart "977b2fe56fc2ee8d04d7d313dea0dad944449479"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4480086</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

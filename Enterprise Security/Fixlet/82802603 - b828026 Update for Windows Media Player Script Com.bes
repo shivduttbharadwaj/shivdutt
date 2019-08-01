@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>828026: Update for Windows Media Player Script Commands - Win NT 4 Server</Title>
+		<Description><![CDATA[
+Microsoft has released an update to Microsoft Windows Media Player. This update changes settings and adds new logic to media player components in order to protect against possible security vulnerabilities.<BR><BR><b>Note:</b> If this patch has been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Note: </b>Affected computers may report back as 'Pending Restart' once the patch has run successfully, this indicates the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Important Note: </b>Hotfixes have no default action. <BR><BR><b>File Size:</b> 414 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinNT" AND (major version of operating system = 4 AND (exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry AND (value "ProductType" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry = "LanmanNT" OR value "ProductType" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry = "ServerNT"))) AND ((not exists value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry) OR ((value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry as string does not contain "Enterprise") AND (value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry as string does not contain "Terminal Server")))</Relevance>
+		<Relevance>(exists regapp "mplayer2.exe") AND (first 3 of (version of regapp "mplayer2.exe" as string) = "6.4")</Relevance>
+		<Relevance><![CDATA[exists file "Msdxm.ocx" whose (version of it as version < "6.4.7.1128") of system folder]]></Relevance>
+		<Relevance>not pending restart "7177714d1294caf2398bdf67c4310d926ede7c59"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>424024</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB828026</SourceID>
+		<SourceReleaseDate>2003-10-03</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Media Player</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsMedia64-KB828026-x86-ENU.exe sha1:7177714d1294caf2398bdf67c4310d926ede7c59 size:424024 http://download.microsoft.com/download/e/2/0/e20e5e6e-ff12-4eda-86b4-21e1065de70f/WindowsMedia64-KB828026-x86-ENU.exe sha256:29a4e1214c1c8a773c5444a0d682b09ed082088cbb73f1b4d456daff4d6babd3
+
+wait __download\WindowsMedia64-KB828026-x86-ENU.exe /Q:A /R:N
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart "7177714d1294caf2398bdf67c4310d926ede7c59"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 828026.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/default.aspx?scid=kb;en-us;828026</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4078130: Update to disable mitigation against Spectre, Variant 2 - Windows Server 2008/ Windows 7 / Windows Server 2008 R2 / Windows Server 2012 / Windows 8.1 / Windows Server 2012 R2 / Windows 10 / Windows Server 2016 - KB4078130</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <DIV class=FixletMessage> <P class=ng-scope>Out-of-band update, KB4078130, that specifically disables only the mitigation against CVE-2017-5715 - "Branch target injection vulnerability."</P> <P class=ng-scope><STRONG>Note</STRONG>: Users who do not have the affected Intel microcode do not have to download this update.</P></DIV></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+24 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win2008" OR (name of it = "Win7" OR name of it = "Win2008R2") OR name of it = "Win8.1" OR name of it = "Win10" OR name of it = "Win8" OR name of it = "Win2012" OR name of it = "Win2012R2" OR name of it = "Win2016") of operating system</Relevance>
+		<Relevance>exists keys "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" whose (exists values "FeatureSettingsOverride" whose (it as integer =0) of it AND exists values "FeatureSettingsOverrideMask" whose (it as integer = 3) of it) of registry</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>25288</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4078130</SourceID>
+		<SourceReleaseDate>2018-01-27</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 06 Feb 2018 06:46:12 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 09 May 2019 20:58:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch kb4078130_b86f0bf2dc0866a0e117ed2d4a5302fab0493a7b.exe sha1:b86f0bf2dc0866a0e117ed2d4a5302fab0493a7b size:25288 http://download.windowsupdate.com/c/msdownload/update/software/crup/2018/01/kb4078130_b86f0bf2dc0866a0e117ed2d4a5302fab0493a7b.exe sha256:0592e39c28b53559806be5eaa8e15346b2f14109e47bd7d55b8058ff16195154
+
+waithidden __Download\kb4078130_b86f0bf2dc0866a0e117ed2d4a5302fab0493a7b.exe /quiet /norestart
+
+action may require restart "b86f0bf2dc0866a0e117ed2d4a5302fab0493a7b"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4078130</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Mozilla Thunderbird 60.3.1 Available (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This patch has been superseded by  60.3.2.<br /><br />Mozilla has released a new version of the Thunderbird. Use the action below to update Thunderbird to the latest version (60.3.1).<BR><BR><B>Note</B>: Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note</B>: Client machines may briefly display a cancellable extraction progress windows during installation of this update.<BR><BR><B>Note</B>: This update uses dynamic download so that only the necessary Thunderbird binary will be downloaded on the servers. <BR><BR><B>Note</B>: You must add http://download-installer.cdn.mozilla.net/.*, the Thunderbird download source to the DownloadWhitelist.txt file, which is located in BigFix Enterprise\BESServer\Mirror Server\Config\. This only needs to be done once.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> Choosing the "Upgrade Thunderbird regardless of whether or not Thunderbird running action" will close any running instance of Thunderbird on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+30.4 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[(exists regapp "thunderbird.exe" whose (product version of it < "60.3.1")) OR (exists key whose (value "DisplayName" of it as string contains "Mozilla Thunderbird"  AND value "DisplayVersion" of it as string as version < "60.3.1") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Relevance>(((name of it = "WinXP") AND service pack major version of it = 3) OR name of it = "Win2003" OR name of it = "Win2008" OR name of it = "WinVista"  OR name of it = "Win2008R2" OR name of it = "Win7" OR (name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2") OR (name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) ) of operating system</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>31925200</DownloadSize>
+		<Source>Mozilla</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2018-11-15</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>SANS C1</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Sat, 17 Nov 2018 03:18:30 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-11-30</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:mozilla:thunderbird:60.3.1:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Mozilla Thunderbird</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 01 Dec 2018 04:43:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Thunderbird only if Thunderbird is not currently running. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">begin prefetch block
+
+if {exists key whose (name of it as string contains "en-US") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=37dad621f700cf769fd7b14ca1c072f950a9fb09 size=31925200 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/en-US/Thunderbird%2520Setup%252060.3.1.exe sha256=7fda05c91f04cd0074c704f1f6ae29fde12efd30abf7ccd86eff039ecd1e1573"}
+	
+elseif {exists key whose (name of it as string contains "fr") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=263de74e9037eb2c802064428a673762a5f13765 size=32083096 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/fr/Thunderbird%2520Setup%252060.3.1.exe sha256=5ed0240cf824a5fbbda5740cdcb13c806ce22d9459552f2a38fdddeb1cd15056"}
+	
+elseif {exists key whose (name of it as string contains "de") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=4ca364913f25a479c400c2facd2e9b2968246331 size=31796288 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/de/Thunderbird%2520Setup%252060.3.1.exe sha256=df6ef9db74bb86373f9d31cd7683f194a6092d46eda30bbed12cd0c101b51d14"}
+	
+elseif {exists key whose (name of it as string contains "it") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=102ed05f0e4c0216025a93fb0d8abd3a7f35984d size=31724040 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/it/Thunderbird%2520Setup%252060.3.1.exe sha256=70e648ff66b003a7e057d23b4a90f5b572712c202400164e9e68280d77554a6a"}
+	
+elseif {exists key whose (name of it as string contains "es-ES") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=eb5da321be21f6eeac54848097754e2026f143e1 size=31716448 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/es-ES/Thunderbird%2520Setup%252060.3.1.exe sha256=0d7c34bbde1798445e1e7ce545e7f2609afd05fad3a8298634f9d55b97ca7f00"}
+	
+elseif {exists key whose (name of it as string contains "zh-CN") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=eb7d01564134b05a86081f668c8f89587785ddc4 size=31791184 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/zh-CN/Thunderbird%2520Setup%252060.3.1.exe sha256=e5b50698facf0de58d5e4ec4bb965f0e3d2add2c41e2215127645451b3ae32f0"}
+	
+elseif {exists key whose (name of it as string contains "ja") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=164ee5a6933848bd98cc96d5c60e0aadac84f9c5 size=31972376 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/ja/Thunderbird%2520Setup%252060.3.1.exe sha256=a35eacb9b53f4d75622f7d256b433d0479e9c6ed7aac0ed948c1694a5a4f51b0"}
+	
+
+elseif {exists key whose (name of it as string contains "zh-TW") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=8bc92c118536e1629c6f7f46cf5e88e153777e18 size=31967632 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/zh-TW/Thunderbird%2520Setup%252060.3.1.exe sha256=c2d2540e88b39c21a2266fc3ed05249879f5c0bdc8a8073be1e078a1ab48b142"}
+	
+
+elseif {exists key whose (name of it as string contains "ko") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=aaa6842d862548ea76124fe99ad4002ebc7e8a7c size=31789872 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/ko/Thunderbird%2520Setup%252060.3.1.exe sha256=36839be8c71d08b147f7803e1db62fba9a3fcb4dfaefe25de1fa6a9adc68ea65"}
+	
+elseif {exists key whose (name of it as string contains "pt-BR") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=2c4063937561d0ed1f74250cbcbd83b516e3157f size=31936664 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/pt-BR/Thunderbird%2520Setup%252060.3.1.exe sha256=d81e7514d0e49e2655d9b725f4ac3c28a456149de1d020c982c6b229004498bf"}
+	
+elseif {exists key whose (name of it as string contains "ru") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=60e9b84e33aecf0394104d78fddd7fd6d67b9dee size=32251280 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/ru/Thunderbird%2520Setup%252060.3.1.exe sha256=ec150be569fbab9cf1c17a16a626d03e9a8164eca0e4d1f2ed490b50643a449f"}
+	
+elseif {exists key whose (name of it as string contains "pl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=01a9d220e9b410c543db3881de8e533784bc6f53 size=32698968 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/pl/Thunderbird%2520Setup%252060.3.1.exe sha256=ee7b4922e186085f918a0ac7a5dbf566164aa5c8a4c116854228e57271a8c0fb"}
+	
+elseif {exists key whose (name of it as string contains "hu") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=2de28eef7bc60327da5a3760a84d3210269ad795 size=32352184 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/hu/Thunderbird%2520Setup%252060.3.1.exe sha256=0d1a8b21d81f3a4f56a7dd4a03ab6ba027a5f82fb497f9c86cd9ccf12c34e607"}
+	
+elseif {exists key whose (name of it as string contains "cs") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=5642a10072c6dbae9fcee999ae7d8d98d951467f size=31801360 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/cs/Thunderbird%2520Setup%252060.3.1.exe sha256=124a9c90d2d2a832025e3d03a21d1d494b35684861f02383d5deccc87721f483"}
+	
+elseif {exists key whose (name of it as string contains "en-GB") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=5b4fab7635959c5c09a61dc9e3d9548f4dd0a6c7 size=31758200 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/en-GB/Thunderbird%2520Setup%252060.3.1.exe sha256=c9fecc9ba5dfb9a93bfc88b9c6ec43a44f771ddb8c311148cd4dacc4c7516f49"}
+	
+endif
+
+
+collect prefetch items
+end prefetch block
+
+wait __Download\Thunderbird_Setup_60.3.1.exe /S
+
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Thunderbird regardless of whether or not Thunderbird is currently running.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">begin prefetch block
+
+if {exists key whose (name of it as string contains "en-US") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=37dad621f700cf769fd7b14ca1c072f950a9fb09 size=31925200 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/en-US/Thunderbird%2520Setup%252060.3.1.exe sha256=7fda05c91f04cd0074c704f1f6ae29fde12efd30abf7ccd86eff039ecd1e1573"}
+	
+elseif {exists key whose (name of it as string contains "fr") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=263de74e9037eb2c802064428a673762a5f13765 size=32083096 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/fr/Thunderbird%2520Setup%252060.3.1.exe sha256=5ed0240cf824a5fbbda5740cdcb13c806ce22d9459552f2a38fdddeb1cd15056"}
+	
+elseif {exists key whose (name of it as string contains "de") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=4ca364913f25a479c400c2facd2e9b2968246331 size=31796288 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/de/Thunderbird%2520Setup%252060.3.1.exe sha256=df6ef9db74bb86373f9d31cd7683f194a6092d46eda30bbed12cd0c101b51d14"}
+	
+elseif {exists key whose (name of it as string contains "it") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=102ed05f0e4c0216025a93fb0d8abd3a7f35984d size=31724040 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/it/Thunderbird%2520Setup%252060.3.1.exe sha256=70e648ff66b003a7e057d23b4a90f5b572712c202400164e9e68280d77554a6a"}
+	
+elseif {exists key whose (name of it as string contains "es-ES") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=eb5da321be21f6eeac54848097754e2026f143e1 size=31716448 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/es-ES/Thunderbird%2520Setup%252060.3.1.exe sha256=0d7c34bbde1798445e1e7ce545e7f2609afd05fad3a8298634f9d55b97ca7f00"}
+	
+elseif {exists key whose (name of it as string contains "zh-CN") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=eb7d01564134b05a86081f668c8f89587785ddc4 size=31791184 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/zh-CN/Thunderbird%2520Setup%252060.3.1.exe sha256=e5b50698facf0de58d5e4ec4bb965f0e3d2add2c41e2215127645451b3ae32f0"}
+	
+elseif {exists key whose (name of it as string contains "ja") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=164ee5a6933848bd98cc96d5c60e0aadac84f9c5 size=31972376 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/ja/Thunderbird%2520Setup%252060.3.1.exe sha256=a35eacb9b53f4d75622f7d256b433d0479e9c6ed7aac0ed948c1694a5a4f51b0"}
+	
+
+elseif {exists key whose (name of it as string contains "zh-TW") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=8bc92c118536e1629c6f7f46cf5e88e153777e18 size=31967632 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/zh-TW/Thunderbird%2520Setup%252060.3.1.exe sha256=c2d2540e88b39c21a2266fc3ed05249879f5c0bdc8a8073be1e078a1ab48b142"}
+	
+
+elseif {exists key whose (name of it as string contains "ko") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=aaa6842d862548ea76124fe99ad4002ebc7e8a7c size=31789872 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/ko/Thunderbird%2520Setup%252060.3.1.exe sha256=36839be8c71d08b147f7803e1db62fba9a3fcb4dfaefe25de1fa6a9adc68ea65"}
+	
+elseif {exists key whose (name of it as string contains "pt-BR") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=2c4063937561d0ed1f74250cbcbd83b516e3157f size=31936664 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/pt-BR/Thunderbird%2520Setup%252060.3.1.exe sha256=d81e7514d0e49e2655d9b725f4ac3c28a456149de1d020c982c6b229004498bf"}
+	
+elseif {exists key whose (name of it as string contains "ru") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=60e9b84e33aecf0394104d78fddd7fd6d67b9dee size=32251280 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/ru/Thunderbird%2520Setup%252060.3.1.exe sha256=ec150be569fbab9cf1c17a16a626d03e9a8164eca0e4d1f2ed490b50643a449f"}
+	
+elseif {exists key whose (name of it as string contains "pl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=01a9d220e9b410c543db3881de8e533784bc6f53 size=32698968 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/pl/Thunderbird%2520Setup%252060.3.1.exe sha256=ee7b4922e186085f918a0ac7a5dbf566164aa5c8a4c116854228e57271a8c0fb"}
+	
+elseif {exists key whose (name of it as string contains "hu") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=2de28eef7bc60327da5a3760a84d3210269ad795 size=32352184 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/hu/Thunderbird%2520Setup%252060.3.1.exe sha256=0d1a8b21d81f3a4f56a7dd4a03ab6ba027a5f82fb497f9c86cd9ccf12c34e607"}
+	
+elseif {exists key whose (name of it as string contains "cs") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=5642a10072c6dbae9fcee999ae7d8d98d951467f size=31801360 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/cs/Thunderbird%2520Setup%252060.3.1.exe sha256=124a9c90d2d2a832025e3d03a21d1d494b35684861f02383d5deccc87721f483"}
+	
+elseif {exists key whose (name of it as string contains "en-GB") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Thunderbird" of it) of registry}
+
+	add prefetch item {"name=Thunderbird_Setup_60.3.1.exe sha1=5b4fab7635959c5c09a61dc9e3d9548f4dd0a6c7 size=31758200 url=http://download-installer.cdn.mozilla.net/pub/thunderbird/releases/60.3.1/win32/en-GB/Thunderbird%2520Setup%252060.3.1.exe sha256=c9fecc9ba5dfb9a93bfc88b9c6ec43a44f771ddb8c311148cd4dacc4c7516f49"}
+	
+endif
+
+
+collect prefetch items
+end prefetch block
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill thunderbird /a" else "taskkill /F /IM thunderbird.exe"}
+
+wait __Download\Thunderbird_Setup_60.3.1.exe /S
+</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about this Thunderbird release.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.mozilla.org/en-US/thunderbird/60.3.1/releasenotes/</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Mozilla.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.mozilla.org/security/known-vulnerabilities/thunderbird.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

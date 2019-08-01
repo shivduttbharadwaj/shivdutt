@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3174644: Security advisory: Updated support for Diffie-Hellman Key Exchange - Reset Diffie-Hellman Modulus Size to Default - KB3174644</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been partially superseded by KB3198510. Whereas this Fixlet previously applied to Windows Vista SP2 / Windows Server 2008 SP2 / Windows 7 SP1 / Windows Server 2008 R2 SP1 / Windows 8 / Windows Server 2012 / Windows 8.1 / Windows Server 2012 R2, it now only applies to Windows 7 SP1 / Windows Server 2008 R2 SP1 / Windows 8 / Windows Server 2012 / Windows 8.1 / Windows Server 2012 R2.</P><P>Microsoft is providing updated support to enable administrators to configure longer Diffie-Hellman ephemeral (DHE) key shares for TLS servers. The updated support allows administrators to increase the size of a DH modulus from the current default of 1024 to either 2048, 3072, or 4096.</P><P><B>Note:</B> This update is also referenced under KB3174644.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win7" OR name of it = "Win2008R2" AND service pack major version of it = 1 OR (name of it = "Win8" OR name of it = "Win8.1" OR name of it = "Win2012" OR name of it = "Win2012R2")) of operating system</Relevance>
+		<Relevance>exists keys ("Package_for_KB3174644~31bf3856ad364e35~x86~~6.0.1.0"; "Package_for_KB3174644~31bf3856ad364e35~amd64~~6.0.1.0"; "Package_for_KB3175024~31bf3856ad364e35~x86~~6.1.2.0"; "Package_for_KB3175024~31bf3856ad364e35~amd64~~6.1.2.0"; "Package_for_KB3174644~31bf3856ad364e35~x86~~6.3.1.1"; "Package_for_KB3174644~31bf3856ad364e35~amd64~~6.3.1.1") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry</Relevance>
+		<Relevance>exists value "ServerMinKeyBitLength" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman" of native registry</Relevance>
+		<Category>Undo Workaround</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3174644</SourceID>
+		<SourceReleaseDate>2016-09-13</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 14 Sep 2016 02:58:05 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista|Win2008|Win7|Win2008R2|Win8|Win8.1|Win2012|Win2012R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Sep 2018 06:19:54 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regdelete "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman]" "ServerMinKeyBitLength"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://technet.microsoft.com/library/security/3174644</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

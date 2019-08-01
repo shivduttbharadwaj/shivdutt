@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2842230: "Out of memory" error on a computer that has a customized MaxMemoryPerShellMB quota set and has WMF 3.0 installed - Windows Server 2012 - KB2842230 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this Hotfix to resolve issues in Windows. For a complete listing of the issues that are included in this Hotfix, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P><p><B>Note:</B> This update is also referenced under KB2842230.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.2" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>(name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.2" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB2842230~31bf3856ad364e35~amd64~~6.2.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB2842230~31bf3856ad364e35~amd64~~6.2.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-ServerCore-SKU-Foundation-Package-admin~31bf3856ad364e35~amd64~~6.2.9200.16384";"Microsoft-Windows-SKU-Foundation-Package-admin~31bf3856ad364e35~amd64~~6.2.9200.16384";"Microsoft-Windows-ServerCore-FullServer-ExtraFoundation-Package-admin~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-winrsplugins_31bf3856ad364e35_none_e7425731745d2269" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20727" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16622") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-winrsplugins_31bf3856ad364e35_none_8b23bbadbbffb133" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20727" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16622") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-w..for-management-core_31bf3856ad364e35_none_15b927fb9f8b4d73" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20727" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16622") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-w..for-management-core_31bf3856ad364e35_none_200dd24dd3ec0f6e" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20727" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16622") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Embedded-WMX-Package~31bf3856ad364e35~amd64~~6.2.9200.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-winrsplugins_31bf3856ad364e35_none_e7425731745d2269" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20727" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16622") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-winrsplugins_31bf3856ad364e35_none_8b23bbadbbffb133" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20727" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16622") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-w..for-management-core_31bf3856ad364e35_none_15b927fb9f8b4d73" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20727" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16622") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-w..for-management-core_31bf3856ad364e35_none_200dd24dd3ec0f6e" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20727" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16622") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "6b06f4059b82eaa8140e91e9f30c7b3a72640741"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>2363568</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2842230</SourceID>
+		<SourceReleaseDate>2013-07-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 26 May 2017 15:45:12 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2012:-:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2012</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 26 May 2017 15:45:12 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8-rt-kb2842230-x64_6b06f4059b82eaa8140e91e9f30c7b3a72640741.msu sha1:6b06f4059b82eaa8140e91e9f30c7b3a72640741 size:2363568 http://download.windowsupdate.com/d/msdownload/update/software/htfx/2013/07/windows8-rt-kb2842230-x64_6b06f4059b82eaa8140e91e9f30c7b3a72640741.msu sha256:95bd954c438ba5ab17ac87aa60ca4347605d0970fa480f6d3edafa4a7366a644
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows8-rt-kb2842230-x64_6b06f4059b82eaa8140e91e9f30c7b3a72640741.msu"}" /quiet /norestart
+
+action requires restart "6b06f4059b82eaa8140e91e9f30c7b3a72640741"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/2842230</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

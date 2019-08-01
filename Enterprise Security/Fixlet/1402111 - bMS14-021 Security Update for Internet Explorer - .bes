@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-021: Security Update for Internet Explorer - IE 6 - Windows XP SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a security update that resolves a publicly disclosed vulnerability in Internet Explorer. The vulnerability could allow remote code execution if a user views a specially crafted webpage using an affected version of Internet Explorer. An attacker who successfully exploited this vulnerability could gain the same user rights as the current user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.</P> <P><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT><FONT color=#000000> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.</FONT><BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2964358.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.02 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "WinXP-2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "iexplore.exe" whose (version of it < "7.0.0.0") of (folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder))) ) AND (it >= "6.0.3790.0" AND it <= "6.0.3790.3959") of version (value "Version" of key "HKLM\SOFTWARE\Microsoft\Internet Explorer" of registry as string)]]></Relevance>
+		<Relevance>version of regapp "iexplore.exe" = "6"</Relevance>
+		<Relevance><![CDATA[(exists file "mshtml.dll" whose ((version of it < "6.0.3790.5328")) of it) of (system x64 folder) OR (exists file "mshtml.dll" whose ((version of it < "6.0.3790.5328")) of it) of (system wow64 folder)]]></Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP Version 2003\SP3\KB2964358" of x64 registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>4216568</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2964358</SourceID>
+		<SourceReleaseDate>2014-05-01</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2014-1776</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 02 May 2014 07:43:23 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:ie:6:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB2964358-x64-ENU.exe sha1:2c0f93b56cedba47890047c84be5817d2b68a18e size:4216568 http://download.microsoft.com/download/7/5/1/751A1D61-2C65-4D80-A2A6-7E12F6FC072C/WindowsServer2003-KB2964358-x64-ENU.exe sha256:200d34e06243f874ff64816eeef26084b2631ad86d3d2b9a1b22fdc204e2cb90
+
+waithidden __Download\WindowsServer2003-KB2964358-x64-ENU.exe /quiet /norestart
+
+action may require restart "2c0f93b56cedba47890047c84be5817d2b68a18e"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://technet.microsoft.com/en-us/library/security/ms14-021</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

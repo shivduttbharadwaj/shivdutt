@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>963675: Description of the update for SharePoint Designer 2007 Help - SharePoint Designer 2007</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update installs the latest assistance content for the Microsoft Office SharePoint Designer 2007 Help file and the Office SharePoint Designer 2007 Developer Help file.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB963675.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+13.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>((exists keys whose( (name of it = "00002109710090400000000000F01FEC") AND  (not exists key whose (name of it equals "B74FD9A9B4BDD58428114703BACE2595") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>13799368</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB963675</SourceID>
+		<SourceReleaseDate>2009-04-27</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 02 Sep 2014 08:13:08 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 SP1 |~| Windows Vista Gold |~| Windows XP SP2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch office2007-kb963675-fullfile-x86-en-us.exe sha1:0ee8ffdb45a945daafc22c5f0f521c2e3e2575af size:13799368 http://download.microsoft.com/download/B/0/A/B0A65A1F-4D5D-44EB-8379-DCE114AD4285/office2007-kb963675-fullfile-x86-en-us.exe sha256:95dd88c28ce300b0989da130c9220f66a716c0430768ffdeab526c18d4ebe61f
+
+waithidden __Download\office2007-kb963675-fullfile-x86-en-us.exe /quiet /norestart
+
+action may require restart "0ee8ffdb45a945daafc22c5f0f521c2e3e2575af"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/963675</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

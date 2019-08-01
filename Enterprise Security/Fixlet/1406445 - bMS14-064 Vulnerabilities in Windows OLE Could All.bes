@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-064: Vulnerabilities in Windows OLE Could Allow Remote Code Execution - Windows 8.1 Gold - KB3010788 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This security update resolves two privately reported vulnerabilities in Microsoft Windows Object Linking and Embedding ( OLE ). The most severe of these vulnerabilities could allow remote code execution if a user views a specially crafted webpage using Internet Explorer. An attacker who successfully exploited the vulnerabilities could run arbitrary code in the context of the current user. If the current user is logged on with administrative user rights, an attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. Customers whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3010788.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+254 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[((((exists key "Microsoft-Windows-Client-Features-Package-AutoMerged-shell~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Server-Gui-Shell-Package-shell~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) AND exists key "Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-packager_31bf3856ad364e35_none_927573c362afef08" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17408") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-shell~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Server-Gui-Shell-Package-shell~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) AND exists key "Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14" of it) of item 0 of it AND (exists key "x86_microsoft-windows-packager_31bf3856ad364e35_none_3656d83faa527dd2" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17408") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "4fca09e1861f16ddf8f965b32b84dfb8bab57902"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>260401</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3010788</SourceID>
+		<SourceReleaseDate>2014-11-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2014-6332; CVE-2014-6352</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Nov 2014 00:54:34 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_8.1:-:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>OLE</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB3010788-x64.msu sha1:4fca09e1861f16ddf8f965b32b84dfb8bab57902 size:260401 http://download.microsoft.com/download/0/6/8/068C0C1C-3364-4DC9-A5D6-7E6A48297D86/Windows8.1-KB3010788-x64.msu sha256:ba2ace9bdd5f6d5b387ff25eb7ffabd267d347c9f130366fe06101c7b9a1050c
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB3010788-x64.msu"}" /quiet /norestart
+
+action requires restart "4fca09e1861f16ddf8f965b32b84dfb8bab57902"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS14-064</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

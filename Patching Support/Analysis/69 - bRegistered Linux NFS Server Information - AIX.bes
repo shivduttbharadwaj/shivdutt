@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>Registered Linux NFS Server Information - AIX</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><br><P>Use this analysis to display the Network File System (NFS) daemon status and list of shares on Linux endpoints that are registered in the AIX Advanced Deployment Wizard of the Patches for AIX site.</P><P>After activating this analysis, you will see the following properties:<UL><LI>Downloaded AIX Fix Pack<LI>Free Space on NFS Folder</LI></UL></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance><![CDATA[(name of it as lowercase starts with "linux red hat" and version of it >= "6" and version of it <= "7" and exists match (regex "^(i[0-9]86|x86_64)$") of architecture of it) of operating system]]></Relevance>
+		<Relevance>(exists setting "_BESClient_Custom_PatchesForAIX_NFS_Repo" whose (value of it as integer = 1) of client) </Relevance>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 11 Jun 2019 21:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 11 Jun 2019 21:07:33 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="Downloaded AIX Fix Pack" ID="1">matches (regex "[0-9]{4}-[0-9]{2}_[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{4}") of (pathnames of folders of folders (value of (setting "_BESClient_Custom_PatchesForAIX_NFS_Repo_Loc" of client)) whose (exists it))</Property>
+		<Property Name="Free Space on NFS Folder" ID="2"><![CDATA[((free space of (filesystem of (folder (value of (setting "_BESClient_Custom_PatchesForAIX_NFS_Repo_Loc" of client)))) /1024/1024)|0) as string & "MB"]]></Property>
+	</Analysis>
+</BES>

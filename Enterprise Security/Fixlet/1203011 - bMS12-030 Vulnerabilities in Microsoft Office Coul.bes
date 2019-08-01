@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-030: Vulnerabilities in Microsoft Office Could Allow Remote Code Execution - Office 2007 SP2/SP3</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves one publicly disclosed and five privately reported vulnerabilities in Microsoft Office. The vulnerabilities could allow remote code execution if a user opens a specially crafted Office file. An attacker who successfully exploited these vulnerabilities could gain the same user rights as the logged-on user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2597969.<BR><BR> <P><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</P> <P><SPAN id=dashboardLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetOfficeOverviewLink; function SetOfficeOverviewLink() { try {if (isEvansOrLater) { dashboardLink.innerHTML = Relevance('(format "<?rxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the {0}.?>" + link "<?rxlat Microsoft Office Overview Dashboard?>" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string ) as string');} else { dashboardLink.innerHTML = EvaluateRelevance('"<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the " & link "Microsoft Office Overview Dashboard" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string & "."');} } catch (e) {if (isEvansOrLater) { dashboardLink.innerHTML ='<?jxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.?>';} else { dashboardLink.innerHTML = '<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.';} } } </SCRIPT> </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.38 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "12.0" AND "|GRAPH.EXE|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "GRAPH.EXE" AND (item 3 of it = "12.0.6658.5004" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Thu, 15 Mar 2012 02:24:28 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "12.0.6658.5004")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{2B3C041A-A7F2-4A24-968D-4BEB6A123D15}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry) AND ((set of (((names of values of keys "00002110510000000000000000F01FEC" of it);(names of values of keys "00002100510000000000000000F01FEC" of it);(names of values of keys "00002110310000000000000000F01FEC" of it);(names of values of keys "00002110030000000000000000F01FEC" of it);(names of values of keys "00002100030000000000000000F01FEC" of it);(names of values of keys "00002110920000000000000000F01FEC" of it);(names of values of keys "00002110610000000000000000F01FEC" of it);(names of values of keys "00002100610000000000000000F01FEC" of it);(names of values of keys "00002110F20000000000000000F01FEC" of it);(names of values of keys "00002110330000000000000000F01FEC" of it);(names of values of keys "00002110730000000000000000F01FEC" of it);(names of values of keys "00002110810000000000000000F01FEC" of it);(names of values of keys "00002100810000000000000000F01FEC" of it);(names of values of keys "00002110530000000000000000F01FEC" of it);(names of values of keys "00002110130000000000000000F01FEC" of it);(names of values of keys "00002110110000000000000000F01FEC" of it);(names of values of keys "00002100110000000000000000F01FEC" of it);(names of values of keys "00002110410000000000000000F01FEC" of it);(names of values of keys "00002100410000000000000000F01FEC" of it);(names of values of keys "00002110AC0000000000000000F01FEC" of it);(names of values of keys "00002100AC0000000000000000F01FEC" of it);(names of values of keys "00002110210000000000000000F01FEC" of it);(names of values of keys "00002100210000000000000000F01FEC" of it);(names of values of keys "00002110E20000000000000000F01FEC" of it);(names of values of keys "00002110B20000000000000000F01FEC" of it);(names of values of keys "00002110B10000000000000000F01FEC" of it);(names of values of keys "00002100B10000000000000000F01FEC" of it);(names of values of keys "00002100C10000000000000000F01FEC" of it)) whose (set of ("00002119510000000000000000F01FEC";"00002109510000000000000000F01FEC";"00002119310000000000000000F01FEC";"00002119030000000000000000F01FEC";"00002109030000000000000000F01FEC";"00002119920000000000000000F01FEC";"00002119610000000000000000F01FEC";"00002109610000000000000000F01FEC";"00002119F20000000000000000F01FEC";"00002119330000000000000000F01FEC";"00002119730000000000000000F01FEC";"00002119810000000000000000F01FEC";"00002109810000000000000000F01FEC";"00002119530000000000000000F01FEC";"00002119130000000000000000F01FEC";"00002119110000000000000000F01FEC";"00002109110000000000000000F01FEC";"00002119410000000000000000F01FEC";"00002109410000000000000000F01FEC";"00002119AC0000000000000000F01FEC";"00002109AC0000000000000000F01FEC";"00002119210000000000000000F01FEC";"00002109210000000000000000F01FEC";"00002119E20000000000000000F01FEC";"00002119B20000000000000000F01FEC";"00002119B10000000000000000F01FEC";"00002109B10000000000000000F01FEC";"00002109C10010400000000000F01FEC";"00002109C10020400000000000F01FEC";"00002109C10050400000000000F01FEC";"00002109C10060400000000000F01FEC";"00002109C10070400000000000F01FEC";"00002109C10080400000000000F01FEC";"00002109C10090400000000000F01FEC";"00002109C100A0C00000000000F01FEC";"00002109C10052400000000000F01FEC";"00002109C100B0400000000000F01FEC";"00002109C100C0400000000000F01FEC";"00002109C100D0400000000000F01FEC";"00002109C100A1400000000000F01FEC";"00002109C100E0400000000000F01FEC";"00002109C10001400000000000F01FEC";"00002109C10011400000000000F01FEC";"00002109C10021400000000000F01FEC";"00002109C10072400000000000F01FEC";"00002109C10062400000000000F01FEC";"00002109C10041400000000000F01FEC";"00002109C10031400000000000F01FEC";"00002109C10051400000000000F01FEC";"00002109C10061400000000000F01FEC";"00002109C10061800000000000F01FEC";"00002109C10081400000000000F01FEC";"00002109C10091400000000000F01FEC";"00002109C100B1400000000000F01FEC";"00002109C10042400000000000F01FEC";"00002109C100A1800000000000F01FEC";"00002109C100D1400000000000F01FEC";"00002109C100E1400000000000F01FEC";"00002109C100F1400000000000F01FEC";"00002109C10022400000000000F01FEC";"00002109C10040800000000000F01FEC";"00002109C10040400000000000F01FEC") contains it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) contains name of it)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance>(exists keys ("00002109C100D0400000000000F01FEC";"00002119B20000000000000000F01FEC";"00002109810000000000000000F01FEC";"00002109C100B0400000000000F01FEC";"00002109C10091400000000000F01FEC";"00002109C10031400000000000F01FEC";"00002109C10051400000000000F01FEC";"00002119030000000000000000F01FEC";"00002119F20000000000000000F01FEC";"00002119610000000000000000F01FEC";"00002119310000000000000000F01FEC";"00002109C10011400000000000F01FEC";"00002109110000000000000000F01FEC";"00002109C10061800000000000F01FEC";"00002109C10050400000000000F01FEC";"00002109510000000000000000F01FEC";"00002109C10010400000000000F01FEC";"00002109C100F1400000000000F01FEC";"00002109C100A1800000000000F01FEC";"00002109C100D1400000000000F01FEC";"00002109C100B1400000000000F01FEC";"00002109C100A1400000000000F01FEC";"00002109C10022400000000000F01FEC";"00002109C10040800000000000F01FEC";"00002119210000000000000000F01FEC";"00002119130000000000000000F01FEC";"00002119E20000000000000000F01FEC";"00002109C10001400000000000F01FEC";"00002109C100A0C00000000000F01FEC";"00002119530000000000000000F01FEC";"00002119920000000000000000F01FEC";"00002109210000000000000000F01FEC";"00002119B10000000000000000F01FEC";"00002109610000000000000000F01FEC";"00002109C10042400000000000F01FEC";"00002109C10052400000000000F01FEC";"00002109B10000000000000000F01FEC";"00002109C10062400000000000F01FEC";"00002109C10072400000000000F01FEC";"00002109C100E0400000000000F01FEC";"00002109C10061400000000000F01FEC";"00002109C10081400000000000F01FEC";"00002119810000000000000000F01FEC";"00002109C10041400000000000F01FEC";"00002109C100C0400000000000F01FEC";"00002109C10021400000000000F01FEC";"00002119110000000000000000F01FEC";"00002109C10040400000000000F01FEC";"00002119510000000000000000F01FEC";"00002109C10020400000000000F01FEC";"00002109C10060400000000000F01FEC";"00002119AC0000000000000000F01FEC";"00002109030000000000000000F01FEC";"00002109C100E1400000000000F01FEC";"00002109AC0000000000000000F01FEC";"00002109C10090400000000000F01FEC";"00002109C10080400000000000F01FEC";"00002109C10070400000000000F01FEC";"00002119410000000000000000F01FEC";"00002119330000000000000000F01FEC";"00002119730000000000000000F01FEC";"00002109410000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.6612.1000" OR it = "12.0.6425.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "A140C3B22F7A42A469D8B4BEA621D351" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2497448</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2597969</SourceID>
+		<SourceReleaseDate>2012-05-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2012-0141; CVE-2012-0142; CVE-2012-0184; CVE-2012-0185; CVE-2012-1847</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2007:sp2:*:*:*:*:*:*; cpe:2.3:a:microsoft:office:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch graph2007-kb2597969-fullfile-x86-glb.exe sha1:f7abf45f26e078dae43598ce5404c6fb2a0f9019 size:2497448 http://download.microsoft.com/download/D/C/8/DC83C929-FA79-4E86-8C5F-2096D57754D1/graph2007-kb2597969-fullfile-x86-glb.exe sha256:1ad443ed4f4420da8ec13d40064ed7707e37f0fd69941d341460e44628803487
+
+waithidden __Download\graph2007-kb2597969-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "f7abf45f26e078dae43598ce5404c6fb2a0f9019"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2012/MS12-030</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

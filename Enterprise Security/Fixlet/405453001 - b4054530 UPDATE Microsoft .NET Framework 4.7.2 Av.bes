@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4054530: UPDATE: Microsoft .NET Framework 4.7.2 Available - Windows 7 SP1 / Windows 8.1 / Windows 10 / Windows Server 2008 R2 SP1 / Windows Server 2012 / Windows Server 2012 R2 / Windows Server 2016</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>The Microsoft .NET Framework 4.7.2 is a highly compatible, in-place update to the Microsoft .NET Framework 4, Microsoft .NET Framework 4.5, Microsoft .NET Framework 4.5.1, Microsoft .NET Framework 4.5.2, Microsoft .NET Framework 4.6, Microsoft .NET Framework 4.6.1, Microsoft .NET Framework 4.6.2, Microsoft .NET Framework 4.7, and Microsoft .NET Framework 4.7.1. The offline package can be used in situations where the web installer cannot be used due to lack of internet connectivity.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> This update is also referenced under KB4054530.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+65.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win7" OR name of it = "Win2008R2") AND service pack major version of it = 1) OR (((name of it = "Win8.1" OR name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win2012" OR name of it = "Win2012R2") AND service pack major version of it = 0) OR (name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) OR ((((it starts with "Win20" or it = "Win2016") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) AND service pack major version of it = 0))) of operating system</Relevance>
+		<Relevance><![CDATA[not exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" of native registry OR exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (not exists key "Full" of it OR exists key "Full" whose (not exists value "Release" of it OR value "Release" of it < 461814) of it) of native registry]]></Relevance>
+		<Relevance>if (name of it = "Win8.1" OR name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") of operating system then exists key ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14"; "Package_for_KB2919355~31bf3856ad364e35~x86~~6.3.1.14") whose (112 = value "CurrentState" of it as integer) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry else true</Relevance>
+		<Relevance>if ((exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10 of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) then ((it as integer = 1607 OR it as integer = 1703 OR it as integer = 1709) of value "ReleaseId" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) else true</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>71607232</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4054530</SourceID>
+		<SourceReleaseDate>2018-06-01</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 14 Jun 2018 06:43:49 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 SP1 |~| Windows 8 Gold |~| Windows 8.1 Gold |~| Windows Server 2008 R2 SP1 |~| Windows Server 2008 SP2 |~| Windows Server 2012 Gold |~| Windows Server 2012 R2 Gold |~| Windows Vista SP2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1|Win2012|Win2012R2|Win2008R2|Win8|Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 20 Oct 2018 07:27:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP472-KB4054530-x86-x64-AllOS-ENU.exe sha1:31fc0d305a6f651c9e892c98eb10997ae885eb1e size:83943272 https://download.microsoft.com/download/6/E/4/6E48E8AB-DC00-419E-9704-06DD46E5F81D/NDP472-KB4054530-x86-x64-AllOS-ENU.exe sha256:c908f0a5bea4be282e35acba307d0061b71b8b66ca9894943d3cbb53cad019bc
+
+waithidden __Download\NDP472-KB4054530-x86-x64-AllOS-ENU.exe /quiet /norestart
+
+action may require restart "31fc0d305a6f651c9e892c98eb10997ae885eb1e"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/4054530</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

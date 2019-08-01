@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2257980: "0x80041002 (WBEM_E_NOT_FOUND)" error code occurs when you try to open a WMI namespace on a computer that is running Windows Server 2003 SP2 - Windows 2003 SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR></P> <P><STRONG>Note:</STRONG> The hotfix must be manually cached for it to run correctly. For more information on how to manually cache files, see BigFix KB #<A href="http://www-01.ibm.com/support/docview.wss?uid=swg21506037">390</A>.<BR><BR><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P> <P><B>Note:</B> This update is also referenced under KB2257980.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+771 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "repdrvfs.dll" whose ((version of it < "5.2.3790.4739")) of it) of (folder "WBEM" of (system wow64 folder))  OR (exists file "repdrvfs.dll" whose ((version of it < "5.2.3790.4739")) of it) of  (folder "WBEM" of (system x64 folder))]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb2257980" of x64 registry)</Relevance>
+		<Relevance>not pending restart "1995401b5b148630e00917df63459e9b18c28a9b"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>790400</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2257980</SourceID>
+		<SourceReleaseDate>2010-07-05</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 23 Sep 2015 09:02:54 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 2003 x64</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 23 Sep 2015 09:02:54 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB2257980-x64-ENU.exe sha1:1995401b5b148630e00917df63459e9b18c28a9b size:790400 http://MANUAL_BES_CACHING_REQUIRED/WindowsServer2003-KB2257980-x64-ENU.exe sha256:fef727cdc583c232cb357ae548e2f7c4834695465e95e102ca8613e7c3757eaf
+
+waithidden __Download\WindowsServer2003-KB2257980-x64-ENU.exe /quiet /norestart
+
+action may require restart "1995401b5b148630e00917df63459e9b18c28a9b"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/2257980</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

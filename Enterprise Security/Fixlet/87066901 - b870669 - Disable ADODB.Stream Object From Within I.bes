@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>870669 - Disable ADODB.Stream Object From Within Internet Explorer</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released a patch to disable ADODB.stream functionality in Internet Explorer.&nbsp; Removing the ADODB.stream functionality helps prevent an attacker from using a cross domain vulnerability in Internet Explorer to download malicious code to the user's system when they visit a compromised web site.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</FONT><FONT size=2></P> <P><STRONG>Note:</STRONG> This patch closes the attack vector used by the download.ject trojan horse.&nbsp; More information on the trojan is available <A href="http://www.microsoft.com/security/incident/download_ject.mspx">here</A>.</P> <P><FONT color=#ff0000><B>Important Note: </B></FONT>Applying this update&nbsp;may cause&nbsp;the error message "ActiveX component can't create object: ADODB.stream" to be displayed in Internet Explorer when accessing HTML pages that use&nbsp;the ADODB stream object. It may also cause applications in a corporate intranet environment that use the ADODB.Stream object to break. Please follow the instructions in the Microsoft Knowledgebase Article <A href="http://support.microsoft.com/?kbid=870669">870669</A>&nbsp;to restore the ADODB.stream object.<BR><BR><B>File Size:</B> 438 KB</FONT></P> <P><FONT size=2></FONT>&nbsp;</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win2000" OR name of operating system = "WinXP" OR name of operating system = "WinNT" OR name of operating system = "Win2003"</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\{00000566-0000-0010-8000-00AA006D2EA4}" of registry OR not exists value "Compatibility Flags" whose (it = 1024) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\{00000566-0000-0010-8000-00AA006D2EA4}" of registry</Relevance>
+		<Relevance><![CDATA[((exists key "HKLM\Software\Microsoft\Internet Explorer" whose (exists value "version" whose (it as string as version >= "5.00.2919.6307" AND it as string as version < "5.50") of it) of registry) AND (exists value "MinorVersion" whose ((it as string as lowercase contains "sp2") OR (it as string as lowercase contains "sp3") OR (it as string as lowercase contains "sp4")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" of registry)) OR (exists key "HKLM\Software\Microsoft\Internet Explorer" whose (exists value "version" whose (it as string as version >= "5.50.4134.0100" AND it as string as version < "6.0") of it) of registry) AND (value "MinorVersion" of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Internet Settings" of registry as string as lowercase contains "sp2") OR ((exists key "HKLM\Software\Microsoft\Internet Explorer" whose (exists value "version" whose (it as string as version >= "6.00.2600.0000" AND it as string as version < "7.0") of it) of registry) AND ((exists no value "MinorVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" of registry) OR ((value "MinorVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" of registry as string as lowercase does not contain "sp"))))]]></Relevance>
+		<Relevance><![CDATA[(((value "Version" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\DataAccess" of registry as string) as version >= "2.50") AND ((not exists value "FullInstallVer" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\DataAccess" of registry) OR ((value "FullInstallVer" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\DataAccess" of registry as string) as version >= "2.50"))) AND (((value "Version" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\DataAccess" of registry as string) as version <= "2.80") AND ((not exists value "FullInstallVer" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\DataAccess" of registry) OR ((value "FullInstallVer" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\DataAccess" of registry as string) as version <= "2.80")))]]></Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>106240</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB870669</SourceID>
+		<SourceReleaseDate>2004-07-02</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT|WinXP|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 20 Nov 2015 10:54:32 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows-KB870669-x86-ENU.exe sha1:e3bab5ab3953b33dd4fd28b64c6f670aac446996 size:106240 http://download.microsoft.com/download/e/5/5/e55bbf16-ae16-4d58-8f75-3233ec146255/Windows-KB870669-x86-ENU.exe sha256:1f74bcf96586afb5c855976639ed0aa007b100f72a689c710da5a12da5a192ef
+
+wait __Download\Windows-KB870669-x86-ENU.exe /Q:A
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledgebase Article 870669.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=870669</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

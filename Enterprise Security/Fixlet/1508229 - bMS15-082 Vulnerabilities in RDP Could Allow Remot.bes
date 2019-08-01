@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-082: Vulnerabilities in RDP Could Allow Remote Code Execution - Windows Server 2008 R2 SP1 - KB3075222 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4507456.<br><br>Microsoft has released a security update that resolves vulnerabilities in Microsoft Windows. The most severe of the vulnerabilities could allow remote code execution if an attacker first places a specially crafted dynamic link library (DLL) file in the target user's current working directory and then convinces the user to open a Remote Desktop Protocol (RDP) file or to launch a program that is designed to load a trusted DLL file but instead loads the attacker's specially crafted DLL file. An attacker who successfully exploited the vulnerabilities could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3075222.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.83 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2008R2")) of operating system</Relevance>
+		<Relevance>((name of it = "Win2008R2") AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3075222~31bf3856ad364e35~amd64~~6.1.1.1" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3075222~31bf3856ad364e35~amd64~~6.1.1.1" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-RemoteDesktopClient-WinIP-Package~31bf3856ad364e35~amd64~~7.1.7601.16398") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists key "amd64_microsoft-windows-t..s-clientactivexcore_31bf3856ad364e35_none_bdfb5aa147797a8b" whose (exists key (if (exists default value of it) then default value of it as string else "7.1") whose ((it >= "7.1.7601.20000" AND it < "7.1.7601.23137") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-t..s-clientactivexcore_31bf3856ad364e35_none_61dcbf1d8f1c0955" whose (exists key (if (exists default value of it) then default value of it as string else "7.1") whose ((it >= "7.1.7601.20000" AND it < "7.1.7601.23137") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-t..s-clientactivexcore_31bf3856ad364e35_none_bdfb5aa147797a8b" whose (exists key (if (exists default value of it) then default value of it as string else "7.1") whose ((it >= "7.1" AND it < "7.1.7601.18934") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-t..s-clientactivexcore_31bf3856ad364e35_none_61dcbf1d8f1c0955" whose (exists key (if (exists default value of it) then default value of it as string else "7.1") whose ((it >= "7.1" AND it < "7.1.7601.18934") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists key "amd64_microsoft-windows-t..s-clientactivexcore_31bf3856ad364e35_none_bdfb5aa147797a8b" whose (exists key (if (exists default value of it) then default value of it as string else "7.1") whose ((it >= "7.1.7601.20000" AND it < "7.1.7601.23137") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-t..s-clientactivexcore_31bf3856ad364e35_none_61dcbf1d8f1c0955" whose (exists key (if (exists default value of it) then default value of it as string else "7.1") whose ((it >= "7.1.7601.20000" AND it < "7.1.7601.23137") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-t..s-clientactivexcore_31bf3856ad364e35_none_bdfb5aa147797a8b" whose (exists key (if (exists default value of it) then default value of it as string else "7.1") whose ((it >= "7.1" AND it < "7.1.7601.18934") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-t..s-clientactivexcore_31bf3856ad364e35_none_61dcbf1d8f1c0955" whose (exists key (if (exists default value of it) then default value of it as string else "7.1") whose ((it >= "7.1" AND it < "7.1.7601.18934") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "a4fbefe464e6c9d4c3924516379a570f7884e289"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>4014558</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3075222</SourceID>
+		<SourceReleaseDate>2015-08-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-2472; CVE-2015-2473</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Aug 2015 01:13:08 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4507456</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2008:r2:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>450745601</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-16</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>RDP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 18:11:24 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB3075222-x64.msu sha1:a4fbefe464e6c9d4c3924516379a570f7884e289 size:4014558 http://download.microsoft.com/download/0/5/0/0501E878-3C4D-4526-AA0F-82AE4BD5231F/Windows6.1-KB3075222-x64.msu sha256:58fa1785c20463a226c00afd65ea1b73369e4220ec02a0aa43aba815d6459efc
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB3075222-x64.msu"}" /quiet /norestart
+
+action requires restart "a4fbefe464e6c9d4c3924516379a570f7884e289"  
+]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-082</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

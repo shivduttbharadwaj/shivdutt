@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4022212: Update for Office 2013 - Office 2013 SP1 - KB4022212 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft Office 2013 64-Bit Edition. This update provides the latest fixes to Microsoft Office 2013 64-Bit Edition. Additionally, this update contains stability and performance improvements.<p><B>Note:</B> This update is also referenced under KB4022212.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00005119510000000100000000F01FEC";"00005119A30000000100000000F01FEC";"000051191A0000000100000000F01FEC";"00005109150000000100000000F01FEC";"00005119B10000000100000000F01FEC";"00005119F20000000100000000F01FEC";"00005119350000000100000000F01FEC";"00005109B10000000100000000F01FEC";"000051091A0000000100000000F01FEC";"00005109350000000100000000F01FEC";"00005109A30000000100000000F01FEC";"00005109810000000100000000F01FEC";"00005119810000000100000000F01FEC";"00005109610000000100000000F01FEC";"00005109E21000000100000000F01FEC";"00005119330000000100000000F01FEC";"00005119610000000100000000F01FEC";"00005119AB0000000100000000F01FEC";"00005109210000000100000000F01FEC";"00005119410000000100000000F01FEC";"00005119A10000000100000000F01FEC";"00005109D21000000100000000F01FEC";"00005119B30000000100000000F01FEC";"00005109B30000000100000000F01FEC";"00005109A10000000100000000F01FEC";"00005109910000000100000000F01FEC";"00005109710000000100000000F01FEC";"00005119150000000100000000F01FEC";"00005119110000000100000000F01FEC";"00005109510000000100000000F01FEC";"00005119310000000100000000F01FEC";"00005109440000000100000000F01FEC";"00005109110000000100000000F01FEC";"00005119910000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F4AE81E475353774BAC91E6CFD214F1C" of key "Patches" of it) of it OR exists keys ("00005109C21000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4569.1506" OR it = "15.0.4571.1503") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F4AE81E475353774BAC91E6CFD214F1C" of key "Patches" of it) of it OR exists keys ("00005119440000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4753.1001" OR it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F4AE81E475353774BAC91E6CFD214F1C" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>1360520</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4022212</SourceID>
+		<SourceReleaseDate>2018-07-24</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 09 Aug 2018 23:58:22 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2013:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 09 Aug 2018 23:58:22 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch mtextra2013-kb4022212-fullfile-x64-glb.exe sha1:dcac8a18f2b401b39dbd6584411b55ff0e197f47 size:1360520 https://download.microsoft.com/download/D/3/A/D3A9C532-E1FF-4E7E-BABE-FBB19D8E7178/mtextra2013-kb4022212-fullfile-x64-glb.exe sha256:edaaeceb25498b8856472a9b16c8525f5d72e0ce52812c4e0096903758f8b0a5
+
+waithidden __Download\mtextra2013-kb4022212-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "dcac8a18f2b401b39dbd6584411b55ff0e197f47"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4022212</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

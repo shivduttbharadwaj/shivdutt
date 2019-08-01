@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS01-056: "Unchecked Buffer" in Windows Media Player .ASF Processor - Windows XP</Title>
+		<Description><![CDATA[
+Microsoft has released a patch that eliminates a security vulnerability in the .ASF Processor in Windows Media Player for Windows XP. Advanced Streaming Format (ASF) is a streaming media format supported by Windows Media Player. According to Microsoft, a vulnerability in the .ASF Processor could allow a malicious ASF file to cause Media Player to crash or allow an attacker to run code on the user's computer. After downloading and installing this patch, relevant computers will no longer be susceptible to these vulnerabilities. <BR><BR>The fix for the .ASF Buffer security vulnerability is <b>only available</b> as part of the Microsoft Update Package for Windows XP, which includes fixes for other known vulnerabilities in Windows XP. BigFix <b>requires</b> this update to establish a baseline for vulnerability analysis. <BR><BR><b>Note:</b> Client machines may briefly display progress windows during installation of this update. <BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>File Size:</b> 1.94 MB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP") AND (service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP1\Q309521" of registry</Relevance>
+		<Relevance>(exists regapp "wmplayer.exe") AND (first 1 of (version of regapp "wmplayer.exe" as string) = "8")</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP1\Q324720" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2039400</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB309521</SourceID>
+		<SourceReleaseDate>2001-11-20</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2001-0719</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Media Player</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q309521_x86_3C970D04DED697E0DC2DADED5D10A9974534DB79.exe sha1:d560ab17ed517cc59f280d69e10dd2d8e3e1eb02 size:2039400 http://www.download.windowsupdate.com/msdownload/update/v3-19990518/cabpool/Q309521_x86_3C970D04DED697E0DC2DADED5D10A9974534DB79.exe sha256:50bddcf90e0708500f47e2b1ec74fa26375ef1df1690dd15df64ae7b916ca59c
+wait __download/Q309521_x86_3C970D04DED697E0DC2DADED5D10A9974534DB79.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS01-056.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2001/MS01-056</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information on the Windows XP Update Package.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/support/kb/articles/q309/5/21.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

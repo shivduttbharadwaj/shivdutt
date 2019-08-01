@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>WinZip 11.2 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>WinZip Computing has released WinZip 11.2 SR-1, a critical update to all installations of WinZip 11.</P> <P>This release addresses a security vulnerability that exists in one of the modules shipped with WinZip 11. This component is not a WinZip module but rather a Microsoft module that WinZip Computing shipped for the convenience of Windows 2000 customers.</P> <P>Distribution files for WinZip versions 11.1 and 11.2 included an earlier gdiplus.dll which was placed in the WinZip program folder for Windows 2000 systems only. Other operating systems are not affected by these installations. Upgrading to WinZip 11.2 SR-1 or WinZip 12.1 on Windows 2000 systems will replace the earlier gdiplus.dll with a newer version that is not subject to the security vulnerability.</P> <P>Distribution files for WinZip version 11.0 included an earlier gdiplus.dll which was placed in the WinZip program folder without regard to operating system. Note, however, that the .DLL is only utilized by WinZip on Windows 2000 systems. Versions of WinZip prior to 11.0 are not affected by this security vulnerability. Upgrading to WinZip 11.2 SR-1 (Build 8261) or WinZip 12.1 will remove the earlier gdiplus.dll from the WinZip program folder on Windows XP or Vista systems.</P> <P>On Windows XP or Vista, you may simply delete the file from the WinZip folder (if it exists).</P> <P><STRONG>Note</STRONG>: Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> WinZip 11.2 is not a free upgrade for users running WinZip 10.0 or earlier. Please see <A href="http://www.winzip.com/upgrade.htm">this</A> page for more information. Note that this Fixlet message will only become relevant for computers on which WinZip 11.0 or greater is installed.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> The installer deployed by this Fixlet message will automatically shut down any running instances of WinZip. If this behavior is undesirable, please run deployed actions with the caveat 'not exists running application "winzip32.exe".'</P> <P><STRONG>Note for Non-English users:</STRONG> WinZip may report back as WinZip 11.1.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.72 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance><![CDATA[if((it contains "English" OR it contains "French" OR it contains "German" or it contains "Italian" or it contains "Spanish") of language of version block of file "kernel32.dll" of system folder) then exists key whose (value "DisplayName" of it as string contains "WinZip" AND (it = "11" AND it < "11.3.8261") of (it as version) of concatenation "" of (if it = "(" then "." else if it = " " OR it = ")" then "" else it) of (characters of it) of (value "DisplayVersion" of it as string)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry else if ((it contains "Chinese (PRC)" or it contains "Japanese") of language of version block of file "kernel32.dll" of system folder) then exists key whose (value "DisplayName" of it as string contains "WinZip" AND (it = "11" AND it < "11.1.7466") of (it as version) of concatenation "" of (if it = "(" then "." else if it = " " OR it = ")" then "" else it) of (characters of it) of (value "DisplayVersion" of it as string)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry else false]]></Relevance>
+		<Relevance>NOT ((it contains "Chinese (Taiwan)" or it contains "Korean" or it contains "Portuguese (Brazil)") of language of version block of file "kernel32.dll" of system folder)</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>7042560</DownloadSize>
+		<Source>Winzip</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2008-11-25</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Apr 2011 03:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:winzip:winzip:11.3.8261:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp WinZipInternationalLLC Winzip</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 Feb 2017 07:51:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {(it contains "English" or it contains "Italian") of language of version block of file "kernel32.dll" of system folder}
+prefetch winzip112.msi sha1:a93dfd03c09178f86251921637c29cf3755b843b size:7042560 http://download.winzip.com/ov/winzip112.msi sha256:89896712a572c5b31151e50f364c65ae7a94f5af48f97d30a76a3e31be945752
+
+waithidden msiexec /i "{pathname of client folder of current site}\__Download\winzip112.msi" /qn REBOOT=ReallySuppress
+
+action may require restart "a93dfd03c09178f86251921637c29cf3755b843b"
+
+elseif {(it contains "French") of language of version block of file "kernel32.dll" of system folder}
+prefetch winzip111fr.msi sha1:db76d94fd702b4c2a6543992dad8c4745bc89fc4 size:6727680 http://download.winzip.com/winzip111fr.msi sha256:2bd5f75c91a8513753175adce6c820820db9a747c58a3c28da05e2b2cedae719
+
+waithidden msiexec /i "{pathname of client folder of current site}\__Download\winzip111fr.msi" /qn REBOOT=ReallySuppress
+
+action may require restart "db76d94fd702b4c2a6543992dad8c4745bc89fc4"
+
+elseif {(it contains "German") of language of version block of file "kernel32.dll" of system folder}
+prefetch wz111gev.msi sha1:a867a92c9a0931009363c9b843e0981edbb33573 size:6760448 http://download.winzip.com/german/wz111gev.msi sha256:996f751f92f8456ece1bba6c6ef3488115d8e8c4626d1a859980ecc8635d4d29
+
+waithidden msiexec /i "{pathname of client folder of current site}\__Download\wz111gev.msi" /qn REBOOT=ReallySuppress
+
+action may require restart "a867a92c9a0931009363c9b843e0981edbb33573"
+
+elseif{(it contains "Spanish") of language of version block of file "kernel32.dll" of system folder}
+prefetch winzip111es.msi sha1:366107066c36668a55197e7a22e52a3599cfc430 size:6686208 http://download.winzip.com/winzip111es.msi sha256:3a37abaf91e16b9d3655c356c4a608f94ca9a934bfba85f3004052a01a197de4
+
+waithidden msiexec /i "{pathname of client folder of current site}\__Download\winzip111es.msi" /qn REBOOT=ReallySuppress
+
+action may require restart "366107066c36668a55197e7a22e52a3599cfc430"
+
+elseif {(it contains "Chinese (PRC)") of language of version block of file "kernel32.dll" of system folder}
+prefetch winzip111zh.msi sha1:eff26086c784c826ddbdf8b3a0f8144990b35c82 size:6628864 http://download.winzip.com/winzip111zh.msi sha256:f696e29c672325348611428449a14da276a5055f9063a948a230fc5066bffd53
+
+waithidden msiexec /i "{pathname of client folder of current site}\__Download\winzip111zh.msi" /qn REBOOT=ReallySuppress
+
+action may require restart "eff26086c784c826ddbdf8b3a0f8144990b35c82"
+
+elseif {(it contains "Japanese") of language of version block of file "kernel32.dll" of system folder}
+prefetch winzip111jp.msi sha1:6447618900d4c01681c5c5a8792a278551e1c74d size:6661120 http://download.winzip.com/winzip111jp.msi sha256:fb4fc211d3d2eabb4a0c83f9504e1928315f5c53084dfb2663cfb1a1149affec
+
+waithidden msiexec /i "{pathname of client folder of current site}\__Download\winzip111jp.msi" /qn REBOOT=ReallySuppress
+
+action may require restart "6447618900d4c01681c5c5a8792a278551e1c74d"
+
+endif</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about WinZip.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.winzip.com</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

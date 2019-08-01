@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS05-034: Cumulative Security Update for ISA Server 2000 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+The listed computers have faulty installations of a patch for the vulnerability described in MS05-034. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>Microsoft has released a patch resolving several newly-discovered, privately reported security vulnerabilities in ISA Server 2000. After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities. <BR><BR><b>Note:</b> Microsoft has announced that this patch may be included in a future Service Pack.<BR><BR><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted. <BR><BR><b>Note:</b> Client machines may briefly display progress windows during installation of this update.<BR> <BR><b>Important Note:</b> This update may restart services related to ISA Server 2000. Please schedule the update to occur at a time when a service interruption is acceptable. 
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+665 KB
+ </DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Service Pack 2" whose (value "DisplayName" of it as string contains "ISA Server 2000 Service Pack 2") of registry)</Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry AND exists value "ImagePath" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry AND exists file (preceding text of last "%00" of (value "ImagePath" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry as string)) whose (version of it <"4")]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Fpc\Hotfixes\SP1\430" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "mspadmin.exe" whose (version of it < "3.0.1200.430") of it OR exists file "W3proxy.exe" whose (version of it < "3.0.1200.430") of it OR exists file "Wspsrv.exe" whose (version of it < "3.0.1200.430") of it) of parent folder of file (value "ImagePath" of key  "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry as string) ]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>680096</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB899753</SourceID>
+		<SourceReleaseDate>2005-06-14</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2005-1215; CVE-2005-1216;</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>503401</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>ISA Server 2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>ISA Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch ISA2000-KB899753-X86-ENU.exe sha1:eac17d34d262aa238eed46754425c19d2051e9bb size:680096 http://download.microsoft.com/download/a/2/9/a29a1451-b8d4-4a43-8125-bee594e83cab/ISA2000-KB899753-X86-ENU.exe sha256:3a789ce2fab5ec1b765fe0da2d1f1d68c94eadb8b3e30375424b5f5c6be3da48
+
+wait __download/ISA2000-KB899753-X86-ENU.exe /passive /quiet /norestart
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to to view Microsoft Security Bulletin MS05-034.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS05-034.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

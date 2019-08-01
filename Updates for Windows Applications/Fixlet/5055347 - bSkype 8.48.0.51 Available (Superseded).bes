@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Skype 8.48.0.51 Available (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This patch has been superseded by Skype 8.49.0.49.<br /><br />Skype has released a new version of their internet telephony software. Use the action below to update Skype to the latest version (8.48.0.51).<br><br><b>Note:</b> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><b>Important Note:</b> The Skype update will automatically shut down all running instances of Skype. To prevent this behavior, you may want to deploy this action with the user constraint "Run only when no user is present" or display a message box before action execution instructing the user to shut down Skype before applying this update.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+60.5 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>((name of it = "WinXP") or (name of it = "WinXP-2003") or (name of it = "Win7") or (name of it = "Win8") or (name of it = "Win8.1") or (name of it = "WinVista" AND product type of it = nt workstation product type)) of operating system OR (it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance><![CDATA[(exists key "HKLM\Software\Skype\Phone" of registry and (it < "8.48.0.51") of version of file (value "SkypePath" of key "HKLM\Software\Skype\Phone" of registry as string))]]></Relevance>
+		<Relevance>exists keys whose ((it contains "Skype" AND it != "Skype Click to Call" AND it does not contain "Toolbars" and it does not contain "Update for Skype for Business" and it does not contain "Skype HoloLens Add-In" and it does not contain "Skype Meetings App") of (value "DisplayName" of it as string)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>63471184</DownloadSize>
+		<Source>Skype</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2019-06-27</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>SANS C4</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 08 Jul 2019 03:23:48 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-11</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:skype:skype:8.48.0.51:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp SkypeLimited Skype</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 11 Jul 2019 19:28:02 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SkypeSetupFull.exe sha1:10685942b589d7043d36ad5d71f56d45954a7b73 size:63471184 https://download.skype.com/s4l/download/win/Skype-8.48.0.51.exe sha256:be5b4929db5034ca773804a87cd3fba6e631d815c5b91f4278ca5b4634b3eb03
+
+wait msiexec /x {name of key whose (name of it starts with "{" and (it contains "Skype" AND it != "Skype Click to Call" AND it does not contain "Toolbars" AND it does not contain "Skype for Business"  AND it does not contain "Skype Meetings App") of (value "DisplayName" of it as string)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry} /qn /norestart
+
+wait __Download\SkypeSetupFull.exe ALLUSERS=1 FEATURE_IEPLUGIN=0 FEATURE_FFPLUGIN=0 INSTALLLEVEL=1 STARTSKYPE=FALSE TRANSFORMS=:RemoveStartup.mst /VERYSILENT /NOLAUNCH /SILENT
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Skype\Installer]" "InstallUpdates"=dword:00000000
+
+action may require restart</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in instant messaging applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c4</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-006: Flaw in Windows ME Help and Support Center</Title>
+		<Description><![CDATA[
+Microsoft has released a patch closing a security vulnerability in Windows ME.&nbsp; An attacker could exploit the vulnerability by constructing a URL that, when clicked on by the user, would execute code of the attacker's choice in the Local Computer security context. The URL could be hosted on a web page, or sent directly to the user in email. In the web based scenario, where a user then clicked on the URL hosted on a website, an attacker could have the ability to read or launch files already present on the local machine.&nbsp; After downloading and installing this patch, affected computers will no longer be susceptible to this vulnerability.<BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>File Size: </b>293 KB<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinME"</Relevance>
+		<Relevance>(not exists key "HKLM\Software\Microsoft\Active Setup\Installed Components\{bddca085-1928-4215-aa65-c6af5eee8ef6}" of registry) or (value "IsInstalled" of key "HKLM\Software\Microsoft\Active Setup\Installed Components\{bddca085-1928-4215-aa65-c6af5eee8ef6}" of registry != 1)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>300352</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB812709</SourceID>
+		<SourceReleaseDate>2003-02-26</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2003-0009</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinME</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch 812709_3FE395B778B7C8704A0DE247305222EB07ED386A.exe sha1:1148174010306cc2d82b42dfa8f50be343fa2da9 size:300352 http://download.windowsupdate.com/msdownload/update/v3-19990518/cabpool/812709_3FE395B778B7C8704A0DE247305222EB07ED386A.exe sha256:2013dcbe7b5376b801c7b8480e3edb10d4fb07f023773b619fe36a47deac1cc8
+wait __download/812709_3FE395B778B7C8704A0DE247305222EB07ED386A.exe /Q:A /R:N
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-006.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2003/MS03-006</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>
