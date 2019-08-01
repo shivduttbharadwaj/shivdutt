@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>AIX-CSD-FOUNDATION Measured values - E.1.1.6.0 Password Requirements/Password MIN Length - System Default</Title>
+		<Description><![CDATA[
+		Required password MINLEN setting - Minimum Password Length Requirement = 8<BR/><BR/><B>ITSSCSD Section:&nbsp;</B>E.1.1.6.0
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		
+		]]></Description>
+		<Relevance><![CDATA[exists folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client]]></Relevance>
+		<Relevance><![CDATA[exists find files "*result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client]]></Relevance>
+		<Category>Operating System</Category>
+		<MIMEField>
+			<Name>x-fixlet-scm-analysis-id</Name>
+			<Value>ABCA5786-7248-6572-B8D4-131B0EC6D6DA</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>true</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>           {    "fusion_supported_platforms" : "GCM Single Instance Tech Spec v4.0D AIX Policy.",    "description" : "Required password MINLEN setting - Minimum Password Length Requirement = 8",    "scm_parameters" : {     "properties" : {      "1" : {       "type" : "string",       "description" : "This is the result of the check.",       "title" : "Result"      },      "2" : {       "type" : "string",       "description" : "This is the expected settings or other criteria of the check.",       "title" : "Expected"      }     }    },    "title" : "AIX-CSD-FOUNDATION Measured values - E.1.1.6.0 Password Requirements\/Password MIN Length - System Default"   }         </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>2085024</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 13 Jun 2019 10:09:30 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<Property Name="Result" ID="1"><![CDATA[ 				 		if exists file "Password_Requirements_Password_MIN_Length_-_System_Default.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client then 			if exists lines of file "Password_Requirements_Password_MIN_Length_-_System_Default.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client then 				lines of file "Password_Requirements_Password_MIN_Length_-_System_Default.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client 			else 				"Pass" 		else 			"Missing Result" 		]]></Property>
+		<Property Name="Expected" ID="2"><![CDATA[ 				 		if exists file "Password_Requirements_Password_MIN_Length_-_System_Default.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client then 			((if (key "expected" of section "metadata" of file "Password_Requirements_Password_MIN_Length_-_System_Default.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client) = regex "\s*" then (if (exists key "description" of section "metadata" of file "Password_Requirements_Password_MIN_Length_-_System_Default.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client) then (key "description" of section "metadata" of file "Password_Requirements_Password_MIN_Length_-_System_Default.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client) else "" ) else	(key "expected" of section "metadata" of file "Password_Requirements_Password_MIN_Length_-_System_Default.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client)) | (if (exists key "description" of section "metadata" of file "Password_Requirements_Password_MIN_Length_-_System_Default.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client) then (key "description" of section "metadata" of file "Password_Requirements_Password_MIN_Length_-_System_Default.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/AIX-CSD") of storage folder of client) else "" ))  		else 			"Missing Expected" 		]]></Property>
+	</Analysis>
+</BES>

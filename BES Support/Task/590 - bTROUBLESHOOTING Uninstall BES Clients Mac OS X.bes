@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>TROUBLESHOOTING: Uninstall BES Clients Mac OS X</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT face=verdana size=2> <P>If you want to remove the BES Clients from a computer, you&nbsp;can&nbsp;uninstall it using this&nbsp;task.</P> <P> <LI><STRONG>Uninstall&nbsp;the BES Client</STRONG> - This&nbsp;removes the BES Client application, configuration options, settings, and other traces of the application.&nbsp; <P><FONT color=#ff0000><STRONG>Important Note:</FONT></STRONG> The BES Clients will not be able to report the final status of the action because they&nbsp;will be removed before the action completes. Instead, the BES Clients will stop responding and the action status will report back as 'Evaluating', 'Failed',&nbsp;or 'Running'. You will need to manually remove the computer from the BES Console after the BES Client is uninstalled.<BR></P></FONT></LI></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(if (version of client >= "8.0") then (mac of it) else (name of it starts with "Mac OS X")) of operating system]]></Relevance>
+		<Relevance><![CDATA[system version >= "10.4"]]></Relevance>
+		<Category>Troubleshooting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2008-10-09</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 10 Oct 2008 02:02:45 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 10 Jul 2014 18:19:38 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to uninstall the BES Client from selected computers below.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[createfile until __EOF__
+#!/bin/sh
+logFile="/Library/Logs/BESAgent.log"
+Log()
+{
+echo "`/bin/date`: $1" >> $logFile
+}
+Log "Unloading BESAgent from launchctl"
+/bin/launchctl unload /Library/LaunchDaemons/BESAgentDaemon.plist 2>&1 >> /dev/console
+if [ -f /usr/sbin/pkgutil ]; then
+    Log "Removing installer receipts from package database"
+    /usr/sbin/pkgutil --forget com.bigfix.BESAgent >> $logFile
+    /usr/sbin/pkgutil --forget com.bigfix.BESAgentDaemon >> $logFile
+    /usr/sbin/pkgutil --forget com.bigfix.TriggerClientUI >> $logFile
+    /usr/sbin/pkgutil --forget com.bigfix.properties >> $logFile
+fi
+# Wait while the client cleanly exits
+sAgentPIDLine="`ps -axww -o pid,command | grep \"MacOS/BESAgent\" | sed -e '/grep/d'`"
+if [ "$sAgentPIDLine" != "" ]; then
+    Log "Confirming BESAgent shut down"
+    waitCount=15
+    while [ $waitCount -gt 0 ]; do
+        sAgentPIDLine="`ps -axww -o pid,command | grep \"MacOS/BESAgent\" | sed -e '/grep/d'`"
+        if [ "$sAgentPIDLine" == "" ]; then
+            break
+        fi
+        waitCount=`expr "$waitCount" - 1`
+        sleep 1
+    done
+    sAgentPIDLine="`ps -axww -o pid,command | grep \"MacOS/BESAgent\" | sed -e '/grep/d'`"
+    if [ "$sAgentPIDLine" != "" ]; then
+        sAgentPID=`echo "$sAgentPIDLine" | awk '{{ print $1 }'`
+        Log "BESAgent did not exit, Killing process: $sAgentPID"
+        kill -9 $sAgentPID
+    fi
+fi
+Log "Removing BESAgent from /Library/StartupItems"
+rm -rf /Library/StartupItems/BESAgent
+Log "Removing BESAgent from /Library/LaunchDaemons"
+rm -rf /Library/LaunchDaemons/BESAgentDaemon.plist
+Log "Removing the data directory: /Library/Application Support/BigFix"
+rm -rf "/Library/Application Support/BigFix"
+Log "Removing BESAgent preferences"
+rm -rf /Library/Preferences/com.bigfix.BESAgent*
+Log "Removing BESAgent user specific preferences"
+rm -rf /Users/*/Library/Preferences/com.bigfix.BESAgent*
+Log "Removing BESAgent from /Library"
+rm -rf /Library/BESAgent
+Log "Removing the TriggerClientUI app"
+rm -rf /Applications/TriggerBESClientUI.app
+rm -rf /Applications/TriggerClientUI.app
+rm -rf /tmp/besclientuninstall.sh
+Log "Removing BESClientUI user cache directories"
+rm -rf /var/tmp/BES
+Log "Removing our installer packages if present"
+rm -rf /Library/Receipts/BESAgent*.pkg
+rm -rf /Library/Receipts/Agent.pkg
+rm -rf /Library/Receipts/TivoliEndpointManager.pkg
+rm -rf /Library/Receipts/IBMEndpointManager.pkg
+rm -rf /tmp/besclientuninstall.sh
+exit 0
+__EOF__
+
+wait chmod 555 "{(client folder of current site as string) & "/__createfile"}"
+delete "/tmp/besclientuninstall.sh"
+move "{(client folder of current site as string) & "/__createfile"}" "/tmp/besclientuninstall.sh"
+run /bin/sh -c "trap '' 15; /tmp/besclientuninstall.sh"]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

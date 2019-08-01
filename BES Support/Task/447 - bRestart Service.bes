@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Restart Service</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Sometimes it is necessary to restart a service on BES Client machines. This task will stop and start an arbitrary service on Windows NT based computers by running the DOS 'net stop' and 'net start' commands. <BR><BR><B>Note:</B> Do not set the "Reapply" behavior when taking this action or you may cause the BES Client to constantly try restarting the service. <BR><BR><FONT color=#ff0000><STRONG>Important Note: </STRONG></FONT><FONT color=#000000>Do not use this task to restart the BES Client. Use the <?Relevance link of fixlet 199 of site of current fixlet?>Task to restart the BES Client. <BR></FONT><BR><B><FONT color=#ff0000>Important Note:</FONT></B> The action executes a "net stop" followed by a "net start" command. Executing the action may <B>start</B> the specified service even if it is not currently running.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> If you stop, start, or restart a service, any dependent services are also affected. Starting a service does not automatically restart its dependent services. </P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[((if (version of client >= "8.0") then (windows of it) else (name of it starts with "Win")) AND platform id of it != 3) of operating system]]></Relevance>
+		<Relevance>(it does not contain "Win9" AND it != "WinME") of name of operating system </Relevance>
+		<Category>Common Tasks</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity>Low</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 07 Feb 2007 19:03:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Computer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 Nov 2017 15:01:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT5M</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to restart a service. You will be prompted for the service name. You must enter in a valid service name that exists on the endpoint for the action to complete.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "ServiceName" with description "Please enter the service you would like to restart:" With default "<Enter Service Name>"
+
+continue if {exists service whose (service name of it as lowercase = (parameter "ServiceName" of action as lowercase) OR display name of it as lowercase = (parameter "ServiceName" of action as lowercase))}
+
+continue if {exists parameter "ServiceName" whose (it as lowercase != "besclient" AND it as lowercase != "bes client") of action}
+
+delete __appendfile 
+delete netquiet.bat 
+
+appendfile @ECHO OFF 
+appendfile start "" /min /b net %1 %2 /y > NUL 2> NUL 
+move __appendfile netquiet.bat 
+
+waithidden "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" netquiet.bat stop "{parameter "ServiceName" of action}"
+waithidden "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" netquiet.bat start "{parameter "ServiceName" of action}"
+
+delete netquiet.bat]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view more information on Service Dependencies from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/dotnet/framework/windows-services/introduction-to-windows-service-applications</ActionScript>
+		</Action>
+	</Task>
+</BES>

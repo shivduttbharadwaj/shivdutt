@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows2008-CSD Freshness</Title>
+		<Description><![CDATA[This fixlet is relevant when the results file modification timestamp is older than 5 days. This fixlet is also relevant when the results file does not exist.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows2008-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				name of operating system as lowercase contains "win2008"
+			)
+		)
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[(((not exists file it) OR ((line 1 of file it)  as trimmed string as lowercase = "unknown") OR ((now - (line 1 of file it as time)) > ((if exists (file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2008-CSD") of storage folder of client) then ((line of file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2008-CSD") of storage folder of client) as integer) else 5) * day))) | true) of ( storage folder of client as string & "/__GTS/__IEMHC/" & name of current site as string & "/" & "Windows2008-CSD" & "/delay_counter_" & 	"policy_result.xml" )]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-id</Name>
+			<Value>2704166B-62B3-9B93-8E7C-6C9F9EBAB762</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>         {  "fusion_supported_platforms" : "Windows Server 2008",  "description" : "Freshness",  "scm_parameters" : {   "Last Update" : {    "type" : "string",    "measured_value_analysis_property" : 1,    "allow_long_string" : true,    "default_value" : "",    "allow_empty_string" : true,    "measured_value_analysis_idref" : "B775E82C-2F58-491F-0DA4-C66A6A50A033",    "order" : 1,    "title" : "Last Update"   }  },  "title" : "Windows2008-CSD Freshness" }     </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>4.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>11220005</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-idref</Name>
+			<Value>82B8E250-947C-EBCC-5E8A-9F937A5D03EF</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 25 Mar 2019 08:48:21 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

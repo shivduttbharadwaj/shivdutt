@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Prepare Endpoint Tools and JRE (LINUX ppc64)</Title>
+		<Description><![CDATA[<p>Prepare the endpoint for GCM health checks and remediation and create __UIDEXT folder if not exists.</p>
+		<p>Endpoints must have at least 417 MB available on the file system where the BES client is located for this fixlet to become applicable.</p>
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+				]]></Description>
+		<Relevance>name of operating system as lowercase contains "linux"</Relevance>
+		<Relevance>((architecture of operating system contains "ppc64") AND (big endian of operating system))</Relevance>
+		<Relevance>not exists folder "__GTS/jre" of storage folder of client</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[(name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8")]]></Relevance>
+		<Relevance><![CDATA[
+		(if name of operating system as lowercase contains "win" then
+(
+	(free space of drive of storage folder of client)
+)
+else 
+(
+	if name of operating system as lowercase contains "sunos" then
+	(
+		 ((free space of filesystem of storage folder of client) - (total space of filesystem of storage folder of client / 100))
+	)
+	else	
+	(
+		(free space of filesystem of storage folder of client)
+	)
+)
+) > 437626731
+		]]></Relevance>
+		<Category>GCM</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>116</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 07 Jun 2019 09:16:05 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			
+begin prefetch block
+
+if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+	parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+else
+	parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+endif
+
+// download HCLauncher
+add prefetch item name=HCLauncher.jar sha1=b8c64af8249e34fe07c4f2ea700916f12f6b6f8c sha256=9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08 size=8886900 url={parameter "basepath"}/400/20190307-2125/HCLauncher/HCLauncher.jar 
+
+// download JRE 
+
+add prefetch item name=ibm-java-jre-8.0-5.35-linux-ppc64.tgz sha1=25ae2bd4d021e408f74e89bebcfdb0710e0aabec sha256=809c801d2cb137ad2e13b6439869f51df7809a89705c1adf073cf7c9108fc865 size=142913277 url={parameter "basepath"}/jre/80535/ibm-java-jre-8.0-5.35-linux-ppc64.tgz
+
+end prefetch block
+
+parameter "build_id" = "20190307-2125"
+parameter "version" = "4.0.0"
+
+if {name of operating system as lowercase contains "sunos" OR name of operating system as lowercase contains "hp-ux"}
+	parameter "dump" = ""
+else
+	parameter "dump" = "-Xdump:none"
+endif
+
+// re-create base folder if not exists
+folder create "{storage folder of client}/__GTS/__IEMHC"			
+// clean and add the HCLauncher.jar
+folder delete "{storage folder of client}/__GTS/__IEMHC/HCLauncher"
+folder delete "{storage folder of client}/__GTS/HCLauncher_400"
+folder create "{storage folder of client}/__GTS/HCLauncher_400"
+folder create "{storage folder of client}/__GTS/__UIDEXT"
+
+copy "{client folder of current site}/__Download/HCLauncher.jar" "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar"
+			
+// clean the JRE location
+folder delete "{storage folder of client}/__GTS/jre"
+folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+
+// JRE extract and install
+
+// clean the temporary storage
+folder delete "{storage folder of client}/__GTS/Temp"
+folder create "{storage folder of client}/__GTS/Temp"
+
+wait tar -xozf "{client folder of current site}/__Download/ibm-java-jre-8.0-5.35-linux-ppc64.tgz" -C "{storage folder of client}/__GTS/Temp"
+wait mv -f "{storage folder of client}/__GTS/Temp/ibm-java-ppc64-80/jre" "{storage folder of client}/__GTS/"
+appendfile 809c801d2cb137ad2e13b6439869f51df7809a89705c1adf073cf7c9108fc865
+if {(exists file "jre/bin/java.exe" of folder "__GTS" of storage folder of client or exists file "jre/bin/java" of folder "__GTS" of storage folder of client)}	
+	move __appendfile "{storage folder of client}/__GTS/jre/sha256.txt"
+else
+	delete __appendfile
+endif
+
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+			
+
+// Last Change
+appendfile {now as string}
+
+// Version
+appendfile {parameter "version"}
+
+// Build ID
+appendfile {parameter "build_id"}
+
+// create the version file
+delete "{storage folder of client}/__GTS/version.txt"
+move __appendfile "{storage folder of client}/__GTS/version.txt"
+
+// append JRE version to end
+appendfile #!/bin/sh
+appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+delete launch.sh
+move __appendfile launch.sh
+wait chmod 750 launch.sh
+wait "{client folder of current site}/launch.sh"
+
+// HCLauncher version
+
+appendfile #!/bin/sh
+appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -version >> "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 2>&1
+delete launch.sh
+move __appendfile launch.sh
+wait chmod 750 launch.sh
+wait "{client folder of current site}/launch.sh"
+
+parameter "HCL_Filename" = "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 
+ appendfile {concatenation "%0d%0a" of lines of file (parameter "HCL_Filename") & "%0d%0a" & "Bigfix buildID: " & (parameter "build_id") & "%0d%0a"} 
+ move "{parameter "HCL_Filename"}" "{parameter "HCL_Filename"}.bak" 
+ move __appendfile "{parameter "HCL_Filename"}" 
+ delete "{parameter "HCL_Filename"}.bak"			
+			]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>AIX-ITSSCSD Applicability</Title>
+		<Description><![CDATA[This is an applicability fixlet that identifies computers running the supported operating system(s). It is required by compliance checking fixlets.<br>No remediation action is required.
+		 		 <br>
+         		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190612-2172</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[
+				
+		(
+			if exists setting "_GCM_AIX-ITSSCSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				name of operating system as lowercase contains "aix" and version of operating system >= "7"
+			)
+		)
+		]]></Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-06-12</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-class</Name>
+			<Value>sentinel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value><![CDATA[           {    "fusion_supported_platforms" : "AIX 6.x and 7.x",    "description" : "This is an applicability fixlet that identifies computers running the supported operating system(s). It is required by compliance checking fixlets.<br>No remediation action is required.",    "title" : "AIX-ITSSCSD Applicability"   }     ]]></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>10010001</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-id</Name>
+			<Value>A7F51E6A-37C7-A881-EBF6-953AE731C26A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 25 Jun 2019 12:09:26 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

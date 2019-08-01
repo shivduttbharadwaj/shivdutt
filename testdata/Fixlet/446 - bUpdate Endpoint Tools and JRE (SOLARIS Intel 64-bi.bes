@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Update Endpoint Tools and JRE (SOLARIS Intel 64-bit)</Title>
+		<Description><![CDATA[<p>Update the endpoint with the latest tools and JRE for GCM health checks and remediation.</p>
+		<p>Endpoints must have at least 226 MB available on the file system where the BES client is located for this fixlet to become applicable.</p>
+		<p><small><b>Version:</b>&nbsp;3.9.0<br><b>Build ID:</b>&nbsp;20190123-2090</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>name of operating system as lowercase contains "sunos"</Relevance>
+		<Relevance>architecture of operating system contains "64"</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[name of operating system as lowercase contains "sunos" and version of operating system >= "5.10"]]></Relevance>
+		<Relevance><![CDATA[
+		(if name of operating system as lowercase contains "win" then
+(
+	(free space of drive of storage folder of client)
+)
+else 
+(
+	if name of operating system as lowercase contains "sunos" then
+	(
+		 ((free space of filesystem of storage folder of client) - (total space of filesystem of storage folder of client / 100))
+	)
+	else	
+	(
+		(free space of filesystem of storage folder of client)
+	)
+)
+) > 237760179
+		]]></Relevance>
+		<Relevance>exists folder "__GTS/jre" of storage folder of client</Relevance>
+		<Relevance>not ((line 1 of file "jre/sha256.txt" of folder "__GTS" of storage folder of client is "a565546e42d0279d44feb826723ae7f1183a1811339ef0424618c78cdadfe6f4") | false)</Relevance>
+		<Relevance>not ((sha2_256 of file "HCLauncher_390/HCLauncher.jar" of folder "__GTS/__IEMHC" of storage folder of client is "49404f6972630aac3dd28117a0f75ec518aecb4c904bd053166da509bf84c0d7") | false)</Relevance>
+		<Category>GCM</Category>
+		<Source>GCM</Source>
+		<SourceID>3.9.0</SourceID>
+		<SourceReleaseDate>2019-01-23</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>29</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 15 Mar 2019 09:18:17 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			
+begin prefetch block
+
+if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+	parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+else
+	parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+endif
+
+// determine if JRE update is needed
+parameter "updateJRE" = "{not ((line 1 of file "jre/sha256.txt" of folder "__GTS" of storage folder of client is "a565546e42d0279d44feb826723ae7f1183a1811339ef0424618c78cdadfe6f4") | false)}"
+
+// determine if Tools update is needed
+parameter "updateTools" = "{not ((sha2_256 of file "HCLauncher_390/HCLauncher.jar" of folder "__GTS/__IEMHC" of storage folder of client is "49404f6972630aac3dd28117a0f75ec518aecb4c904bd053166da509bf84c0d7") | false)}"
+
+// only download HCLauncher if needed
+if {parameter "updateTools" as lowercase is "true"}
+add prefetch item name=HCLauncher.jar sha1=9a6f1cc12c6f70b0c3a49671c90701715625e49f sha256=49404f6972630aac3dd28117a0f75ec518aecb4c904bd053166da509bf84c0d7 size=8881513 url={parameter "basepath"}/390/20190123-2090/HCLauncher/HCLauncher.jar 
+
+endif
+
+// only download JRE if needed
+if {parameter "updateJRE" as lowercase is "true"}
+add prefetch item name=solx6480sr5fp25hybrid-20181026_03-jre.tar.Z sha1=1ae641f2493ea58479835323a3b7411fb89e4006 sha256=a565546e42d0279d44feb826723ae7f1183a1811339ef0424618c78cdadfe6f4 size=114439333 url={parameter "basepath"}/jre/80525/solx6480sr5fp25hybrid-20181026_03-jre.tar.Z
+
+endif
+
+end prefetch block
+			parameter "build_id" = "20190123-2090"
+parameter "version" = "3.9.0"
+
+if {name of operating system as lowercase contains "sunos" OR name of operating system as lowercase contains "hp-ux"}
+	parameter "dump" = ""
+else
+	parameter "dump" = "-Xdump:none"
+endif
+			
+// clean and add the HCLauncher.jar
+folder delete "{storage folder of client}/__GTS/__IEMHC/HCLauncher"
+folder delete "{storage folder of client}/__GTS/__IEMHC/HCLauncher_390"
+folder create "{storage folder of client}/__GTS/__IEMHC/HCLauncher_390"
+copy "{client folder of current site}/__Download/HCLauncher.jar" "{storage folder of client}/__GTS/__IEMHC/HCLauncher_390/HCLauncher.jar"
+			
+// clean the JRE location
+folder delete "{storage folder of client}/__GTS/jre"
+folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+
+// JRE extract and install
+
+// clean the temporary storage
+folder delete "{storage folder of client}/__GTS/Temp"
+folder create "{storage folder of client}/__GTS/Temp"
+
+folder create "{storage folder of client}/__GTS/jre"
+
+wait uncompress -f "{client folder of current site}/__Download/solx6480sr5fp25hybrid-20181026_03-jre.tar.Z"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+delete __appendfile
+appendfile #!/bin/sh
+appendfile tar xf "{client folder of current site}/__Download/solx6480sr5fp25hybrid-20181026_03-jre.tar"
+appendfile chown -R root:root "{client folder of current site}/__Download"
+move __appendfile "{client folder of current site as string}/__Download/launch.sh"
+wait chmod 750 "{client folder of current site as string}/__Download/launch.sh"
+wait /bin/sh -c "(cd \"{client folder of current site as string}/__Download\" && ./launch.sh)"
+
+wait mv -f "{client folder of current site}/__Download/bin" "{storage folder of client}/__GTS/jre/bin"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/__Download/lib" "{storage folder of client}/__GTS/jre/lib"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+wait chown -R root:root "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+wait chmod -R o= "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+appendfile a565546e42d0279d44feb826723ae7f1183a1811339ef0424618c78cdadfe6f4
+
+if {((exists file "jre/bin/java.exe" of folder "__GTS" of storage folder of client or exists file "jre/bin/java" of folder "__GTS" of storage folder of client))}
+	move __appendfile "{storage folder of client}/__GTS/jre/sha256.txt"
+else
+	delete __appendfile
+endif
+
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+			
+// Last Change
+appendfile {now as string}
+
+// Version
+appendfile {parameter "version"}
+
+// Build ID
+appendfile {parameter "build_id"}
+
+// create the version file
+delete "{storage folder of client}/__GTS/version.txt"
+move __appendfile "{storage folder of client}/__GTS/version.txt"
+
+// append JRE version to end
+appendfile #!/bin/sh
+appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+delete launch.sh
+move __appendfile launch.sh
+wait chmod 750 launch.sh
+wait "{client folder of current site}/launch.sh"
+
+// HCLauncher version
+appendfile #!/bin/sh
+appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "dump"} "{storage folder of client}/__GTS/__IEMHC/HCLauncher_390/HCLauncher.jar" -version >> "{storage folder of client}/__GTS/__IEMHC/HCLauncher_390/version.txt" 2>&1
+delete launch.sh
+move __appendfile launch.sh
+wait chmod 750 launch.sh
+wait "{client folder of current site}/launch.sh"
+			
+			]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

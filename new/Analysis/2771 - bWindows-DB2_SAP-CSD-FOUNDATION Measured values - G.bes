@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>Windows-DB2_SAP-CSD-FOUNDATION Measured values - GV.1.2.5 Logging/Database Log Audit Events</Title>
+		<Description><![CDATA[
+		Database auditing should be configured and started by creating  and activating an audit policy with the this CATEGORY setting from DB2 v9.5 onwards.Database Log audit events = Both<BR/><BR/><B>ITSSCSD Section:&nbsp;</B>GV.1.2.5
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		
+		]]></Description>
+		<Relevance><![CDATA[exists folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-DB2_SAP-CSD") of storage folder of client]]></Relevance>
+		<Relevance><![CDATA[exists find files "*result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-DB2_SAP-CSD") of storage folder of client]]></Relevance>
+		<Category>Middleware</Category>
+		<MIMEField>
+			<Name>x-fixlet-scm-analysis-id</Name>
+			<Value>996A5389-7373-E2E6-EBB3-62540A63EEBD</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>true</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>           {    "fusion_supported_platforms" : "Win 2008 Servers and up, DB2 Server v.8.x, v9.x. and v10.x",    "description" : "Database auditing should be configured and started by creating  and activating an audit policy with the this CATEGORY setting from DB2 v9.5 onwards.Database Log audit events = Both",    "scm_parameters" : {     "properties" : {      "1" : {       "type" : "string",       "description" : "This is the result of the check.",       "title" : "Result"      },      "2" : {       "type" : "string",       "description" : "This is the expected settings or other criteria of the check.",       "title" : "Expected"      }     }    },    "title" : "Windows-DB2_SAP-CSD-FOUNDATION Measured values - GV.1.2.5 Logging\/Database Log Audit Events"   }         </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>2082001</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 06:34:51 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<Property Name="Result" ID="1"><![CDATA[ 				 		if exists file "Logging_Database_Log_Audit_Events.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client then 			if exists lines of file "Logging_Database_Log_Audit_Events.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client then 				lines of file "Logging_Database_Log_Audit_Events.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client 			else 				"Pass" 		else 			"Missing Result" 		]]></Property>
+		<Property Name="Expected" ID="2"><![CDATA[ 				 		if exists file "Logging_Database_Log_Audit_Events.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client then 			((if (key "expected" of section "metadata" of file "Logging_Database_Log_Audit_Events.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client) = regex "\s*" then (if (exists key "description" of section "metadata" of file "Logging_Database_Log_Audit_Events.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client) then (key "description" of section "metadata" of file "Logging_Database_Log_Audit_Events.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client) else "" ) else	(key "expected" of section "metadata" of file "Logging_Database_Log_Audit_Events.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client)) | (if (exists key "description" of section "metadata" of file "Logging_Database_Log_Audit_Events.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client) then (key "description" of section "metadata" of file "Logging_Database_Log_Audit_Events.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-DB2_SAP-CSD") of storage folder of client) else "" ))  		else 			"Missing Expected" 		]]></Property>
+	</Analysis>
+</BES>

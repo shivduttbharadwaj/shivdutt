@@ -1,0 +1,1782 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>_Run Windows-Director-CSD</Title>
+		<Description><![CDATA[This task will run the endpoint code for Windows-Director-CSD.
+		The action type "Install only (no scan)" will perform the task of preparing and installing the policy but WILL NOT run any health check on the selected endpoint.
+		Rest all actions will perform the complete health check process i.e. action of Installing the policy and Running the health check scan .
+ 		The check fixlets and measured values analyses will automatically update shortly after completion.	
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-Director-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		</Relevance>
+		<Relevance>
+				
+		if exists setting "_GCM_Windows-Director-CSD_MWRelevance_Override" whose (value of it != "") of client then (
+			true
+		)
+		else (
+			(
+								(exists key "HKLM\SOFTWARE\IBM\IBM Director Server" of native registry|false)							
+			
+
+			) 
+				or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | false) then
+		(exists (lines containing "SUBSYSTEM_TYPE=DIR" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | false)
+		else false)
+
+		)
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+						
+		if exist values of settings ("GTS_GCM_ENHANCED_SCHEDULING_" & (name of current site)) of client then
+			(if value of setting ("GTS_GCM_ENHANCED_SCHEDULING_" & (name of current site)) of client as string as lowercase = "halted" then False else True)
+		else True
+
+		]]></Relevance>
+		<Relevance><![CDATA[
+						
+		if(((not exists settings ("GTS_GCM_ENHANCED_SCHEDULING_" & (name of current site)) of client) or (value of setting ("GTS_GCM_ENHANCED_SCHEDULING_" & (name of current site)) of client as string as lowercase = "disabled"))|false) then True
+		Else
+		(if exist values of settings ("GTS_" & (name of current site) & "_GCM_Dates") of client Then
+		( if( exists file it ) then (if ((line 1 of file it does not contain ((date (local time zone) of now ) as string)) AND ((exists true whose (if true then (exists (if exist values of settings ("GTS_" & (name of current site) & "_GCM_Dates") of client then value of setting ("GTS_" & (name of current site) & "_GCM_Dates") of client else error "not set") whose ((it as string as lowercase contains (("|" & (day_of_month of it as two digits) & "-" & first 3 of (month of it as string) & "|" ) of date (local time zone) of now) as lowercase) OR (it as string as lowercase contains (("|" & (day_of_month of it as two digits) & "-" & first 3 of (month of it as string) & "-" & year of it as string & "|") of date (local time zone) of now) as lowercase))) else False)))) then True else False) else True) of (pathname of parent folder of parent folder of folder ( pathname of client folder of current site) & "/__GTS/FlagFiles/IEMHC/GCM_" & (name of current site) & "_" & "Windows-Director-CSD" & ".txt")
+		Else False)
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>30830001</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 06:34:51 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action to Prepare, Install and Scan the Endpoint.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+		// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+		
+begin prefetch block
+	if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+		parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+	else
+		parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+	endif
+	
+	if {name of operating system as lowercase contains "sunos" OR name of operating system as lowercase contains "hp-ux"}
+	parameter "dump" = ""
+    else
+	parameter "dump" = "-Xdump:none"
+	endif	
+	
+	//Start of Prepare endpoint	
+	//determine if JRE upgrade is required
+		if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+	 if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+    parameter "downloaded_jre_win32" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}" 
+     parameter "input_jre_win32" = "80535"
+       if{parameter "input_jre_win32" > parameter "downloaded_jre_win32"}
+        parameter "jre_download_win32" = "true"
+	   add prefetch item name=ibm-java-jre-80-win-i386.zip sha1=e6589fa216462fc105f7464f167cecbbcbd7badf sha256=e5f331cecaf35e57c0472636dedd6df7570af6f41bd2411387ae4b53cf21c4a3 size=144293243 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-i386.zip
+	   add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	   else
+		 parameter "jre_download_win32" = "false"	  	
+	   endif
+	 else
+	 parameter "jre_download_win32" = "true"
+	 add prefetch item name=ibm-java-jre-80-win-i386.zip sha1=e6589fa216462fc105f7464f167cecbbcbd7badf sha256=e5f331cecaf35e57c0472636dedd6df7570af6f41bd2411387ae4b53cf21c4a3 size=144293243 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-i386.zip 
+	add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+		
+	endif
+   endif	
+    
+  	if{(windows of operating system) and (architecture of operating system contains "64")}
+	if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+    parameter "downloaded_jre_win64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+    parameter "input_jre_win64" = "80535"
+     if {parameter "input_jre_win64" > parameter "downloaded_jre_win64"}
+      parameter "jre_download_win64" = "true"
+	   add prefetch item name=ibm-java-jre-80-win-x86_64.zip sha1=f91eba2412dbe515102763df3ee5d6f24b0754c5 sha256=910fac677acc3d0e5dff59570043b8ca5479675365baca278c3d61843682bf39 size=172357049 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-x86_64.zip
+	   add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	 else
+	  parameter "jre_download_win64" = "false"
+	endif
+	else
+	parameter "jre_download_win64" = "true"
+	add prefetch item name=ibm-java-jre-80-win-x86_64.zip sha1=f91eba2412dbe515102763df3ee5d6f24b0754c5 sha256=910fac677acc3d0e5dff59570043b8ca5479675365baca278c3d61843682bf39 size=172357049 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-x86_64.zip
+	add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	
+	endif
+ endif	
+  	
+	// determine if Tools update is needed
+parameter "updateTools" = "{not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}"
+
+	// only download HCLauncher if needed
+if {parameter "updateTools" as lowercase is "true"}
+add prefetch item name=HCLauncher.jar sha1=b8c64af8249e34fe07c4f2ea700916f12f6b6f8c sha256=9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08 size=8886900 url={parameter "basepath"}/400/20190307-2125/HCLauncher/HCLauncher.jar
+endif
+
+add prefetch item name=policy.xml sha1=722722f0e6bb22701e129701552cfd1c8d219630 sha256=3f04ae9bffc393a014388d0f7b45914f559b635c6070ecad8e852f569a973447 size=30722 url={parameter "basepath"}/400/20190307-2125/Windows/Director.Windows.CSD/policy.xml
+
+add prefetch item name=Collectors.zip sha1=5ca90f3143993a6c29ed22ed2ee4568d2d37369c sha256=41892c6e8ec5f53c81bdd173325becf9676445d35b578d27463bc2fb640737dd size=601567 url={parameter "basepath"}/400/20190307-2125/Windows/Director.Windows.CSD/Collectors.zip
+
+
+add prefetch item name=cuz.jar sha1=76dd952a93b4bbda50511acff681d6805487baa7 sha256=ce2147227f5822c3e9a4e7909bf4178ea8299de3d6e9c118e813c85e53492caa size=179698 url={parameter "basepath"}/400/20190307-2125/tools/cuz.jar
+
+end prefetch block
+
+parameter "build_id" = "20190307-2125"
+parameter "version" = "4.0.0"
+
+folder create "{storage folder of client}/__GTS/__UIDEXT"
+folder create "{storage folder of client}/__GTS/__IEMHC"
+
+//extract the JRE
+   if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+    if {parameter "jre_download_win32" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-i386.zip" -d "{storage folder of client}\__GTS"
+	
+	 	   endif
+ endif 
+
+ if{(windows of operating system) and (architecture of operating system contains "64")}
+   if{parameter "jre_download_win64" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+    wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-x86_64.zip" -d "{storage folder of client}\__GTS"    
+  	
+  	  	   endif
+  endif 
+
+if{not exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	// Last Change
+	appendfile {now as string}
+	
+	// Version
+	appendfile {parameter "version"}
+	
+	// Build ID
+	appendfile {parameter "build_id"}
+	
+	// create the version file
+	delete "{storage folder of client}/__GTS/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/version.txt"
+	
+	// append JRE version to end
+	if{ windows of operating system}
+				appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -version >> "{storage folder of client}\__GTS\version.txt" 2>&1 
+		delete launch.bat
+		move __appendfile launch.bat
+		wait launch.bat
+	else
+				appendfile #!/bin/sh
+		appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+		delete launch.sh
+		move __appendfile launch.sh
+		wait chmod 750 launch.sh
+		wait "{client folder of current site}/launch.sh"
+	endif
+endif     
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+
+
+if {parameter "updateTools" as lowercase is "true"}
+// clean and add the HCLauncher.jar
+folder delete "{storage folder of client}/__GTS/__IEMHC/HCLauncher"
+folder delete "{storage folder of client}/__GTS/HCLauncher_400"
+folder create "{storage folder of client}/__GTS/HCLauncher_400"
+
+copy "{client folder of current site}/__Download/HCLauncher.jar" "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar"
+
+//HCLauncher version .txt
+if{windows of operating system}
+ appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -version >> "{storage folder of client}\__GTS\HCLauncher_400\version.txt" 2>&1 
+ delete launch.bat
+ move __appendfile launch.bat
+ wait launch.bat
+else
+ appendfile #!/bin/sh
+ appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -version >> "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 2>&1
+ delete launch.sh
+ move __appendfile launch.sh
+ wait chmod 750 launch.sh
+ wait "{client folder of current site}/launch.sh"
+ endif
+
+parameter "HCL_Filename" = "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 
+ appendfile {concatenation "%0d%0a" of lines of file (parameter "HCL_Filename") & "%0d%0a" & "Bigfix buildID: " & (parameter "build_id") & "%0d%0a"} 
+ move "{parameter "HCL_Filename"}" "{parameter "HCL_Filename"}.bak" 
+ move __appendfile "{parameter "HCL_Filename"}" 
+ delete "{parameter "HCL_Filename"}.bak" 
+
+endif
+
+
+
+//End of Prepare Endpoint
+
+//Start of Install policy
+
+  if {exists setting ("_GCM_CollectorDebugMode") whose (value of it as lowercase = "true") of client|false}
+		//do not remove existing Collectors as Debug mode is ON	
+  else
+				if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/policy_parameters.txt"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/localpolicy.xml"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/freshness.txt"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/vault"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "delay_counter_policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/delay_counter_policy_result.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/delay_counter_policy_result.xml"
+		endif
+		
+				
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+		endif
+		
+		folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+		
+		//Restore backed up policy files and folders
+		if{exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/vault"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/localpolicy.xml" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/freshness.txt" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "delay_counter_policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/delay_counter_policy_result.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/delay_counter_policy_result.xml" 
+		endif
+			
+		// unzip the Collectors.zip
+		if {windows of operating system} 
+			wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\cuz.jar" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD" "{client folder of current site}\__Download\Collectors.zip" 	
+		else
+			wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/cuz.jar" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD" "{client folder of current site}/__Download/Collectors.zip"	
+		endif
+		
+		if {exit code of action != 0}
+		  exit {exit code of action}
+	    endif
+		
+    endif
+
+	delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml"
+	copy "{client folder of current site}/__Download/policy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml"
+
+	
+	// create version.txt
+	appendfile {now as string}
+	appendfile Director-Windows-CSD-3.0D
+	appendfile {parameter "version"}
+	appendfile {parameter "build_id"}
+	delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/version.txt"
+	
+		// Set the GTS_GCM_Enhanched_Scheduling_<site name> setting to DISABLED if the setting is empty or does not exists AND there is no GTS_<site name>_GCM_Dates setting
+	if {( (not exists setting ("GTS_GCM_ENHANCED_SCHEDULING_"&(name of current site)) whose (value of it != "") of client) AND ((not exists values of setting ("GTS_"&(name of current site)&"_GCM_Dates") of client)|True) )}
+		setting "GTS_GCM_ENHANCED_SCHEDULING_{name of current site}"="DISABLED" on "{date (local time zone) of now & time (local time zone) of now}" for client
+	endif
+
+//End of Install Policy
+
+parameter "customJVM" = ""
+parameter "xdump_check"     = ""
+
+if "{(exists lines of file "gcm_config.txt" of folder "__GTS" of storage folder of client)|false}"
+	parameter "customJVM"   = "{(line 1 of file "gcm_config.txt" of folder "__GTS" of storage folder of client)|""}"
+	parameter "xdump_check" = "{(line 2 of file "gcm_config.txt" of folder "__GTS" of storage folder of client)|""}"
+    if {parameter "xdump_check" as lowercase is ""}
+        parameter "dump" = "-Xdump:none"
+    elseif {parameter "xdump_check" as lowercase is "yes"}
+     	parameter "dump" = "-Xdump:none"
+    else
+       parameter "dump" = ""
+    endif
+endif
+
+
+
+
+if {exists setting "_GCM_HCLauncher_Report" whose (value of it != "") of client}
+	parameter "reportoutput" = "-report"
+	else
+	parameter "reportoutput" = ""
+endif
+
+
+if {exists setting "_GCM_HCLauncher_Limit" whose (value of it != "") of client}
+	parameter "limitOutput" = "{(it as string as integer | 10000) of value of setting "_GCM_HCLauncher_Limit" of client}"
+else
+	parameter "limitOutput" = "10000"
+endif
+
+if {exists setting "_GCM_HCLauncher_Truncate" whose (value of it != "") of client}
+	parameter "truncateOutput" = "{(it as string as integer | 500) of value of setting "_GCM_HCLauncher_Truncate" of client}"
+else
+	parameter "truncateOutput" = "500"
+endif
+
+
+if {exists setting "_GCM_HCLauncher_Debug" whose (value of it != "") of client}
+	parameter "debug" = "-llevel DEBUG"
+else
+	parameter "debug" = ""
+endif
+
+if {exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+	parameter "localpolparm" = "-localpolicy"
+else
+	parameter "localpolparm" = ""
+endif
+
+	if {exists file "policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+		if {windows of operating system}
+			delete "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy_result.xml"
+		else
+			delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_result.xml"
+		endif
+	endif
+	
+	if {exists folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+		if {windows of operating system}
+			folder delete "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy"
+		else
+			folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy"
+		endif
+	endif
+
+		appendfile {name of drive of storage folder of client}
+	appendfile cd "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD" 
+	
+			if {exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			// launch with external parameters
+			appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -policy "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy.xml"   {parameter "localpolparm"} -pparams "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy_parameters.txt" -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"} > "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\GCMBigfix_HealthCheck.log"  2>&1
+		else
+			// launch without external parameters
+			appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -policy "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy.xml"   {parameter "localpolparm"} -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"} > "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\GCMBigfix_HealthCheck.log"  2>&1
+		endif
+		delete launch.bat
+	move __appendfile launch.bat
+					
+	if {not ((sha2_256 of file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client is "3f04ae9bffc393a014388d0f7b45914f559b635c6070ecad8e852f569a973447") | false) OR not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}
+	// SHA256 mismatch, policy.xml, HCLauncher.jar or remediationScript is being tampered
+	// Run _Update Fixlet to get update version
+		exit 666
+	endif
+	wait launch.bat
+	if {exit code of action != 0}
+	exit {exit code of action}
+	endif
+	
+	// ================================================================
+// =  ADDED TO WRITE FILE WITH LAST HEALTH CHECK RUN DATE & TIME  =
+// ================================================================
+
+// Set this parameter to the name of the fixlet
+parameter "GTS_GCM_Current_Fixlet_Name" = "Windows-Director-CSD"
+
+parameter "GTS_GCM_GTS_Folder" = "{pathname of parent folder of parent folder of folder ( pathname of client folder of current site)}/__GTS"
+parameter "GTS_GCM_FlagFiles_Folder" = "{parameter "GTS_GCM_GTS_Folder"}/FlagFiles"
+parameter "GTS_GCM_IEMHC_Folder" = "{parameter "GTS_GCM_FlagFiles_Folder"}/IEMHC"
+parameter "GTS_GCM_LastRunFile" = "GCM_{(name of current site)}_{parameter "GTS_GCM_Current_Fixlet_Name" of action}.txt"
+parameter "GTS_GCM_ReadMeFile" = "ReadMe.txt"
+
+// Windows create folder structure (if missing)
+if {name of operating system as lowercase starts with "win"}
+	if {not exists folder (parameter "GTS_GCM_GTS_Folder")}
+		dos mkdir "{parameter "GTS_GCM_GTS_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_FlagFiles_Folder")}
+		dos mkdir "{parameter "GTS_GCM_FlagFiles_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_IEMHC_Folder")}
+		dos mkdir "{parameter "GTS_GCM_IEMHC_Folder"}"
+    endif
+
+else  // Unix create folder structure (if missing)
+	if {not exists folder (parameter "GTS_GCM_GTS_Folder")}
+		wait mkdir "{parameter "GTS_GCM_GTS_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_FlagFiles_Folder")}
+		wait mkdir "{parameter "GTS_GCM_FlagFiles_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_IEMHC_Folder")}
+		wait mkdir "{parameter "GTS_GCM_IEMHC_Folder"}"
+    endif
+
+endif
+
+//====================================================================
+// Now the __GTS/FlagFiles/IEMHC folder structure is in place
+// Place a ReadMe.txt file explaining about the purpose of this folder
+//  and files and how it can be used (if not already present)
+if {not exists file (parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_ReadMeFile" of action)}
+	delete __createfile
+	createfile until EOF
+		This is a BigFix IEMHC directory that contains 'GCM_<site name>_<fixlet name>.txt' files.
+		Each file contains the date and time of the last run of the Health Check fixlet in that site
+
+		If you want BigFix to perform a new Health Check and :
+		1. you want to run only specific Health Check(s): delete the file(s) for the that site and fixlet.
+		2. you want to run ALL Health Checks: delete the IEMHC directory (or all files in it).
+
+		As soon as the IEMHC(s) is performed successfully the following will be recreated (if needed):
+		- the IEMHC directory.
+		- this ReadMe file.
+		- for each site and fixlet file that was deleted the GCM_<site name>_<fixlet name>.txt file.
+	EOF
+	move __createfile "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_ReadMeFile"}"
+
+endif
+
+
+//====================================================================
+// Write a file with the name of the site and the fixlet and
+// write the current date and time in the file
+
+delete __appendfile
+appendfile {date (local time zone) of now & time (local time zone) of now}
+delete "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_LastRunFile"}"
+move __appendfile "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_LastRunFile"}"
+
+	]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy action to Prepare, Install and Scan with specific rule options.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+		// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+		
+begin prefetch block
+	if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+		parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+	else
+		parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+	endif
+	
+	if {name of operating system as lowercase contains "sunos" OR name of operating system as lowercase contains "hp-ux"}
+	parameter "dump" = ""
+    else
+	parameter "dump" = "-Xdump:none"
+	endif	
+	
+	//Start of Prepare endpoint	
+	//determine if JRE upgrade is required
+		if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+	 if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+    parameter "downloaded_jre_win32" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}" 
+     parameter "input_jre_win32" = "80535"
+       if{parameter "input_jre_win32" > parameter "downloaded_jre_win32"}
+        parameter "jre_download_win32" = "true"
+	   add prefetch item name=ibm-java-jre-80-win-i386.zip sha1=e6589fa216462fc105f7464f167cecbbcbd7badf sha256=e5f331cecaf35e57c0472636dedd6df7570af6f41bd2411387ae4b53cf21c4a3 size=144293243 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-i386.zip
+	   add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	   else
+		 parameter "jre_download_win32" = "false"	  	
+	   endif
+	 else
+	 parameter "jre_download_win32" = "true"
+	 add prefetch item name=ibm-java-jre-80-win-i386.zip sha1=e6589fa216462fc105f7464f167cecbbcbd7badf sha256=e5f331cecaf35e57c0472636dedd6df7570af6f41bd2411387ae4b53cf21c4a3 size=144293243 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-i386.zip 
+	add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+		
+	endif
+   endif	
+    
+  	if{(windows of operating system) and (architecture of operating system contains "64")}
+	if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+    parameter "downloaded_jre_win64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+    parameter "input_jre_win64" = "80535"
+     if {parameter "input_jre_win64" > parameter "downloaded_jre_win64"}
+      parameter "jre_download_win64" = "true"
+	   add prefetch item name=ibm-java-jre-80-win-x86_64.zip sha1=f91eba2412dbe515102763df3ee5d6f24b0754c5 sha256=910fac677acc3d0e5dff59570043b8ca5479675365baca278c3d61843682bf39 size=172357049 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-x86_64.zip
+	   add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	 else
+	  parameter "jre_download_win64" = "false"
+	endif
+	else
+	parameter "jre_download_win64" = "true"
+	add prefetch item name=ibm-java-jre-80-win-x86_64.zip sha1=f91eba2412dbe515102763df3ee5d6f24b0754c5 sha256=910fac677acc3d0e5dff59570043b8ca5479675365baca278c3d61843682bf39 size=172357049 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-x86_64.zip
+	add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	
+	endif
+ endif	
+  	
+	// determine if Tools update is needed
+parameter "updateTools" = "{not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}"
+
+	// only download HCLauncher if needed
+if {parameter "updateTools" as lowercase is "true"}
+add prefetch item name=HCLauncher.jar sha1=b8c64af8249e34fe07c4f2ea700916f12f6b6f8c sha256=9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08 size=8886900 url={parameter "basepath"}/400/20190307-2125/HCLauncher/HCLauncher.jar
+endif
+
+add prefetch item name=policy.xml sha1=722722f0e6bb22701e129701552cfd1c8d219630 sha256=3f04ae9bffc393a014388d0f7b45914f559b635c6070ecad8e852f569a973447 size=30722 url={parameter "basepath"}/400/20190307-2125/Windows/Director.Windows.CSD/policy.xml
+
+add prefetch item name=Collectors.zip sha1=5ca90f3143993a6c29ed22ed2ee4568d2d37369c sha256=41892c6e8ec5f53c81bdd173325becf9676445d35b578d27463bc2fb640737dd size=601567 url={parameter "basepath"}/400/20190307-2125/Windows/Director.Windows.CSD/Collectors.zip
+
+
+add prefetch item name=cuz.jar sha1=76dd952a93b4bbda50511acff681d6805487baa7 sha256=ce2147227f5822c3e9a4e7909bf4178ea8299de3d6e9c118e813c85e53492caa size=179698 url={parameter "basepath"}/400/20190307-2125/tools/cuz.jar
+
+end prefetch block
+
+parameter "build_id" = "20190307-2125"
+parameter "version" = "4.0.0"
+
+folder create "{storage folder of client}/__GTS/__UIDEXT"
+folder create "{storage folder of client}/__GTS/__IEMHC"
+
+//extract the JRE
+   if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+    if {parameter "jre_download_win32" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-i386.zip" -d "{storage folder of client}\__GTS"
+	
+	 	   endif
+ endif 
+
+ if{(windows of operating system) and (architecture of operating system contains "64")}
+   if{parameter "jre_download_win64" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+    wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-x86_64.zip" -d "{storage folder of client}\__GTS"    
+  	
+  	  	   endif
+  endif 
+
+if{not exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	// Last Change
+	appendfile {now as string}
+	
+	// Version
+	appendfile {parameter "version"}
+	
+	// Build ID
+	appendfile {parameter "build_id"}
+	
+	// create the version file
+	delete "{storage folder of client}/__GTS/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/version.txt"
+	
+	// append JRE version to end
+	if{ windows of operating system}
+				appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -version >> "{storage folder of client}\__GTS\version.txt" 2>&1 
+		delete launch.bat
+		move __appendfile launch.bat
+		wait launch.bat
+	else
+				appendfile #!/bin/sh
+		appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+		delete launch.sh
+		move __appendfile launch.sh
+		wait chmod 750 launch.sh
+		wait "{client folder of current site}/launch.sh"
+	endif
+endif     
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+
+
+if {parameter "updateTools" as lowercase is "true"}
+// clean and add the HCLauncher.jar
+folder delete "{storage folder of client}/__GTS/__IEMHC/HCLauncher"
+folder delete "{storage folder of client}/__GTS/HCLauncher_400"
+folder create "{storage folder of client}/__GTS/HCLauncher_400"
+
+copy "{client folder of current site}/__Download/HCLauncher.jar" "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar"
+
+//HCLauncher version .txt
+if{windows of operating system}
+ appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -version >> "{storage folder of client}\__GTS\HCLauncher_400\version.txt" 2>&1 
+ delete launch.bat
+ move __appendfile launch.bat
+ wait launch.bat
+else
+ appendfile #!/bin/sh
+ appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -version >> "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 2>&1
+ delete launch.sh
+ move __appendfile launch.sh
+ wait chmod 750 launch.sh
+ wait "{client folder of current site}/launch.sh"
+ endif
+
+parameter "HCL_Filename" = "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 
+ appendfile {concatenation "%0d%0a" of lines of file (parameter "HCL_Filename") & "%0d%0a" & "Bigfix buildID: " & (parameter "build_id") & "%0d%0a"} 
+ move "{parameter "HCL_Filename"}" "{parameter "HCL_Filename"}.bak" 
+ move __appendfile "{parameter "HCL_Filename"}" 
+ delete "{parameter "HCL_Filename"}.bak" 
+
+endif
+
+
+
+//End of Prepare Endpoint
+
+//Start of Install policy
+
+  if {exists setting ("_GCM_CollectorDebugMode") whose (value of it as lowercase = "true") of client|false}
+		//do not remove existing Collectors as Debug mode is ON	
+  else
+				if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/policy_parameters.txt"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/localpolicy.xml"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/freshness.txt"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/vault"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "delay_counter_policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/delay_counter_policy_result.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/delay_counter_policy_result.xml"
+		endif
+		
+				
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+		endif
+		
+		folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+		
+		//Restore backed up policy files and folders
+		if{exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/vault"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/localpolicy.xml" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/freshness.txt" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "delay_counter_policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/delay_counter_policy_result.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/delay_counter_policy_result.xml" 
+		endif
+			
+		// unzip the Collectors.zip
+		if {windows of operating system} 
+			wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\cuz.jar" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD" "{client folder of current site}\__Download\Collectors.zip" 	
+		else
+			wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/cuz.jar" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD" "{client folder of current site}/__Download/Collectors.zip"	
+		endif
+		
+		if {exit code of action != 0}
+		  exit {exit code of action}
+	    endif
+		
+    endif
+
+	delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml"
+	copy "{client folder of current site}/__Download/policy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml"
+
+	
+	// create version.txt
+	appendfile {now as string}
+	appendfile Director-Windows-CSD-3.0D
+	appendfile {parameter "version"}
+	appendfile {parameter "build_id"}
+	delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/version.txt"
+	
+		// Set the GTS_GCM_Enhanched_Scheduling_<site name> setting to DISABLED if the setting is empty or does not exists AND there is no GTS_<site name>_GCM_Dates setting
+	if {( (not exists setting ("GTS_GCM_ENHANCED_SCHEDULING_"&(name of current site)) whose (value of it != "") of client) AND ((not exists values of setting ("GTS_"&(name of current site)&"_GCM_Dates") of client)|True) )}
+		setting "GTS_GCM_ENHANCED_SCHEDULING_{name of current site}"="DISABLED" on "{date (local time zone) of now & time (local time zone) of now}" for client
+	endif
+
+//End of Install Policy
+
+parameter "customJVM" = ""
+parameter "xdump_check"     = ""
+
+if "{(exists lines of file "gcm_config.txt" of folder "__GTS" of storage folder of client)|false}"
+	parameter "customJVM"   = "{(line 1 of file "gcm_config.txt" of folder "__GTS" of storage folder of client)|""}"
+	parameter "xdump_check" = "{(line 2 of file "gcm_config.txt" of folder "__GTS" of storage folder of client)|""}"
+    if {parameter "xdump_check" as lowercase is ""}
+        parameter "dump" = "-Xdump:none"
+    elseif {parameter "xdump_check" as lowercase is "yes"}
+     	parameter "dump" = "-Xdump:none"
+    else
+       parameter "dump" = ""
+    endif
+endif
+
+
+
+if {exists setting "_GCM_HCLauncher_Report" whose (value of it != "") of client}
+	parameter "reportoutput" = "-report"
+	else
+	parameter "reportoutput" = ""
+endif
+
+action parameter query "rule_value" with description "Please input the rule IDs, rule titles or rule names, separated by commas." and with default value ""
+
+
+if {exists setting "_GCM_HCLauncher_Limit" whose (value of it != "") of client}
+	parameter "limitOutput" = "{(it as string as integer | 10000) of value of setting "_GCM_HCLauncher_Limit" of client}"
+else
+	parameter "limitOutput" = "10000"
+endif
+
+if {exists setting "_GCM_HCLauncher_Truncate" whose (value of it != "") of client}
+	parameter "truncateOutput" = "{(it as string as integer | 500) of value of setting "_GCM_HCLauncher_Truncate" of client}"
+else
+	parameter "truncateOutput" = "500"
+endif
+
+
+if {exists setting "_GCM_HCLauncher_Debug" whose (value of it != "") of client}
+	parameter "debug" = "-llevel DEBUG"
+else
+	parameter "debug" = ""
+endif
+
+if {exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+	parameter "localpolparm" = "-localpolicy"
+else
+	parameter "localpolparm" = ""
+endif
+
+	if {exists file "policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+		if {windows of operating system}
+			delete "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy_result.xml"
+		else
+			delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_result.xml"
+		endif
+	endif
+	
+	if {exists folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+		if {windows of operating system}
+			folder delete "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy"
+		else
+			folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy"
+		endif
+	endif
+
+if {windows of operating system}
+	appendfile {name of drive of storage folder of client}
+	appendfile cd "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD" 
+	appendfile xcopy "{storage folder of client}\__GTS\__IEMHC\ecm" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\ecm" /s/h/e/k/f/c/i/y
+	
+			if {exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			// launch with external parameters
+			appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "customJVM"} {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -policy "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy.xml" -rule {parameter "rule_value"}   {parameter "localpolparm"} -pparams "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy_parameters.txt" -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"}
+		else
+			// launch without external parameters
+			appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "customJVM"} {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -policy "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy.xml" -rule {parameter "rule_value"}   {parameter "localpolparm"} -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"}
+		endif
+		delete launch.bat
+	move __appendfile launch.bat
+					
+	if {not ((sha2_256 of file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client is "3f04ae9bffc393a014388d0f7b45914f559b635c6070ecad8e852f569a973447") | false) OR not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}
+	// SHA256 mismatch, policy.xml, HCLauncher.jar or remediationScript is being tampered
+	// Run _Update Fixlet to get update version
+		exit 666
+	endif
+	wait launch.bat
+	if {exit code of action != 0}
+	exit {exit code of action}
+	endif
+else
+	appendfile #!/bin/sh
+	appendfile cd "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+	appendfile cp -R "{storage folder of client}/__GTS/__IEMHC/ecm" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+	
+			if {exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			// launch with external parameters
+			appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "customJVM"} {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -policy "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml" -rule {parameter "rule_value"}   {parameter "localpolparm"} -pparams "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"}
+		else
+			// launch without external parameters
+			appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "customJVM"} {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -policy "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml" -rule {parameter "rule_value"}   {parameter "localpolparm"} -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"}
+		endif
+		
+	delete launch.sh
+	move __appendfile launch.sh
+	wait chmod 750 launch.sh
+					
+	if {not ((sha2_256 of file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client is "3f04ae9bffc393a014388d0f7b45914f559b635c6070ecad8e852f569a973447") | false) OR not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}
+	// SHA256 mismatch, policy.xml, HCLauncher.jar or remediationScript is being tampered
+	// Run _Update Fixlet to get update version
+		exit 666
+	endif
+	wait "{client folder of current site}/launch.sh"
+	if {exit code of action != 0}
+	exit {exit code of action}
+	endif
+endif
+
+	// ================================================================
+// =  ADDED TO WRITE FILE WITH LAST HEALTH CHECK RUN DATE & TIME  =
+// ================================================================
+
+// Set this parameter to the name of the fixlet
+parameter "GTS_GCM_Current_Fixlet_Name" = "Windows-Director-CSD"
+
+parameter "GTS_GCM_GTS_Folder" = "{pathname of parent folder of parent folder of folder ( pathname of client folder of current site)}/__GTS"
+parameter "GTS_GCM_FlagFiles_Folder" = "{parameter "GTS_GCM_GTS_Folder"}/FlagFiles"
+parameter "GTS_GCM_IEMHC_Folder" = "{parameter "GTS_GCM_FlagFiles_Folder"}/IEMHC"
+parameter "GTS_GCM_LastRunFile" = "GCM_{(name of current site)}_{parameter "GTS_GCM_Current_Fixlet_Name" of action}.txt"
+parameter "GTS_GCM_ReadMeFile" = "ReadMe.txt"
+
+// Windows create folder structure (if missing)
+if {name of operating system as lowercase starts with "win"}
+	if {not exists folder (parameter "GTS_GCM_GTS_Folder")}
+		dos mkdir "{parameter "GTS_GCM_GTS_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_FlagFiles_Folder")}
+		dos mkdir "{parameter "GTS_GCM_FlagFiles_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_IEMHC_Folder")}
+		dos mkdir "{parameter "GTS_GCM_IEMHC_Folder"}"
+    endif
+
+else  // Unix create folder structure (if missing)
+	if {not exists folder (parameter "GTS_GCM_GTS_Folder")}
+		wait mkdir "{parameter "GTS_GCM_GTS_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_FlagFiles_Folder")}
+		wait mkdir "{parameter "GTS_GCM_FlagFiles_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_IEMHC_Folder")}
+		wait mkdir "{parameter "GTS_GCM_IEMHC_Folder"}"
+    endif
+
+endif
+
+//====================================================================
+// Now the __GTS/FlagFiles/IEMHC folder structure is in place
+// Place a ReadMe.txt file explaining about the purpose of this folder
+//  and files and how it can be used (if not already present)
+if {not exists file (parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_ReadMeFile" of action)}
+	delete __createfile
+	createfile until EOF
+		This is a BigFix IEMHC directory that contains 'GCM_<site name>_<fixlet name>.txt' files.
+		Each file contains the date and time of the last run of the Health Check fixlet in that site
+
+		If you want BigFix to perform a new Health Check and :
+		1. you want to run only specific Health Check(s): delete the file(s) for the that site and fixlet.
+		2. you want to run ALL Health Checks: delete the IEMHC directory (or all files in it).
+
+		As soon as the IEMHC(s) is performed successfully the following will be recreated (if needed):
+		- the IEMHC directory.
+		- this ReadMe file.
+		- for each site and fixlet file that was deleted the GCM_<site name>_<fixlet name>.txt file.
+	EOF
+	move __createfile "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_ReadMeFile"}"
+
+endif
+
+
+//====================================================================
+// Write a file with the name of the site and the fixlet and
+// write the current date and time in the file
+
+delete __appendfile
+appendfile {date (local time zone) of now & time (local time zone) of now}
+delete "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_LastRunFile"}"
+move __appendfile "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_LastRunFile"}"
+
+]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</Action>
+		<Action ID="Action3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink><![CDATA[ to deploy action to Prepare, Install and Scan with <b>S-Check Only</b>.]]></PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+		// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+		
+begin prefetch block
+	if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+		parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+	else
+		parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+	endif
+	
+	if {name of operating system as lowercase contains "sunos" OR name of operating system as lowercase contains "hp-ux"}
+	parameter "dump" = ""
+    else
+	parameter "dump" = "-Xdump:none"
+	endif	
+	
+	//Start of Prepare endpoint	
+	//determine if JRE upgrade is required
+		if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+	 if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+    parameter "downloaded_jre_win32" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}" 
+     parameter "input_jre_win32" = "80535"
+       if{parameter "input_jre_win32" > parameter "downloaded_jre_win32"}
+        parameter "jre_download_win32" = "true"
+	   add prefetch item name=ibm-java-jre-80-win-i386.zip sha1=e6589fa216462fc105f7464f167cecbbcbd7badf sha256=e5f331cecaf35e57c0472636dedd6df7570af6f41bd2411387ae4b53cf21c4a3 size=144293243 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-i386.zip
+	   add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	   else
+		 parameter "jre_download_win32" = "false"	  	
+	   endif
+	 else
+	 parameter "jre_download_win32" = "true"
+	 add prefetch item name=ibm-java-jre-80-win-i386.zip sha1=e6589fa216462fc105f7464f167cecbbcbd7badf sha256=e5f331cecaf35e57c0472636dedd6df7570af6f41bd2411387ae4b53cf21c4a3 size=144293243 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-i386.zip 
+	add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+		
+	endif
+   endif	
+    
+  	if{(windows of operating system) and (architecture of operating system contains "64")}
+	if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+    parameter "downloaded_jre_win64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+    parameter "input_jre_win64" = "80535"
+     if {parameter "input_jre_win64" > parameter "downloaded_jre_win64"}
+      parameter "jre_download_win64" = "true"
+	   add prefetch item name=ibm-java-jre-80-win-x86_64.zip sha1=f91eba2412dbe515102763df3ee5d6f24b0754c5 sha256=910fac677acc3d0e5dff59570043b8ca5479675365baca278c3d61843682bf39 size=172357049 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-x86_64.zip
+	   add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	 else
+	  parameter "jre_download_win64" = "false"
+	endif
+	else
+	parameter "jre_download_win64" = "true"
+	add prefetch item name=ibm-java-jre-80-win-x86_64.zip sha1=f91eba2412dbe515102763df3ee5d6f24b0754c5 sha256=910fac677acc3d0e5dff59570043b8ca5479675365baca278c3d61843682bf39 size=172357049 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-x86_64.zip
+	add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	
+	endif
+ endif	
+  	
+	// determine if Tools update is needed
+parameter "updateTools" = "{not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}"
+
+	// only download HCLauncher if needed
+if {parameter "updateTools" as lowercase is "true"}
+add prefetch item name=HCLauncher.jar sha1=b8c64af8249e34fe07c4f2ea700916f12f6b6f8c sha256=9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08 size=8886900 url={parameter "basepath"}/400/20190307-2125/HCLauncher/HCLauncher.jar
+endif
+
+add prefetch item name=policy.xml sha1=722722f0e6bb22701e129701552cfd1c8d219630 sha256=3f04ae9bffc393a014388d0f7b45914f559b635c6070ecad8e852f569a973447 size=30722 url={parameter "basepath"}/400/20190307-2125/Windows/Director.Windows.CSD/policy.xml
+
+add prefetch item name=Collectors.zip sha1=5ca90f3143993a6c29ed22ed2ee4568d2d37369c sha256=41892c6e8ec5f53c81bdd173325becf9676445d35b578d27463bc2fb640737dd size=601567 url={parameter "basepath"}/400/20190307-2125/Windows/Director.Windows.CSD/Collectors.zip
+
+
+add prefetch item name=cuz.jar sha1=76dd952a93b4bbda50511acff681d6805487baa7 sha256=ce2147227f5822c3e9a4e7909bf4178ea8299de3d6e9c118e813c85e53492caa size=179698 url={parameter "basepath"}/400/20190307-2125/tools/cuz.jar
+
+end prefetch block
+
+parameter "build_id" = "20190307-2125"
+parameter "version" = "4.0.0"
+
+folder create "{storage folder of client}/__GTS/__UIDEXT"
+folder create "{storage folder of client}/__GTS/__IEMHC"
+
+//extract the JRE
+   if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+    if {parameter "jre_download_win32" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-i386.zip" -d "{storage folder of client}\__GTS"
+	
+	 	   endif
+ endif 
+
+ if{(windows of operating system) and (architecture of operating system contains "64")}
+   if{parameter "jre_download_win64" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+    wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-x86_64.zip" -d "{storage folder of client}\__GTS"    
+  	
+  	  	   endif
+  endif 
+
+if{not exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	// Last Change
+	appendfile {now as string}
+	
+	// Version
+	appendfile {parameter "version"}
+	
+	// Build ID
+	appendfile {parameter "build_id"}
+	
+	// create the version file
+	delete "{storage folder of client}/__GTS/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/version.txt"
+	
+	// append JRE version to end
+	if{ windows of operating system}
+				appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -version >> "{storage folder of client}\__GTS\version.txt" 2>&1 
+		delete launch.bat
+		move __appendfile launch.bat
+		wait launch.bat
+	else
+				appendfile #!/bin/sh
+		appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+		delete launch.sh
+		move __appendfile launch.sh
+		wait chmod 750 launch.sh
+		wait "{client folder of current site}/launch.sh"
+	endif
+endif     
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+
+
+if {parameter "updateTools" as lowercase is "true"}
+// clean and add the HCLauncher.jar
+folder delete "{storage folder of client}/__GTS/__IEMHC/HCLauncher"
+folder delete "{storage folder of client}/__GTS/HCLauncher_400"
+folder create "{storage folder of client}/__GTS/HCLauncher_400"
+
+copy "{client folder of current site}/__Download/HCLauncher.jar" "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar"
+
+//HCLauncher version .txt
+if{windows of operating system}
+ appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -version >> "{storage folder of client}\__GTS\HCLauncher_400\version.txt" 2>&1 
+ delete launch.bat
+ move __appendfile launch.bat
+ wait launch.bat
+else
+ appendfile #!/bin/sh
+ appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -version >> "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 2>&1
+ delete launch.sh
+ move __appendfile launch.sh
+ wait chmod 750 launch.sh
+ wait "{client folder of current site}/launch.sh"
+ endif
+
+parameter "HCL_Filename" = "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 
+ appendfile {concatenation "%0d%0a" of lines of file (parameter "HCL_Filename") & "%0d%0a" & "Bigfix buildID: " & (parameter "build_id") & "%0d%0a"} 
+ move "{parameter "HCL_Filename"}" "{parameter "HCL_Filename"}.bak" 
+ move __appendfile "{parameter "HCL_Filename"}" 
+ delete "{parameter "HCL_Filename"}.bak" 
+
+endif
+
+
+
+//End of Prepare Endpoint
+
+//Start of Install policy
+
+  if {exists setting ("_GCM_CollectorDebugMode") whose (value of it as lowercase = "true") of client|false}
+		//do not remove existing Collectors as Debug mode is ON	
+  else
+				if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/policy_parameters.txt"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/localpolicy.xml"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/freshness.txt"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/vault"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "delay_counter_policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/delay_counter_policy_result.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/delay_counter_policy_result.xml"
+		endif
+		
+				
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+		endif
+		
+		folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+		
+		//Restore backed up policy files and folders
+		if{exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/vault"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/localpolicy.xml" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/freshness.txt" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "delay_counter_policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/delay_counter_policy_result.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/delay_counter_policy_result.xml" 
+		endif
+			
+		// unzip the Collectors.zip
+		if {windows of operating system} 
+			wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\cuz.jar" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD" "{client folder of current site}\__Download\Collectors.zip" 	
+		else
+			wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/cuz.jar" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD" "{client folder of current site}/__Download/Collectors.zip"	
+		endif
+		
+		if {exit code of action != 0}
+		  exit {exit code of action}
+	    endif
+		
+    endif
+
+	delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml"
+	copy "{client folder of current site}/__Download/policy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml"
+
+	
+	// create version.txt
+	appendfile {now as string}
+	appendfile Director-Windows-CSD-3.0D
+	appendfile {parameter "version"}
+	appendfile {parameter "build_id"}
+	delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/version.txt"
+	
+		// Set the GTS_GCM_Enhanched_Scheduling_<site name> setting to DISABLED if the setting is empty or does not exists AND there is no GTS_<site name>_GCM_Dates setting
+	if {( (not exists setting ("GTS_GCM_ENHANCED_SCHEDULING_"&(name of current site)) whose (value of it != "") of client) AND ((not exists values of setting ("GTS_"&(name of current site)&"_GCM_Dates") of client)|True) )}
+		setting "GTS_GCM_ENHANCED_SCHEDULING_{name of current site}"="DISABLED" on "{date (local time zone) of now & time (local time zone) of now}" for client
+	endif
+
+//End of Install Policy
+
+parameter "customJVM" = ""
+parameter "xdump_check"     = ""
+if "{(exists lines of file "gcm_config.txt" of folder "__GTS" of storage folder of client)|false}"
+	parameter "customJVM"   = "{(line 1 of file "gcm_config.txt" of folder "__GTS" of storage folder of client)|""}"
+	parameter "xdump_check" = "{(line 2 of file "gcm_config.txt" of folder "__GTS" of storage folder of client)|""}"
+    if {parameter "xdump_check" as lowercase is ""}
+        parameter "dump" = "-Xdump:none"
+    elseif {parameter "xdump_check" as lowercase is "yes"}
+     	parameter "dump" = "-Xdump:none"
+    else
+       parameter "dump" = ""
+    endif
+endif
+
+
+
+if {exists setting "_GCM_HCLauncher_Report" whose (value of it != "") of client}
+	parameter "reportoutput" = "-report"
+	else
+	parameter "reportoutput" = ""
+endif
+
+
+if {exists setting "_GCM_HCLauncher_Limit" whose (value of it != "") of client}
+	parameter "limitOutput" = "{(it as string as integer | 10000) of value of setting "_GCM_HCLauncher_Limit" of client}"
+else
+	parameter "limitOutput" = "10000"
+endif
+
+if {exists setting "_GCM_HCLauncher_Truncate" whose (value of it != "") of client}
+	parameter "truncateOutput" = "{(it as string as integer | 500) of value of setting "_GCM_HCLauncher_Truncate" of client}"
+else
+	parameter "truncateOutput" = "500"
+endif
+
+
+if {exists setting "_GCM_HCLauncher_Debug" whose (value of it != "") of client}
+	parameter "debug" = "-llevel DEBUG"
+else
+	parameter "debug" = ""
+endif
+
+if {exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+	parameter "localpolparm" = "-localpolicy"
+else
+	parameter "localpolparm" = ""
+endif
+
+	if {exists file "policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+		if {windows of operating system}
+			delete "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy_result.xml"
+		else
+			delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_result.xml"
+		endif
+	endif
+	
+	if {exists folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+		if {windows of operating system}
+			folder delete "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy"
+		else
+			folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy"
+		endif
+	endif
+
+if {windows of operating system}
+	appendfile {name of drive of storage folder of client}
+	appendfile cd "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD" 
+	appendfile xcopy "{storage folder of client}\__GTS\__IEMHC\ecm" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\ecm" /s/h/e/k/f/c/i/y
+	
+			if {exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			// launch with external parameters
+			appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "customJVM"} {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -policy "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy.xml" -Scheck   {parameter "localpolparm"} -pparams "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy_parameters.txt" -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"} > "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\GCMBigfix_HealthCheck.log"  2>&1
+		else
+			// launch without external parameters
+			appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "customJVM"} {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -policy "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\policy.xml" -Scheck   {parameter "localpolparm"} -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"} > "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD\GCMBigfix_HealthCheck.log"  2>&1
+		endif
+		delete launch.bat
+	move __appendfile launch.bat
+					
+	if {not ((sha2_256 of file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client is "3f04ae9bffc393a014388d0f7b45914f559b635c6070ecad8e852f569a973447") | false) OR not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}
+	// SHA256 mismatch, policy.xml, HCLauncher.jar or remediationScript is being tampered
+	// Run _Update Fixlet to get update version
+		exit 666
+	endif
+	wait launch.bat
+	if {exit code of action != 0}
+	exit {exit code of action}
+	endif
+else
+	appendfile #!/bin/sh
+	appendfile cd "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+	appendfile cp -R "{storage folder of client}/__GTS/__IEMHC/ecm" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+	
+			if {exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			// launch with external parameters
+			appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "customJVM"} {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -policy "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml" -Scheck   {parameter "localpolparm"} -pparams "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"} > "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/GCMBigfix_HealthCheck.log" 2>&1
+		else
+			// launch without external parameters
+			appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "customJVM"} {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -policy "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml" -Scheck   {parameter "localpolparm"} -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"} > "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/GCMBigfix_HealthCheck.log" 2>&1
+		endif
+		
+	delete launch.sh
+	move __appendfile launch.sh
+	wait chmod 750 launch.sh
+					
+	if {not ((sha2_256 of file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client is "3f04ae9bffc393a014388d0f7b45914f559b635c6070ecad8e852f569a973447") | false) OR not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}
+	// SHA256 mismatch, policy.xml, HCLauncher.jar or remediationScript is being tampered
+	// Run _Update Fixlet to get update version
+		exit 666
+	endif
+	wait "{client folder of current site}/launch.sh"
+	if {exit code of action != 0}
+	exit {exit code of action}
+	endif
+endif
+
+	// ================================================================
+// =  ADDED TO WRITE FILE WITH LAST HEALTH CHECK RUN DATE & TIME  =
+// ================================================================
+
+// Set this parameter to the name of the fixlet
+parameter "GTS_GCM_Current_Fixlet_Name" = "Windows-Director-CSD"
+
+parameter "GTS_GCM_GTS_Folder" = "{pathname of parent folder of parent folder of folder ( pathname of client folder of current site)}/__GTS"
+parameter "GTS_GCM_FlagFiles_Folder" = "{parameter "GTS_GCM_GTS_Folder"}/FlagFiles"
+parameter "GTS_GCM_IEMHC_Folder" = "{parameter "GTS_GCM_FlagFiles_Folder"}/IEMHC"
+parameter "GTS_GCM_LastRunFile" = "GCM_{(name of current site)}_{parameter "GTS_GCM_Current_Fixlet_Name" of action}.txt"
+parameter "GTS_GCM_ReadMeFile" = "ReadMe.txt"
+
+// Windows create folder structure (if missing)
+if {name of operating system as lowercase starts with "win"}
+	if {not exists folder (parameter "GTS_GCM_GTS_Folder")}
+		dos mkdir "{parameter "GTS_GCM_GTS_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_FlagFiles_Folder")}
+		dos mkdir "{parameter "GTS_GCM_FlagFiles_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_IEMHC_Folder")}
+		dos mkdir "{parameter "GTS_GCM_IEMHC_Folder"}"
+    endif
+
+else  // Unix create folder structure (if missing)
+	if {not exists folder (parameter "GTS_GCM_GTS_Folder")}
+		wait mkdir "{parameter "GTS_GCM_GTS_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_FlagFiles_Folder")}
+		wait mkdir "{parameter "GTS_GCM_FlagFiles_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_IEMHC_Folder")}
+		wait mkdir "{parameter "GTS_GCM_IEMHC_Folder"}"
+    endif
+
+endif
+
+//====================================================================
+// Now the __GTS/FlagFiles/IEMHC folder structure is in place
+// Place a ReadMe.txt file explaining about the purpose of this folder
+//  and files and how it can be used (if not already present)
+if {not exists file (parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_ReadMeFile" of action)}
+	delete __createfile
+	createfile until EOF
+		This is a BigFix IEMHC directory that contains 'GCM_<site name>_<fixlet name>.txt' files.
+		Each file contains the date and time of the last run of the Health Check fixlet in that site
+
+		If you want BigFix to perform a new Health Check and :
+		1. you want to run only specific Health Check(s): delete the file(s) for the that site and fixlet.
+		2. you want to run ALL Health Checks: delete the IEMHC directory (or all files in it).
+
+		As soon as the IEMHC(s) is performed successfully the following will be recreated (if needed):
+		- the IEMHC directory.
+		- this ReadMe file.
+		- for each site and fixlet file that was deleted the GCM_<site name>_<fixlet name>.txt file.
+	EOF
+	move __createfile "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_ReadMeFile"}"
+
+endif
+
+
+//====================================================================
+// Write a file with the name of the site and the fixlet and
+// write the current date and time in the file
+
+delete __appendfile
+appendfile {date (local time zone) of now & time (local time zone) of now}
+delete "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_LastRunFile"}"
+move __appendfile "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_LastRunFile"}"
+
+	]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</Action>
+		<Action ID="Action5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink><![CDATA[ to deploy this action Prepare and Install only <b>(no scan)</b>.]]></PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+		// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+		
+begin prefetch block
+	if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+		parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+	else
+		parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+	endif
+	
+	if {name of operating system as lowercase contains "sunos" OR name of operating system as lowercase contains "hp-ux"}
+	parameter "dump" = ""
+    else
+	parameter "dump" = "-Xdump:none"
+	endif	
+	
+	//Start of Prepare endpoint	
+	//determine if JRE upgrade is required
+		if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+	 if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+    parameter "downloaded_jre_win32" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}" 
+     parameter "input_jre_win32" = "80535"
+       if{parameter "input_jre_win32" > parameter "downloaded_jre_win32"}
+        parameter "jre_download_win32" = "true"
+	   add prefetch item name=ibm-java-jre-80-win-i386.zip sha1=e6589fa216462fc105f7464f167cecbbcbd7badf sha256=e5f331cecaf35e57c0472636dedd6df7570af6f41bd2411387ae4b53cf21c4a3 size=144293243 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-i386.zip
+	   add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	   else
+		 parameter "jre_download_win32" = "false"	  	
+	   endif
+	 else
+	 parameter "jre_download_win32" = "true"
+	 add prefetch item name=ibm-java-jre-80-win-i386.zip sha1=e6589fa216462fc105f7464f167cecbbcbd7badf sha256=e5f331cecaf35e57c0472636dedd6df7570af6f41bd2411387ae4b53cf21c4a3 size=144293243 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-i386.zip 
+	add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+		
+	endif
+   endif	
+    
+  	if{(windows of operating system) and (architecture of operating system contains "64")}
+	if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+    parameter "downloaded_jre_win64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+    parameter "input_jre_win64" = "80535"
+     if {parameter "input_jre_win64" > parameter "downloaded_jre_win64"}
+      parameter "jre_download_win64" = "true"
+	   add prefetch item name=ibm-java-jre-80-win-x86_64.zip sha1=f91eba2412dbe515102763df3ee5d6f24b0754c5 sha256=910fac677acc3d0e5dff59570043b8ca5479675365baca278c3d61843682bf39 size=172357049 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-x86_64.zip
+	   add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	 else
+	  parameter "jre_download_win64" = "false"
+	endif
+	else
+	parameter "jre_download_win64" = "true"
+	add prefetch item name=ibm-java-jre-80-win-x86_64.zip sha1=f91eba2412dbe515102763df3ee5d6f24b0754c5 sha256=910fac677acc3d0e5dff59570043b8ca5479675365baca278c3d61843682bf39 size=172357049 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-x86_64.zip
+	add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	
+	endif
+ endif	
+  	
+	// determine if Tools update is needed
+parameter "updateTools" = "{not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}"
+
+	// only download HCLauncher if needed
+if {parameter "updateTools" as lowercase is "true"}
+add prefetch item name=HCLauncher.jar sha1=b8c64af8249e34fe07c4f2ea700916f12f6b6f8c sha256=9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08 size=8886900 url={parameter "basepath"}/400/20190307-2125/HCLauncher/HCLauncher.jar
+endif
+
+add prefetch item name=policy.xml sha1=722722f0e6bb22701e129701552cfd1c8d219630 sha256=3f04ae9bffc393a014388d0f7b45914f559b635c6070ecad8e852f569a973447 size=30722 url={parameter "basepath"}/400/20190307-2125/Windows/Director.Windows.CSD/policy.xml
+
+add prefetch item name=Collectors.zip sha1=5ca90f3143993a6c29ed22ed2ee4568d2d37369c sha256=41892c6e8ec5f53c81bdd173325becf9676445d35b578d27463bc2fb640737dd size=601567 url={parameter "basepath"}/400/20190307-2125/Windows/Director.Windows.CSD/Collectors.zip
+
+
+add prefetch item name=cuz.jar sha1=76dd952a93b4bbda50511acff681d6805487baa7 sha256=ce2147227f5822c3e9a4e7909bf4178ea8299de3d6e9c118e813c85e53492caa size=179698 url={parameter "basepath"}/400/20190307-2125/tools/cuz.jar
+
+end prefetch block
+
+parameter "build_id" = "20190307-2125"
+parameter "version" = "4.0.0"
+
+folder create "{storage folder of client}/__GTS/__UIDEXT"
+folder create "{storage folder of client}/__GTS/__IEMHC"
+
+//extract the JRE
+   if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+    if {parameter "jre_download_win32" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-i386.zip" -d "{storage folder of client}\__GTS"
+	
+	 	   endif
+ endif 
+
+ if{(windows of operating system) and (architecture of operating system contains "64")}
+   if{parameter "jre_download_win64" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+    wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-x86_64.zip" -d "{storage folder of client}\__GTS"    
+  	
+  	  	   endif
+  endif 
+
+if{not exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	// Last Change
+	appendfile {now as string}
+	
+	// Version
+	appendfile {parameter "version"}
+	
+	// Build ID
+	appendfile {parameter "build_id"}
+	
+	// create the version file
+	delete "{storage folder of client}/__GTS/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/version.txt"
+	
+	// append JRE version to end
+	if{ windows of operating system}
+				appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -version >> "{storage folder of client}\__GTS\version.txt" 2>&1 
+		delete launch.bat
+		move __appendfile launch.bat
+		wait launch.bat
+	else
+				appendfile #!/bin/sh
+		appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+		delete launch.sh
+		move __appendfile launch.sh
+		wait chmod 750 launch.sh
+		wait "{client folder of current site}/launch.sh"
+	endif
+endif     
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+
+
+if {parameter "updateTools" as lowercase is "true"}
+// clean and add the HCLauncher.jar
+folder delete "{storage folder of client}/__GTS/__IEMHC/HCLauncher"
+folder delete "{storage folder of client}/__GTS/HCLauncher_400"
+folder create "{storage folder of client}/__GTS/HCLauncher_400"
+
+copy "{client folder of current site}/__Download/HCLauncher.jar" "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar"
+
+//HCLauncher version .txt
+if{windows of operating system}
+ appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -jar {parameter "dump"} "{storage folder of client}\__GTS\HCLauncher_400\HCLauncher.jar" -version >> "{storage folder of client}\__GTS\HCLauncher_400\version.txt" 2>&1 
+ delete launch.bat
+ move __appendfile launch.bat
+ wait launch.bat
+else
+ appendfile #!/bin/sh
+ appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -version >> "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 2>&1
+ delete launch.sh
+ move __appendfile launch.sh
+ wait chmod 750 launch.sh
+ wait "{client folder of current site}/launch.sh"
+ endif
+
+parameter "HCL_Filename" = "{storage folder of client}/__GTS/HCLauncher_400/version.txt" 
+ appendfile {concatenation "%0d%0a" of lines of file (parameter "HCL_Filename") & "%0d%0a" & "Bigfix buildID: " & (parameter "build_id") & "%0d%0a"} 
+ move "{parameter "HCL_Filename"}" "{parameter "HCL_Filename"}.bak" 
+ move __appendfile "{parameter "HCL_Filename"}" 
+ delete "{parameter "HCL_Filename"}.bak" 
+
+endif
+
+
+
+//End of Prepare Endpoint
+
+//Start of Install policy
+
+  if {exists setting ("_GCM_CollectorDebugMode") whose (value of it as lowercase = "true") of client|false}
+		//do not remove existing Collectors as Debug mode is ON	
+  else
+				if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/policy_parameters.txt"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/localpolicy.xml"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/freshness.txt"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/vault"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client AND exists file "delay_counter_policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/delay_counter_policy_result.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/delay_counter_policy_result.xml"
+		endif
+		
+				
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client}
+			folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+		endif
+		
+		folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD"
+		
+		//Restore backed up policy files and folders
+		if{exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/vault"
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy_parameters.txt" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/localpolicy.xml" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/freshness.txt" 
+		endif
+		
+		if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client AND exists file "delay_counter_policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD_backup") of storage folder of client|false}
+			move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD_backup/delay_counter_policy_result.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/delay_counter_policy_result.xml" 
+		endif
+			
+		// unzip the Collectors.zip
+		if {windows of operating system} 
+			wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\cuz.jar" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-Director-CSD" "{client folder of current site}\__Download\Collectors.zip" 	
+		else
+			wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/cuz.jar" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD" "{client folder of current site}/__Download/Collectors.zip"	
+		endif
+		
+		if {exit code of action != 0}
+		  exit {exit code of action}
+	    endif
+		
+    endif
+
+	delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml"
+	copy "{client folder of current site}/__Download/policy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/policy.xml"
+
+	
+	// create version.txt
+	appendfile {now as string}
+	appendfile Director-Windows-CSD-3.0D
+	appendfile {parameter "version"}
+	appendfile {parameter "build_id"}
+	delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Director-CSD/version.txt"
+	
+		// Set the GTS_GCM_Enhanched_Scheduling_<site name> setting to DISABLED if the setting is empty or does not exists AND there is no GTS_<site name>_GCM_Dates setting
+	if {( (not exists setting ("GTS_GCM_ENHANCED_SCHEDULING_"&(name of current site)) whose (value of it != "") of client) AND ((not exists values of setting ("GTS_"&(name of current site)&"_GCM_Dates") of client)|True) )}
+		setting "GTS_GCM_ENHANCED_SCHEDULING_{name of current site}"="DISABLED" on "{date (local time zone) of now & time (local time zone) of now}" for client
+	endif
+
+//End of Install Policy
+
+	]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</Action>
+	</Task>
+</BES>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Clean Endpoint</Title>
+		<Description><![CDATA[This fixlet removes all files and folders associated with GTS Compliance Management and UID Extractors.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance>(exists folder "__GTS/__IEMHC" of storage folder of client) or (exists folder "__GTS/jre" of storage folder of client) or (exists folder "HCLauncher_400" of folder "__GTS" of storage folder of client) or (exists folder "__GTS/__UIDEXT" of storage folder of client)</Relevance>
+		<Category>GCM</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 21 Mar 2019 12:24:02 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to remove __GTS/__IEMHC Folder</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			if {name of operating system as lowercase starts with "hp-ux"}
+		wait sh -c "rm -rf \"{storage folder of client}/__GTS/__IEMHC\""			
+else
+	folder delete "{storage folder of client}/__GTS/__IEMHC"
+endif
+
+if {exists folder "__GTS/FlagFiles/IEMHC" of storage folder of client}
+	folder delete "{storage folder of client}/__GTS/FlagFiles/IEMHC"
+endif
+
+			</ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to remove __GTS/__UIDEXT Folder</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+		// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+		if {name of operating system as lowercase starts with "hp-ux"}
+		wait sh -c "rm -rf \"{storage folder of client}/__GTS/__UIDEXT\""		
+else
+	folder delete "{storage folder of client}/__GTS/__UIDEXT"
+endif
+
+if {exists folder "__GTS/FlagFiles/UIDEXT" of storage folder of client}
+	folder delete "{storage folder of client}/__GTS/FlagFiles/UIDEXT"
+endif
+	</ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</Action>
+		<Action ID="Action3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to remove GCM, UIDEXT, JRE and HCLauncher</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+		// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+		
+// clean the JRE location
+if {name of operating system as lowercase starts with "hp-ux"}
+wait sh -c "rm -rf \"{storage folder of client}/__GTS/__IEMHC\""
+wait sh -c "rm -rf \"{storage folder of client}/__GTS/__UIDEXT\""
+wait sh -c "rm -rf \"{storage folder of client}/__GTS/HCLauncher_400\""
+wait sh -c "rm -rf \"{storage folder of client}/__GTS/jre\""
+wait sh -c "rm -rf \"{storage folder of client}/__GTS/version.txt\""
+elseif{name of operating system as lowercase starts with "win"}
+folder delete "{storage folder of client}/__GTS/__UIDEXT"
+folder delete "{storage folder of client}/__GTS/__IEMHC"
+folder delete "{storage folder of client}/__GTS/HCLauncher_400"
+folder delete "{storage folder of client}/__GTS/jre"
+delete "{storage folder of client}/__GTS/license_en.txt"
+delete "{storage folder of client}/__GTS/notices.txt"
+delete "{storage folder of client}/__GTS/readme.txt"
+delete "{storage folder of client}/__GTS/version.txt"
+delete "{storage folder of client}/__GTS/copyright"
+folder delete "{storage folder of client}/__GTS/docs"
+folder delete "{storage folder of client}/__GTS/properties"
+else
+folder delete "{storage folder of client}/__GTS/__UIDEXT"
+folder delete "{storage folder of client}/__GTS/__IEMHC"
+folder delete "{storage folder of client}/__GTS/HCLauncher_400"
+folder delete "{storage folder of client}/__GTS/jre"
+delete "{storage folder of client}/__GTS/version.txt"
+endif
+
+if {exists folder "__GTS/FlagFiles/IEMHC" of storage folder of client}
+	folder delete "{storage folder of client}/__GTS/FlagFiles/IEMHC"
+endif
+
+if {exists folder "__GTS/FlagFiles/UIDEXT" of storage folder of client}
+	folder delete "{storage folder of client}/__GTS/FlagFiles/UIDEXT"
+endif
+
+	</ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</Action>
+	</Fixlet>
+</BES>

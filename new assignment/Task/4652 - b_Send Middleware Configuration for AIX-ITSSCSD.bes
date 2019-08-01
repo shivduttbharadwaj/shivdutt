@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>_Send Middleware Configuration for AIX-ITSSCSD</Title>
+		<Description><![CDATA[This task will create a middleware configuration file on the endpoint for AIX-ITSSCSD. Review the action of this task to see and change the settings sent to the endpoint.
+				<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190612-2172</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[
+				
+		(
+			if exists setting "_GCM_AIX-ITSSCSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				name of operating system as lowercase contains "aix" and version of operating system >= "7"
+			)
+		)
+		]]></Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-06-12</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>30010007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 25 Jun 2019 12:09:26 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			
+begin prefetch block	
+	if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+		parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+	else
+		parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+	endif
+	
+	add prefetch item name=ConfigMergeTool.jar sha1=67cac9e3f121e23c12ca84f63daf3cf82611aaf8 sha256=29f2283614504b3a31ee30b35d32afcd8096ba76a866a5f7ce80bbd77d54c21e size=421823 url={parameter "basepath"}/410/20190612-2172/tools/ConfigMergeTool.jar
+	add prefetch item name=TIMcipherPswdV3.jar sha1=c8aeb8375b25c0fa92fc92f5586f579ddcd791c4 sha256=7843234a93d6542519dd7032445af09168add2d732d2550aacef3bb64597b507 size=160714 url={parameter "basepath"}/410/20190612-2172/tools/TIMcipherPswdV3.jar
+	
+//Start Check if JRE needs to be installed
+ 	
+if{(name of operating system as lowercase contains "aix") and (architecture of operating system contains "32")}
+ if{version of operating system >= "7" and ((concatenation "" of substrings separated by "-" of ((current technology level of operating system) as string)) as integer >= 710003)}
+   
+    if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+       parameter "downloaded_jre_aix32" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+       parameter "input_jre_aix32" = "80535"
+         if{parameter "input_jre_aix32" > parameter "downloaded_jre_aix32"}
+          parameter "jre_download_aix32" = "true"
+	     else
+	      parameter "jre_download_aix32" = "false"
+	     endif
+    else
+	  parameter "jre_download_aix32" = "true"
+    endif
+   
+    if{parameter "jre_download_aix32" as lowercase is "true"}
+		add prefetch item name=jre832redist.tar.gz sha1=99ee69774f10d4f8affbd9e27232cbd6de7cd763 sha256=c09109c251dd937f72c3450531f954f1012a41e3ed6287520b6c278a5037a63d size=123090779 url={parameter "basepath"}/jre/80535/jre832redist.tar.gz
+	endif
+ endif
+endif
+    
+  if{(name of operating system as lowercase contains "aix") and (architecture of operating system contains "64")}
+if{version of operating system >= "7" and ((concatenation "" of substrings separated by "-" of ((current technology level of operating system) as string)) as integer >= 710003)} 
+     if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+       parameter "downloaded_jre_aix64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+       parameter "input_jre_aix64" = "80535"
+        if{parameter "input_jre_aix64" > parameter "downloaded_jre_aix64"}
+         parameter "jre_download_aix64" = "true"
+        else
+         parameter "jre_download_aix64" = "false" 
+       endif    
+    else
+     parameter "jre_download_aix64" = "true"
+	endif
+	
+	if{parameter "jre_download_aix64" as lowercase is "true"}
+		add prefetch item name=jre864redist.tar.gz sha1=5949599f0a89fe0d48889f45d64ab18886b7be48 sha256=76e5cece78166168adeb0d040dff3292386f71678417e84040b7b92c52f16e8e size=145281211 url={parameter "basepath"}/jre/80535/jre864redist.tar.gz
+	endif
+ endif
+endif
+    
+
+
+
+
+
+//End Check if JRE needs to be installed
+	
+end prefetch block
+
+//Start of Config File Template
+
+createfile until --qGs7SPXJMX59YEz--
+	
+	#openssh_config.txt
+#file-informations
+#        type = "collector-configuration"
+#        collector = OpenSSHV5
+#        file = config.template
+#        version = 1
+#        date = "2018/04/09"
+#        comment = "ConfigurAtion file for location sshd-config"
+#sshd-config-path
+#PATH = "/etc/ssh/sshd_config"
+
+	
+--qGs7SPXJMX59YEz--
+
+//End of Config File Template
+
+parameter "build_id" = "20190612-2172"
+parameter "version" = "4.0.0"
+
+//Start Extract JRE if prefetched
+
+if{(name of operating system as lowercase contains "aix") and (architecture of operating system contains "32")}
+if{version of operating system >= "7" and ((concatenation "" of substrings separated by "-" of ((current technology level of operating system) as string)) as integer >= 710003)}
+  if{parameter "jre_download_aix32" as lowercase is "true"}
+	 
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	 
+	 
+
+wait gunzip -f "{client folder of current site}/__Download/jre832redist.tar.gz"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait tar xf "{client folder of current site}/__Download/jre832redist.tar"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/jre" "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+	 
+ 	 	 
+	 	 
+	  endif 
+endif
+endif 
+	
+if{(name of operating system as lowercase contains "aix") and (architecture of operating system contains "64")}	
+if{name of operating system as lowercase contains "aix" and version of operating system >= "7" and architecture of operating system contains "64" and ((concatenation "" of substrings separated by "-" of ((current technology level of operating system) as string)) as integer >= 710003)}
+ if{parameter "jre_download_aix64" as lowercase is "true"}
+	
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	
+	
+
+wait gunzip -f "{client folder of current site}/__Download/jre864redist.tar.gz"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait tar xf "{client folder of current site}/__Download/jre864redist.tar"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/jre" "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+	
+		 
+		 
+	 endif 
+endif
+endif
+
+
+  
+ 
+
+
+//End Extract JRE if prefetched
+
+if{not exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	// Last Change
+	appendfile {now as string}
+	
+	// Version
+	appendfile {parameter "version"}
+	
+	// Build ID
+	appendfile {parameter "build_id"}
+	
+	// create the version file
+	delete "{storage folder of client}/__GTS/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/version.txt"
+	
+	// append JRE version to end
+	if{ windows of operating system}
+				appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -version >> "{storage folder of client}\__GTS\version.txt" 2>&1 
+		delete launch.bat
+		move __appendfile launch.bat
+		wait launch.bat
+	else
+				appendfile #!/bin/sh
+		appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+		delete launch.sh
+		move __appendfile launch.sh
+		wait chmod 750 launch.sh
+		wait "{client folder of current site}/launch.sh"
+	endif
+endif     
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+
+folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault"
+
+parameter "filename" = "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/tmp_config.txt"
+		
+delete "{parameter "filename"}"
+move __createfile "{parameter "filename"}"
+
+
+if {exists file "openssh_config.txt" of folder ("__GTS/__IEMHC/"& name of current site as string & "/AIX-ITSSCSD/vault") of storage folder of client}
+move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.old"
+move "{parameter "filename"}" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.new"
+
+if {windows of operating system}
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.new"
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.new"
+endif
+
+if {windows of operating system} 
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -m "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.new"  -o "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.old" 	
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -m "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.new"  -o "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.old"
+endif
+
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.old"
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt.new"
+
+else
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt"
+move "{parameter "filename"}" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt"
+if {windows of operating system}
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt"
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/vault/openssh_config.txt"
+endif
+endif
+
+			]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

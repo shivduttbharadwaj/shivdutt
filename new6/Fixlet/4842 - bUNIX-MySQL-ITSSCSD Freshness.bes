@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UNIX-MySQL-ITSSCSD Freshness</Title>
+		<Description><![CDATA[This fixlet is relevant when the results file modification timestamp is older than Freshness tolerance.The default value is 5 days. This fixlet is also relevant when the results file does not exist.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190612-2172</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[
+				
+		(
+			if exists setting "_GCM_UNIX-MySQL-ITSSCSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(name of operating system as lowercase contains "red hat" and version of operating system >= "6") or (name of operating system as lowercase contains "suse" and version of operating system >= "11") or (name of operating system as lowercase contains "sunos" and version of operating system >= "5.10") or (name of operating system as lowercase contains "aix" and version of operating system >= "7") or (name of operating system as lowercase contains "hp-ux" and version of operating system as string contains "11.31") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8")
+			)
+		)
+		]]></Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_UNIX-MySQL-ITSSCSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+					(exist folder "/var/lib/mysql") OR (exists file "/etc/my.cnf") OR (exists file "/etc/mysql/my.cnf") OR (exists file "my.cnf" of folder ((value of variable "MYSQL_HOME" of environment)as string) | false) OR exists process whose (name of it as string as lowercase = "mysqld")
+
+
+
+				) 
+						or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | False) then
+		(exists (lines containing "SUBSYSTEM_TYPE=MYL" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | False)
+		else False)
+	
+			)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[(((not exists file it) OR ((line 1 of file it)  as trimmed string as lowercase = "unknown") OR ((now - (line 1 of file it as time)) > ((if exists (file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-MySQL-ITSSCSD") of storage folder of client) then ((line of file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-MySQL-ITSSCSD") of storage folder of client) as integer) else 5) * day))) | true) of ( storage folder of client as string & "/__GTS/__IEMHC/" & name of current site as string & "/" & "UNIX-MySQL-ITSSCSD" & "/delay_counter_" & 	"policy_result.xml" )]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-06-12</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-id</Name>
+			<Value>5F9CA249-31A2-C8F0-AF29-FFB8711A0AFE</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>         {  "fusion_supported_platforms" : "AIX 6+, HP-UX 11.31, Red Hat Linux 6.x+, SuSE Linux 11+, Solaris 10+, CentOS 7+, Ubuntu 14+, Debian 8+, MySQL 3.23, 4.0, 4.1, 5.0, 5.1, 5.6, 5.7",  "description" : "Freshness",  "scm_parameters" : {   "Last Update" : {    "type" : "string",    "measured_value_analysis_property" : 1,    "allow_long_string" : true,    "default_value" : "",    "allow_empty_string" : true,    "measured_value_analysis_idref" : "01F103BD-26A8-5515-2B8F-12DF4E8F0145",    "order" : 1,    "title" : "Last Update"   }  },  "title" : "UNIX-MySQL-ITSSCSD Freshness" }     </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>10420005</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-idref</Name>
+			<Value>4A9A7286-EC29-D637-C8F0-6E7396371E90</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 03 Jul 2019 09:48:29 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

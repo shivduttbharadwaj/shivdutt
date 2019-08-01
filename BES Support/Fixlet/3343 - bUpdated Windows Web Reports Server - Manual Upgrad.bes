@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Web Reports Server - Manual Upgrade Required - IBM BigFix version 9.2.14</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><strong>Version 9.2.14 of IBM BigFix is now available!</strong>, but the current IBM BigFix Web Reports Server is running from a remote database using NT authentication which cannot be upgraded through a Fixlet message. Please follow the instructions in the link below to manually upgrade your Web Reports Server. Note that when upgrading the Web Reports Server, you need to configure the Web Reports Server service to login as a user with access to the remote database.<p>The latest version of the IBM BigFix Web Reports Server provides several enhancements and fixes.<p><span style="color: red"><strong>Important Notes:</strong></span><ul><li>It is recommended that you run this upgrade&nbsp;immediately after the IBM BigFix Server and Consoles are upgraded. <strong>Web Reports Servers that are not upgraded at the same time as the IBM BigFix Server will be unable to communicate with the upgraded server.</strong></li><li>You must upgrade your Relays before upgrading your Clients.</li><li>This update may restart the Web Reports Server service. Please schedule the update to occur at a time when a service interruption is acceptable.</li><span id=DSSSAMWarning style="display:none"><li>If you have any DSS SAM servers using Web Reports authentication, they must be manually upgraded to a minimum of SAM 1.2.4 before updating Web Reports to 9.2.</li></span></ul><p><P><SPAN style="FONT-WEIGHT: bold; COLOR: red">Important Note:</SPAN> This fixlet may become relevant if you have a Windows operating system that is deprecated. The minimum platforms supported are Windows Vista/2008 SP2 64-bit. A manual upgrade is available for this version but will not be available in the future.</P>Please contact technical support if you have any questions regarding this upgrade.<script type=text/javascript>if ( <?relevance (exists bes site whose (name of it is "BigFix DSS Software Asset Management" and external site flag of it)) as string as lowercase?> ){document.body.onload = function() { DSSSAMWarning.style.display = "inline"; }}</script></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance>version of registration server = "9.2"</Relevance>
+		<Relevance><![CDATA[((windows of it) AND (major version of it > 6 OR (major version of it = 6 AND (minor version of it >= 1 OR service pack major version of it >= 2))) AND (platform id of it != 3) AND (architecture of it = "x86_64")) of operating system]]></Relevance>
+		<Relevance><![CDATA[exists running service "BESWebReportsServer" whose (version of it < "9.2.14.10" AND version of it >= "7.0.1")]]></Relevance>
+		<Relevance>not exists running service "BESRootServer"</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance>exists key "HKLM\System\CurrentControlSet\Services\BESWebReportsServer" whose (value "ObjectName" of it != "LocalSystem") of registry</Relevance>
+		<Relevance><![CDATA[version of regapp "iexplore.exe" >= "7"]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2018-04-04</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 10 Apr 2018 12:17:38 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Web</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 10 Apr 2018 12:17:38 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for instructions to manually upgrade IBM BigFix Server Components 9.2.14.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.ibm.com/support/knowledgecenter/SSQL82_9.2.0/com.ibm.tivoli.tem.doc_9.2/Platform/Adm/c_manual_upgrade.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

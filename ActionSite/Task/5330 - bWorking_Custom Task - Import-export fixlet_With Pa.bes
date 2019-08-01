@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Working_Custom Task - Import-export fixlet_With Params</Title>
+		<Description><![CDATA[<P><STRONG><FONT size=3>Action&nbsp;Parameters:</FONT></STRONG></P>
+<P>&nbsp;&nbsp;<INPUT onfocus="if (this.value == '10.10.10.10') {this.value = '';}" onblur="if (this.value == '') {this.value = '10.10.10.10';}" id=ExportIEM title="Enter IP Address or Hostname" value=10.10.10.10 name=ExportIEM>&nbsp;<FONT color=#0080ff><STRONG>&lt;&lt;</STRONG></FONT> &nbsp;Enter the&nbsp;<U>Exporting</U> IEM Server IP Address or Hostname<BR>&nbsp; <INPUT onfocus="if (this.value == '52311') {this.value = '';}" onblur="if (this.value == '') {this.value = '52311';}" id=ExportIEMPort title="Enter the IEM communication port" value=52311 name=ExportIEMPort>&nbsp;<FONT color=#0080ff><STRONG>&lt;&lt;</STRONG></FONT>&nbsp; Enter the&nbsp;<U>Exporting/Importing</U> IEM Server Communication Port<BR>&nbsp; <INPUT onfocus="if (this.value == 'OP Name') {this.value = '';}" onblur="if (this.value == '') {this.value = 'OP Name';}" id=ExportOP title="Enter the Exporting IEM Server Operator Name" value="OP Name" name=ExportOP>&nbsp;<FONT color=#0080ff><STRONG>&lt;&lt;&nbsp;</STRONG></FONT> Enter the <U>Exporting</U> IEM Server Operator Name<BR>&nbsp; <INPUT id=ExportOPPass title="Enter the Exporting IEM Server Operator Password" type=password name=ExportOPPass>&nbsp;&nbsp; <FONT color=#0080ff><STRONG>&lt;&lt;</STRONG></FONT>&nbsp; Enter the <U>Exporting</U> IEM Server Operator Password (<FONT color=#ff0000><STRONG>Note:</STRONG></FONT> This password will be <STRONG><EM>encrypted</EM></STRONG>)<BR>&nbsp; <INPUT onfocus="if (this.value == 'custom/<site>') {this.value = '';}" onblur="if (this.value == '') {this.value = 'custom/<site>';}" id=ExportSite title="Enter the Exporting IEM Server Site" value="custom/<site>" name=ExportSite>&nbsp;<FONT color=#0080ff><STRONG>&lt;&lt;</STRONG></FONT>&nbsp; Enter the <U>Exporting</U> IEM Server Site<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; (<FONT color=#ff0000><STRONG>Note:</STRONG></FONT> For the Master Action Site type: <EM><STRONG>master/</STRONG> -<STRONG> </STRONG></EM>&nbsp;For Custom Sites use: <EM><STRONG>custom/&lt;SITE&gt; </STRONG>-<STRONG> </STRONG></EM>&nbsp; For External Sites use: <STRONG><EM>external/&lt;SITE&gt;</EM></STRONG>)<BR>&nbsp; <INPUT onfocus="if (this.value == '6674') {this.value = '';}" onblur="if (this.value == '') {this.value = '6674';}" id=RemoteFixletID title="Enter the Exporting IEM Server Fixlet ID" value=6674 name=RemoteFixletID>&nbsp;<STRONG><FONT color=#0080ff>&lt;&lt;</FONT></STRONG>&nbsp; Enter the&nbsp;<U>Exporting</U> IEM Server Fixlet ID (Fixlet, Task, Analyses or Group ID) (<STRONG><FONT color=#ff0000>Note:</FONT></STRONG> for Groups, remove the '##-' prefix from the ID)<BR>&nbsp; &nbsp;<INPUT onfocus="if (this.value == '10.10.10.10') {this.value = '';}" onblur="if (this.value == '') {this.value = '10.10.10.10';}" id=ImportIEM title="Enter IP Address or Hostname" value=10.10.10.10 name=ImportIEM>&nbsp;<FONT color=#0080ff><STRONG>&lt;&lt;</STRONG></FONT> &nbsp;Enter the&nbsp;<U>Importing</U> IEM Server IP Address or Hostname<BR>&nbsp; <INPUT onfocus="if (this.value == '52311') {this.value = '';}" onblur="if (this.value == '') {this.value = '52311';}" id=ImportIEMPort title="Enter the IEM communication port" value=52311 name=ImportIEMPort>&nbsp;<FONT color=#0080ff><STRONG>&lt;&lt;</STRONG></FONT>&nbsp; Enter the&nbsp;<U>Importing/Exporting</U> IEM Server Communication Port<BR>&nbsp; <INPUT onfocus="if (this.value == 'custom/<site>') {this.value = '';}" onblur="if (this.value == '') {this.value = 'custom/<site>';}" id=ImportSite title="Enter the Importing IEM Server Site" value="custom/<site>" name=ImportSite>&nbsp;<STRONG><FONT color=#0080ff>&lt;&lt;</FONT></STRONG>&nbsp; Enter the <U>Importing</U> IEM Server Site<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;(<STRONG><FONT color=#ff0000>Note:</FONT></STRONG> For the Master Action Site type: <EM><STRONG>master</STRONG> -<STRONG> </STRONG></EM>&nbsp;For Custom Sites use: <EM><STRONG>custom/&lt;SITE&gt; </STRONG>-<STRONG> </STRONG></EM>&nbsp;)<BR>&nbsp; <INPUT onfocus="if (this.value == 'OP Name') {this.value = '';}" onblur="if (this.value == '') {this.value = 'OP Name';}" id=ImportOP title="Enter the Importing IEM Server Operator Name" value="OP Name" name=ImportOP>&nbsp;<FONT color=#0080ff><STRONG>&lt;&lt;&nbsp;</STRONG><FONT color=#000000> Enter the&nbsp;<U>Importing</U> IEM Server Operator Name </FONT><BR></FONT>&nbsp; <INPUT id=ImportOPPass title="Enter the Importing IEM Server Operator Password" type=password name=ImportOPPass>&nbsp;&nbsp; <STRONG><FONT color=#0080ff>&lt;&lt;</FONT></STRONG>&nbsp; Enter the&nbsp;<U>Importing</U> IEM Server Operator Password (<FONT color=#ff0000><STRONG>Note:</STRONG></FONT> This password will be <STRONG><EM>encrypted</EM></STRONG>)<BR>&nbsp;<BR><script>
+			document.body.ontakeaction = function() {
+				var theExportIEM = document.getElementById( "ExportIEM" ).value;
+				var theExportIEMPort = document.getElementById( "ExportIEMPort" ).value;
+				var theExportOP = document.getElementById( "ExportOP" ).value;
+				var theExportOPPass = document.getElementById( "ExportOPPass" ).value;
+				var theExportSite = document.getElementById( "ExportSite" ).value;
+				var theRemoteFixletID = document.getElementById( "RemoteFixletID" ).value;
+				var theImportIEM = document.getElementById( "ImportIEM" ).value;
+				var theImportIEMPort = document.getElementById( "ImportIEMPort" ).value;
+				var theImportSite = document.getElementById( "ImportSite" ).value;
+				var theImportOP = document.getElementById( "ImportOP" ).value;
+				var theImportOPPass = document.getElementById( "ImportOPPass" ).value;
+				TakeSecureFixletAction( Relevance('id of current fixlet'), Relevance('id of current bes site'), "Action1", {}, { ExportIEM: theExportIEM , ExportIEMPort: theExportIEMPort , ExportOP: theExportOP , ExportOPPass: theExportOPPass , ExportSite: theExportSite , RemoteFixletID: theRemoteFixletID , ImportIEM: theImportIEM , ImportIEMPort: theImportIEMPort , ImportSite: theImportSite , ImportOP: theImportOP , ImportOPPass: theImportOPPass  } );
+				return false;
+			}
+			</script><BR><STRONG>_____________________________________________________________________________________________________</STRONG> </P>
+<P><STRONG>Description:</STRONG></P>
+<UL>
+<LI>This Task will export a single&nbsp;Fixlet, Task, Baseline, Group&nbsp;or Analyses from a remote IEM Server&nbsp;and import it. 
+<UL>
+<LI>&nbsp;The&nbsp;action must be deployed on the Importing IEM Server&nbsp; <BR></LI></UL>
+<LI>The logs <EM>import.txt</EM> and <EM>export.txt</EM> located in <EM>import</EM> directory of actionsite of current fixlet can be used for troubleshooting.</LI></UL>
+<P><STRONG>Use Case:<BR></STRONG>Can be used to propagate IEM content between different systems (eg: Development &gt; QA &gt; Production)</P>
+<P><STRONG>Prerequisites:<BR></STRONG>Importing and Exporting IEM server must be version 9.x (This utilizes the REST API)<BR><BR>Importing IEM Server&nbsp;must have Python 3 and above </A>&nbsp;installed. Also <CODE>requests</CODE> module installed using <CODE>pip install requests</CODE> <BR><BR>
+<P>Importing IEM Server must have Operator account with write permission on the site importing to.</P>
+<P>Exporting IEM Server must have normal operator account with read permissions on site exporting from.<BR>(It may be best to create an 'EXPORT' operator account with read permission for all sites but manages no endpoints.)</P>
+<P>&nbsp;</P>]]></Description>
+		<Relevance><![CDATA[version of client >= "9.0"]]></Relevance>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else true) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2019-07-29</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 01 Aug 2019 08:00:25 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// Enter your action script here
+
+if {(exist folder "import" of folder (pathname of client folder of current site))}
+	folder delete "import"
+endif
+
+folder create "import"
+
+parameter "PythonBin" = "{ unique value of pathnames of ( ( if (windows of operating system) then ( (files it) whose(name of it as lowercase is "python.exe") of (it as string) of values "DisplayIcon" of keys whose(value "DisplayName" of it as string as lowercase starts with "python ") of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of (x64 registries; x32 registries) ) else NOTHINGS ) ; ( it whose(name of it = "python" OR name of it = "python.exe") of files of (folders it) of unique values of (it as trimmed string) of substrings separated by (";";":") of values of (variables "PATH" of it; (if (windows of operating system) then (x64 variables "PATH" of it) else NOTHINGS) ) of environments ) ) }"
+wait {if (windows of operating system) then "cmd /C " else "bash -c " } "{parameter "PythonBin"} --version  2> import\error.txt"
+
+continue if { size of file ("import\error.txt") = 0 }
+
+delete __createfile
+delete import\export_fixlet.py
+
+createfile until __EOF
+import requests
+import sys
+import os
+import getopt
+
+def main(argv):
+    action = ''
+    server = ''
+    port = ''
+    sitename =''
+    fixletID = ''
+    username =''
+    password =''
+    fname=''
+    opts, args = getopt.getopt(argv,"h",["action=","server=","port=","sitename=","fixletID=","username=","password=","fname="])
+    for opt, arg in opts:
+        if opt in ('--action'):
+            action = arg
+        elif opt in ('--server'):
+            server = arg
+        elif opt in ('--port'):
+            port = arg
+        elif opt == '--sitename':
+            sitename = arg
+        elif opt == '--username':
+            username = arg
+        elif opt == '--fixletID':
+            fixletID = arg
+        elif opt == '--password':
+            password = arg
+        elif opt == '--fname':
+            fname = arg
+    
+    if action == 'export':
+        export_fixet(server,port,sitename,fixletID,username,password)        
+        
+    elif action == 'import':
+        import_fixet(server,port,sitename,fname,username,password)
+
+def export_fixet(server,port,sitename,fixletID,username,password):
+    api="https://"+server+":"+port+"/api/fixlet/"+sitename+"/"+fixletID
+    print(api)
+    r=requests.get(api, auth=(username, password), verify=False)
+    if r.status_code==200:            
+        r.encoding = 'utf-8'
+        fname=fixletID+".xml"
+        print(fname)
+        if os.path.exists(fname):	    
+            os.remove(fname)
+        f = open(fname, "x")
+        f.write(r.text)
+        f.close()
+
+def import_fixet(server,port,sitename,fname,username,password):
+    api="https://"+server+":"+port+"/api/fixlets/"+sitename
+    print(api)
+    print(fname)
+    with open(fname,'rb') as f:
+        r = requests.post(api, auth=(username,password), data=f, verify=False)
+    fstatus = "status.txt"
+    if os.path.exists(fstatus):	    
+        os.remove(fstatus)
+    f = open(fstatus, "x")
+    f.write("Status: "+str(r.status_code))
+    f.close()    
+            
+if __name__ == "__main__":
+    main(sys.argv[1:])
+__EOF
+move __createfile import\export_fixlet.py
+
+wait {if (windows of operating system) then "cmd /C " else "bash -c " } "{parameter "PythonBin"} import\export_fixlet.py --server {parameter "ExportIEM" of action} --port {parameter "ExportIEMPort" of action} --sitename {parameter "ExportSite" of action} --fixletID {parameter "RemoteFixletID" of action} --username {parameter "ExportOP" of action} --password {parameter "ExportOPPass" of action} --action export 2>> import\error.txt
+continue if {size of file ((parameter "RemoteFixletID" of action) & ".xml") > 0}
+
+move {((parameter "RemoteFixletID" of action) & ".xml")} import\{((parameter "RemoteFixletID" of action) & ".xml")}
+
+//iterate through the xml replacing hostname where necessary
+delete __appendfile
+appendfile {concatenation "%0d%0a" of ( if (it contains (tuple string item 0 of concatenation ", " of (preceding texts of firsts (":" & (parameter "ExportIEMPort" of action)) of (following texts of firsts "://" of (lines whose (it as lowercase contains "uploads" and it contains (":" & (parameter "ExportIEMPort" of action))) of file ("import\" & (parameter "RemoteFixletID" of action) & ".xml")))))) | false then ((preceding text of first (tuple string item 0 of concatenation ", " of (preceding texts of firsts (":" & (parameter "ExportIEMPort" of action)) of (following texts of firsts "://" of (lines whose (it as lowercase contains "uploads" and it contains (":" & (parameter "ExportIEMPort" of action))) of file ("import\" & (parameter "RemoteFixletID" of action) & ".xml"))))) of it) & (parameter "ImportIEMPort" of action) & (following text of first (tuple string item 0 of concatenation ", " of (preceding texts of firsts (":" & (parameter "ExportIEMPort" of action)) of (following texts of firsts "://" of (lines whose (it as lowercase contains "uploads" and it contains (":" & (parameter "ExportIEMPort" of action))) of file ("import\" & (parameter "RemoteFixletID" of action) & ".xml"))))) of it) ) else it ) of lines of file ("import\" & (parameter "RemoteFixletID" of action) & ".xml")}
+// backup the old file
+move {("import\" & (parameter "RemoteFixletID" of action) & ".xml")} {("import\" & (parameter "RemoteFixletID" of action) & ".bak")}
+// replace with the new file
+move __appendfile {("import\" & (parameter "RemoteFixletID" of action) & ".xml")}
+
+wait {if (windows of operating system) then "cmd /C " else "bash -c " } "{parameter "PythonBin"} import\export_fixlet.py --server {parameter "ImportIEM" of action} --port {parameter "ImportIEMPort" of action} --sitename {parameter "ImportSite" of action} --username {parameter "ImportOP" of action} --password {parameter "ImportOPPass" of action} --action import --fname import\{parameter "RemoteFixletID" of action}.xml 2>> import\import.txt
+continue if {exists file "status.txt" whose (exists (line of it) whose (it contains "Status: 200"))}]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

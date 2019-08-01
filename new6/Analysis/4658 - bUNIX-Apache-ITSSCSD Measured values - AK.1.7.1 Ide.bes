@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>UNIX-Apache-ITSSCSD Measured values - AK.1.7.1 Identify and Authenticate Users/001b DocumentRoot-CGI login restrictions</Title>
+		<Description><![CDATA[
+		Web Admins, Web Developers and Web Authors should be approved.<BR/><BR/><B>ITSSCSD Section:&nbsp;</B>AK.1.7.1, AK.1.7.2, AK.1.7.3<BR/><BR/><B>ITSSCSD Version Supported:&nbsp;</B>4.1
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190612-2172</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		
+		]]></Description>
+		<Relevance><![CDATA[exists folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-Apache-ITSSCSD") of storage folder of client]]></Relevance>
+		<Relevance><![CDATA[exists find files "*result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-Apache-ITSSCSD") of storage folder of client]]></Relevance>
+		<Category>Middleware</Category>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>2133003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>4.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 01 Jul 2019 07:00:32 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<Property Name="Result" ID="1"><![CDATA[ 				 		if exists file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client then 			if exists lines of file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client then 				lines of file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client 			else 				"No Result (normal for informational checks)" 		else 			"Missing Result" 		]]></Property>
+		<Property Name="Expected" ID="2"><![CDATA[ 				 		if exists file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client then 			((if (key "expected" of section "metadata" of file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client) = regex "\s*" then (if (exists key "description" of section "metadata" of file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client) then (key "description" of section "metadata" of file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client) else "" ) else	(key "expected" of section "metadata" of file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client)) | (if (exists key "description" of section "metadata" of file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client) then (key "description" of section "metadata" of file "Identify_and_Authenticate_Users_001b_DocumentRoot-CGI_login_restrictions.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-Apache-ITSSCSD") of storage folder of client) else "" ))  		else 			"Missing Expected" 		]]></Property>
+	</Analysis>
+</BES>

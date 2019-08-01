@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>_Send Custom Parameters for Domino-CSD</Title>
+		<Description><![CDATA[This task will create a parameters file on the endpoint for Domino-CSD. Review the action of this task to see and change the parameters sent to the endpoint.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[
+				
+		(
+			if exists setting "_GCM_Domino-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "sunos" and version of operating system >= "5.10") OR(name of operating system as lowercase contains "aix" and version of operating system >= "7") OR (name of operating system as lowercase contains "hp-ux" and version of operating system as string contains "11.31") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		]]></Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>30120008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 13 Jun 2019 10:07:05 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			createfile until --qGs7SPXJMX59YEz--
+
+[string]
+Data of Policy Modification=20180206
+Policy Version=CSDv5.0C
+[string_list]
+Privileged Users='administrators','administrator','domain admins','enterprise admins','enterprise administrators','domain administrators','local service','network service','creator owner','system'
+[integer]
+pwHistory=8
+pwLockoutExp=15
+minPwQuality=8
+pwMaxTries=5
+minPwLength=8
+pwGrace=90
+pwMaxTriesInterv=0
+pwChangeInterval=90
+
+--qGs7SPXJMX59YEz--
+
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Domino-CSD/policy_parameters.txt"
+folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Domino-CSD"
+move __createfile "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Domino-CSD/policy_parameters.txt"
+
+			</ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

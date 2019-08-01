@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>BES Health Checks Analysis</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>This analysis contains health and performance monitoring information about the&nbsp;BES Relays and BES Server. This information will be useful in monitoring the deployment health of BigFix and the results will be used by the Deployment Health Checks Dashboard.</FONT></P> <P><FONT size=2>After activating this analysis, new Health Checks will appear in the Deployment Health Checks Dashboard and the following properties will be created.&nbsp; All properties will be in the 'BES Health Checks' category.</FONT></P> <UL> <LI><FONT size=2>Actionsite Size</FONT> <LI><FONT size=2>Actionsite Version</FONT> <LI><FONT size=2>BES Relay Free Disk Space</FONT> <LI><FONT size=2>FillDB&nbsp;Log File Size</FONT> <LI><FONT size=2>Gather Status Failures</FONT> <LI><FONT size=2>Number of Files in FillDB Bufferdir</FONT> <LI><FONT size=2>Registration List Size</FONT> <LI><FONT size=2>SQL Server Agent Status</FONT> <LI><FONT size=2>WebReports SSL Configuration</FONT></LI></UL> <P><FONT size=2><STRONG>Note:</STRONG> This analysis will apply to the BES Root Server as well as BES Relays.</FONT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>exists relay service OR exists main gather service OR exists service "BESWebReportsServer"</Relevance>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 23 Sep 2008 18:13:57 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 14 Nov 2017 18:36:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="BES Health Checks::Actionsite Size" ID="1" EvaluationPeriod="PT15M"><![CDATA[if (exists main gather service) then (((sum of sizes of files of client folder of site "actionsite") / 1024) as string & " KB") else "N/A"]]></Property>
+		<Property Name="BES Health Checks::Actionsite Version" ID="2">version of site "actionsite"</Property>
+		<Property Name="BES Health Checks::BES Relay Free Disk Space" ID="3"><![CDATA[if (exists relay service) then (((free space of it / (1024 * 1024)) of drive of (folder (value of setting "_BESRelay_HTTPServer_ServerRootPath" of client))) as string & " MB") else ("N/A")]]></Property>
+		<Property Name="BES Health Checks::FillDB Log File Size" ID="4" EvaluationPeriod="PT1H"><![CDATA[(if (it > 0) then (if (it < (1024*1024) ) then ((it / 1024) as string & " KB") else ((it / (1024*1024)) as string & " MB")) else ("N/A")) of (if (name of operating system starts with "Win") then (if (exists service "BESRootServer") then (size of file (value "DebugOut" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\FillDB" of registry as string)) else (-1)) else (if (exists main gather service) then (size of file (key ("DebugOut") of section ("Software\BigFix\Enterprise Server\FillDB") of file "/var/opt/BESServer/besserver.config")) else (-1)))]]></Property>
+		<Property Name="BES Health Checks::Gather Status Failures" ID="5" EvaluationPeriod="PT1H"><![CDATA[lines whose (it as lowercase contains "gathererror" and it as lowercase does not contain "shutdown while in gatherpending" and it as lowercase does not contain "hasite_") of file (if (name of operating system starts with "Win") then (if ((value whose (name of it as string as lowercase contains "version") of key "HKLM\Software\BigFix\Enterprise Server\" of registry as string) < "8") then (value "InboxLocation" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\GatherService" of registry as string & "\GatherState.xml") else ((value "StoragePath" of key "HKEY_LOCAL_MACHINE\Software\BigFix\Enterprise Server\GlobalOptions" of registry as string) & "Mirror Server\inbox\GatherState.xml")) else (pathname of parent folder of folder (value of setting "_BESRelay_HTTPServer_ServerRootPath" of client) & "/Mirror Server/inbox/GatherState.xml"))]]></Property>
+		<Property Name="BES Health Checks::Number of Files in FillDB Bufferdir" ID="6">if (exists main gather service) then ((number of files of it + number of files of folders of it) of folder (if (name of operating system starts with "Win") then (value "BufferDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\FillDB" of registry as string) else (key ("BufferDir") of section ("Software\BigFix\Enterprise Server\FillDB") of file "besserver.config" of parent folder of folder (value of setting "_BESRelay_HTTPServer_ServerRootPath" of client)))as string) else ("N/A")</Property>
+		<Property Name="BES Health Checks::Registration List Size" ID="7"><![CDATA[(if (exists file(it)) then ((size of file (it) / 1024) as string & " KB") else "N/A") of (if (name of operating system starts with "Win") then (value "RegistrationList Location" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\ClientRegister" of registry as string) else (pathname of parent folder of folder (value of setting "_BESRelay_HTTPServer_ServerRootPath" of client) & "/ClientRegisterData/registrationlist.txt"))]]></Property>
+		<Property Name="BES Health Checks::SQL Server Agent Status" ID="8">if (name of operating system starts with "Win") then (if (not exists service "BESRootServer") then "N/A" else if (not exists service "SQLSERVERAGENT") then "Remote Database" else if (state of services "SQLSERVERAGENT" != "Running") then "Not Running" else "Running") else "N/A"</Property>
+		<Property Name="BES Health Checks::WebReports SSL Configuration" ID="9">if (exists service "BESWebReportsServer") then (if (exists setting "_WebReports_HTTPServer_UseSSLFlag" whose (value of it = "1") of client) then ("HTTPS") else ("HTTP")) else ("N/A")</Property>
+	</Analysis>
+</BES>

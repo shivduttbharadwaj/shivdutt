@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install BES Server Plugin Service</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Your BES Server does not currently have the BES Server Plugin Service installed.</P> <P>The BES Server Plugin Service is required by several BigFix&nbsp;Applications to facilitate automation of processes that require communication with the BES Server and Webreports.</P> <P><SPAN style="COLOR: red; FONT-WEIGHT: bold">Important Note:</SPAN> This action will create three registry keys.&nbsp; Once the action completes, the values for these keys must be set for correct functioning of BES Server plugins. To configure the BES Server Plug-in Service, use <?relevance if (version of datastore inspectors >= "9.0") then (link of fixlets 1295 of bes site whose (id of it = 1)) else (link of wizard whose (dashboard id of it = "MFSConfiguration.ojo") of bes site whose (id of it = 1)) ?>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance>true</Relevance>
+		<Relevance>(if ( it contains "Win" ) then (not exists services whose(service name of it = "BESPluginService")) else if ( it contains "Linux" ) then ((NOT exists package "MFS-Linux" of rpms) OR (NOT exists process "MFS-Linux") OR (NOT exists (folder "/var/opt/BESServer/Applications") whose (exists file "MFS-Linux" of it))) else false) of name of operating system</Relevance>
+		<Category>Support</Category>
+		<DownloadSize>876717</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-12-17</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 20 Jul 2010 23:58:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the BES Server Plugin Service.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[//= Windows =//
+if { name of operating system contains "Win" }
+
+prefetch MFS.bfa sha1:51597fb9e4a215af55970f346bc9bd701851338e size:878822 http://software.bigfix.com/download/bes/util/MFS-Win32-2.0.0.4.bfa sha256:dd92b3414499ac9a0cf1fc3db3aba6f29486d7fd6b317b559de97c3c9bcedc4b
+
+extract MFS.bfa
+
+delete __createfile
+delete move.bat
+
+createfile until _end_
+@ECHO OFF
+mkdir "{ value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications" }" > NUL 2>NUL
+
+move "{pathname of client folder of current site & "\__Download\MFS-Win32.exe"}" "{value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\MFS.exe"}" > NUL 2>NUL
+move "{pathname of client folder of current site & "\__Download\MFS.dll"}" "{value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\MFS.dll"}" > NUL 2>NUL
+
+_end_
+move __createfile move.bat
+
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" move.bat
+
+waithidden "{ value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\MFS.exe" }" -install
+
+waithidden "{ value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\MFS.exe" }" -start
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\BESReports]" "WRHTTP"=""
+
+//= Linux =//
+elseif { name of operating system contains "Linux" }
+
+//check the MFS-Linux in rpm in case that MFS-Linux did not uninstall properly
+if {exists package "MFS-Linux" of rpms}
+ wait rpm -e MFS-Linux
+endif
+
+// download new plugin service
+if { architecture of operating system = "x86_64" }
+	prefetch MFS-Linux.rpm sha1:c0c47c190c6b3ea8a303d1dbcaaaf19c1863221c size:1632008 http://software.bigfix.com/download/bes/util/MFS-Linux-2.0.0.0-rhel.x86_64.rpm sha256:365b7b860e2b49c79943dced3d9a5e18abd9dfd559e828409eae5dd03005aff0
+else
+	prefetch MFS-Linux.rpm sha1:33e9244e3df8184ecd243e3a0a35f0346da37c62 size:1610265 http://software.bigfix.com/download/bes/util/MFS-Linux-2.0.0.0-rhel.i386.rpm sha256:28621f41b48713be1045a8af692f938ea7ac765ac162e90b7acd34884ba7c0ba
+endif
+
+delete /tmp/MFS-Linux.rpm
+move __Download/MFS-Linux.rpm /tmp/MFS-Linux.rpm
+
+// Install service
+wait rpm -U /tmp/MFS-Linux.rpm
+delete /tmp/MFS-Linux.rpm
+
+// Start service.
+wait service mfs start
+
+endif]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

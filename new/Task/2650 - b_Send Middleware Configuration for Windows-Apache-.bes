@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>_Send Middleware Configuration for Windows-Apache-CSD</Title>
+		<Description><![CDATA[This task will create a middleware configuration file on the endpoint for Windows-Apache-CSD. Review the action of this task to see and change the settings sent to the endpoint.
+				<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-Apache-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>31170007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 06:34:51 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			
+begin prefetch block	
+	if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+		parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+	else
+		parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+	endif
+	
+	add prefetch item name=ConfigMergeTool.jar sha1=67cac9e3f121e23c12ca84f63daf3cf82611aaf8 sha256=29f2283614504b3a31ee30b35d32afcd8096ba76a866a5f7ce80bbd77d54c21e size=421823 url={parameter "basepath"}/400/20190307-2125/tools/ConfigMergeTool.jar
+	add prefetch item name=TIMcipherPswdV3.jar sha1=c8aeb8375b25c0fa92fc92f5586f579ddcd791c4 sha256=7843234a93d6542519dd7032445af09168add2d732d2550aacef3bb64597b507 size=160714 url={parameter "basepath"}/400/20190307-2125/tools/TIMcipherPswdV3.jar
+	
+//Start Check if JRE needs to be installed
+  
+	if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+
+		if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	      parameter "downloaded_jre_win32" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}" 
+	      parameter "input_jre_win32" = "80535"
+	    
+	       if{parameter "input_jre_win32" > parameter "downloaded_jre_win32"}
+	        	parameter "jre_download_win32" = "true"
+		   else
+			 	parameter "jre_download_win32" = "false"	  	
+		   endif
+		else
+		   parameter "jre_download_win32" = "true"
+		endif
+	
+	   if{parameter "jre_download_win32" as lowercase is "true"}
+		   add prefetch item name=ibm-java-jre-80-win-i386.zip sha1=e6589fa216462fc105f7464f167cecbbcbd7badf sha256=e5f331cecaf35e57c0472636dedd6df7570af6f41bd2411387ae4b53cf21c4a3 size=144293243 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-i386.zip 
+		   add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	   endif
+   endif	
+  
+if{(windows of operating system) and (architecture of operating system contains "64")}
+	   if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+		    parameter "downloaded_jre_win64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+		    parameter "input_jre_win64" = "80535"
+		     if {parameter "input_jre_win64" > parameter "downloaded_jre_win64"}
+		      	parameter "jre_download_win64" = "true"
+			 else
+			  	parameter "jre_download_win64" = "false"
+			 endif
+	   else
+				parameter "jre_download_win64" = "true"
+	   endif
+ 	   if{parameter "jre_download_win64" as lowercase is "true"}
+				add prefetch item name=ibm-java-jre-80-win-x86_64.zip sha1=f91eba2412dbe515102763df3ee5d6f24b0754c5 sha256=910fac677acc3d0e5dff59570043b8ca5479675365baca278c3d61843682bf39 size=172357049 url={parameter "basepath"}/jre/80535/ibm-java-jre-80-win-x86_64.zip
+				add prefetch item name=unzip.exe sha1=84debf12767785cd9b43811022407de7413beb6f sha256=2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac size=204800 url={parameter "basepath"}/400/20190307-2125/tools/unzip.exe
+	   endif
+endif	
+
+
+
+
+
+//End Check if JRE needs to be installed
+	
+end prefetch block
+
+//Start of Config File Template
+
+createfile until --qGs7SPXJMX59YEz--
+	
+	## apache_config.txt - 2010/11/26
+## Configuration File for win.any.apache.WsApachePermsV3 collector
+#
+## File metadata
+##
+#file-information
+#	type = collector-parameters
+#
+#	collector = Apache
+#	file = apache_config.txt
+#	version = 1
+#	date = "2010/11/26"
+#	comment = "Configuration File for win.any.apache.WsApachePermsV3 collector"
+#
+## Define first parameter
+#patameter1
+#	type = HTTPDCONF_PATH_NAME
+#	httpdconf_path_name = "C:\Program Files\Apache Group\Apache\conf\httpd.conf"
+
+
+	
+--qGs7SPXJMX59YEz--
+
+//End of Config File Template
+
+parameter "build_id" = "20190307-2125"
+parameter "version" = "4.0.0"
+
+//Start Extract JRE if prefetched
+
+
+   if{(windows of operating system) and (not(architecture of operating system contains "64"))}
+    if {parameter "jre_download_win32" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-i386.zip" -d "{storage folder of client}\__GTS"
+	
+		  endif
+ endif 
+
+ if{(windows of operating system) and (architecture of operating system contains "64")}
+   if{parameter "jre_download_win64" as lowercase is "true"}
+     
+    // clean the JRE location
+	delete "{storage folder of client}/__GTS/__IEMHC/license_en.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/notices.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/readme.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	delete "{storage folder of client}/__GTS/__IEMHC/copyright"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/docs"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/properties"
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+    wait "{client folder of current site}\__Download\unzip.exe" -o "{client folder of current site}\__Download\ibm-java-jre-80-win-x86_64.zip" -d "{storage folder of client}\__GTS"    
+  	  	   endif
+  endif 
+
+  
+ 
+
+
+//End Extract JRE if prefetched
+
+if{not exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	// Last Change
+	appendfile {now as string}
+	
+	// Version
+	appendfile {parameter "version"}
+	
+	// Build ID
+	appendfile {parameter "build_id"}
+	
+	// create the version file
+	delete "{storage folder of client}/__GTS/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/version.txt"
+	
+	// append JRE version to end
+	if{ windows of operating system}
+				appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -version >> "{storage folder of client}\__GTS\version.txt" 2>&1 
+		delete launch.bat
+		move __appendfile launch.bat
+		wait launch.bat
+	else
+				appendfile #!/bin/sh
+		appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+		delete launch.sh
+		move __appendfile launch.sh
+		wait chmod 750 launch.sh
+		wait "{client folder of current site}/launch.sh"
+	endif
+endif     
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+
+folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault"
+
+parameter "filename" = "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/tmp_config.txt"
+		
+delete "{parameter "filename"}"
+move __createfile "{parameter "filename"}"
+
+
+if {exists file "apache_config.txt" of folder ("__GTS/__IEMHC/"& name of current site as string & "/Windows-Apache-CSD/vault") of storage folder of client}
+move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.old"
+move "{parameter "filename"}" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.new"
+
+if {windows of operating system}
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.new"
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.new"
+endif
+
+if {windows of operating system} 
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -m "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.new"  -o "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.old" 	
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -m "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.new"  -o "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.old"
+endif
+
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.old"
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt.new"
+
+else
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt"
+move "{parameter "filename"}" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt"
+if {windows of operating system}
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt"
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-Apache-CSD/vault/apache_config.txt"
+endif
+endif
+
+			]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Custom Fixlet</Title>
+		<Description><![CDATA[<FONT size=2>
+<P>name </FONT><FONT color=#0000ff size=2><FONT color=#0000ff size=2>of</FONT></FONT><FONT size=2> operating system </FONT><FONT color=#0000ff size=2><FONT color=#0000ff size=2>as</FONT></FONT><FONT size=2> lowercase </FONT><FONT color=#0000ff size=2><FONT color=#0000ff size=2>starts with</FONT></FONT><FONT size=2> </FONT><FONT color=#008080 size=2><FONT color=#008080 size=2>"ds"</FONT></FONT><FONT size=2> </P></FONT>]]></Description>
+		<Relevance>windows of operating system</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2019-03-19</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 19 Mar 2019 13:40:39 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">//createfile until end
+//Operating system = {name of operating system}
+//Processor count = {number of processors}
+//end
+//delete C:\info.txt
+//copy __createfile C:\info.txt
+//delete __createfile
+//createfile until _EOF_
+//xcopy /E /Y c:\data c:\archivedata
+//_EOF_
+
+//delete c:\temp\backup.bat
+//move __createfile c:\temp\backup.bat
+
+// exectue the bat file
+//waithidden cmd.exe c:\temp\backup.bat
+//delete c:\temp\backup.bat
+parameter "loc" = "C:"
+createfile until end 
+hello world
+end 
+delete "wintest1.bat"
+copy __createfile "wintest1.bat"
+move "wintest1.bat" "{parameter "loc"}\test33.out"
+waithidden cmd.exe  "wintest1.bat"  "{parameter "loc"}\test33.out"
+delete "wintest1.bat"
+//create a wintest.bat file</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

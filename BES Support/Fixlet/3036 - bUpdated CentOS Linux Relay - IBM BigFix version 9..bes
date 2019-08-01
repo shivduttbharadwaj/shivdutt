@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated CentOS Linux Relay - IBM BigFix version 9.5.6 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.5.6 of IBM BigFix is now available for CentOS Linux operating systems!<BR><BR></STRONG>The latest version of the IBM BigFix Relay provides several enhancements and fixes. This Fixlet can upgrade all Relays on the targeted computers.<BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to a 9.5 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note:</FONT></STRONG></FONT><FONT color=#000000> This Fixlet message will only become relevant on computers after the IBM BigFix Server has been upgraded. Clients will notice that the IBM BigFix Server is updated and will begin to report any other upgrade Fixlets relevant (the clients by default check once per six hours for the version of the server on registration). This fixlet will also update the Client on any Relay installation.<BR><BR><STRONG>Note:</STRONG> It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Relays and Clients will get upgraded.<BR><BR><STRONG>Note:</STRONG> This upgrade may take several minutes to run because the IBM BigFix Client will also be replaced as part of the upgrade process and the Clients will not report their action results right away.</FONT></FONT></P> <P><STRONG>Note:</STRONG> This relay runs on supported CentOS Linux platforms on 32-bit (version 5,6) and 64-bit (version 5,6,7) processors.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+98.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(it >= "9.5" OR it < "9.2.17") of version of client]]></Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client >= "8.0"]]></Relevance>
+		<Relevance>version of registration server = "9.5"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "CentOS (5|6|7)") of name of operating system</Relevance>
+		<Relevance>((it = "x86_64") OR ((exists match (regex "^i[6-9]86$") of it) of it)) of architecture of operating system</Relevance>
+		<Relevance><![CDATA[exists relay service whose (version of it < "9.5.6.63")]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>103599063</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-07-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 13 Jul 2017 13:38:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 02 Apr 2019 09:31:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Relay and Client 9.5.6 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {((exists match (regex "CentOS (6|7)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+	prefetch BESRelayUpgrade.rpm sha1:baf1e4dd864ba39b632b8ab8751d5d6deb4d2cbf size:5796564 http://software.bigfix.com/download/bes/95/BESRelay-9.5.6.63-rhe6.x86_64.rpm sha256:a996e5ba5d08a14f0ab7e0bac36e175d20437b976c96384e61673d85679d274c
+elseif {((exists match (regex "CentOS 5)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+	prefetch BESRelayUpgrade.rpm sha1:68db0f1999c05d2706a623629a9fb73f6105a250 size:7316246 http://software.bigfix.com/download/bes/95/BESRelay-9.5.6.63-rhe5.x86_64.rpm sha256:09fc45edb41e684132d721a68722bb61608df61604cdcb04e6fa7444d24dadf9
+elseif  {((exists match (regex "CentOS 6") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+        prefetch BESRelayUpgrade.rpm sha1:0a73eb24397d91eeb92608cb7db1360d5cd2ccf1 size:5293860 http://software.bigfix.com/download/bes/95/BESRelay-9.5.6.63-rhe6.i686.rpm sha256:6aa69a57ddbca9532458f89a0320f70d1bcc70575df9606a83403d361ca5b0f0
+elseif  {((exists match (regex "CentOS 5") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+        prefetch BESRelayUpgrade.rpm sha1:7964b6deaa58f5f1a6dbd5144f557d50604dab1c size:6891148 http://software.bigfix.com/download/bes/95/BESRelay-9.5.6.63-rhe5.i686.rpm sha256:86ab46d3aee4c5eac0d876e13654bfc37b09dc901e22463c4169781930302317
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESRelayUpgrade.rpm"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {22612720 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESRelayUpgrade.rpm __Local/Upgrade/BESRelayUpgrade.rpm
+parameter "RunningRelay"="{exists running service "BESRelay"}"
+wait /etc/init.d/besrelay stop
+wait rpm -U __Local/Upgrade/BESRelayUpgrade.rpm
+if {"True" = parameter "RunningRelay"}
+	wait /etc/init.d/besrelay start_skipclientrestart
+	parameter "startTime" = "{apparent registration server time}"
+	pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+	relay select
+	// Fails here if a previously running relay did not start up
+	continue if {exists running service "BESRelay"}
+endif
+continue if {exit code of action = 0 AND version of relay service = "9.5.6.63"}
+delete __Local/Upgrade/BESRelayUpgrade.rpm
+if {version of client < "9.5.6.63"}
+	if {((exists match (regex "CentOS (6|7)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+		prefetch BESClientUpgrade.rpm sha1:241e24217f0d784d3a451ea5c827f56cbba4f74b size:16892376 http://software.bigfix.com/download/bes/95/BESAgent-9.5.6.63-rhe6.x86_64.rpm sha256:df4f60f0381d2c3d9461e08dadc0730104b4deb546c1815c4709131bcb5e8cae
+	elseif {((exists match (regex "CentOS 5") of name of it) AND (architecture of it = "x86_64")) of operating system}
+		prefetch BESClientUpgrade.rpm sha1:db8e1f43a7daa265c484a698df405d415df482a7 size:22612720 http://software.bigfix.com/download/bes/95/BESAgent-9.5.6.63-rhe5.x86_64.rpm sha256:b923e3b9580740a18d23532ebdae9eabb4b7e4c7207412c6c4874a5bf1fea773
+        elseif  {((exists match (regex "CentOS 6") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+                prefetch BESClientUpgrade.rpm sha1:92375ecc3d514db00bbac6bc99ca672350f1d37c size:16346964 http://software.bigfix.com/download/bes/95/BESAgent-9.5.6.63-rhe6.i686.rpm sha256:604cf5f7976844b3707cd6b1227ff58576ba4af6a0d8e788bffbc57395dc0fca
+        elseif  {((exists match (regex "CentOS 5") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+                prefetch BESClientUpgrade.rpm sha1:c42ae150b4ed24c4936023c5ee48aaa73c35fcec size:22449185 http://software.bigfix.com/download/bes/95/BESAgent-9.5.6.63-rhe5.i686.rpm sha256:9a6d3c92eb17b703cb8e8dfc949fd691f1ab432db74ef8dac7a40a9786aab039
+	else
+		// No Known Configuration
+		continue if false
+	endif
+	continue if {exists file "__Download/BESClientUpgrade.rpm"}
+	move __Download/BESClientUpgrade.rpm __Local/Upgrade/BESClientUpgrade.rpm
+	delete __createfile
+	createfile until __EOF
+#!/bin/sh
+/bin/rpm -U __Local/Upgrade/BESClientUpgrade.rpm
+/etc/init.d/besclient start
+/bin/rm -f __Local/Upgrade/BESClientUpgrade.rpm
+__EOF
+	move __createfile __Local/Upgrade/besclientupgrade
+	// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+	wait /bin/sh __Local/Upgrade/besclientupgrade
+endif]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[(not exists relay service) OR (version of relay service < "9.5.6.63") OR (version of client < "9.5.6.63")]]></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information about relays.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/TEM%20Relays</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows-DB2_SAP-CSD-FOUNDATION GV.1.2.5 Logging/Database auditing</Title>
+		<Description><![CDATA[
+		<P><B>Test:&nbsp;</B>Database auditing should be configured and started by creating  and activating an audit policy with this CATEGORY setting from DB2 v9.5 onwards.</P><P><B>ITSSCSD Section:&nbsp;</B>GV.1.2.5, GV.1.2.6, GV.1.2.7</P>
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		<script>
+	document.body.ontakeaction = function() {
+
+		var b=EvaluateRelevance('name of site of current fixlet'),a=EvaluateRelevance('exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*")');
+		(a=!/^true$/i.test(a))||alert('Remediation is disabled for site '+b);
+		if (!a) {
+			return a;
+		}
+														
+   		   		var b=EvaluateRelevance(' unique values whose (it contains "ERROR !!! " or it contains "[FATAL]" or it contains "[ERROR]") of (it as string) of (name of computer of it , values of it) of results  of properties whose(name of it = "Health Check") of BES Fixlets whose (analysis flag of it and name of it = "_Status Windows-DB2_SAP-CSD")');
+   		if (b === null || b.length === 0) {
+   		 	return true;
+    	}
+    	
+    	for (var i = 0; i < b.length; i++) {
+    		b[i]=b[i].substring(0, b[i].indexOf(','));
+		}
+		b = unique(b);
+   
+		b = b.toString().replace(/,/g , "\n");
+		var r = confirm("There are computers with invalid health check,\n do you want to proceed?\n"+b);
+		if (r === true) {
+    		x = "OK!";
+		} else {
+    		x = "Cancel!";
+		}
+		return r;
+	};
+	
+	function unique(arr) {
+    var hash = {}, result = [];
+    for ( var i = 0, l = arr.length; i < l; ++i ) {
+        if ( !hash.hasOwnProperty(arr[i]) ) {
+            hash[ arr[i] ] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+</script>
+<?BeginRefreshRelevance?>
+	<p><b><?relevance if exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*") then ("Remediation is disabled for site " & (name of site of current fixlet)) else ""?></b></p>
+<?EndRefreshRelevance?>		
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-DB2_SAP-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		</Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-DB2_SAP-CSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+					((exists key "HKLM\SOFTWARE\IBM\DB2" of x32 registry|false) or (exists key "HKLM\SOFTWARE\IBM\DB2" of x64 registry|false)) AND ((exists key "HKLM\SOFTWARE\SAP" of x32 registry|false) or (exists key "HKLM\SOFTWARE\SAP" of x64 registry|false) OR (exists process whose (name of it contains "sapstartsrv")))
+
+
+
+				) 
+					or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | false) then
+		(exists (lines containing "SUBSYSTEM_TYPE=SAP" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | false)
+		else false)
+
+			)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+			 (if (exists file "Logging_Database_auditing.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-DB2_SAP-CSD") of storage folder of client | true ) Then (if (exists lines of file "Logging_Database_auditing.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-DB2_SAP-CSD") of storage folder of client | true) then true else false ) else True)
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<SourceSeverity>normal</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-id</Name>
+			<Value>2B95539E-6361-CC3B-76D5-EC8B9E927275</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>true</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>            {    "fusion_supported_platforms" : "Win 2008 Servers and up, DB2 Server v.8.x, v9.x. and v10.x",    "description" : "Database auditing should be configured and started by creating  and activating an audit policy with this CATEGORY setting from DB2 v9.5 onwards.",          "fusion_isec_section": "GV.1.2.5, GV.1.2.6, GV.1.2.7",    "fusion_itcs104_section": "",    "scm_parameters" : {     "Result" : {      "type" : "string",      "measured_value_analysis_property" : 1,      "allow_long_string" : true,           "hidden" : true,      "allow_empty_string" : true,      "measured_value_analysis_idref" : "BA122921-77B5-47BE-015D-5A0E430A603E",      "order" : 1,      "title" : "Result"     },     "Expected" : {      "type" : "string",      "measured_value_analysis_property" : 2,      "allow_long_string" : true,      "default_value" : "Database auditing should be configured and started by creating  and activating an audit policy with this CATEGORY setting from DB2 v9.5 onwards.",      "allow_empty_string" : true,      "measured_value_analysis_idref" : "BA122921-77B5-47BE-015D-5A0E430A603E",      "order" : 2,      "title" : "Expected"     }    },    "title" : "GV.1.2.5 Logging\/Database auditing"   }          </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>1082005</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-idref</Name>
+			<Value>5FEA942C-17E5-5758-AF91-FAED93879BED</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 06:34:51 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

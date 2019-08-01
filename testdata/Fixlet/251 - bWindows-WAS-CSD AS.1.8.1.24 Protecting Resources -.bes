@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows-WAS-CSD AS.1.8.1.24 Protecting Resources -OSRs/01.05 Properties files access</Title>
+		<Description><![CDATA[
+		<P><B>Test:&nbsp;</B>V6.0.X, V6.1.X, V7.0.X and V8.X.X: No general user access allowed to the following files located under<install_root>/profiles/<profile_name>/properties .Note: the files names are placed in the config file.</P><P><B>CSD Section:&nbsp;</B>AS.1.8.1.24, AS.1.8.1.25, AS.1.8.1.15, AS.1.8.1.16, AS.1.8.1.17, AS.1.8.1.18, AS.1.8.1.19, AS.1.8.1.20, AS.1.8.1.21, AS.1.8.1.22, AS.1.8.1.23</P><P><B>CSD Version Supported:&nbsp;</B>5.0C</P>
+		<p><small><b>Version:</b>&nbsp;3.9.0<br><b>Build ID:</b>&nbsp;20190123-2090</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		<script>
+	document.body.ontakeaction = function() {
+
+		var b=EvaluateRelevance('name of site of current fixlet'),a=EvaluateRelevance('exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*")');
+		(a=!/^true$/i.test(a))||alert('Remediation is disabled for site '+b);
+		if (!a) {
+			return a;
+		}
+														
+   		   		var b=EvaluateRelevance(' unique values whose (it contains "ERROR !!! " or it contains "[FATAL]" or it contains "[ERROR]") of (it as string) of (name of computer of it , values of it) of results  of properties whose(name of it = "Health Check") of BES Fixlets whose (analysis flag of it and name of it = "_Status Windows-WAS-CSD")');
+   		if (b === null || b.length === 0) {
+   		 	return true;
+    	}
+    	
+    	for (var i = 0; i < b.length; i++) {
+    		b[i]=b[i].substring(0, b[i].indexOf(','));
+		}
+		b = unique(b);
+   
+		b = b.toString().replace(/,/g , "\n");
+		var r = confirm("There are computers with invalid health check,\n do you want to proceed?\n"+b);
+		if (r === true) {
+    		x = "OK!";
+		} else {
+    		x = "Cancel!";
+		}
+		return r;
+	};
+	
+	function unique(arr) {
+    var hash = {}, result = [];
+    for ( var i = 0, l = arr.length; i < l; ++i ) {
+        if ( !hash.hasOwnProperty(arr[i]) ) {
+            hash[ arr[i] ] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+</script>
+<?BeginRefreshRelevance?>
+	<p><b><?relevance if exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*") then ("Remediation is disabled for site " & (name of site of current fixlet)) else ""?></b></p>
+<?EndRefreshRelevance?>		
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-WAS-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		</Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-WAS-CSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+			(if (windows of operating system) then (
+				if (exists folder "C:\Program Files (x86)\IBM\WebSphere\AppServer" or exists folder "C:\Program Files\IBM\WebSphere\AppServer" or exists service whose (display name of it as lowercase contains "websphere application server")) then
+					true
+				else 
+				   false
+			)
+			else (
+				if (exists folder "/opt/IBM/WebSphere/AppServer" or exists folder "/usr/IBM/WebSphere/AppServer" or (exists(folders whose(exists folder "AppServer" of it ) of folder "/opt/WebSphere")|false) or (exists command line arguments whose (it as lowercase contains "websphere") of processes "java"|false)) then
+					true
+				else 
+					false		
+			))
+			
+				) 
+									or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | false) then
+		(exists (lines containing "SUBSYSTEM_TYPE=WAS" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | false)
+		else false)
+
+							)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+			 (if (exists file "Protecting_Resources_-OSRs_01.05_Properties_files_access.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client | true ) Then (if (exists lines of file "Protecting_Resources_-OSRs_01.05_Properties_files_access.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client | true) then true else false ) else True)
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>3.9.0 - S</SourceID>
+		<SourceReleaseDate>2019-01-23</SourceReleaseDate>
+		<SourceSeverity>normal</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-id</Name>
+			<Value>C985A730-26FB-3BE0-0F83-B62B7DA53D81</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value><![CDATA[            {    "fusion_supported_platforms" : "Windows Server 2008 and up, up to WebSphere 9.x",    "description" : "V6.0.X, V6.1.X, V7.0.X and V8.X.X: No general user access allowed to the following files located under<install_root>\/profiles\/<profile_name>\/properties .Note: the files names are placed in the config file.",          "fusion_isec_section": "AS.1.8.1.24, AS.1.8.1.25, AS.1.8.1.15, AS.1.8.1.16, AS.1.8.1.17, AS.1.8.1.18, AS.1.8.1.19, AS.1.8.1.20, AS.1.8.1.21, AS.1.8.1.22, AS.1.8.1.23",    "fusion_itcs104_section": "",    "scm_parameters" : {     "Result" : {      "type" : "string",      "measured_value_analysis_property" : 1,      "allow_long_string" : true,           "hidden" : true,      "allow_empty_string" : true,      "measured_value_analysis_idref" : "F46BE9C6-EF46-3131-AE0B-F7EC733DD8DE",      "order" : 1,      "title" : "Result"     },     "Expected" : {      "type" : "string",      "measured_value_analysis_property" : 2,      "allow_long_string" : true,      "default_value" : "V6.0.X, V6.1.X, V7.0.X and V8.X.X: No general user access allowed to the following files located under<install_root>\/profiles\/<profile_name>\/properties .Note: the files names are placed in the config file.",      "allow_empty_string" : true,      "measured_value_analysis_idref" : "F46BE9C6-EF46-3131-AE0B-F7EC733DD8DE",      "order" : 2,      "title" : "Expected"     }    },    "title" : "AS.1.8.1.24 Protecting Resources -OSRs\/01.05 Properties files access"   }          ]]></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>1118018</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-idref</Name>
+			<Value>8A7A180C-1EB5-A8C2-5F18-1224DC10BF7D</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 15 Mar 2019 07:32:16 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

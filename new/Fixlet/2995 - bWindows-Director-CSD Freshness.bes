@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows-Director-CSD Freshness</Title>
+		<Description><![CDATA[This fixlet is relevant when the results file modification timestamp is older than Freshness tolerance.The default value is 5 days. This fixlet is also relevant when the results file does not exist.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-Director-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		</Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-Director-CSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+					(exists key "HKLM\SOFTWARE\IBM\IBM Director Server" of native registry|false)
+
+
+
+				) 
+					or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | false) then
+		(exists (lines containing "SUBSYSTEM_TYPE=DIR" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | false)
+		else false)
+
+			)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[(((not exists file it) OR ((line 1 of file it)  as trimmed string as lowercase = "unknown") OR ((now - (line 1 of file it as time)) > ((if exists (file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client) then ((line of file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Director-CSD") of storage folder of client) as integer) else 5) * day))) | true) of ( storage folder of client as string & "/__GTS/__IEMHC/" & name of current site as string & "/" & "Windows-Director-CSD" & "/delay_counter_" & 	"policy_result.xml" )]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-id</Name>
+			<Value>8BC7D89E-EE22-1ABD-58AC-7B593DF99C1B</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>         {  "fusion_supported_platforms" : "Win 2008 Servers and up, IBM Director v5.10 and up to v6.x",  "description" : "Freshness",  "scm_parameters" : {   "Last Update" : {    "type" : "string",    "measured_value_analysis_property" : 1,    "allow_long_string" : true,    "default_value" : "",    "allow_empty_string" : true,    "measured_value_analysis_idref" : "CAA22C7D-FCC6-6B96-B8B9-DF73A3B6A3D5",    "order" : 1,    "title" : "Last Update"   }  },  "title" : "Windows-Director-CSD Freshness" }     </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>10830005</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-idref</Name>
+			<Value>CD5F4F3F-9A31-4AB9-7902-EF99A392DFCF</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 06:34:51 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

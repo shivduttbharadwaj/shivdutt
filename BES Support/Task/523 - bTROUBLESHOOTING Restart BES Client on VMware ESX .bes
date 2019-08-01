@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>TROUBLESHOOTING: Restart BES Client on VMware ESX Server</Title>
+		<Description><![CDATA[
+Sometimes it is necessary for various troubleshooting reasons to restart the BES Client. You can use this task to restart the BES Clients on VMware ESX 3 Server based computers.<BR><BR><b>Note: </b>Do <b>not</b> set the "Reapply" behavior when taking this action or you may cause the BES Client to constantly restart itself.
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(if (version of client >= "8.0") then (unix of it) else ((it does not start with "Win" AND it does not start with "Mac OS X") of name of it)) of operating system]]></Relevance>
+		<Relevance>name of operating system starts with "VMware"</Relevance>
+		<Relevance><![CDATA[if (version of client < "8") then (exists file ("/etc/init.d/BESClient-" & version of client as string)) else (exists file "/etc/init.d/besclient")]]></Relevance>
+		<Category>Common Tasks</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2007-10-25</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 26 Oct 2007 00:51:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 27 Jun 2013 00:23:15 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to restart the BES Client service.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete "{(client folder of current site as string) & "/__appendfile"}"
+appendfile #!/bin/sh
+appendfile sleep 5
+if {version of client < "8"}
+    appendfile /etc/init.d/BESClient-{version of client} stop
+    appendfile sleep 5
+    appendfile /etc/init.d/BESClient-{version of client} start
+else
+    appendfile /etc/init.d/besclient restart
+endif
+wait chmod +x "{(client folder of current site as string) & "/__appendfile"}"
+run "{(client folder of current site as string) & "/__appendfile"}"]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

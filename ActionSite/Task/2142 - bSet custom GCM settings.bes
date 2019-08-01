@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Set custom GCM settings</Title>
+		<Description><![CDATA[This fixlets allows user to set some custom settings before GCM scan is run.<br> 1. Custom JVM command line options to avoid java.lang.OutOfMemoryError.<br> 2. Turn XDump:none setting OFF to create additional Java core dump files.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>exists folder "__GTS" of storage folder of client</Relevance>
+		<Category>GCM</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>126</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 07 Jun 2019 09:15:41 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+
+action parameter query "custom_options" with description "Please input the custom IBM JVM command-line options.%0d%0aExample:%0d%0aTo resolve %22java.lang.OutOfMemoryError: Java heap space%22 error, try increase heap space with %22-Xms512m -Xmx1024m%22%0d%0aWARNING: Invalid or inappropriate parameters may result in errors or unpredictable results" and with default value ""
+
+
+action parameter query "xdump" with description "Please input (yes/no) if the xdump:none option to be set. Invalid or inappropriate parameters may result in errors or unpredictable results" and with default value ""
+
+appendfile {parameter "custom_options"}
+
+appendfile {parameter "xdump"}
+
+if{windows of operating system}
+	delete "{storage folder of client}\__GTS\gcm_config.txt"
+	move __appendfile "{storage folder of client}\__GTS\gcm_config.txt"
+else
+	delete "{storage folder of client}/__GTS/gcm_config.txt"
+	move __appendfile "{storage folder of client}/__GTS/gcm_config.txt"
+endif
+
+</ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to delete the 2 custom Java settings.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+			
+if{windows of operating system}
+	delete "{storage folder of client}\__GTS\gcm_config.txt"
+else
+	delete "{storage folder of client}/__GTS/gcm_config.txt"
+endif
+
+</ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</Action>
+	</Task>
+</BES>

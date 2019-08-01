@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows-DB2-CSD Applicability</Title>
+		<Description><![CDATA[This is an applicability fixlet that identifies computers running the supported operating system(s). It is required by compliance checking fixlets.<br>No remediation action is required.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-DB2-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		</Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-DB2-CSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+					(exists key "HKLM\SOFTWARE\IBM\DB2" of x32 registry|false) or (exists key "HKLM\SOFTWARE\IBM\DB2" of x64 registry|false)
+
+
+
+				) 
+					or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | false) then
+		(exists (lines containing "SUBSYSTEM_TYPE=DB2" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | false)
+		else false)
+
+			)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-class</Name>
+			<Value>sentinel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value><![CDATA[           {    "fusion_supported_platforms" : "Win 2008 Servers and up, DB2 Server v9.x, v10.x. and v11.x",    "description" : "This is an applicability fixlet that identifies computers running the supported operating system(s). It is required by compliance checking fixlets.<br>No remediation action is required.",    "title" : "Windows-DB2-CSD Applicability"   }     ]]></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>11200001</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-id</Name>
+			<Value>86C56851-6732-D14C-89EE-3DB19E9BF305</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 06:34:51 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

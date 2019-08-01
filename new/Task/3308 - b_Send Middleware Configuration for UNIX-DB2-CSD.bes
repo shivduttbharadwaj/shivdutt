@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>_Send Middleware Configuration for UNIX-DB2-CSD</Title>
+		<Description><![CDATA[This task will create a middleware configuration file on the endpoint for UNIX-DB2-CSD. Review the action of this task to see and change the settings sent to the endpoint.
+				<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[
+				
+		(
+			if exists setting "_GCM_UNIX-DB2-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(name of operating system as lowercase contains "red hat" and version of operating system >= "6") or (name of operating system as lowercase contains "suse" and version of operating system >= "11") or (name of operating system as lowercase contains "sunos" and version of operating system >= "5.10") or (name of operating system as lowercase contains "aix" and version of operating system >= "7") or (name of operating system as lowercase contains "hp-ux" and version of operating system as string contains "11.31") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8")
+			)
+		)
+		]]></Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>30940007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 12:51:26 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			
+begin prefetch block	
+	if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+		parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+	else
+		parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+	endif
+	
+	add prefetch item name=ConfigMergeTool.jar sha1=67cac9e3f121e23c12ca84f63daf3cf82611aaf8 sha256=29f2283614504b3a31ee30b35d32afcd8096ba76a866a5f7ce80bbd77d54c21e size=421823 url={parameter "basepath"}/400/20190307-2125/tools/ConfigMergeTool.jar
+	add prefetch item name=TIMcipherPswdV3.jar sha1=c8aeb8375b25c0fa92fc92f5586f579ddcd791c4 sha256=7843234a93d6542519dd7032445af09168add2d732d2550aacef3bb64597b507 size=160714 url={parameter "basepath"}/400/20190307-2125/tools/TIMcipherPswdV3.jar
+	
+//Start Check if JRE needs to be installed
+  
+
+
+
+
+	
+if{(name of operating system as lowercase contains "aix") and (architecture of operating system contains "32")}
+ if{version of operating system >= "7" and ((concatenation "" of substrings separated by "-" of ((current technology level of operating system) as string)) as integer >= 710003)}
+   
+    if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+       parameter "downloaded_jre_aix32" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+       parameter "input_jre_aix32" = "80535"
+         if{parameter "input_jre_aix32" > parameter "downloaded_jre_aix32"}
+          parameter "jre_download_aix32" = "true"
+	     else
+	      parameter "jre_download_aix32" = "false"
+	     endif
+    else
+	  parameter "jre_download_aix32" = "true"
+    endif
+   
+    if{parameter "jre_download_aix32" as lowercase is "true"}
+		add prefetch item name=jre832redist.tar.gz sha1=99ee69774f10d4f8affbd9e27232cbd6de7cd763 sha256=c09109c251dd937f72c3450531f954f1012a41e3ed6287520b6c278a5037a63d size=123090779 url={parameter "basepath"}/jre/80535/jre832redist.tar.gz
+	endif
+ endif
+endif
+    
+  if{(name of operating system as lowercase contains "aix") and (architecture of operating system contains "64")}
+if{version of operating system >= "7" and ((concatenation "" of substrings separated by "-" of ((current technology level of operating system) as string)) as integer >= 710003)} 
+     if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+       parameter "downloaded_jre_aix64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+       parameter "input_jre_aix64" = "80535"
+        if{parameter "input_jre_aix64" > parameter "downloaded_jre_aix64"}
+         parameter "jre_download_aix64" = "true"
+        else
+         parameter "jre_download_aix64" = "false" 
+       endif    
+    else
+     parameter "jre_download_aix64" = "true"
+	endif
+	
+	if{parameter "jre_download_aix64" as lowercase is "true"}
+		add prefetch item name=jre864redist.tar.gz sha1=5949599f0a89fe0d48889f45d64ab18886b7be48 sha256=76e5cece78166168adeb0d040dff3292386f71678417e84040b7b92c52f16e8e size=145281211 url={parameter "basepath"}/jre/80535/jre864redist.tar.gz
+	endif
+ endif
+endif
+    
+  			 
+ if{(name of operating system as lowercase contains "hp-ux") and (architecture of operating system contains "32")}
+	if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	     parameter "downloaded_jre_hpux32" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}" 
+         parameter "input_jre_hpux32" = "80530"
+          if{parameter "input_jre_hpux32" > parameter "downloaded_jre_hpux32"}
+	         parameter "jre_download_hpux32" = "true"
+	     else
+	       parameter "jre_download_hpux32" = "false"
+	     endif
+	else
+	     parameter "jre_download_hpux32" = "true"
+	endif
+	
+	if{parameter "jre_download_hpux32" as lowercase is "true"}
+	     add prefetch item name=hpia3280sr5fp30hybrid-20190311_01-jre.tar.Z sha1=8797755ad786fa383234324026275e07822a6d3d sha256=a025fd583488322ae4784ea457464ad9bd1d4b38924ae9e475ac5f431c627ed1 size=151562375 url={parameter "basepath"}/jre/80530/hpia3280sr5fp30hybrid-20190311_01-jre.tar.Z
+	 endif 
+ endif	          
+		
+ if{(name of operating system as lowercase contains "hp-ux") and (architecture of operating system contains "ia64")}
+    if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	     parameter "downloaded_jre_hpux64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}" 
+         parameter "input_jre_hpux64" = "80530"
+         if{parameter "input_jre_hpux64" > parameter "downloaded_jre_hpux64"}
+	         parameter "jre_download_hpux64" = "true"
+         else
+             parameter "jre_download_hpux64" = "false"
+         endif
+     else
+       parameter "jre_download_hpux64" = "true"
+    endif
+    
+    if{parameter "jre_download_hpux64" as lowercase is "true"}
+       add prefetch item name=hpia6480sr5fp30hybrid-20190311_01-jre.tar.Z sha1=9359ea86466b836f5bdad07515f074aa636e8cc5 sha256=799b5e8a96dad5bd3e68918e30cbf3c407e43312f1d3a12dda7f9caa2f2b3854 size=220996123 url={parameter "basepath"}/jre/80530/hpia6480sr5fp30hybrid-20190311_01-jre.tar.Z
+    endif
+ endif	
+
+ if{(name of operating system as lowercase contains "sunos") and (architecture of operating system contains "sparc")}
+  if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+     parameter "downloaded_jre_sparc" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}" 
+     parameter "input_jre_sparc" = "80535"   
+     if{parameter "input_jre_sparc" > parameter "downloaded_jre_sparc"}
+		parameter "jre_download_sparc" = "true"
+	 else
+	 	parameter "jre_download_sparc" = "false"		
+	 endif  
+  else
+   	  parameter "jre_download_sparc" = "true"
+  endif
+  
+  if{parameter "jre_download_sparc" as lowercase is "true"}
+		add prefetch item name=sol6480sr5fp35hybrid-20190412_01-jre.tar.Z sha1=243294a6fd481b2afeddb5832c79bd90d87a1260 sha256=281261eb9db231109811d1c139ec1c6d6e7119f2b0247068f5a5e7d62b4dd4a9 size=124233721 url={parameter "basepath"}/jre/80535/sol6480sr5fp35hybrid-20190412_01-jre.tar.Z
+  endif
+endif
+	
+if{(name of operating system as lowercase contains "sunos") and (architecture of operating system contains "64")}
+  if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+     parameter "downloaded_jre_sunos64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}" 
+     parameter "input_jre_sunos64" = "80535"
+     if{parameter "input_jre_sunos64" > parameter "downloaded_jre_sunos64"}
+		parameter "jre_download_sunos64" = "true"
+	 else
+	    parameter "jre_download_sunos64" = "false"		
+	 endif
+  else
+  	parameter "jre_download_sunos64" = "true"
+  endif
+ 
+  if{parameter "jre_download_sunos64" as lowercase is "true"}
+		add prefetch item name=solx6480sr5fp35hybrid-20190412_01-jre.tar.Z sha1=0c5f6fa8ecf76750fbe2e50c3ebe57c402ca44e0 sha256=a43620085447b285b5ecfcba97f33ec3d417a39ae3cd8763d0f7e0adbee5eef1 size=115437507 url={parameter "basepath"}/jre/80535/solx6480sr5fp35hybrid-20190412_01-jre.tar.Z
+  endif
+endif 
+
+	
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and (architecture of operating system contains "i386" OR architecture of operating system contains "i686")}
+    if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+       parameter "downloaded_jre_linux32" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+       parameter "input_jre_linux32" = "80535"
+         if{parameter "input_jre_linux32" > parameter "downloaded_jre_linux32"}
+          parameter "jre_download_linux32" = "true"
+     	 else
+	       parameter "jre_download_linux32" = "false"
+	     endif
+	 else
+	  parameter "jre_download_linux32" = "true"
+   endif
+     
+   if{parameter "jre_download_linux32" as lowercase is "true"}
+	  add prefetch item name=ibm-java-jre-8.0-5.35-linux-i386.tgz sha1=a99afe85b2085792080606e856017a734d3164af sha256=d6cf70375c7d12c03cde7d59ee59d6fc7ce38b26e5f250bee0a824455a962ade size=117958548 url={parameter "basepath"}/jre/80535/ibm-java-jre-8.0-5.35-linux-i386.tgz
+   endif   
+endif
+	
+	
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and ((architecture of operating system contains "ppc64") AND (big endian of operating system))}
+   if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+    parameter "downloaded_jre_linuxppc64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+    parameter "input_jre_linuxppc64" = "80535"
+      if{parameter "input_jre_linuxppc64" > parameter "downloaded_jre_linuxppc64"}
+          parameter "jre_download_linuxppc64" = "true"
+      else
+	      parameter "jre_download_linuxppc64" = "false"
+	  endif
+   else
+     parameter "jre_download_linuxppc64" = "true" 
+   endif
+      
+   if{parameter "jre_download_linuxppc64" as lowercase is "true"}
+     add prefetch item name=ibm-java-jre-8.0-5.35-linux-ppc64.tgz sha1=25ae2bd4d021e408f74e89bebcfdb0710e0aabec sha256=809c801d2cb137ad2e13b6439869f51df7809a89705c1adf073cf7c9108fc865 size=142913277 url={parameter "basepath"}/jre/80535/ibm-java-jre-8.0-5.35-linux-ppc64.tgz
+   endif   
+endif
+	
+	
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and ((architecture of operating system contains "ppc64le"))}
+	if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	    parameter "downloaded_jre_linuxppc64le" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+	    parameter "input_jre_linuxppc64le" = "80535"
+	      if{parameter "input_jre_linuxppc64le" > parameter "downloaded_jre_linuxppc64le"}
+	          parameter "jre_download_linuxppc64le" = "true"
+	      else
+		      parameter "jre_download_linuxppc64le" = "false"
+		  endif
+	 else
+	     parameter "jre_download_linuxppc64le" = "true" 
+	 endif
+	
+	 if{parameter "jre_download_linuxppc64le" as lowercase is "true"}
+	     	  add prefetch item name=ibm-java-jre-8.0-5.35-linux-ppc64le.tgz sha1=4b75c74c42a86a9cf3a167792624215a327b0d21 sha256=1ef8f202b1e9c1604781e12e7f15f6b267cbe2015cd212c340f7376886515df1 size=141815035 url={parameter "basepath"}/jre/80535/ibm-java-jre-8.0-5.35-linux-ppc64le.tgz
+	 endif
+endif
+	
+	
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and (architecture of operating system contains "s390x")}
+	 if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	    parameter "downloaded_jre_linuxs390x" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+	    parameter "input_jre_linuxs390x" = "80535"
+	      if{parameter "input_jre_linuxs390x" > parameter "downloaded_jre_linuxs390x"}
+	          parameter "jre_download_linuxs390x" = "true"
+	      else
+		      parameter "jre_download_linuxs390x" = "false"
+		  endif
+	 else
+	     parameter "jre_download_linuxs390x" = "true" 
+	 endif   	    
+  	 if{parameter "jre_download_linuxs390x" as lowercase is "true"}
+	     add prefetch item name=ibm-java-jre-8.0-5.35-linux-s390x.tgz sha1=22f36411ba4e6d693d25dcf303b3326b01217a70 sha256=d530ee617b2f97ab3d83f5ebc8e017b85436db8eb153bdaefd8e57485e3be8cc size=126924951 url={parameter "basepath"}/jre/80535/ibm-java-jre-8.0-5.35-linux-s390x.tgz
+	 endif
+endif
+
+	
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and (architecture of operating system contains "x86_64")}
+	  if{exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	    parameter "downloaded_jre_linux64" = "{first matches (regex "\d\d\d\d\d") of (concatenation of substrings separated by "." of line 5 of file "version.txt" of folder "__GTS" of storage folder of client) as integer}"
+	    parameter "input_jre_linux64" = "80535"
+	      if{parameter "input_jre_linux64" > parameter "downloaded_jre_linux64"}
+	          parameter "jre_download_linux64" = "true"
+	      else
+		      parameter "jre_download_linux64" = "false"
+		  endif
+	  else
+	     parameter "jre_download_linux64" = "true" 
+	  endif
+	  if{parameter "jre_download_linux64" as lowercase is "true"}
+			  add prefetch item name=ibm-java-jre-8.0-5.35-linux-x86_64.tgz sha1=c3013c4534805c07b76b2ec167fc38eb52cd0c70 sha256=af2fe61dc9d62923383405f77d1c31292c13791a0f21019f0365b041ef40c447 size=129295118 url={parameter "basepath"}/jre/80535/ibm-java-jre-8.0-5.35-linux-x86_64.tgz
+	  endif
+endif	
+
+//End Check if JRE needs to be installed
+	
+end prefetch block
+
+//Start of Config File Template
+
+createfile until --qGs7SPXJMX59YEz--
+	
+	# # config.txt - 2018/04/04
+
+# # File metadata
+# #
+# file-information
+  # type = collector-configuration
+  # collector = DB2V4
+  # file = db2_config.txt
+  # version = 1
+  # date = "2018/04/04"
+  # comment = "Configuration File for DB2 collectors (UNIX)"
+
+# #for unix.any.db2.DB2DbAuthV4
+# # Define User and Group accounts
+# accounts-parameters
+  # type = authparm
+  # user-name = user1
+  # user-name = user2
+  # user-name = user3
+  # group-name = group1
+  # group-name = group2
+  # auth-type = DBADMAUTH
+  # auth-type = CREATETABAUTH
+  # auth-type = CONNECTAUTH
+
+# #for unix.any.db2.DB2DbInstanceConfigV4
+# inst-conf
+  # type = confparm 
+  # config-param-name = DIR
+  # config-param-name = VERSION
+
+# #for unix.any.db2.DB2BkupDirPermsV4, unix.any.db2.DB2DbDirPermsV4, unix.any.db2.DB2LogDirPermsV4
+# unix-owner
+  # type = ownerparm
+  # owner-name = 
+  # owner-group =
+
+	
+--qGs7SPXJMX59YEz--
+
+//End of Config File Template
+
+parameter "build_id" = "20190307-2125"
+parameter "version" = "4.0.0"
+
+//Start Extract JRE if prefetched
+
+
+
+  
+ 
+
+if{(name of operating system as lowercase contains "aix") and (architecture of operating system contains "32")}
+if{version of operating system >= "7" and ((concatenation "" of substrings separated by "-" of ((current technology level of operating system) as string)) as integer >= 710003)}
+  if{parameter "jre_download_aix32" as lowercase is "true"}
+	 
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	 
+	 
+
+wait gunzip -f "{client folder of current site}/__Download/jre832redist.tar.gz"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait tar xf "{client folder of current site}/__Download/jre832redist.tar"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/jre" "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+	 
+ 	 	 
+	 	 
+	  endif 
+endif
+endif 
+	
+if{(name of operating system as lowercase contains "aix") and (architecture of operating system contains "64")}	
+if{name of operating system as lowercase contains "aix" and version of operating system >= "7" and architecture of operating system contains "64" and ((concatenation "" of substrings separated by "-" of ((current technology level of operating system) as string)) as integer >= 710003)}
+ if{parameter "jre_download_aix64" as lowercase is "true"}
+	
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	
+	
+
+wait gunzip -f "{client folder of current site}/__Download/jre864redist.tar.gz"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait tar xf "{client folder of current site}/__Download/jre864redist.tar"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/jre" "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+	
+		 
+		 
+	 endif 
+endif
+endif
+
+  if{(name of operating system as lowercase contains "hp-ux") and (architecture of operating system contains "32")} 
+  if{parameter "jre_download_hpux64" as lowercase is "true"}
+	     	
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	     	folder create "{storage folder of client}/__GTS/jre"
+
+wait uncompress -f "{client folder of current site}/__Download/hpia3280sr5fp30hybrid-20190311_01-jre.tar.Z"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait tar xf "{client folder of current site}/__Download/hpia3280sr5fp30hybrid-20190311_01-jre.tar"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/bin" "{storage folder of client}/__GTS/jre/bin"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/lib" "{storage folder of client}/__GTS/jre/lib"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+
+	     		     		  endif
+ endif
+	 
+     if{(name of operating system as lowercase contains "hp-ux") and (architecture of operating system contains "ia64")}
+      if{parameter "jre_download_hpux64" as lowercase is "true"}
+	   	 	
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	     	folder create "{storage folder of client}/__GTS/jre"
+
+wait uncompress -f "{client folder of current site}/__Download/hpia6480sr5fp30hybrid-20190311_01-jre.tar.Z"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait tar xf "{client folder of current site}/__Download/hpia6480sr5fp30hybrid-20190311_01-jre.tar"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/bin" "{storage folder of client}/__GTS/jre/bin"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/lib" "{storage folder of client}/__GTS/jre/lib"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+
+	     		     		  endif
+	 endif 
+    
+   if{(name of operating system as lowercase contains "sunos") and (architecture of operating system contains "sparc")} 
+  	 if{parameter "jre_download_sparc" as lowercase is "true"}
+		 
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+		 folder create "{storage folder of client}/__GTS/jre"
+
+wait uncompress -f "{client folder of current site}/__Download/sol6480sr5fp35hybrid-20190412_01-jre.tar.Z"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+delete __appendfile
+appendfile #!/bin/sh
+appendfile tar xf "{client folder of current site}/__Download/sol6480sr5fp35hybrid-20190412_01-jre.tar"
+appendfile chown -R root:root "{client folder of current site}/__Download"
+move __appendfile "{client folder of current site as string}/__Download/launch.sh"
+wait chmod 750 "{client folder of current site as string}/__Download/launch.sh"
+wait /bin/sh -c "(cd \"{client folder of current site as string}/__Download\" && ./launch.sh)"
+
+wait mv -f "{client folder of current site}/__Download/bin" "{storage folder of client}/__GTS/jre/bin"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/__Download/lib" "{storage folder of client}/__GTS/jre/lib"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+wait chown -R root:root "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+wait chmod -R o= "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+		 		 	 endif
+  endif	 
+    
+  if{(name of operating system as lowercase contains "sunos") and (architecture of operating system contains "64")}
+	if{parameter "jre_download_sunos64" as lowercase is "true"}
+	    
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	    folder create "{storage folder of client}/__GTS/jre"
+
+wait uncompress -f "{client folder of current site}/__Download/solx6480sr5fp35hybrid-20190412_01-jre.tar.Z"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+delete __appendfile
+appendfile #!/bin/sh
+appendfile tar xf "{client folder of current site}/__Download/solx6480sr5fp35hybrid-20190412_01-jre.tar"
+appendfile chown -R root:root "{client folder of current site}/__Download"
+move __appendfile "{client folder of current site as string}/__Download/launch.sh"
+wait chmod 750 "{client folder of current site as string}/__Download/launch.sh"
+wait /bin/sh -c "(cd \"{client folder of current site as string}/__Download\" && ./launch.sh)"
+
+wait mv -f "{client folder of current site}/__Download/bin" "{storage folder of client}/__GTS/jre/bin"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/__Download/lib" "{storage folder of client}/__GTS/jre/lib"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+wait chown -R root:root "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+wait chmod -R o= "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif
+
+	 
+	    	    	 endif
+ endif
+
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and (architecture of operating system contains "i386" OR architecture of operating system contains "i686")}
+  if{parameter "jre_download_linux32" as lowercase is "true"}
+	 
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	  wait tar -xozf "{client folder of current site}/__Download/ibm-java-jre-8.0-5.35-linux-i386.tgz" -C "{storage folder of client}/__GTS/Temp"
+	  wait mv -f "{storage folder of client}/__GTS/Temp/ibm-java-i386-80/jre" "{storage folder of client}/__GTS/"
+	 
+	 	  endif 
+endif
+
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and ((architecture of operating system contains "ppc64") AND (big endian of operating system))}
+  if{parameter "jre_download_linuxppc64" as lowercase is "true"}
+	 
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	  wait tar -xozf "{client folder of current site}/__Download/ibm-java-jre-8.0-5.35-linux-ppc64.tgz" -C "{storage folder of client}/__GTS/Temp"
+	  wait mv -f "{storage folder of client}/__GTS/Temp/ibm-java-ppc64-80/jre" "{storage folder of client}/__GTS/"
+	 
+	 	  endif
+endif  
+
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and ((architecture of operating system contains "ppc64le"))}
+  if{parameter "jre_download_linuxppc64le" as lowercase is "true"}
+	 
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	  wait tar -xozf "{client folder of current site}/__Download/ibm-java-jre-8.0-5.35-linux-ppc64le.tgz" -C "{storage folder of client}/__GTS/Temp"
+	  wait mv -f "{storage folder of client}/__GTS/Temp/ibm-java-ppc64le-80/jre" "{storage folder of client}/__GTS/"
+	 	  endif 
+endif
+
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and (architecture of operating system contains "s390x")}
+  if{parameter "jre_download_linuxs390x" as lowercase is "true"}
+	 
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	  wait tar -xozf "{client folder of current site}/__Download/ibm-java-jre-8.0-5.35-linux-s390x.tgz" -C "{storage folder of client}/__GTS/Temp"
+	  wait mv -f "{storage folder of client}/__GTS/Temp/ibm-java-s390x-80/jre" "{storage folder of client}/__GTS/"
+	 
+	 	 	 
+ endif
+endif  
+
+if{((name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR (name of operating system as lowercase contains "linux")) and (architecture of operating system contains "x86_64")}
+  if{parameter "jre_download_linux64" as lowercase is "true"}
+	 
+    // clean the JRE location
+	folder delete "{storage folder of client}/__GTS/jre"
+	folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+	delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+	folder delete "{storage folder of client}/__GTS/Temp"
+	folder create "{storage folder of client}/__GTS/Temp"
+
+
+	  wait tar -xozf "{client folder of current site}/__Download/ibm-java-jre-8.0-5.35-linux-x86_64.tgz" -C "{storage folder of client}/__GTS/Temp"
+	  wait mv -f "{storage folder of client}/__GTS/Temp/ibm-java-x86_64-80/jre" "{storage folder of client}/__GTS/"
+	  
+	  	   endif 
+endif
+
+//End Extract JRE if prefetched
+
+if{not exists file "version.txt" of folder "__GTS" of storage folder of client|false}
+	// Last Change
+	appendfile {now as string}
+	
+	// Version
+	appendfile {parameter "version"}
+	
+	// Build ID
+	appendfile {parameter "build_id"}
+	
+	// create the version file
+	delete "{storage folder of client}/__GTS/version.txt"
+	move __appendfile "{storage folder of client}/__GTS/version.txt"
+	
+	// append JRE version to end
+	if{ windows of operating system}
+				appendfile "{storage folder of client}\__GTS\jre\bin\java.exe" -version >> "{storage folder of client}\__GTS\version.txt" 2>&1 
+		delete launch.bat
+		move __appendfile launch.bat
+		wait launch.bat
+	else
+				appendfile #!/bin/sh
+		appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+		delete launch.sh
+		move __appendfile launch.sh
+		wait chmod 750 launch.sh
+		wait "{client folder of current site}/launch.sh"
+	endif
+endif     
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+
+folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault"
+
+parameter "filename" = "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/tmp_config.txt"
+		
+delete "{parameter "filename"}"
+move __createfile "{parameter "filename"}"
+
+
+if {exists file "db2_config.txt" of folder ("__GTS/__IEMHC/"& name of current site as string & "/UNIX-DB2-CSD/vault") of storage folder of client}
+move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.old"
+move "{parameter "filename"}" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.new"
+
+if {windows of operating system}
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.new"
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.new"
+endif
+
+if {windows of operating system} 
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -m "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.new"  -o "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.old" 	
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -m "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.new"  -o "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.old"
+endif
+
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.old"
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt.new"
+
+else
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt"
+move "{parameter "filename"}" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt"
+if {windows of operating system}
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt"
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/UNIX-DB2-CSD/vault/db2_config.txt"
+endif
+endif
+
+			]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

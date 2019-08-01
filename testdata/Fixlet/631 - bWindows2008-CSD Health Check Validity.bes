@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows2008-CSD Health Check Validity</Title>
+		<Description><![CDATA[This fixlet is relevant when the Health Check is not valid (ie. when there are one or more collector errors or an SQL error).
+      This fixlet is also relevant when the results file does not exist.
+		<p><small><b>Version:</b>&nbsp;3.9.0<br><b>Build ID:</b>&nbsp;20190123-2090</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows2008-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				name of operating system as lowercase contains "win2008"
+			)
+		)
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+						
+		if (exists file "hcl_xout_0_0.log" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2008-CSD") of storage folder of client | False) 
+		then 
+			if (exists lines whose (it contains "[FATAL]" or it contains "[ERROR]") of file "hcl_xout_0_0.log" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2008-CSD") of storage folder of client | False) 
+			then True
+			else(
+					if (exists file "policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2008-CSD") of storage folder of client | False) 
+					then (exists (line of (file "policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2008-CSD") of storage folder of client)) whose (it contains "ERROR !!! "))
+					else True
+				)
+		else True
+		]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>3.9.0</SourceID>
+		<SourceReleaseDate>2019-01-23</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-class</Name>
+			<Value>sentinel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>4.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>11220008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 15 Mar 2019 09:18:17 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

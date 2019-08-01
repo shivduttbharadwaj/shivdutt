@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Domino-CSD-FOUNDATION J.5.0.6 Privileged Authorizations-Userids/6 Server Document: Security Tab: View-Only Administrators</Title>
+		<Description><![CDATA[
+		<P><B>Test:&nbsp;</B>Server Document: Security Tab: View-Only Administrators</P><P><B>ITSSCSD Section:&nbsp;</B>J.5.0.6</P>
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		<script>
+	document.body.ontakeaction = function() {
+
+		var b=EvaluateRelevance('name of site of current fixlet'),a=EvaluateRelevance('exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*")');
+		(a=!/^true$/i.test(a))||alert('Remediation is disabled for site '+b);
+		if (!a) {
+			return a;
+		}
+														
+   		   		var b=EvaluateRelevance(' unique values whose (it contains "ERROR !!! " or it contains "[FATAL]" or it contains "[ERROR]") of (it as string) of (name of computer of it , values of it) of results  of properties whose(name of it = "Health Check") of BES Fixlets whose (analysis flag of it and name of it = "_Status Domino-CSD")');
+   		if (b === null || b.length === 0) {
+   		 	return true;
+    	}
+    	
+    	for (var i = 0; i < b.length; i++) {
+    		b[i]=b[i].substring(0, b[i].indexOf(','));
+		}
+		b = unique(b);
+   
+		b = b.toString().replace(/,/g , "\n");
+		var r = confirm("There are computers with invalid health check,\n do you want to proceed?\n"+b);
+		if (r === true) {
+    		x = "OK!";
+		} else {
+    		x = "Cancel!";
+		}
+		return r;
+	};
+	
+	function unique(arr) {
+    var hash = {}, result = [];
+    for ( var i = 0, l = arr.length; i < l; ++i ) {
+        if ( !hash.hasOwnProperty(arr[i]) ) {
+            hash[ arr[i] ] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+</script>
+<?BeginRefreshRelevance?>
+	<p><b><?relevance if exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*") then ("Remediation is disabled for site " & (name of site of current fixlet)) else ""?></b></p>
+<?EndRefreshRelevance?>		
+		]]></Description>
+		<Relevance><![CDATA[
+				
+		(
+			if exists setting "_GCM_Domino-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(name of operating system as lowercase contains "red hat" and version of operating system >= "6") OR (name of operating system as lowercase contains "suse" and version of operating system >= "11") OR (name of operating system as lowercase contains "sunos" and version of operating system >= "5.10") OR(name of operating system as lowercase contains "aix" and version of operating system >= "7") OR (name of operating system as lowercase contains "hp-ux" and version of operating system as string contains "11.31") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8") OR disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		]]></Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Domino-CSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+					if (windows of operating system) then (exists (key "HKEY_LOCAL_MACHINE\SOFTWARE\Lotus\Domino" of native registry) whose (value "Partitions" of it !="")) else ((exists folder "/opt/ibm/lotus") OR (exists folder "/opt/ibm/lotus/bin/server") OR (exists folder "/opt/ibm/domino"))
+
+
+
+				) 
+					or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | false) then
+		(exists (lines containing "SUBSYSTEM_TYPE=DOM" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | false)
+		else false)
+
+			)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+			 (if (exists file "Privileged_Authorizations-Userids_6_Server_Document__Security_Tab__View-Only_Administrators.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Domino-CSD") of storage folder of client | true ) Then (if (exists lines of file "Privileged_Authorizations-Userids_6_Server_Document__Security_Tab__View-Only_Administrators.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Domino-CSD") of storage folder of client | true) then true else false ) else True)
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<SourceSeverity>informational</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>true</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>1012066</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 13 Jun 2019 06:42:38 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

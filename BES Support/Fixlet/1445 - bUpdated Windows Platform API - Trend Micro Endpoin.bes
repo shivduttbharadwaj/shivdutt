@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Platform API - Trend Micro Endpoint Security Platform version 9.0.649.0 Now Available! (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><FONT size=2> <P><STRONG>Version&nbsp;9.0.649.0 of Trend Micro Endpoint Security Platform is now available!</STRONG><BR><BR>The latest version of the Trend Micro Endpoint Security Platform API provides several enhancements and fixes. This Fixlet can upgrade all Trend Micro Endpoint Security Platform API installations on the targeted computers. Once the Trend Micro Endpoint Security Platform Server is upgraded to 9.0, older versions of the API will no longer be able to communicate with the Trend Micro Endpoint Security Platform Server.</P> <P><STRONG><FONT color=red>Please upgrade your Trend Micro Endpoint Security Platform Server before upgrading the Trend Micro Endpoint Security Platform API.</FONT></STRONG></P> <P>More information about the API can be found in the pdf documents linked below.</P></FONT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+21.0 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>name of operating system starts with "Win"</Relevance>
+		<Relevance>name of operating system starts with "Win"</Relevance>
+		<Relevance><![CDATA[version of file (value "base" of key "HKLM\SOFTWARE\BigFix\BESAPI\Paths" of registry as string & "BESAPI.dll") < "9.0.649.0"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[version of registration server >= "9.0"]]></Relevance>
+		<Relevance>if (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Brand" whose (exists value "value" of it) of registry) then (value "value" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Brand" of registry as string = "Trend") else ("Trend"="BigFix")</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>22004336</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-05-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 14 May 2013 21:55:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy API</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the Trend Micro Endpoint Security Platform API 9.0.649.0 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESServerAPI.exe sha1:e774dd01f2ed5fd928edd813ce22cab26bb18136 size:22004336 http://software.bigfix.com/download/bes/90/Trend-BES-ServerAPI-9.0.649.0.exe
+
+delete __Local\Get\BESServerAPI.exe
+// If the next line fails, there is not enough free space to complete this action
+continue if {22004336  < free space of drive of client folder of current site}
+move __Download\BESServerAPI.exe __Local\Get\BESServerAPI.exe
+wait __Local\Get\BESServerAPI.exe /s /v"/l*voicewarmup \"{value "base" of key "HKLM\SOFTWARE\BigFix\BESAPI\Paths" of registry as string}\temserverapi.log\" REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+delete __Local\Get\BESServerAPI.exe
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to read the Trend Micro Endpoint Security Platform API reference (pdf).</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/download/bes/misc/BESDatabaseAPIReference-7.0.pdf</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to read the Trend Micro Endpoint Security Platform Import-Export reference (pdf).</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/product/documents/BESImportExportReference-6.0.pdf</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

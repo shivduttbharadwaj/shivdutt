@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>_Update Windows2012-CSD</Title>
+		<Description><![CDATA[This fixlet will update the endpoint code for Windows2012-CSD
+		<p>Endpoints must have at least 12 MB available on the file system where the BES client is located for this fixlet to become applicable.</p>
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance>exists file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client</Relevance>
+		<Relevance>(exists file "jre/bin/java.exe" of folder "__GTS" of storage folder of client or exists file "jre/bin/java" of folder "__GTS" of storage folder of client)</Relevance>
+		<Relevance><![CDATA[exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client]]></Relevance>
+		<Relevance><![CDATA[
+						not (
+		((sha2_256 of file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "b49b939c04699c57b2712adef615a338bacd4d80b8a4e33e76d721e05e036587") | false)
+		and ((sha2_256 of file "collectors/win.any.AnonFtpIISV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "18a7aff9824f66017087d60a72fbf3ea5255dc8873a1ff9f1f17d4655aadbdd5") | false) 
+		and ((sha2_256 of file "collectors/win.any.CIMV2ClassesV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "35eeb757aacc51af755fa546be98ede089bc9b5647d23874027fd86bb3643b32") | false) 
+		and ((sha2_256 of file "collectors/win.any.FileAuditV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "363a243d44d49eaa369c1701d983b1f429d336968ec7416803207dd1145e5948") | false) 
+		and ((sha2_256 of file "collectors/win.any.FilePermsV5.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "47cd7c6968abd50256408b331b3190e950397bc821dd125ab5fc687343376cd8") | false) 
+		and ((sha2_256 of file "collectors/win.any.FileRegPermsV1.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "fd3c9a794155b27088b8ba38fe2e790052d515af3107183a8505196922e18d04") | false) 
+		and ((sha2_256 of file "collectors/win.any.FileSharingV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "31ccba73ba057b44dfcd062769dc5cface017d1f6ea3133e9b10037cd4ffbe12") | false) 
+		and ((sha2_256 of file "collectors/win.any.GenericRegistryKeyV3.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "08830b5089f24137e9af6af4d38db3665e2ffce757069c5aadabf0d69ad4fc0c") | false) 
+		and ((sha2_256 of file "collectors/win.any.GroupsV4.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "f44f62e5db990233135ab951909d80e766fe2a33667a8acb92a42b636f51acc8") | false) 
+		and ((sha2_256 of file "collectors/win.any.LogSizeV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "8c96803de9ed9201bbb0d24b87c52bfd818f3d296c602ebfad1ed857ba7aba85") | false) 
+		and ((sha2_256 of file "collectors/win.any.NetAccountsV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "9687e48e859d944932aa7ab175e8a58dbb1f1ddc65c5c48245eefbdceed1e49f") | false) 
+		and ((sha2_256 of file "collectors/win.any.NetstatV3.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "a15a7b3456cb836c4342b173763de4650ef3bfc41c6cab3020a3106ec1de6351") | false) 
+		and ((sha2_256 of file "collectors/win.any.OSLevelV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "375f821d9177f085a6e369035f328bcefb5269b67a958e8783f44cfd7be3eb3e") | false) 
+		and ((sha2_256 of file "collectors/win.any.PwExpiryV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "a6b836abf430aa6ba7c82d077a84d4cb7a44dedf06960fe297172bf16ec2765a") | false) 
+		and ((sha2_256 of file "collectors/win.any.RegPermsV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "02b142429ff23fd3b2e4a15c85618a27d08cc131d87d1c954ede8d8c25027fd8") | false) 
+		and ((sha2_256 of file "collectors/win.any.ServicesV4.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "db420c464f21a500704753781bfe307e95bdebf9a0f604c37f2b3f2e1d7befa6") | false) 
+		and ((sha2_256 of file "collectors/win.any.SnmpActiveV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "62071d4a53374a2e5d28a725c8c408c3d16b8ec1048629b4cb0ec350ab2f7ec8") | false) 
+		and ((sha2_256 of file "collectors/win.any.UserV3.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "5794deed7adf0a20aa82d9b50a8dd0f733e4c87b330cf3fbce9822d39391bb79") | false) 
+		and ((sha2_256 of file "collectors/win.any.wwep.TaskSchedulerV3.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "3efdd381e2f5752aa6fe60e20a21c84f1c46c3ee2ea3cd8955ca9998ee5ec936") | false) 
+		and ((sha2_256 of file "collectors/win.multi.AuditPolicyV4.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "b8afa2803c2617d3af1c68b9edebb899479b800e797d858ad524a6278e45d029") | false) 
+		and ((sha2_256 of file "collectors/win.multi.GPOV4.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "d6cc924ff9a882f5470e1c487e8c628a47ec8850632866e85651b5ee99988c01") | false) 
+		and ((sha2_256 of file "collectors/win.multi.KerberosV2.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "d396db55c92e7a7ee63447aaad0775fbc7a8a7727c7661087e3afe13fc398b1a") | false) 
+		and ((sha2_256 of file "collectors/win.multi.PWSCollectorV1.jar" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client is "3f908e754437a1094205435a84c3cee79c13e6c9f470dd950366b97b9b59d97e") | false) 
+		)		]]></Relevance>
+		<Relevance><![CDATA[
+		(if name of operating system as lowercase contains "win" then
+(
+	(free space of drive of storage folder of client)
+)
+else 
+(
+	if name of operating system as lowercase contains "sunos" then
+	(
+		 ((free space of filesystem of storage folder of client) - (total space of filesystem of storage folder of client / 100))
+	)
+	else	
+	(
+		(free space of filesystem of storage folder of client)
+	)
+)
+) > 13537790
+		]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>3.0L</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>11230003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 27 Mar 2019 04:22:37 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client}
+	folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup"
+endif
+
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup/policy_parameters.txt"
+endif
+
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup/localpolicy.xml"
+endif
+
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup/freshness.txt"
+endif
+
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client AND exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup/vault"
+endif
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client}
+	folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD"
+endif
+
+folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD"
+
+//moving vault folder
+if{exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD_backup") of storage folder of client|false}
+move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/vault"
+endif
+
+copy "{client folder of current site}/__Download/policy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/policy.xml"
+
+// unzip the Collectors.zip
+if {windows of operating system} 
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\cuz.jar" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows2012-CSD" "{client folder of current site}\__Download\Collectors.zip" 	
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/cuz.jar" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD" "{client folder of current site}/__Download/Collectors.zip"	
+endif
+
+// unzip the RemediationScript.zip
+if {windows of operating system} 
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\cuz.jar" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows2012-CSD" "{client folder of current site}\__Download\RemediationScript.zip" RemediationScript
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/cuz.jar" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD" "{client folder of current site}/__Download/RemediationScript.zip" RemediationScript
+endif
+
+if {exit code of action != 0}
+exit {exit code of action}
+endif
+
+// create version.txt
+appendfile {now as string}
+appendfile Windows-2012-CSD-3.0L
+appendfile {parameter "version"}
+appendfile {parameter "build_id"}
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/version.txt"
+move __appendfile "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/version.txt"
+
+// Set the GTS_GCM_Enhanched_Scheduling_<site name> setting to DISABLED if the setting is empty or does not exists AND there is no GTS_<site name>_GCM_Dates setting
+if {( (not exists setting ("GTS_GCM_ENHANCED_SCHEDULING_"&(name of current site)) whose (value of it != "") of client) AND ((not exists values of setting ("GTS_"&(name of current site)&"_GCM_Dates") of client)|True) )}
+	setting "GTS_GCM_ENHANCED_SCHEDULING_{name of current site}"="DISABLED" on "{date (local time zone) of now & time (local time zone) of now}" for client
+endif
+
+			
+						if {exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD_backup") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/policy_parameters.txt"
+endif
+
+if {exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD_backup") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/localpolicy.xml"
+endif
+
+if {exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD_backup") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/freshness.txt"
+endif
+
+if {exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD_backup") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD/vault"
+endif
+
+folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-CSD_backup"
+			]]></ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

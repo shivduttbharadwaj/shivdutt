@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows-WAS-CSD Health Check Validity</Title>
+		<Description><![CDATA[This fixlet is relevant when the Health Check is not valid (ie. when there are one or more collector errors or an SQL error).
+      This fixlet is also relevant when the results file does not exist.
+		<p><small><b>Version:</b>&nbsp;3.9.0<br><b>Build ID:</b>&nbsp;20190123-2090</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-WAS-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		</Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-WAS-CSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+			(if (windows of operating system) then (
+				if (exists folder "C:\Program Files (x86)\IBM\WebSphere\AppServer" or exists folder "C:\Program Files\IBM\WebSphere\AppServer" or exists service whose (display name of it as lowercase contains "websphere application server")) then
+					true
+				else 
+				   false
+			)
+			else (
+				if (exists folder "/opt/IBM/WebSphere/AppServer" or exists folder "/usr/IBM/WebSphere/AppServer" or (exists(folders whose(exists folder "AppServer" of it ) of folder "/opt/WebSphere")|false) or (exists command line arguments whose (it as lowercase contains "websphere") of processes "java"|false)) then
+					true
+				else 
+					false		
+			))
+			
+				) 
+									or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | false) then
+		(exists (lines containing "SUBSYSTEM_TYPE=WAS" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | false)
+		else false)
+
+							)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+						
+		if (exists file "hcl_xout_0_0.log" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client | False) 
+		then 
+			if (exists lines whose (it contains "[FATAL]" or it contains "[ERROR]") of file "hcl_xout_0_0.log" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client | False) 
+			then True
+			else(
+					if (exists file "policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client | False) 
+					then (exists (line of (file "policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client)) whose (it contains "ERROR !!! "))
+					else True
+				)
+		else True
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>3.9.0</SourceID>
+		<SourceReleaseDate>2019-01-23</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-class</Name>
+			<Value>sentinel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>11180008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 15 Mar 2019 07:32:16 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

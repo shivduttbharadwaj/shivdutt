@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Installation Folders - IBM BigFix version 9.5.8 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><b>Version 9.5.8 of IBM BigFix is now available! <BR></b><BR>The following list of computers have outdated IBM BigFix Installers, created by the Installation Generator during initial installation. It is recommended that you upgrade these installation folders to install IBM BigFix 9.5 components so that all further installations of the IBM BigFix Server, Client, and Console will be the latest version.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+376 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(it >= "9.5" OR it < "9.2.17") of version of client]]></Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance><![CDATA[version of registration server >= "9.2.3"]]></Relevance>
+		<Relevance><![CDATA[((windows of it)AND(major version of it > 6 OR((major version of it = 6)AND((minor version of it >= 1)OR(service pack major version of it >= 2))))AND(platform id of it != 3)AND(architecture of it = "x86_64"))of operating system]]></Relevance>
+		<Relevance><![CDATA[((not exists(value "Version" of key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of it)whose(it as string as version >= "9.5.7.0"))OR(exists file "setup.exe" whose(version of it < "9.5.8.38")of folder "Server" of(value "InstallFolder" of key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of it as folder))OR(exists file "setup.exe" whose(version of it < "9.5.8.38")of folder "Console" of(value "InstallFolder" of key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of it as folder))OR(exists file "setup.exe" whose(version of it < "9.5.8.38")of folder "Client" of(value "InstallFolder" of key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of it as folder)))of registry]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>395067995</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-12-15</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 20 Dec 2017 10:09:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Install</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 02 Apr 2019 09:31:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade your IBM BigFix Installation folders.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (204432424 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (204432424 < free space of drive of parent folder of client)}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// Update the IBM BigFix Installation Folders if installed
+if {(exists key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of registry)}
+	// Update the IBM BigFix Installation Folders if installed
+	if {not exists(value "Version" of key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of registry)whose((it >= "9.5.7.0")of(it as string as version))}
+		prefetch BESFolders.exe sha1:e24735d25f41abfd965763f0ca0d001ecf2c97c2 size:204432424 http://software.bigfix.com/download/bes/95/BigFix-BES-9.5.8.38.exe sha256:dc128e4f4701cc36f74bfd970023c4d41b685744195110b215e4e9b244d14e03
+		regset "[HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer]" "Logging"="voicewarmupx"
+		move __Download\BESFolders.exe __Local\Upgrade\BESFolders.exe
+		override wait
+			completion=job
+		wait __Local\Upgrade\BESFolders.exe /s /Verbose"C:\besinstallationgeneratorupgrade.log" /v"REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable"
+		delete __Local\Upgrade\BESFolders.exe
+		action may require restart
+	else
+		parameter "installFolder"="{value "InstallFolder" of key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of registry}"
+		if {parameter "installFolder" ends with "\"}
+			parameter "installLocation"="{preceding text of last "\" of parameter "installFolder"}"
+		else
+			parameter "installLocation"="{parameter "installFolder"}"
+		endif
+		prefetch unzip.exe sha1:84debf12767785cd9b43811022407de7413beb6f size:204800 http://software.bigfix.com/download/redist/unzip-6.0.exe sha256:2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac
+		if {exists file "setup.exe" whose(version of it < "9.5.8.38") of folder "Server" of folder(parameter "installLocation")}
+			prefetch BESServerUpgrade.exe sha1:72646d64da996ac0a1233f880da7752268c2d259 size:84047424 http://software.bigfix.com/download/bes/95/BigFix-BES-Server-9.5.8.38.exe sha256:df74157c8b49fca47fb53ab7b955a14c82e07ae4289c674b114fc2f0126a7329
+			parameter "serverLocation"="{parameter "installLocation"}\Server\"
+			delete "{parameter "serverLocation"}ActionSite.afxm"
+			delete "{parameter "serverLocation"}masthead.afxm"
+			copy "{pathname of parent folder of parent folder of client folder of current site}\ActionSite.afxm" "{parameter "serverLocation"}masthead.afxm"
+			delete "{parameter "serverLocation"}setup.exe"
+			copy __Download\BESServerUpgrade.exe "{parameter "serverLocation"}setup.exe"
+		endif
+		if {exists file "setup.exe" whose(version of it < "9.5.8.38") of folder "Console" of folder(parameter "installLocation")}
+			prefetch BESConsoleUpgrade.exe sha1:e3c100966f9aefefc5e408be3f701c62fe7213c2 size:50693720 http://software.bigfix.com/download/bes/95/BigFix-BES-Console-9.5.8.38.exe sha256:6e262366989d298cfd0b364d92cf37778cb938803d0cefc1171d367cbdd39c62
+			parameter "consoleLocation"="{parameter "installLocation"}\Console\"
+			delete "{parameter "consoleLocation"}ActionSite.afxm"
+			delete "{parameter "consoleLocation"}masthead.afxm"
+			copy "{pathname of parent folder of parent folder of client folder of current site}\ActionSite.afxm" "{parameter "consoleLocation"}masthead.afxm"
+			delete "{parameter "consoleLocation"}setup.exe"
+			copy __Download\BESConsoleUpgrade.exe "{parameter "consoleLocation"}setup.exe"
+			parameter "cdtFolder"="{parameter "installLocation"}\ClientDeployTool"
+			parameter "cdtLocation"="{parameter "cdtFolder"}\BigFixClientDeploy.msi"
+			if {exists file (parameter "cdtLocation")}
+				prefetch BESCDTMSIBundle.zip sha1:8e825def66eaf97de93fd5626450e4e2970bfe9c size:26328887 http://software.bigfix.com/download/bes/95/BigFix-BES-CDTMSIBundle-9.5.8.38.zip sha256:685cce7b9e4886c27e7f62a5f311c89f66e19df420f4e741733b228e378c09d4
+				// Unzip the file overwriting existing files
+				waithidden __Download\unzip.exe -qq -o -d "{parameter "cdtFolder"}" __Download\BESCDTMSIBundle.zip
+			endif
+		endif
+		if {exists file "setup.exe" whose(version of it < "9.5.8.38") of folder "Client" of folder(parameter "installLocation")}
+			prefetch BESClientUpgrade.exe sha1:045c45e52bf2f34a53771caac878fab33c2a4e1a size:16695824 http://software.bigfix.com/download/bes/95/BigFix-BES-Client-9.5.8.38.exe sha256:93d14788f0712df268691d901894ecaccedd683cf1c16454dac031229621aee7
+			parameter "clientLocation"="{parameter "installLocation"}\Client\"
+			delete "{parameter "clientLocation"}ActionSite.afxm"
+			delete "{parameter "clientLocation"}masthead.afxm"
+			copy "{pathname of parent folder of parent folder of client folder of current site}\ActionSite.afxm" "{parameter "clientLocation"}masthead.afxm"
+			delete "{parameter "clientLocation"}setup.exe"
+			copy __Download\BESClientUpgrade.exe "{parameter "clientLocation"}setup.exe"
+		endif
+		if {exists file "BESClientSetupMSI.exe" whose(version of it < "9.5.8.38") of folder "ClientMSI" of folder(parameter "installLocation")}
+			prefetch BESClientMSIBundle.zip sha1:77c7e4c7a5bbbae2b5d72efa5a9665cee928aa22 size:12869716 http://software.bigfix.com/download/bes/95/BigFix-BES-ClientMSIBundle-9.5.8.38.zip sha256:f7b93d34227cb5f8c66f73c81f2519e1a18ebe2dabdde1862589ccf798376101
+			parameter "clientMSILocation"="{parameter "installLocation"}\ClientMSI\"
+			delete "{parameter "clientMSILocation"}ActionSite.afxm"
+			delete "{parameter "clientMSILocation"}masthead.afxm"
+			copy "{pathname of parent folder of parent folder of client folder of current site}\ActionSite.afxm" "{parameter "clientMSILocation"}masthead.afxm"
+			// Unzip the file overwriting existing files
+			waithidden __Download\unzip.exe -qq -o -d "{preceding text of last "\" of parameter "clientMSILocation"}" __Download\BESClientMSIBundle.zip
+			override wait
+				completion=job
+			wait "{parameter "clientMSILocation"}BESClientSetupMSI.exe" "{parameter "clientMSILocation"}masthead.afxm" "{parameter "clientMSILocation"}BigFixAgent.msi" /silent
+		endif
+	endif
+endif
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for manual upgrade instructions.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/bes/install/upgradebes.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

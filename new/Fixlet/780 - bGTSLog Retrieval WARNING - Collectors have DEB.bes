@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>GTS:Log Retrieval:** WARNING - Collectors have DEBUG/INFO Enabled **</Title>
+		<Description><![CDATA[<TABLE>
+		<TBODY>
+		<TR>
+		<TD><SPAN lang=EN><P>This fixlet detects all collectors (belonging to a specified policy) that have the "DEBUG" or "INFO" log level enabled.</P>
+		<P>The fixlet action resets all collectors of that policy to logging level "FATAL" on the specified endpoints.</P>
+		</SPAN></TD></TR></TBODY></TABLE>
+				<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190220-2115</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[if (version of client >= "9.2") then true else false]]></Relevance>
+		<Relevance><![CDATA[if (exists folder ("__GTS/__IEMHC/" & name of current site) of storage folder of client) then ( if (((exists names of find files "Log4j.properties" of (descendant folders of (it)) )) of folder ("__GTS/__IEMHC/" & name of current site) of storage folder of client) then ( if concatenation ":" of ( (if exists (concatenation of (substrings between "%20" of (concatenation "" of lines of file (it) ))) then (if (exists matches (regex "(\.|[0-9])(log4j\.rootLogger*=*FATAL.*)") of concatenation of (substrings between "%20" of (concatenation "" of lines of file (it) )))  then "FATAL" else "other") else "FALSE") of (((pathnames of find files "Log4j.properties" of (descendant folders of (it)) )) of folder ("__GTS/__IEMHC/" & name of current site) of storage folder of client) ) as string contains "other" then true else false) else false) else false]]></Relevance>
+		<Category>GCM</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-02-20</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>1200019</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 18 Mar 2019 10:06:59 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			if {name of operating system as lowercase starts with "win"}
+	parameter "GCM_LOG_FOLDER" = "{storage folder of client as string & "\__GTS\__IEMHC\" & name of current site as string}"
+
+	delete __createfile
+
+	//Create Batch file
+		
+	createfile until __END
+		@ECHO OFF
+		cd %~dp0
+		IF EXIST "all_ColProperties.dat" (
+		FOR /f "tokens=1,2,3,4 delims=:" %%a IN (all_ColProperties.dat) DO (
+		
+		echo %%d | findstr /lic:"FATAL" 1>nul
+			if errorlevel 1 (
+			
+				SETLOCAL ENABLEDELAYEDEXPANSION
+				SET actSetting=%%d
+				SET actSetting=!actSetting:DEBUG=FATAL!
+				SET actSetting=!actSetting:INFO=FATAL!
+
+				(FOR /f "tokens=1*delims=:" %%x IN ('findstr /n "^" "%%a:%%b"') DO (
+					SET "Line=%%y"
+					IF %%x equ %%c (
+						SET "Line=!actSetting!"
+						)
+					SETLOCAL ENABLEDELAYEDEXPANSION
+					ECHO(!Line!
+					ENDLOCAL
+					)
+				)>"%%a:%%b.new"
+				del /f /q "%%a:%%b"
+				copy /v /y "%%a:%%b.new" "%%a:%%b"
+				del /f /q "%%a:%%b.new"
+				)
+				ENDLOCAL
+			)	
+		) ELSE (
+
+				findstr /s /n /i /p /c:"log4j.rootLogger=" "{parameter "GCM_LOG_FOLDER"}\*.properties" > "{parameter "GCM_LOG_FOLDER"}\all_ColProperties.dat"
+
+				FOR /f "tokens=1,2,3,4 delims=:" %%a IN (all_ColProperties.dat) DO (
+				
+					echo %%d | findstr /lic:"FATAL" 1>nul
+					if errorlevel 1 (
+
+					SETLOCAL ENABLEDELAYEDEXPANSION
+					SET actSetting=%%d
+					SET actSetting=!actSetting:DEBUG=FATAL!
+					SET actSetting=!actSetting:INFO=FATAL!
+
+						(FOR /f "tokens=1*delims=:" %%x IN ('findstr /n "^" "%%a:%%b"') DO (
+							SET "Line=%%y"
+							IF %%x equ %%c SET "Line=!actSetting!"
+							SETLOCAL ENABLEDELAYEDEXPANSION
+							ECHO(!Line!
+							ENDLOCAL
+							)
+						)>"%%a:%%b.new"
+						del /f /q "%%a:%%b"
+						copy /v /y "%%a:%%b.new" "%%a:%%b"
+						del /f /q "%%a:%%b.new"
+						)
+					ENDLOCAL
+					)
+				)
+		)
+	__END
+
+	move __createfile "{parameter "GCM_LOG_FOLDER"}\Enable_Col_FATAL.cmd"
+
+	//Run Enable
+	waithidden cmd.exe /C "{parameter "GCM_LOG_FOLDER"}\Enable_Col_FATAL.cmd"
+	continue if {exit code of action = 0}
+
+	//Cleanup of Files
+	delete "{parameter "GCM_LOG_FOLDER"}\Enable_Col_FATAL.cmd"
+	delete "{parameter "GCM_LOG_FOLDER"}\all_ColProperties.dat"
+	
+else
+	parameter "GCM_LOG_FOLDER" = "{storage folder of client as string & "/__GTS/__IEMHC/" & name of current site as string}"
+	
+	delete __createfile
+
+	createfile until __END
+
+	#!/usr/bin/perl
+	use File::Basename;
+    use File::Find;
+
+	my @collector_log4j ="";
+	
+	find(\&wanted, "{parameter "GCM_LOG_FOLDER"}" );
+	
+	sub wanted {
+	        my $file_name = $_;
+	        print "filename: $file_name \n";
+	    if ( -f $file_name and $file_name =~ /Log4j.properties$/ ) {
+	                push @collector_log4j, $File::Find::name;
+	    }
+	}
+	chomp(@collector_log4j);
+
+	foreach (@collector_log4j) {
+	        my $cfile = $_;
+	        #split filename and directory
+	        my($fileNams, $dir, $ext) = fileparse($cfile);
+	        open(FILE, "<$cfile");
+	        my @lines = <FILE>;
+	        close(FILE);
+	
+	        my @newlines;
+	        foreach(@lines) {
+	           if ($_ =~ m/log4j\.rootLogger/i) {
+						$_ =~ s/\s*=\s*/=/g;
+						$_ =~ s/log4j\.rootLogger\=(DEBUG|INFO)/log4j\.rootLogger\=FATAL/g;
+			   }
+	           push(@newlines,$_);
+	        }
+			
+			open(FILE, ">$dir/Log4j.properties.new") || die "File not found";
+	        print FILE @newlines;
+	        close(FILE);
+	
+	        #Cleanup the files
+	        system("mv $dir/Log4j.properties.new $dir/Log4j.properties");
+	        system("rm -f $dir/Log4j.properties.new");
+	}
+
+	__END
+
+	delete "{parameter "GCM_LOG_FOLDER"}/Enable_Col_FATAL.pl"
+	move __createfile "{parameter "GCM_LOG_FOLDER"}/Enable_Col_FATAL.pl"
+	wait sh -c "chmod 755 {parameter "GCM_LOG_FOLDER"}/Enable_Col_FATAL.pl"
+	wait sh -c "perl {parameter "GCM_LOG_FOLDER"}/Enable_Col_FATAL.pl"
+	
+	delete "{parameter "GCM_LOG_FOLDER"}/Enable_Col_FATAL.pl"
+	delete "{parameter "GCM_LOG_FOLDER"}/Log4j.properties"
+	
+endif
+			]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Solaris Client - IBM BigFix version 9.5.11 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.5.11 of IBM BigFix is now available for the Solaris operating system!<BR><BR></STRONG>The latest version of the IBM BigFix Client provides several enhancements and fixes. This Fixlet can upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM BigFix Server and Relays have been upgraded. It may take several hours for the Clients to notice that the Server and Relays are upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.</P> <P><STRONG>Important Note: </STRONG>In rare cases the Client may fail to automatically start after the upgrade is complete, and must be manually started. Please contact technical support if this occurs. <P><STRONG>Note: </STRONG>This client runs on supported Solaris platforms on an x86 (version 10, 11) or a SPARC (versions 10, 11).</FONT></FONT></P></FONT></FONT></P></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+284 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client < "9.5.11.191" and version of client >= "7.2"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.5"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>(exists match (regex "SunOS 5.(10|11)") of it ) of name of operating system</Relevance>
+		<Relevance><![CDATA[if (version of client < "8.0") then true else ((not exists relay service) or (version of relay service >= "9.5.11"))]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>298377728</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2018-12-18</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 18 Dec 2018 16:03:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 18 Dec 2018 16:03:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Client 9.5.11 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {name of operating system contains "5.11"}
+	if {type of main processor contains "i386"}
+		prefetch BESClientUpgrade.pkg sha1:1e85915266a7c1d67a9f4c6602c5e9ec46c5ab7e size:88760832 http://software.bigfix.com/download/bes/95/BESAgent-9.5.11.191.x86_sol11.pkg sha256:da7ced80aa7e0ca46371831fd8884ca4655f6c6330f8d279dc3992440459587c
+	elseif {type of main processor contains "sparc"}
+		prefetch BESClientUpgrade.pkg sha1:539e186fd8d6ebb80f173c4befeebe5635442bb8 size:73482240 http://software.bigfix.com/download/bes/95/BESAgent-9.5.11.191.sparc_sol11.pkg sha256:3f23075b9b25097f9f4318fcc12d3f776bc6101a1161de6bc8acc6d27268d81d
+	endif
+elseif {name of operating system contains "5.10"}
+	if {type of main processor contains "i386"}
+		prefetch BESClientUpgrade.pkg sha1:a038ffbddccb8456d0880d166e22d36ce879c552 size:64418304 http://software.bigfix.com/download/bes/95/BESAgent-9.5.11.191.x86_sol10.pkg sha256:1dd4b89a986a10892549a76e9445fd7b03f1d94aa1a5513e200ef1a257d5d284
+	elseif {type of main processor contains "sparc"}
+		prefetch BESClientUpgrade.pkg sha1:7f34b12b06f42a29c165991dd856ecc190d134fa size:71716352 http://software.bigfix.com/download/bes/95/BESAgent-9.5.11.191.sparc_sol10.pkg sha256:7678dfaa5f30557041f28528949d09d4d75dd52dfb026eb68d968afd169cde51
+	endif
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESClientUpgrade.pkg"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {88760832 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESClientUpgrade.pkg __Local/Upgrade/BESClientUpgrade.pkg
+delete __appendfile
+appendfile mail=
+appendfile instance=overwrite
+appendfile partial=nocheck
+appendfile runlevel=nocheck
+appendfile idepend=nocheck
+appendfile space=ask
+appendfile setuid=nocheck
+appendfile conflict=nocheck
+appendfile action=nocheck
+appendfile basedir=default
+move __appendfile __Local/Upgrade/solaris_admin_file
+delete __appendfile
+appendfile #!/bin/sh
+if {version of client = "9.1"}
+	appendfile /usr/sbin/svccfg delete -f BESClient
+	appendfile /etc/init.d/besclient stop
+endif
+appendfile /usr/sbin/pkgrm -a __Local/Upgrade/solaris_admin_file -n BESagent
+appendfile /usr/bin/sleep 10
+appendfile if [ -f /etc/zones/index ]; then
+appendfile     # system supports Solaris zones
+appendfile     ZONE_ARG="-G"
+appendfile else
+appendfile     # system does not support Solaris zones
+appendfile     ZONE_ARG=
+appendfile fi
+appendfile /usr/sbin/pkgadd $ZONE_ARG -a __Local/Upgrade/solaris_admin_file -n -d __Local/Upgrade/BESClientUpgrade.pkg BESagent
+appendfile /bin/rm -f __Local/Upgrade/BESClientUpgrade.pkg
+appendfile /bin/rm -f __Local/Upgrade/solaris_admin_file
+move __appendfile __Local/Upgrade/besclientupgrade
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /bin/sh __Local/Upgrade/besclientupgrade]]></ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

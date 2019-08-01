@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>BES Server/Relays Have Indexing Service Enabled</Title>
+		<Description><![CDATA[
+The listed computers have BES Servers/Relays that have the Windows File Indexing service running. Indexing is used to speed up file searching, but can slow the performance of the BES Server/Relay because it will attempt to catalog the large number of temporary files that go through the BES Relay and BES Server. To improve BES performance, it is suggested that file indexing be turned off.<BR><BR><b>Note:</b> BES Client machines may briefly display a DOS window while the indexing service is turned off. 
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>name of operating system starts with "Win"</Relevance>
+		<Relevance>state of service "cisvc" = "Running" or start type of service "cisvc" = "auto" </Relevance>
+		<Category>BES Performance</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2004-07-01</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 28 Jun 2004 21:34:12 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to disable the Windows File Indexing service.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">wait changeservicestartmode cisvc demand
+wait {pathname of system folder}\net stop cisvc</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

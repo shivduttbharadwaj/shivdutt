@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>BES Component Versions</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size="2"> <P>This analysis contains information about the different BES component versions. This information is particularly useful after performing BES upgrades.</P> <P>After activating this analysis, you will see the following properties:</P> <UL><LI>BES Client Version</LI> <LI>BES Relay Version</LI> <LI>BES Console Version</LI> <LI>BES Server Version</LI> <LI>BES API Version</LI> <LI>BES Web Reports Version</LI> <LI>BES Client Deploy Tool Version</LI> <LI>BES WebUI Version</LI></UL></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>true </Relevance>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Oct 2004 01:15:18 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 18 Dec 2018 16:03:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="BES Client Version" ID="1">version of client</Property>
+		<Property Name="BES Relay Version" ID="2"><![CDATA[if (exists true whose(if true then (exists relay service) else false)) then (if (version of client >= "8.0") then (version of relay service as string) else (version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of relay service) as string)) else "Not Installed"]]></Property>
+		<Property Name="BES Console Version" ID="3">if (exists true whose(if true then (name of operating system starts with "Win" AND exists regapp "BESConsole.exe") else false)) then version of regapp "BESConsole.exe" as string else "Not Installed"</Property>
+		<Property Name="BES Server Version" ID="4"><![CDATA[if (exists true whose(if true then (exists main gather service) else false)) then (if (version of client >= "8.0") then (version of main gather service as string) else (version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of main gather service) as string)) else "Not Installed"]]></Property>
+		<Property Name="BES API Version" ID="5"><![CDATA[if (exists true whose(if true then (exists key "HKLM\SOFTWARE\BigFix\BESAPI\Paths" of registry) else false)) then version of file (value "base" of key "HKLM\SOFTWARE\BigFix\BESAPI\Paths" of registry as string & "BESAPI.dll") as string else "Not Installed"]]></Property>
+		<Property Name="BES Web Reports Version" ID="6"><![CDATA[if (exists true whose(if true then (exists service "BESWebReportsServer") else false)) then (if (version of client >= "8.0") then (version of service "BESWebReportsServer" as string) else (version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of service "BESWebReportsServer") as string)) else "Not Installed"]]></Property>
+		<Property Name="BES Client Deploy Tool Version" ID="7">if ( name of operating system starts with "Win" ) then if ( exists regapp "BESClientDeploy.exe" ) then version of regapp "BESClientDeploy.exe" as string else "Not Installed" else if ( ((it contains "Linux Red Hat") OR (it contains "CentOS") OR (it contains "Linux SuSE")) of name of operating system ) then if ( exists package "BESClientDeployTool" of rpm ) then if ( ( version of package "BESClientDeployTool" of rpm as string ) contains "-" ) then preceding text of first "-" of ( version of package "BESClientDeployTool" of rpm as string ) else version of package "BESClientDeployTool" of rpm as string else "Not Installed" else if ( name of operating system contains "Ubuntu" ) then if ( exists package "besclientdeploytool" of debianpackage ) then if ( ( version of package "besclientdeploytool" of debianpackage as string ) contains "-" ) then preceding text of first "-" of ( version of package "besclientdeploytool" of debianpackage as string ) else version of package "besclientdeploytool" of debianpackage as string else "Not Installed" else "Not Installed"</Property>
+		<Property Name="BES WebUI Version" ID="8"><![CDATA[if (version of client >= "9.5.3.211") then (if (exists webui service) then (version of webui service as string) else "Not Installed") else "Not Installed"]]></Property>
+	</Analysis>
+</BES>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>BES Client Helper Service</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><BR> <P><FONT size=2>This analysis contains status information about the&nbsp;BES Client Helper Service. The BES Client Helper will monitor and restart the BES Client service and can be installed with the task <SPAN id=upgradeLink></SPAN><SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; try {if (isEvansOrLater) {upgradeLink.innerHTML = Relevance('link "<?rxlat Install BES Client Helper Service?>" of fixlet 591 of (bes site whose (name of it = "BES Support"))');} else {upgradeLink.innerHTML = EvaluateRelevance('link "Install BES Client Helper Service" of fixlet 591 of (bes site whose (name of it = "BES Support"))');}} catch (e) {if (isEvansOrLater) {upgradeLink.innerHTML ='<?jxlat <b>Install BES Client Helper Service</b>?>';} else {upgradeLink.innerHTML = '<b>Install BES Client Helper Service</b>';} }</SCRIPT>.</P> <P>After activating this analysis, a new Health Check will appear in the Deployment Health Checks Dashboard and the following properties will be created.</P> <P>The BES Client Helper Service will first attempt a simple restart the BES Client if it is not running. If that does not work, it will try to fix the Revocations files as a troubleshooting step. If that does not work, it will attempt to remove the entire BES Client data directory. If that does not work, a restart failure is recorded.</P> <UL> <LI>BES Client Helper Status<LI>Number of BES Client Restart Failures<LI>Number of Data Directory Failures<LI>Number of Revocations Failures<LI>Number of Times Restarted</LI></UL> <P><STRONG>Note:</STRONG>&nbsp;All properties will be listed under the 'BES Client Helper Service' category.</FONT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>name of operating system != "WinME" AND name of operating system != "Win98" AND name of operating system != "Win95"</Relevance>
+		<Relevance>exists service "BESClientHelper"</Relevance>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 31 Oct 2008 22:29:09 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 27 Sep 2018 12:50:57 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="BES Client Helper Service::BES Client Helper Status" ID="1">if (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" whose (exists value "Status" of it) of registry) then "No BES Client Restarts" else (value "Status" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" of registry) as string</Property>
+		<Property Name="BES Client Helper Service::Number of BES Client Restart Failures" ID="2">if (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" whose (exists value "TimesFailed" of it) of registry) then "0" else (value "TimesFailed" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" of registry) as string</Property>
+		<Property Name="BES Client Helper Service::Number of Data Directory Failures" ID="3">if (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" whose (exists value "TimesDataDirFixed" of it) of registry) then "0" else (value "TimesDataDirFixed" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" of registry) as string</Property>
+		<Property Name="BES Client Helper Service::Number of Revocations Failures" ID="4">if (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" whose (exists value "TimesRevocationsFixed" of it) of registry) then "0" else (value "TimesRevocationsFixed" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" of registry) as string</Property>
+		<Property Name="BES Client Helper Service::Number of Times Restarted" ID="5">if (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" whose (exists value "TimesRestarted" of it) of registry) then "0" else (value "TimesRestarted" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper" of registry) as string</Property>
+	</Analysis>
+</BES>

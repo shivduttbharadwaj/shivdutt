@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>License Overrides</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><?hxlat To have a summary of default metrics and where non-default metrics are applied. ?></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>if exists property "in agent context" then ( in agent context ) else true</Relevance>
+		<Relevance>(if (windows of it) then (platform id of it != 3) else (name of it as lowercase does not contain "android") ) of operating system</Relevance>
+		<Source>Internal</Source>
+		<SourceReleaseDate>2015-11-23</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jun 2016 12:47:50 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 29 Jun 2016 12:47:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="DefaultMetric" ID="1">(if ( it starts with "win" )then ( if ( it contains "mobile" or product type of operating system is nt workstation product type ) then "ClientDevice" else "RVU" ) else if ( it contains "os x" and it contains "server") then "RVU" else if (it contains "os x") then  "ClientDevice" else if (it contains "linux" or it contains "aix"  or it contains "sun" or it contains "hp-ux" ) then "RVU"  else "Undefined" ) of ( name of operating system as lowercase )</Property>
+		<Property Name="ClientDevice Overrides" ID="2">concatenation " " of substrings separated by "_" of (concatenation "," of substrings(length of "_BESClient_LicenseType_",length of it - length of "_BESClient_LicenseType_") of (names of( (settings of client) whose (value of it contains "ClientDevice"))))</Property>
+		<Property Name="RVU Overrides" ID="3">concatenation " " of substrings separated by "_" of (concatenation "," of substrings(length of "_BESClient_LicenseType_",length of it - length of "_BESClient_LicenseType_") of (names of( (settings of client) whose (value of it contains "RVU"))))</Property>
+		<Property Name="MVS Overrides" ID="4">concatenation " " of substrings separated by "_" of (concatenation "," of substrings(length of "_BESClient_LicenseType_",length of it - length of "_BESClient_LicenseType_") of (names of( (settings of client) whose (value of it contains "MVS"))))</Property>
+		<Property Name="License Override Status" ID="5">number of names of( (settings of client) whose (name of it contains "_BESClient_LicenseType_")) is greater than 0</Property>
+	</Analysis>
+</BES>

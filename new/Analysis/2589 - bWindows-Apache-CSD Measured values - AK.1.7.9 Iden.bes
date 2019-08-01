@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>Windows-Apache-CSD Measured values - AK.1.7.9 Identify and Authenticate Users/009 Web Server ID</Title>
+		<Description><![CDATA[
+		The userid must not hold Security/System Administrator Authorities.<BR/><BR/><B>ITSSCSD Section:&nbsp;</B>AK.1.7.9
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		
+		]]></Description>
+		<Relevance><![CDATA[exists folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Apache-CSD") of storage folder of client]]></Relevance>
+		<Relevance><![CDATA[exists find files "*result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-Apache-CSD") of storage folder of client]]></Relevance>
+		<Category>Middleware</Category>
+		<MIMEField>
+			<Name>x-fixlet-scm-analysis-id</Name>
+			<Value>702F603A-0C4D-FA79-F6CE-90CB286AD407</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>           {    "fusion_supported_platforms" : "Windows Server 2008 and up, up to Apache 2.4.x, IBM HTTP Server 6.0.x, 7.0.x",    "description" : "The userid must not hold Security\/System Administrator Authorities.",    "scm_parameters" : {     "properties" : {      "1" : {       "type" : "string",       "description" : "This is the result of the check.",       "title" : "Result"      },      "2" : {       "type" : "string",       "description" : "This is the expected settings or other criteria of the check.",       "title" : "Expected"      }     }    },    "title" : "Windows-Apache-CSD Measured values - AK.1.7.9 Identify and Authenticate Users\/009 Web Server ID"   }         </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>2117002</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 06:34:51 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<Property Name="Result" ID="1"><![CDATA[ 				 		if exists file "Identify_and_Authenticate_Users_009_Web_Server_ID.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client then 			if exists lines of file "Identify_and_Authenticate_Users_009_Web_Server_ID.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client then 				lines of file "Identify_and_Authenticate_Users_009_Web_Server_ID.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client 			else 				"Pass" 		else 			"Missing Result" 		]]></Property>
+		<Property Name="Expected" ID="2"><![CDATA[ 				 		if exists file "Identify_and_Authenticate_Users_009_Web_Server_ID.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client then 			((if (key "expected" of section "metadata" of file "Identify_and_Authenticate_Users_009_Web_Server_ID.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client) = regex "\s*" then (if (exists key "description" of section "metadata" of file "Identify_and_Authenticate_Users_009_Web_Server_ID.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client) then (key "description" of section "metadata" of file "Identify_and_Authenticate_Users_009_Web_Server_ID.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client) else "" ) else	(key "expected" of section "metadata" of file "Identify_and_Authenticate_Users_009_Web_Server_ID.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client)) | (if (exists key "description" of section "metadata" of file "Identify_and_Authenticate_Users_009_Web_Server_ID.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client) then (key "description" of section "metadata" of file "Identify_and_Authenticate_Users_009_Web_Server_ID.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows-Apache-CSD") of storage folder of client) else "" ))  		else 			"Missing Expected" 		]]></Property>
+	</Analysis>
+</BES>

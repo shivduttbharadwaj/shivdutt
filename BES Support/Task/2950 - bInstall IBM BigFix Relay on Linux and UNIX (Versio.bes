@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install IBM BigFix Relay on Linux and UNIX (Version 9.2.11)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><B>Installs the IBM BigFix Relay 9.2.11 on the selected Linux or UNIX computers. <BR><BR></B>The target must have a IBM BigFix Client of 9.2.11 to install.<BR><BR></FONT><FONT size=2>For more information on IBM BigFix Relays, please visit the following support web pages:</P> <UL> <LI><A href="http://support.bigfix.com/bes/misc/besrelays.html">IBM BigFix Relay FAQ</A> - Information on using IBM BigFix Relays to reduce bandwidth on slow WAN links, increase scalability, and increase performance. <LI><A href="http://support.bigfix.com/bes/misc/besrelayhealth.html">IBM BigFix Relay Health</A> - Information on best practices for setting up and maintaining IBM BigFix Relays.</FONT></LI></UL></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+91.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance>version of registration server = "9.2"</Relevance>
+		<Relevance>version of client = "9.2.11"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>((exists match (regex "Linux Red Hat Enterprise (Server|Client|Workstation) (5|6|7)") of it) OR (exists match (regex "CentOS (5|6|7)") of it) OR (exists match (regex "SunOS 5.(10|11)") of it) OR (exists match (regex "(AIX|AIX VIOS) (6.1|7.1)") of it) OR (exists match (regex "Linux SuSE Enterprise (Desktop|Server) 11") of it)) of name of operating system</Relevance>
+		<Relevance>not exists relay service</Relevance>
+		<Relevance>not exists main gather service</Relevance>
+		<Relevance>if (name of operating system starts with "Linux") then (((exists match (regex "^i[6-9]86$") of it) OR (it = "x86_64")) of architecture of operating system) else true</Relevance>
+		<Relevance>if (name of operating system starts with "SunOS") then (exists processor whose ((type of it contains "sparc") OR (type of it contains "i386"))) else true</Relevance>
+		<Relevance><![CDATA[if (name of operating system = "AIX 6.1") then ((architecture of operating system = "ppc64") AND (exists true whose (if true then (current technology level of operating system >= "6100-04") else false))) else true]]></Relevance>
+		<Relevance>if ((it = "AIX 7.1" OR it = "AIX 7.2") of name of operating system) then (architecture of operating system = "ppc64") else true</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>96301800</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-07-10</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 13 Jul 2017 13:38:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 13 Jul 2017 13:38:51 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the IBM BigFix Relay 9.2.11.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {(28467712 < free space of drive of client folder of current site) AND (28467712 < free space of drive of folder "/opt")}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+
+if {exists match (regex "SunOS 5.(10|11)") of name of operating system}
+	if  {exists processor whose (type of it contains "sparc")}
+		prefetch BESRelay.pkg sha1:31d5cc9e04d44de7eb364f91cbc609952d01477b size:28467712 http://software.bigfix.com/download/bes/92/BESRelay-9.2.11.19.sparc_sol10.pkg sha256:99b28a8bfcb244174fd2b8f3c93d6bb9716a677bba3b7227fc872c800af1a90b
+	else
+		prefetch BESRelay.pkg sha1:fe9e5354685fd24456e3f1dd31bb244decd98064 size:24572928 http://software.bigfix.com/download/bes/92/BESRelay-9.2.11.19.x86_sol10.pkg sha256:50223564b043c827d74620b0a05400a8a1514bcf45ac0fe6d4c5d80842136e48
+	endif
+	continue if {exists file "__Download/BESRelay.pkg"}
+	move __Download/BESRelay.pkg __Local/Upgrade/BESRelay.pkg
+	delete __appendfile
+	appendfile mail=
+	appendfile instance=overwrite
+	appendfile partial=nocheck
+	appendfile runlevel=nocheck
+	appendfile idepend=nocheck
+	appendfile space=ask
+	appendfile setuid=nocheck
+	appendfile conflict=nocheck
+	appendfile action=nocheck
+	appendfile basedir=default
+	move __appendfile __Local/Upgrade/solaris_admin_file
+	delete __appendfile
+	appendfile #!/bin/sh
+	appendfile if [ -f /etc/zones/index ]; then
+	appendfile     # system supports Solaris zones
+	appendfile     ZONE_ARG="-G"
+	appendfile else
+	appendfile     # system does not support Solaris zones
+	appendfile     ZONE_ARG=
+	appendfile fi
+	appendfile /usr/sbin/pkgadd $ZONE_ARG -a __Local/Upgrade/solaris_admin_file -n -d __Local/Upgrade/BESRelay.pkg BESRelay
+	move __appendfile __Local/Upgrade/installrelay
+	wait /bin/sh __Local/Upgrade/installrelay
+	wait /etc/init.d/besrelay start_skipclientrestart
+	delete __Local/Upgrade/BESRelay.pkg
+
+elseif {name of operating system starts with "AIX"}
+	if {((exists match (regex "AIX (6.1|7.)") of name of operating system)) AND (architecture of operating system = "ppc64") }
+		prefetch BESRelay.pkg sha1:4116e51e06815fa74849812ee0a6e8b007c6b2cf size:23959552 http://software.bigfix.com/download/bes/92/BESRelay-9.2.11.19.ppc64_aix61.pkg sha256:fc9bc0afb3c0811d072453f562e2d8928d0a54bc283cda1e8bc3d62ceaf02c47
+	else
+		continue if false
+	endif
+	continue if {exists file "__Download/BESRelay.pkg"}
+	move __Download/BESRelay.pkg /var/tmp/BESRelay.pkg
+	wait installp -agqYXd /var/tmp/BESRelay.pkg BESRelay
+	wait /etc/rc.d/rc2.d/SBESRelayd start_skipclientrestart
+	delete /var/tmp/BESRelay.pkg
+
+else // RPM Variants
+	if {((((exists match (regex "Linux Red Hat Enterprise (Server|Client|Workstation) (5|6|7)") of it) OR (exists match (regex "CentOS (5|6|7)") of it)) of name of it) AND (architecture of it = "x86_64")) of operating system}
+		prefetch BESRelay.rpm sha1:831c974c7efaedef287767a5276f6cec26573ef9 size:5601111 http://software.bigfix.com/download/bes/92/BESRelay-9.2.11.19-rhe5.x86_64.rpm sha256:42e2df41acf1b9688c81486e808382a0ba4f6d4cf411bdd2130745581750fc8e
+	elseif {((((exists match (regex "Linux Red Hat Enterprise (Server|Client|Workstation) (5|6)") of it) OR (exists match (regex "CentOS (5|6)") of it)) of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+		prefetch BESRelay.rpm sha1:49c23e16fe420bc4d18b07fda0f7b1d62cebe8a5 size:5077261 http://software.bigfix.com/download/bes/92/BESRelay-9.2.11.19-rhe5.i686.rpm sha256:63adc74327151013af6b815620b6760a4d0019b8bf09c20bb204f8beece900cf
+	elseif {((exists match (regex "Linux SuSE Enterprise (Desktop|Server) 11") of name of it) AND (architecture of it = "x86_64")) of operating system}
+		prefetch BESRelay.rpm sha1:9dee41c361c62376e791626adeb0fcb2642d3663 size:4592181 http://software.bigfix.com/download/bes/92/BESRelay-9.2.11.19-sle11.x86_64.rpm sha256:107351bab73c9db6aef698004bc7bd27d0690a4e7e215bbb78fa2908e75e8b11
+	elseif {((exists match (regex "Linux SuSE Enterprise (Desktop|Server) 11") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+		prefetch BESRelay.rpm sha1:4d51cda8f419a3512fb5bf3e7265d67da780e344 size:4031055 http://software.bigfix.com/download/bes/92/BESRelay-9.2.11.19-sle11.i686.rpm sha256:15192f94a7b85bed35f1d42482a9b1bb8be82bd31b6c270d8d4982aae355fb3b
+	else
+		continue if false
+	endif
+	continue if {exists file "__Download/BESRelay.rpm"}
+	move __Download/BESRelay.rpm __Local/Upgrade/BESRelay.rpm
+	wait rpm -i __Local/Upgrade/BESRelay.rpm
+	wait /etc/init.d/besrelay start_skipclientrestart
+	delete __Local/Upgrade/BESRelay.rpm
+
+endif
+parameter "startTime" = "{apparent registration server time}"
+pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+// Now force a relay selection to our newly installed relay
+relay select]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance">not((exists it AND running of it AND version of it = "9.2.11") of relay service)</SuccessCriteria>
+		</DefaultAction>
+	</Task>
+</BES>

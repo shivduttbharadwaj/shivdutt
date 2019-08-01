@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title><![CDATA[BES Clients in License Grace Period Due to Incorrect Clock - BES < 7.0]]></Title>
+		<Description><![CDATA[
+The computers listed have entered the license expiration grace period because their clocks are incorrectly set.&nbsp; Within the next month they will enter restricted mode and no longer report fixlet relevance or allow you to take actions.&nbsp; In order to guarantee that they continue to work correctly with the BigFix Enterprise System, you should adjust their clocks to the correct date. 
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>expiration state of client license = "Grace"</Relevance>
+		<Relevance><![CDATA[apparent registration server time < expiration date of client license]]></Relevance>
+		<Relevance><![CDATA[(now - apparent registration server time) > 1 * day]]></Relevance>
+		<Relevance><![CDATA[version of client < "7"]]></Relevance>
+		<Category>Licensing</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2002-04-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 31 Jan 2002 16:49:07 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink><![CDATA[ to synchronize the BES Client clocks to the clock of the BES Server.<BR><BR><b>NOTE: You must disable the "expire action" option on the Constraints tab in the Take Action dialog to successfully execute this action</b>. This is due to the fact that expiration relies on correct clock times to function, and the computers affected by this action have incorrect clock settings. ]]></PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">set clock</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

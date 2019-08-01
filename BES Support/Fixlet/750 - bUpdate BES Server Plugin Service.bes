@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Update BES Server Plugin Service</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>An update to the BES Server Plugin Service is available.</P> <P>The BES Server Plugin Service is required by several BigFix&nbsp;Applications to facilitate automation of processes that require communication with the BES Server and Webreports.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.79 MB
+ </DIV>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance>(if ( it contains "Win" ) then (exists services whose(service name of it = "BESRootServer")) else if ( it contains "Linux" ) then (exists package "BESRootServer" of rpm) else false) of name of operating system</Relevance>
+		<Relevance>(if (it contains "Win") then (exists service "BESPluginService") else if (it contains "Linux") then (exists (folder "/var/opt/BESServer/Applications") whose (exists file "MFS-Linux" of it)) else false) of name of operating system</Relevance>
+		<Relevance><![CDATA[(if (it contains "Win") then (exists (folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications")) whose (exists file "MFS.exe" whose (version of it < "2.0.0.4") of it)) else if (it contains "Linux") then ((exists (folder "/var/opt/BESServer/Applications") whose (exists file "MFS-Linux" of it) AND (NOT exists package "MFS-Linux" of rpms)) OR (exists package "MFS-Linux" whose (version of it < "2.0.0.0") of rpms)) else false) of name of operating system]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>1840128</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-12-17</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 01 Aug 2012 01:09:07 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to update the BES Server Plugin Service.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[//= Windows =//
+if { name of operating system contains "Win" }
+
+prefetch MFS.bfa sha1:51597fb9e4a215af55970f346bc9bd701851338e size:878822 http://software.bigfix.com/download/bes/util/MFS-Win32-2.0.0.4.bfa sha256:dd92b3414499ac9a0cf1fc3db3aba6f29486d7fd6b317b559de97c3c9bcedc4b
+
+extract MFS.bfa
+
+// stop plugin service
+waithidden "{pathname of (folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications")) & "\MFS.exe"}" -stop
+
+// uninstall and remove
+waithidden "{pathname of (folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications")) & "\MFS.exe"}" -uninstall
+delete "{pathname of (folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications")) & "\MFS.exe"}"
+
+// copy password set by mfs v2.0.0.0
+parameter "configRegKey" = "HKEY_LOCAL_MACHINE\Software\Bigfix\Enterprise Server\BESReports"
+parameter "oldConfigRegKey" = "HKEY_LOCAL_MACHINE\Software\Bigfix\Enterprise Server\MFSConfig"
+
+if { ((exists key (parameter "oldConfigRegKey") whose (exists value "SOAPPassword" whose (it != "") of it) of it) AND (not exists key (parameter "configRegKey") whose (exists value "SOAPPasswordIsEncrypted" whose (it = "2") of it) of it)) of registry }
+
+	regset "[{parameter "configRegKey"}]" "SOAPUsername"="{value "SOAPUsername" of key (parameter "oldConfigRegKey") of registry}"
+	regset "[{parameter "configRegKey"}]" "SOAPPassword"="{value "SOAPPassword" of key (parameter "oldConfigRegKey") of registry}"
+	regset "[{parameter "configRegKey"}]" "WRHTTP"="{value "WRHTTP" of key (parameter "oldConfigRegKey") of registry}"
+	regset "[{parameter "configRegKey"}]" "SOAPPasswordIsEncrypted"="2"
+	
+	regdelete "[(parameter "oldConfigRegKey")]" "SOAPUsername"
+	regdelete "[(parameter "oldConfigRegKey")]" "SOAPPassword"
+	regdelete "[(parameter "oldConfigRegKey")]" "WRHTTP"
+
+endif
+
+// copy plugin service over and install
+copy __Download\MFS-Win32.exe "{pathname of (folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications")) & "\MFS.exe"}"
+copy __Download\MFS.dll "{pathname of (folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications")) & "\MFS.dll"}"
+waithidden "{pathname of (folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications")) & "\MFS.exe"}" -install
+
+// restart plugin service
+waithidden "{pathname of (folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications")) & "\MFS.exe"}" -start
+
+
+//= Linux =//
+elseif { name of operating system contains "Linux" }
+
+// download new plugin service
+if { architecture of operating system = "x86_64" }
+	prefetch MFS-Linux.rpm sha1:c0c47c190c6b3ea8a303d1dbcaaaf19c1863221c size:1632008 http://software.bigfix.com/download/bes/util/MFS-Linux-2.0.0.0-rhel.x86_64.rpm sha256:365b7b860e2b49c79943dced3d9a5e18abd9dfd559e828409eae5dd03005aff0
+else
+	prefetch MFS-Linux.rpm sha1:33e9244e3df8184ecd243e3a0a35f0346da37c62 size:1610265 http://software.bigfix.com/download/bes/util/MFS-Linux-2.0.0.0-rhel.i386.rpm sha256:28621f41b48713be1045a8af692f938ea7ac765ac162e90b7acd34884ba7c0ba
+endif
+
+delete /tmp/MFS-Linux.rpm
+move __Download/MFS-Linux.rpm /tmp/MFS-Linux.rpm
+
+// Stop old service
+wait service mfs stop
+
+// Install service
+wait rpm -U /tmp/MFS-Linux.rpm
+delete /tmp/MFS-Linux.rpm
+
+// Start service.
+wait service mfs start
+
+endif]]></ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

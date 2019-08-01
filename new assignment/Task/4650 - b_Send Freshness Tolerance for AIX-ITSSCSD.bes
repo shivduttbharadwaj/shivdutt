@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>_Send Freshness Tolerance for AIX-ITSSCSD</Title>
+		<Description><![CDATA[This task will create a freshness tolerance file on the endpoint for AIX-ITSSCSD. Review the action of this task to see and change the freshness sent to the endpoint.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190612-2172</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[
+				exists folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-ITSSCSD") of storage folder of client
+
+		]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-06-12</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>30010011</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 25 Jun 2019 12:09:26 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			action parameter query "freshness" with description "Please enter the number of tolerance days (between 1 and 30). Empty or invalid input will default to 5." and with default value "5"
+
+if {(((it as string as integer | 5) of parameter "freshness") is less than ((it as integer) of "1")) or (((it as string as integer | 5) of parameter "freshness") is greater than ((it as integer) of "30"))}
+	parameter "freshness_days" = "{((it as integer) of "5")}"
+else
+	parameter "freshness_days" = "{((it as string as integer | 5) of parameter "freshness")}"
+endif
+
+createfile until --qGs7SPXJMX59YEz--
+{(it as string as integer | 5) of parameter "freshness_days"}
+--qGs7SPXJMX59YEz--
+
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/freshness.txt"
+move __createfile "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-ITSSCSD/freshness.txt"
+
+			</ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

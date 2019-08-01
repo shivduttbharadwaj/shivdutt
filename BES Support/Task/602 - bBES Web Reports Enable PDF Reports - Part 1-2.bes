@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Web Reports: Enable PDF Reports - Part 1/2</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>BES Web Reports now has the ability to generate PDF reports. PDFs can be sent by clicking the "Email Report" link or by setting the "PDF" format option when creating or editing a scheduled activity. </P> <P>This feature is disabled by default. Use this task to enable this feature on the server hosting the BESWebReportsServer service. This task will take up to the following actions:</P> <UL> <LI>Install Internet Explorer 7 <LI>Install GPL GhostScript 8.60 <LI>Add your Web Reports host to Internet Explorer's trusted sites list for the system account <LI>Modify your PATH to include GhostScript <LI>Set registry values to enable this feature under the key "HKLM\Software\BigFix\Enterprise Server\BESReports" <LI>Add a PostScript file printer named "BES Web Reports Printer"</LI></UL> <P><STRONG>Note:</STRONG>Until version 9.5.12 Adobe Flash Player 9 or greater for Internet Explorer is required. Please run Fixlet ID #716 to install Flash.</P> <P><STRONG>Note: </STRONG>Enabling the PDF Email Reports feature of BES Web Reports requires a system restart. Affected computers may report back as 'Pending Restart' once the task has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display DOS windows during action execution.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT> </STRONG>This is the first in a series of two tasks that enable PDF email reports. Depending on client system configuration,&nbsp;<SPAN id=partTwoLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetPartTwoLink; function SetPartTwoLink() { try {if (isEvansOrLater) { partTwoLink.innerHTML = Relevance('link "<?rxlat part two?>" of fixlet whose (id of it = 603) of bes site whose (id of it = 1)');} else { partTwoLink.innerHTML = EvaluateRelevance('link "part two" of fixlet whose (id of it = 603) of bes site whose (id of it = 1)');} } catch (e) {if (isEvansOrLater) { partTwoLink.innerHTML ='<?jxlat part two (BES Web Reports: Enable PDF Reports - Part 2/2, ID: 603)?>';} else { partTwoLink.innerHTML = 'part two (BES Web Reports: Enable PDF Reports - Part 2/2, ID: 603)';} } }</SCRIPT> &nbsp;may become relevant after client machines have been restarted. Client machines which do not become relevant for part two require no further action to enable PDF email reports.</P> <P><B><FONT color=red>Important Note:</FONT></B> An operating system patch is required for this fixlet to become relevant for servers running Windows 2012 and 2012R2. In order to apply the HotFix, administrators must visit <A href="https://support.microsoft.com/en-us/kb/2954953">https://support.microsoft.com/en-us/kb/2954953</A>, request the patch from Microsoft and apply the patch.</P> <P><B><FONT color=red>Important Note:</FONT></B>If the fixlet fails because of the missing printer driver "Xerox Phaser 6180MFP-D PS" then follow the steps of technote <A href="http://www-01.ibm.com/support/docview.wss?uid=swg21979724">http://www-01.ibm.com/support/docview.wss?uid=swg21979724</A>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists service "BESWebReportsServer"</Relevance>
+		<Relevance><![CDATA[((name of it = "Win2003" AND service pack major version of it >= 1) OR ((version of registration server >= "7.2") AND (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008"))) AND (exists regapp "iexplore.exe")) OR ((version of registration server >= "8") AND ((name of it = "Win2008R2") OR (name of it = "Win8") OR (name of it = "Win2012") OR (name of it = "Win2012R2") OR (name of it = "Win2016")) AND (exists regapp "iexplore.exe"))) of operating system]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\Software\Bigfix\Enterprise Server" whose (value "BESWebReportsInstalled" of it = 1) of registry</Relevance>
+		<Relevance><![CDATA[version of registration server >= "7.0.9"]]></Relevance>
+		<Relevance><![CDATA[NOT ((version of regapp "iexplore.exe" >= "7") AND (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry) AND (exists folder "macromed\flash" whose (exists file whose (((it starts with "flash" AND it ends with ".ocx") OR (it = "swflash.ocx")) of (name of it as lowercase) AND version of it >= "9") of it) of system folder) AND (exists key ("HKEY_USERS\" & ((if it = "LocalSystem" then "S-1-5-18" else if it = "LocalService" then "S-1-5-19" else if it = "NetworkService" then "S-1-5-20" else (string value of select (("SID from Win32_UserAccount where NAME='" & following text of last "\" of it & "' and DOMAIN='" & ((if it = "." then computer name else it) of preceding text of last "\" of it) & "'") of ((login account of service "BESWebReportsServer") as string)) of wmi)) of login account of service "BESWebReportsServer") & "\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\" & (first match (regex "^[^:]+") of first match (regex "[^/]+$") of (it as string)) of value "Hostname" of key "HKLM\SOFTWARE\BigFix\Enterprise Server\Installer\" of registry) whose (exists value "http" whose (it = 2) of it AND exists value "https" whose (it = 2) of it) of registry) AND (exists key "HKLM\Software\BigFix\Enterprise Server\BESReports" whose (((exists value "PDFEnable" whose (it = "1") of it) OR (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports" whose (exists value (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps") of it) of native registry)) AND value "PDFPostScriptPath" of it = (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps") AND value "PDFPrinterName" of it = "BES Web Reports Printer") of registry) AND (exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" whose ((exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" whose (exists value "UninstallString" of it) of registry) AND ((it contains parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\bin" AND it contains parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\lib") of (value "Path" of it as string))) of registry) AND (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports" whose (exists value (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps") of it) of native registry) AND (exists key ("HKU\" & ((if it = "LocalSystem" then "S-1-5-18" else if it = "LocalService" then "S-1-5-19" else if it = "NetworkService" then "S-1-5-20" else (string value of select (("SID from Win32_UserAccount where NAME='" & following text of last "\" of it & "' and DOMAIN='" & ((if it = "." then computer name else it) of preceding text of last "\" of it) & "'") of ((login account of service "BESWebReportsServer") as string)) of wmi)) of login account of service "BESWebReportsServer") & "\Software\Microsoft\Internet Explorer\PageSetup") of registry))]]></Relevance>
+		<Relevance><![CDATA[if (version of regapp "iexplore.exe" < "7") then (((it contains "English" OR (it contains "Turkish" AND NOT x64 of operating system) OR it contains "Italian" OR (it contains "Hungarian" AND NOT x64 of operating system) OR it contains "Spanish" OR (it contains "Polish" AND NOT x64 of operating system) OR (it contains "Dutch" AND NOT x64 of operating system) OR it contains "Korean" OR it contains "French" OR it contains "German" OR it contains "Japanese" OR (it contains "Czech" AND NOT x64 of operating system)) of language of version block of file "kernel32.dll" of system folder) OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)) else (true)]]></Relevance>
+		<Relevance><![CDATA[if(version of registration server < "9.5.13") then (exists folder "macromed\flash" whose (exists file whose (((it starts with "flash" AND it ends with ".ocx") OR (it = "swflash.ocx")) of (name of it as lowercase) AND version of it >= "9") of it) of system folder) else true]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>60539632</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 28 Aug 2008 21:05:30 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Web</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 May 2019 12:25:04 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {(name of it = "Win2012R2" OR name of it = "Win2012" OR name of it = "Win2008R2" OR name of it = "Win2016") of operating system}
+    // If the next line fails then to complete this action you have to install the "Xerox Phaser 6180MFP-D PS" printer driver according to the note of the fixlet description.
+    continue if {exists (string values whose (it contains "Xerox Phaser 6180MFP-D PS") of selects "Name from Win32_PrinterDriver" of wmi)}
+endif
+
+// Set up a param for SID of Web Reports user
+
+parameter "WRUser" = "{((if (it = "LocalSystem") then ("S-1-5-18") else if (it = "LocalService") then ("S-1-5-19") else if (it = "NetworkService") then ("S-1-5-20") else if (it contains "@") then (component string of sid of security account (it)) else (string value of select (("SID from Win32_UserAccount where NAME='" & following text of last "\" of it & "' and DOMAIN='" & ((if it = "." then computer name else it) of preceding text of last "\" of it) & "'") of ((login account of service "BESWebReportsServer") as string)) of wmi)) of login account of service "BESWebReportsServer")}"
+
+// Install IE 7 - Note that IE7 is on Win2k8 by default
+// We filter out Server Core installations using IE existance in the OS relevance clause
+
+if {NOT (version of regapp "iexplore.exe" >= "7")}
+
+if {(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)}
+
+if {NOT x64 of operating system}
+// Win2k3 x86
+prefetch IE7.exe sha1:9b2c08067fc5f9cf6706ef0df80dd40720b5b3d7 size:15424376 http://download.microsoft.com/download/D/1/3/D1346F12-F3A0-4AC6-8F5C-2BEA2A184957/IE7-WindowsServer2003-x86-enu.exe sha256:6091e550b37335f2936289d3f78f9f89acf598dc6aaab1e21c8a3ad48f67ca25
+else
+// Win2k3 x64
+prefetch IE7.exe sha1:1b9ef0777397b6781bbc27a90d4d9894f19adeb1 size:29662072 http://download.microsoft.com/download/1/1/4/114D5B07-4DBC-42F3-96FA-2097E207D0AF/IE7-WindowsServer2003-x64-enu.exe sha256:1050f2620a2646ca007a473953ee2e6cba6f561ce88df34a681e7680a4a6d032
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "Turkish"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:1c055699ba3f630ea0167f5c267429db015ca5e4 size:14716960 http://download.microsoft.com/download/9/f/a/9fa2379b-0420-4cf3-8400-77f8fe2e6d73/IE7-WindowsServer2003-x86-trk.exe sha256:1dba08e2774e7d8f53c3f7e4ab8322dc0d7bcdefce979313c7d8e15a2fd95c7b 
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "Italian"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:9936deffdbaaa88219d58ab81bcfa7f2884715cb size:14693920 http://download.microsoft.com/download/a/3/7/a3791872-7811-4838-a25f-9a2c146fccf0/IE7-WindowsServer2003-x86-ita.exe sha256:5808a99843519510f72f53bc0461d5b4a74736e233572f1ebf5c25d5603e8211
+else
+prefetch IE7.exe sha1:f3e0579989ea38a6a0f7959be11f2baf2798f8bf size:28170784 http://download.microsoft.com/download/0/6/f/06fb567f-cdf5-4105-94a1-055a79284675/IE7-WindowsServer2003-x64-ita.exe sha256:305c040443fb6e77ec217803eb389e8498389f7a1db13d8c876cdd19b898e68c
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "Hungarian"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:cabf21f27d8d87c567580c06f8024800d9b69fff size:14757408 http://download.microsoft.com/download/6/0/5/6057afc9-4af2-4604-90dc-ee9398df53e5/IE7-WindowsServer2003-x86-hun.exe sha256:bb3d0c77bb6d3c666dd1cf221014231f221fd05218760f52a40462312578e4bd
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "Spanish"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:5bba334da49dc2847d224a4e342c261048557fa0 size:14735904 http://download.microsoft.com/download/0/8/f/08f1dd85-aef5-4975-8c3b-015b0453b459/IE7-WindowsServer2003-x86-esn.exe sha256:89e29ac3a599732e93985e2a4aeb7ca56b3e4d3fc1bd44c52cdccaa9a0556725
+else
+prefetch IE7.exe sha1:47c8cadc4926755e4d4a0e0380c84ca175bf3ee0 size:28213280 http://download.microsoft.com/download/e/f/a/efaf7be9-41ee-4c7c-b632-ef496384315c/IE7-WindowsServer2003-x64-esn.exe sha256:004eeb5648828df69cfdebdd05f3833646c2c71b3f9b50547f8e803a189c4910
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "Polish"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:4bbd4f9657a7e3de987aff7ef7181d385af3b316 size:14765600 http://download.microsoft.com/download/6/9/4/6945d2a0-d65b-4f99-94ca-d1606ba40e13/IE7-WindowsServer2003-x86-plk.exe sha256:5154df2586b4353e89e17c8b35663252454d905b6c27be4dfd4b91a3178cc151
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "Dutch"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:d73c006c4550a5a15d600190142b901722d4060b size:14721056 http://download.microsoft.com/download/d/6/5/d6572a97-f8fb-45c8-a46d-d87d76da9e27/IE7-WindowsServer2003-x86-nld.exe sha256:c679b94cc85c9d0d5db0f8defd0e82e5966d3407a449b1e7769ca0f2b244f80b
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "Korean"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:9520b3df8b2a9f85e8508e583b640ee1af67ee63 size:14674976 http://download.microsoft.com/download/6/e/6/6e6f3da3-fd07-4ca7-8855-d92d363df4d2/IE7-WindowsServer2003-x86-kor.exe sha256:7048d8f3abe0e57f0378cdb42745246d22c6301548179222a3202c74fbca718f
+else
+prefetch IE7.exe sha1:1ab387990a51462bf956e75b225084322df72c46 size:28127776 http://download.microsoft.com/download/e/c/c/ecc5e4c9-6723-4a47-8f1b-b7e61cef60fc/IE7-WindowsServer2003-x64-kor.exe sha256:2447892146c9bb692facef56e350268dd3bcb67f5fbdd7c6f44f987b4a3ab724
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "French"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:f990da4eef1f82ae3361323d3ba8df33c40e7a5f size:14739488 http://download.microsoft.com/download/d/9/b/d9bf3563-354b-488d-ae16-b124b87bd9d2/IE7-WindowsServer2003-x86-fra.exe sha256:926b431d32bb5899793b9f12b90c470febefc4ab74570bea4b7f4fc619897784
+else
+prefetch IE7.exe sha1:c4602ccaa2359dc8bfebae546c30d25b57121ef8 size:28224032 http://download.microsoft.com/download/4/c/1/4c13107b-f29f-4275-aa0f-50bb73a818df/IE7-WindowsServer2003-x64-fra.exe sha256:8172b619c88343f625454f4d261cf44b70814a124915ec364fb841138a390979
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "German"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:c814262213c0f4cc5c181a674fd56c3c0a9e8538 size:14755360 http://download.microsoft.com/download/d/2/c/d2c2815e-54c1-437c-9897-dac2421ac5d4/IE7-WindowsServer2003-x86-deu.exe sha256:565f794e26893c7e67ceac88425eb8eaeca462f844cb0899cebe00fd3d0b5aa3
+else
+prefetch IE7.exe sha1:4d50a30f5339ee42cb0c56bd52c1cb134ce4bc38 size:28239904 http://download.microsoft.com/download/c/9/f/c9ffc610-1207-4935-9193-a88ef6bfe62c/IE7-WindowsServer2003-x64-deu.exe sha256:0eaa71cb04548670c7fb93c9ce2cdf4acedcdc887bfa1ed28fe04449de35f9d8
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "Japanese"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:bb0aa8b5281a4f5402151fcd223b65d7ccf015a2 size:14749216 http://download.microsoft.com/download/e/a/7/ea7336db-875f-47ed-9a73-d492bbbbd11e/IE7-WindowsServer2003-x86-jpn.exe sha256:93fcb336b6c11120796c9b3373b5da07875e5cb4d43b54220a415d04524045cb
+else
+prefetch IE7.exe sha1:4bc875301de470d0bd6002dcb996bc2c396bee04 size:28226592 http://download.microsoft.com/download/a/b/1/ab16de4a-e36d-41db-b32c-4fb54d1b775b/IE7-WindowsServer2003-x64-jpn.exe sha256:88a525d05dd24fb9e6b548a528a4155eddcc56ab5a7e738bab15ff7c7abab934
+endif
+
+elseif {language of version block of file "kernel32.dll" of system folder contains "Czech"}
+
+if {NOT x64 of operating system}
+prefetch IE7.exe sha1:d5b0ed6eec01c1844344dcc1108762368bb55b7e size:14747680 http://download.microsoft.com/download/c/d/c/cdcd2a45-bbc1-4869-bb60-0d046df1b621/IE7-WindowsServer2003-x86-csy.exe sha256:d3b0d8c72cad87b7819726ae83f7fc6121b0c59757c2597306311748d19a77fe
+endif
+
+endif
+
+wait __Download\IE7.exe /quiet /update-no /no-default /norestart
+
+if {exists regapp "BESConsole.exe"}
+regset "[HKEY_LOCAL_MACHINE\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BLOCK_LMZ_SCRIPT]" "BESConsole.exe"=dword:00000000
+endif
+
+endif
+
+// Install GhostScript
+
+if {NOT (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry)}
+
+// Get unzip
+prefetch unzip-5.52.exe sha1:e1652b058195db3f5f754b7ab430652ae04a50b8 size:167936 http://software.bigfix.com/download/redist/unzip-5.52.exe sha256:8d9b5190aace52a1db1ac73a65ee9999c329157c8e88f61a772433323d6b7a4a
+
+// Get GS
+prefetch gs860w32.exe sha1:583a23798936fc0fe0922038547e0893377392ea size:12289536 https://sourceforge.net/projects/ghostscript/files/GPL%20Ghostscript/8.60/gs860w32.exe sha256:4936c58b55c23296e4a6ccf38971c43343b1fa7c5f7f18c202a5a39ebe1acaf6
+
+delete __appendfile
+delete install_gs.bat
+appendfile @ECHO OFF
+
+// Unzip it
+appendfile "{pathname of client folder of current site}\__Download\unzip-5.52.exe" -o -qq "{pathname of client folder of current site}\__Download\gs860w32.exe" -d "{pathname of client folder of current site}\__Download"
+
+// Install it
+appendfile cd "{pathname of client folder of current site}\__Download"
+appendfile setupgs.exe "{((if x64 of operating system then value "ProgramFilesDir (x86)" of it else value "ProgramFilesDir" of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry)}\gs"
+
+move __appendfile install_gs.bat
+waithidden install_gs.bat
+
+endif
+
+// Add WR to trusted sites list - Works if BESWebReportsServer service is run as LocalSystem, LocalService, NetworkService, or a local user.
+
+if {NOT (exists key ("HKEY_USERS\" & (parameter "WRUser") & "\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\" & (first match (regex "^[^:]+") of first match (regex "[^/]+$") of (it as string)) of value "Hostname" of key "HKLM\SOFTWARE\BigFix\Enterprise Server\Installer\" of registry) whose (exists value "http" whose (it = 2) of it) of registry)}
+
+regset "[{"HKEY_USERS\" & (parameter "WRUser") & "\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\" & (first match (regex "^[^:]+") of first match (regex "[^/]+$") of (it as string)) of value "Hostname" of key "HKLM\SOFTWARE\BigFix\Enterprise Server\Installer\" of registry}]" "http"=dword:00000002
+
+endif
+
+if {NOT (exists key ("HKEY_USERS\" & (parameter "WRUser") & "\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\" & (first match (regex "^[^:]+") of first match (regex "[^/]+$") of (it as string)) of value "Hostname" of key "HKLM\SOFTWARE\BigFix\Enterprise Server\Installer\" of registry) whose (exists value "https" whose (it = 2) of it) of registry)}
+
+regset "[{"HKEY_USERS\" & (parameter "WRUser") & "\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\" & (first match (regex "^[^:]+") of first match (regex "[^/]+$") of (it as string)) of value "Hostname" of key "HKLM\SOFTWARE\BigFix\Enterprise Server\Installer\" of registry}]" "https"=dword:00000002
+
+endif
+
+// Modify PATH - Note that we can assume that GS reg keys exist at this point
+// We have to use vbscript because regset doesn't handle REG_EXPAND_SZ values properly
+
+if {NOT (exists key "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" whose ((it contains parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\bin" AND it contains parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\lib") of (value "Path" of it as string)) of registry)}
+
+delete __appendfile
+delete mod_path.vbs
+
+appendfile Set Shell = CreateObject( "WScript.Shell" )
+appendfile Shell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\Path", "{(((if exists match (regex ";$") of it then parenthesized part 1 of first match (regex "^(.*);$") of it else it) of parenthesized part 1 of first match (regex "^(.*)%00$") of it) & ((if it does not contain parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\bin" then ";" & parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\bin" else "") & (if it does not contain parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\lib" then ";" & parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\lib" else ""))) of ((value "Path" of key "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry) as string)}", "REG_EXPAND_SZ"
+
+move __appendfile mod_path.vbs
+
+delete __appendfile
+delete mod_path.bat
+appendfile @ECHO OFF
+appendfile wscript //NoLogo "{pathname of client folder of current site & "\mod_path.vbs"}"
+move __appendfile mod_path.bat
+waithidden mod_path.bat
+
+endif
+
+// Set regkeys - save PDFEnable for the second action
+// unless we're going to finish here
+
+if {(NOT exists key "HKLM\Software\BigFix\Enterprise Server\BESReports" whose (value "PDFEnable" of it = "1") of registry) AND (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports" whose (exists value (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps") of it) of native registry)}
+regset "[HKEY_LOCAL_MACHINE\Software\BigFix\Enterprise Server\BESReports]" "PDFEnable"="1"
+endif
+
+if {NOT exists key "HKLM\Software\BigFix\Enterprise Server\BESReports" whose (value "PDFPostScriptPath" of it = (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps")) of registry}
+regset "[HKEY_LOCAL_MACHINE\Software\BigFix\Enterprise Server\BESReports]" "PDFPostScriptPath"="{escape of (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps")}"
+endif
+
+if {NOT exists key "HKLM\Software\BigFix\Enterprise Server\BESReports" whose (value "PDFPrinterName" of it = "BES Web Reports Printer") of registry}
+regset "[HKEY_LOCAL_MACHINE\Software\BigFix\Enterprise Server\BESReports]" "PDFPrinterName"="BES Web Reports Printer"
+endif
+
+// Add HKU\[WR User]\Software\Microsoft\Internet Explorer\PageSetup if necessary (automatic in Campbell and onward)
+
+if {NOT (exists key ("HKU\" & (parameter "WRUser") & "\Software\Microsoft\Internet Explorer\PageSetup") of registry)}
+
+// Use regedit since we're setting a key and not a value
+delete __appendfile
+delete set_pagesetup_key.reg
+
+appendfile Windows Registry Editor Version 5.00
+appendfile
+appendfile [{("HKEY_USERS\" & (parameter "WRUser") & "\Software\Microsoft\Internet Explorer\PageSetup")}]
+
+move __appendfile set_pagesetup_key.reg
+delete __appendfile
+delete set_pagesetup_key.bat
+appendfile @ECHO OFF
+appendfile regedit /s "{pathname of client folder of current site & "\set_pagesetup_key.reg"}"
+move __appendfile set_pagesetup_key.bat
+waithidden set_pagesetup_key.bat
+
+endif
+
+// Add PS printer
+
+if {NOT (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\BES Web Reports Printer" of registry)}
+
+// Make the __pdf directory
+if {NOT exists folder (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\")}
+
+delete __appendfile
+delete add_ps_dir.bat
+
+appendfile @ECHO OFF
+appendfile mkdir "{((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\"}"
+
+move __appendfile add_ps_dir.bat
+waithidden add_ps_dir.bat
+
+endif
+
+// Add the port (this requires a restart to take effect)
+if {NOT (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports" whose (exists value (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps") of it) of native registry)}
+
+if {x64 of operating system}
+regset64 "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports]" "{escapes of (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps")}"=""
+else
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports]" "{escapes of (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps")}"=""
+endif
+
+else
+
+// Add the printer
+// This can *only* be performed now if the port already existed,
+// hence the else above. Otherwise, part 2 of the task is required.
+delete __appendfile
+delete add_ps_printer.bat
+
+appendfile @ECHO OFF
+appendfile rundll32 printui.dll,PrintUIEntry /q /if /b "BES Web Reports Printer" /f %windir%\inf\ntprint.inf /r "{((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps"}" /m "{if name of operating system = "Win2003" then "Apple Color LW 12/660 PS" else if (((version of registration server >= "7.2") AND (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008"))) AND (exists regapp "iexplore.exe")) of operating system) then "Canon PS-NX90" else "Xerox Phaser 6180MFP-D PS"}"
+
+move __appendfile add_ps_printer.bat
+waithidden add_ps_printer.bat
+
+// Settings from BESMakePDF to make Win2k8 pick up the printer right away
+
+regset "[{"HKEY_USERS\" & (parameter "WRUser") & "\Software\Microsoft\Windows NT\CurrentVersion\Windows"}]" "Device"="BES Web Reports Printer,winspool,Ne00:"
+
+endif // end - Add the port
+
+endif // end - Add PS printer
+
+// Restart
+
+action requires restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about BES Web Reports.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/product/documents/BESWebReports-7.0.pdf</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about enabling the PDF Email Reports feature of BES Web Reports.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/support/knowledgecenter/en/SS2TKN_8.2.0/com.ibm.tem.doc_8.2/Platform/Web_Reports/c_exporting_web_reports_as_pdf_d.html</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Internet Explorer 7.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://msdn2.microsoft.com/en-us/ie/aa740486.aspx</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about GPL GhostScript 8.60.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://pages.cs.wisc.edu/~ghost/doc/GPL/gpl860.htm</ActionScript>
+		</Action>
+	</Task>
+</BES>

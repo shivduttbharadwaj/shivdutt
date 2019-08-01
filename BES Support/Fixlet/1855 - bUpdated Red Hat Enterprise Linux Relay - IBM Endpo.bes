@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Red Hat Enterprise Linux Relay - IBM Endpoint Manager version 9.2.0 Now Available! (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.2.0 of IBM Endpoint Manager is now available for Red Hat Enterprise Linux operating systems!<BR><BR></STRONG>The latest version of the IBM Endpoint Manager Relay provides several enhancements and fixes. This Fixlet can upgrade all Relays on the targeted computers.<BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to a 9.2 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note:</FONT></STRONG></FONT><FONT color=#000000> This Fixlet message will only become relevant on computers after the IBM Endpoint Manager Server has been upgraded. Clients will notice that the IBM Endpoint Manager Server is updated and will begin to report any other upgrade Fixlets relevant (the clients by default check once per six hours for the version of the server on registration). This fixlet will also update the Client on any Relay installation.<BR><BR><STRONG>Note:</STRONG> It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Relays and Clients will get upgraded.<BR><BR><STRONG>Note:</STRONG> This upgrade may take several minutes to run because the IBM Endpoint Manager Client will also be replaced as part of the upgrade process and the Clients will not report their action results right away.</FONT></FONT></P> <P><STRONG>Note:</STRONG> This relay runs on supported Red Hat Enterprise Linux platforms on 64-bit (versions 5, 6, 7) and 32-bit (versions 5, 6) processors.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+28.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client >= "8.0"]]></Relevance>
+		<Relevance>version of registration server = "9.2"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (5|6|7)") of name of operating system</Relevance>
+		<Relevance>((it = "x86_64") OR ((exists match (regex "^i[6-9]86$") of it) of it)) of architecture of operating system</Relevance>
+		<Relevance><![CDATA[exists relay service whose (version of it < "9.2.0.363")]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>30328242</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2014-10-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 20 Oct 2014 22:37:22 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager Relay and Client 9.2.0 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {((exists match (regex "Red Hat.* (5|6|7)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+	prefetch BESRelayUpgrade.rpm sha1:daf0c54d7f25f727733f046dc160c5512c96646c size:5102878 http://software.bigfix.com/download/bes/92/BESRelay-9.2.0.363-rhe5.x86_64.rpm sha256:fedafd7bee8a6e9b7172211f8623064ba9547256edf1fe54ee26bd8af6378d1c
+elseif  {((exists match (regex "Red Hat.* (5|6)") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+	prefetch BESRelayUpgrade.rpm sha1:eb2ffb943aee0c3784e586c791ed65062f86ed55 size:4945090 http://software.bigfix.com/download/bes/92/BESRelay-9.2.0.363-rhe5.i686.rpm sha256:7e1d3179ed2136ea94a12ebe3e8b65031234d36f19629c9f06833ce7d83519b5
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESRelayUpgrade.rpm"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {10141259 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESRelayUpgrade.rpm __Local/Upgrade/BESRelayUpgrade.rpm
+parameter "RunningRelay"="{exists running service "BESRelay"}"
+wait /etc/init.d/besrelay stop
+wait rpm -U __Local/Upgrade/BESRelayUpgrade.rpm
+if {"True" = parameter "RunningRelay"}
+	wait /etc/init.d/besrelay start_skipclientrestart
+	parameter "startTime" = "{apparent registration server time}"
+	pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+	relay select
+	// Fails here if a previously running relay did not start up
+	continue if {exists running service "BESRelay"}
+endif
+continue if {exit code of action = 0 AND version of relay service = "9.2.0.363"}
+delete __Local/Upgrade/BESRelayUpgrade.rpm
+if {version of client < "9.2.0.363"}
+	if {((exists match (regex "Red Hat.* (5|6|7)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+		prefetch BESClientUpgrade.rpm sha1:d88f2b00ccd3a05f09abcaccbc6eb9ce74ec2901 size:10141259 http://software.bigfix.com/download/bes/92/BESAgent-9.2.0.363-rhe5.x86_64.rpm sha256:09163a6631548387b3db2f2f8c0d2953fef7fbe7816514049eeca6770bcba232
+	elseif  {((exists match (regex "Red Hat.* (5|6)") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+		prefetch BESClientUpgrade.rpm sha1:860cabf5e81c68c78c551a0b9fa9e49d52636c12 size:10139015 http://software.bigfix.com/download/bes/92/BESAgent-9.2.0.363-rhe5.i686.rpm sha256:28137a53398d70fec76f2b553dbf0bd02e8cc85a6446676aa63ced788338b270
+	else
+		// No Known Configuration
+		continue if false
+	endif
+	continue if {exists file "__Download/BESClientUpgrade.rpm"}
+	move __Download/BESClientUpgrade.rpm __Local/Upgrade/BESClientUpgrade.rpm
+	delete __createfile
+	createfile until __EOF
+#!/bin/sh
+/bin/rpm -U __Local/Upgrade/BESClientUpgrade.rpm
+/etc/init.d/besclient start
+/bin/rm -f __Local/Upgrade/BESClientUpgrade.rpm
+__EOF
+	move __createfile __Local/Upgrade/besclientupgrade
+	// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+	wait /bin/sh __Local/Upgrade/besclientupgrade
+endif]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[(not exists relay service) OR (version of relay service < "9.2.0.363") OR (version of client < "9.2.0.363")]]></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information about relays.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/TEM%20Relays</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

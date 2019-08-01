@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Client Setting: Designate Wake-on-LAN Forwarders</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><LINK rel=stylesheet type=text/css href="descriptionTable.css">This Task will configure selected clients to forward the "Wake-on-LAN" packet to computers within their respective subnets.</P> <P>If a subnet does not have an active Wake-on-LAN packet forwarder, BigFix will not be able to awaken machines in that subnet using Wake-on-LAN.&nbsp; </P> <P>In addition to the existing TEM Wake-on-LAN technology, the new BESWolMedic.exe (version 1.5.30 or above) uses a directed broadcast wake-up technology that does not require any Wake-on-LAN forwarder and Last Man Standing computers. Your TEM Server firewall may prompt a network security warning on the first time the utility is running.</P><P>If the permission to access the network is not approved at your TEM Server, no directed broadcast will be issued. Nevertheless, the existing TEM Wake-on-LAN technology will continue to work.</P><DIV style="DISPLAY: none" id=activateMessage></DIV> <DIV style="WIDTH: 600px; DISPLAY: none" id=results></DIV> <SCRIPT type=text/javascript src="sorttable.js"></SCRIPT> <SCRIPT type=text/javascript src="EnableClientWakeOnLAN.js"></SCRIPT> <P></P> <P>Without automatic relay selection, the forwarder will not be effective until the BES Client registers again, which can take up to one day.</P> <P><STRONG>Note:</STRONG> Do <STRONG>not</STRONG> set the "Reapply" behavior when taking this action or you may cause the BES Client to constantly perform auto relay selection. </P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG>&nbsp;Depending on the details of your network,&nbsp;causing all the BES Clients to simultaneously do relay autoselection might cause a heavy load on the routers while they handle the ICMP traffic from the BES Clients. If you are worried about this, use the "temporal distribution" option&nbsp;in the Execution tab of the Take Action dialog when sending this action.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not exists setting "_BESClient_Comm_WakeOnLanForwardingEnable" whose(value of it = "1") of client </Relevance>
+		<Relevance>not (name of operating system contains "Android")</Relevance>
+		<Category>Wake-on-LAN</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2010-08-13</SourceReleaseDate>
+		<SourceSeverity>N/A</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 05 Aug 2008 16:16:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>Manage_WOL_Forwarders</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 14 Nov 2017 18:36:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to designate Wake-on-LAN packet forwarders without automatic relay selection.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">setting "_BESClient_Comm_WakeOnLanForwardingEnable"="1" on "{parameter "action issue date" of action}" for client</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to designate Wake-on-LAN packet forwarders with automatic relay selection.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">setting "_BESClient_Comm_WakeOnLanForwardingEnable"="1" on "{parameter "action issue date" of action}" for client
+
+relay select</ActionScript>
+		</Action>
+	</Task>
+</BES>

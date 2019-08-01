@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows Firewall is Blocking BES Traffic - BES Relay/Server</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Windows Firewall replaced Internet Connection Firewall starting in Windows XP SP2 and Windows 2003 SP1.&nbsp;The listed computers have the Windows Firewall enabled and&nbsp;configured to block inbound traffic on the port used by BES (BES uses port 52311 by default). <BR></FONT><FONT size=2><BR>Both UDP and TCP packets are used by the BES Server and BES Relays to send information about new actions and fixlets. After configuring Windows Firewall to allow inbound traffic on the BES Listen Port, BES Servers and BES Relays will resume normal communication.<BR><B><BR>Note:</B> After this action is applied, affected BES Relays will not report until they have performed their standard once-per-day gather or until the BES Relay is restarted.<BR><BR><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT>&nbsp;If the listed computers' firewall settings are being administered through a domain group policy, the results of this action may be overwritten by that policy. The actions below will only affect the local firewall policy, and will not affect any group firewall policy settings that may have been applied by a domain administrator. If your firewall has been configured via a domain group policy, these actions may report back as 'Failed', and the firewall must be disabled or configured through group policy instead.</FONT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance><![CDATA[version of client >= "5.1.1.50"]]></Relevance>
+		<Relevance><![CDATA[((name of it = "WinXP" AND (it != "" AND last 1 of it > "1") of csd version of it) OR ((name of it = "Win2003" OR name of it = "WinXP-2003") AND csd version of it != "")) of operating system]]></Relevance>
+		<Relevance>exists file "netsh.exe" of system folder</Relevance>
+		<Relevance><![CDATA[(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall" of registry AND firewall enabled of current profile of local policy of firewall) OR (exists key ("HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\" & (if (current profile type of firewall = domain firewall profile type) then ("DomainProfile") else ("StandardProfile"))) whose (value "EnableFirewall" of it = 1) of registry)]]></Relevance>
+		<Relevance><![CDATA[exists key (if (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall" of registry) then ("HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\") else ("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\") & (if (current profile type of firewall = domain firewall profile type) then ("DomainProfile") else ("StandardProfile"))) whose (value "DoNotAllowExceptions" of it = 1) of registry OR ((not exists globally open port whose (enabled of it AND port of it as string = (value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry as string) AND protocol of it = tcp) of current profile of local policy of firewall) AND (exists internet connection firewall whose (enabled of it AND (not exists port mapping whose (enabled of it AND protocol of it = "tcp" AND internal port of it as string = (value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry as string)) of it)) of adapters of network) AND (not exists authorized application whose (enabled of it AND (it ends with "besrelay.exe" OR it ends with "filldb.exe") of (process image file name of it as lowercase)) of current profile of local policy of firewall)) OR ((not exists globally open port whose (enabled of it AND port of it as string = (value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry as string) AND protocol of it = udp) of current profile of local policy of firewall) AND (exists internet connection firewall whose (enabled of it AND (not exists port mapping whose (enabled of it AND protocol of it = "udp" AND internal port of it as string = (value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry as string)) of it)) of adapters of network) AND (not exists authorized application whose (enabled of it AND (it ends with "besclient.exe") of (process image file name of it as lowercase)) of current profile of local policy of firewall))]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2005-10-03</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 12 Sep 2005 20:37:53 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 Nov 2017 15:01:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to leave Windows Firewall enabled, but also allow incoming traffic on the port reserved for BES.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of system folder}\netsh.exe" firewall add portopening protocol=UDP port={value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry} name="BES Client" mode=ENABLE profile=ALL
+
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of system folder}\netsh.exe" firewall add portopening protocol=TCP port={value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry} name="BES Relay" mode=ENABLE profile=ALL
+
+regset "{"[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\" & (if (current profile type of firewall = domain firewall profile type) then ("DomainProfile") else ("StandardProfile")) & "]"}" "DoNotAllowExceptions"=dword:00000000]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to disable Windows Firewall.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[regset "{"[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\" & (if (current profile type of firewall = domain firewall profile type) then ("DomainProfile") else ("StandardProfile")) & "]"}" "EnableFirewall"=dword:00000000]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Windows Firewall from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://msdn.microsoft.com/en-us/library/cc875811.aspx</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on how to make this action a "policy" action that will automatically open the BES port on any computer that has this Fixlet message relevant.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=113</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

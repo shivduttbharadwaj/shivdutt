@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Client - IBM BigFix version 9.2.6 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><B>Version 9.2.6 of IBM BigFix is now available!<BR><BR></B>The latest version of the IBM BigFix Client provides several enhancements and fixes. This Fixlet can upgrade clients on all targeted computers. <BR><BR><FONT color=red><B>You must upgrade your Relays to a 9.2 version before upgrading your Clients.</B></FONT><BR><BR><B>Note: </B>This Fixlet message will only become relevant on computers after the IBM BigFix Server and Relays have been upgraded. It may take several hours for the clients to notice that the IBM BigFix Server and Relays are upgraded.<BR><BR><B>Note: </B>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old clients will get upgraded.<BR><BR><B>Note: </B>This upgrade may take several minutes to run because the client service will be restarted as part of the upgrade process and the clients will not report their action results right away.<BR><BR></P><SPAN id=upgradeLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; try {if (isEvansOrLater) {upgradeLink.innerHTML = Relevance('if (exists applicable computers of (fixlet 524 of (bes site whose (name of it = "BES Support")))) then ((format "<?rxlat <b>Important Note: </b>In order to deploy the IBM BigFix Client 9.2.6 upgrade to clients with an older version of the Client Logging Service, you must first upgrade the Client Logging Service to 7.1.0.15 or greater. Please use the Fixlet message: {0} to facilitate the upgrade process.</p>?>" + (link "<?rxlat Upgrade BES Client Logging Service?>" of fixlet 524 of (bes site whose (name of it = "BES Support")) as string) ) as string) else ("")');} else {upgradeLink.innerHTML = EvaluateRelevance('if (exists applicable computers of (fixlet 524 of (bes site whose (name of it = "BES Support")))) then ("<b>Important Note: </b>In order to deploy the IBM BigFix Client 9.2.6 upgrade to clients with an older version of the Client Logging Service, you must first upgrade the Client Logging Service to 7.1.0.15 or greater. Please use the Fixlet message: " & (link "Upgrade BES Client Logging Service" of fixlet 524 of (bes site whose (name of it = "BES Support")) as string) & " to facilitate the upgrade process.</p>") else ""');} } catch (e) {if (isEvansOrLater) {upgradeLink.innerHTML ='<?jxlat <b>Important Note:</b> In order to deploy the IBM BigFix Client 9.2.6 upgrade to clients with an older version of the Client Logging Service, you must first upgrade the Client Logging Service to 7.1.0.15 or greater. Please use the Fixlet message ID 524: "Upgrade BES Client Logging Service" in the BES Support site to facilitate the upgrade process.?>';} else {upgradeLink.innerHTML = '<b>Important Note:</b> In order to deploy the IBM BigFix Client 9.2.6 upgrade to clients with an older version of the Client Logging Service, you must first upgrade the Client Logging Service to 7.1.0.15 or greater. Please use the Fixlet message ID 524: "Upgrade BES Client Logging Service" in the BES Support site to facilitate the upgrade process.';} }</SCRIPT><BR><STRONG>Note:</STRONG> This client supports Windows versions XP (SP3 or later), XPe (SP3 or later), XP-2003 (SP2 or later), 2003 (SP2 or later), or Vista and above on a Pentium III or better.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+11.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client < "9.2.6.94" and version of client >= "7.2"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.2"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[((name of it starts with "Win") AND ((major version of it > 5) OR ((major version of it = 5) AND ((minor version of it = 1 AND service pack major version of it >= 3) OR (minor version of it = 2 AND service pack major version of it >= 2)))) AND (platform id of it != 3)) of operating system]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2.0") of system folder]]></Relevance>
+		<Relevance><![CDATA[(not exists relay service) OR ("9.2.6" <= (if (version of client >= "8.0") then (version of relay service) else (version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of relay service))))]]></Relevance>
+		<Relevance><![CDATA[(not exists main gather service) OR ("9.2.6" <= (if (version of client >= "8.0") then (version of main gather service) else (version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of main gather service))))]]></Relevance>
+		<Relevance><![CDATA[(not exists service "BESClientLoggingService") OR ("7.1.0.15" <= (if (version of client >= "8.0") then (version of service "BESClientLoggingService") else (version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of service "BESClientLoggingService"))))]]></Relevance>
+		<Relevance>(x64 of it OR ia64 of it) of operating system OR (bit 25 of feature mask of main processor)</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>11967320</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2015-11-05</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 16 Nov 2015 18:07:45 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Client 9.2.6 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {not exists regapp "BESClient.exe"}
+    regset "[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\App Paths\BESClient.exe]" ""="{escapes of (pathname of client as string)}"
+    regset "[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\App Paths\BESClient.exe]" "Path"="{escapes of (parent folder of client as string)}\\"
+endif
+prefetch BESClientUpgrade.exe sha1:b3409062cc1fb885c2ba0aecd5242d733c702520 size:11967320 http://software.bigfix.com/download/bes/92/BigFix-BES-Client-9.2.6.94.exe sha256:44ee39cf856c36c098207248857321417dacd31a8364ef3ecbd45a7fde1cc2b0
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (11967320 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (11967320 < free space of drive of client folder of current site)}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+move __Download\BESClientUpgrade.exe __Local\Upgrade\BESClientUpgrade.exe
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait __Local\Upgrade\BESClientUpgrade.exe /s /v"/l*voicewarmup \"{location of client}\besclientupgrade.log\" REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.2.6.94"]]></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for instructions to manually upgrade IBM BigFix Components.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/developerworks/mydeveloperworks/wikis/home?lang=en#/wiki/Tivoli%20Endpoint%20Manager/page/Upgrading</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

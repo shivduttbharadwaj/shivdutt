@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>_Send Middleware Configuration for Windows-WAS-CSD</Title>
+		<Description><![CDATA[This task will create a middleware configuration file on the endpoint for Windows-WAS-CSD. Review the action of this task to see and change the settings sent to the endpoint.
+				<TABLE>
+<TBODY>
+<TR>
+<TD>Some middleware health check policies require password(s) to be sent to the Endpoint.</TD>
+</TR>
+<TR>
+<TD>Provide password(s) in the form below, then click Take Action to add encrypted password(s) to the middleware
+configuration file on the endpoint.</TD>
+</TR>
+<TR>
+<TD>
+	<ul>
+		<li>Edit _Send Middleware Configuration task, customize the configuration file content.</li>
+		<li>
+			When editing the task use "password1", "password2", etc as password value placeholders.
+			NEVER use clear text for passwords in the configuration task.<br/>
+			<b>Example:</b><br/>
+			#credential1<br/>
+			username=john<br/>
+			password=password1<br/>
+			#credential2<br/>
+			username=alex<br/>
+			password=password2<br/>
+		</li>
+		<li>After done editing the task action script, input password(s) with Password Configuration form.</li>
+		<li>Input "Number of Password Configs" field (number of password placeholders you created during task editing). Click "Create Password Config Fields" button.</li>
+		<li>"Password Property Name" is the password property name in the configuration file content.</li>
+		<li>Fill up all the fields and click "Take Action"</li>
+	</ul>
+</TD>
+</TR>
+<TR>
+<TD><b>Warning:</b> "Create Password Config Fields" button will reset the Password Configuration form. All input values will be cleared.</TD>
+</TR>
+<TR><TD><br></TD></TR>
+</TBODY>
+</TABLE>
+&nbsp;<INPUT id=number name=number style="WIDTH: 20px"> Number of Password Configs: (max. 10) <button onclick="myFunction1()">Create Password Config Fields</button>
+<FORM onsubmit=_takeAction() style="WIDTH: 750px">
+<FIELDSET><LEGEND><STRONG>Password Configuration</STRONG></LEGEND>
+<DIV style="PADDING-BOTTOM: 20px; PADDING-TOP: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px">
+<TABLE id="myTable" >
+<TBODY>
+</TBODY>
+</TABLE>
+</DIV>
+
+</FIELDSET>
+</FORM>
+
+<script>
+function myFunction1() {
+    var number = document.getElementById("number").value;
+	if (number > 10) {
+    	alert("Only can support 10 password.");
+		return;
+    }
+	
+    var table = document.getElementById("myTable");
+	
+	if (number != null) {
+		var rowCount = table.rows.length;
+        for (var x = rowCount-1; x >= 0; x--) {
+            table.deleteRow(x);
+        }
+		for (var i = 0; i <number; i++) {
+			if (i === 0) {
+				var row1 = table.insertRow(i);				
+				var row2 = table.insertRow(i+1);
+				var row3 = table.insertRow(i+2);
+				var row4 = table.insertRow(i+3);				
+			} else {
+				var row1 = table.insertRow(i*4);				
+				var row2 = table.insertRow(i*4+1);
+				var row3 = table.insertRow(i*4+2);
+				var row4 = table.insertRow(i*4+3);			
+			}
+			var cell1 = row1.insertCell(0);
+			var cell2 = row1.insertCell(1);
+			var cell3 = row1.insertCell(2);
+			var cell4 = row2.insertCell(0);
+			var cell5 = row2.insertCell(1);
+			var cell6 = row2.insertCell(2);
+			var cell7 = row3.insertCell(0);
+			var cell8 = row3.insertCell(1);
+			var cell9 = row3.insertCell(2);
+			var cell10 = row4.insertCell(0);
+			var counter = i + 1;				
+			cell1.innerHTML = "<LABEL for=propertyName"+counter+">Password Property Name "+counter+":</LABEL>";
+			cell2.innerHTML = "<INPUT id=propertyName"+counter+" style='WIDTH: 250px' name=propertyName"+counter+">";
+			cell3.innerHTML = "<LABEL id=propertyNameMsg"+counter+" style='color:red'></LABEL>";
+			cell4.innerHTML = "<LABEL style='PADDING-RIGHT: 5px' for=password"+counter+">Password:</LABEL>";
+			cell5.innerHTML = "<INPUT id=password"+counter+" style='WIDTH: 250px' type=password name=password"+counter+">";
+			cell6.innerHTML = "<LABEL id=passwordMsg"+counter+" style='color:red'></LABEL>";
+			cell7.innerHTML = "<LABEL style='PADDING-RIGHT: 5px' for=cPassword"+counter+">Confirm Password:</LABEL>";
+			cell8.innerHTML = "<INPUT id=cPassword"+counter+" style='WIDTH: 250px' type=password name=cPassword"+counter+">";
+			cell9.innerHTML = "<LABEL id=cPasswordMsg"+counter+" style='color:red'></LABEL>";
+			cell10.innerHTML = "&nbsp";
+		}
+	}   
+}
+
+function _takeAction(){ 
+	var propertyName1 = "";
+	var propertyName2 = "";
+	var propertyName3 = "";
+	var propertyName4 = "";
+	var propertyName5 = "";
+	var propertyName6 = "";
+	var propertyName7 = "";
+	var propertyName8 = "";
+	var propertyName9 = "";
+	var propertyName10 = "";
+		
+	var password1 = "";
+	var password2 = "";
+	var password3 = "";
+	var password4 = "";
+	var password5 = "";
+	var password6 = "";
+	var password7 = "";
+	var password8 = "";
+	var password9 = "";
+	var password10 = "";
+		
+	var cPassword1 = "";
+	var cPassword2 = "";
+	var cPassword3 = "";
+	var cPassword4 = "";
+	var cPassword5 = "";
+	var cPassword6 = "";
+	var cPassword7 = "";
+	var cPassword8 = "";
+	var cPassword9 = "";
+	var cPassword10 = ""; 
+		
+	if (document.getElementById("propertyName1") != null) {
+		propertyName1 = document.getElementById("propertyName1").value;
+	}		
+	if (document.getElementById("propertyName2") != null) {
+		propertyName2 = document.getElementById("propertyName2").value;
+	}		
+	if (document.getElementById("propertyName3") != null) {
+		propertyName3 = document.getElementById("propertyName3").value;
+	}
+	if (document.getElementById("propertyName4") != null) {
+		propertyName4 = document.getElementById("propertyName4").value;
+	}		
+	if (document.getElementById("propertyName5") != null) {
+		propertyName5 = document.getElementById("propertyName5").value;
+	}		
+	if (document.getElementById("propertyName6") != null) {
+		propertyName6 = document.getElementById("propertyName6").value;
+	}		
+	if (document.getElementById("propertyName7") != null) {
+		propertyName7 = document.getElementById("propertyName7").value;
+	}		
+	if (document.getElementById("propertyName8") != null) {
+		propertyName8 = document.getElementById("propertyName8").value;
+	}		
+	if (document.getElementById("propertyName9") != null) {
+		propertyName9 = document.getElementById("propertyName9").value;
+	}		
+	if (document.getElementById("propertyName10") != null) {
+		propertyName10 = document.getElementById("propertyName10").value;
+	}
+		
+	if (document.getElementById("password1") != null) {
+		password1 = document.getElementById("password1").value;
+	}		
+	if (document.getElementById("password2") != null) {
+		password2 = document.getElementById("password2").value;
+	}		
+	if (document.getElementById("password3") != null) {
+		password3 = document.getElementById("password3").value;
+	}
+	if (document.getElementById("password4") != null) {
+		password4 = document.getElementById("password4").value;
+	}		
+	if (document.getElementById("password5") != null) {
+		password5 = document.getElementById("password5").value;
+	}		
+	if (document.getElementById("password6") != null) {
+		password6 = document.getElementById("password6").value;
+	}		
+	if (document.getElementById("password7") != null) {
+		password7 = document.getElementById("password7").value;
+	}		
+	if (document.getElementById("password8") != null) {
+		password8 = document.getElementById("password8").value;
+	}		
+	if (document.getElementById("password9") != null) {
+		password9 = document.getElementById("password9").value;
+	}		
+	if (document.getElementById("password10") != null) {
+		password10 = document.getElementById("password10").value;
+	}
+		
+	if (document.getElementById("cPassword1") != null) {
+		cPassword1 = document.getElementById("cPassword1").value;
+	}		
+	if (document.getElementById("cPassword2") != null) {
+		cPassword2 = document.getElementById("cPassword2").value;
+	}		
+	if (document.getElementById("cPassword3") != null) {
+		cPassword3 = document.getElementById("cPassword3").value;
+	}
+	if (document.getElementById("cPassword4") != null) {
+		cPassword4 = document.getElementById("cPassword4").value;
+	}		
+	if (document.getElementById("cPassword5") != null) {
+		cPassword5 = document.getElementById("cPassword5").value;
+	}		
+	if (document.getElementById("cPassword6") != null) {
+		cPassword6 = document.getElementById("cPassword6").value;
+	}		
+	if (document.getElementById("cPassword7") != null) {
+		cPassword7 = document.getElementById("cPassword7").value;
+	}		
+	if (document.getElementById("cPassword8") != null) {
+		cPassword8 = document.getElementById("cPassword8").value;
+	}		
+	if (document.getElementById("cPassword9") != null) {
+		cPassword9 = document.getElementById("cPassword9").value;
+	}		
+	if (document.getElementById("cPassword10") != null) {
+		cPassword10 = document.getElementById("cPassword10").value;
+	}
+		
+	var number = document.getElementById("number").value;
+	var invalidInput = false;
+	if (number != null) {
+		for (var i = 0; i <number; i++) { 
+			var counter = i + 1;
+			if (document.getElementById("propertyName"+counter) != null) {
+				document.getElementById("propertyNameMsg"+counter).innerHTML = "";
+				var tmpPropertyName = document.getElementById("propertyName"+counter).value;
+				if (tmpPropertyName === "") {
+					document.getElementById("propertyNameMsg"+counter).innerHTML = "Password Property Name is required.";
+					invalidInput = true;
+				}
+			}
+				
+			if (document.getElementById("password"+counter) != null) {
+				document.getElementById("passwordMsg"+counter).innerHTML = "";
+				var tmpPassword = document.getElementById("password"+counter).value;
+				if (tmpPassword === "") {
+					document.getElementById("passwordMsg"+counter).innerHTML = "Password is required.";
+					invalidInput = true;
+				}
+			}	
+				
+			if (document.getElementById("cPassword"+counter) != null) {
+				document.getElementById("cPasswordMsg"+counter).innerHTML = "";
+				var text;
+				var tmpPassword = document.getElementById("password"+counter).value;
+				var tmpCPassword = document.getElementById("cPassword"+counter).value;
+				if (tmpCPassword === "") {
+					document.getElementById("cPasswordMsg"+counter).innerHTML = "Password Confirmation is required.";
+					invalidInput = true;
+				} else if (tmpPassword != tmpCPassword) {
+					document.getElementById("cPasswordMsg"+counter).innerHTML = "Passwords do not match.";
+					invalidInput = true;
+				}		
+			}
+		}
+	}
+	if (invalidInput) {
+		return;
+	}
+	TakeSecureFixletAction(Relevance('id of current fixlet'), Relevance('id of current bes site'), "Action1", {}, { propertyName1: propertyName1, password1: password1, propertyName2: propertyName2, password2: password2, propertyName3: propertyName3, password3: password3,  propertyName4: propertyName4, password4: password4,  propertyName5: propertyName5, password5: password5,  propertyName6: propertyName6, password6: password6,  propertyName7: propertyName7, password7: password7,  propertyName8: propertyName8, password8: password8,  propertyName9: propertyName9, password9: password9, propertyName10: propertyName10, password10: password10}); 
+} 
+document.body.ontakeaction = function() { _takeAction(); return false; }
+</script>				<p><small><b>Version:</b>&nbsp;3.9.0<br><b>Build ID:</b>&nbsp;20190123-2090</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[		
+				exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>3.9.0</SourceID>
+		<SourceReleaseDate>2019-01-23</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>31180007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 15 Mar 2019 09:18:17 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			begin prefetch block	
+	if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+		parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+	else
+		parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+	endif
+	
+	add prefetch item name=ConfigMergeTool.jar sha1=67cac9e3f121e23c12ca84f63daf3cf82611aaf8 sha256=29f2283614504b3a31ee30b35d32afcd8096ba76a866a5f7ce80bbd77d54c21e size=421823 url={parameter "basepath"}/390/20190123-2090/tools/ConfigMergeTool.jar
+	add prefetch item name=TIMcipherPswdV3.jar sha1=c8aeb8375b25c0fa92fc92f5586f579ddcd791c4 sha256=7843234a93d6542519dd7032445af09168add2d732d2550aacef3bb64597b507 size=160714 url={parameter "basepath"}/390/20190123-2090/tools/TIMcipherPswdV3.jar
+	
+end prefetch block
+
+folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault"
+
+
+createfile until --qGs7SPXJMX59YEz--
+	
+	# config.txt - 2014/05/26
+# Configuration File for win.any.WAServerV3 collector
+
+# File metadata
+#
+# The "file-information" section is REQUIRED.
+#file-information
+#	type = collector-configuration
+#	collector = WASServer
+#	file = config.txt
+#	version = 1
+#	date = "2011/05/30"
+#	comment = "Configuration File for win.any.WAServerV3 collector"
+
+# Define WAS server authorization parameters
+#
+# ATTENTION: when non alphanumeric characters are met in a parameter value, the value should be 
+#            		taken in double quotes. 
+#
+# MULIINSTANCE SUPPORT
+#
+# There are 2 section types for the multiinstance support: "default" and "instX", where X - a sequential number of the instance in this config file. 
+# If you have just one instance to check then "default" section MUST NOT be used. Only "inst1" section must exist with parameters specified.
+# If there are two or more instances then "default" MAY be included in config file. This section is OPTIONAL.
+# The "default" section contains common parameters for all "instX" sections. But you may set all parameters separately in instX sections.
+# The "instX" section (where X - a sequential number) contains parameters specific for the instance. This section is REQUIRED. 
+# Parameter value found in instX section overrides the value set for the same parameter in the "default" section (if it is present). 
+#
+# ATTENTION!
+# Values that are set below for parameters are just samples and must be replaced with actual ones.
+#
+# PARAMETERS 
+#
+# user				- the Server ID the wsadmin script runs with.
+#				  	If the WAS server Securiy is not ON, you can keep it empty or put the empty string "". 
+# password   		- its password
+#				  	If the WAS server Securiy is not ON, you can keep it empty or put the empty string "". 
+#
+# ad-server-id			- MUST NOT be used if "user" parameter is specified.
+#						Deprecated. Please use "user" parameter instead.
+#						the Server ID the wsadmin script runs with.
+#				  		If the WAS server Securiy is not ON, you can keep it empty or put the empty string "". 
+# ad-password			- MUST NOT be used if "password" parameter is specified.
+#						Deprecated. Please use "password" parameter instead.   		
+#						its password
+#				  	If the WAS server Securiy is not ON, you can keep it empty or put the empty string "".
+# 
+# ATTENTION: If the WAS server Security is On, the ad-server-id and ad-password parameters can be skipped in case    
+#				when those parameters are specified in the server's soap.client.props file. 
+#
+# ad-soap-port			- the SOAP connector port (The default SOAP port for a single-server installation is 8880).
+#				  The parameter is mandatory.
+# INSTALL_PATH		- WAS installation path 
+#				ATTENTION. For the WAS from version 6.0 this path should look like that:
+#				"D:\Program Files\WebSphere\AppServer\profiles\<server_name>"
+#				  The parameter is mandatory.
+# ad-was-home			- WAS profile path 
+#				ATTENTION. 
+#				The parameter should be specified in the case when the profile is situated
+#				not in the WAS installation path.
+#				The parameter is optional.
+# ad-gsk7kit-instl-pth		- the installation path of gsk7kit
+#				Hint: Please, check - gsk7cmd.exe command should start from its directory not giving any errors.
+#				The parameter is optional.
+# ad-password-key-file		- the password of the key file (for the dummy key file - WebAS). The parameter is optional.
+# ad-password-trs-file		- the password of the trust file (for the dummy trust file - WebAS). The parameter is optional.
+# ad-installpath-allfiles-check - to check or not all files permissions in the was INSTALLROOT path - "yes" or "no". 
+#				ATENTION. By default even if nothing is specified for this parameter, 
+#				the collector interprets it as "yes".
+#					
+# ad-was-host			- optional parameter. The name of the WAS deployment manager host.
+# ad-ssl-alias			- optional parameter.This parameter indicate the used SSL configuration. 
+#						  This is a synthetic way for the user to specify which SSL Key File and Trust File are currently used by the WAS server.
+# The "authorization-parameters" tag is obligatory
+
+#authorization-parameters
+#	inst1
+#		ad-server-id = wsadmin
+#		ad-password=<SET PASSWORD WITH PASSWORD CONFIG FORM>
+#		ad-gsk7kit-instl-pth = "C:\Program Files (x86)\IBM\gsk7"
+#		ad-soap-port = 8880	        
+#		INSTALL_PATH = "C:\Program Files (x86)\IBM\WebSphere\AppServer\profiles\AppSrv01"  
+#		ad-installpath-allfiles-check = no    
+#		ad-was-host = localhost
+
+# Define files to check permissions
+# Tag [files-to-check] is REQUIRED with all predefined files
+# Under this tag should be a list of files, separated by new line 
+# AdminScript - is used for files, which are admin tool scripts
+# InstallRoot - is used for files from <Install_Root> directory
+# Security - is used for path to security.xml
+# [files-to-check]
+#	/properties/client.policy
+#	/properties/sas.client.props
+#	/properties/sas.stdclient.properties
+#	/properties/sas.tools.properties
+#	/properties/soap.client.props
+#	/properties/wsadmin.properties
+#	/properties/wsjaas_client.conf
+#	/properties/ipc.client.propss
+#	AdminScript: /bin/wsadmin.bat
+#	AdminScript: /bin/wsadmin.sh
+#	InstallRoot: /properties/TraceSettings.properties
+#	Security: /config/cells/
+#	InstallRoot: /properties/client_types.xml
+
+# Define files with encrypted passwords
+# Tag [files-with-ecnrypted-passwords] is NOT REQUIRED
+# Under this tag should be a list of files, separated by new line, to check not encrypted passwords
+# [files-with-ecnrypted-passwords]
+#	/properties/sas.client.props
+#	/properties/soap.client.props
+     
+
+	
+--qGs7SPXJMX59YEz--
+
+parameter "filename" = "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/tmp_config.txt"
+		
+delete "{parameter "filename"}"
+move __createfile "{parameter "filename"}"
+
+
+	if {exists parameter "password1" and parameter "password1" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password1")) then ((preceding text of first ("password1") of it) & "%22"&(parameter "password1")&"%22" & (following text of first ("password1") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+	if {exists parameter "password2" and parameter "password2" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password2")) then ((preceding text of first ("password2") of it) & "%22"&(parameter "password2")&"%22" & (following text of first ("password2") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+	if {exists parameter "password3" and parameter "password3" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password3")) then ((preceding text of first ("password3") of it) & "%22"&(parameter "password3")&"%22" & (following text of first ("password3") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+	if {exists parameter "password4" and parameter "password4" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password4")) then ((preceding text of first ("password4") of it) & "%22"&(parameter "password4")&"%22" & (following text of first ("password4") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+	if {exists parameter "password5" and parameter "password5" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password5")) then ((preceding text of first ("password5") of it) & "%22"&(parameter "password5")&"%22" & (following text of first ("password5") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+	if {exists parameter "password6" and parameter "password6" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password6")) then ((preceding text of first ("password6") of it) & "%22"&(parameter "password6")&"%22" & (following text of first ("password6") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+	if {exists parameter "password7" and parameter "password7" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password7")) then ((preceding text of first ("password7") of it) & "%22"&(parameter "password7")&"%22" & (following text of first ("password7") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+	if {exists parameter "password8" and parameter "password8" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password8")) then ((preceding text of first ("password8") of it) & "%22"&(parameter "password8")&"%22" & (following text of first ("password8") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+	if {exists parameter "password9" and parameter "password9" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password9")) then ((preceding text of first ("password9") of it) & "%22"&(parameter "password9")&"%22" & (following text of first ("password9") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+	if {exists parameter "password10" and parameter "password10" != ""}
+		// iterate through the file replacing lines as necessary
+		appendfile {concatenation "%0d%0a" of ( if (it contains ("password10")) then ((preceding text of first ("password10") of it) & "%22"&(parameter "password10")&"%22" & (following text of first ("password10") of it) ) else it ) of lines of file (parameter "filename")}
+		// backup the old file
+		delete "{parameter "filename"}.bak"
+		move "{parameter "filename"}" "{parameter "filename"}.bak"
+		// replace with the new file
+		move __appendfile "{parameter "filename"}"
+	endif
+	
+
+delete "{parameter "filename"}.bak"
+	
+		if {windows of operating system}
+	 	   					   	   			wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\TIMcipherPswdV3.jar" "{parameter "filename"}"
+		wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\TIMcipherPswdV3.jar" "{parameter "filename"}" "AD-PASSWORD" 
+		else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/TIMcipherPswdV3.jar" "{parameter "filename"}"
+		wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/TIMcipherPswdV3.jar" "{parameter "filename"}" "AD-PASSWORD" 
+	 endif				
+
+if {exists file "was_config.txt" of folder ("__GTS/__IEMHC/"& name of current site as string & "/Windows-WAS-CSD/vault") of storage folder of client}
+move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.old"
+move "{parameter "filename"}" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.new"
+
+if {windows of operating system}
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.new"
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.new"
+endif
+
+if {windows of operating system} 
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -m "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.new"  -o "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.old" 	
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -m "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.new"  -o "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.old"
+endif
+
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.old"
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt.new"
+
+else
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt"
+move "{parameter "filename"}" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt"
+if {windows of operating system}
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt"
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/ConfigMergeTool.jar" -n "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault/was_config.txt"
+endif
+endif
+
+			]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

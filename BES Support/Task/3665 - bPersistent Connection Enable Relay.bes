@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Persistent Connection: Enable Relay</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><P>This task can be used to enable the persistent connection on relays.</P><TABLE><TBODY><TR><TD><B>Optionally specify persistent connection configuration parameters:</B></TD></TR><TR><TD class=input_title>Specify the maximum number of persistent connections that can be opened by the relay (number in range 1-5000): </TD><TD><INPUT id=maxPCNumber> </TD></TR><TR><TD class=input_title>Specify the maximum number of persistent connections that can be opened by the relay towards the same subnet (number in range 1-1000): </TD><TD><INPUT id=maxPCNumberPerSubnet> </TD></TR></TBODY></TABLE><P>For more information about persistent connections, see this Knowledge Center <a href="https://www.ibm.com/support/knowledgecenter/SSQL82_9.5.0/com.ibm.bigfix.doc/Platform/Config/c_persistenconn.html"> page</a>.</P><P><b>Note:</b> After the action completes, the relay will be started or restarted.</P><script> 
+var maxPCNumber = 100;
+var maxPCNumberPerSubnet = 3;
+document.getElementById('maxPCNumber').value = maxPCNumber;
+document.getElementById('maxPCNumberPerSubnet').value = maxPCNumberPerSubnet;
+document.body.ontakeaction = function(event) {
+    if(event.contentID=='Action1') { 
+		var params = new Object(); 
+		var secureParams = new Object(); 
+
+		params['MaxNumberOfPersistentConnections'] = encodeURIComponent(document.getElementById('maxPCNumber').value.replace(/^\s+|\s+$/g, ''));
+		params['MaxNumberOfPersistentConnectionsPerSubnet'] = encodeURIComponent(document.getElementById('maxPCNumberPerSubnet').value.replace(/^\s+|\s+$/g, ''));
+
+		if (params['MaxNumberOfPersistentConnections'].length < 1) { 
+            params['MaxNumberOfPersistentConnections'] = '100';
+		} 
+		if (params['MaxNumberOfPersistentConnectionsPerSubnet'].length < 1) { 
+            params['MaxNumberOfPersistentConnectionsPerSubnet'] = '3';
+		} 
+	
+		if (params['MaxNumberOfPersistentConnections'].length > 0 && (!/^[0-9]+$/.test(params['MaxNumberOfPersistentConnections']) || params['MaxNumberOfPersistentConnections'] < 1 || params['MaxNumberOfPersistentConnections'] > 5000)) { 
+			alert("<?jxlat Invalid maximum number of Persistent Connections..?>"); 
+			return false; 
+		} 
+
+		if (params['MaxNumberOfPersistentConnectionsPerSubnet'].length > 0 && ( !/^[0-9]+$/.test(params['MaxNumberOfPersistentConnectionsPerSubnet']) || params['MaxNumberOfPersistentConnectionsPerSubnet'] < 1 || params['MaxNumberOfPersistentConnectionsPerSubnet'] > 1000)) { 
+			alert("<?jxlat Invalid maximum number of Persistent Connections per subnet..?>"); 
+			return false; 
+		} 
+
+        TakeSecureFixletAction(Relevance('id of current fixlet'), Relevance('id of current bes site'), "Action1", params, secureParams);
+        return false;
+	}
+}
+</script><br><br></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[version of client >= "9.5.11"]]></Relevance>
+		<Relevance>exists relay service</Relevance>
+		<Relevance>not exists main gather service</Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(name of operating system does not start with "Win") OR (exists true whose (if true then (major version of operating system >= 4) else false))]]></Relevance>
+		<Relevance>if ( ( exists setting "_BESRelay_PersistentConnection_Enabled" whose (exists value of it) of client ) and (value of setting "_BESRelay_PersistentConnection_Enabled" of client = "1") ) then false else true</Relevance>
+		<Category>BES Client Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 18 Dec 2018 16:03:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 18 Dec 2018 16:03:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[setting "_BESRelay_PersistentConnection_Enabled"="1" on "{parameter "action issue date" of action}" for client
+setting "_BESRelay_PersistentConnection_MaxNumber"="{parameter "MaxNumberOfPersistentConnections"}" on "{parameter "action issue date" of action}" for client
+setting "_BESRelay_PersistentConnection_NumberPerSubnet"="{parameter "MaxNumberOfPersistentConnectionsPerSubnet"}" on "{parameter "action issue date" of action}" for client
+// Restart the Relay
+if {name of operating system starts with "Win"}
+	delete __appendfile
+	appendfile net stop besrelay
+	appendfile net start besrelay
+	delete restartRelay.bat
+	move __appendfile restartRelay.bat
+	waithidden restartRelay.bat
+	delete restartRelay.bat
+elseif {name of operating system starts with "AIX"}
+	wait /etc/rc.d/rc2.d/KBESRelayd stop
+	wait /etc/rc.d/rc2.d/SBESRelayd start_skipclientrestart
+else
+	wait /etc/init.d/besrelay stop
+	wait /etc/init.d/besrelay start_skipclientrestart
+endif
+parameter "waitTime" = "{apparent registration server time}"
+pause while {((apparent registration server time) - time (parameter "waitTime")) < 5*second}
+relay select
+// if for some reason the BES Relay hasn't started yet, fail here
+continue if {exists running service "BESRelay"}]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

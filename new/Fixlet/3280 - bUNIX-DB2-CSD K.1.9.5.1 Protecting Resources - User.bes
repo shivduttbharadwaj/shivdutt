@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UNIX-DB2-CSD K.1.9.5.1 Protecting Resources - User Resources/Public Select Privilege Restriction</Title>
+		<Description><![CDATA[
+		<P><B>Test:&nbsp;</B>If running V9 or above, PUBLIC must not have the SELECT privilege on any of the specified tables if they exist.</P><P><B>ITSSCSD Section:&nbsp;</B>K.1.9.5.1, K.1.9.5.2, K.1.9.5.3, K.1.9.5.4, K.1.9.5.5, K.1.9.5.6, K.1.9.5.7, K.1.9.5.8, K.1.9.5.9, K.1.9.5.10, K.1.9.5.11, K.1.9.5.12, K.1.9.5.13, K.1.9.5.14, K.1.9.5.16, K.1.9.5.15, K.1.9.5.17, K.1.9.5.18, K.1.9.5.19, K.1.9.5.20, K.1.9.5.21, K.1.9.5.22, K.1.9.5.23, K.1.9.5.24, K.1.9.5.25, K.1.9.5.26, K.1.9.5.27, K.1.9.6.1, K.1.9.6.2, K.1.9.6.3, K.1.9.6.4, K.1.9.6.5, K.1.9.6.6, K.1.9.6.7, K.1.9.6.8, K.1.9.6.9, K.1.9.6.10, K.1.9.6.11, K.1.9.6.12, K.1.9.6.13, K.1.9.6.14, K.1.9.6.17, K.1.9.6.15, K.1.9.6.16, K.1.9.6.18, K.1.9.6.19, K.1.9.6.20, K.1.9.6.21, K.1.9.6.22, K.1.9.5.28, K.1.9.5.29, K.1.9.5.30, K.1.9.6.24, K.1.9.6.25, K.1.9.6.23, K.1.9.6.26</P>
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		<script>
+	document.body.ontakeaction = function() {
+
+		var b=EvaluateRelevance('name of site of current fixlet'),a=EvaluateRelevance('exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*")');
+		(a=!/^true$/i.test(a))||alert('Remediation is disabled for site '+b);
+		if (!a) {
+			return a;
+		}
+														
+   		   		var b=EvaluateRelevance(' unique values whose (it contains "ERROR !!! " or it contains "[FATAL]" or it contains "[ERROR]") of (it as string) of (name of computer of it , values of it) of results  of properties whose(name of it = "Health Check") of BES Fixlets whose (analysis flag of it and name of it = "_Status UNIX-DB2-CSD")');
+   		if (b === null || b.length === 0) {
+   		 	return true;
+    	}
+    	
+    	for (var i = 0; i < b.length; i++) {
+    		b[i]=b[i].substring(0, b[i].indexOf(','));
+		}
+		b = unique(b);
+   
+		b = b.toString().replace(/,/g , "\n");
+		var r = confirm("There are computers with invalid health check,\n do you want to proceed?\n"+b);
+		if (r === true) {
+    		x = "OK!";
+		} else {
+    		x = "Cancel!";
+		}
+		return r;
+	};
+	
+	function unique(arr) {
+    var hash = {}, result = [];
+    for ( var i = 0, l = arr.length; i < l; ++i ) {
+        if ( !hash.hasOwnProperty(arr[i]) ) {
+            hash[ arr[i] ] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+</script>
+<?BeginRefreshRelevance?>
+	<p><b><?relevance if exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*") then ("Remediation is disabled for site " & (name of site of current fixlet)) else ""?></b></p>
+<?EndRefreshRelevance?>		
+		]]></Description>
+		<Relevance><![CDATA[
+				
+		(
+			if exists setting "_GCM_UNIX-DB2-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(name of operating system as lowercase contains "red hat" and version of operating system >= "6") or (name of operating system as lowercase contains "suse" and version of operating system >= "11") or (name of operating system as lowercase contains "sunos" and version of operating system >= "5.10") or (name of operating system as lowercase contains "aix" and version of operating system >= "7") or (name of operating system as lowercase contains "hp-ux" and version of operating system as string contains "11.31") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8")
+			)
+		)
+		]]></Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_UNIX-DB2-CSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+					(exists file "/var/db2/global.reg") OR (exists file "/var/opt/db2/global.reg") OR (exists (folders whose(exists folder "sqllib" of it AND exists file "global.reg" of folder "sqllib" of it) of folder "/home"))
+
+
+
+				) 
+					or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | false) then
+		(exists (lines containing "SUBSYSTEM_TYPE=DB2" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | false)
+		else false)
+
+			)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+			 (if (exists file "Protecting_Resources_-_User_Resources_Public_Select_Privilege_Restriction.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-DB2-CSD") of storage folder of client | true ) Then (if (exists lines of file "Protecting_Resources_-_User_Resources_Public_Select_Privilege_Restriction.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-DB2-CSD") of storage folder of client | true) then true else false ) else True)
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<SourceSeverity>normal</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-id</Name>
+			<Value>4A24BCE8-58B4-A719-DAB1-4F89466585B5</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>            {    "fusion_supported_platforms" : "AIX 6+, HP-UX 11.31, Red Hat Linux 6.x+, SuSE Linux 11+, Solaris 10+, CentOS 7+, Ubuntu 14+, Debian 8+, DB2 Server v.8.x, v9.x. and v10.x",    "description" : "If running V9 or above, PUBLIC must not have the SELECT privilege on any of the specified tables if they exist.",          "fusion_isec_section": "K.1.9.5.1, K.1.9.5.2, K.1.9.5.3, K.1.9.5.4, K.1.9.5.5, K.1.9.5.6, K.1.9.5.7, K.1.9.5.8, K.1.9.5.9, K.1.9.5.10, K.1.9.5.11, K.1.9.5.12, K.1.9.5.13, K.1.9.5.14, K.1.9.5.16, K.1.9.5.15, K.1.9.5.17, K.1.9.5.18, K.1.9.5.19, K.1.9.5.20, K.1.9.5.21, K.1.9.5.22, K.1.9.5.23, K.1.9.5.24, K.1.9.5.25, K.1.9.5.26, K.1.9.5.27, K.1.9.6.1, K.1.9.6.2, K.1.9.6.3, K.1.9.6.4, K.1.9.6.5, K.1.9.6.6, K.1.9.6.7, K.1.9.6.8, K.1.9.6.9, K.1.9.6.10, K.1.9.6.11, K.1.9.6.12, K.1.9.6.13, K.1.9.6.14, K.1.9.6.17, K.1.9.6.15, K.1.9.6.16, K.1.9.6.18, K.1.9.6.19, K.1.9.6.20, K.1.9.6.21, K.1.9.6.22, K.1.9.5.28, K.1.9.5.29, K.1.9.5.30, K.1.9.6.24, K.1.9.6.25, K.1.9.6.23, K.1.9.6.26",    "fusion_itcs104_section": "",    "scm_parameters" : {     "Result" : {      "type" : "string",      "measured_value_analysis_property" : 1,      "allow_long_string" : true,           "hidden" : true,      "allow_empty_string" : true,      "measured_value_analysis_idref" : "5001775D-5F86-5377-8CEB-232731BB94F2",      "order" : 1,      "title" : "Result"     },     "Expected" : {      "type" : "string",      "measured_value_analysis_property" : 2,      "allow_long_string" : true,      "default_value" : "If running V9 or above, PUBLIC must not have the SELECT privilege on any of the specified tables if they exist.",      "allow_empty_string" : true,      "measured_value_analysis_idref" : "5001775D-5F86-5377-8CEB-232731BB94F2",      "order" : 2,      "title" : "Expected"     }    },    "title" : "K.1.9.5.1 Protecting Resources - User Resources\/Public Select Privilege Restriction"   }          </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>1094030</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-idref</Name>
+			<Value>6F34DD8C-10AC-7841-0C88-E4689E28112F</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 12:51:26 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install Latest Notification Service (RHEL)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><br><DIV class=FixletMessage><br>	<TABLE><br>		<TBODY><br>			<TR><br>				<TD><br><br>					<DIV id=fixletMessage2 class=FixletMessage><br><br>						<DIV id = paramFixletDescription><br><br>						<P><br>Use this Task to set up and start the email Notification Service.<br></P><br><br>						<P><STRONG>Prerequisites:</STRONG></P><br><br>						<UL><br><br>							<LI>The BES Server Plugin must be installed before running this Task.<BR><br><br>							    To install the BES Server Plugin use the <?relevance  (link of fixlets 708 of bes site whose (id of it = 1)) ?> Task.</LI><br><br>							<LI>The REST API credentials for the BES Server Plugin must also be configured before running this Task.<BR><br><br>							    To configure REST API credentials for the BES Server Plugin use the <?relevance  (link of fixlets 1294 of bes site whose (id of it = 1)) ?> Task.</LI><br><br>							<LI><STRONG>NOTE:</STRONG> In order to use the notification service with the Web UI, the notification service must be installed on the same host as the Web UI.</LI><br><br>						</UL><br><br>						<P><br><br>						<P><br>This  Task downloads the software and starts the notification service.<br><br><br>									 You must run this Task to set up the notification service before you can send email notifications. <br><br><br>									 The SMTP notification settings must also be configured after running this Task.<br><br><br>									 To configure the SMTP settings, run Task <?relevance  (link of fixlets 2240 of bes site whose (id of it = 1))?> to configure SMTP Settings for the Notification Service.<br><br>						</P>	<br><br>						<P>Please make sure that the port number you enter has been opened in the firewall (Verify your iptables entries)</P><br><br><br>						<script>
+loaded = false;
+  	
+function loadScript(url, callback) 						
+{ 													   
+	var head = document.getElementsByTagName("head")[0];
+	var script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = url;
+	script.onreadystatechange = callback;
+	script.onload = callback;
+	head.appendChild(script);
+}
+
+function scriptLoaded(){ 			
+	if (!loaded){ 	
+		var paramFixletDescription = document.getElementById('paramFixletDescription');
+		if ( typeof FixletUtils !== 'undefined') {
+			loaded = true;
+			paramFixletDescription.style.display="block" ;
+			FixletUtils.initFixletRender(); 
+		} else {
+			paramFixletDescription.style.display="none" ;
+		}
+    } 						
+} 	
+
+loadScript("vrt_fixletUtils.js", scriptLoaded);
+							</script><br><br>	<br>						</DIV><br>					</DIV><br>				</TD><br>			</TR><br>		</TBODY><br>	</TABLE><br></DIV><br><DIV class=FixletProperty><br>	<H4>File Size:</H4><br>	22.9 MB<br></DIV><br></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+26.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance><![CDATA[version of main gather service >= "9"]]></Relevance>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance><![CDATA[version of main gather service >= "9"]]></Relevance>
+		<Relevance>(name of it contains "Linux" AND architecture of it = "x86_64") of operating system</Relevance>
+		<Relevance>exists (folder "/var/opt/BESServer/Applications") and (exists (file  "/var/opt/BESServer/Applications/MFS-Linux"))</Relevance>
+		<Relevance>exists (folder "/var/opt/BESServer/Applications/Config")</Relevance>
+		<Relevance><![CDATA[if    (      not exists folder "/var/opt/BESServer/Applications/NotificationService"    )  then    true   else    if      (        exists folder "/var/opt/BESServer/Applications/NotificationService"      )    then      if        (          not           (            exist file "/var/opt/BESServer/Applications/NotificationService/resources/metadata.xml"          )        )      then        true       else        (          (            exists file "/var/opt/BESServer/Applications/NotificationService/resources/metadata.xml"            and            (              preceding text of first "<" of following text of firsts ">" of line               whose              (                it as lowercase contains "name=%22ns.build.version%22"              )              of file "/var/opt/BESServer/Applications/NotificationService/resources/metadata.xml" as version            )            <             (              "2.0.2" as version            )          )        )    else      false 		]]></Relevance>
+		<Category>Notification</Category>
+		<DownloadSize>27413347</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2015-11-18</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 17 Dec 2015 21:33:00 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>parameterfixletinfotag</Name>
+			<Value>{ 			   "FixletInfo":{ 			      "fixletInfoId":"Fixlet_2241", 			      "messageFileName":"vrt_MimeMessages.js" 			   } 			}</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>parametermetadatatag</Name>
+			<Value>{ 			   "Port":{ 			      "Name":"Port", 			      "Title":"Notification Service Port *", 			      "Description":"Notification Service port number (1-65535).", 			      "UIType":"textbox", 			      "Disabled":"false", 			      "Override":"false", 			      "DataType":"number", 			      "Required":"1", 			      "Default":"3000", 			      "CustomValidator":"validatePortNumber" 			   } 			}</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>parametermessagestag</Name>
+			<Value>{ 			   "FixletGlobalMessages":{ 			      "FIXLET_2241_INVALID_PORT_NUMBER":"Invalid port number. The port value must be between 1 - 65535." 			   } 			}</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>parametervalidatortag</Name>
+			<Value><![CDATA[{ 				validatePortNumber : function (validationObj , metaDataobjects ) { 					/* YL */ 					var PortValue = FixletUtils.getDomElement('Port' , metaDataobjects).value; 					if (PortValue.replace(/\ /g,"") === '' || parseInt(PortValue, 10)  > 65535 || parseInt(PortValue, 10) < 1) { 						return 'FIXLET_2241_INVALID_PORT_NUMBER'; 					} 				} 			}]]></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 11 Mar 2019 10:58:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+prefetch NotificationService-2.0.2-rhel.zip sha1:85612337a4cbd3f5d5cd9380e47cea5c061a8aa1 size:27413347 http://software.bigfix.com/download/bes/util/NotificationService/NotificationService-2.0.2-rhel.zip sha256:977fa6c942e7ee789e6ebacc5fbe629bb588100e1e577fd6ddf64b9c3d9a45bd
+// Path to Applications folder under BES Server
+parameter "AppsFolder" = "{pathname of (folder ("/var/opt/BESServer/Applications"))}"
+
+// Path to existing Notification Service installation (if any) under Applications folder
+parameter "NS_RootFolder" = "{parameter "AppsFolder" & "/NotificationService"}"
+
+// Folder to use for backing up user-modified content that should persist over upgrade.
+parameter "NS_BackupFolder" = "{parameter "AppsFolder" & "/NS-upgrade-tmp"}"
+
+// Paths to Server Plugin XML files (and corresponding '.stop' files)
+parameter "MFS_XML_Notifier_Registered"   = "{parameter "AppsFolder" & "/Config/ns-notifier.xml"}"
+parameter "MFS_XML_Monitor_Registered"    = "{parameter "AppsFolder" & "/Config/ns-monitor.xml"}"
+parameter "MFS_XML_Notifier_UnRegistered" = "{parameter "MFS_XML_Notifier_Registered" & ".stop"}"
+parameter "MFS_XML_Monitor_UnRegistered"  = "{parameter "MFS_XML_Monitor_Registered"  & ".stop"}"
+
+//Path to log file
+parameter "InstallLogFile" = "{parameter "AppsFolder" & "/ns_install_trace.log"}"
+
+// Path to Notification Service configuration files
+parameter "NS_ConfigJson"       = "{parameter "NS_RootFolder" & "/resources/config/nsConfig.json"}"
+parameter "NS_LogConfigJson"    = "{parameter "NS_RootFolder" & "/resources/config/nsLogConfig.json"}"
+parameter "NS_SMTPConfigJson"   = "{parameter "NS_RootFolder" & "/resources/config/messagingConf.json"}"
+parameter "NS_MonitorCacheFile" = "{parameter "NS_RootFolder" & "/apps/ns-monitor/resources/processedIds.cache"}"
+
+// Security artifacts
+parameter "privateKeyFile"  = "ns-private.pem"
+parameter "certificateFile" = "ns-public.cert"
+
+parameter "NS_MetadataXml"  = "{parameter "NS_RootFolder" & "/resources/metadata.xml"}"
+parameter "NS_NotifierPort" = "{ parameter "Port" of action }"
+
+wait /bin/sh -c "echo '===========================================================' >> {parameter "InstallLogFile"}"
+wait /bin/sh -c "echo Notification Service Install \($(date)\) >> {parameter "InstallLogFile"}"
+wait /bin/sh -c "echo '===========================================================' >> {parameter "InstallLogFile"}"
+
+// Un-register the NS apps from the server plugin (first the monitor, then the notifier)
+if { exists file (parameter "MFS_XML_Monitor_Registered") }
+    wait /bin/sh -c "echo 'Unregistering the Notification Service App [ns-monitor] from the BES Server Plugin ...' >> {parameter "InstallLogFile"}"
+    wait /bin/sh -c "mv -f {parameter "MFS_XML_Monitor_Registered"} {parameter "MFS_XML_Monitor_UnRegistered"}"
+
+    // Assert that the server plugin is no longer monitoring the notification service app before continuing
+    continue if { not exists file (parameter "MFS_XML_Monitor_Registered") and exists file (parameter "MFS_XML_Monitor_UnRegistered") }
+    wait /bin/sh -c "echo '   > Unregistered successfully.' >> {parameter "InstallLogFile"}"
+endif
+if { exists file (parameter "MFS_XML_Notifier_Registered") }
+    wait /bin/sh -c "echo 'Unregistering the Notification Service App [ns-notifier] from the BES Server Plugin ...' >> {parameter "InstallLogFile"}"
+    wait /bin/sh -c "mv -f {parameter "MFS_XML_Notifier_Registered"} {parameter "MFS_XML_Notifier_UnRegistered"}"
+
+    // Assert that the server plugin is no longer monitoring the notification service app before continuing
+    continue if { not exists file (parameter "MFS_XML_Notifier_Registered") and exists file (parameter "MFS_XML_Notifier_UnRegistered") }
+    wait /bin/sh -c "echo '  > Unregistered successfully.' >> {parameter "InstallLogFile"}"
+endif
+
+
+// ==============
+// *** BACKUP ***
+// ==============
+
+delete __createfile
+delete backup.sh
+
+// ====================================
+createfile until END_BACKUP_SH
+#!/bin/sh
+
+pushd  { parameter "AppsFolder"   }
+rm -rf { parameter "NS_BackupFolder" }
+mkdir  { parameter "NS_BackupFolder" }
+
+if [ -e {parameter "NS_SMTPConfigJson"} ]
+then
+    echo 'Backing up existing NS SMTP config file ...' >> {parameter "InstallLogFile"}
+    mv -f {parameter "NS_SMTPConfigJson"} {parameter "NS_BackupFolder"}
+fi
+if [ -e {parameter "NS_ConfigJson"} ]
+then
+    echo 'Backing up existing NS service config file ...' >> {parameter "InstallLogFile"}
+    mv -f {parameter "NS_ConfigJson"} {parameter "NS_BackupFolder"}
+fi
+if [ -e {parameter "NS_LogConfigJson"} ]
+then
+    echo 'Backing up existing NS service log config file ...' >> {parameter "InstallLogFile"}
+    mv -f  {parameter "NS_LogConfigJson"} {parameter "NS_BackupFolder"}
+fi
+if [ -e {parameter "NS_MonitorCacheFile"} ]
+then
+    echo 'Backing up existing NS service cache file ...' >> {parameter "InstallLogFile"}
+    mv -f  {parameter "NS_MonitorCacheFile"} {parameter "NS_BackupFolder"}
+fi
+if [ -e  {(parameter "NS_RootFolder") & "/apps/ns-notifier/resources/certs/" & (parameter "privateKeyFile")} ] && [ -e {(parameter "NS_RootFolder") & "/apps/ns-notifier/resources/certs/" & (parameter "certificateFile")} ]
+then
+    echo 'Backing up ns-notifier app's existing key/cert files ...' >> {parameter "InstallLogFile"}
+    mv -f  {(parameter "NS_RootFolder") & "/apps/ns-notifier/resources/certs/" & (parameter "privateKeyFile")} {parameter "NS_BackupFolder"}
+    mv -f  {(parameter "NS_RootFolder") & "/apps/ns-notifier/resources/certs/" & (parameter "certificateFile")} {parameter "NS_BackupFolder"}
+fi
+
+popd
+END_BACKUP_SH
+// ====================================
+
+move __createfile backup.sh
+wait /bin/sh -c "chmod 755 backup.sh"
+wait /bin/sh ./backup.sh
+delete backup.sh
+
+// ==============
+// *** REMOVE ***
+// ==============
+
+// Delete NS folders and files
+if { exists folder (parameter "NS_RootFolder") }
+	delete __createfile
+	delete remove.sh
+
+// ====================================
+createfile until END_REMOVE_SH
+#!/bin/sh
+
+pushd { parameter "AppsFolder" }
+
+if [ -e {parameter "NS_RootFolder"} ]
+then
+	echo 'Removing the Notification Service directory ...' >> {parameter "InstallLogFile"}
+	rm -rf {parameter "NS_RootFolder"}
+fi
+	
+popd
+END_REMOVE_SH
+// ====================================
+// Assert un-install was successful.Pause and allow time for the application to shut down  to avoid failing to delete the folders due to running notification application
+parameter "start" = "{now}"
+pause while {now < ( ((  parameter "start" of action  ) as time ) + 40* second)}
+	move __createfile remove.sh
+	wait /bin/sh -c "chmod 755 remove.sh"
+	wait /bin/sh ./remove.sh
+	delete remove.sh
+
+	if { not exists folder ( parameter "NS_RootFolder" ) }
+		wait /bin/sh -c "echo '  > Directory removed successfully.' >> {parameter "InstallLogFile"}"
+	endif
+endif
+
+continue if { not exists folder ( parameter "NS_RootFolder" ) }
+
+
+// ===============
+// *** INSTALL ***
+// ===============
+
+wait /bin/sh -c "echo 'Unpacking the Notification Service install bundle ...' >> {parameter "InstallLogFile"}"
+folder create "{parameter "NS_RootFolder"}"
+continue if { exists folder ( parameter "NS_RootFolder" ) }
+wait /bin/sh -c "unzip -qq -o -d {parameter "NS_RootFolder"} __Download/NotificationService-2.0.2-rhel.zip"
+wait /bin/sh -c "chmod 755 { parameter "NS_RootFolder" }/bin/*.sh" 
+wait /bin/sh -c "chmod 755 { parameter "NS_RootFolder" }/node/bin/*" 
+
+if { not exists file (parameter "MFS_XML_Notifier_UnRegistered") OR not exists file (parameter "MFS_XML_Monitor_UnRegistered") }
+    // Write NS configuration file for BES Plug-in Service/MFS.
+    wait /bin/sh -c "echo 'Configuring the BES Server Plugin ...' >> {parameter "InstallLogFile"}"
+    delete __createfile
+    delete mfs_xml_gen.sh
+
+// ====================================
+    createfile until END_NS_XML_GEN
+#!/bin/sh
+
+NS_ROOT_DIR=$1
+APP_NAME=$2
+XML_FILE=$3
+
+if [ -e $XML_FILE ]
+then
+  rm -f $XML_FILE
+fi
+
+echo \<\?xml version=\"1.0\"\?\> >> $XML_FILE
+echo \<BESPluginRegistration\> >> $XML_FILE
+echo \ \ \ \ \<Name\>$APP_NAME\</Name\> >> $XML_FILE
+echo \ \ \ \ \<Command\>$NS_ROOT_DIR/bin/startNSApp.sh $APP_NAME\</Command\> >> $XML_FILE
+echo \ \ \ \ \<Schedule\> >> $XML_FILE
+echo \ \ \ \ \ \ \ \ \<WaitPeriodSeconds\>30\</WaitPeriodSeconds\> >> $XML_FILE
+echo \ \ \ \ \</Schedule\> >> $XML_FILE
+echo \ \ \ \ \<ForceKill\>true\</ForceKill\> >> $XML_FILE
+echo \</BESPluginRegistration\> >> $XML_FILE
+END_NS_XML_GEN
+// ====================================
+
+    // Write it as the stopped file so the server plugin doesn't try to execute it immediately
+    move __createfile mfs_xml_gen.sh
+    wait /bin/sh -c "chmod 755 mfs_xml_gen.sh"
+    
+    // Create MFS XML files initially with the .stop extension (they'll be modified at the end of the fixlet)
+    if { not exists file (parameter "MFS_XML_Notifier_Registered") }    
+       wait /bin/sh ./mfs_xml_gen.sh {parameter "NS_RootFolder"} ns-notifier {parameter "MFS_XML_Notifier_UnRegistered"}
+       wait /bin/sh -c "echo '  > Configured [ns-notifier] successfully.' >> {parameter "InstallLogFile"}"
+    endif
+    if { not exists file (parameter "MFS_XML_Monitor_Registered") } 
+       wait /bin/sh ./mfs_xml_gen.sh {parameter "NS_RootFolder"} ns-monitor {parameter "MFS_XML_Monitor_UnRegistered"}
+       wait /bin/sh -c "echo '  > Configured [ns-monitor] successfully.' >> {parameter "InstallLogFile"}"
+    endif
+    
+    delete mfs_xml_gen.sh
+endif
+
+wait /bin/sh -c "echo 'Configuring the Notification Service ...' >> {parameter "InstallLogFile"}"
+wait /bin/sh -c "echo '> Metadata ...' >> {parameter "InstallLogFile"}"
+
+// ====================================
+createfile until END_NS_METADATA_XML
+<?xml version="1.0" encoding="UTF-8"?>
+<ns.metadata>
+  <property name="ns.build.version">2.0.2</property>
+  <property name="ns.build.timestamp">2019/02/25 15:23:01</property>
+</ns.metadata>
+
+END_NS_METADATA_XML
+// ====================================
+
+if { exists file ( parameter "NS_MetadataXml" ) }
+    delete "{parameter "NS_MetadataXml"}"
+endif
+move __createfile {parameter "NS_MetadataXml"}
+delete __createfile
+
+continue if { exists file   ( parameter "NS_MetadataXml"   ) }
+wait /bin/sh -c "echo '  > Metadata configured successfully.' >> {parameter "InstallLogFile"}"
+
+wait /bin/sh -c "echo '> Service ...' >> {parameter "InstallLogFile"}"
+
+// Check if we need to set up the bundled nsConfig.json file, or if we'll be using the one in the backup folder
+if {not exists file (parameter "NS_BackupFolder" & "/" & parameter "NS_ConfigJson") }
+    // Update the Notification configuration file by iterating through the file, replacing properties as necessary
+    appendfile { concatenation "%0d%0a" of ( if (it as lowercase contains "%22port%22" ) then ("  %22port%22: " & (parameter "NS_NotifierPort") & ",") else if (it as lowercase contains "%22bes-server-host%22" ) then ("  %22bes-server-host%22: %22" & (substring before ":" of substring after "//" of substring after "=" of line whose( it contains "Hostname" ) of file "/var/opt/BESServer/besserver.config") & "%22,") else if (it as lowercase contains "%22bes-server-port%22" ) then ("  %22bes-server-port%22: " & ((substring after "=" of line whose( it starts with "Port" ) of file "/var/opt/BESServer/besserver.config") as trimmed string) & "," ) else it) of lines of file (parameter "NS_ConfigJson" of action as string) }
+    
+    // Write the new configuration settings to a new file (*.new), and assert the file was created
+    if {exists file (parameter "NS_ConfigJson" of action & ".new")}
+        delete "{parameter "NS_ConfigJson"}.new"
+    endif
+    continue if {not exists file (parameter "NS_ConfigJson" of action & ".new")}
+    move __appendfile {parameter "NS_ConfigJson"}.new
+    continue if {exists file (parameter "NS_ConfigJson" of action & ".new")}
+    
+    // Back up the existing configuration file (*.bak)
+    if {exists file (parameter "NS_ConfigJson" of action & ".bak")}
+        delete "{parameter "NS_ConfigJson"}.bak"
+    endif
+    continue if {not exists file (parameter "NS_ConfigJson" of action & ".bak")}
+    copy "{parameter "NS_ConfigJson"}" "{parameter "NS_ConfigJson"}.bak"
+    continue if {exists file (parameter "NS_ConfigJson" of action & ".bak")}
+    
+    // Overwrite the existing configuration file with the new settings
+    wait /bin/sh -c "cp -f {parameter "NS_ConfigJson"}.new {parameter "NS_ConfigJson"}"
+            
+    //Clean Up Temporary Files
+    delete "{parameter "NS_ConfigJson"}.bak"
+    delete "{parameter "NS_ConfigJson"}.new"
+    
+    wait /bin/sh -c "echo '  > Service configured successfully.' >> {parameter "InstallLogFile"}"
+endif
+
+// =================
+// *** CONFIGURE ***
+// =================
+
+wait /bin/sh -c "echo '> Security ...' >> {parameter "InstallLogFile"}"
+parameter "cryptoFolderPath" = "{parameter "NS_RootFolder"}/crypto"
+
+if { not exists file ((parameter "NS_BackupFolder" of action) & "/" & (parameter "privateKeyFile" of action)) AND not exists file ((parameter "NS_BackupFolder" of action) & "/" & (parameter "certificateFile" of action)) }
+
+	wait /bin/sh -c "echo '  > Need to generate new security artifacts ...' >> {parameter "InstallLogFile"}"
+	
+	// Create folder if needed
+	if {not exists folder (parameter "cryptoFolderPath")}
+		wait /bin/sh -c "mkdir {parameter "cryptoFolderPath"}"
+	endif
+
+	parameter "keyPassFile" = "{parameter "cryptoFolderPath"}/keypass.txt"
+	appendfile { substring between "%27" of line whose( it as trimmed string as lowercase contains "passphrase:" ) of file (parameter "NS_RootFolder" & "/apps/ns-notifier/app/server/notifier_server.js") }
+	move __appendfile {parameter "keyPassFile"}
+	continue if { exists file (parameter "keyPassFile") AND (number of lines of file (parameter "keyPassFile") = 1) }
+	
+	// Run openssl to create public/private keys
+// ====================================
+createfile until GEN_KEY_CERT_END
+#!/bin/sh
+
+echo '  > Generating artifacts ...' >> {parameter "InstallLogFile"}
+openssl req -x509 -newkey rsa:1024 \
+            -keyout {(parameter "cryptoFolderPath") & "/" & (parameter "privateKeyFile")} \
+            -out {(parameter "cryptoFolderPath") & "/" & (parameter "certificateFile")} \
+            -subj "/CN=Management Extender" \
+            -passout file:{parameter "keyPassFile"} \
+            -days 9125
+
+echo '      > Generation Complete.' >> {parameter "InstallLogFile"}
+ 
+GEN_KEY_CERT_END
+// ====================================
+	
+	wait /bin/sh -c "echo '  > Deploying generated artifacts ...' >> {parameter "InstallLogFile"}"
+	wait /bin/sh -c "cp -f  {(parameter "cryptoFolderPath") & "/" & (parameter "privateKeyFile")} {parameter "NS_RootFolder" & "/apps/ns-notifier/resources/certs/"}"
+    wait /bin/sh -c "cp -f  {(parameter "cryptoFolderPath") & "/" & (parameter "certificateFile")} {parameter "NS_RootFolder" & "/apps/ns-notifier/resources/certs/"}"
+	
+	wait /bin/sh -c "echo '  > Cleaning up temporary security directory ...' >> {parameter "InstallLogFile"}"
+	wait /bin/sh -c "rm -rf  {parameter "cryptoFolderPath"}"
+else 
+	wait /bin/sh -c "echo '  > (Will re-use existing security artifacts ...)' >> {parameter "InstallLogFile"}"
+endif
+
+
+// ================
+// *** RESTORE ****
+// ================
+
+delete __createfile
+delete restore.sh
+
+// ====================================
+createfile until END_RESTORE_SH
+#!/bin/sh
+
+pushd { parameter "AppsFolder" }
+
+if [ -e {parameter "NS_BackupFolder"} ]
+then
+    echo 'Restoring original NS .conf and .json files ...' >> {parameter "InstallLogFile"}
+    cp -f {parameter "NS_BackupFolder" & "/*.json"} {parameter "NS_RootFolder" & "/resources/config/."}
+    cp -f {parameter "NS_BackupFolder" & "/*.cache"}" "{parameter "NS_RootFolder" & "/apps/ns-monitor/resources/."}
+    
+    if [ -e {(parameter "NS_BackupFolder") & "/" & (parameter "privateKeyFile")} ] && [ -e {(parameter "NS_BackupFolder") & "/" & (parameter "certificateFile")} ]
+    then
+		echo 'Restoring original key/cert files ...' >> {parameter "InstallLogFile"}
+    	cp -f  {(parameter "NS_BackupFolder") & "/" & (parameter "privateKeyFile")} {parameter "NS_RootFolder" & "/apps/ns-notifier/resources/certs/"}
+    	cp -f  {(parameter "NS_BackupFolder") & "/" & (parameter "certificateFile")} {parameter "NS_RootFolder" & "/apps/ns-notifier/resources/certs/"}
+	fi
+	
+	echo 'Removing backup directory ...' >> {parameter "InstallLogFile"}
+	rm -rf {parameter "NS_BackupFolder"}
+fi
+
+popd
+END_RESTORE_SH
+// ====================================
+
+move __createfile restore.sh
+wait /bin/sh -c "chmod 755 restore.sh"
+wait /bin/sh ./restore.sh
+delete restore.sh
+
+// Re-register the NS apps with the server plugin (first the notifier, then the monitor)
+if { exists file (parameter "MFS_XML_Notifier_UnRegistered") }
+    wait /bin/sh -c "echo 'Registering the Notification Service app [ns-notifier] with the BES Server Plugin ...' >> {parameter "InstallLogFile"}"
+    wait /bin/sh -c "mv -f {parameter "MFS_XML_Notifier_UnRegistered"} {parameter "MFS_XML_Notifier_Registered"}"
+endif
+// Assert that the server plugin is no longer monitoring the notification service before continuing
+continue if { not exists file (parameter "MFS_XML_Notifier_UnRegistered") AND exists file (parameter "MFS_XML_Notifier_Registered") }
+wait /bin/sh -c "echo '  > Registered [ns-notifier] successfully.' >> {parameter "InstallLogFile"}"
+
+if { exists file (parameter "MFS_XML_Monitor_UnRegistered") }
+    wait /bin/sh -c "echo 'Registering the Notification Service app [ns-monitor] with the BES Server Plugin ...' >> {parameter "InstallLogFile"}"
+    wait /bin/sh -c "mv -f {parameter "MFS_XML_Monitor_UnRegistered"} {parameter "MFS_XML_Monitor_Registered"}"
+endif
+// Assert that the server plugin is no longer monitoring the notification service before continuing
+continue if { not exists file (parameter "MFS_XML_Monitor_UnRegistered") AND exists file (parameter "MFS_XML_Monitor_Registered") }
+wait /bin/sh -c "echo '  > Registered [ns-monitor] successfully.' >> {parameter "InstallLogFile"}"
+
+// Assert install/upgrade was successful.
+continue if { exists folder ( parameter "NS_RootFolder" ) }
+wait /bin/sh -c "echo 'Notification Service Install Complete.' >> {parameter "InstallLogFile"}"
+
+// Move the install log into the NS directory itself
+wait /bin/sh -c "mv {parameter "InstallLogFile"} {parameter "NS_RootFolder"}"
+
+// NS Installation or upgrade complete.
+
+//Update client results 
+notify client ForceRefresh
+]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

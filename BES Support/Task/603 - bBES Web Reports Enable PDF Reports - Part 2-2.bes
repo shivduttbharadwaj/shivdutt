@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Web Reports: Enable PDF Reports - Part 2/2</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>BES Web Reports now has the ability to generate PDF reports. PDFs can be sent by clicking the "Email Report" link or by setting the "PDF" format option when creating or editing a scheduled activity. </P> <P>This feature is disabled by default. Use this task to enable this feature on the server hosting the BESWebReportsServer service. This task will take up to the following actions:</P> <UL> <LI>Install Internet Explorer 7 <LI>Install GPL GhostScript 8.60 <LI>Add your Web Reports host to Internet Explorer's trusted sites list for the system account <LI>Modify your PATH to include GhostScript <LI>Set registry values to enable this feature under the key "HKLM\Software\BigFix\Enterprise Server\BESReports" <LI>Add a PostScript file printer named "BES Web Reports Printer" </LI></UL> <P><STRONG>Note:</STRONG>Until version 9.5.12 Adobe Flash Player 9 or greater for Internet Explorer is required. Please run Fixlet ID #716 to install Flash.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display DOS windows during action execution.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT> </STRONG>This is the second in a series of two tasks that enable PDF email reports. Depending on client system configuration, this task may become relevant after client machines have completed&nbsp;<SPAN id=partOneLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetPartOneLink; function SetPartOneLink() { try {if (isEvansOrLater) { partOneLink.innerHTML = Relevance('link "<?rxlat part one?>" of fixlet whose (id of it = 602) of bes site whose (id of it = 1)');} else { partOneLink.innerHTML = EvaluateRelevance('link "part one" of fixlet whose (id of it = 602) of bes site whose (id of it = 1)');} } catch (e) {if (isEvansOrLater) { partOneLink.innerHTML ='<?jxlat part one (BES Web Reports: Enable PDF Reports - Part 1/2, ID: 602)?>';} else { partOneLink.innerHTML = 'part one (BES Web Reports: Enable PDF Reports - Part 1/2, ID: 602)';} } }</SCRIPT> &nbsp;and been restarted. Client machines which do not become relevant for this task require no further action to enable PDF email reports.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists service "BESWebReportsServer"</Relevance>
+		<Relevance><![CDATA[((name of it = "Win2003" AND service pack major version of it >= 1) OR ((version of registration server >= "7.2") AND (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008"))) AND (exists regapp "iexplore.exe")) OR ((version of registration server >= "8") AND ((name of it = "Win2008R2") OR (name of it = "Win2012") OR (name of it = "Win2012R2") OR (name of it = "Win2016")) AND (exists regapp "iexplore.exe"))) of operating system]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\Software\Bigfix\Enterprise Server" whose (value "BESWebReportsInstalled" of it = 1) of registry</Relevance>
+		<Relevance><![CDATA[version of registration server >= "7.0.9"]]></Relevance>
+		<Relevance>NOT pending restart</Relevance>
+		<Relevance><![CDATA[((version of regapp "iexplore.exe" >= "7") AND (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry) AND (exists folder "macromed\flash" whose (exists file whose (((it starts with "flash" AND it ends with ".ocx") OR (it = "swflash.ocx")) of (name of it as lowercase) AND version of it >= "9") of it) of system folder) AND (exists key ("HKEY_USERS\" & ((if (it = "LocalSystem") then ("S-1-5-18") else if (it = "LocalService") then ("S-1-5-19") else if (it = "NetworkService") then ("S-1-5-20") else if (it contains "@") then (component string of sid of security account (it)) else (string value of select (("SID from Win32_UserAccount where NAME='" & following text of last "\" of it & "' and DOMAIN='" & ((if it = "." then computer name else it) of preceding text of last "\" of it) & "'") of ((login account of service "BESWebReportsServer") as string)) of wmi)) of login account of service "BESWebReportsServer") & "\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\" & (first match (regex "^[^:]+") of first match (regex "[^/]+$") of (it as string)) of value "Hostname" of key "HKLM\SOFTWARE\BigFix\Enterprise Server\Installer\" of registry) whose (exists value "http" whose (it = 2) of it AND exists value "https" whose (it = 2) of it) of registry) AND (exists key "HKLM\Software\BigFix\Enterprise Server\BESReports" whose (((exists value "PDFEnable" whose (it = "1") of it) OR (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports" whose (exists value (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps") of it) of native registry)) AND value "PDFPostScriptPath" of it = (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps") AND value "PDFPrinterName" of it = "BES Web Reports Printer") of registry) AND (exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" whose ((exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" whose (exists value "UninstallString" of it) of registry) AND ((it contains parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\bin" AND it contains parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\lib") of (value "Path" of it as string))) of registry) AND (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports" whose (exists value (((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps") of it) of native registry) AND (exists key ("HKU\" & ((if (it = "LocalSystem") then ("S-1-5-18") else if (it = "LocalService") then ("S-1-5-19") else if (it = "NetworkService") then ("S-1-5-20") else if (it contains "@") then (component string of sid of security account (it)) else (string value of select (("SID from Win32_UserAccount where NAME='" & following text of last "\" of it & "' and DOMAIN='" & ((if it = "." then computer name else it) of preceding text of last "\" of it) & "'") of ((login account of service "BESWebReportsServer") as string)) of wmi)) of login account of service "BESWebReportsServer") & "\Software\Microsoft\Internet Explorer\PageSetup") of registry))]]></Relevance>
+		<Relevance>NOT (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers\BES Web Reports Printer" of registry)</Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 28 Aug 2008 22:45:10 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Web</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 May 2019 09:02:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// Set up a param for SID of Web Reports user
+
+parameter "WRUser" = "{((if (it = "LocalSystem") then ("S-1-5-18") else if (it = "LocalService") then ("S-1-5-19") else if (it = "NetworkService") then ("S-1-5-20") else if (it contains "@") then (component string of sid of security account (it)) else (string value of select (("SID from Win32_UserAccount where NAME='" & following text of last "\" of it & "' and DOMAIN='" & ((if it = "." then computer name else it) of preceding text of last "\" of it) & "'") of ((login account of service "BESWebReportsServer") as string)) of wmi)) of login account of service "BESWebReportsServer")}"
+
+// Add the printer (no restart required)
+delete __appendfile
+delete add_ps_printer.bat
+
+appendfile @ECHO OFF
+appendfile rundll32 printui.dll,PrintUIEntry /q /if /b "BES Web Reports Printer" /f %windir%\inf\ntprint.inf /r "{((value "WRServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry) as string) & "BESReportsData\ArchiveData\__pdf\out.ps"}" /m "{if name of operating system = "Win2003" then "Apple Color LW 12/660 PS" else if (((version of registration server >= "7.2") AND (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008"))) AND (exists regapp "iexplore.exe")) of operating system) then "Canon PS-NX90" else "Xerox Phaser 6180MFP-D PS"}"
+move __appendfile add_ps_printer.bat
+waithidden add_ps_printer.bat
+
+// Settings from BESMakePDF to make Win2k8 pick up the printer right away
+
+regset "[{"HKEY_USERS\" & (parameter "WRUser") & "\Software\Microsoft\Windows NT\CurrentVersion\Windows"}]" "Device"="BES Web Reports Printer,winspool,Ne00:"
+
+// Set the last of the regkeys to enable the feature
+
+if {NOT exists key "HKLM\Software\BigFix\Enterprise Server\BESReports" whose (value "PDFEnable" of it = "1") of registry}
+regset "[HKEY_LOCAL_MACHINE\Software\BigFix\Enterprise Server\BESReports]" "PDFEnable"="1"
+endif]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about BES Web Reports.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/product/documents/BESWebReports-7.0.pdf</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about enabling the PDF Email Reports feature of BES Web Reports.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/support/knowledgecenter/en/SS2TKN_8.2.0/com.ibm.tem.doc_8.2/Platform/Web_Reports/c_exporting_web_reports_as_pdf_d.html</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Internet Explorer 7.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://msdn2.microsoft.com/en-us/ie/aa740486.aspx</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about GPL GhostScript 8.60.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://pages.cs.wisc.edu/~ghost/doc/GPL/gpl860.htm</ActionScript>
+		</Action>
+	</Task>
+</BES>

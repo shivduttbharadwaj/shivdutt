@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Missing Directory May Cause Memory Leak on UNIX and Linux Clients</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size=2>BES UNIX and Linux clients previous to version 5.0.11.8 have a potential memory leak if the directory used for uploading files does not exist. This directory is not&nbsp;created by the client until at least one file has been uploaded from the client. <BR><BR>BigFix recommends upgrading your UNIX and Linux clients to version 5.0.11.9 or later by&nbsp;using the appropriate upgrade Fixlet messages in the "BES Support" Fixlet&nbsp;site.&nbsp;If you do not want to upgrade your clients yet, you can use the action below to create the appropriate folder on your clients. <P>&nbsp;</P></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>(name of operating system as lowercase contains "linux red hat") OR (name of operating system as lowercase contains "linux suse") OR (name of operating system as lowercase contains "SunOS 5.7") OR (name of operating system as lowercase contains "SunOS 5.8") OR (name of operating system as lowercase contains "SunOS 5.9") OR (name of operating system contains "HP-UX") OR (name of operating system as lowercase contains "linux fedora core")</Relevance>
+		<Relevance><![CDATA[version of client < "5.0.11.9"]]></Relevance>
+		<Relevance><![CDATA[not exists folder (pathname of parent folder of client folder of site "bessupport" & "/__Global/Upload/sha1")]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 08 Mar 2005 19:34:36 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Potential</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to create folders that will prevent the potential memory leak.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[wait mkdir "{(pathname of parent folder of (client folder of site "bessupport")) as string & "/__Global/Upload"}"
+wait mkdir "{(pathname of parent folder of (client folder of site "bessupport")) as string & "/__Global/Upload/sha1"}"]]></ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

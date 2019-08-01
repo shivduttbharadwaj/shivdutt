@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Red Hat Enterprise Linux Server - Manual Upgrade Required - IBM BigFix version 9.2.10</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><SPAN id=relTag2Script3></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; try{if (isEvansOrLater) {document.getElementById("relTag2Script3").innerHTML=Relevance('if (applicable computer count of current fixlet = 0) then ((format "<?rxlat <B>If no computers are relevant for this Fixlet message, you may use the {0} Fixlet message to upgrade your IBM BigFix Server.</B><BR><BR>?>" + link of fixlet whose (display name of it contains "IBM BigFix - Updated Platform Server Components version 9.2.10") of site of current fixlet as string) as string) else ("")');} else {document.getElementById("relTag2Script3").innerHTML=EvaluateRelevance('if (applicable computer count of current fixlet = 0) then ("<B>If no computers are relevant for this Fixlet message, you may use the " & link of fixlet whose (display name of it contains "IBM BigFix - Updated Platform Server Components version 9.2.10") of site of current fixlet as string & " Fixlet message to upgrade your IBM BigFix Server.</B><BR><BR>") else ""');}}catch(e){}</SCRIPT> <P><STRONG>Version&nbsp;9.2.10 of IBM BigFix is now available</STRONG>, but the current IBM BigFix Server cannot be upgraded through a Fixlet message. Please follow the instructions in the links below to manually upgrade your Server. </P> <P>The latest version of the IBM BigFix Server provides several enhancements and fixes.</P> <P>Please contact technical support if you have any questions regarding this upgrade.</P> <P><SPAN style="FONT-WEIGHT: bold; COLOR: red">Important Note:</SPAN> If any IBM BigFix Consoles are open while the Server upgrade installer is running, the users may experience an error or a dialog that asks the user to shut down the Console. The user would have to exit the Console, and may need to perform an upgrade of the Console. Please perform the Server upgrade at a time when this service interruption is acceptable.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance>exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (6|7)") of name of operating system</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[(it >= "9.0" AND it < "9.1") of version of main gather service]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Audit</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-04-24</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 27 Apr 2017 12:57:22 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Server Console</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 27 Apr 2017 12:57:22 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for instructions to manually upgrade IBM BigFix 9.2.10 Server Components.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.ibm.com/support/knowledgecenter/SSQL82_9.2.0/com.ibm.tivoli.tem.doc_9.2/Platform/Adm/c_upgrading1_linux.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

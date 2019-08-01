@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>BES Clients are Locked but Can Now Find BES Relay</Title>
+		<Description><![CDATA[
+The listed BES Clients were set to lock themselves because they were unable to find an nearby BES Relay because ICMP was blocked (see Fixlet message #139 for more information).<BR><BR>However, the BES Clients are no longer in this state either because they are now able to find a BES Relay or they are using manual BES Relay selection. Click below if you would like to unlock these BES Clients. <BR><BR><b>Note:</b> You should verify that the BES Relays the BES Clients are using are appropriate before unlocking the BES Clients to avoid potentially unlocking computers reporting to the wrong BES Relay. 
+]]></Description>
+		<Relevance>(if( windows of it ) then platform id of it != 3 else false) of operating system</Relevance>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>exists value "LockedForICMP" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\ICMPBlocked" of registry</Relevance>
+		<Relevance>(not exists selected server) OR (upper bound of distance of selected server != 255)</Relevance>
+		<Relevance>locked of action lock state</Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2004-04-16</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 16 Apr 2004 22:32:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 05 May 2016 22:24:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to unlock the BES Clients.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regdelete "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\ICMPBlocked]" "LockedForICMP"
+
+action unlock "{apparent registration server time}"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about troubleshooting BES Relay problems.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/bes/misc/besrelayhealth.html</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on making this action a "policy" that will automatically apply to any computer in this state.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=113</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

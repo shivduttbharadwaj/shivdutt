@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Proxy Agent - IBM Endpoint Manager version 9.1.1229.0 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><FONT size=2> <P><B>Version 9.1.1229.0 of IBM Endpoint Manager is now available!</B><BR><BR>The latest version of the&nbsp;IBM Endpoint Manager Proxy Agent&nbsp;provides several enhancements and fixes. This Fixlet can upgrade Proxy Agents on the targeted endpoints. </P></FONT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.93 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client >= "9"]]></Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance>"9.1.1229.0" = version of current relay</Relevance>
+		<Relevance><![CDATA[exists (proxy agent service) whose (version of it < "9.1.1229.0")]]></Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>4121933</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2014-12-09</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 11 Dec 2014 21:36:07 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy ProxyAgent Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager ProxyAgent 9.1.1229.0 upgrades.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESProxyAgent.bfz sha1:5d55e47a5b9f8b450c171cfa5cff0c3d8db9ddaf size:4121933 http://software.bigfix.com/download/bes/91/BigFix-BES-ProxyAgent-9.1.1229.0.bfz sha256:c267e605e26f441bff322ea5513db82548985dac0f8e5b3e59632b8b7acb30e0
+// If the next line fails, there is not enough free space to complete this action
+continue if {(if (exists variable "temp" of it) then (4121933 < free space of drive of folder(value of variable "temp" of it)) else true) of environment}
+parameter "proxyFolder"="{parent folder of file of proxy agent service}"
+parameter "proxyRunning"="{exists (proxy agent service) whose (running of it)}"
+if {"True" = parameter "proxyRunning"}
+	waithidden cmd.exe /C net stop BESProxyAgent
+	continue if {exists true whose (if true then (exit code of action = 0) else false)}
+endif
+extract BESProxyAgent.bfz "{parameter "proxyFolder"}"
+continue if {"9.1.1229.0" = version of file "ProxyAgent.exe" of folder (parameter "proxyFolder")}
+waithidden cmd.exe /C sc description BESProxyAgent "Enables IBM Endpoint Manager to be able to use Management Extenders"
+continue if {exists true whose (if true then (exit code of action = 0) else false)}
+//Delete old libraries if present
+delete "{parameter "proxyFolder"}\libBESssl_1_0_0_1.dll"
+delete "{parameter "proxyFolder"}\libBEScrypto_1_0_0_1.dll"
+delete __Download\BESProxyAgent.bfz
+if {"True" = parameter "proxyRunning"}
+	waithidden cmd.exe /C net start BESProxyAgent
+	continue if {exists true whose (if true then (exit code of action = 0) else false)}
+endif]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[exists proxy agent service whose(version of it < "9.1.1229.0")]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

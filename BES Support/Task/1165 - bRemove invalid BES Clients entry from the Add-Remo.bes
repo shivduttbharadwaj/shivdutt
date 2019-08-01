@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title><![CDATA[Remove invalid BES Clients entry from the Add/Remove Programs List - BES Client >= 8.0]]></Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><BR> <P>The standard BES Client installation package will list the BES Client in the Windows "Add/Remove Programs" Tool and should remove old entries.</P> <P>This fixlet will remove the first entry that does not represent the current installed client if some event occured that prevented the installer from doing its job correctly.<BR><BR><BR><STRONG>Note: </STRONG>You may have to apply this fixlet more than once if there is more than one invalid entry.<BR></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[((if (version of client >= "8.0") then (windows of it) else (name of it starts with "Win")) AND platform id of it != 3) of operating system]]></Relevance>
+		<Relevance><![CDATA[version of client >= "8.0"]]></Relevance>
+		<Relevance><![CDATA[(number of keys whose ((it = "IBM BigFix Client" OR it = "IBM Endpoint Manager Client" OR it = "BigFix Enterprise Client" OR it = "Tivoli Endpoint Manager Client" OR  it = "Trend Micro Endpoint Security Platform") of value "ProductName" of it) of keys "HKEY_CLASSES_ROOT\Installer\Products" of native registry) > 1]]></Relevance>
+		<Relevance><![CDATA[exists key whose (((it = "IBM BigFix Client" OR it = "IBM Endpoint Manager Client" OR it = "BigFix Enterprise Client" OR it = "Tivoli Endpoint Manager Client" OR it = "Trend Micro Endpoint Security Platform") of value "ProductName" of it) AND (((((((it / 16777216)) as string) & "." & (((it / 65536) - ((it / 16777216) * 256)) as string) & "." & (it - ((it / 65536) * 65536)) as string) of (value "Version" of it as integer)) as version) != (version of client)) ) of keys "HKCR\Installer\Products" of native registry]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Sat, 08 Dec 2012 02:30:45 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 16 Nov 2015 18:07:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT5M</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to remove the first invalid BES Client entry from the "Add/Remove Programs" list.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "InstallKeyNameOfNonInstalledClient"="{"HKEY_CLASSES_ROOT\Installer\Products\" & (name of key whose (((it = "IBM BigFix Client" OR it = "IBM Endpoint Manager Client" OR it = "BigFix Enterprise Client" OR it = "Tivoli Endpoint Manager Client" OR it = "Trend Micro Endpoint Security Platform") of value "ProductName" of it) AND (((((((it / 16777216)) as string) & "." & (((it / 65536) - ((it / 16777216) * 256)) as string) & "." & (it - ((it / 65536) * 65536)) as string) of (value "Version" of it as integer)) as version) != (version of client)) ) of keys "HKCR\Installer\Products" of native registry as string)}"
+continue if {exists key (parameter "InstallKeyNameOfNonInstalledClient") of native registry}
+continue if {version of client != ((((((it / 16777216)) as string) & "." & (((it / 65536) - ((it / 16777216) * 256)) as string) & "." & (it - ((it / 65536) * 65536)) as string) of (value "Version" of it as integer)) as version) of key (parameter "InstallKeyNameOfNonInstalledClient") of native registry}
+
+delete __appendfile
+delete deletekey.reg
+appendfile REGEDIT4
+appendfile[-{parameter "InstallKeyNameOfNonInstalledClient"}]
+parameter "CurrentDriveOfSite"="{name of drive of client folder of current site}"
+move __appendfile "{parameter "CurrentDriveOfSite"}\deletekey.reg"
+action uses wow64 redirection false
+waithidden regedit /s "{parameter "CurrentDriveOfSite"}\deletekey.reg"
+continue if {exit code of action = 0}
+delete "{parameter "CurrentDriveOfSite"}\deletekey.reg"
+]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on how to make this action a "policy" action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=113</ActionScript>
+		</Action>
+	</Task>
+</BES>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>_Install Windows-WAS-CSD</Title>
+		<Description><![CDATA[This fixlet will install the endpoint code for Windows-WAS-CSD<BR/><BR/><B>CSD Version Supported:&nbsp;</B>5.0C
+		<p>Endpoints must have at least 4 MB available on the file system where the BES client is located for this fixlet to become applicable.</p>
+		<p><small><b>Version:</b>&nbsp;3.9.0<br><b>Build ID:</b>&nbsp;20190123-2090</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-WAS-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				disjunction of ((name of operating system as lowercase contains it) of ( "win2008"; "win2012"; "win2016"))
+			)
+		)
+		</Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows-WAS-CSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+			(if (windows of operating system) then (
+				if (exists folder "C:\Program Files (x86)\IBM\WebSphere\AppServer" or exists folder "C:\Program Files\IBM\WebSphere\AppServer" or exists service whose (display name of it as lowercase contains "websphere application server")) then
+					true
+				else 
+				   false
+			)
+			else (
+				if (exists folder "/opt/IBM/WebSphere/AppServer" or exists folder "/usr/IBM/WebSphere/AppServer" or (exists(folders whose(exists folder "AppServer" of it ) of folder "/opt/WebSphere")|false) or (exists command line arguments whose (it as lowercase contains "websphere") of processes "java"|false)) then
+					true
+				else 
+					false		
+			))
+			
+				) 
+									or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | false) then
+		(exists (lines containing "SUBSYSTEM_TYPE=WAS" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | false)
+		else false)
+
+							)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance>exists file "HCLauncher_390/HCLauncher.jar" of folder "__GTS/__IEMHC" of storage folder of client </Relevance>
+		<Relevance>(exists file "jre/bin/java.exe" of folder "__GTS" of storage folder of client or exists file "jre/bin/java" of folder "__GTS" of storage folder of client)</Relevance>
+		<Relevance><![CDATA[not exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client]]></Relevance>
+		<Relevance><![CDATA[
+		(if name of operating system as lowercase contains "win" then
+(
+	(free space of drive of storage folder of client)
+)
+else 
+(
+	if name of operating system as lowercase contains "sunos" then
+	(
+		 ((free space of filesystem of storage folder of client) - (total space of filesystem of storage folder of client / 100))
+	)
+	else	
+	(
+		(free space of filesystem of storage folder of client)
+	)
+)
+) > 4372125
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>3.9.0</SourceID>
+		<SourceReleaseDate>2019-01-23</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>11180002</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 15 Mar 2019 07:32:16 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			begin prefetch block	
+	if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+		parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+	else
+		parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+	endif
+	add prefetch item name=policy.xml sha1=01631ed7035fd19668f8bc4d1052753d9e770eb2 sha256=7d4df0425b7a7e8ffbe1410e5d792b2e014d7e4280ef2f707c94cbec29a3b5ec size=153577 url={parameter "basepath"}/390/20190123-2090/Windows/WAS.Windows.CSD/policy.xml
+	add prefetch item name=Collectors.zip sha1=4595b7ba21129beacf1023ff3a3e04c8787c63e0 sha256=f2dd2f1a26cbdde87e346a1a52d31c99f3d24c6a7dc2bcc0f5edbe434d8e1fa9 size=1303798 url={parameter "basepath"}/390/20190123-2090/Windows/WAS.Windows.CSD/Collectors.zip
+	add prefetch item name=cuz.jar sha1=76dd952a93b4bbda50511acff681d6805487baa7 sha256=ce2147227f5822c3e9a4e7909bf4178ea8299de3d6e9c118e813c85e53492caa size=179698 url={parameter "basepath"}/390/20190123-2090/tools/cuz.jar
+end prefetch block
+
+parameter "build_id" = "20190123-2090"
+parameter "version" = "3.9.0"
+
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client}
+	folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD_backup"
+endif
+
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client AND exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/policy_parameters.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD_backup/policy_parameters.txt"
+endif
+
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client AND exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/localpolicy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD_backup/localpolicy.xml"
+endif
+
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client AND exists file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/freshness.txt" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD_backup/freshness.txt"
+endif
+
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client AND exists folder "vault" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client}
+	move "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/vault" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD_backup/vault"
+endif
+if {exists folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows-WAS-CSD") of storage folder of client}
+	folder delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD"
+endif
+
+folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD"
+
+copy "{client folder of current site}/__Download/policy.xml" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/policy.xml"
+
+// unzip the Collectors.zip
+if {windows of operating system} 
+	wait "{storage folder of client}\__GTS\jre\bin\java.exe" -jar "{client folder of current site}\__Download\cuz.jar" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\Windows-WAS-CSD" "{client folder of current site}\__Download\Collectors.zip" 	
+else
+	wait "{storage folder of client}/__GTS/jre/bin/java" -jar "{client folder of current site}/__Download/cuz.jar" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD" "{client folder of current site}/__Download/Collectors.zip"	
+endif
+
+
+if {exit code of action != 0}
+exit {exit code of action}
+endif
+
+// create version.txt
+appendfile {now as string}
+appendfile WAS-Windows-CSD-5.0C
+appendfile {parameter "version"}
+appendfile {parameter "build_id"}
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/version.txt"
+move __appendfile "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows-WAS-CSD/version.txt"
+
+// Set the GTS_GCM_Enhanched_Scheduling_<site name> setting to DISABLED if the setting is empty or does not exists AND there is no GTS_<site name>_GCM_Dates setting
+if {( (not exists setting ("GTS_GCM_ENHANCED_SCHEDULING_"&(name of current site)) whose (value of it != "") of client) AND ((not exists values of setting ("GTS_"&(name of current site)&"_GCM_Dates") of client)|True) )}
+	setting "GTS_GCM_ENHANCED_SCHEDULING_{name of current site}"="DISABLED" on "{date (local time zone) of now & time (local time zone) of now}" for client
+endif
+			]]></ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

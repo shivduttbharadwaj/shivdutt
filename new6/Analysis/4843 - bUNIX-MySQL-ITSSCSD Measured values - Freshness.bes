@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>UNIX-MySQL-ITSSCSD Measured values - Freshness</Title>
+		<Description><![CDATA[This analysis reports the modification time of the current result file stored on the endpoint.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190612-2172</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[
+				exists folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-MySQL-ITSSCSD") of storage folder of client
+
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<MIMEField>
+			<Name>x-fixlet-scm-analysis-id</Name>
+			<Value>01F103BD-26A8-5515-2B8F-12DF4E8F0145</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>         {  "fusion_supported_platforms" : "AIX 6+, HP-UX 11.31, Red Hat Linux 6.x+, SuSE Linux 11+, Solaris 10+, CentOS 7+, Ubuntu 14+, Debian 8+, MySQL 3.23, 4.0, 4.1, 5.0, 5.1, 5.6, 5.7",  "description" : "Freshness",  "scm_parameters" : {   "properties" : {    "1" : {     "type" : "string",     "description" : "Result file modification date",     "order" : 1,     "title" : "Last Update"    },    "2" : {     "type" : "string",     "description" : "Result file freshness status",     "order" : 1,     "title" : "Status"    }   }  },  "title" : "UNIX-MySQL-ITSSCSD Measured values - Freshness" }     </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>20420001</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 03 Jul 2019 09:48:29 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<Property Name="Last Update" ID="1"><![CDATA[ 						( if ( exists file it) then if (line 1 of file it as trimmed string as lowercase = "unknown") then ("Never") 	else ( (line 1 of file it ) ) else ("Never")) of (storage folder of client as string & "/__GTS/__IEMHC/" & name of site of current analysis & "/" & 	"UNIX-MySQL-ITSSCSD" & "/delay_counter_" & "policy_result.xml")		  		]]></Property>
+		<Property Name="Status" ID="2"><![CDATA[ 				(if (exists file it) then (if ((line 1 of file it)  as trimmed string as lowercase = "unknown") then "Foul" else if ((now - (line 1 of file it as time)) < ((if exists (file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-MySQL-ITSSCSD") of storage folder of client) then ((line of file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-MySQL-ITSSCSD") of storage folder of client) as integer) else 5) * day)) then "Fresh" else if ((now - (line 1 of file it as time)) = ((if exists (file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-MySQL-ITSSCSD") of storage folder of client) then ((line of file "freshness.txt" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/UNIX-MySQL-ITSSCSD") of storage folder of client) as integer) else 5) * day)) then "Ripe" else "Rotten") else "Foul" ) of ( storage folder of client as string & "/__GTS/__IEMHC/" & name of site of current analysis & "/" & "UNIX-MySQL-ITSSCSD" & "/delay_counter_" & 	"policy_result.xml" ) 		]]></Property>
+	</Analysis>
+</BES>

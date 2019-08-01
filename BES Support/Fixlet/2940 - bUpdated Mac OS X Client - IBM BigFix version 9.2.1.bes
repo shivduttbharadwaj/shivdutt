@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Mac OS X Client - IBM BigFix version 9.2.11 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.2.11 of IBM BigFix is now available for the Mac OS X operating system!<BR><BR></STRONG>The latest version of the IBM BigFix Client provides several enhancements and fixes. This Fixlet message will upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to a 9.2 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM BigFix Server and Relays have been upgraded. It may take several hours for the Clients to notice that the IBM BigFix Server and Relays are upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.<BR><BR><STRONG>Note: </STRONG>This client runs on supported OS X platforms on an x86 (versions 10.6, 10.7, 10.8, 10.9, 10.10).</FONT></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+9.70 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client < "9.2.11.19" and version of client >= "7.2"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.2"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>name of operating system starts with "Mac OS X"</Relevance>
+		<Relevance><![CDATA[system version >= "10.6"]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>10168706</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-07-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>N/A</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 13 Jul 2017 13:38:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 13 Jul 2017 13:38:51 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Client 9.2.11 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESAgent.pkg sha1:7c3dbb4ab80d1918ce69a5866aa15aebb0a158f9 size:10168706 http://software.bigfix.com/download/bes/92/BESAgent-9.2.11.19-BigFix_MacOSX10.6.pkg sha256:712cfd94e06d38329d4dd83d6168fa13221c13c4e76238105bfb568a8480b3d6
+continue if {exists file "__Download/BESAgent.pkg"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+continue if {10168706 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESAgent.pkg __Local/Upgrade/BESAgent.pkg
+continue if {exists file "__Local/Upgrade/BESAgent.pkg"}
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /bin/sh -c "trap '' 15; installer -pkg __Local/Upgrade/BESAgent.pkg -target /"
+// If we get here and this fails, the install didn't succeed
+continue if {exit code of action = 0}]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.2.11.19"]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

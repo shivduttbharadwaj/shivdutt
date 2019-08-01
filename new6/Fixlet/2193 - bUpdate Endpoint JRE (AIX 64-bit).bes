@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Update Endpoint JRE (AIX 64-bit)</Title>
+		<Description><![CDATA[<p>Update the endpoint with the latest JRE for GCM health checks and remediation and create __UIDEXT folder if not exists.</p>
+		<p>Endpoints must have at least 138 MB available on the file system where the BES client is located for this fixlet to become applicable.</p>
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>name of operating system as lowercase contains "aix"</Relevance>
+		<Relevance>architecture of operating system contains "64"</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[name of operating system as lowercase contains "aix" and version of operating system >= "7" and ((concatenation "" of substrings separated by "-" of ((current technology level of operating system) as string)) as integer >= 710003)]]></Relevance>
+		<Relevance><![CDATA[
+		(if name of operating system as lowercase contains "win" then
+(
+	(free space of drive of storage folder of client)
+)
+else 
+(
+	if name of operating system as lowercase contains "sunos" then
+	(
+		 ((free space of filesystem of storage folder of client) - (total space of filesystem of storage folder of client / 100))
+	)
+	else	
+	(
+		(free space of filesystem of storage folder of client)
+	)
+)
+) > 145281211
+		]]></Relevance>
+		<Relevance>(exists folder "__GTS/jre" of storage folder of client) or (not exists folder "__GTS/__IEMHC" of storage folder of client) or (not exists folder "__UIDEXT" of folder "__GTS" of storage folder of client)</Relevance>
+		<Relevance>not ((line 1 of file "jre/sha256.txt" of folder "__GTS" of storage folder of client is "76e5cece78166168adeb0d040dff3292386f71678417e84040b7b92c52f16e8e") | false)</Relevance>
+		<Category>GCM</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>56</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 07 Jun 2019 09:16:05 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+			
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			
+begin prefetch block
+
+if {exists setting "_GCM_Download_BasePath" whose (value of it != "") of client}
+	parameter "basepath" = "{value of setting "_GCM_Download_BasePath" of client}"
+else
+	parameter "basepath" = "GTSProtocol://download.bigfix.com/download/gtscontent/iemhc"
+endif
+
+// determine if JRE update is needed
+parameter "updateJRE" = "{not ((line 1 of file "jre/sha256.txt" of folder "__GTS" of storage folder of client is "76e5cece78166168adeb0d040dff3292386f71678417e84040b7b92c52f16e8e") | false)}"
+
+// only download JRE if needed
+if {parameter "updateJRE" as lowercase is "true"}
+add prefetch item name=jre864redist.tar.gz sha1=5949599f0a89fe0d48889f45d64ab18886b7be48 sha256=76e5cece78166168adeb0d040dff3292386f71678417e84040b7b92c52f16e8e size=145281211 url={parameter "basepath"}/jre/80535/jre864redist.tar.gz
+
+endif
+
+end prefetch block
+			
+parameter "build_id" = "20190307-2125"
+parameter "version" = "4.0.0"
+
+if {name of operating system as lowercase contains "sunos" OR name of operating system as lowercase contains "hp-ux"}
+	parameter "dump" = ""
+else
+	parameter "dump" = "-Xdump:none"
+endif
+
+// re-create base folder if not exists
+folder create "{storage folder of client}/__GTS/__IEMHC"
+folder create "{storage folder of client}/__GTS/__UIDEXT"				
+	
+if {parameter "updateJRE" as lowercase is "true"}
+// clean the JRE location
+folder delete "{storage folder of client}/__GTS/jre"
+folder delete "{storage folder of client}/__GTS/__IEMHC/jre"
+delete "{storage folder of client}/__GTS/__IEMHC/version.txt"
+
+// JRE extract and install
+
+// clean the temporary storage
+folder delete "{storage folder of client}/__GTS/Temp"
+folder create "{storage folder of client}/__GTS/Temp"
+
+
+wait gunzip -f "{client folder of current site}/__Download/jre864redist.tar.gz"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait tar xf "{client folder of current site}/__Download/jre864redist.tar"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+wait mv -f "{client folder of current site}/jre" "{storage folder of client}/__GTS/jre"
+if {exit code of action != 0}
+exit {exit code of action as integer}
+endif 
+
+appendfile 76e5cece78166168adeb0d040dff3292386f71678417e84040b7b92c52f16e8e
+
+if {((exists file "jre/bin/java.exe" of folder "__GTS" of storage folder of client or exists file "jre/bin/java" of folder "__GTS" of storage folder of client))}
+	move __appendfile "{storage folder of client}/__GTS/jre/sha256.txt"
+else
+	delete __appendfile
+endif
+
+// clean up the work folder
+folder delete "{storage folder of client}/__GTS/Temp"
+
+endif			
+
+if {parameter "updateJRE" as lowercase is "true"}
+// Last Change
+appendfile {now as string}
+
+// Version
+appendfile {parameter "version"}
+
+// Build ID
+appendfile {parameter "build_id"}
+
+// create the version file
+delete "{storage folder of client}/__GTS/version.txt"
+move __appendfile "{storage folder of client}/__GTS/version.txt"
+
+// append JRE version to end
+appendfile #!/bin/sh
+appendfile "{storage folder of client}/__GTS/jre/bin/java" -version >> "{storage folder of client}/__GTS/version.txt" 2>&1
+delete launch.sh
+move __appendfile launch.sh
+wait chmod 750 launch.sh
+wait "{client folder of current site}/launch.sh"
+endif			
+			]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

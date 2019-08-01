@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows2012-ITSSCSD ED.1.5.8.1 Network Settings/Prohibited SNMP Community Names</Title>
+		<Description><![CDATA[
+		<P><B>Test:&nbsp;</B>Community names of PUBLIC and PRIVATE are not permitted Inbound or Outbound if the SNMP service is active. </P><P><B>ITSSCSD Section:&nbsp;</B>ED.1.5.8.1, ED.1.5.8.2</P><P><B>ITSSCSD Version Supported:&nbsp;</B>4.0C</P>
+		<p><small><b>Version:</b>&nbsp;4.1.0<br><b>Build ID:</b>&nbsp;20190611-2171</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		<script>
+	document.body.ontakeaction = function() {
+
+		var b=EvaluateRelevance('name of site of current fixlet'),a=EvaluateRelevance('exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*")');
+		(a=!/^true$/i.test(a))||alert('Remediation is disabled for site '+b);
+		if (!a) {
+			return a;
+		}
+														
+   		   		var b=EvaluateRelevance(' unique values whose (it contains "ERROR !!! " or it contains "[FATAL]" or it contains "[ERROR]") of (it as string) of (name of computer of it , values of it) of results  of properties whose(name of it = "Health Check") of BES Fixlets whose (analysis flag of it and name of it = "_Status Windows2012-ITSSCSD")');
+   		if (b === null || b.length === 0) {
+   		 	return true;
+    	}
+    	
+    	for (var i = 0; i < b.length; i++) {
+    		b[i]=b[i].substring(0, b[i].indexOf(','));
+		}
+		b = unique(b);
+   
+		b = b.toString().replace(/,/g , "\n");
+		var r = confirm("There are computers with invalid health check,\n do you want to proceed?\n"+b);
+		if (r === true) {
+    		x = "OK!";
+		} else {
+    		x = "Cancel!";
+		}
+		return r;
+	};
+	
+	function unique(arr) {
+    var hash = {}, result = [];
+    for ( var i = 0, l = arr.length; i < l; ++i ) {
+        if ( !hash.hasOwnProperty(arr[i]) ) {
+            hash[ arr[i] ] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+</script>
+<?BeginRefreshRelevance?>
+	<p><b><?relevance if exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*") then ("Remediation is disabled for site " & (name of site of current fixlet)) else ""?></b></p>
+<?EndRefreshRelevance?>		
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows2012-ITSSCSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				name of operating system as lowercase contains "win2012"
+			)
+		)
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+			 (if (exists file "Network_Settings_Prohibited_SNMP_Community_Names.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-ITSSCSD") of storage folder of client | true ) Then (if (exists lines of file "Network_Settings_Prohibited_SNMP_Community_Names.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-ITSSCSD") of storage folder of client | true) then true else false ) else True)
+		]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>4.1.0 - B</SourceID>
+		<SourceReleaseDate>2019-06-11</SourceReleaseDate>
+		<SourceSeverity>normal</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-id</Name>
+			<Value>87CD3380-7F6C-BAEE-1D14-79EA9535874B</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>            {    "fusion_supported_platforms" : "Windows Server 2012",    "description" : "Community names of PUBLIC and PRIVATE are not permitted Inbound or Outbound if the SNMP service is active. ",          "fusion_isec_section": "ED.1.5.8.1, ED.1.5.8.2",    "fusion_itcs104_section": "",    "scm_parameters" : {     "Result" : {      "type" : "string",      "measured_value_analysis_property" : 1,      "allow_long_string" : true,           "hidden" : true,      "allow_empty_string" : true,      "measured_value_analysis_idref" : "58204134-9763-6F03-E947-9C8E8808B86B",      "order" : 1,      "title" : "Result"     },     "Expected" : {      "type" : "string",      "measured_value_analysis_property" : 2,      "allow_long_string" : true,      "default_value" : "Community names of PUBLIC and PRIVATE are not permitted Inbound or Outbound if the SNMP service is active. ",      "allow_empty_string" : true,      "measured_value_analysis_idref" : "58204134-9763-6F03-E947-9C8E8808B86B",      "order" : 2,      "title" : "Expected"     }    },    "title" : "ED.1.5.8.1 Network Settings\/Prohibited SNMP Community Names"   }          </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>1123025</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>4.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-idref</Name>
+			<Value>37F44975-63CB-48B9-3509-40117AC97CCE</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 09:11:41 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>

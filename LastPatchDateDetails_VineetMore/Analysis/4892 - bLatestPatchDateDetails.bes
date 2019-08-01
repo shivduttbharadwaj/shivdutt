@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>LatestPatchDateDetails</Title>
+		<Description>Analysis to retrive the date on which the recent patch was installed on the endpoint. </Description>
+		<Relevance><![CDATA[((if (version of client >= "9.0") then (windows of it) else (name of it starts with "Win"))) of operating system]]></Relevance>
+		<Source>Internal</Source>
+		<SourceReleaseDate>2019-07-23</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 23 Jul 2019 12:15:11 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<Property Name="DateOfLastPatchSucessfullyInstalled" ID="1" EvaluationPeriod="PT5M">maximum of time values of (selects "InstalledOn from Win32_QuickFixEngineering" of wmi) whose (exists time value of it)</Property>
+	</Analysis>
+</BES>

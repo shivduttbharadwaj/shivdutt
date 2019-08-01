@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>WARNING: BES Console no longer supported on your Operating System</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size=2> <P>The relevant machines have an operating system that no longer support running a BES&nbsp;Console in the current release.</P> <P>Operating System (Last BES version supported)<BR>===================================<BR>Windows XP Base/SP1/SP2 (Pre 9.0.777.0)<BR>Windows 2003 Base/SP1 (Pre 9.0.777.0)<BR>Windows XP-64 Base/SP1 (Pre 9.0.777.0)<BR>Windows XP SP3 (9.1)<BR>Windows 2003 SP2 (9.1)<BR>Windows XP-64 SP2 (9.1)<BR>Windows (Any) 32-bit (9.1)<BR>Windows Vista Base/SP1 (9.2.2)<BR>Windows 2008 Base/SP1 (9.2.2)<BR></P> <P>These installations of the Console cannot be upgraded to the current release.</P> <P>Please open a PMR with&nbsp;IBM Support (<A href="https://www-947.ibm.com/support/entry/portal/support">https://www-947.ibm.com/support/entry/portal/support</A>) if you have any questions.</P></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( windows of it ) then platform id of it != 3 else false) of operating system</Relevance>
+		<Relevance>exists regapp "BESConsole.exe"</Relevance>
+		<Relevance><![CDATA[not (major version of it > 6 OR (major version of it = 6 AND (minor version of it >= 1 OR service pack major version of it >= 2))) of operating system]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2010-05-24</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 30 Sep 2014 21:41:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 27 Sep 2016 13:21:05 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+	</Fixlet>
+</BES>

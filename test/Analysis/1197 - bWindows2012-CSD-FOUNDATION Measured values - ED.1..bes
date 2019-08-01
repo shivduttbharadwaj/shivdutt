@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>Windows2012-CSD-FOUNDATION Measured values - ED.1.1.8 Password Requirements/Reset Account Lockout counter after</Title>
+		<Description><![CDATA[
+		Reset account lockout counter after must be set to a value equal or above 30 minutes.<BR/><BR/><B>CSD Section:&nbsp;</B>ED.1.1.8<BR/><BR/><B>CSD Version Supported:&nbsp;</B>3.0L
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		
+		]]></Description>
+		<Relevance><![CDATA[exists folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client]]></Relevance>
+		<Relevance><![CDATA[exists find files "*result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/Windows2012-CSD") of storage folder of client]]></Relevance>
+		<Category>Operating System</Category>
+		<MIMEField>
+			<Name>x-fixlet-scm-analysis-id</Name>
+			<Value>98576858-6115-3BE4-3596-17C2D46C7B12</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>true</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>           {    "fusion_supported_platforms" : "Windows Server 2012",    "description" : "Reset account lockout counter after must be set to a value equal or above 30 minutes.",    "scm_parameters" : {     "properties" : {      "1" : {       "type" : "string",       "description" : "This is the result of the check.",       "title" : "Result"      },      "2" : {       "type" : "string",       "description" : "This is the expected settings or other criteria of the check.",       "title" : "Expected"      }     }    },    "title" : "Windows2012-CSD-FOUNDATION Measured values - ED.1.1.8 Password Requirements\/Reset Account Lockout counter after"   }         </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>2123009</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>3.0L</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 27 Mar 2019 04:22:37 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<Property Name="Result" ID="1"><![CDATA[ 				 		if exists file "Password_Requirements_Reset_Account_Lockout_counter_after.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client then 			if exists lines of file "Password_Requirements_Reset_Account_Lockout_counter_after.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client then 				lines of file "Password_Requirements_Reset_Account_Lockout_counter_after.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client 			else 				"Pass" 		else 			"Missing Result" 		]]></Property>
+		<Property Name="Expected" ID="2"><![CDATA[ 				 		if exists file "Password_Requirements_Reset_Account_Lockout_counter_after.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client then 			((if (key "expected" of section "metadata" of file "Password_Requirements_Reset_Account_Lockout_counter_after.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client) = regex "\s*" then (if (exists key "description" of section "metadata" of file "Password_Requirements_Reset_Account_Lockout_counter_after.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client) then (key "description" of section "metadata" of file "Password_Requirements_Reset_Account_Lockout_counter_after.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client) else "" ) else	(key "expected" of section "metadata" of file "Password_Requirements_Reset_Account_Lockout_counter_after.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client)) | (if (exists key "description" of section "metadata" of file "Password_Requirements_Reset_Account_Lockout_counter_after.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client) then (key "description" of section "metadata" of file "Password_Requirements_Reset_Account_Lockout_counter_after.rule" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client) else "" ))  		else 			"Missing Expected" 		]]></Property>
+		<Property Name="GPOInfo" ID="3"><![CDATA[ 						 	if exists file "Password_Requirements_Reset_Account_Lockout_counter_after-GPO-Info.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client then 		if exists lines of file "Password_Requirements_Reset_Account_Lockout_counter_after-GPO-Info.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client then 			lines of file "Password_Requirements_Reset_Account_Lockout_counter_after-GPO-Info.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of site of current analysis & "/Windows2012-CSD") of storage folder of client 		else 		"NA" 	else 		"NA" 			]]></Property>
+	</Analysis>
+</BES>

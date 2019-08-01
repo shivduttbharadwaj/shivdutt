@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>TROUBLESHOOTING: Repair invalid Site Subscriptions</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><P dir=ltr>This fixlet checks the subscription actions of the external sites enabled in your deployment and shows as relevant if any of those sites has become invalid.</P><P dir=ltr>By taking the default action, the agent running on your IBM endpoint Manager Root Server will download an utility that remediates this issue. The utility will connect to the IBM endpoint Manager Root Server database, discover invalid subscription actions and regenerate them.</P><P dir=ltr>The final fix to this problem will be available in upcoming patch releases for IBM Endpoint Manager 9.1 and 9.2.</P><P dir=ltr><STRONG><SPAN style="COLOR: red">Important Note:</SPAN></STRONG> The remediation action does not support deployments having the BES Root Server running under an&nbsp; account different than LocalSystem. In such a situation, please refer to the <a href="http://www-01.ibm.com/support/docview.wss?uid=swg21689022">technote describing this problem</a> for the sequence of manual steps required to solve this issue.</P><P dir=ltr><STRONG><SPAN style="COLOR: red">Important Note:</SPAN></STRONG> In a DSA environment, it is enough to take the action on the main server, even if the fixlet becomes relevant also for all replica servers. Target this action to the specific endpoint representing the main server rather than through a property or other dynamic targeting.</P><BR></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance><![CDATA[exists main gather service whose (version of it > "9.1.1065" and version of it < "9.2.1")]]></Relevance>
+		<Relevance><![CDATA[exists items 4 of it whose ((item 0 of it != item 1 of it) or (item 2 of it contains "<?xml version=%221.0%22 encoding=%22UTF-8%22?>") or item 3 of it) of (item 0 of it, (if exists file (pathname of folder "actionsite" of data folder of client & "/" & item 1 of it) then preceding text of first "%22" of following text of first "%22" of substring after "=" of line containing "sha1 of file" of file (pathname of folder "actionsite" of data folder of client & "/" & item 1 of it) else item 0 of it), (if exists file (pathname of folder "actionsite" of data folder of client & "/" & item 1 of it) then line starting with "X-Relevant-When:" whose (it as string contains "not exists site") of file (pathname of folder "actionsite" of data folder of client & "/" & item 1 of it) else ""), not exists file (pathname of folder "actionsite" of data folder of client & "/" & item 2 of it), item 3 of it) of (sha1 of it, "Subscription for " & (preceding text of last "." of name of it) & ".fxf", "Unsubscription for " & (preceding text of last "." of name of it) & ".fxf", preceding text of last "." of name of it ) of files whose (name of it contains ".efxm") of folder "actionsite" of data folder of client]]></Relevance>
+		<Category></Category>
+		<DownloadSize>8571133</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2014-11-03</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 04 Nov 2014 00:10:05 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT6H</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to fix site subscriptions. This action will restart the Gather DB Service.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {windows of operating system}
+	// If the following line fails, it means your server is running under a user account different from LocalSystem.
+	// You wll have to manually remediate, following the instructions in the description.
+	continue if {(exists key "HKLM\System\CurrentControlSet\Services\BESRootServer" whose (value "ObjectName" of it = "LocalSystem") of registry)}
+	prefetch ResignSubscriptions-Windows.bfa sha1:fd372a7729be4a4a840c6cb7681dc9c28eecce10 size:3496321 http://software.bigfix.com/download/bes/util/ResignSubscriptions-Windows.bfa sha256:8a299135529c00b14d81ec9b2383d8297c9da14b011a037c204123f8ba358fdb
+	extract ResignSubscriptions-Windows.bfa
+	wait "{pathname of client folder of current site & "\__Download\ResignSubscriptions.exe"}"
+	// If the action fails on the next line the ResignSubscriptions.exe failed and a manual run may be required
+	continue if {exists true whose (if true then (exit code of action = 0) else false)}
+
+elseif {(name of it starts with "Linux" AND architecture of it = "x86_64") of operating system}
+	prefetch ResignSubscriptions-Linux.bfa sha1:c3a8bef0bbc6cfb4eee1a848b5f08b47639735fb size:5074812 http://software.bigfix.com/download/bes/util/ResignSubscriptions-Linux.bfa sha256:e813720c2b9e6fae7c4601d42fd75d9c5b046d832786d51d7b0580279f83e1f2	
+	extract ResignSubscriptions-Linux.bfa	
+	Createfile until end-of-script 
+#!/bin/sh
+export DB2INSTANCE={ following text of first "=" of line containing "DB2_ADMIN_USER=" of file "/var/opt/BESServer/bes.info" }
+export LD_LIBRARY_PATH={ "%22" & (pathname of client folder of current site) & "/__Download" & "%22:%22" & (if it contains ":" then following text of first ":" of it else it) of (following text of first "=" of line containing "DB2_LIB_PATH=" of file "/var/opt/BESServer/bes.info") & "%22" }
+"{pathname of client folder of current site & "/__Download/ResignSubscriptions"}"
+end-of-script 
+	move __createfile __Download/resign.sh 
+	wait chmod +x __Download/resign.sh
+	wait chmod +x __Download/ResignSubscriptions
+	wait chmod +x __Download/libBEScrypto.so
+	wait chmod +x __Download/libBEScryptoFIPS.so
+	wait __Download/resign.sh
+endif
+parameter "startTime" = "{apparent registration server time}"
+pause while {(apparent registration server time - time(parameter "startTime")) < (120 * second)}
+notify client forcerefresh]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for instructions to manually run the utility.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www-01.ibm.com/support/docview.wss?uid=swg21689022</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

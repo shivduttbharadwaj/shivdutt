@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>AIX-CSD E.1.8.6.3 Protecting Resources-OSRs/OSR \ETC\SECURITY Restrictions</Title>
+		<Description><![CDATA[
+		<P><B>Test:&nbsp;</B>UNIX OSR /etc/security must have permission mode xx0 and correct ownershipNote: socket (s), named pipe (p), block special file (b), character special file (c), and symbolic link (l) files are excluded from this requirement</P><P><B>ITSSCSD Section:&nbsp;</B>E.1.8.6.3, E.1.8.10, E.1.8.11</P><P><b>Remediation:</b>&nbsp;Included. You must run the health check at least once before running the remediation action.</P><P><b>Remediation Details:</b>&nbsp;If /etc/security does not exist, remediation will terminate. Remediation will set world-writable permission to ---. If incorrect ownership (owner and/or group) is detected no remediation will be applied if multiple owners/groups are received as parameters. You can manually adjust owner/group Or you can set appropriate parameters in policy file.</P>
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		<script>
+	document.body.ontakeaction = function() {
+
+		var b=EvaluateRelevance('name of site of current fixlet'),a=EvaluateRelevance('exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*")');
+		(a=!/^true$/i.test(a))||alert('Remediation is disabled for site '+b);
+		if (!a) {
+			return a;
+		}
+														
+   		   		var b=EvaluateRelevance(' unique values whose (it contains "ERROR !!! " or it contains "[FATAL]" or it contains "[ERROR]") of (it as string) of (name of computer of it , values of it) of results  of properties whose(name of it = "Health Check") of BES Fixlets whose (analysis flag of it and name of it = "_Status AIX-CSD")');
+   		if (b === null || b.length === 0) {
+   		 	return true;
+    	}
+    	
+    	for (var i = 0; i < b.length; i++) {
+    		b[i]=b[i].substring(0, b[i].indexOf(','));
+		}
+		b = unique(b);
+   
+		b = b.toString().replace(/,/g , "\n");
+		var r = confirm("There are computers with invalid health check,\n do you want to proceed?\n"+b);
+		if (r === true) {
+    		x = "OK!";
+		} else {
+    		x = "Cancel!";
+		}
+		return r;
+	};
+	
+	function unique(arr) {
+    var hash = {}, result = [];
+    for ( var i = 0, l = arr.length; i < l; ++i ) {
+        if ( !hash.hasOwnProperty(arr[i]) ) {
+            hash[ arr[i] ] = true;
+            result.push(arr[i]);
+        }
+    }
+    return result;
+}
+</script>
+<?BeginRefreshRelevance?>
+	<p><b><?relevance if exists (fixlets of site of current fixlet) whose (name of it = regex "^_Remediation Disable.*") then ("Remediation is disabled for site " & (name of site of current fixlet)) else ""?></b></p>
+<?EndRefreshRelevance?>		
+		]]></Description>
+		<Relevance><![CDATA[
+				
+		(
+			if exists setting "_GCM_AIX-CSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(name of operating system as lowercase contains "red hat" and version of operating system >= "6") or (name of operating system as lowercase contains "suse" and version of operating system >= "11") or (name of operating system as lowercase contains "sunos" and version of operating system >= "5.10") or (name of operating system as lowercase contains "aix" and version of operating system >= "7") or (name of operating system as lowercase contains "hp-ux" and version of operating system as string contains "11.31") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8")
+			)
+		)
+		]]></Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+			 (if (exists file "Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client | true ) Then (if (exists lines of file "Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client | true) then true else false ) else True)
+		]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<SourceSeverity>normal</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-id</Name>
+			<Value>49F7F655-0B79-917E-C128-B62386AC4360</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-foundation</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-metadata</Name>
+			<Value>            {    "fusion_supported_platforms" : "GCM Single Instance Tech Spec v4.0D AIX Policy.",    "description" : "UNIX OSR \/etc\/security must have permission mode xx0 and correct ownershipNote: socket (s), named pipe (p), block special file (b), character special file (c), and symbolic link (l) files are excluded from this requirement",          "fusion_isec_section": "E.1.8.6.3, E.1.8.10, E.1.8.11",    "fusion_itcs104_section": "",    "scm_parameters" : {     "Result" : {      "type" : "string",      "measured_value_analysis_property" : 1,      "allow_long_string" : true,           "hidden" : true,      "allow_empty_string" : true,      "measured_value_analysis_idref" : "722650AD-39CC-25CF-BABF-D51830B04183",      "order" : 1,      "title" : "Result"     },     "Expected" : {      "type" : "string",      "measured_value_analysis_property" : 2,      "allow_long_string" : true,      "default_value" : "UNIX OSR \/etc\/security must have permission mode xx0 and correct ownershipNote: socket (s), named pipe (p), block special file (b), character special file (c), and symbolic link (l) files are excluded from this requirement",      "allow_empty_string" : true,      "measured_value_analysis_idref" : "722650AD-39CC-25CF-BABF-D51830B04183",      "order" : 2,      "title" : "Expected"     }    },    "title" : "E.1.8.6.3 Protecting Resources-OSRs\/OSR \\ETC\\SECURITY Restrictions"   }          </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>scm</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>1085091</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-scm-sentinel-idref</Name>
+			<Value>721709B5-D557-AEEB-FEC8-D3424947CDFC</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 13 Jun 2019 10:09:30 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to remediate applicable endpoints.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+ 			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+ 		    
+
+
+
+	parameter "xdump" = "-Xdump:none"
+
+if {exists setting "_GCM_HCLauncher_Debug" whose (value of it != "") of client}
+	parameter "debug" = "-llevel DEBUG"
+else
+	parameter "debug" = ""
+endif
+
+if {exists file "localpolicy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client}
+	parameter "localpolparm" = "-localpolicy"
+else
+	parameter "localpolparm" = ""
+endif
+
+
+	appendfile #!/bin/sh
+	appendfile cd "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD"
+	if {exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client}
+		// launch with external parameters
+		appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "xdump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -remedy "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy.xml" -pparams "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy_parameters.txt" -rule OSR_ETC_SECURITY_Restrictions {parameter "localpolparm"} {parameter "debug"} > "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/GCMBigfix_Remediation.log" 2>&1
+	else
+		// launch without external parameters
+		appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "xdump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -remedy "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy.xml" -rule OSR_ETC_SECURITY_Restrictions {parameter "localpolparm"} {parameter "debug"} > "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/GCMBigfix_Remediation.log" 2>&1
+	endif
+	delete launch.sh
+	move __appendfile launch.sh
+	wait chmod 750 launch.sh
+		
+	
+				
+	if{not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}
+		exit 666
+		//HCLauncher.jar file is tampered.
+	endif
+	
+	if{not exists folder ("__GTS/__IEMHC/" & name of current site as string & "/HF") of storage folder of client and not exists file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/HF") of storage folder of client}
+	  if{not ((sha2_256 of file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client is "22abde100218d6e997440d1c6a682c404a61933f2ab343cf52d5a4b466093985") | false)}
+	  // policy.xml file is tampered.
+	  exit 666
+	 endif
+	endif
+	
+	if(not exists folder ("__GTS/__IEMHC/" & name of current site as string & "/HF") of storage folder of client and not exists matches (regex ".sh$") of names of files of folder ("__GTS/__IEMHC/" & name of current site as string & "/HF") of storage folder of client)	
+		if(not ((sha2_256 of file "RemediationScript/AIX_Remediation_csd_itcs104.sh" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client is "a1fa8dfe206d82a85716ba23fd611e9a764a12ca5b8b732a97f8c772dcfe07d2") | false))
+		  exit 666
+			//remediation script is tampered.
+		endif
+	endif	
+	
+	wait "{client folder of current site}/launch.sh"
+	
+	if {exit code of action != 0}
+	exit {exit code of action}
+	endif
+	
+if {exists file "Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions_backup.result" of folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client}
+	if {windows of operating system}
+		delete "{storage folder of client}\__GTS\__IEMHC\{name of current site}\AIX-CSD\policy\Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions_backup.result"
+	else
+		delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy/Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions_backup.result"
+	endif
+endif
+
+
+if {windows of operating system}
+	copy "{storage folder of client}\__GTS\__IEMHC\{name of current site}\AIX-CSD\policy\Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions.result" "{storage folder of client}\__GTS\__IEMHC\{name of current site}\AIX-CSD\policy\Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions_backup.result"
+else
+	copy "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy/Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions.result" "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy/Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions_backup.result"
+endif
+
+// Re-run the health check after remediation
+
+if {exists setting "_GCM_HCLauncher_Report" whose (value of it != "") of client}
+	parameter "reportoutput" = "-report"
+	else
+	parameter "reportoutput" = ""
+endif
+
+if {name of operating system as lowercase contains "sunos" OR name of operating system as lowercase contains "hp-ux"}
+	parameter "dump" = ""
+else
+	parameter "dump" = "-Xdump:none"
+endif
+
+
+if {exists setting "_GCM_HCLauncher_Limit" whose (value of it != "") of client}
+	parameter "limitOutput" = "{(it as string as integer | 10000) of value of setting "_GCM_HCLauncher_Limit" of client}"
+else
+	parameter "limitOutput" = "10000"
+endif
+
+if {exists setting "_GCM_HCLauncher_Truncate" whose (value of it != "") of client}
+	parameter "truncateOutput" = "{(it as string as integer | 500) of value of setting "_GCM_HCLauncher_Truncate" of client}"
+else
+	parameter "truncateOutput" = "500"
+endif
+
+
+
+				
+				
+			if {exists folder "policy" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client}
+		if {windows of operating system}
+			delete "{storage folder of client}\__GTS\__IEMHC\{name of current site}\AIX-CSD\policy\Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions.rule"
+			delete "{storage folder of client}\__GTS\__IEMHC\{name of current site}\AIX-CSD\policy\Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions.result"
+		else
+			delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy/Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions.rule"
+			delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy/Protecting_Resources-OSRs_OSR__ETC_SECURITY_Restrictions.result"
+		endif
+	endif	
+
+	appendfile #!/bin/sh
+appendfile cd "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD"
+	
+			if {exists file "policy_parameters.txt" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client}
+			// launch with external parameters
+			appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -policy "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy.xml"  -rule OSR_ETC_SECURITY_Restrictions {parameter "localpolparm"} -pparams "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy_parameters.txt" -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"} > "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/GCMBigfix_HealthCheck.log" 2>&1
+		else
+			// launch without external parameters
+			appendfile "{storage folder of client}/__GTS/jre/bin/java" -jar {parameter "dump"} "{storage folder of client}/__GTS/HCLauncher_400/HCLauncher.jar" -policy "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/policy.xml"  -rule OSR_ETC_SECURITY_Restrictions {parameter "localpolparm"} -sv {parameter "reportoutput"} {parameter "debug"} -truncate {parameter "truncateOutput"} -limit {parameter "limitOutput"} > "{storage folder of client}/__GTS/__IEMHC/{name of current site}/AIX-CSD/GCMBigfix_HealthCheck.log" 2>&1
+		endif
+		
+	delete launch.sh
+	move __appendfile launch.sh
+	wait chmod 750 launch.sh
+		
+				
+	if{not exists folder ("__GTS/__IEMHC/" & name of current site as string & "/HF") of storage folder of client and not exists file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/HF") of storage folder of client}
+	 if{not ((sha2_256 of file "policy.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/AIX-CSD") of storage folder of client is "22abde100218d6e997440d1c6a682c404a61933f2ab343cf52d5a4b466093985") | false)}
+	 // policy.xml file is tampered.
+	 exit 666
+	  endif
+	endif
+	
+	if{not ((sha2_256 of file "HCLauncher_400/HCLauncher.jar" of folder "__GTS" of storage folder of client is "9c7e489131cf1485d389936a0119ec8b19f7a84c3db151bc1d2401ce5d30ab08") | false)}
+	 exit 666
+	 //HCLauncher.jar file is tampered.
+	endif
+	
+	
+	wait "{client folder of current site}/launch.sh"
+	if {exit code of action != 0}
+	exit {exit code of action}
+	endif
+	
+	// ================================================================
+// =  ADDED TO WRITE FILE WITH LAST HEALTH CHECK RUN DATE & TIME  =
+// ================================================================
+
+// Set this parameter to the name of the fixlet
+parameter "GTS_GCM_Current_Fixlet_Name" = "AIX-CSD"
+
+parameter "GTS_GCM_GTS_Folder" = "{pathname of parent folder of parent folder of folder ( pathname of client folder of current site)}/__GTS"
+parameter "GTS_GCM_FlagFiles_Folder" = "{parameter "GTS_GCM_GTS_Folder"}/FlagFiles"
+parameter "GTS_GCM_IEMHC_Folder" = "{parameter "GTS_GCM_FlagFiles_Folder"}/IEMHC"
+parameter "GTS_GCM_LastRunFile" = "GCM_{(name of current site)}_{parameter "GTS_GCM_Current_Fixlet_Name" of action}.txt"
+parameter "GTS_GCM_ReadMeFile" = "ReadMe.txt"
+
+// Windows create folder structure (if missing)
+if {name of operating system as lowercase starts with "win"}
+	if {not exists folder (parameter "GTS_GCM_GTS_Folder")}
+		dos mkdir "{parameter "GTS_GCM_GTS_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_FlagFiles_Folder")}
+		dos mkdir "{parameter "GTS_GCM_FlagFiles_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_IEMHC_Folder")}
+		dos mkdir "{parameter "GTS_GCM_IEMHC_Folder"}"
+    endif
+
+else  // Unix create folder structure (if missing)
+	if {not exists folder (parameter "GTS_GCM_GTS_Folder")}
+		wait mkdir "{parameter "GTS_GCM_GTS_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_FlagFiles_Folder")}
+		wait mkdir "{parameter "GTS_GCM_FlagFiles_Folder"}"
+    endif
+	if {not exists folder (parameter "GTS_GCM_IEMHC_Folder")}
+		wait mkdir "{parameter "GTS_GCM_IEMHC_Folder"}"
+    endif
+
+endif
+
+//====================================================================
+// Now the __GTS/FlagFiles/IEMHC folder structure is in place
+// Place a ReadMe.txt file explaining about the purpose of this folder
+//  and files and how it can be used (if not already present)
+if {not exists file (parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_ReadMeFile" of action)}
+	delete __createfile
+	createfile until EOF
+		This is a BigFix IEMHC directory that contains 'GCM_<site name>_<fixlet name>.txt' files.
+		Each file contains the date and time of the last run of the Health Check fixlet in that site
+
+		If you want BigFix to perform a new Health Check and :
+		1. you want to run only specific Health Check(s): delete the file(s) for the that site and fixlet.
+		2. you want to run ALL Health Checks: delete the IEMHC directory (or all files in it).
+
+		As soon as the IEMHC(s) is performed successfully the following will be recreated (if needed):
+		- the IEMHC directory.
+		- this ReadMe file.
+		- for each site and fixlet file that was deleted the GCM_<site name>_<fixlet name>.txt file.
+	EOF
+	move __createfile "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_ReadMeFile"}"
+
+endif
+
+
+//====================================================================
+// Write a file with the name of the site and the fixlet and
+// write the current date and time in the file
+
+delete __appendfile
+appendfile {date (local time zone) of now & time (local time zone) of now}
+delete "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_LastRunFile"}"
+move __appendfile "{parameter "GTS_GCM_IEMHC_Folder" & "/" & parameter "GTS_GCM_LastRunFile"}"
+
+ 			]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</Action>
+	</Fixlet>
+</BES>

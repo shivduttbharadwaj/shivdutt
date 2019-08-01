@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>_Send Custom Parameters for Windows2012-ITSSCSD</Title>
+		<Description><![CDATA[This task will create a parameters file on the endpoint for Windows2012-ITSSCSD. Review the action of this task to see and change the parameters sent to the endpoint.
+		<p><small><b>Version:</b>&nbsp;4.1.0<br><b>Build ID:</b>&nbsp;20190611-2171</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_Windows2012-ITSSCSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				name of operating system as lowercase contains "win2012"
+			)
+		)
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>4.1.0</SourceID>
+		<SourceReleaseDate>2019-06-11</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>4.0C</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>31230008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 09:11:41 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+			// Licensed Materials - Property of IBM; (c) Copyright IBM Corporation 2019. All Rights Reserved.
+			createfile until --qGs7SPXJMX59YEz--
+
+[string]
+Date of Policy Modification=28/02/2019
+Business Use Notice Text=This%system%should%be%used%for%conducting%IBM%s%business%or%for%purposes%authorized%by%IBM%management.%It%is%mandatory%to%comply%with%all%the%requirements%listed%in%the%applicable%security%policy%and%only%process%or%store%the%data%classes%approved%for%this%asset%type.%Use%is%subject%to%audit%at%any%time%by%IBM%management.
+OSR File Audit=Failure
+Directory Service Access Audit=Failure
+Policy Version=v4.0C
+Central Access Policy Audit=Success and Failure
+System Events Audit=Failure
+Object Access Audit=Failure
+Password Never Expires User Description=:placeholder:
+Account Logon Events Audit=Success and Failure
+Account Management Audit=Success and Failure
+Privilege Use Audit=Success and Failure
+Logon Events Audit=Success and Failure
+OSR Directory Audit=Failure
+Detailed Tracking Audit=Success and Failure
+Removable Storage Audit=Success and Failure
+Policy Change Audit=Success and Failure
+[integer]
+Security Log File Retention=90
+Password Max Age=90
+Password MIN Age=1
+Account Lockout Threshold=5
+Password MIN Length=14
+Account Lockout Duration=0
+Windows Firewall Service=1
+Reset Account Lockout Counter After=30
+Machine Inactivity Limit=900
+UIDLabelling=1
+Password MIN History=8
+Password Complexity=1
+Password Never Expires Required for Customer Accounts=1
+Kerberos MAX LifeTime for User Ticket=12
+Force audit policy subcategory settings=1
+[string_list]
+Prohibited TCP Ports='11','13','15','19','20','21','23','512','69','7','9'
+Privileged Groups='eventlog','systme','event log readers','network configuration operators','performance log users','performance monitor users','backup operators','power users','account operators','print operators','server operators','group policy owners','distributed com users','domain admins','schema admins','enterprise administrators','domain administrators','dhcp administrators','trustedinstaller','administrators','enterprise admins','all application packages','group policy creator owners','creator owner','system','certificate service dcom access'
+Privileged Group SID='S-1-5-32-550','S-1-5-32-547','S-1-5-32-544','S-1-5-32-551','S-1-5-32-518','S-1-5-18','S-1-5-32-520','S-1-5-32-548','S-1-5-32-512','S-1-5-32-549','S-1-5-32-519','S-1-15-2-1','S-1-5-32-556'
+Password Never Expires Accounts=':placeholder:'
+Prohibited Service Names='chargen','daytime','discard','echo','ftp','netstat','pcnfsd','ruser','rwall','simple tcp/ip services','telnet','tftp','trivial ftp daemon'
+Prohibited UDP Ports='11','13','19','512','69','7','9'
+Administrative shares='admin$','ipc$','print$','sysvol','netlogon','fax$'
+
+--qGs7SPXJMX59YEz--
+
+delete "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-ITSSCSD/policy_parameters.txt"
+folder create "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-ITSSCSD"
+move __createfile "{storage folder of client}/__GTS/__IEMHC/{name of current site}/Windows2012-ITSSCSD/policy_parameters.txt"
+
+			</ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

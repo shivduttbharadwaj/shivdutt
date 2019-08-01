@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows2008-CSD Delay Result Freshness Flag</Title>
+		<Description><![CDATA[<TABLE>
+<TBODY>
+<TR>
+<TD>This Fixlet is used by it corresponding&nbsp;"_Delay Result Freshness" task to see if it changes it's state so the "_Delay Result Freshness" task is able to see that fixlets in this site have been re-evaluated after a Health Check was performed.</P>
+<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190307-2125</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+<BR></TD></TR></TBODY></TABLE>]]></Description>
+		<Relevance><![CDATA[(if ((line 3 of file it as integer = 1) | False ) then (True) else (False)) of ( storage folder of client as string & "/__GTS/__IEMHC/" & name of current site as string & "/" & "Windows2008-CSD" & "/delay_counter_" & 	"policy_result.xml" )]]></Relevance>
+		<Category>Operating System</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-03-07</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>11220006</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 25 Mar 2019 08:48:21 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// Enter your action script here</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

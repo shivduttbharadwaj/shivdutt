@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UNIX-MySQL-ITSSCSD Health Check Validity</Title>
+		<Description><![CDATA[This fixlet is relevant when the Health Check is not valid (ie. when there are one or more collector errors or an SQL error).
+      This fixlet is also relevant when the results file does not exist.
+		<p><small><b>Version:</b>&nbsp;4.0.0<br><b>Build ID:</b>&nbsp;20190612-2172</small></p><P>----------------------------------------------------------------------------------<BR>Licensed Materials - Property of IBM<BR>(c) Copyright IBM Corp. 2019. All Rights Reserved.</P>
+		]]></Description>
+		<Relevance><![CDATA[
+				
+		(
+			if exists setting "_GCM_UNIX-MySQL-ITSSCSD_OSRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(name of operating system as lowercase contains "red hat" and version of operating system >= "6") or (name of operating system as lowercase contains "suse" and version of operating system >= "11") or (name of operating system as lowercase contains "sunos" and version of operating system >= "5.10") or (name of operating system as lowercase contains "aix" and version of operating system >= "7") or (name of operating system as lowercase contains "hp-ux" and version of operating system as string contains "11.31") OR (name of operating system as lowercase contains "centos" and version of operating system >= "7") OR (name of operating system as lowercase contains "ubuntu" and version of operating system >= "14") OR (name of operating system as lowercase contains "debian" and version of operating system >= "8")
+			)
+		)
+		]]></Relevance>
+		<Relevance>
+				
+		(
+			if exists setting "_GCM_UNIX-MySQL-ITSSCSD_MWRelevance_Override" whose (value of it != "") of client then (
+				true
+			)
+			else (
+				(
+					(exist folder "/var/lib/mysql") OR (exists file "/etc/my.cnf") OR (exists file "/etc/mysql/my.cnf") OR (exists file "my.cnf" of folder ((value of variable "MYSQL_HOME" of environment)as string) | false) OR exists process whose (name of it as string as lowercase = "mysqld")
+
+
+
+				) 
+						or (if (exists file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client | False) then
+		(exists (lines containing "SUBSYSTEM_TYPE=MYL" of file "subs.all.sss" of folder "__GTS/SSS" of storage folder of client) whose (not (it is "" or it contains "SUBSYSTEM_INSTANCE=NO")) | False)
+		else False)
+	
+			)
+		)		
+		</Relevance>
+		<Relevance><![CDATA[(version of client >= "9.2")]]></Relevance>
+		<Relevance><![CDATA[
+						
+		if (exists file "hcl_xout_0_0.log" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-MySQL-ITSSCSD") of storage folder of client | False) 
+		then 
+			if (exists lines whose (it contains "[FATAL]" or it contains "[ERROR]") of file "hcl_xout_0_0.log" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-MySQL-ITSSCSD") of storage folder of client | False) 
+			then True
+			else(
+					if (exists file "policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-MySQL-ITSSCSD") of storage folder of client | False) 
+					then (exists (line of (file "policy_result.xml" of folder ("__GTS/__IEMHC/" & name of current site as string & "/UNIX-MySQL-ITSSCSD") of storage folder of client)) whose (it contains "ERROR !!! "))
+					else True
+				)
+		else True
+		]]></Relevance>
+		<Category>Middleware</Category>
+		<Source>GCM</Source>
+		<SourceID>4.0.0</SourceID>
+		<SourceReleaseDate>2019-06-12</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-ibm-copyright</Name>
+			<Value>Licensed Materials - Property of IBM; (c) Copyright IBM Corp. 2019. All Rights Reserved.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-class</Name>
+			<Value>sentinel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-author</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-origin</Name>
+			<Value>GTS GCM Team</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-supported-csd-version</Name>
+			<Value>5.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>10420008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-gcm-purpose</Name>
+			<Value>lifecycle</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 03 Jul 2019 09:48:29 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>
