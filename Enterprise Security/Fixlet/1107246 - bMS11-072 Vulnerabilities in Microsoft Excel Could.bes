@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-072: Vulnerabilities in Microsoft Excel Could Allow Remote Code Execution - Office 2010 Gold (KB2553096) (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS13-085. Whereas this Fixlet message previously applied to&nbsp;Office 2010&nbsp;Gold/SP1 (x64), it now only applies to&nbsp;Office 2010&nbsp;Gold (x64).</P> <P>Microsoft has released a security update that resolves five privately reported vulnerabilities in Microsoft Office. The vulnerabilities could allow remote code execution if a user opens a specially crafted Excel file. An attacker who successfully exploited any of these vulnerabilities could gain the same user rights as the logged-on user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights. Installing and configuring Office File Validation (OFV) to prevent the opening of suspicious files blocks the attack vectors for exploiting the vulnerabilities described in CVE-2011-1986 and CVE-2011-1987. See the section, Frequently Asked Questions (FAQ) Related to This Security Update, for more information about how the Office File Validation feature can be configured to block the attack vectors.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2553096.<BR><BR></P> <P><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</P> <P><SPAN id=dashboardLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetOfficeOverviewLink; function SetOfficeOverviewLink() { try {if (isEvansOrLater) { dashboardLink.innerHTML = Relevance('(format "<?rxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the {0}.?>" + link "<?rxlat Microsoft Office Overview Dashboard?>" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string ) as string');} else { dashboardLink.innerHTML = EvaluateRelevance('"<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the " & link "Microsoft Office Overview Dashboard" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string & "."');} } catch (e) {if (isEvansOrLater) { dashboardLink.innerHTML ='<?jxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.?>';} else { dashboardLink.innerHTML = '<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.';} } } </SCRIPT> </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.19 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "OARTCONV.DLL" whose ((version of it < "14.0.6106.5005")) of it) of folder (value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\14.0\Common\InstallRoot" of x64 registry as string)]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((it = "14" AND it < "14.0.6029.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "0011" OR it = "0012" OR it = "0013" OR it = "0014" OR it = "002F" OR it = "008B") of last 4 of (first 14 of it)) AND ((it = "1000") of last 4 of (first 24 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of x64 registry]]></Relevance>
+		<Relevance>(exists keys ("00004119D11000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.4763.1063") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "CC18FB4C68734EC4D9F9DD9363879BCE" of key "Patches" of it) of it OR exists keys ("00004119310000000100000000F01FEC";"00004109110000000100000000F01FEC";"00004109210000000100000000F01FEC";"00004119110000000100000000F01FEC";"00004109810000000100000000F01FEC";"00004109B80000000100000000F01FEC";"00004119B80000000100000000F01FEC";"00004119810000000100000000F01FEC";"00004109910000000100000000F01FEC";"00004109710000000100000000F01FEC";"00004119910000000100000000F01FEC";"00004109D30000000100000000F01FEC";"00004119210000000100000000F01FEC";"00004119B10000000100000000F01FEC";"00004119330000000100000000F01FEC";"00004109B10000000100000000F01FEC";"00004119410000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.4763.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "CC18FB4C68734EC4D9F9DD9363879BCE" of key "Patches" of it) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>6491944</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2553096</SourceID>
+		<SourceReleaseDate>2011-09-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-1987; CVE-2011-1988; CVE-2011-1989</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Excel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:excel:2010:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch office2010-kb2553096-fullfile-x64-glb.exe sha1:50352aefa85fba4dd3bbac7383998216d6e7c817 size:6491944 http://download.microsoft.com/download/3/8/E/38ED5397-173F-4B48-9712-65D590A2E68F/office2010-kb2553096-fullfile-x64-glb.exe sha256:9ec468ad329c1ee7571f74aff1eced0c03d22e04dfde4c2b857d3381c03642c7
+
+waithidden __Download\office2010-kb2553096-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "50352aefa85fba4dd3bbac7383998216d6e7c817"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-072.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS11-072.mspx</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

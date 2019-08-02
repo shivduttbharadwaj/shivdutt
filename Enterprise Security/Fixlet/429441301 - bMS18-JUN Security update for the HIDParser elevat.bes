@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-JUN: Security update for the HIDParser elevation of privilege vulnerability in Windows Server 2008, Windows Embedded POSReady 2009, and Windows Embedded Standard 2009 - Windows Server 2008 SP2 - KB4294413 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p><STRONG>Note:</STRONG> This update has been superseded by KB4499149.<br /><br />To learn more about the vulnerability, go to <a href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8169" id="kb-link-2" target="_self"> CVE-2018-8169</a>.</p><br><br><p><meta><strong>Important&nbsp;</strong>If you install a language pack after you install this update, you must reinstall this update. Therefore, we recommend that you install any language packs that you need before you install this update. For more information, see <a href="https://technet.microsoft.com/en-us/library/hh825699" id="kb-link-5" target="_self">Add language packs to Windows</a>.</p><br><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4294413.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+266.7 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008"))) of operating system</Relevance>
+		<Relevance>((name of it = "Win2008" OR name of it = "WinVista" AND product type of it != nt workstation product type) AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4294413~31bf3856ad364e35~amd64~~6.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4294413~31bf3856ad364e35~amd64~~6.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Package_137_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005";"Package_252_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005";"Package_27_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.0.6000.16386") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_input.inf_31bf3856ad364e35_none_87bdcf4ecba5509d" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002" AND it < "6.0.6002.24394") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.0.6001.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_input.inf_31bf3856ad364e35_none_87bdcf4ecba5509d" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002" AND it < "6.0.6002.24394") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.0.6001.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_input.inf_31bf3856ad364e35_none_87bdcf4ecba5509d" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002" AND it < "6.0.6002.24394") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "8d3d685775f50d667edac5babbf95f722a64b956"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>273098</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4294413</SourceID>
+		<SourceReleaseDate>2018-06-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-8169</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Jun 2018 08:24:46 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4499149</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2008:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>449914901</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-05-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 May 2019 07:01:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows6.0-kb4294413-x64_8d3d685775f50d667edac5babbf95f722a64b956.msu sha1:8d3d685775f50d667edac5babbf95f722a64b956 size:273098 http://download.windowsupdate.com/d/msdownload/update/software/secu/2018/05/windows6.0-kb4294413-x64_8d3d685775f50d667edac5babbf95f722a64b956.msu sha256:44f05d25cd43ae966511f2d03a5b4f4547b94b895f1fa82e69589747142b848c
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows6.0-kb4294413-x64_8d3d685775f50d667edac5babbf95f722a64b956.msu"}" /quiet /norestart
+
+action requires restart "8d3d685775f50d667edac5babbf95f722a64b956"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4294413</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

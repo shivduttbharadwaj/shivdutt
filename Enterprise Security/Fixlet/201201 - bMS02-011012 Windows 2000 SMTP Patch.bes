@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-011,012: Windows 2000 SMTP Patch</Title>
+		<Description><![CDATA[
+Microsoft has released Security Bulletins announcing two security vulnerabilities in Windows 2000 SMTP services. They have provided one patch to fix both holes. The first vulnerability regards the SMTP services handling of the operating system's authentication information. Currently the SMTP service on affected computers does not properly check the information sent to it by the NTLM layer of the operating system. An attacker could exploit this flaw to gain user-level access to SMTP servers on affected computers. Though the attacker would not have administrator privileges, he could use the SMTP server for mass mailings. The second vulnerability would allow an attacker to disrupt the SMTP server by sending a malformed command. <BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted. <BR><BR><b>Note:</b> This patch is included in Windows 200 Service Pack 3.<BR><BR><b>File Size:</b> 1.79 MB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system is "Win2000"</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SMTPSVC" of registry</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows 2000\SP3\Q313450" of registry</Relevance>
+		<Relevance>csd version of operating system = "Service Pack 2"</Relevance>
+		<Relevance>not exists key "Q282522" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows 2000\SP3" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1882808</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB313450</SourceID>
+		<SourceReleaseDate>2002-02-27</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<CVENames>CVE-2002-0055</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SMTP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q313450_W2K_SP3_X86_EN.exe sha1:ec03caa750a17e980505af8e03864c0386a42fd3 size:1882808 http://download.microsoft.com/download/win2000platform/Patch/Q313450/NT5/EN-US/Q313450_W2K_SP3_X86_EN.exe sha256:f2f67fd50794616e5317ed9fa9e8e10c6da4948f5bf4064dffd4d4c045ecf0b5
+wait __download\Q313450_W2K_SP3_X86_EN.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-011.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-011</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-012.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-012</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

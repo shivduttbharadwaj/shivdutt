@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-049: Vulnerabilities in Event System Could Allow Remote Code Execution - Windows XP Gold/SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update that resolves two privately reported vulnerabilities in Microsoft Windows Event System that could allow remote code execution. An attacker who successfully exploited these vulnerabilities could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full administrative rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1012 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinXP-2003" AND (service pack major version of it = 1 OR service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[disjunction of ((((exists file "es.dll" whose ((service pack major version of operating system = 1 AND version of it < "2001.12.4720.3129") OR (service pack major version of operating system = 2 AND version of it < "2001.12.4720.4282")) of it))) of (((system x64 folder) ; (system wow64 folder))))]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows xp version 2003\sp3\kb950974" of x64 registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1036336</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB950974</SourceID>
+		<SourceReleaseDate>2008-08-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2008-1456; CVE-2008-1457</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Event System</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003.WindowsXP-KB950974-x64-ENU.exe sha1:d323d922bbf3335f9beedfb3336f4a8c460dfe8b size:1036336 http://download.microsoft.com/download/4/e/3/4e375028-e8b5-474f-80b1-17222f3d03ff/WindowsServer2003.WindowsXP-KB950974-x64-ENU.exe sha256:29ee5cd0962f37ab26d00bf653fac143d7dc6b570a82890fae11f4c1bb30ea13
+
+wait __Download\WindowsServer2003.WindowsXP-KB950974-x64-ENU.exe /quiet /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart "d323d922bbf3335f9beedfb3336f4a8c460dfe8b"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-049.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-049.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

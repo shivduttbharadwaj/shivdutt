@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-081: Vulnerabilities in Microsoft Office Could Allow Remote Code Execution - Office 2007 SP3 - KB2596650</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft Office. The most severe of the vulnerabilities could allow remote code execution if a user opens a specially crafted Microsoft Office file. An attacker who successfully exploited the vulnerabilities could run arbitrary code in the context of the current user. Customers whose accounts are configured to have fewer user rights on the system could be less impacted than those who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2596650.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.73 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00002109540000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.4518.1089" OR it = "12.0.4518.1088" OR it = "12.0.4518.1084") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "CAD5F2FD7D39B434691BAE4F8D19DA42" of key "Patches" of it) of it OR exists keys ("00002119B20000000000000000F01FEC";"00002109810000000000000000F01FEC";"00002119440000000000000000F01FEC";"00002119030000000000000000F01FEC";"00002119F20000000000000000F01FEC";"00002119610000000000000000F01FEC";"00002119310000000000000000F01FEC";"000021190E0000000000000000F01FEC";"00002119B30000000000000000F01FEC";"00002109110000000000000000F01FEC";"00002119A10000000000000000F01FEC";"00002109510000000000000000F01FEC";"00002119150000000000000000F01FEC";"00002109350000000000000000F01FEC";"00002109910000000000000000F01FEC";"00002119210000000000000000F01FEC";"00002119910000000000000000F01FEC";"00002109620000000000000000F01FEC";"00002119130000000000000000F01FEC";"00002119E20000000000000000F01FEC";"00002119A30000000000000000F01FEC";"00002119530000000000000000F01FEC";"00002119CB0000000000000000F01FEC";"00002109CB0000000000000000F01FEC";"000021193A0000000000000000F01FEC";"00002119920000000000000000F01FEC";"00002109210000000000000000F01FEC";"00002119B10000000000000000F01FEC";"00002109610000000000000000F01FEC";"00002109A30000000000000000F01FEC";"00002109B10000000000000000F01FEC";"00002119810000000000000000F01FEC";"00002119110000000000000000F01FEC";"00002109440000000000000000F01FEC";"00002119510000000000000000F01FEC";"000021090E0000000000000000F01FEC";"00002119350000000000000000F01FEC";"00002109B30000000000000000F01FEC";"00002119AC0000000000000000F01FEC";"00002109030000000000000000F01FEC";"00002109A10000000000000000F01FEC";"00002109150000000000000000F01FEC";"00002109AC0000000000000000F01FEC";"00002109710000000000000000F01FEC";"00002119AB0000000000000000F01FEC";"00002119710000000000000000F01FEC";"00002119410000000000000000F01FEC";"00002109AB0000000000000000F01FEC";"00002119330000000000000000F01FEC";"00002119730000000000000000F01FEC";"000021191A0000000000000000F01FEC";"00002109410000000000000000F01FEC";"000021099A0000000000000000F01FEC";"000021199A0000000000000000F01FEC";"000021091A0000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.6612.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "CAD5F2FD7D39B434691BAE4F8D19DA42" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>3913744</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2596650</SourceID>
+		<SourceReleaseDate>2015-08-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2015-2466</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Aug 2015 01:13:08 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 19 Sep 2018 02:31:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ieawsdc2007-kb2596650-fullfile-x86-glb.exe sha1:c6e6eb43c42d04db2e2f0bad7d0f93498feeb7d8 size:3913744 http://download.microsoft.com/download/0/4/9/049628EB-5663-49C9-BCCB-7D93A86C5D36/ieawsdc2007-kb2596650-fullfile-x86-glb.exe sha256:360d41be67b5d7b47fb1e32d2aec33801deea36e475c25c07486949a12153894
+
+waithidden __Download\ieawsdc2007-kb2596650-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "c6e6eb43c42d04db2e2f0bad7d0f93498feeb7d8"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-081</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

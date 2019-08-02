@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-034: Combined Security Update for Microsoft Office, Windows, .NET Framework, and Silverlight - Windows Server 2008 SP2 (KB2676562) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4487019.<br /><br />Microsoft has released a security update that resolves three publicly disclosed vulnerabilities and seven privately reported vulnerabilities in Microsoft Office, Microsoft Windows, the Microsoft .NET Framework, and Microsoft Silverlight. The most severe of these vulnerabilities could allow remote code execution if a user opens a specially crafted document or visits a malicious webpage that embeds TrueType font files. An attacker would have no way to force users to visit a malicious website. Instead, an attacker would have to convince users to visit the website, typically by getting them to click a link in an email message or Instant Messenger message that takes them to the attacker's website.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This security update is also referenced under KB2676562.<BR><BR></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.77 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008"))) of operating system</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "ntkrnlpa.exe" whose (((exists value "FileVersion" whose (it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.0.6002.22000" AND version of it < "6.0.6002.22831"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.0.6002.18000" AND version of it < "6.0.6002.18607")))) of it) OR (exists file "ntoskrnl.exe" whose (((exists value "FileVersion" whose (it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.0.6002.22000" AND version of it < "6.0.6002.22831"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.0.6002.18000" AND version of it < "6.0.6002.18607")))) of it) OR (exists file "win32k.sys" whose (((exists value "FileVersion" whose (it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.0.6002.22000" AND version of it < "6.0.6002.22831"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.0.6002.18000" AND version of it < "6.0.6002.18607")))) of it)) of (system folder)]]></Relevance>
+		<Relevance>not pending restart "047cd2b8d15dd694dc576f16df559c1da186084c"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2903845</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2676562</SourceID>
+		<SourceReleaseDate>2012-05-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2011-3402; CVE-2012-0159; CVE-2012-0180; CVE-2012-0181; CVE-2012-1848; CVE-2012-0165</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4487019</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>448701903</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2008:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-17</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 22 Jul 2019 21:54:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB2676562-x86.msu sha1:047cd2b8d15dd694dc576f16df559c1da186084c size:2903845 http://download.microsoft.com/download/5/A/F/5AFD3DC4-8CC8-4D5B-A851-E57C2655A617/Windows6.0-KB2676562-x86.msu sha256:d9e59de19e823aa95719078aada1ab2d8e98939e83cd6d176278245329b8c61c
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB2676562-x86.msu"}" /quiet /norestart
+
+action requires restart "047cd2b8d15dd694dc576f16df559c1da186084c"  
+]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS12-034</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

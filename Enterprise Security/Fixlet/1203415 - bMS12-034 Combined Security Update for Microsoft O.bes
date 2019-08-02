@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-034: Combined Security Update for Microsoft Office, Windows, .NET Framework, and Silverlight - Windows Server 2003 SP2 (KB2659262)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves three publicly disclosed vulnerabilities and seven privately reported vulnerabilities in Microsoft Office, Microsoft Windows, the Microsoft .NET Framework, and Microsoft Silverlight. The most severe of these vulnerabilities could allow remote code execution if a user opens a specially crafted document or visits a malicious webpage that embeds TrueType font files. An attacker would have no way to force users to visit a malicious website. Instead, an attacker would have to convince users to visit the website, typically by getting them to click a link in an email message or Instant Messenger message that takes them to the attacker's website.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2659262.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.24 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance>not exists file "gdiplus.dll" whose (version of it = "5.2.6002.22791") of folders (names of keys whose (name of it as lowercase contains "gdiplus") of key "HKLM\Software\Microsoft\Windows\CurrentVersion\SideBySide\Installations" of native registry) of folder "winsxs" of windows folder</Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb2659262" of registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1303424</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2659262</SourceID>
+		<SourceReleaseDate>2012-05-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-3402; CVE-2012-0159; CVE-2012-0180; CVE-2012-0181; CVE-2012-1848</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2003:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB2659262-x86-ENU.exe sha1:7b19add0182d79c514ec394dac2f7ffde0619c7c size:1303424 http://download.microsoft.com/download/F/7/8/F784C662-BBFF-44BB-A0A4-06640696972E/WindowsServer2003-KB2659262-x86-ENU.exe sha256:af0ae62ce0af1c48fa324c73bbd02dc5e127e0ceaef9d953f6ec0c14a35a379b
+
+waithidden __Download\WindowsServer2003-KB2659262-x86-ENU.exe /quiet /norestart
+
+action may require restart "7b19add0182d79c514ec394dac2f7ffde0619c7c"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2012/MS12-034</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

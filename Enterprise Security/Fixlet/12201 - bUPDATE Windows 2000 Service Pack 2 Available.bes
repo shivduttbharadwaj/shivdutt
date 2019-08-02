@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Windows 2000 Service Pack 2 Available</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>Microsoft has released the second Service Pack (SP) for Windows 2000. This is a cumulative package that includes fixes in the following areas: operating system reliability, application compatibility, setup, and security issues. This service pack includes fully regression-tested versions of virtually all the patches for security vulnerabilities that have been discovered in Windows 2000 prior to this release. <BR><BR>Microsoft has released this update as an easier way to manage the rollout of security patches and other fixes. BigFix requires this update to establish a baseline for vulnerability analysis. <BR><BR><B>Note:</B> Once this Fixlet has completed its action, affected computers will report back 'Pending Restart', but the vulnerability will not be closed until the affected computer is restarted. <BR><BR><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><B>Note</B>: All of the patches and fixes contained in this Service Pack are also contained in Windows 2000 Service Pack 4.<BR><BR><B><FONT color=#ff0000>Important Note: </FONT></B>BigFix <B>STRONGLY </B>recommends that each computer be rebooted after this service pack is applied.<BR><BR><B>File Size:</B> 101 MB <BR></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win2000"</Relevance>
+		<Relevance>release of operating system = "5.0"</Relevance>
+		<Relevance>(csd version of operating system is "") OR (csd version of operating system is "Service Pack 1") OR (csd version of operating system is "Service Pack 1, RC 1.1")</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows 2000\SP4\Q327194" of registry</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>106278016</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB282522</SourceID>
+		<SourceReleaseDate>2002-07-22</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch W2KSP2.exe sha1:0dcc9d72754b0adb9b295688dc8c75696c2ef1cd size:106278016 http://download.microsoft.com/download/win2000platform/SP/SP2/NT5/EN-US/W2KSP2.exe sha256:b872bb5b271483aa58f74da91d808aa0c0337455b2a5e5f9d98b0d0bf7bf48f5
+wait __download/W2KSP2.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft on Windows 2000 SP2. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/news/w2ksp2.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

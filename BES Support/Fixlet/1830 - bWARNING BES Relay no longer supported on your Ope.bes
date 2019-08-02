@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>WARNING: BES Relay no longer supported on your Operating System</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size=2> <P>The relevant machines have an operating system which no longer supports running a BES Relay in the current platform release (9.5).</P> <P>Operating System (Last BES version supported)<BR>===================================<BR>AIX 5.3 (9.0)<BR>RedHat Enterprise 3 (8.2)<BR>RedHat Enterprise 4 (8.2)<BR>Windows XP Base/SP1/SP2 (Pre 9.0.777.0)<BR>Windows 2003 Base/SP1 (Pre 9.0.777.0)<BR>Windows XP-64 Base/SP1 (Pre 9.0.777.0))<BR>Windows XP SP3+ (9.2)<BR>Windows 2003 SP2+ (9.2)<BR>Windows XP-64 SP2+ (9.2)</P><P>All currently supported versions of Windows agents require SSE2 capabilities present in a Pentium III or later</P> <P>These installations of the relays should continue to work on the new infrastructure, however they cannot be upgraded to the current release or support new features and capabilities and could limit or disrupt some of these new features.</P> <P>Please open a PMR with&nbsp;IBM Support (<A href="https://www-947.ibm.com/support/entry/portal/support">https://www-947.ibm.com/support/entry/portal/support</A>) if you have any questions.</P></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service</Relevance>
+		<Relevance><![CDATA[(if (name of it starts with "Win") then (major version of it < 6 OR not(architecture of it = "x86_64" OR bit 26 of feature mask of main processor)) else (((exists match (regex "Red Hat Enterprise (AS|ES|WS) (3|4)") of it) OR (it contains "Oracle Enterprise") OR (it contains "Fedora") OR (exists match (regex "CentOS (3|4)") of it) OR (exists match (regex "AIX 5.(1|2|3)") of it) OR (it starts with "VMware ESX Server 3"))) of name of it) of operating system]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-10-01</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 30 Sep 2014 21:41:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 19 Dec 2017 17:37:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT15M</Delay>
+	</Fixlet>
+</BES>

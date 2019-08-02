@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-067: Processing Flaw Could Cause Outlook 2002 to Fail - Windows NT/2000/XP (Administrative Installation)</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2><FONT face=Verdana>Microsoft has released a patch eliminating a security vulnerability in Office 2002's processing of e-mail header information. An attacker who successfully exploited the vulnerability could send a specially malformed e-mail to a user of Outlook 2002 that would cause the Outlook client to fail under certain circumstances. The Outlook 2002 client would continue to fail so long as the specially malformed e-mail message remained on the e-mail server. The e-mail message could be deleted by an e-mail administrator, or by the user via another e-mail client such as Outlook Web Access or Outlook Express, after which point the Outlook 2002 client would again function normally. After downloading and installing this patch, affected computers will no longer be susceptible to this vulnerability.<BR></FONT></P> <P><FONT face=Verdana><STRONG>Note:</STRONG> In preparation for deploying this update through an Administrative Installation Point, you must apply this patch to all Administrative Installation Points in your network.  For instructions on how to install this patch to your Administrative Installation Point, please browse to the following link: </FONT><A href="http://support.microsoft.com/?kbid=331866"><FONT face=Verdana>http://support.microsoft.com/?kbid=331866</FONT></A><A href="http://support.microsoft.com/default.aspx?scid=kb;en-us;Q329748"></A><FONT face=Verdana>.  Once you have updated your administrative installation point, you may deploy this patch.</FONT></P> <P><STRONG>Note:</STRONG> Microsoft has announced that this patch will be included in Office XP Service Pack 3.</P> <P><STRONG>Note: </STRONG>Some Office updates will<STRONG> force</STRONG> the affected computer to restart without displaying a warning message if Office applications are open when this update is run. To prevent this from happening, shut down all Office applications prior to applying this update.</FONT></P> <P> </P><P><B>Note:</B> There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P><P><SPAN id=dashboardLink></SPAN><SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false;  document.body.onload = SetOfficeOverviewLink; function SetOfficeOverviewLink() { try {if (isEvansOrLater) { dashboardLink.innerHTML = Relevance('(format "<?rxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the {0}.?>" +  link "<?rxlat Microsoft Office Overview Dashboard?>" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string ) as string');} else { dashboardLink.innerHTML = EvaluateRelevance('"<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the " & link "Microsoft Office Overview Dashboard" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string & "."');} } catch (e) {if (isEvansOrLater) { dashboardLink.innerHTML ='<?jxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.?>';} else { dashboardLink.innerHTML = '<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.';} } } </SCRIPT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(version of regapp "outlook.exe" >= "10.0.4024.0" as version) AND (version of regapp "outlook.exe" < "10.0.4510.0" as version)]]></Relevance>
+		<Relevance><![CDATA[(exists file "msiexec.exe" of system folder) AND (version of file "msiexec.exe" of system folder >= "2.0")]]></Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\OfficeXPControl" of registry) AND (value "DeploymentType" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\OfficeXPControl" of registry = 1)</Relevance>
+		<Relevance>exists key whose ((value "ProductName" of it as string contains "Office XP") AND ((value "ProductName" of it as string = "Office XP") OR (value "ProductName" of it as string contains "Professional") OR (value "ProductName" of it as string contains "Standard") OR (value "ProductName" of it as string contains "Small Business") OR (value "ProductName" of it as string contains "Developer"))) of key "HKEY_CLASSES_ROOT\Installer\Products" of registry</Relevance>
+		<Relevance><![CDATA[exists file "MSOINTL.DLL" whose (language of version block of it contains "English") of (folders of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office10"))]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB331866</SourceID>
+		<SourceReleaseDate>2002-12-04</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-1255</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Outlook</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2002</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to apply the patch from the Installation Point. Please only perform this action once the patch has been delivered to the installation point.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[wait {pathname of system folder}\msiexec.exe /i {preceding text of (first "%00" of (following text of (last ";" of ((value "LastUsedSource" of key "SourceList" of key whose ((value "ProductName" of it as string contains "Office XP") AND ((value "ProductName" of it as string = "Office XP") OR (value "ProductName" of it as string contains "Professional") OR (value "ProductName" of it as string contains "Standard") OR (value "ProductName" of it as string contains "Small Business") OR (value "ProductName" of it as string contains "Developer"))) of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry as string) & "%00")))) & value "PackageName" of key "SourceList" of key whose ((value "ProductName" of it as string contains "Office XP") AND ((value "ProductName" of it as string = "Office XP") OR (value "ProductName" of it as string contains "Professional") OR (value "ProductName" of it as string contains "Standard") OR (value "ProductName" of it as string contains "Small Business") OR (value "ProductName" of it as string contains "Developer"))) of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry as string} REINSTALL=OUTLOOKFiles,OUTLOOKNonBootFiles REINSTALLMODE=vomus /Q]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-067.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-067</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

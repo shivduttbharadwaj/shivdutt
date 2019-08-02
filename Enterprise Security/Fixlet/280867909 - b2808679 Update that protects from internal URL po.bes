@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2808679: Update that protects from internal URL port scanning is available - Windows 2008 R2 SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This update is also referenced under KB2808679.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.07 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2008R2") AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "crypt32.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22321"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18150")))) of it) OR (exists file "cryptdlg.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22321"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18150")))) of it) OR (exists file "cryptnet.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22321"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18150")))) of it) OR (exists file "cryptsvc.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22321"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18150")))) of it)) of (system wow64 folder) OR ((exists file "crypt32.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22321"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18150")))) of it) OR (exists file "cryptdlg.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22321"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18150")))) of it) OR (exists file "cryptnet.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22321"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18150")))) of it) OR (exists file "cryptsvc.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22321"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18150")))) of it)) of (system x64 folder)]]></Relevance>
+		<Relevance>not pending restart "e44a2f7de51433572a8a2c5f5f79b14c2fcb17b6"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>2175758</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2808679</SourceID>
+		<SourceReleaseDate>2013-06-10</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 R2 SP1 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2808679-x64.msu sha1:e44a2f7de51433572a8a2c5f5f79b14c2fcb17b6 size:2175758 http://download.microsoft.com/download/E/0/D/E0D090F4-1DDB-4F0D-AD70-24343AD469A9/Windows6.1-KB2808679-x64.msu sha256:20a90d3d1bab871b73a42e5488a2da462f7e06cab96beb8b9e0c033e8f0e5877
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2808679-x64.msu"}" /quiet /norestart
+
+action requires restart "e44a2f7de51433572a8a2c5f5f79b14c2fcb17b6"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2808679</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

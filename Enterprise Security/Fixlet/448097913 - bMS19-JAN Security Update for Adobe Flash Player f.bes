@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-JAN: Security Update for Adobe Flash Player for Windows Server 2019 - Windows Server 2019 - Adobe Flash Player - KB4480979 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4487038.<br /><br /><div class="kb-summary-section section"><span><span><span><span>This update resolves issues in Adobe Flash Player that is installed on any of the operating systems that listed in the &quot;applies to&quot; section. </span></span></span></span></div><br><br><p><br><br>To learn more, go to <a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/ADV190001" id="kb-link-2" target="_self"> ADV190001</a>.</p><br><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4480979.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+20.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((exists value "ReleaseID" of it AND exists value "ReleaseID" whose (it as integer = 1809) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry AND (name of it = "Win2016" OR name of it starts with "Win20" AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)) of operating system</Relevance>
+		<Relevance>exists value "ReleaseID" whose (it as string = "1809") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4480979~31bf3856ad364e35~amd64~~10.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4480979~31bf3856ad364e35~amd64~~10.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseGEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSNEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSNEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerDatacenterEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerDatacenterEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerStandardEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerStandardEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Adobe-Flash-For-Windows-Package~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-Client-Desktop-Required-Package~31bf3856ad364e35~amd64~~10.0.17763.1") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseGEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSNEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSNEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerDatacenterEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerDatacenterEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerStandardEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerStandardEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_adobe-flash-for-windows_31bf3856ad364e35_none_b4179b8118d18c9f" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.17763.0" AND it < "10.0.17763.254") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Adobe-Flash-For-Windows-WOW64-Package~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-Client-Desktop-Required-WOW64-Package~31bf3856ad364e35~amd64~~10.0.17763.1") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseGEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSNEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-EnterpriseSNEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerDatacenterEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerDatacenterEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerStandardEdition~31bf3856ad364e35~amd64~~10.0.17763.1";"Microsoft-Windows-ServerStandardEvalEdition~31bf3856ad364e35~amd64~~10.0.17763.1") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_adobe-flash-for-windows_31bf3856ad364e35_none_be6c45d34d324e9a" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.17763.0" AND it < "10.0.17763.254") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "e29e228e115d23a003d88ac9fe23a35c582a24f9"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>21910881</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4480979</SourceID>
+		<SourceReleaseDate>2019-01-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>ADV190001</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 09 Jan 2019 05:26:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4487038</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:adobe_flash_player:*:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>448703831</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-02-12</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2019</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Adobe Flash Player</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 13 Feb 2019 07:58:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows10.0-kb4480979-x64_e29e228e115d23a003d88ac9fe23a35c582a24f9.msu sha1:e29e228e115d23a003d88ac9fe23a35c582a24f9 size:21910881 http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/01/windows10.0-kb4480979-x64_e29e228e115d23a003d88ac9fe23a35c582a24f9.msu sha256:b5dd47ec10860f246e12ea59a863ad7c4a83e9fb61ceb31111db7b5e67ea6b4c
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows10.0-kb4480979-x64_e29e228e115d23a003d88ac9fe23a35c582a24f9.msu"}" /quiet /norestart
+
+action requires restart "e29e228e115d23a003d88ac9fe23a35c582a24f9"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4480979</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

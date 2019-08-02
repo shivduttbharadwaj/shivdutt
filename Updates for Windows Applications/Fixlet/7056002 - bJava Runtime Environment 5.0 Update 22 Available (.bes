@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Java Runtime Environment 5.0 Update 22 Available (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Oracle has released a new version of the Java Runtime Environment (JRE). Use the action below to update Java to version 5.0, update 22.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Important Note:</B> The Java Runtime Environment update does not remove older versions of JRE. Multiple versions of JRE may be present on affected computers after applying the action below. Fixlet message "Multiple JRE Versions Installed" (ID 7057001) can be used to uninstall older versions of the Java Runtime Environment.</P> <P><B>Important Note:</B> Follow the link for the 'Java Runtime Environment (JRE) 5.0 Update 22' download on this <A href="http://java.sun.com/javase/downloads/index_jdk5.jsp">page</A>. The file "jre-1_5_0_22-windows-amd64.exe" must be downloaded, renamed "ac35386b768bd2eccbc133b17c54481f2d367972", and placed in the BES Server download cache for this action to complete successfully. For more information about manually caching file downloads on the BES Server, please see the following BigFix Support Knowledge Base <A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=390">article</A>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+11.7 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance><![CDATA[version of client >= "6.0"]]></Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((NOT exists value "DisplayVersion" whose ((it >= "1.5.0.220" AND it = "1.5") of ((if (it as string = "1.5.0") then (it as string & ".000") else (it as string)) as version)) of keys whose (value "DisplayName" of it as string as lowercase contains "j2se runtime environment") of it) AND (exists value "DisplayVersion" whose ((it = "1.5") of ((if (it as string = "1.5.0") then (it as string & ".000") else (it as string)) as version)) of keys whose (value "DisplayName" of it as string as lowercase contains "j2se runtime environment") of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of x64 registry]]></Relevance>
+		<Relevance>exists key whose (((it contains "java" OR it contains "j2se") AND it contains "runtime environment") of (value "DisplayName" of it as string as lowercase)) of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of x64 registry</Relevance>
+		<Relevance>(exists ((string values of selects "UserName from Win32_ComputerSystem" of wmi) , (members of local group "administrators" as string)) whose (item 0 of it = item 1 of it))</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>12228724</DownloadSize>
+		<Source>Oracle</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2009-11-02</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Apr 2011 03:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:oracle:jre:1.5.0:update_22:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Oracle JavaRuntimeEnvironment</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 14 May 2019 23:13:56 +0000</Value>
+		</MIMEField>
+		<Delay>PT6H</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">begin prefetch block	
+add prefetch item name = jre-1_5_0_22-windows-amd64.exe sha1=ac35386b768bd2eccbc133b17c54481f2d367972 size=12228724 url={value of setting "_BESClient_AllowCustomRepoDownloads" of client | "http://download.oracle.com/MANUAL_BES_CACHING_REQUIRED/"}jre-5u22-windows-x64.exe sha256=ab27175e0fa42b248a9105a9a5056ff702f901c55bc54d57283e606af390c8d8
+
+add prefetch item name = RunAsCurrentUser-2.0.3.1.exe sha1=ee47505ebfb2790b9da8a20ed70e67158e9753d0  size=342528 url=http://software.bigfix.com/download/bes/util/RunAsCurrentUser-2.0.3.1.exe sha256=1a9b518c775e2a85a7c47801e9b8221df338a65ad8df326485e4cd2aea22fe52
+end prefetch block
+
+wait __Download\RunAsCurrentUser-2.0.3.1.exe --w __Download\jre-1_5_0_22-windows-amd64.exe /S /v/qn
+
+action may require restart "ac35386b768bd2eccbc133b17c54481f2d367972"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of JRE.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://java.sun.com/j2se/1.5.0/ReleaseNotes.html</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Oracle. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://java.sun.com/javase/technologies/security/index.jsp#overview</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in cross-platform applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#top20-cross-platform</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

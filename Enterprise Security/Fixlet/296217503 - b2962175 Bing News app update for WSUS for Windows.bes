@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2962175: Bing News app update for WSUS for Windows 8 - Windows 8 Gold (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> This update is also referenced under KB2962175.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+10.11 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance>not exists key "4EF6E9ED65B51A964B4977FE1C3B6173" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance><![CDATA[((exists it whose (it starts with "Microsoft.BingNews") of names of folders of it) AND (not exists it whose (it starts with "Microsoft.BingNews" AND (it as version >= "2.0.0.308") of preceding text of first "_" of following text of first "_" of it) of names of folders of it)) of folder (value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of native registry as string & "\WindowsApps")]]></Relevance>
+		<Relevance>not pending restart "22fe32d424d35ded30c8cbdddff2db5c82d30c2d"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>10602840</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2962175</SourceID>
+		<SourceReleaseDate>2014-06-23</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 30 Sep 2014 06:06:49 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8 Gold x64</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>WSUS</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8-rt-kb2962175-x64_22fe32d424d35ded30c8cbdddff2db5c82d30c2d.cab sha1:22fe32d424d35ded30c8cbdddff2db5c82d30c2d size:10602840 http://download.windowsupdate.com/c/msdownload/update/software/updt/2014/05/windows8-rt-kb2962175-x64_22fe32d424d35ded30c8cbdddff2db5c82d30c2d.cab sha256:9c7fa79b72e3b14d9ad5ff9a629f589d6318085cf88476748fb819dc0eca13c2
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\windows8-rt-kb2962175-x64_22fe32d424d35ded30c8cbdddff2db5c82d30c2d.cab __Download\windows8-rt-kb2962175-x64.msi
+
+waithidden msiexec.exe /i __Download\windows8-rt-kb2962175-x64.msi /quiet /norestart
+
+action requires restart "22fe32d424d35ded30c8cbdddff2db5c82d30c2d"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2962175</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

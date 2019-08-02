@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Windows 2000 Security Rollup Package 1</Title>
+		<Description><![CDATA[
+Microsoft has released the first Security Rollup Package (SRP) for Windows 2000. This is a cumulative package that includes virtually all of the security patches released for Windows 2000 since the release of Service Pack 2. <BR><BR>Microsoft has released this update as an easier way to manage the rollout of security fixes. BigFix <b>requires</b> this update to establish a baseline for vulnerability analysis. <BR><BR><BR><b>Note:</b> Once this Fixlet has completed its action, affected computers will report back 'Pending Restart', but the vulnerability will not be closed until the affected computer is restarted. <BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled. <BR><BR><b>Note</b>: All of the patches and fixes contained in this Service Pack are also contained in Windows 2000 Service Pack 4.<BR><BR><b>File Size:</b> 16.52 MB <BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win2000"</Relevance>
+		<Relevance>release of operating system = "5.0"</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows 2000\SP3\SP2SRP1" of registry</Relevance>
+		<Relevance>csd version of operating system = "Service Pack 2"</Relevance>
+		<Relevance>not exists key "Q282522" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows 2000\SP3" of registry</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows 2000\SP4\Q327194" of registry</Relevance>
+		<Category>Rollup</Category>
+		<DownloadSize>17328032</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB311401 </SourceID>
+		<SourceReleaseDate>2002-07-22</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch w2kSP2SRP1.exe sha1:664f14d39e56ec2b71a8d302f24b05bf8d1881d0 size:17328032 http://download.microsoft.com/download/win2000platform/Patch/Q311401/NT5/EN-US/w2kSP2SRP1.exe sha256:f8916c92dcac43c590c737e812a2759eddb5013ecdebd7e9e109ae3aaafa3058
+wait __download/w2kSP2SRP1.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft on Windows 2000 SRP1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.Microsoft.com/technet/security/news/w2ksrp1.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

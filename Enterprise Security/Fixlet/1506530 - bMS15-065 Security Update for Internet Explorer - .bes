@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-065: Security Update for Internet Explorer - Windows Server 2003 SP2 - IE 6 - KB3065822 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The listed computers have faulty installations of a patch for the vulnerability described in MS15-065. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<br><br>Microsoft has released a security update that resolves vulnerabilities in Internet Explorer. The most severe of the vulnerabilities could allow remote code execution if a user views a specially crafted webpage using Internet Explorer. An attacker who successfully exploited these vulnerabilities could gain the same user rights as the current user. Customers whose accounts are configured to have fewer user rights on the system could be less impacted than those who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB3065822.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.33 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "iexplore.exe" whose (version of it < "7.0.0.0") of (folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder))) ) AND (it >= "6.0.3790.0" AND it <= "6.0.3790.3959") of version (value "Version" of key "HKLM\SOFTWARE\Microsoft\Internet Explorer" of registry as string)]]></Relevance>
+		<Relevance>version of regapp "iexplore.exe" = "6"</Relevance>
+		<Relevance><![CDATA[((exists file "browseui.dll" whose ((version of it < "6.0.3790.5662")) of it) OR (exists file "dxtmsft.dll" whose ((version of it < "6.3.3790.5662")) of it) OR (exists file "dxtrans.dll" whose ((version of it < "6.3.3790.5662")) of it) OR (exists file "ieencode.dll" whose ((version of it < "2011.1.31.10")) of it) OR (exists file "iepeers.dll" whose ((version of it < "6.0.3790.5662")) of it) OR (exists file "mshtml.dll" whose ((version of it < "6.0.3790.5662")) of it) OR (exists file "mshtmled.dll" whose ((version of it < "6.0.3790.5662")) of it) OR (exists file "mstime.dll" whose ((version of it < "6.0.3790.5662")) of it) OR (exists file "pngfilt.dll" whose ((version of it < "5.2.3790.5662")) of it) OR (exists file "shdocvw.dll" whose ((version of it < "6.0.3790.5662")) of it) OR (exists file "tdc.ocx" whose ((version of it < "1.3.0.3131")) of it) OR (exists file "url.dll" whose ((version of it < "6.0.3790.5662")) of it) OR (exists file "urlmon.dll" whose ((version of it < "6.0.3790.5662")) of it) OR (exists file "wininet.dll" whose ((version of it < "6.0.3790.5662")) of it)) of (system folder) OR (exists file "vgx.dll" whose ((version of it < "6.0.3790.5662")) of it) of (folder "MICROSOFT SHARED\VGX" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder))]]></Relevance>
+		<Relevance>NOT((not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb3065822" of registry))</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>4539128</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3065822</SourceID>
+		<SourceReleaseDate>2015-07-14</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2015-2372; CVE-2015-2385; CVE-2015-2390; CVE-2015-2397; CVE-2015-2404; CVE-2015-2406; CVE-2015-2410; CVE-2015-2413; CVE-2015-2421; CVE-2015-2422</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 Jul 2015 03:45:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>1506529</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:ie:6:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB3065822-x86-ENU.exe sha1:0bf660f5824df5965a24dcd31705eae1a7028360 size:4539128 http://download.microsoft.com/download/6/7/3/6735E333-645E-4ECD-94D7-6CE954C83154/WindowsServer2003-KB3065822-x86-ENU.exe sha256:af143c17dc34d2b22f7af1245bd2a6cbfecaba2f4ae3676d7bc504f5e5f300d8
+
+waithidden __Download\WindowsServer2003-KB3065822-x86-ENU.exe /quiet /norestart
+
+action may require restart "0bf660f5824df5965a24dcd31705eae1a7028360"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-065</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

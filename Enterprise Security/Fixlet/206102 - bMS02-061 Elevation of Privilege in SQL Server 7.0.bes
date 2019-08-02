@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-061: Elevation of Privilege in SQL Server 7.0 Web Tasks</Title>
+		<Description><![CDATA[
+Microsoft has released a security bulletin outlining a newly discovered vulnerability in SQL Server 7.0 Service Pack 4. The vulnerability could allow any user who could authenticate to the SQL server to run stored web tasks. This ability is normally reserved for administrators, so this vulnerability results in an elevation of privilege. Microsoft has released the fix to this issue in the form of a cumulative patch. <BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Note:</b> Due to the complexity of the installation, this update must be completed manually. <BR><BR><b>Note:</b> This security update is also referenced under KB316333.<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft SQL Server 7.0" of registry) OR (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MSDE" of registry)</Relevance>
+		<Relevance><![CDATA[((exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) AND (exists file "sqlservr.exe" whose (value "ProductVersion" of only version block of it as version >= "7.00.1063") of folder ((value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) as string & "\Binn") ))]]></Relevance>
+		<Relevance><![CDATA[(exists file "sqlservr.exe" whose (version of it < "2000.33.6.0") of folder ((value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) as string & "\Binn")) OR (exists file "distrib.exe" whose (version of it < "2000.33.6.0") of folder ((value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) as string & "\Binn")) OR (exists file "Sqlagent.exe" whose (version of it < "2000.33.6.0") of folder ((value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) as string & "\Binn")) OR (exists file "replmerg.exe" whose (version of it < "2000.33.6.0") of folder ((value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) as string & "\Binn")) OR (exists file "snapshot.exe" whose (version of it < "2000.33.6.0") of folder ((value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) as string & "\Binn")) OR (exists file "Sqlcmdss.dll" whose (version of it < "2000.33.6.0") of folder ((value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) as string & "\Binn")) OR (exists file "Logread.exe" whose (version of it < "2000.33.6.0") of folder ((value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) as string & "\Binn")) OR (exists file "xpweb70.dll" whose (version of it < "2000.33.6.0") of folder ((value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sqlservr.exe" of registry) as string & "\Binn")) OR (exists file "rdistcom.dll" whose (version of it < "2000.33.6.0") of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry as string & "\microsoft shared\database replication")) OR (exists file "replres.dll" whose (version of it < "2000.33.6.0") of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry as string & "\microsoft shared\database replication"))]]></Relevance>
+		<Relevance>(not exists key "ESRemovedFixlets" of key "HKLM\Software\BigFix\EnterpriseClient" of registry) OR (not exists value "206102" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry) OR (value "206102" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry ) != 1</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB327068</SourceID>
+		<SourceReleaseDate>2002-10-16</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2002-1145</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 7.0</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-061.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-061</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> if you wish to remove this Fixlet message and mark it as fixed on affected computers. In doing so, you accept the risk of not closing this vulnerability on affected computers.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\Software\BigFix\EnterpriseClient\ESRemovedFixlets]" "206102"=dword:00000001</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

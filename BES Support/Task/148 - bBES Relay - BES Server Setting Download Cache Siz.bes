@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Relay / BES Server Setting: Download Cache Size</Title>
+		<Description><![CDATA[
+The BES Relays and BES Server will cache downloaded files on the local computer so that the file will not need to be downloaded again if the action is reissued. <BR><BR>This setting will specify how many MB to cache before overwriting the old files. When the cache is full, the least recently used files will be replaced. The default cache size is 1024 MB.<BR><BR><b>Note:</b> Do <b>not</b> set the "Reapply" behavior when taking this action or you may cause the BES Client to constantly reset this setting.
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>TRUE</Relevance>
+		<Category>BES Server/Relay Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 22 Jun 2004 01:53:08 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Server Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to change the download cache size on the listed computers. You will be prompted for the number of MB to cache.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "_BESGather_Download_CacheLimitMB" with description "Please enter the number of MB to cache:" with default value "1024"
+
+// Fail if value is not between 1 and 4,294,967,296
+continue if {parameter "_BESGather_Download_CacheLimitMB" of action as integer >= 1 AND parameter "_BESGather_Download_CacheLimitMB" of action as integer <= 4294967296}
+
+setting "_BESGather_Download_CacheLimitMB"="{parameter "_BESGather_Download_CacheLimitMB" of action}" on "{parameter "action issue date" of action}" for client]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-063: Unchecked Buffer in PPTP Implementation - Windows XP Gold</Title>
+		<Description><![CDATA[
+Microsoft has released a security bulletin relating to a vulnerability in the Point-to-Point Tunneling Protocol (PPTP) of Windows XP, a Virtual Private Networking technology that is implemented as part of Remote Access Services (RAS). If correctly exploited, it could allow someone to corrupt kernel memory and cause the system to fail. Microsoft recommends that all computers with this vulnerability apply this patch immediately.<BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note:</b> Microsoft has announced that this patch will be included in Windows XP Service Pack 2.<BR><BR><b>File Size:</b> 209 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((name of it = "WinXP") AND (service pack major version of it < 2)) of operating system]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows XP\SP1\Q329834" of registry</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP1\Q324720" of registry</Relevance>
+		<Relevance><![CDATA[exists file whose (name of it as lowercase is "raspptp.sys" AND version of it < "5.1.2600.101" as version) of folder "drivers" of system folder]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP2\KB811113" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>214888</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB329834</SourceID>
+		<SourceReleaseDate>2002-10-30</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2002-1214</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q329834_WXP_SP2_x86_ENU.exe sha1:b97b25af2354b711f1f969b675498bb4c37f2e67 size:214888 http://download.microsoft.com/download/whistler/Patch/Q329834/WXP/EN-US/Q329834_WXP_SP2_x86_ENU.exe sha256:970fdf1b8a80cfd9f5288f6061e5b5ed140cf36cfb70db1ce402da72504357f3
+wait __download\Q329834_WXP_SP2_x86_ENU.exe -u -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-063.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-063.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

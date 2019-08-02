@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-008: Flaw in Windows Script Engine 5.1 Could Allow Code Execution - Windows 2000</Title>
+		<Description><![CDATA[
+Microsoft has released a patch eliminating a security vulnerability in the Windows Script Engine. The Windows Script Engine provides the ability to execute script code. Script code can be used to add functionality to web pages, or to automate tasks within the operating system or within a program. A flaw exists in the way by which the Windows Script Engine for JScript processes information. An attacker could exploit the vulnerability by constructing a web page that, when visited by the user, would execute code of the attacker's choice with the user's privileges. After downloading and installing this patch, affected computers will no longer be susceptible to this vulnerability.<BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Note:</b> Affected computers will report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note:</b> Microsoft has announced that this patch is included in Windows 2000 Service Pack 4.<BR><BR><b>File Size:</b> 322 KB<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of operating system is "Win2000" AND ((csd version of operating system = "Service Pack 2") OR (csd version of operating system = "Service Pack 3")))</Relevance>
+		<Relevance><![CDATA[(version of file "jscript.dll" of system folder < "5.1.0.8513") AND (version of file "jscript.dll" of system folder > "5.0.0.0")]]></Relevance>
+		<Relevance>not pending restart "8b8e33499b2bc089c5c9b71a47cb641be149b648"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>330080</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB814078</SourceID>
+		<SourceReleaseDate>2003-03-19</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2003-0010</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Script Engine</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch js51nen.exe sha1:8b8e33499b2bc089c5c9b71a47cb641be149b648 size:330080 http://download.microsoft.com/download/1/8/1/181bdd83-b5fa-4ecc-a268-b36415a31337/js51nen.exe sha256:5b7873e26b0e29f792fe2857886fff52cfb7fd5f6512fda0a95bc2b43acfde02
+wait __download/js51nen.exe /Q:A /R:N
+action requires restart "8b8e33499b2bc089c5c9b71a47cb641be149b648"
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-008.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-008.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

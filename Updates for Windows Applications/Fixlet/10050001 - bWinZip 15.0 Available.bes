@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>WinZip 15.0 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>WinZip Computing has released a new version of WinZip (15.0 Build 9411). Please use the action below to upgrade to the latest version.</P> <P><STRONG>Note</STRONG>: Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> WinZip 15.0 is not a free upgrade. Please see <A href="http://www.winzip.com/upgrade.htm">this</A> page for more information.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> The installer deployed by this Fixlet message cannot be run while&nbsp;WinZip is running. As such, this Fixlet message will not become relevant on machines that are currently running WinZip.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> An msiexec dialogue box may&nbsp;open after&nbsp;running this&nbsp;Fixlet, but Bigfix testing has confirmed that running this Fixlet will update WinZip to the latest 15.0 version.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+12.9 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance><![CDATA[exists key whose (value "DisplayName" of it as string contains "WinZip" AND (it = "15" and it < "15.0.9411") of (it as version) of concatenation "" of (if it = "(" then "." else if it = " " OR it = ")" then "" else it) of (characters of it) of (value "DisplayVersion" of it as string)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance>not exists running application "winzip32.exe"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>13565440</DownloadSize>
+		<Source>Winzip</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2011-02-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Apr 2011 03:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:winzip:winzip:15.0.9411:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp WinZipInternationalLLC WinZip</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 Feb 2017 07:51:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1033) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150.msi sha1:a646fd9f4f697fd87963ca5800b6b33cae08884d size:13717504 http://download.winzip.com/winzip150.msi sha256:45da4d3762d2340062e74d37cfeffd476c22c01a027cb930457b06978e40e44b
+
+wait msiexec /I __Download\winzip150.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "a646fd9f4f697fd87963ca5800b6b33cae08884d"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1036) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150fr.msi sha1:128c36e714414fdcc30c2c3d848daaa640aa590c size:14053888 http://download.winzip.com/winzip150fr.msi sha256:02df279bc09b26a04e07c57230480dfaf844dfb55cd57200106300e4675788f5
+
+wait msiexec.exe /i __Download\winzip150fr.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "128c36e714414fdcc30c2c3d848daaa640aa590c"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1031) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150de.msi sha1:628a6840d8df206fe1a727b85ebaded974136726 size:14166016 http://download.winzip.com/winzip150de.msi sha256:f83bd2807fcfc824460a2ce1cf64a4231df943b25999219896355cca8e141c3f
+
+wait msiexec.exe /i __Download\winzip150de.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "628a6840d8df206fe1a727b85ebaded974136726"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1040) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150it.msi sha1:ab4a28a1e917f1d7727dc5458e159059fd770e33 size:14255616 http://download.winzip.com/winzip150it.msi sha256:188484285f920606306509621fde6a6e7879f1765435c63f0d301277d94efdf4
+
+wait msiexec.exe /i __Download\winzip150it.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "ab4a28a1e917f1d7727dc5458e159059fd770e33"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1034) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150es.msi sha1:a1e4a0c5cbca4dedfab2ed5c705943f003f63ef2 size:14182400 http://download.winzip.com/winzip150es.msi sha256:9e03d8a1375da0434edb2c0a36f7baa0c32811fd85d4f39f217cc9a14cb5342d
+
+wait msiexec.exe /i __Download\winzip150es.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "a1e4a0c5cbca4dedfab2ed5c705943f003f63ef2"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 2052) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150zh.msi sha1:764e921b972f21628339d04df781dd9ea25ddd2b size:14114304 http://download.winzip.com/winzip150zh.msi sha256:0772730abbd5c6bfeaf5157e816e7da36ed123619d28e02c5c601ad87a18827f
+
+wait msiexec.exe /i __Download\winzip150zh.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "764e921b972f21628339d04df781dd9ea25ddd2b"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1041) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150jp.msi sha1:8dd291cce3e43462da132133de3c4c9ce92277e5 size:14194176 http://download.winzip.com/winzip150jp.msi sha256:069ef30b655d5d1fa87ddf7a91d306b65a977041a1d294466813a988f2ae0f4f
+
+wait msiexec.exe /i __Download\winzip150jp.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "8dd291cce3e43462da132133de3c4c9ce92277e5"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1028) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150tw.msi sha1:9bcde9459f4a73804aecccf5edb55bb8bf399ea4 size:14177280 http://download.winzip.com/winzip150tw.msi sha256:950f5af08500c03e1790a4a08bf19350f093fb19064b8d775d76561a5e9d9706
+
+wait msiexec.exe /i __Download\winzip150tw.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "9bcde9459f4a73804aecccf5edb55bb8bf399ea4"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1042) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150ko.msi sha1:0aaa8f1d810e59b8e8aa95cfb3fa40833ce7c1f7 size:14173696 http://download.winzip.com/winzip150ko.msi sha256:773207d28044123de16c9a21ee4fe45235daf92c31945f35dc16542e2447cccb
+
+wait msiexec.exe /i __Download\winzip150ko.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "0aaa8f1d810e59b8e8aa95cfb3fa40833ce7c1f7"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1046) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150bp.msi sha1:cf50582930907ec767793af52a89165e449deae9 size:14217216 http://download.winzip.com/winzip150bp.msi sha256:603d832030638a047288fc71b51b85735eb474653bdb82dbddefbd887a1faaf3
+
+wait msiexec.exe /i __Download\winzip150bp.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "cf50582930907ec767793af52a89165e449deae9"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1029) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150cs.msi sha1:3ddb15cd278625a149f3f7e253becf0ed99bcfd2 size:14262272 http://download.winzip.com/winzip150cs.msi sha256:244d81660112e7fbbdeb9b212754f168df4102215fc85321a6f39d4c2be5a296
+
+wait msiexec.exe /i __Download\winzip150cs.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "3ddb15cd278625a149f3f7e253becf0ed99bcfd2"
+
+elseif {exists key whose (value "DisplayName" of it as string contains "WinZip" and value "Language" of it = 1049) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry}
+prefetch winzip150ru.msi sha1:7add3210c92f5afe2b89d38a97e74a9e1042b17c size:14332928 http://download.winzip.com/winzip150ru.msi sha256:19ac0561932426981a1d045ced0ecdc50b2010c7e8a53c7fb75689a42edeb93e
+
+wait msiexec.exe /i __Download\winzip150ru.msi /qn
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill WZQKPICK /a" else "taskkill /F /IM WZQKPICK.exe"}
+
+action may require restart "7add3210c92f5afe2b89d38a97e74a9e1042b17c"
+
+endif</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about WinZip.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.winzip.com</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

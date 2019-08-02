@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4073119: Enable mitigations to help protect against CVE 2018-3639 (Speculative Store Bypass), CVE-2017-5715 (Spectre Variant 2), and CVE-2017-5754 (Meltdown),(CVE-2018-11091, CVE-2018-12126, CVE-2018-12127, CVE-2018-12130)  - Windows 7 / Windows 8.1 / Win</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <DIV class=FixletMessage> <P class=ng-scope>Customers need to enable mitigations to help protect against speculative execution side-channel vulnerabilities.</P> <P class=ng-scope>Enabling these mitigations may affect performance. The actual performance impact will depend on multiple factors, such as the specific chipset in your physical host and the workloads that are running. Microsoft recommends that customers assess the performance impact for their environment and make necessary adjustments.</P> <P class=ng-scope>Your server is at increased risk if it is in one of the following categories:</P> <UL class=ng-scope> <LI>Hyper-V hosts</LI> <LI>Remote Desktop Services Hosts (RDSH)</LI> <LI>For physical hosts or virtual machines that are running <STRONG>untrusted code</STRONG> such as containers or untrusted extensions for database, untrusted web content or workloads that run code that is provided from external sources.</LI></UL></DIV></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+Unspecified
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win7" OR name of it = "Win8.1" OR name of it = "Win10" OR name of it = "Win8") of operating system</Relevance>
+		<Relevance>(not exists keys "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" whose (exists values "FeatureSettingsOverride" whose (72 = it as string as integer) of it AND exists values "FeatureSettingsOverrideMask" whose (3 = it as string as integer) of it) of it) of native registry AND (not exists keys "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" whose (exists values "FeatureSettingsOverride" whose (8264 = it as string as integer) of it AND exists values "FeatureSettingsOverrideMask" whose (3 = it as string as integer) of it) of it) of native registry</Relevance>
+		<Category>Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4073119</SourceID>
+		<SourceReleaseDate>2018-01-04</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 18 Apr 2019 22:19:47 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 26 Jul 2019 21:13:52 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to enable mitigations without disabling Hyper-Threading.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset64 "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]" "FeatureSettingsOverride"=dword:00000048
+regset64 "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]" "FeatureSettingsOverrideMask"=dword:00000003
+
+action requires restart</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to enable mitigations with Hyper-Threading disabled.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset64 "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]" "FeatureSettingsOverride"=dword:00002048
+regset64 "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]" "FeatureSettingsOverrideMask"=dword:00000003
+regset64 "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Virtualization]" "MinVmVersionForCpuBasedMitigations"="1.0"
+
+action requires restart</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4073119</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

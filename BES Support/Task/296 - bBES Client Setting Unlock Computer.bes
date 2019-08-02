@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Client Setting: Unlock Computer</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>This task will unlock computer in your network. Unlocked computers are no longer excluded from the the effects of fixlet actions. Client computers can be locked forever until explicitly unlocked.<BR></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(lock string of action lock state = "Yes")</Relevance>
+		<Category>BES Client Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 30 Jun 2004 20:48:47 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 14 Nov 2017 18:36:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to unlock listed BES Clients.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">action unlock "{parameter "action issue date" of action}"</ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

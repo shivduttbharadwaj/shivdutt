@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated AIX Relay - IBM BigFix version 9.5.12 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.5.12 of IBM BigFix is now available!<BR><BR></STRONG>The latest version of the IBM BigFix Relay provides several enhancements and fixes. This Fixlet can upgrade all Relays on the targeted computers.<BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to a 9.5 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note:</FONT></STRONG></FONT><FONT color=#000000> This Fixlet message will only become relevant on computers after the IBM BigFix Server has been upgraded. Clients will notice that the IBM BigFix Server is updated and will begin to report any other upgrade Fixlets relevant (the clients by default check once per six hours for the version of the server on registration). This fixlet will also update the Client on any Relay installation.<BR><BR><STRONG>Note:</STRONG> It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Relays and Clients will get upgraded.<BR><BR><P><STRONG>Important Note:</STRONG> In rare cases&nbsp;the Relay&nbsp;may fail to automatically start after the upgrade is complete, and must be manually started.&nbsp; Please contact technical support if this occurs.<BR><BR><STRONG>Note: </STRONG>This relay runs on supported AIX platforms on AIX 6.1 (Requires Technology Level 4), AIX 7.x. </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+115 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client >= "8.0"]]></Relevance>
+		<Relevance>version of registration server = "9.5"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "(AIX|AIX VIOS) (6.1|7.)") of name of operating system</Relevance>
+		<Relevance><![CDATA[exists relay service whose (version of it < "9.5.12.68")]]></Relevance>
+		<Relevance><![CDATA[if ((build of operating system = "6") AND (version of client >= "8.2")) then (exists true whose (if true then (current technology level of operating system as string >= "6100-04") else false)) else true]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>120933376</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2019-03-01</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 11 Mar 2019 10:58:50 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 11 Mar 2019 10:58:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Relay and Client 9.5.12 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {exists match (regex "(AIX|AIX VIOS) (6.1|7.)") of name of operating system}
+	// AIX 6.1, 7.x 64bit
+	prefetch BESRelayUpgrade.pkg sha1:f8617dda0980bfc36ea3a1fe1a7ee6df8c63ed4f size:40037376 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68.ppc64_aix61.pkg sha256:f557e8fcf1a66477b6e97adf0da71d9807bc8d1007e8d7ebf752e0f663558217
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESRelayUpgrade.pkg"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {80896000 < free space of drive of folder "/var/tmp"}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+delete /var/tmp/BESRelayUpgrade.pkg
+move __Download/BESRelayUpgrade.pkg /var/tmp/BESRelayUpgrade.pkg
+parameter "RelayLessThan9"="{version of relay service < "9.0"}"
+parameter "RunningRelay"="{exists running service "BESRelay"}"
+if {build of operating system <= "6"}
+	if {version of client >= "8.2"}
+		continue if {if (build of operating system = "6") then (current technology level of operating system as string >= "6100-04") else (current technology level of operating system as string >= "5300-08")}
+	else
+		delete __createfile
+		createfile until __EOF
+#!/usr/bin/sh
+OSLEVEL=`/usr/bin/oslevel -r`
+REL=`/usr/bin/echo $OSLEVEL | /usr/bin/sed 's/\(.*\)-.*/\1/'`
+TL_DIGIT1=`/usr/bin/echo $OSLEVEL | /usr/bin/sed 's/.*-\(.\).*/\1/'`
+TL_DIGIT2=`/usr/bin/echo $OSLEVEL | /usr/bin/sed 's/.*-.\(.\).*/\1/'`
+if [ "$REL" = "6100" ]; then
+    if [ "$TL_DIGIT1" -eq 0 ] && [ "$TL_DIGIT2" -lt 4 ]; then
+        exit 1
+    fi
+fi
+exit 0
+__EOF
+		wait /bin/sh __createfile
+		// If next line fails, the platform does not have the sufficent OS Technology Level to run this release
+		continue if {exit code of action = 0}
+	endif
+endif
+if {"True" = parameter "RelayLessThan9"}
+	delete __createfile
+	createfile until __EOF
+#!/usr/bin/sh
+TMPDIR=/tmp/BESRELAY9.5.12.68_upgrade_fixlet_symlinks
+preserve_BES_symlinks() {{
+	/bin/rm -fr $TMPDIR
+	/bin/mkdir $TMPDIR
+	for i in ${{@}
+	do
+		N=`echo $i | sed s/[\/\ ]/_/g`
+		if [ -L "${{i}" ]; then
+			/bin/ls -l "${{i}" | /bin/awk '{{ print $11 }' > "${{TMPDIR}/${{N}"
+			/bin/rm "${{i}"
+		fi
+	done
+	}
+RELAYDIRS="/var/opt/BESRelay"
+preserve_BES_symlinks ${{RELAYDIRS}
+__EOF
+	wait /bin/sh __createfile
+endif
+wait /usr/sbin/installp -u BESRelay
+wait /usr/sbin/installp -agqYXd /var/tmp/BESRelayUpgrade.pkg BESRelay
+delete __Local/Upgrade/BESRelayUpgrade.pkg
+if {"True" = parameter "RelayLessThan9"}
+	delete __createfile
+	createfile until __EOF
+#!/usr/bin/sh
+TMPDIR=/tmp/BESRELAY9.5.12.68_upgrade_fixlet_symlinks
+restore_BES_symlinks() {{
+	for i in ${{@}
+	do
+		N=`echo ${{i} | sed 's/[\/\ ]/_/g'`
+		if [ -f "${{TMPDIR}/${{N}" ]; then
+			dst=`/bin/cat "${{TMPDIR}/${{N}"`
+			for f in `/bin/ls -A "${{i}"`; do
+				/bin/rm -fr ${{dst}/$f
+				/bin/mv -f "${{i}/$f" "${{dst}/$f"
+			done
+			/bin/rm -fr "${{i}"
+			/bin/ln -s "$dst" "${{i}"
+		fi
+	done
+	/bin/rm -fr $TMPDIR
+}
+/etc/rc.d/rc2.d/KBESRelayd stop
+RELAYDIRS="/var/opt/BESRelay"
+restore_BES_symlinks ${{RELAYDIRS}
+__EOF
+	wait /bin/sh __createfile
+endif
+if {"True" = parameter "RunningRelay"}
+	wait /etc/rc.d/rc2.d/SBESRelayd start_skipclientrestart
+	parameter "startTime" = "{apparent registration server time}"
+	pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+	relay select
+	// Fails here if a previously running relay did not start up
+	continue if {exists running service "BESRelay"}
+endif
+continue if {exit code of action = 0 AND version of relay service = "9.5.12.68"}
+if {version of client < "9.5.12.68"}
+	if {exists match (regex "(AIX|AIX VIOS) (6.1|7.)") of name of operating system}
+		// AIX 6.1, 7.x 64bit
+		prefetch BESClientUpgrade.pkg sha1:8310b39442184d0264eb04d80932e0b77cc95415 size:80896000 http://software.bigfix.com/download/bes/95/BESAgent-9.5.12.68.ppc64_aix61.pkg sha256:a8a987dc6bc7ff6a943faba7c99c0242aee656068e6309d3cbb83a59f5d662f5
+	else
+		// No Known Configuration
+		continue if false
+	endif
+	continue if {exists file "__Download/BESClientUpgrade.pkg"}
+	delete /var/tmp/BESClientUpgrade.pkg
+	move __Download/BESClientUpgrade.pkg /var/tmp/BESClientUpgrade.pkg
+	delete __appendfile
+	appendfile #!/usr/bin/sh 
+	if { (version of client < "9.5.6" and version of client >= "9.0")  or version of client < "9.0"}
+		appendfile TMPDIR=/tmp/BESCLIENT9.5.12.68_upgrade_fixlet_symlinks
+		appendfile preserve_BES_symlinks() {{
+		appendfile 		/bin/rm -fr $TMPDIR
+		appendfile 		/bin/mkdir $TMPDIR
+		appendfile 		for i in ${{@}
+		appendfile 		do
+		appendfile 			N=`echo $i | sed s/[\/\ ]/_/g`
+		appendfile 			if [ -L "${{i}" ]; then
+		appendfile 				/bin/ls -l "${{i}" | /bin/awk '{{ print $11 }' > "${{TMPDIR}/${{N}"
+		appendfile 				/bin/rm "${{i}"
+		appendfile 			fi
+		appendfile 		done
+		appendfile }
+		appendfile restore_BES_symlinks() {{
+		appendfile 		for i in ${{@}
+		appendfile 		do
+		appendfile 			N=`echo ${{i} | sed 's/[\/\ ]/_/g'`
+		appendfile 			if [ -f "${{TMPDIR}/${{N}" ]; then
+		appendfile 				dst=`/bin/cat "${{TMPDIR}/${{N}"`
+		appendfile 				for f in `/bin/ls -A "${{i}"`; do
+		appendfile 					/bin/rm -fr ${{dst}/$f
+		appendfile 					/bin/mv -f "${{i}/$f" "${{dst}/$f"
+		appendfile 				done
+		appendfile 				/bin/rm -fr "${{i}"
+		appendfile 				/bin/ln -s "$dst" "${{i}"
+		appendfile 			fi
+		appendfile 		done
+		appendfile 		/bin/rm -fr $TMPDIR
+		appendfile }
+		appendfile CLIENTDIRS="/var/opt/BESClient"
+		if {version of client < "9.5.6" and version of client >= "9.0"}
+			appendfile CLIENTDIRS_e="/etc/opt/BESClient"
+		endif
+
+		if {version of client < "9.5.6" and version of client >= "9.0"}
+			appendfile preserve_BES_symlinks ${{CLIENTDIRS_e}
+		endif
+
+		if {version of client < "9.0"}
+			appendfile preserve_BES_symlinks ${{CLIENTDIRS}
+		endif
+	endif
+	appendfile /usr/sbin/installp -u BESClient
+	appendfile /usr/sbin/installp -agqYXd /var/tmp/BESClientUpgrade.pkg BESClient
+	if {version of client < "9.0"}
+		appendfile /etc/rc.d/rc2.d/KBESClientd stop
+		appendfile restore_BES_symlinks ${{CLIENTDIRS}
+	endif
+	if {version of client < "9.5.6" and version of client >= "9.0"}
+		appendfile /etc/rc.d/rc2.d/KBESClientd stop
+		appendfile restore_BES_symlinks ${{CLIENTDIRS_e}
+	endif
+	appendfile /bin/rm -f BESClientUpgrade.pkg
+	appendfile /etc/rc.d/rc2.d/SBESClientd start
+	move __appendfile __Local/Upgrade/besclientupgrade
+	// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+	wait /bin/sh __Local/Upgrade/besclientupgrade
+endif]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information about relays.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/TEM%20Relays</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

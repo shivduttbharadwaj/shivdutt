@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Categorize ClientDevice clients</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><SPAN lang=EN><br><P dir=ltr align=left><?hxlat This task is used to override default license type to ClientDevice of selected products?></P><br><FORM onsubmit=_takeAction() style="WIDTH: 800px"></FORM><script>var oldcurrentProducts = EvaluateRelevance('(concatenation "_" of substrings separated by " " of it) of (unique values of names of ((products of bes license) whose ( name of it is not "IBM License Metric Tool")))'); var productMap = {'Patch_Management': 'Patch', 'Lifecycle_Management': 'Lifecycle', 'Power_Management': 'Lifecycle', 'Server_Automation': 'Lifecycle', 'Tivoli_Remote_Control': 'Lifecycle', 'Software_Use_Analysis': 'Inventory', 'Security_and_Compliance': 'Compliance', 'PCI_DSS_Security_and_Compliance': 'Compliance_Payment_Card_Industry_Add-on', 'Core_Protection_Module_(Trend)': 'Protection', 'Trend_Micro_Data_Protection': 'Protection_DLP_Add-on', 'Starter_Kit_for_Lifecycle_Management': 'Starter_Kit_for_Lifecycle', 'IBM_Software': 'skip', 'GTS_SCM': 'skip', 'Mobile_Device_Management': 'skip', 'PCI_DSS_Security_and_Compliance_Beta': 'skip', 'Software_Use_Analysis_Beta': 'skip', 'Starter_Kit_for_Security_and_Compliance': 'skip', 'Tivoli_Provisioning_Manager_Beta': 'skip'}; if (!Array.prototype.indexOf) { Array.prototype.indexOf = function(obj, start) {for (var i = (start || 0), j = this.length; i < j; i++) { if (this[i] === obj) { return i; } } return -1;}} var currentProducts=new Array();for (i=0;i<oldcurrentProducts.length;i++){ if(productMap[oldcurrentProducts[i]]!=="skip" && typeof productMap[oldcurrentProducts[i]]!== 'undefined'){ if(currentProducts.indexOf(productMap[oldcurrentProducts[i]]) == -1){ currentProducts.push(productMap[oldcurrentProducts[i]] ); } }} document.write('<FORM id="form">'); document.body.ontakeaction = function() {_takeAction(); return false;}; document.write('<P><STRONG><?hxlat Select the products?></STRONG></P>'); document.write('<div id="checkboxarea_id">'); for(var i=0;i<currentProducts.length;i++){ if(currentProducts[i]==="IBM_License_Metric_Tool") continue; document.write('<LABEL for="'+currentProducts[i]+'">'); document.write('<input type="checkbox" name="singleprod" id="'+currentProducts[i]+'">'); document.write(currentProducts[i].replace(/_/g,' ')); document.write('</LABEL>'); document.write('<BR>'); } document.write('</div>'); function _takeAction() { function chosenProds(checkboxname) { var checkboxes = document.getElementsByName(checkboxname); var chosen = []; for (var i=0; i<checkboxes.length; i++) { if (checkboxes[i].checked) { chosen.push(checkboxes[i]); } } return chosen.length > 0 ? chosen : null; } var chosenProducts = chosenProds("singleprod"); if(!chosenProducts){ alert("<?jxlat Select at least one product.?>"); return;} function concatIntoString(chosen){ var chain = chosen[0].id; for(var i=1;i<chosen.length;i++){ chain+=","+chosen[i].id; } return chain; } var concatenatedChosenProducts = concatIntoString(chosenProducts); var concatenatedProducts = concatenatedChosenProducts; var productNum = chosenProducts.length; if (productNum >15){ alert("<?jxlat Provide no more than 15 Product names.?>"); return; } TakeFixletAction( Relevance('id of current fixlet'), Relevance('id of current bes site'), "Action1", { ProductNames: concatenatedChosenProducts, ProductNum: productNum.toString() } ); function resetCheckboxes(checkboxname) { var checkboxes = document.getElementsByName(checkboxname); for (var i=0; i<checkboxes.length; i++) { if (checkboxes[i].checked) {checkboxes[i].checked = false; } } } resetCheckboxes("singleProd"); }</script> </SPAN></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Relevance>(if (windows of it) then (platform id of it != 3) else (name of it as lowercase does not contain "android")) of operating system</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2015-10-20</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jun 2016 12:47:50 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 29 Jun 2016 12:47:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to classify license type to ClientDevice</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "ClientPrefix" = "_BESClient_LicenseType_"
+
+if {(parameter "ProductNum" of action) as integer >= 1}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 0 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 2}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 1 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 3}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 2 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 4}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 3 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 5}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 4 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 6}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 5 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 7}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 6 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 8}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 7 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 9}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 8 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 10}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 9 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 11}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 10 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 12}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 11 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 13}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 12 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 14}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 13 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif
+if {(parameter "ProductNum" of action) as integer >= 15}
+setting "{(parameter "ClientPrefix" of action) & tuple string item 14 of concatenation ", " of substrings separated by "," of (parameter "ProductNames" of action)}"="ClientDevice" on "{parameter "action issue date" of action}" for client
+endif]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+			<Settings>
+				<PreActionShowUI>false</PreActionShowUI>
+				<HasRunningMessage>false</HasRunningMessage>
+				<HasTimeRange>false</HasTimeRange>
+				<HasStartTime>false</HasStartTime>
+				<HasEndTime>false</HasEndTime>
+				<HasDayOfWeekConstraint>false</HasDayOfWeekConstraint>
+				<UseUTCTime>false</UseUTCTime>
+				<ActiveUserRequirement>NoRequirement</ActiveUserRequirement>
+				<ActiveUserType>AllUsers</ActiveUserType>
+				<HasWhose>false</HasWhose>
+				<PreActionCacheDownload>false</PreActionCacheDownload>
+				<Reapply>true</Reapply>
+				<HasReapplyLimit>false</HasReapplyLimit>
+				<HasReapplyInterval>true</HasReapplyInterval>
+				<ReapplyInterval>P1D</ReapplyInterval>
+				<HasRetry>false</HasRetry>
+				<HasTemporalDistribution>false</HasTemporalDistribution>
+				<ContinueOnErrors>true</ContinueOnErrors>
+				<PostActionBehavior Behavior="Nothing"></PostActionBehavior>
+				<IsOffer>false</IsOffer>
+			</Settings>
+			<SettingsLocks>
+				<ActionUITitle>false</ActionUITitle>
+				<PreActionShowUI>false</PreActionShowUI>
+				<PreAction>
+					<Text>false</Text>
+					<AskToSaveWork>false</AskToSaveWork>
+					<ShowActionButton>false</ShowActionButton>
+					<ShowCancelButton>false</ShowCancelButton>
+					<DeadlineBehavior>false</DeadlineBehavior>
+					<ShowConfirmation>false</ShowConfirmation>
+				</PreAction>
+				<HasRunningMessage>false</HasRunningMessage>
+				<RunningMessage>
+					<Text>false</Text>
+				</RunningMessage>
+				<TimeRange>false</TimeRange>
+				<StartDateTimeOffset>false</StartDateTimeOffset>
+				<EndDateTimeOffset>false</EndDateTimeOffset>
+				<DayOfWeekConstraint>false</DayOfWeekConstraint>
+				<ActiveUserRequirement>false</ActiveUserRequirement>
+				<ActiveUserType>false</ActiveUserType>
+				<Whose>false</Whose>
+				<PreActionCacheDownload>false</PreActionCacheDownload>
+				<Reapply>false</Reapply>
+				<ReapplyLimit>false</ReapplyLimit>
+				<RetryCount>false</RetryCount>
+				<RetryWait>false</RetryWait>
+				<TemporalDistribution>false</TemporalDistribution>
+				<ContinueOnErrors>false</ContinueOnErrors>
+				<PostActionBehavior>
+					<Behavior>false</Behavior>
+					<AllowCancel>false</AllowCancel>
+					<Deadline>false</Deadline>
+					<Title>false</Title>
+					<Text>false</Text>
+				</PostActionBehavior>
+				<IsOffer>false</IsOffer>
+				<AnnounceOffer>false</AnnounceOffer>
+				<OfferCategory>false</OfferCategory>
+				<OfferDescriptionHTML>false</OfferDescriptionHTML>
+			</SettingsLocks>
+		</DefaultAction>
+	</Fixlet>
+</BES>

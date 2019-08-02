@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS00-038: Malformed Windows Media Encoder Request Vulnerability</Title>
+		<Description><![CDATA[
+Microsoft has released a patch fixing a vulnerability in Windows Media Encoder. Windows Media Encoder turns digital content into Windows Media Format, and pushes it to the Windows Media Server. Currently a malformatted request sent to an encoder providing real-time encoding (of live events, for example) could cause the encoder to fail. The server would not crash, but the encoder would have to be restarted.<BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Note:</b> Client machines may briefly display a command prompt window during installation of this update.<BR><BR><b>File Size: </b>649 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(exists regapp "NsRex.exe") and (version of regapp "NsRex.exe" = "4")</Relevance>
+		<Relevance><![CDATA[(version of regapp "NsRex.exe" < "4.1.00.3920" as version) AND (modification time of regapp "NsRex.exe" < "Thu, 01 Jun 2000 00:00:00 -0800" as time)]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>665040</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB264133</SourceID>
+		<SourceReleaseDate>2000-05-30</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2000-0495</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000|Win95|Win98|WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WMSU20935a.EXE sha1:b67b4fbe2e9b385fc8e32aa0d6c08acc86d51807 size:665040 http://download.microsoft.com/download/winmediatech40/Update/20935a/WIN98/EN-US/WMSU20935a.EXE sha256:d65eb789abedb5c07430fb4c495dff5f29127d5c56051619dfc373e5691a9033
+wait __download/WMSU20935a.EXE /S
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS00-038.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2000/MS00-038</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

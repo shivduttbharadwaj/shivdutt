@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Web Reports Server - IBM Endpoint Manager version 9.0.649.0 Now Available! (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Version 9.0.649.0 of IBM Endpoint Manager is now available!</STRONG> <P>The latest version of the IBM Endpoint Manager Web Reports Server provides several enhancements and fixes. <P><SPAN style="COLOR: red"><STRONG>Important Notes:</STRONG></SPAN> <UL> <LI>It is recommended that you run this upgrade&nbsp;immediately after the IBM Endpoint Manager Server and Consoles are upgraded. <STRONG>Web Reports Servers that are not upgraded at the same time as the IBM Endpoint Manager Server will be unable to communicate with the upgraded server.</STRONG> <LI>You must upgrade your Relays before upgrading your Clients. <LI>This update may restart the Web Reports Server service. Please schedule the update to occur at a time when a service interruption is acceptable.<SPAN id=DSSSAMWarning> <LI>If you have any DSS SAM servers using Web Reports authentication, they must be manually upgraded to SAM 1.2.4 before updating Web Reports to 9.0.</LI></UL></SPAN> <P>Please contact technical support if you have any questions regarding this upgrade. <DIV></DIV> <SCRIPT type=text/javascript>if ( <?relevance (exists bes site whose (name of it is "BigFix DSS Software Asset Management" and external site flag of it)) as string as lowercase?> ){document.body.onload = function() { DSSSAMWarning.style.display = "inline"; }}</SCRIPT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+172 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>name of operating system starts with "Win"</Relevance>
+		<Relevance><![CDATA[(version of client >= "8.2") AND (version of registration server = "9.0.649.0")]]></Relevance>
+		<Relevance><![CDATA[((windows of it) AND (platform id of it != 3) AND ((major version of it >= 6 ) OR (name of it = "Win2003" AND service pack major version of it >= 1) OR (name of it starts with "WinXP" AND service pack major version of it >= 2))) of operating system]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>not exists running service "BESRootServer"</Relevance>
+		<Relevance><![CDATA[exists running service "BESWebReportsServer" whose (version of it < "9.0.649.0" AND version of it >= "7.0.1")]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance>exists key "HKLM\System\CurrentControlSet\Services\BESWebReportsServer" whose (value "ObjectName" of it = "LocalSystem") of registry</Relevance>
+		<Relevance><![CDATA[version of regapp "iexplore.exe" >= "7"]]></Relevance>
+		<Relevance>"BigFix" = brand of client</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>180813400</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-05-03</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 May 2013 22:35:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Web</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager Web Reports Server upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// Update the IBM Endpoint Manager Server
+prefetch BESServerUpgrade.exe sha1:9dc9fee36b36ab40055bdf08b86197c85e2d6ab5 size:180813400 http://software.bigfix.com/download/bes/90/BigFix-BES-Server-9.0.649.0.exe
+delete __Local\Get\BESServerUpgrade.exe
+// If the next line fails, there is not enough free space to complete this action
+continue if {180813400  < free space of drive of client folder of current site}
+// This action only upgrades a standalone web reports running server and not a root server so we don't leave the server without a matching console
+continue if {exists running service "BESWebReportsServer" AND not exists service "BESRootServer"}
+move __Download\BESServerUpgrade.exe __Local\Get\BESServerUpgrade.exe
+override wait
+	completion=job
+wait __Local\Get\BESServerUpgrade.exe /s /v"REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable"
+delete __Local\Get\BESServerUpgrade.exe
+parameter "startTime" = "{apparent registration server time}"
+pause while {(apparent registration server time - time(parameter "startTime")) < (60 * second)}
+action may require restart]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[(not exists running service "BESWebReportsServer") OR (version of service "BESWebReportsServer" < "9.0.649.0")]]></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for manual upgrade instructions.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/bes/install/upgradebes.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

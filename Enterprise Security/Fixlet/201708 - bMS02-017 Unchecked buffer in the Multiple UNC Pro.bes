@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-017: Unchecked buffer in the Multiple UNC Provider - Windows XP - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS02-017. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>This patch closes a vulnerability in Windows XP's Multiple UNC Provider (MUP), which acts as an intermediary between applications and network resources. A secondary filebuffer does not correctly check inputs, and when in use could be overrun by a secondary unprivileged request. This could cause system failure or allow an attacker to run arbitrary code on the computer.<BR><BR><b>Note:</b> Affected computers will report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note:</b> This patch is included in Windows XP Service Pack 1.<BR><BR><b>File Size:</b> 246 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP") and (service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows XP\SP1\Q311967" of registry</Relevance>
+		<Relevance><![CDATA[((exists file (pathname of windows folder & "\system32\drivers" & "\mup.sys")) AND (version of file (pathname of windows folder & "\system32\drivers" & "\mup.sys") < "5.1.2600.19"))]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP2\KB811113" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>252520</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB311967</SourceID>
+		<SourceReleaseDate>2002-04-04</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-0151</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>201707</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q311967_WXP_SP1_x86_ENU.exe sha1:bfda74a5823dde3d9080026f3d5d729216ae7a01 size:252520 http://download.microsoft.com/download/whistler/Patch/Q311967/WXP/EN-US/Q311967_WXP_SP1_x86_ENU.exe sha256:9c2c8705a6d37b261cbf161277413035129f51d147946be626368d0f533b46af
+wait __download\Q311967_WXP_SP1_x86_ENU.exe -q -z
+action requires restart
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-017.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-017.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

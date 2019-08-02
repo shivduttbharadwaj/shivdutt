@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-128: Security Update for Microsoft Graphics Component to Address Remote Code Execution - Windows Server 2008 SP2 / Windows Vista SP2 - .NET Framework 4.5/4.5.1 - KB3099869</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been partially superseded by MS16-120. Whereas this Fixlet previously applied to .NET Framework 4.5/4.5.1/4.5.2, it now only applies to .NET Framework 4.5/4.5.1.</P>Microsoft has released a security update that resolves vulnerabilities in Microsoft Windows, .NET Framework, Microsoft Office, Skype for Business, Microsoft Lync, and Silverlight. The vulnerabilities could allow remote code execution if a user opens a specially crafted document or visits a webpage that contains specially crafted embedded fonts.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB3099869.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.77 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (exists key "Full" whose ((it = 378389 OR it = 378758) of value "Release" of it) of it) of native registry</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "924216F900A444D388FC41D62AEEF129") AND exists key "InstallProperties" whose ((it = "4.5.50710" OR it = "4.5.50709") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "5B2C9348A100E8B31B3201672E71E603") AND exists key "InstallProperties" whose ((it = "4.5.52290") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "271D3094BCCDF293393A43ACD974EFD3") AND exists key "InstallProperties" whose ((it = "4.5.50938") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "1F2023F13A126F03E8E3255AD43A4BE0") AND exists key "InstallProperties" whose ((it = "4.5.52279") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "317A26FE45A1F2C34892550F15A8E9F2") AND exists key "InstallProperties" whose ((it = "4.5.52317") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "7D559842191FD1B38ACD0CE42C59A4FC") AND exists key "InstallProperties" whose ((it = "4.5.52013") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "19CFE35C1ED9C1A35B41925B5699C825") AND exists key "InstallProperties" whose ((it = "4.5.52119") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "F80566F7B001E0837ABB73C9CDF33EA0") AND exists key "InstallProperties" whose ((it = "4.5.51078") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "68EC9CE715CC4A9308FBE45B121F960C") AND exists key "InstallProperties" whose ((it = "4.5.52311") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "65FC11932FE9AB9348A62CB73DDC6058") AND exists key "InstallProperties" whose ((it = "4.5.51209") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "0CE62339243A09435AC5CE7EF71EB496") AND exists key "InstallProperties" whose ((it = "4.5.52280") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "A80E53CFA4FB6523CBAB903547F0AF2A") AND exists key "InstallProperties" whose ((it = "4.5.52213") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "67F95A601FE114E3EA397B4B6D9229B4") AND exists key "InstallProperties" whose ((it = "4.5.52120") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "98D6D1441B5ACEF379A8847A43CE8FFA") AND exists key "InstallProperties" whose ((it = "4.5.52245") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "C890739F709D60437A4D6DF94F0ACD6F") AND exists key "InstallProperties" whose ((it = "4.5.52282") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "102B8CEE799D95A3BB097259EC446DD5") AND exists key "InstallProperties" whose ((it = "4.5.52115") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "785266DD4E0A93938924DD9FC35E2E1E") AND exists key "InstallProperties" whose ((it = "4.5.52022") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "DFA4129F32BEEE6358DE5AF442E71BC5") AND exists key "InstallProperties" whose ((it = "4.5.52264") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "D04A2E91475228A30878E779F59A4D94") AND exists key "InstallProperties" whose ((it = "4.5.52320") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "AD3FCFC7DA9464D3ABF139E0A1315715") AND exists key "InstallProperties" whose ((it = "4.5.52277") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "72C093B456F98F3349385F6ACBF9871B" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>2900928</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3099869</SourceID>
+		<SourceReleaseDate>2015-12-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2015-6108</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 09 Dec 2015 02:45:34 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.5:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.5.1:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP45-KB3099869-x86.exe sha1:5488682e3a1df091396b4068932f9df1979a65a1 size:2900928 https://download.microsoft.com/download/6/B/A/6BA4F0D1-7FA3-4C68-A845-53D8803C555F/NDP45-KB3099869-x86.exe sha256:2f4b1320eb03dc734a9599b4167164faa60712173f3cef9a62e80f385fe263a8
+
+waithidden __Download\NDP45-KB3099869-x86.exe /quiet /norestart
+
+action may require restart "5488682e3a1df091396b4068932f9df1979a65a1"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2015/MS15-128</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

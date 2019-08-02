@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Microsoft Unsupported: Office 97</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size=2> <P>Microsoft no longer provides extended support for Office 97.&nbsp; Support ended on the dates listed below.</P> <P>These products have reached the end of their lifecycles and Microsoft is no longer providing security updates for them. BigFix will continue to provide content for security patches released prior to the&nbsp;support expiration date, but will not be able to provide content for newly discovered vulnerabilities.</P> <P>Office service pack support&nbsp;expiration dates:</P> <UL> <LI>Office 97 Service Release 2: January 16, 2004</LI></UL></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\8.0\Common\InstallRoot" of registry </Relevance>
+		<Relevance>exists file "msO97.dll" of folder (value "OfficeBin" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\8.0\Common\InstallRoot" of registry as string) </Relevance>
+		<Relevance>exists key whose (value "displayName" of it as string contains "Microsoft Office 97" AND value "displayName" of it as string contains "Professional") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" of registry </Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry</Relevance>
+		<Category>Microsoft Unsupported</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2004-01-16</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 97</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings Windows Applications</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 24 Apr 2019 19:14:36 +0000</Value>
+		</MIMEField>
+		<Delay>PT10M</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Microsoft Support Lifecycle Web site.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/default.aspx?scid=fh;[ln];lifecycle</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Microsoft Product Support Services Web site.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/gp/lifesupsps</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Microsoft Support Lifecycle Policy FAQ.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/gp/lifepolicy</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2960358: Update for Disabling RC4 in .NET TLS - .NET Framework 3.5 - Windows 10 - Enable Workaround</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>On May 13, 2014, Microsoft announced the availability of an update for Microsoft .NET Framework that disables RC4 in Transport Layer Security (TLS) through the modification of the system registry. Use of RC4 in TLS could allow an attacker to perform man-in-the-middle attacks and recover plaintext from encrypted sessions.</P> <P>As of October 13, 2015, Microsoft is broadening the affected software list to include Windows 10 systems that are running .NET Framework 3.5 applications and systems with .NET Framework 4.6 installed that are running .NET Framework 4.5/4.5.1/4.5.2 applications.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P><B>Note:</B> This update is also referenced under KB2960358. <P></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+Unspecified
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v3.5") of it) of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" whose (not exists value "SchUseStrongCrypto" of it OR value "SchUseStrongCrypto" of it as integer != 1) of it of (x32 registries; x64 registries)</Relevance>
+		<Relevance>not pending restart "340d934032421e3d30be55449dbfc39cb97e5d01"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2960358</SourceID>
+		<SourceReleaseDate>2015-10-13</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 13 Oct 2015 23:30:55 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows 8 Gold |~| Windows Server 2008 R2 Gold |~| Windows Server 2012 Gold |~| Windows Server 2012 R2 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win10</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 22 Sep 2016 16:50:27 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">waithidden reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /v "SchUseStrongCrypto" /t REG_DWORD /d 1 /f
+
+if {x64 of operating system}
+waithidden reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v2.0.50727" /v "SchUseStrongCrypto" /t REG_DWORD /d 1 /f /reg:64
+endif
+
+action requires restart "340d934032421e3d30be55449dbfc39cb97e5d01"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2960358</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

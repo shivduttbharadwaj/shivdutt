@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3001652: Update rollup for Visual Studio 2010 Tools for Office Runtime</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB3001652.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+38.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists key "HKLM\SOFTWARE\Microsoft\DevDiv\trin\Servicing\10.0\trir\1033" of registry) AND ((string "10.0." &((value "version" of it as string) of key "HKLM\SOFTWARE\Microsoft\DevDiv\trin\Servicing\10.0\trir\1033" of registry)) as version < "10.0.50903")]]></Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v3.5") of it OR exists keys whose (name of it starts with "v4") of it) of native registry</Relevance>
+		<Relevance>not pending restart "ddecb05a9db2654ad29577b363f5f8e040f59012"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>40117912</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3001652</SourceID>
+		<SourceReleaseDate>2014-09-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 31 Oct 2014 08:32:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 SP1 |~| Windows Server 2003 SP2 |~| Windows Vista SP2 |~| Windows XP SP3</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Developer Tools, Runtimes, and Redistributables</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch vstor_redist.exe sha1:ddecb05a9db2654ad29577b363f5f8e040f59012 size:40117912 http://download.microsoft.com/download/c/0/0/c001737f-822b-48c2-8f6a-cde13b4b9e9c/vstor_redist.exe sha256:a925d7331e8c01a8a6db3c0d5f97c97eca9e3c33c634968e6ad8173b4bdad526
+
+waithidden __Download\vstor_redist.exe /quiet /norestart
+
+action may require restart "ddecb05a9db2654ad29577b363f5f8e040f59012"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3001652</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

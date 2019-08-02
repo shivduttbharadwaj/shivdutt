@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-048: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege - Windows 8 Gold - .NET Framework 3.5 - KB3035486</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft .NET Framework. The most severe of the vulnerabilities could allow elevation of privilege if a user installs a specially crafted partial trust application.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3035486.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+492 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v3.5") of it) of registry</Relevance>
+		<Relevance><![CDATA[(((exists key "Microsoft-Windows-NetFx2-OC-Package~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "msil_system.security_b03f5f7f11d50a3a_none_e7e7c7a1ff39e048" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21395" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17279") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-NetFx2-Package~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "msil_system.security_b03f5f7f11d50a3a_none_e7e7c7a1ff39e048" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21395" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17279") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "8878c65e20e8a7008880419d753d43b7a6d3e8af"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>503893</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3035486</SourceID>
+		<SourceReleaseDate>2015-05-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-1672</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 May 2015 02:31:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:3.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB3035486-x86.msu sha1:8878c65e20e8a7008880419d753d43b7a6d3e8af size:503893 http://download.microsoft.com/download/C/4/B/C4B43423-40A8-4E67-8E67-7D0CC30AA975/Windows8-RT-KB3035486-x86.msu sha256:3287dc9a2473ac7dcee99e75405dc8fac6ffa0493ea60bbeda3aa8261f0efac9
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB3035486-x86.msu"}" /quiet /norestart
+
+action requires restart "8878c65e20e8a7008880419d753d43b7a6d3e8af"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-048</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

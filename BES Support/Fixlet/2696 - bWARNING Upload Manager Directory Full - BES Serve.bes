@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>WARNING: Upload Manager Directory Full - BES Server</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><br><P><FONT size=2>The Upload Manager directories on the computers listed below are at maximum capacity. This may occur when a client attempts to upload a file and the size of the Upload Manager directory exceeds the maximum capacity.&nbsp; </FONT></P><br><P><FONT size=2>Affected BES Servers will stall&nbsp;until the directory settings have been changed. Use the action below to configure&nbsp;BES Relay settings to&nbsp;increase the maximum capacity of the Upload Manager directory.</FONT></P><br><P><FONT size=2><STRONG>Note:</STRONG> By default, the size of the Upload Manager directory is unlimited.</FONT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance><![CDATA[if ((exists setting "_BESRelay_UploadManager_BufferDirectoryMaxSize" of it and exists value of setting "_BESRelay_UploadManager_BufferDirectoryMaxSize" of it) of client) then (((value of setting "_BESRelay_UploadManager_BufferDirectoryMaxSize" of client as integer) < it) of (((sum of sizes of files of folders of folders of it) + (sum of sizes of files of it)) of folder "sha1" of folder (if ((exists setting "_BESRelay_UploadManager_BufferDirectory" of it and exists value of setting "_BESRelay_UploadManager_BufferDirectory" of it) of client) then (value of setting "_BESRelay_UploadManager_BufferDirectory" of client as string) else (if (name of operating system starts with "Win") then (parent folder of parent folder of client as string & "\BES Relay\UploadManagerData\BufferDir") else ("/var/opt/BESRelay/UploadManagerData/BufferDir"))))) else false]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "6.0"]]></Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 27 Apr 2017 12:57:22 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Critical</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 03 Aug 2017 14:28:27 +0000</Value>
+		</MIMEField>
+		<Delay>P1D</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to modify the maximum capacity of the Upload Manager directory.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// ADD PARAMETER TO ENTER UPLOAD MANAGER DIRECTORY SIZE
+action parameter query "MaxSize" with description "Please enter the maximum capacity for the Upload Manager directory (in MB) for example for 1GB enter 1024"
+
+continue if {parameter "MaxSize" of action as integer >= 1}
+
+setting "_BESRelay_UploadManager_BufferDirectoryMaxSize"="{1024 * 1024 * (parameter "MaxSize" of action as integer)}" on "{parameter "action issue date" of action}" for client]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to set unlimited the capacity of the Upload Manager directory.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// SET UNLIMITED THE UPLOAD MANAGER DIRECTORY SIZE
+
+setting delete "_BESRelay_UploadManager_BufferDirectoryMaxSize" on "{parameter "action issue date" of action}" for client</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

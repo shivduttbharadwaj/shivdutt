@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-JAN: Security update for Word Viewer - Word Viewer - KB4462112</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><div><br><p>This security update resolves vulnerabilities in Microsoft Office that could allow remote code execution if a user opens a specially crafted Office file. To learn more about these vulnerabilities, see <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-0585" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2019-0585</a>.<br><br><br><br><strong>Note</strong> To apply this security update, you must have the release version of <a data-content-id="" data-content-type="" href="http://www.microsoft.com/en-us/download/details.aspx?id=7176" managed-link="" target="_blank">Service Pack 3 for Microsoft Word Viewer 2003</a> installed on a computer that&#39;s running Windows Embedded POSReady 2009.</p><br></div><br><p><B>Note:</B> This security update is also referenced under KB4462112.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>exists regapp "wordview.exe"</Relevance>
+		<Relevance>(exists keys ("A0C0580900063D11C8EF10054038389C";"2240580900063D11C8EF10054038389C";"8140580900063D11C8EF10054038389C";"7040580900063D11C8EF10054038389C";"1140580900063D11C8EF10054038389C";"4140580900063D11C8EF10054038389C";"4080580900063D11C8EF10054038389C";"6240580900063D11C8EF10054038389C";"B040580900063D11C8EF10054038389C";"F140580900063D11C8EF10054038389C";"9140580900063D11C8EF10054038389C";"4040580900063D11C8EF10054038389C";"6180580900063D11C8EF10054038389C";"5140580900063D11C8EF10054038389C";"2140580900063D11C8EF10054038389C";"8040580900063D11C8EF10054038389C";"B140580900063D11C8EF10054038389C";"7240580900063D11C8EF10054038389C";"E040580900063D11C8EF10054038389C";"9340580900063D11C8EF10054038389C";"5040580900063D11C8EF10054038389C";"40C0580900063D11C8EF10054038389C";"6140580900063D11C8EF10054038389C";"9040580900063D11C8EF10054038389C";"3140580900063D11C8EF10054038389C";"A140580900063D11C8EF10054038389C";"1040580900063D11C8EF10054038389C";"D040580900063D11C8EF10054038389C";"4240580900063D11C8EF10054038389C";"A180580900063D11C8EF10054038389C";"2040580900063D11C8EF10054038389C";"D140580900063D11C8EF10054038389C";"6040580900063D11C8EF10054038389C";"0140580900063D11C8EF10054038389C";"C040580900063D11C8EF10054038389C";"5240580900063D11C8EF10054038389C") whose (exists key "InstallProperties" whose ((it = "11.0.8173.0") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "2E4952B11C364554E8CED8A5ECF1C333" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "11.0" AND "|WORDVIEW.EXE|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "11.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "11.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "11.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "WORDVIEW.EXE" AND (item 3 of it = "11.0.8454.0" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Mon, 31 Dec 2018 04:45:28 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "11.0.8454.0")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{1B2594E2-63C1-4554-8EEC-8D5ACE1F3C33}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>3644296</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4462112</SourceID>
+		<SourceReleaseDate>2019-01-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2019-0541</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 09 Jan 2019 05:26:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:word_viewer:2003:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Word Viewer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 23 Jul 2019 19:37:10 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch office-KB4462112-FullFile-ENU.exe sha1:c393a255002afe448b7cd19e67c96c6759b9bc76 size:3644296 https://download.microsoft.com/download/5/D/4/5D4FCB93-975A-41C5-98F6-36F7AB51E3F8/office-KB4462112-FullFile-ENU.exe sha256:30ab2c9d22ac10864c7813b6735ce7a224f716d0d387acb211862a2d2c322ef5
+
+waithidden __Download\office-KB4462112-FullFile-ENU.exe /q:a /r:n
+
+action may require restart "c393a255002afe448b7cd19e67c96c6759b9bc76"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4462112</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

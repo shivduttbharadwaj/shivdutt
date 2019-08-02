@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>938397: Applications that use the Cryptography API cannot validate an X.509 certificate in Windows Server 2003 - Windows 2003 SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR></P> <P><STRONG>Note:</STRONG> The hotfix must be manually cached for it to run correctly. For more information on how to manually cache files, see BigFix KB #<A href="http://www-01.ibm.com/support/docview.wss?uid=swg21506037">390</A>.<BR><BR><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P> <P><B>Note:</B> This update is also referenced under KB938397.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.59 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "crypt32.dll" whose ((((version of it < "5.131.3790.4095")))) of it) of (system x64 folder) OR (exists file "crypt32.dll" whose (((((version of it < "5.131.3790.4095")))) of it) of (system wow64 folder))]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb938397" of x64 registry)</Relevance>
+		<Relevance>not pending restart "474a7ac5325c9bea8e5aac50af35cb42599af58b"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>1667464</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB938397</SourceID>
+		<SourceReleaseDate>2011-10-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 23 Jun 2015 15:46:41 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 2003 x64</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 23 Jun 2015 15:46:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB938397-x64-ENU.exe sha1:474a7ac5325c9bea8e5aac50af35cb42599af58b size:1667464 http://MANUAL_BES_CACHING_REQUIRED/WindowsServer2003.WindowsXP-KB938397-x64-ENU.exe sha256:495b4829e35eb4c81c3cbe0ad73374bc1a6124d77a91da2bed4d004fd25b0c18
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB938397-x64-ENU.exe /quiet /norestart
+
+action may require restart "474a7ac5325c9bea8e5aac50af35cb42599af58b"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/938397</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

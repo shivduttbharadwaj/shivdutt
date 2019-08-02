@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Disable Office 365 Automatic Update - Office 2016</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>Use the action below to disable Office automatic update for Office 365 - Office 2016 applications that are installed through the Click-to-Run installation.</TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>exists keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Relevance>Exists value "DisplayVersion" whose ((it = "16.0") of (it as string as version)) of keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Relevance>(value "EnableAutomaticUpdates" of it as string as integer =1) of key "HKLM\software\policies\microsoft\office\16.0\common\OfficeUpdate" of native registry| True</Relevance>
+		<Category>Unspecified</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2016-04-07</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 07 Apr 2016 05:06:19 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office 365</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2016</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 07 Apr 2016 05:06:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\office\16.0\common\OfficeUpdate]" "EnableAutomaticUpdates"=dword:00000000</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

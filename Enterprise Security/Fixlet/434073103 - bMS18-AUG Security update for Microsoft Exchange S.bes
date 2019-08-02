@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-AUG: Security update for Microsoft Exchange Server 2013 and 2016 - Exchange Server 2013 CU20 SP1 - KB4340731 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p>This security update resolves vulnerabilities in Microsoft Exchange. To learn more about these vulnerabilities, see the following Common Vulnerabilities and Exposures (CVE):&nbsp;</p><br><br><ul><br>	<li><a href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8302" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8302</a></li><br>	<li><a href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8374" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8374</a></li><br></ul><br><p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> This security update is also referenced under KB4340731.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+11.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("BA952A4AF77A930438A2724B13DDFFAE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "AE1D439464EB1B8488741FFA028E291C") AND exists key "InstallProperties" whose ((it = "15.0.1367.3") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "B0CE1874E486BE64F8E7673A7EF32D03" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>11935744</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4340731</SourceID>
+		<SourceReleaseDate>2018-08-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2018-8302</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 Aug 2018 07:29:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:exchange_server:2013:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 17:42:24 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Exchange2013-KB4340731-x64-en.msp sha1:09088d28c97599284945166703819286405f7d37 size:11935744 https://download.microsoft.com/download/5/B/5/5B5BCE94-1B39-4C59-91B8-C297127B4697/Exchange2013-KB4340731-x64-en.msp sha256:f3bcd4ad48f310b0aeb78c94760c9394e8662f98741813c4b19586b7a5314824
+
+waithidden msiexec.exe /p __Download\Exchange2013-KB4340731-x64-en.msp /quiet /norestart
+
+action may require restart "09088d28c97599284945166703819286405f7d37"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4340731</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

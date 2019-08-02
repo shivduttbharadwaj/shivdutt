@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2674319: SQL Server 2012 Service Pack 1 Available (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released SQL Server&nbsp;2012 Service Pack 1.&nbsp;SQL Server 2012 service packs are cumulative updates and upgrade all editions and service levels of SQL Server 2012 to SP1. This service pack contains SQL Server 2012 Cumulative Update 1 (CU1) and Cumulative Update 2 (CU2).&nbsp;<SPAN>&nbsp;</SPAN><SPAN> <P><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT> SQL Server instances operating in a non-Microsoft cluster environment should be upgraded using the CLUSTERPASSIVE option. Please use the second action below to upgrade in these environments.</P> <P><STRONG>Note:</STRONG> This Fixlet message detects and upgrades all default and non-default instances of SQL Server 2012.</P> <P><STRONG>Note: </STRONG>Before upgrading to Service Pack 1, Microsoft recommends that you back up your databases. </P> <P><STRONG>Note:</STRONG> Once this Fixlet message has completed its action, affected computers may report back 'Pending Restart', but the Service Pack will not be installed until the affected computer is restarted.</P> <P><B>Note:</B> There is no default action for this Fixlet message because it has multiple actions, none of which is clearly recommended over the others. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display DOS windows during action execution.</P></SPAN></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+929.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists keys whose (exists value "CurrentVersion" whose ((it = "11" AND it < "11.0.3000.00") of (it as string as version)) of key "MSSQLServer\CurrentVersion" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (x64 registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it = "11" AND it < "11.0.3000.00") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (x64 registry)) whose (item 0 of it = item 1 of it))]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>974353904</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2674319</SourceID>
+		<SourceReleaseDate>2012-11-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Microsoft SQL Server 2012|SQL Server 2012 Product Updates for Setup</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Apr 2019 06:11:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SQLServer2012SP1-KB2674319-x64-ENU.exe sha1:58c45506605b17150983123ca1a3e020928d84b9 size:974353904 http://download.microsoft.com/download/3/B/D/3BD9DD65-D3E3-43C3-BB50-0ED850A82AD5/SQLServer2012SP1-KB2674319-x64-ENU.exe sha256:128d53b539b16c18244c0c87b54df78316e73ea1bd6f90ed40d7fdffc9474736
+
+waithidden __Download\SQLServer2012SP1-KB2674319-x64-ENU.exe /Q /allinstances /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "58c45506605b17150983123ca1a3e020928d84b9"</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (non-Microsoft cluster environments).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SQLServer2012SP1-KB2674319-x64-ENU.exe sha1:58c45506605b17150983123ca1a3e020928d84b9 size:974353904 http://download.microsoft.com/download/3/B/D/3BD9DD65-D3E3-43C3-BB50-0ED850A82AD5/SQLServer2012SP1-KB2674319-x64-ENU.exe sha256:128d53b539b16c18244c0c87b54df78316e73ea1bd6f90ed40d7fdffc9474736
+
+waithidden __Download\SQLServer2012SP1-KB2674319-x64-ENU.exe /Q /allinstances /clusterpassive  /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "58c45506605b17150983123ca1a3e020928d84b9"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to download the release notes for SQL Server 2012 Service Pack 1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://msdn.microsoft.com/en-us/library/jj200106(v=sql.15).aspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Office 2003 Service Pack 3 for Proofing Tools Available - Windows 2000/XP/2003/Vista (Local Installation)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a service pack for Microsoft Office 2003 for Proofing Tools. Microsoft Office 2003 Service Pack 3 for Proofing Tools makes sure that Microsoft Office 2003 performs with complete functionality when you use Office 2003 Proofing Tools. This Service Pack includes previous updates and as well as Service Pack 1 and Service Pack 2 for Office 2003 Proofing Tools.<br><br><b>Note:</b> Some Office updates will force the affected computer to restart without displaying a warning message if Office applications are open when this update is run. To prevent this from happening, shut down all Office applications prior to applying this update. <br><br><b>Note:</b> There is no option to uninstall this Service Pack unless Office 2003 is removed.<br><br><div class="HideFromWebUI"><b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.</div></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+64.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key whose (value "ProductName" of it as string contains "Microsoft Office" AND value "ProductName" of it as string contains "2003" AND value "ProductName" of it as string contains "Proofing Tools") of key "HKEY_CLASSES_ROOT\Installer\Products" of registry</Relevance>
+		<Relevance>((name of it = "Win2000" AND (csd version of it = "Service Pack 3" OR csd version of it = "Service Pack 4")) OR name of it = "WinXP" OR name of it = "Win2003" OR (name of it = "WinVista")) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "msiexec.exe" of system folder) AND (version of file "msiexec.exe" of system folder >= "2.0")]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((exists value "DisplayVersion" whose (it as string as version < "11.0.8173.0") of it AND exists value "DisplayName" whose (it as string contains "Microsoft Office" AND it as string contains "2003" AND it as string contains "Proofing Tools") of it AND exists value "Language" whose (it = 1033) of it ) ) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance>(NOT exists key "HKLM\SOFTWARE\BigFix\EnterpriseClient\Office2003Control" of it OR exists key "HKLM\SOFTWARE\BigFix\EnterpriseClient\Office2003Control" whose ((it = 3) of value "DeploymentType" of it) of it) of registry</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>67296672</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB923642</SourceID>
+		<SourceReleaseDate>2007-09-17</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 15 Apr 2019 04:56:37 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process. Requires CD in local CD-ROM.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// If the line below fails, please use the "Office 2003 Deployment Control -- Initial Assignment" Fixlet message in the BES Support site to configure your Office deployment and then redeploy this action
+continue if {exists key "HKLM\SOFTWARE\BigFix\EnterpriseClient\Office2003Control" whose ((it = 3) of value "DeploymentType" of it) of registry}
+
+prefetch PTK2003SP3-KB923642-FullFile-ENU.exe sha1:cad0e8f34afa13e37e3dd8728a6b1a3095d8cbcb size:67296672 http://download.microsoft.com/download/c/3/1/c3169f4c-55ac-4143-8c2c-ef9295522a86/PTK2003SP3-KB923642-FullFile-ENU.exe sha256:20be002442b289e7da2bdd49f1c5e7bc9c91c8ddc4414f403e1459dfd804751f
+
+wait __Download\PTK2003SP3-KB923642-FullFile-ENU.exe /q:a /r:n /c:"msiexec /p 2003PTKSP3.msp REBOOT=ReallySuppress /qn"
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/923642</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-048: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege - Windows Server 2003 SP2 - .NET Framework 2.0 SP2 - KB3035488</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft .NET Framework. The most severe of the vulnerabilities could allow elevation of privilege if a user installs a specially crafted partial trust application.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB3035488.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+965 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v2.0" AND value "SP" of it = 2) of it) of registry</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("41E8829053EAFEA48BE8329D517B1FED") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "DC3BF90CC0D3D2F398A9A6D1762F70F3") AND exists key "InstallProperties" whose ((it = "2.3.30730" OR it = "2.2.30729") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "1F986EF3363C4B13CA6440AB077FF88E" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>988864</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3035488</SourceID>
+		<SourceReleaseDate>2015-05-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-1672</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 May 2015 02:31:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:2.0:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP20SP2-KB3035488-x86.exe sha1:586a47ecdbb81f19cf620057632fa4e0ac950fcd size:988864 http://download.microsoft.com/download/2/9/B/29B473CB-63B7-4ED0-8A54-5F512AC2475F/NDP20SP2-KB3035488-x86.exe sha256:bd2f59eaf83d7ef30fab51f8b433a2d7d9ce80a40600b04e125d80c847287883
+
+waithidden __Download\NDP20SP2-KB3035488-x86.exe /quiet /norestart
+
+action may require restart "586a47ecdbb81f19cf620057632fa4e0ac950fcd"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-048</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

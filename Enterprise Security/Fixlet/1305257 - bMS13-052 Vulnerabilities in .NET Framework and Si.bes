@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-052: Vulnerabilities in .NET Framework and Silverlight Could Allow Remote Code Execution - .NET Framework 4.5 - Windows Vista SP2 / Server 2008 SP2 / 7 SP1 / Server 2008 R2 SP1 (x64) (V2.0)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves five privately reported vulnerabilities and two publicly disclosed vulnerabilities in Microsoft .NET Framework and Microsoft Silverlight. The most severe of these vulnerabilities could allow remote code execution if a trusted application uses a particular pattern of code. An attacker who successfully exploited this vulnerability could gain the same user rights as the logged-on user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2840642.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+12.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR ((name of it = "Win7") AND service pack major version of it = 1) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2) OR ((name of it = "Win2008R2") AND service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "PresentationCore.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND version of it < "4.0.30319.19115") OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND version of it < "4.0.30319.18060")) of it OR exists file "PresentationFramework.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND version of it < "4.0.30319.19115") OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND version of it < "4.0.30319.18060")) of it) of (folder "Microsoft.NET\Framework\v4.0.30319\WPF" of windows folder) OR (exists file "PresentationCore.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND version of it < "4.0.30319.19115") OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND version of it < "4.0.30319.18060")) of it OR exists file "PresentationFramework.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND version of it < "4.0.30319.19115") OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND version of it < "4.0.30319.18060")) of it) of (folder "Microsoft.NET\Framework64\v4.0.30319\WPF" of windows folder)]]></Relevance>
+		<Relevance>((exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "0D741DA1E0EBC6D3CA11466FCD14361F") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.5.50710"  ) of it) AND (not exists key whose (name of it equals "740856F4E21A9D83E89A9D144E8AB4D7") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "0D741DA1E0EBC6D3CA11466FCD14361F") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.5.50709"  ) of it) AND (not exists key whose (name of it equals "740856F4E21A9D83E89A9D144E8AB4D7") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>13189768</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2840642</SourceID>
+		<SourceReleaseDate>2013-08-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2013-3129</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2|Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP45-KB2840642-v2-x64.exe sha1:463747772c905e1c6bb95de7214b1dcd5745a2b0 size:13189768 http://download.microsoft.com/download/F/2/6/F26F41AF-8E80-4DC5-A3CA-7EB389B22196/NDP45-KB2840642-v2-x64.exe sha256:922c74de3a33c2c7b804f3f88598b92bcb2356176cf5b58eda35f0076300d5a2
+
+waithidden __Download\NDP45-KB2840642-v2-x64.exe /quiet /norestart
+
+action may require restart "463747772c905e1c6bb95de7214b1dcd5745a2b0"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-052</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

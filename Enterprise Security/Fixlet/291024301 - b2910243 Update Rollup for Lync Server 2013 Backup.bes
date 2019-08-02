@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2910243: Update Rollup for Lync Server 2013 Backup Service - Lync Server 2013 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>The cumulative update resolves the following issue:</P> <UL> <LI>2912334 Event ID 57006 is logged when you cannot restart the Lync Server 2013 front-end service </LI></UL>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2910243.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+298 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(not exists keys ("E079B24E7BE26984CB6706A251ED60CD") whose (exists key "InstallProperties" whose ((it < "5.0.8308.0") of (value "DisplayVersion" of it as string as version)) of it) of it AND exists keys ((names of values of keys ("934EFD9CEF9CE5847A6C35205FC82D13") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "E079B24E7BE26984CB6706A251ED60CD") AND exists key "InstallProperties" whose ((it >= "5.0.8308.0" AND it < "5.0.8308.577") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "55BB268D7140EB344ACC5CC2793C91A9" of key "Patches" of it) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry]]></Relevance>
+		<Category>Update Rollup</Category>
+		<DownloadSize>305982</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2910243</SourceID>
+		<SourceReleaseDate>2014-02-10</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 25 Mar 2015 08:28:36 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 R2 Gold |~| Windows Server 2008 SP2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Microsoft Lync Server and Microsoft Lync</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Lync Server 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch backupservice_9f540e17870410e373e0301730ff673dfbafb75c.cab sha1:9f540e17870410e373e0301730ff673dfbafb75c size:305982 http://download.windowsupdate.com/d/msdownload/update/software/uprl/2014/01/backupservice_9f540e17870410e373e0301730ff673dfbafb75c.cab sha256:cc346d3633428402cfe4447423e2bf6e1f6e9404ddc918ccdd1f152d059f6bf4
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\backupservice_9f540e17870410e373e0301730ff673dfbafb75c.cab __Download\BackupService.msp
+
+waithidden msiexec.exe /p __Download\BackupService.msp /quiet /norestart
+
+action may require restart "9f540e17870410e373e0301730ff673dfbafb75c"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2910243</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

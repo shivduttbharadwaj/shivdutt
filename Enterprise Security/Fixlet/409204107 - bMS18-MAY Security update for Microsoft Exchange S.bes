@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-MAY: Security update for Microsoft Exchange Server 2013 and 2016 - Exchange Server 2016 CU9 - KB4092041 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p><STRONG>Note:</STRONG> This update has been superseded by KB4340731.<br /><br />This security update resolves a vulnerability in Microsoft Exchange Outlook Web Access (OWA). The vulnerability could allow elevation of privilege or spoofing&nbsp;in Microsoft&nbsp;Exchange Server if an attacker sends an email message that has a specially crafted attachment to a vulnerable server that is running Exchange Server.&nbsp;To learn more about these vulnerabilities, see the following Microsoft security advisories:</p><br><br><ul><br>	<li><a href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8151" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8151</a></li><br>	<li><a href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8154" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8154</a></li><br>	<li><a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8159" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8159</a></li><br>	<li><a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8153" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8153</a></li><br>	<li><a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8152" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8152</a></li><br></ul><br><p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> This security update is also referenced under KB4092041.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+180.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("BA952A4AF77A930438A2724B13DDFFAE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "442189DC8B9EA5040962A6BED9EC1F1F") AND exists key "InstallProperties" whose ((it = "15.1.1466.3") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "99C3A225A484ACF45873CF9A9E72F9EE" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>189554688</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4092041</SourceID>
+		<SourceReleaseDate>2018-05-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2018-8151; CVE-2018-8152; CVE-2018-8153; CVE-2018-8154; CVE-2018-8159</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 09 May 2018 15:30:37 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4340731</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-08-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:exchange_server:2016:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2016</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 05:16:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Exchange2016-KB4092041-x64-en.msp sha1:64a07d1de3715e02850622391e6c4cdc2933f00c size:189554688 https://download.microsoft.com/download/9/F/2/9F2EA6E6-F663-4D22-86CF-1675E6B6DEA5/Exchange2016-KB4092041-x64-en.msp sha256:fe85aab244f25ecf91e2cbd486283036478f4195264eaf659b09aabb2fa614ff
+
+waithidden msiexec.exe /p __Download\Exchange2016-KB4092041-x64-en.msp /quiet /norestart
+
+action may require restart "64a07d1de3715e02850622391e6c4cdc2933f00c"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4092041</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

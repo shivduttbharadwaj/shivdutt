@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>Collect BES Relay Health Dashboard Cache Metric</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>&lt;enter a description of the analysis here&gt; </TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>exists relay service</Relevance>
+		<Source>Internal</Source>
+		<SourceReleaseDate>2018-09-06</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 18 Dec 2018 16:03:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 18 Dec 2018 16:03:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="Oldest Access to Cached File" ID="1" EvaluationPeriod="PT6H"><![CDATA[if (windows of operating system) then (if exists regapp "BESRelay.exe" then rows of statement "select cast((julianday() - julianday(datetime(MIN(LastAccessed)/1000000,'unixepoch','localtime'))) as int) from FILES" of sqlite database of file (concatenation "" of (parent folder of regapp "BESRelay.exe" as string) & "\Mirror Server\config\DownloadCache.db") else NULL) else (if (exists service "BESRelay") then rows of statement "select cast((julianday() - julianday(datetime(MIN(LastAccessed)/1000000,'unixepoch','localtime'))) as int) from FILES" of sqlite database of file "/var/opt/BESRelay/Mirror Server/config/DownloadCache.db" else NULL)]]></Property>
+		<Property Name="Cache Size" ID="2" EvaluationPeriod="PT6H"><![CDATA[if (windows of operating system) then (if exists regapp "BESRelay.exe" then rows of statement "select cast(sum(Size)/(1024 * 1024) as int) from FILES" of sqlite database of file (concatenation "" of (parent folder of regapp "BESRelay.exe" as string) & "\Mirror Server\config\DownloadCache.db") else NULL) else (if (exists service "BESRelay") then rows of statement "select cast(sum(Size)/(1024 * 1024) as int) from FILES" of sqlite database of file "/var/opt/BESRelay/Mirror Server/config/DownloadCache.db" else NULL)]]></Property>
+		<Property Name="Maximum Cache Size" ID="3" EvaluationPeriod="PT6H">(if (exists setting "_BESGather_Download_CacheLimitMB" whose (exists value of it AND value of it as string != "") of client) then (value of setting "_BESGather_Download_CacheLimitMB" of client) else "1024")</Property>
+	</Analysis>
+</BES>

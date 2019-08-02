@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Reader 11.0 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Adobe has released a new version of Adobe Reader.&nbsp;Use the action below to update Adobe Reader to the latest version (11.0).</P> <P>This update&nbsp;disables Adobe Updater for all Adobe applications.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><SPAN id=fixletLinks><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT></SPAN> If Adobe Acrobat is installed,&nbsp;this update may modify existing .PDF file associations to point to Adobe Reader 11.0.</P> <P><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade to Adobe Reader&nbsp;11.0 regardless of whether or not&nbsp;Adobe Reader is&nbsp;running action"&nbsp;will close any running instance of Adobe Reader on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable.</SPAN></P> <P><SPAN><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG>&nbsp;Microsoft Windows Update KB930627 is required for both Windows XP SP2 (x64) and Windows Server 2003 SP2 (x64).</SPAN></SPAN></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+46.21 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists regapp "acrord32.exe"</Relevance>
+		<Relevance>(exists key "2017" of it OR exists key "DC" of it OR exists key "2015" of it OR exists key "11.0" of it OR exists key "10.0" of it OR exists key "9.0" of it OR exists key "8.0" of it OR exists key "7.0" of it OR exists key "6.0" of it OR exists key "5.0" of it) of key "HKLM\Software\Adobe\Acrobat Reader\" of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((NOT x64 of operating system AND (((name of it = "WinXP") AND service pack major version of it = 3) OR (value "ProductName" of it = "Microsoft Windows Server 2003 R2") of key "HKLM\Software\Microsoft\Windows NT\CurrentVersion\" of registry)) OR ((x64 of it AND service pack major version of it = 2) of operating system AND ((name of it = "WinXP-2003" AND exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows XP Version 2003\SP3\KB930627" of x64 registry) OR ((value "ProductName" of it = "Microsoft Windows Server 2003 R2") of key "HKLM\Software\Microsoft\Windows NT\CurrentVersion\" of registry AND exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB930627" of x64 registry))) OR name of it = "Win2008" OR name of it = "Win2008R2" OR name of it = "Win7" OR name of it = "Win8" OR name of it = "Win2012" OR name of it = "Win8.1" OR name of it = "Win2012R2") of operating system</Relevance>
+		<Relevance><![CDATA[exists regapp "acrord32.exe" whose (version of it < "11.0.00")]]></Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "7")]]></Relevance>
+		<Relevance>not (exists key whose (value whose (name of it contains "DisplayName") of it as string contains "Adobe Acrobat 5.0" AND exists value "UninstallString" of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry AND not exists regapp "acrobat.exe" whose (version of it = "5")) </Relevance>
+		<Relevance><![CDATA[(exists key whose ((it starts with "Adobe Reader" and it does not contain "MUI") of (value "DisplayName" of it as string) AND (it < "11") of (value "DisplayVersion" of it as string as version)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>48461312</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2012-11-14</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 14 Nov 2012 01:25:14 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:reader:11.0:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Reader</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 04:40:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {exists key whose (value "UI" of it = "ENU") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_en_US.msi sha1:8cc8a0dbb57ad3efbbb930f945287fb63247a20a size:48461312 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/en_US/AdbeRdr11000_en_US.msi sha256:1f15c76c6dd92d8e87d379b70c70154fd130a534fe91c693f239160c8104ac68
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_en_US.msi"
+
+elseif {exists key whose (value "UI" of it = "FRA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_fr_FR.msi sha1:adcc206725b5ecd401c887fc740aa2151fc88a71 size:48482816 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/fr_FR/AdbeRdr11000_fr_FR.msi sha256:0c518e62b5c0a9c6213da10567fc07262f8fe24e8aeebb4932e2c68d52f887f1
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_fr_FR.msi"
+
+elseif {exists key whose (value "UI" of it = "DEU") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr1100_de_DE.msi sha1:3e65aafe433a05a3a744e8f567d34bc31c6c1906 size:49481728 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/de_DE/AdbeRdr11000_de_DE.msi sha256:2f80f160a887ceb41f883edd87cce6a6e97a78cf41fc455fcf6694702f2fafd3
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_de_DE.msi"
+
+elseif {exists key whose (value "UI" of it = "ITA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_it_IT.msi sha1:73f88886fe7b9fa9fdad9ebbbfc5d941c36afa46 size:48568832 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/it_IT/AdbeRdr11000_it_IT.msi sha256:7645ebc27eb313e7d8211273808bddae42c420b5668eedbff85b3059275f9019
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_it_IT.msi"
+
+elseif {exists key whose (value "UI" of it = "ESP") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_es_ES.msi sha1:1706bd1099db6c60da3fc04308bffe76e48d35c0 size:48641024 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/es_ES/AdbeRdr11000_es_ES.msi sha256:5cb3f79e9127c32b297d81f84d271754c715a81d2e916e819de00c7212c40747
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_es_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "CHS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_zh_CN.msi sha1:04511237ba95bbab274d8e8646798e2de5c71be1 size:70205440 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/zh_CN/AdbeRdr11000_zh_CN.msi sha256:2467283d4f44704bfe7bd550c5bb106533a2b31445d5f4cd17b0ebc9649fafe7
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_zh_CN.msi"
+
+elseif {exists key whose (value "UI" of it = "JPN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ja_JP.msi sha1:9ac5bce2a8228a66f78cfa7b2aac104322097328 size:58819072 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ja_JP/AdbeRdr11000_ja_JP.msi sha256:8687a0c9288963cee73b954da492f4d20484741df21efb00b0971c8214f0592e
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ja_JP.msi"
+
+elseif {exists key whose (value "UI" of it = "KOR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ko_KR.msi sha1:baf4a500a3856d15d89c8b396c359f181a972146 size:56448000 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ko_KR/AdbeRdr11000_ko_KR.msi sha256:c80ccf4ee705f472ba7972ae34754ce85d21e8c7eb3f420918be93da34eaec7f
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ko_KR.msi"
+
+elseif {exists key whose (value "UI" of it = "CHT") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_zh_TW.msi sha1:aca969bcd30bf447f8b76278ee80cec861d9bb20 size:60049408 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/zh_TW/AdbeRdr11000_zh_TW.msi sha256:944afde1f3da5412f58388ad5a0ac0488e705449a95f931f7a0d22f628c878e8
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_zh_TW.msi"
+
+elseif {exists key whose (value "UI" of it = "PTB") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_pt_BR.msi sha1:ab67fb4607fc06e385c53cad2579efb253ff1346 size:49589760 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/pt_BR/AdbeRdr11000_pt_BR.msi sha256:3b32a566bbd06858e589a3a14a755e2847b70f75063562829ea3ef1d5fbc6c23
+
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_pt_BR.msi"
+
+
+
+elseif {exists key whose (value "UI" of it = "CZE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_cs_CZ.msi sha1:51a5cc7efd6453d356412d1b936878ef72842113 size:62143488 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/cs_CZ/AdbeRdr11000_cs_CZ.msi sha256:faa3ce89e697f2b05612931bb0e7f53c7390295abe8e8b5992f1c80819a52991
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_cs_CZ.msi"
+
+elseif {exists key whose (value "UI" of it = "HUN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_hu_HU.msi sha1:88dfe238c7c8e670f9c10921276bba5bdb440182 size:61926400 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/hu_HU/AdbeRdr11000_hu_HU.msi sha256:bac85b663eed588b970de5d985763c93c8a8111e748331ea91fdd17626951ab1
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_hu_HU.msi"
+
+elseif {exists key whose (value "UI" of it = "POL") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_pl_PL.msi sha1:690521575fd3d4ec2e2779ce08fc9cd345d6aa00 size:62632448 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/pl_PL/AdbeRdr11000_pl_PL.msi sha256:98be842fb3dca81196906fc569761d43ab5ab99c6b6ab02e3de10698deed2fa1
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_pl_PL.msi"
+
+elseif {exists key whose (value "UI" of it = "RUS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ru_RU.msi sha1:9f9b8ebd3842618e170baf96e17800d8c8e1b554 size:61815808 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ru_RU/AdbeRdr11000_ru_RU.msi sha256:415a1665583da5242c65ef779980fbf11797414b5c094758b05e07bcb978d24e
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ru_RU.msi"
+
+elseif {exists key whose (value "UI" of it = "CAT") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ca_ES.msi sha1:6562a8f0f096bf5ef7f624be09cc04a4715e9023 size:48908800 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ca_ES/AdbeRdr11000_ca_ES.msi sha256:1ead957c80d0ccc4c05bb390551c237ec6424a478460f912a1f025f517a86807
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ca_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "SUO") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_fi_FI.msi sha1:95ea7dfb107a3c76836a41ac164deea655140709 size:48229888 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/fi_FI/AdbeRdr11000_fi_FI.msi sha256:2658019f8645a2b3dc17abd2a1697623a34dcc53d2daaaadec693181eb584966
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_fi_FI.msi"
+
+elseif {exists key whose (value "UI" of it = "EUS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_eu_ES.msi sha1:e63e8ed5f3372a403b34f8381b7c99be2d099cad size:48450048 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/eu_ES/AdbeRdr11000_eu_ES.msi sha256:79bf87c19f3cd7fab5f9ab289d6c760f1e45d64bd173b30a1e06e6c2ec0f7493
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_eu_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "DAN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_da_DK.msi sha1:663c909d5b884e11f6869071cede198d44db202f size:48762880 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/da_DK/AdbeRdr11000_da_DK.msi sha256:63aed115ae67d0c9a440300aa27d7b21c483b7f86882778c7da54aa4a26535e6
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_da_DK.msi"
+
+elseif {exists key whose (value "UI" of it = "HRV") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_hr_HR.msi sha1:e2b933735781779f830ee1602d0cd667a6e4c591 size:61779456 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/hr_HR/AdbeRdr11000_hr_HR.msi sha256:293bde5bf67718806e6de75149e091486df16e8b99768d46b556dea6158b43c5
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_hr_HR.msi"
+
+elseif {exists key whose (value "UI" of it = "NLD") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_nl_NL.msi sha1:613986c149578c958821648bfc27fefd8ab29dee size:49092096 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/nl_NL/AdbeRdr11000_nl_NL.msi sha256:aca6861b2656cbdde533e7a7d492911e96ef5a8bcec78e8f7eafaecddb520285
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_nl_NL.msi"
+
+elseif {exists key whose (value "UI" of it = "NOR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_nb_NO.msi sha1:eb13a5a2663932c47585623b181b1835d5d06260 size:50125312 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/nb_NO/AdbeRdr11000_nb_NO.msi sha256:0ade4ac86c8f1d50374218234499af18c96027874bfa1aaca0de4083917f3dd9
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_nb_NO.msi"
+
+elseif {exists key whose (value "UI" of it = "RUM") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ro_RO.msi sha1:5e4b66eb6a9f4d16790b02752f61eeea51c035f3 size:61699584 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ro_RO/AdbeRdr11000_ro_RO.msi sha256:a730c4d0501b1bda48f6fd97df2c6a4cf2d2ff7ec8781b8024153a1bb0f94360
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ro_RO.msi"
+
+elseif {exists key whose (value "UI" of it = "SKY") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_sk_SK.msi sha1:44c8f26051c6c6b7e31e309ae24ab4c89822bc8a size:62169088 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/sk_SK/AdbeRdr11000_sk_SK.msi sha256:822c8589bb678bf6ba821194f4b872e09741f94b62f56f392c31f19f189843b3
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_sk_SK.msi"
+
+elseif {exists key whose (value "UI" of it = "SLV") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_sl_SI.msi sha1:b9a42b6dc7e9a53bb238d4b1fa2112c2f999b129 size:62212096 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/sl_SI/AdbeRdr11000_sl_SI.msi sha256:5769c0e1fd4b695bf2b1af065f0cca90b7ba8f4882e1fffc8f8cb49dfeb03b25
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_sl_SI.msi"
+
+elseif {exists key whose (value "UI" of it = "TUR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_tr_TR.msi sha1:e5da63e147de7c9ab0deacd5d1411bb280647c95 size:66088960 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/tr_TR/AdbeRdr11000_tr_TR.msi sha256:d41d74debc0a21ac1c808789ef2f00ea08cef2421911e8d3bd15f35565df957f
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_tr_TR.msi"
+
+elseif {exists key whose (value "UI" of it = "UKR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_uk_UA.msi sha1:66f979b7cf9d74d9a2162fc1f5054aeb452c552c size:62100480 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/uk_UA/AdbeRdr11000_uk_UA.msi sha256:6061951e14305ae50d2e95c2e74391765cd8ce591810609d88002275fe92863a
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_uk_UA.msi"
+
+elseif {exists key whose (value "UI" of it = "SVE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_sv_SE.msi sha1:fdcdb0d81423a29c48736c30d4f332f7c97c0671 size:48569344 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/sv_SE/AdbeRdr11000_sv_SE.msi sha256:19c0f521c5a0dd3b20d98930ad1f29e1c9450f6c0a6ba1946baf199e9dee7b44
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_sv_SE.msi"
+
+
+endif
+
+
+// Disable EULA
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\11.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+
+delete temp.reg
+
+move __appendfile temp.reg
+
+wait regedit -s temp.reg
+
+action may require restart</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade to Adobe Reader XI regardless of whether Adobe Reader is running</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {exists key whose (value "UI" of it = "ENU") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_en_US.msi sha1:8cc8a0dbb57ad3efbbb930f945287fb63247a20a size:48461312 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/en_US/AdbeRdr11000_en_US.msi sha256:1f15c76c6dd92d8e87d379b70c70154fd130a534fe91c693f239160c8104ac68
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_en_US.msi"
+
+elseif {exists key whose (value "UI" of it = "FRA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_fr_FR.msi sha1:adcc206725b5ecd401c887fc740aa2151fc88a71 size:48482816 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/fr_FR/AdbeRdr11000_fr_FR.msi sha256:0c518e62b5c0a9c6213da10567fc07262f8fe24e8aeebb4932e2c68d52f887f1
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_fr_FR.msi"
+
+elseif {exists key whose (value "UI" of it = "DEU") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_de_DE.msi sha1:3e65aafe433a05a3a744e8f567d34bc31c6c1906 size:49481728 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/de_DE/AdbeRdr11000_de_DE.msi sha256:2f80f160a887ceb41f883edd87cce6a6e97a78cf41fc455fcf6694702f2fafd3
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_de_DE.msi"
+
+elseif {exists key whose (value "UI" of it = "ITA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_it_IT.msi sha1:73f88886fe7b9fa9fdad9ebbbfc5d941c36afa46 size:48568832 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/it_IT/AdbeRdr11000_it_IT.msi sha256:7645ebc27eb313e7d8211273808bddae42c420b5668eedbff85b3059275f9019
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_it_IT.msi"
+
+elseif {exists key whose (value "UI" of it = "ESP") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_es_ES.msi sha1:1706bd1099db6c60da3fc04308bffe76e48d35c0 size:48641024 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/es_ES/AdbeRdr11000_es_ES.msi sha256:5cb3f79e9127c32b297d81f84d271754c715a81d2e916e819de00c7212c40747
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_es_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "CHS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_zh_CN.msi sha1:04511237ba95bbab274d8e8646798e2de5c71be1 size:70205440 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/zh_CN/AdbeRdr11000_zh_CN.msi sha256:2467283d4f44704bfe7bd550c5bb106533a2b31445d5f4cd17b0ebc9649fafe7
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_zh_CN.msi"
+
+elseif {exists key whose (value "UI" of it = "JPN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ja_JP.msi sha1:9ac5bce2a8228a66f78cfa7b2aac104322097328 size:58819072 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ja_JP/AdbeRdr11000_ja_JP.msi sha256:8687a0c9288963cee73b954da492f4d20484741df21efb00b0971c8214f0592e
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ja_JP.msi"
+
+elseif {exists key whose (value "UI" of it = "KOR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ko_KR.msi sha1:baf4a500a3856d15d89c8b396c359f181a972146 size:56448000 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ko_KR/AdbeRdr11000_ko_KR.msi sha256:c80ccf4ee705f472ba7972ae34754ce85d21e8c7eb3f420918be93da34eaec7f
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ko_KR.msi"
+
+elseif {exists key whose (value "UI" of it = "CHT") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_zh_TW.msi sha1:aca969bcd30bf447f8b76278ee80cec861d9bb20 size:60049408 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/zh_TW/AdbeRdr11000_zh_TW.msi sha256:944afde1f3da5412f58388ad5a0ac0488e705449a95f931f7a0d22f628c878e8
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_zh_TW.msi"
+
+elseif {exists key whose (value "UI" of it = "PTB") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_pt_BR.msi sha1:ab67fb4607fc06e385c53cad2579efb253ff1346 size:49589760 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/pt_BR/AdbeRdr11000_pt_BR.msi sha256:3b32a566bbd06858e589a3a14a755e2847b70f75063562829ea3ef1d5fbc6c23
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_pt_BR.msi"
+
+
+
+elseif {exists key whose (value "UI" of it = "CZE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_cs_CZ.msi sha1:51a5cc7efd6453d356412d1b936878ef72842113 size:62143488 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/cs_CZ/AdbeRdr11000_cs_CZ.msi sha256:faa3ce89e697f2b05612931bb0e7f53c7390295abe8e8b5992f1c80819a52991
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_cs_CZ.msi"
+
+elseif {exists key whose (value "UI" of it = "HUN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_hu_HU.msi sha1:88dfe238c7c8e670f9c10921276bba5bdb440182 size:61926400 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/hu_HU/AdbeRdr11000_hu_HU.msi sha256:bac85b663eed588b970de5d985763c93c8a8111e748331ea91fdd17626951ab1
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_hu_HU.msi"
+
+elseif {exists key whose (value "UI" of it = "POL") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_pl_PL.msi sha1:690521575fd3d4ec2e2779ce08fc9cd345d6aa00 size:62632448 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/pl_PL/AdbeRdr11000_pl_PL.msi sha256:98be842fb3dca81196906fc569761d43ab5ab99c6b6ab02e3de10698deed2fa1
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_pl_PL.msi"
+
+elseif {exists key whose (value "UI" of it = "RUS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ru_RU.msi sha1:9f9b8ebd3842618e170baf96e17800d8c8e1b554 size:61815808 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ru_RU/AdbeRdr11000_ru_RU.msi sha256:415a1665583da5242c65ef779980fbf11797414b5c094758b05e07bcb978d24e
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ru_RU.msi"
+
+elseif {exists key whose (value "UI" of it = "EUS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_eu_ES.msi sha1:e63e8ed5f3372a403b34f8381b7c99be2d099cad size:48450048 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/eu_ES/AdbeRdr11000_eu_ES.msi sha256:79bf87c19f3cd7fab5f9ab289d6c760f1e45d64bd173b30a1e06e6c2ec0f7493
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_eu_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "CAT") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ca_ES.msi sha1:6562a8f0f096bf5ef7f624be09cc04a4715e9023 size:48908800 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ca_ES/AdbeRdr11000_ca_ES.msi sha256:1ead957c80d0ccc4c05bb390551c237ec6424a478460f912a1f025f517a86807
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ca_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "DAN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_da_DK.msi sha1:663c909d5b884e11f6869071cede198d44db202f size:48762880 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/da_DK/AdbeRdr11000_da_DK.msi sha256:63aed115ae67d0c9a440300aa27d7b21c483b7f86882778c7da54aa4a26535e6
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_da_DK.msi"
+
+elseif {exists key whose (value "UI" of it = "SUO") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_fi_FI.msi sha1:95ea7dfb107a3c76836a41ac164deea655140709 size:48229888 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/fi_FI/AdbeRdr11000_fi_FI.msi sha256:2658019f8645a2b3dc17abd2a1697623a34dcc53d2daaaadec693181eb584966
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_fi_FI.msi"
+
+elseif {exists key whose (value "UI" of it = "NOR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_nb_NO.msi sha1:eb13a5a2663932c47585623b181b1835d5d06260 size:50125312 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/nb_NO/AdbeRdr11000_nb_NO.msi sha256:0ade4ac86c8f1d50374218234499af18c96027874bfa1aaca0de4083917f3dd9
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_nb_NO.msi"
+
+elseif {exists key whose (value "UI" of it = "NLD") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_nl_NL.msi sha1:613986c149578c958821648bfc27fefd8ab29dee size:49092096 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/nl_NL/AdbeRdr11000_nl_NL.msi sha256:aca6861b2656cbdde533e7a7d492911e96ef5a8bcec78e8f7eafaecddb520285
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_nl_NL.msi"
+
+elseif {exists key whose (value "UI" of it = "RUM") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_ro_RO.msi sha1:5e4b66eb6a9f4d16790b02752f61eeea51c035f3 size:61699584 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/ro_RO/AdbeRdr11000_ro_RO.msi sha256:a730c4d0501b1bda48f6fd97df2c6a4cf2d2ff7ec8781b8024153a1bb0f94360
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_ro_RO.msi"
+
+elseif {exists key whose (value "UI" of it = "SKY") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_sk_SK.msi sha1:44c8f26051c6c6b7e31e309ae24ab4c89822bc8a size:62169088 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/sk_SK/AdbeRdr11000_sk_SK.msi sha256:822c8589bb678bf6ba821194f4b872e09741f94b62f56f392c31f19f189843b3
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_sk_SK.msi"
+
+elseif {exists key whose (value "UI" of it = "SLV") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_sl_SI.msi sha1:b9a42b6dc7e9a53bb238d4b1fa2112c2f999b129 size:62212096 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/sl_SI/AdbeRdr11000_sl_SI.msi sha256:5769c0e1fd4b695bf2b1af065f0cca90b7ba8f4882e1fffc8f8cb49dfeb03b25
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_sl_SI.msi"
+
+elseif {exists key whose (value "UI" of it = "SVE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_sv_SE.msi sha1:fdcdb0d81423a29c48736c30d4f332f7c97c0671 size:48569344 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/sv_SE/AdbeRdr11000_sv_SE.msi sha256:19c0f521c5a0dd3b20d98930ad1f29e1c9450f6c0a6ba1946baf199e9dee7b44
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_sv_SE.msi"
+
+elseif {exists key whose (value "UI" of it = "TUR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_tr_TR.msi sha1:e5da63e147de7c9ab0deacd5d1411bb280647c95 size:66088960 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/tr_TR/AdbeRdr11000_tr_TR.msi sha256:d41d74debc0a21ac1c808789ef2f00ea08cef2421911e8d3bd15f35565df957f
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_tr_TR.msi"
+
+elseif {exists key whose (value "UI" of it = "UKR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_uk_UA.msi sha1:66f979b7cf9d74d9a2162fc1f5054aeb452c552c size:62100480 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/uk_UA/AdbeRdr11000_uk_UA.msi sha256:6061951e14305ae50d2e95c2e74391765cd8ce591810609d88002275fe92863a
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_uk_UA.msi"
+
+elseif {exists key whose (value "UI" of it = "HRV") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr11000_hr_HR.msi sha1:e2b933735781779f830ee1602d0cd667a6e4c591 size:61779456 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/hr_HR/AdbeRdr11000_hr_HR.msi sha256:293bde5bf67718806e6de75149e091486df16e8b99768d46b556dea6158b43c5
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr11000_hr_HR.msi"
+
+endif
+
+// Disable EULA
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\11.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+
+delete temp.reg
+
+move __appendfile temp.reg
+
+wait regedit -s temp.reg
+
+action may require restart</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#readerwin</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 930627.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/930627</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

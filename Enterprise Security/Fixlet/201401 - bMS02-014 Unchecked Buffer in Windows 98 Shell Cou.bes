@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-014: Unchecked Buffer in Windows 98 Shell Could Lead to Code Execution</Title>
+		<Description><![CDATA[
+Microsoft has released a patch to eliminate a security vulnerability in the Windows shell. An unchecked buffer exists in one of the functions that helps to locate incompletely removed applications on affected systems. A security vulnerability results because it is possible for a malicious user to mount a buffer overrun attack and attempt to exploit this flaw. A successful attack would have the affect of either causing the Windows Shell to crash, or causing code to run in the user's context. <BR><BR>By default, this vulnerability is not remotely exploitable. However, under very unusual conditions, it could be exploited via a web page. Specifically, if the user has installed, then uninstalled an application with custom URL handlers, and the application's uninstall routine failed to correctly remove the application completely, an attacker could attempt to mount an attack by constructing an HTML web page that seeks to overrun the buffer. Such a web page could be delivered either by posting it on a web site or sending it by email. <BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted. <BR><BR><b>File Size:</b> 834 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win98"</Relevance>
+		<Relevance>NOT ((exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Internet Settings" of registry) AND (exists value "MinorVersion" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Internet Settings" of registry) AND (value "MinorVersion" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Internet Settings" of registry as string contains "q313829"))</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>854096</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB313829</SourceID>
+		<SourceReleaseDate>2002-03-07</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-0070</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Windows Shell</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win98</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch q313829.exe sha1:1b955395539cba1e9c33f7aa0f168e8ec26effaf size:854096 http://download.microsoft.com/download/ie4095/actdesk/4.01_sp2/w9XNT4/en-us/q313829.exe sha256:f76c332781520b19207ce97995b76924127d05bec511c92e0eac06c4ae963cc1
+wait __download\Q313829.exe /Q:A /R:N
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Security Bulletin MS02-014.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-014</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

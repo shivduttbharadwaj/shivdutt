@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>TROUBLESHOOTING: Enable BES Client Usage Profiler</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size=2> <P><FONT size=2>The BES Client&nbsp;uses&nbsp;real-time "continuous-scan" technology that allows it to constantly check all Fixlet messages and actions. If a Fixlet message becomes relevant or if an action is needed, the BES Client will know right away rather than checking at a pre-determined interval (which would greatly decrease&nbsp;the visibility of your deployment).</FONT></P> <P><FONT size=2>This Task will enable the BES Client usage profiler, which&nbsp;allows you to see which Fixlet messages, tasks, actions, or properties consume most of the BES Client's time.</FONT><FONT size=2></P> <P>After the usage profiler has been enabled, the BES Client tracks the top 100&nbsp;activities that take the longest time and stores them&nbsp;in a file called "usageprofiler.txt.xxxx", located&nbsp;in the&nbsp;same folder as the BES Client.</P></FONT> <P><STRONG>Note:</STRONG> After enabling the usage profiler, you may have to restart the BES Client before&nbsp;it is able to produce the log file "usageprofiler.txt.xxxx" and begin tracking activities therein.</P> <P><FONT size=2><STRONG>Note: </STRONG>This is generally enabled only for troubleshooting purposes and might have a slight performance penalty for BES Clients.</FONT></P></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[if (version of client < "8.0") then (name of operating system starts with "Win") else (true)]]></Relevance>
+		<Relevance>NOT exists setting "_BESClient_Resource_TrackingFile" whose (exists value of it) of client OR NOT exists setting "_BESClient_Resource_TrackingCycleSeconds" whose (exists value of it) of client OR NOT exists setting "_BESClient_Resource_TrackingCount" whose (exists value of it) of client OR NOT exists setting "_BESClient_Resource_TrackingMaxFiles" whose (exists value of it) of client </Relevance>
+		<Category>Troubleshooting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 31 Jan 2006 23:23:13 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 Nov 2017 14:22:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to enable the usage profiler.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "HOURSOFTRACKING" with description "Please enter the total number of hours to track (1-24):" with default value "24"
+
+// Fail if value is not between 1 and 24 hours
+continue if {parameter "HOURSOFTRACKING" of action as integer >= 1 AND parameter "HOURSOFTRACKING" of action as integer <= 24}
+
+setting "_BESClient_Resource_TrackingFile"="{parent folder of parent folder of client folder of site "actionsite" as string & (if name of operating system starts with "Win" then "\" else "/") & "usageprofiler.txt"}" on "{parameter "action issue date" of action}" for client
+setting "_BESClient_Resource_TrackingCycleSeconds"="3600" on "{parameter "action issue date" of action}" for client
+setting "_BESClient_Resource_TrackingCount"="100" on "{parameter "action issue date" of action}" for client
+setting "_BESClient_Resource_TrackingMaxFiles"="{parameter "HOURSOFTRACKING" of action as integer}" on "{parameter "action issue date" of action}" for client]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>for more information on the Usage Profiler.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www-01.ibm.com/support/docview.wss?uid=swg21505873</ActionScript>
+		</Action>
+	</Task>
+</BES>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-024: Windows 2000 Debugger Authentication Flaw</Title>
+		<Description><![CDATA[
+Microsoft has released a patch eliminating a security vulnerability in the Windows 2000 debugger. Windows Debugging allows debuggers to take over running applications, which gives the debuggers the security privileges of the application. A flaw in the way Microsoft debugging facility handles authentication would allow an arbitrary application to be authenticated as a debugger and take over any running application. This allows for a substantial elevation of security privileges if non-privileged users are allowed to logon interactively. If an attacker took over an application running as the Operating System, it would have the ability to run arbitrary code on the client computer. This patch corrects the authentication flaw. <BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note:</b> This patch is included in Windows 2000 Service Pack 3.<BR><BR><b>File Size:</b> 190 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of operating system = "Win2000") AND (csd version of operating system = "Service Pack 2") AND (release of operating system = "5.0")</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows 2000\SP4\Q320206" of registry</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows 2000\SP4\Q327194" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>194600</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB320206</SourceID>
+		<SourceReleaseDate>2002-05-22</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2002-0367</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Debugger</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q320206_W2K_SP4_X86_EN.exe sha1:cd3b5c8e560e02d824078e9a0cd0b83dce5f16f0 size:194600 http://download.microsoft.com/download/win2000platform/Patch/Q320206/NT5/EN-US/Q320206_W2K_SP4_X86_EN.exe sha256:e4de97dae2ecbcb5aeaa25a3040e93ad4a8591a29e4fa832396df82f953182a8
+wait __download\Q320206_W2K_SP4_X86_EN.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-024.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-024.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

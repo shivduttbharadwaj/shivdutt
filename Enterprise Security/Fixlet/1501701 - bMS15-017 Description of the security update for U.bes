@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-017: Description of the security update for Update Rollup 5 for System Center 2012 R2 Virtual Machine Manager - Virtual Machine Manager - KB3023195 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves one publicly disclosed and forty privately reported vulnerabilities in Internet Explorer. The most severe of these vulnerabilities could allow remote code execution if a user views a specially crafted webpage using Internet Explorer. An attacker who successfully exploited these vulnerabilities could gain the same user rights as the current user. Customers whose accounts are configured to have fewer user rights on the system could be less impacted than those who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3021952.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+161.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((exists keys ((if (exists key "8F0D85B02350C96419B88B0A3A1300B1" of it) then (names of values of key "8F0D85B02350C96419B88B0A3A1300B1" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "51B8159546CF9FC44A1DE01E4B6A0388") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "3.2.7510.0"  ) of it) AND (not exists key whose (name of it equals "E751AF13C3603104B89E229D96B1758C") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance>not pending restart "5b6cd271bea713226ac95fd8ea0465de15a295de"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>169687383</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3021952</SourceID>
+		<SourceReleaseDate>2015-02-10</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2015-0012</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Feb 2015 01:29:27 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:virtual_machine_manager:*:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>System Center</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Virtual Machine Manager </Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch kb3023195_vmmserver_amd64_5b6cd271bea713226ac95fd8ea0465de15a295de.cab sha1:5b6cd271bea713226ac95fd8ea0465de15a295de size:169687383 http://download.windowsupdate.com/d/msdownload/update/software/secu/2015/02/kb3023195_vmmserver_amd64_5b6cd271bea713226ac95fd8ea0465de15a295de.cab sha256:9bac66f0ec01df28db80f00185ed2e2b99b8f3e97989726c094603bbe43223d4
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\kb3023195_vmmserver_amd64_5b6cd271bea713226ac95fd8ea0465de15a295de.cab __Download\kb3023195_vmmserver_amd64.msp
+
+waithidden msiexec.exe /p __Download\kb3023195_vmmserver_amd64.msp /quiet /norestart
+
+action requires restart "5b6cd271bea713226ac95fd8ea0465de15a295de"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/library/security/ms15-017.aspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

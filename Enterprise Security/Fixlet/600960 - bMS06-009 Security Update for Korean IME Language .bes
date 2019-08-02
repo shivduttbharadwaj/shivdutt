@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS06-009: Security Update for Korean IME Language Bar - Office 2003 MUI (Administrative Installation)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a patch eliminating a privilege elevation vulnerability in the Korean IME Language Bar in Office 2003 MUI. An attacker who successfully exploited this vulnerability could take complete control of an affected system. For an attack to be successful, the attacker must be able to interactively logon to the affected system. After downloading and installing this patch, affected computers will no longer be susceptible to this vulnerability. <br><br>After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities. <br><br><b>Note:</b> Microsoft has announced that this patch will be included in a future service pack.<br><br><b>Note:</b> You must upgrade all Office 2003 MultiLanguage Packs to Service Pack 1 before installing this patch. <br><br><b>Note:</b> In preparation for deploying this update through an Administrative Installation Point, you must apply this patch to all Administrative Installation Points in your network. For instructions on how to install this patch to your Administrative Installation Point, see the 'Security Update' section of the security bulletin.<br><br><b>Note:</b> Some Office updates will force the affected computer to restart without displaying a warning message if Office applications are open when this update is run. To prevent this from happening, shut down all Office applications prior to applying this update.  <br><br><b>Note:</b> This action attempts to update all Office 2003 MUI languages that are installed on targeted computers. <br><br><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> This security update is also referenced under KB892843.<br><br><B>Note:</B> There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #474.<br><br><div class="HideFromWebUI"><b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.</div></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+0
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(name of operating system = "Win2000" AND csd version of operating system >= "Service Pack 3") OR name of operating system = "WinXP" OR name of operating system = "Win2003"]]></Relevance>
+		<Relevance>exists key whose ((it contains "Microsoft Office 2003" AND it contains "User Interface Pack") of (value "ProductName" of it as string)) of key "HKCR\Installer\Products\" of registry</Relevance>
+		<Relevance>exists key "HKLM\SOFTWARE\BigFix\EnterpriseClient\Office2003Control" whose (value "DeploymentType" of it = 1) of registry</Relevance>
+		<Relevance><![CDATA[exists folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11") AND exists file "MSOINTL.DLL" whose (language of version block of it contains "English") of (folders of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11"))]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2.0") of system folder]]></Relevance>
+		<Relevance><![CDATA[(exists it whose (it = TRUE) of (exists file "OUTLLIBR.DLL" whose (version of it < "11.0.6565.0") of it OR exists file "wwintl.dll" whose (version of it < "11.0.6565.0") of it OR exists file "xlintl32.dll" whose (version of it < "11.0.6802.0") of it) of folders whose (name of it != "1033") of folder (value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\11.0\Common\InstallRoot" of registry as string)) OR (exists folders whose (name of it != "1033") of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\System\MSMAPI") AND ((exists it whose (it = TRUE) of (exists file "CONTAB32.DLL" whose (version of it < "11.0.6550.0") of it OR exists file "DUMPSTER.DLL" whose (version of it < "11.0.6550.0") of it OR exists file "EMABLT32.DLL" whose (version of it < "11.0.6550.0") of it OR exists file "EMSABP32.DLL" whose (version of it < "11.0.6550.0") of it OR exists file "EMSMDB32.DLL" whose (version of it < "11.0.8000.0") of it OR exists file "EMSUI32.DLL" whose (version of it < "11.0.8000.0") of it OR exists file "Mapir.dll" whose (version of it < "11.0.6550.0") of it OR exists file "MSMAPI32.DLL" whose (version of it < "11.0.8002.0") of it OR exists file "MSPST32.DLL" whose (version of it < "11.0.8001.0") of it OR exists file "OUTEX.DLL" whose (version of it < "11.0.8000.0") of it OR exists file "PSTPRX32.DLL" whose (version of it < "11.0.8000.0") of it OR exists file "SCANPST.EXE" whose (version of it < "11.0.6802.0") of it) of folders whose (name of it != "1033") of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\System\MSMAPI")))) OR (exists file "Msointl.dll" whose (version of it < "11.0.6565.0") of folders whose (name of it != "1033") of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\OFFICE11"))]]></Relevance>
+		<Relevance><![CDATA[(exists file "MSOINTL.DLL" whose (language of version block of it does not contain "English" AND version of it >= "11.0.6352.0") of folders of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11")) AND (NOT exists file "MSOINTL.DLL" whose (language of version block of it does not contain "English" AND version of it < "11.0.6352.0") of folders of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11"))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB905645</SourceID>
+		<SourceReleaseDate>2006-02-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2006-0008</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Korean IME Language Bar</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete __appendfile
+
+appendfile @ECHO OFF
+appendfile {concatenation "%0d%0a" of (pathname of system folder & "\msiexec.exe /i %22" & it & "%22 REINSTALL=All REINSTALLMODE=vomus /Q > NUL 2> NUL") of (preceding text of first "%00" of following text of last ";" of (value "LastUsedSource" of it as string & "%00") & value "PackageName" of it as string) of keys "SourceList" of keys whose ((it contains "Microsoft Office 2003" AND it contains "User Interface Pack") of (value "ProductName" of it as string)) of key "HKCR\Installer\Products" of registry}
+
+delete O2k3MUISP2.bat
+copy __appendfile O2k3MUISP2.bat
+
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" O2k3MUISP2.bat
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS06-009.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS06-009.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

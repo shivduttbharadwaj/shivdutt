@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install IBM BigFix A2A (Version 9.5.7)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><FONT size=2><P><B>Deploy this fixlet to install IBM BigFix A2A</B><BR><BR>This Fixlet installs the Agent2Agent DLL other dependencies which are needed for certain IBM BigFix operations. </P><P>More information about the A2A can be found at the link referenced below.</P><P><STRONG>Note:</STRONG>The A2A functionality is only supported on IBM BigFix versions 9.5.5 and above.</P></FONT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.02 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance>version of client = "9.5.7"</Relevance>
+		<Relevance>not exists key "HKLM\Software\BigFix\EnterpriseClient\A2A" of registry</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>3169093</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-10-13</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 16 Oct 2017 16:28:23 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy A2A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 16 Oct 2017 16:28:23 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy IBM BigFix A2A DLL version 9.5.7</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch BESA2A.bfz sha1:dea8506bb48124fb822f4b789b802b3af0026730 size:3169093 http://software.bigfix.com/download/bes/95/BigFix-BES-A2A-9.5.7.90.bfz sha256:5770659c5292b81d13014e78bf466a6bcdcaab4e6f8a07af08763ea24669eede
+// \BigFix Enterprise\BES A2A
+parameter "A2ADir" = "{pathname of parent folder of parent folder of client}\BES A2A"
+folder create "{parameter "A2ADir"}"
+extract BESA2A.bfz "{parameter "A2ADir"}"
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\A2A]" "DLLPath"="{escape of parameter "A2ADir"}"
+delete __Download\BESA2A.bfz</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information about A2A</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/support/knowledgecenter/en/SSMNRU_9.5.0/com.ibm.bigfix.detect.doc/BigFixDetectionandResponse/EDRBigFixAdministratorGuide/EDR_install_support_files.html</ActionScript>
+		</Action>
+	</Task>
+</BES>

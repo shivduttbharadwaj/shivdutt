@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4502568: Description of Preview of Quality Rollup for .NET Framework 4.8 for Windows 7 SP1 and Server 2008 R2 SP1 - Windows 7 SP1 - .NET Framework 4.8 - KB4502568</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB4502568.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+19.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win7")) of operating system</Relevance>
+		<Relevance>(name of it = "Win7" AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (exists key "Full" whose ((it = 528040 OR it = 528049) of value "Release" of it) of it) of native registry</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "0478F92BB273F213E8EE81FF58C7BC8B") AND exists key "InstallProperties" whose ((it = "4.8.3761") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "4E76BB163316C4A32AD2CB95456A0B3B" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance>not pending restart "9eca9b67bb6def01599106a0a113124ae9873e43"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>20823288</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4502568</SourceID>
+		<SourceReleaseDate>2019-06-14</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 24 Jun 2019 17:27:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.8:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 24 Jun 2019 17:27:02 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ndp48-kb4502568-x86_9eca9b67bb6def01599106a0a113124ae9873e43.exe sha1:9eca9b67bb6def01599106a0a113124ae9873e43 size:20823288 http://download.windowsupdate.com/c/msdownload/update/software/updt/2019/06/ndp48-kb4502568-x86_9eca9b67bb6def01599106a0a113124ae9873e43.exe sha256:315fba2c5fa99ba8c3140ea4dbd903ca79a66015dac189441a2e3975dc06bd24
+
+waithidden __Download\ndp48-kb4502568-x86_9eca9b67bb6def01599106a0a113124ae9873e43.exe /quiet /norestart
+
+action may require restart "9eca9b67bb6def01599106a0a113124ae9873e43"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4502568</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

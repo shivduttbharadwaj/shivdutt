@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>894391: DBCS attachment file names not displayed - Windows 2003 Server - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+The listed computers have faulty installations of a patch for the vulnerability described in Knowledge Base Article 894391. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>Microsoft has released a patch that fixes known issues caused by security update MS05-012 (873333). Symptoms include errors on startup, double-byte character set (DBCS) file names not displayed in email messages, and heap corruption in certain applications. Installing this patch will correct these specific problems. See Microsoft Knowledge Base Article 894391 for more information. <BR><BR><b>Important Note:</b> Microsoft recommends installing this hotfix only on systems experiencing these specific problems. <BR><BR><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><b>Important Note: </b>Hotfixes have no default action.
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.58 MB
+ </DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win2003" AND csd version of operating system = ""</Relevance>
+		<Relevance><![CDATA[(exists file "Ole32.dll" whose (version of it >= "5.2.3790.250" AND version of it < "5.2.3790.275") of it OR exists file "Olecli32.dll" whose (version of it >= "5.2.3790.250" AND version of it < "5.2.3790.275") of it OR exists file "Olecnv32.dll" whose (version of it >= "5.2.3790.250" AND version of it < "5.2.3790.275") of it OR exists file "Rpcss.dll" whose (version of it >= "5.2.3790.250" AND version of it < "5.2.3790.275") of it) of system folder]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP1\KB894391" of registry</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>1660656</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB894391</SourceID>
+		<SourceReleaseDate>2005-07-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>89439101</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 15 Apr 2019 04:56:37 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003-KB894391-x86-enu.exe sha1:15896eb286a47da0f602a144ca4a5c6e1c1d629b size:1660656 http://download.microsoft.com/download/8/c/7/8c744606-6113-411b-b6f3-4e8f3280ba23/WindowsServer2003-KB894391-x86-enu.exe sha256:cbb5b9024e9b1e7934d8486338f1a02316eed8df185d24854701a529463985b4
+
+wait __Download\WindowsServer2003-KB894391-x86-enu.exe /passive /quiet /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 894391.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/894391</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

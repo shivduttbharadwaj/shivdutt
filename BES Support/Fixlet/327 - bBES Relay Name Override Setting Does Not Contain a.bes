@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>BES Relay Name Override Setting Does Not Contain a Valid  IP Address</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>The listed computers&nbsp;are&nbsp;BES Relays that have the&nbsp;client setting "_BESClient_Relay_NameOverride" set to an IP address which does not correspond to the current IP address of that machine.&nbsp;As a result, BES Clients will not be able to select affected Relays. To resolve this issue, configure the&nbsp;"_BESClient_Relay_NameOverride"&nbsp; setting to match the IP address or dns name of each affected BES Relay.</FONT></P> <P><FONT size=2><STRONG>Note:</STRONG> This fixlet message&nbsp;only detects invalid IP addresses and&nbsp;will not&nbsp;be relevant&nbsp;if the "_BESClient_Relay_NameOverride" setting is set to&nbsp;an invalid DNS name. </FONT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service</Relevance>
+		<Relevance><![CDATA[(exists setting  "_BESClient_Relay_NameOverride" of client and exists it whose (exists it as integer) of preceding texts of firsts "." of following texts of substrings "." of ("." & (value of setting "_BESClient_Relay_NameOverride" of client as string) & ".")) AND (not exists it whose (it =  value of setting "_BESClient_Relay_NameOverride" of client) of addresses whose (it as string != "0.0.0.0") of ip interfaces whose (loopback of it = false) of network)]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2005-09-21</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 10 Jun 2004 01:28:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 19 Dec 2017 17:37:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT15M</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to learn more about BES configuration settings.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/bes/misc/besconfigsettings.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

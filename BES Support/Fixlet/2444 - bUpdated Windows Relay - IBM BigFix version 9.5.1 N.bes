@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Relay - IBM BigFix version 9.5.1 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><FONT size=2> <P><B>Version 9.5.1 of IBM BigFix is now available!</B><BR><BR>The latest version of the&nbsp;IBM BigFix Relay&nbsp;provides several enhancements and fixes. This Fixlet can also upgrade the local client and Proxy Agent (if installed). </P><P><STRONG><FONT color=red>Please upgrade your IBM BigFix Server and Console before upgrading your relays.</FONT></STRONG></P><P><STRONG>Please upgrade your relays before upgrading your IBM BigFix Clients!</STRONG></P><P>More information about relays can be found at the Relay Wiki link referenced below.</P><P><FONT color=#ff0000><B>Important Note:</B></FONT> Upgrading your IBM BigFix Relay may cause your clients to stop reporting on action status and retrieved properties for some time. Please upgrade your relays at a time when this behavior is acceptable. Please contact technical support for more information.</P><P><STRONG>Note:</STRONG> This Fixlet message will only become relevant on computers after the IBM BigFix Server has been upgraded. Clients will notice that the IBM BigFix Server is updated and will begin to report any other upgrade Fixlets relevant (the clients by default check once per six hours for the version of the server on registration). This fixlet will also update the Client on any Relay installation.</P><P><STRONG>Note:</STRONG> This relay supports Windows Vista and above on a Pentium 4 or better.</P></FONT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+32.0 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(it >= "9.5" OR it < "9.2.17") of version of client]]></Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>version of registration server = "9.5"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[((windows of it) AND (major version of it >= 6) AND (platform id of it != 3)) of operating system]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2.0") of system folder]]></Relevance>
+		<Relevance><![CDATA[(it < "9.5.1.9" AND it >= "7") of (if (version of client >= "8.0") then version of relay service else version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of relay service))]]></Relevance>
+		<Relevance>(exists running service "BESRelay")</Relevance>
+		<Relevance>(x64 of it OR ia64 of it) of operating system OR (bit 26 of feature mask of main processor)</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>33539818</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2016-04-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 19 Apr 2016 17:18:23 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 02 Apr 2019 09:31:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Relay and Client 9.5.1 upgrades.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESRelayUpgrade.exe sha1:a32f7c42f9043e4ba48bbbea89f540c09cc5f912 size:11218648 http://software.bigfix.com/download/bes/95/BigFix-BES-Relay-9.5.1.9.exe sha256:50b740f7807746913fcc858f8c7af9a3069d35028d6e657299a3a056b5d5e67a
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (16202488 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (16202488 < free space of drive of parent folder of (if (version of client >= "8.2") then file of relay service else file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of relay service)))}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+move __Download\BESRelayUpgrade.exe __Local\Upgrade\BESRelayUpgrade.exe
+parameter "RunningRelay"="{exists running service "BESRelay"}"
+wait __Local\Upgrade\BESRelayUpgrade.exe /s /v"/l*voicewarmup \"{parent folder of (if (version of client >= "8.2") then file of relay service else file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of relay service))}\besrelayupgrade.log\" RESTARTBESCLIENT=0 REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+if {"True" = parameter "RunningRelay"}
+	parameter "startTime" = "{apparent registration server time}"
+	pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+	relay select
+	// Fails here if a previously running relay did not start up
+	continue if {exists running service "BESRelay"}
+endif
+continue if {((it = "9.5.1.9") of (if (version of client >= "8.0") then version of relay service else version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of relay service)))}
+delete __Local\Upgrade\BESRelayUpgrade.exe
+if {(version of client >= "9") AND (exists service "BESProxyAgent" whose (version of it < "9.5.1.9"))}
+	prefetch BESProxyAgent.bfz sha1:a5d883b3bba0cfbd4d52959de704bfb4fc87c6ee size:6118682 http://software.bigfix.com/download/bes/95/BigFix-BES-ProxyAgent-9.5.1.9.bfz sha256:67a9d62c684206e0f60ca2ad1a7cdfe7da33c2589235e3fe88bd9ee613b3f09d
+	parameter "proxyFolder"="{parent folder of file of service "BESProxyAgent"}"
+	parameter "proxyRunning"="{exists service "BESProxyAgent" whose (running of it)}"
+	if {"True" = parameter "proxyRunning"}
+		waithidden cmd.exe /C net stop BESProxyAgent
+		continue if {exists true whose (if true then (exit code of action = 0) else false)}
+	endif
+	extract BESProxyAgent.bfz "{parameter "proxyFolder"}"
+	continue if {"9.5.1.9" = version of file "ProxyAgent.exe" of folder (parameter "proxyFolder")}
+	waithidden cmd.exe /C sc description BESProxyAgent "Enables IBM BigFix to be able to use Management Extenders"
+	continue if {exists true whose (if true then (exit code of action = 0) else false)}
+	//Delete old libraries if present
+	delete "{parameter "proxyFolder"}\libBESssl_1_0_0_1.dll"
+	delete "{parameter "proxyFolder"}\libBEScrypto_1_0_0_1.dll"
+	delete __Download\BESProxyAgent.bfz
+	if {"True" = parameter "proxyRunning"}
+		waithidden cmd.exe /C net start BESProxyAgent
+		continue if {exists true whose (if true then (exit code of action = 0) else false)}
+	endif
+endif
+if {version of client < "9.5.1.9"}
+	prefetch BESClientUpgrade.exe sha1:b56d77825b24cdddd4b4cd7549db78e4e1306c6b size:16202488 http://software.bigfix.com/download/bes/95/BigFix-BES-Client-9.5.1.9.exe sha256:5d89316b28e1dc0dfddd5f0f86b77f99bef9ab7c2793f5b6cae31607276935af
+	move __Download\BESClientUpgrade.exe __Local\Upgrade\BESClientUpgrade.exe
+	// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+	wait __Local\Upgrade\BESClientUpgrade.exe /s /v"/l*voicewarmup \"{location of client}\besclientupgrade.log\" REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+endif]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[(not exists relay service) OR ((it < "9.5.1.9") of (if (version of client >= "8.0") then version of relay service else version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of relay service))) OR (version of client < "9.5.1.9")]]></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information about relays.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/TEM%20Relays</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for instructions to manually upgrade IBM BigFix Components.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/developerworks/mydeveloperworks/wikis/home?lang=en#/wiki/Tivoli%20Endpoint%20Manager/page/Upgrading</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

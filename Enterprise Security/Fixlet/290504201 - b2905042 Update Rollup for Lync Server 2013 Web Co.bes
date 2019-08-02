@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2905042: Update Rollup for Lync Server 2013 Web Components Server - Lync Server 2013 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p>The cumulative update resolves the following issue:</p> <ul> <li>2912339 A user cannot sign in to a Lync mobile client when the "MaxEndPointsPerUser" parameter is "1" in a Lync Server 2013 environment</li> </ul> <p>This update also resolves the issues that are previously listed in the following Microsoft Knowledge Base articles:</p> <ul> <li>2881688 Description of the cumulative update 5.0.8308.556 for Lync Server 2013, Web Components: October 2013</li> <li>2835435 Description of the cumulative update 5.0.8308.420 for Lync Server 2013, Web Components: July 2013</li> <li>2781564 Description of the cumulative update 5.0.8308.291 for Lync Server 2013, Web Components: February 2013</li> </ul>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2905042.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+61.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(not exists keys ("96C025CC92A528D4FAA689044C25376F") whose (exists key "InstallProperties" whose ((it < "5.0.8308.0") of (value "DisplayVersion" of it as string as version)) of it) of it AND exists keys ((names of values of keys ("92ECB0EE044428549AFE80E1DA8FEACD") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "96C025CC92A528D4FAA689044C25376F") AND exists key "InstallProperties" whose ((it >= "5.0.8308.0" AND it < "5.0.8308.577") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D0F963811CD91A84A81B35FA4EF152B3" of key "Patches" of it) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry]]></Relevance>
+		<Category>Update Rollup</Category>
+		<DownloadSize>64035186</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2905042</SourceID>
+		<SourceReleaseDate>2014-02-10</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 25 Mar 2015 08:28:36 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 R2 Gold |~| Windows Server 2008 SP2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Microsoft Lync Server and Microsoft Lync</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Lync Server 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch webcomponents_79147940a8e647d8b7c3e9ffd6ab119de0e95609.cab sha1:79147940a8e647d8b7c3e9ffd6ab119de0e95609 size:64035186 http://download.windowsupdate.com/d/msdownload/update/software/uprl/2014/01/webcomponents_79147940a8e647d8b7c3e9ffd6ab119de0e95609.cab sha256:577087f8a80f2c21bbd79aae4dc993c5da457cf0470b68519aa0db847b823972
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\webcomponents_79147940a8e647d8b7c3e9ffd6ab119de0e95609.cab __Download\WebComponents.msp
+
+waithidden msiexec.exe /p __Download\WebComponents.msp /quiet /norestart
+
+action may require restart "79147940a8e647d8b7c3e9ffd6ab119de0e95609"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2905042</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

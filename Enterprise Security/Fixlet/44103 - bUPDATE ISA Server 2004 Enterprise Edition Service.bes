@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: ISA Server 2004 Enterprise Edition Service Pack 2 Available</Title>
+		<Description><![CDATA[
+Microsoft has released Service Pack 2 for Internet Security and Acceleration (ISA) Server 2004 Enterprise Edition. The service pack includes all software updates released since the initial release of ISA Server 2004 and provides increased security, reliability, and stability. Microsoft strongly encourages customers to install SP2 on all computers running ISA Server 2004 Enterprise Edition. <BR><BR><b>Important Note:</b> Application of this update may require you to log on using the same Administrative user account that was used to install ISA Server 2004 Enterprise Edition. Due to the complexity of this update, installation of the service pack must be completed manually.<BR><BR><b>Note:</b> There is no default action for this Fixlet message because it does not have a deployment action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win2003"</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" whose (value "ProductType" of it = "ServerNT" OR value "ProductType" of it = "LanmanNT") of registry</Relevance>
+		<Relevance>exists key whose (value "DisplayName" of it as string contains "Microsoft ISA Server 2004" AND value "Language" of it = 1033) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance>not exists key whose (value "DisplayName" of it as string contains "Microsoft ISA Server 2004 Service Pack 2") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "msiexec.exe" of system folder) AND (version of file "msiexec.exe" of system folder >= "3.0")]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Fpc" of registry AND exists file "enterprise.i" of folder (value "InstallDirectory" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Fpc" of registry as string)</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB903676</SourceID>
+		<SourceReleaseDate>2006-01-31</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Apr 2019 06:11:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft about ISA Server 2004 Service Pack 2.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri"><![CDATA[http://www.microsoft.com/downloads/details.aspx?familyid=3AD22B4A-28F2-44A3-8152-76E3DBAEFB08&displaylang=en]]></ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

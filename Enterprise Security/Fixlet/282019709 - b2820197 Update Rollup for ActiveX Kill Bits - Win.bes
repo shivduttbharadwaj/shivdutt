@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2820197: Update Rollup for ActiveX Kill Bits - Windows 7 Gold/SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft is releasing a new set of ActiveX kill bits with this advisory.</P> <P>This update sets the kill bits for the following third-party software:</P> <P> <UL> <LI><STRONG>Honeywell Enterprise Buildings Integrator.</STRONG> The following Class Identifier relates to a request by Honeywell to set a kill bit for an ActiveX control that is vulnerable. The class identifiers (CLSIDs) for this ActiveX control are as listed in the <STRONG>Third-Party Kill Bits</STRONG> section of this advisory. <LI><STRONG>SymmetrE and ComfortPoint Open Manager.</STRONG> The following Class Identifier relates to a request by Honeywell to set a kill bit for an ActiveX control that is vulnerable. The class identifiers (CLSIDs) for this ActiveX control are as listed in the <STRONG>Third-Party Kill Bits</STRONG> section of this advisory.</LI></UL> <P></P> <P>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This update is also referenced under KB2820197.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+216 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win7") AND (service pack major version of it = 1 OR service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>NOT ((((exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Internet Explorer\ActiveX Compatibility\{0d080d7d-28d2-4f86-bfa1-d582e5ce4867}\" whose (exists value "Compatibility Flags" whose (it as integer = 1024) of it) of it)) AND ((exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Internet Explorer\ActiveX Compatibility\{29e9b436-dfac-42f9-b209-bd37bafe9317}\" whose (exists value "Compatibility Flags" whose (it as integer = 1024) of it) of it))) of native registry)</Relevance>
+		<Relevance>not pending restart "d0f9f989add2c6d600d510e851382e52a0a0a8e2"</Relevance>
+		<Category>Security Advisory</Category>
+		<DownloadSize>221405</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2820197</SourceID>
+		<SourceReleaseDate>2013-05-14</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold/SP1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ActiveX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2820197-x86.msu sha1:d0f9f989add2c6d600d510e851382e52a0a0a8e2 size:221405 http://download.microsoft.com/download/9/3/E/93E8A683-45B3-4C96-9A6C-DA81541B00BC/Windows6.1-KB2820197-x86.msu sha256:9ead1cf06d4477f17408fdbef6ac640df5566388542e16d9f06014a8ae5cbbdf
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2820197-x86.msu"}" /quiet /norestart
+
+action requires restart "d0f9f989add2c6d600d510e851382e52a0a0a8e2"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2820197</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

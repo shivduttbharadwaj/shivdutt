@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2913236: You may experience poor battery life on a Lenovo Miix2 8 tablet running Windows 8.1 - Windows 8.1 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB2913236.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+238 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance><![CDATA[(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3" AND (not exists value "CurrentMajorVersionNumber" of it OR value "CurrentMajorVersionNumber" of it as integer < 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system]]></Relevance>
+		<Relevance><![CDATA[(exists file "intelpep.sys" whose (((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "6.3.9600.16474")))) of it) of (folder "drivers" of (system folder))]]></Relevance>
+		<Relevance>not pending restart "7ad8f6022c6b14212f2e6650c9fc8717ac8de032"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>244213</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2913236</SourceID>
+		<SourceReleaseDate>2013-11-26</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8.1 Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 17 Sep 2015 06:16:38 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB2913236-x86.msu sha1:7ad8f6022c6b14212f2e6650c9fc8717ac8de032 size:244213 http://download.microsoft.com/download/6/F/F/6FF0C28E-8757-42C9-91C2-BA7DDD05634A/Windows8.1-KB2913236-x86.msu sha256:3f5a786d0447b4936b08ff414b61fccb0cb3260c7350c717657d24b66735d1ac
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB2913236-x86.msu"}" /quiet /norestart
+
+action requires restart "7ad8f6022c6b14212f2e6650c9fc8717ac8de032"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2913236</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

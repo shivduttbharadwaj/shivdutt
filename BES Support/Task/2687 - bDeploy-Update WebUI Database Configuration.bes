@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Deploy/Update WebUI Database Configuration</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><br><TABLE><TBODY> <TR><TD> This fixlet will enable setting up an installed BigFix WebUI with the configuration needed to directly access the BigFix Database, or changing an existing configuration to repair the connection or change the credentials. <p>This Fixlet will:</p> <ul> <li>Send the database connection configuration to the WebUI server</li> <li>Encrypt the database credentials</li> <li>Store the configuration within the WebUI folder</li> </ul> <table><tbody>  <tr> <td><br/><b>Database configuration</b></td> </tr> <form> <tr id="dbAuthTypeRow1"> <td class="input_title">Specify Database Authentication Type:</td> <td><input type="radio" id="dbSQLAuthRadio" name="dbSQLOrWinAuth" value="SQLServer" onclick="toggleDbAuthType(this.value)" checked/> <label for="dbSQLAuthRadio">SQL Server Authentication</label></td> </tr> <tr id="dbAuthTypeRow2"> <td></td> <td><input type="radio" id="dbWinAuthRadio" name="dbSQLOrWinAuth" value="Windows" onclick="toggleDbAuthType(this.value)"/> <label for="dbWinAuthRadio">Windows Authentication</label></td> </tr> </form> <tr> <td class="input_title">Specify Database Username:</td> <td><input id="databaseUserName" style="width:100%" size="25"></td> </tr> <tr> <td class="input_title">Specify Database Password:</td> <td><input id="databasePassword" size="30" type="password"></td> </tr> <tr> <td class="input_title">Confirm Database Password:</td> <td><input id="databasePasswordConfirm" style="width:100%" type="password"></td> </tr> <tr> <td class="input_title">Specify IBM BigFix Server Database Host (see below): </td> <td><input id="databaseHostIP" style="width:100%"></td> </tr> <form> <tr id="dbInstanceRow"> <td class="input_title"><input type="radio" id="dbInstanceRadio" name="dbInstOrPort" value="instance" onclick="toggleDbInstancePort(this.value)"/> <label for="dbInstanceRadio">Specify SQL Server Named Instance:</label></td> <td><input style="width:100%" type="text" id="databaseInstance"/></td> </tr> <tr> <td class="input_title"><input type="radio" id="dbPortRadio" name="dbInstOrPort" value="port" onclick="toggleDbInstancePort(this.value)" checked/> <label for="dbPortRadio">Specify Database Port:</label></td> <td><input style="width:100%" type="text" id="databasePort" onblur="handleEmptyPort(this.id)"/></td> </tr> </form> </tbody></table> </TD></TR> <TR><TD><br/>  <p>Follow this knowledgecenter <a href="https://www.ibm.com/support/knowledgecenter/SSTK87_9.5.0/com.ibm.bigfix.webui.doc/WebUI/Admin_Guide/c_deployment_requirements.html">link</a> to view deployment requirements and detailed information on the inputs to this fixlet.</p> <p><b>Database configuration notes:</b></p> <p><b><FONT color="red">Database Host Note: </FONT></b>Specify the computer hosting the BFEnterprise database of the IBM BigFix Server. It should be a resolvable hostname (usually a FQDN) or an IP address.</p> <p id="sqlInstanceNote"><b>Note:</b> If using a SQL Server Named Instance, ensure the SQL Server Browser service is running on the computer hosting the database. Otherwise the WebUI will not be able to connect to the database.</p> <p><b>Note:</b> WebUI index creation can take more than 20 minutes for large deployments. The WebUI will not be usable before that operation is complete.</p> </TD></TR> </TBODY></TABLE> <script> var rootServerWindows = EvaluateRelevance('exists bes computer whose (root server flag of it = true AND operating system of it starts with "Win")'); var rootServerHost = EvaluateRelevance('substring before ":" of substring after "http://" of gather url of client license'); var defaultDatabasePort = (rootServerWindows === 'True') ? 1433 : 50000; var ACTION = "Action1"; function handleEmptyPort(id) { var inputEle = document.getElementById(id); if (trimSpaces(inputEle.value) === '') { if (id === 'databasePort') { inputEle.value = defaultDatabasePort; } } } function toggleDbInstancePort(value) { var databaseInstance = document.getElementById('databaseInstance'); var databasePort = document.getElementById('databasePort'); if (value === "instance") { databaseInstance.disabled = false; databaseInstance.value = 'INSTANCENAME'; databasePort.disabled = true; databasePort.value = ''; } else { databaseInstance.disabled = true; databaseInstance.value = ''; databasePort.disabled = false; databasePort.value = defaultDatabasePort; } } function isDomainSlashUser(fullUsername) { if (fullUsername === '') { return false; } var slashPos = fullUsername.indexOf("\\"); var atPos = fullUsername.indexOf("@"); if (slashPos === -1 || atPos !== -1) { return false; } var domain = fullUsername.substr(0, slashPos); var user = fullUsername.substr(slashPos + 1); if (user.length < 1 || domain.length < 1) { return false; } return true; } var dbAuthType = ''; function toggleDbAuthType(value) { dbAuthType = value; var dbUserEle = document.getElementById('databaseUserName'); if (value === "Windows") { dbUserEle.value = "DOMAIN\\username"; } else if (value === "SQLServer") { dbUserEle.value = "sa"; } else if (value === "DB2") { dbUserEle.value = "db2inst1"; } } function trimSpaces(strVal) { return strVal.replace(/^\s+|\s+$/g, ''); } function toggleOSFields(isWindows) { if (isWindows) { document.getElementById('dbInstanceRow').style.display = ''; document.getElementById('dbInstanceRadio').style.display = ''; document.getElementById('dbPortRadio').style.display = ''; document.getElementById('dbAuthTypeRow1').style.display = ''; document.getElementById('dbAuthTypeRow2').style.display = ''; document.getElementById('dbSQLAuthRadio').click(); document.getElementById('sqlInstanceNote').style.display = ''; } else { document.getElementById('dbInstanceRow').style.display = 'none'; document.getElementById('dbPortRadio').style.display = 'none'; document.getElementById('dbAuthTypeRow1').style.display = 'none'; document.getElementById('dbAuthTypeRow2').style.display = 'none'; toggleDbAuthType('DB2'); document.getElementById('sqlInstanceNote').style.display = 'none'; } document.getElementById('dbPortRadio').click(); } window.onload = function () { if (rootServerWindows === 'True') { toggleOSFields(true); } else { toggleOSFields(false); } }; document.getElementById('databasePort').value = defaultDatabasePort; function invalidPortNumber(port) { var numOnlyRegEx = /^[0-9]+$/; return (!numOnlyRegEx.test(port) || port < 1 || port > 65535); } document.body.ontakeaction = function (event) { if (event.contentID == 'Action1') { if (EvaluateRelevance('master flag of current console user') === "False") { alert('<?jxlat Only Master Operators can run this Fixlet.?>'); return false; } var problemList = []; var params = new Object(); var secureParams = new Object(); params['isRootWindows'] = rootServerWindows; params['rootServerHost'] = rootServerHost;  var dbFullUsername = trimSpaces(document.getElementById('databaseUserName').value); if (dbFullUsername === '') { problemList.push('<?jxlat "Database Username" field must not be empty.?>'); } var dbUserName = ''; var dbUserDomain = ''; if (rootServerWindows === 'True') { if (dbAuthType === 'Windows') { if (isDomainSlashUser(dbFullUsername) == true) { var slashPos = dbFullUsername.indexOf("\\"); dbUserDomain = dbFullUsername.substr(0, slashPos); dbUserName = dbFullUsername.substr(slashPos + 1); } else { problemList.push('<?jxlat "Database Username" field must be in this format DOMAIN\username.?>'); } } else if (dbAuthType === 'SQLServer') { var slashPos = dbFullUsername.indexOf("\\"); if (slashPos !== -1) { problemList.push('<?jxlat "Database Username" field cannot contain backslash characters (\).?>'); } else { dbUserName = dbFullUsername; } } } else { dbUserName = dbFullUsername; } secureParams['dbUserName'] = encodeURIComponent(dbUserName); params['dbUserDomain'] = encodeURIComponent(dbUserDomain.replace(/^\s+|\s+$|\\$/g, '').toUpperCase()); params['dbAuthType'] = encodeURIComponent(dbAuthType);  var dbPassword = document.getElementById('databasePassword').value; secureParams['dbPassword'] = encodeURIComponent(dbPassword); if (dbPassword === '') { problemList.push('<?jxlat "Database Password" field must not be empty.?>'); } var confirmPassword = document.getElementById('databasePasswordConfirm').value; if (dbPassword !== confirmPassword) { problemList.push('<?jxlat Database Password fields do not match.?>'); }  var dbHostname = trimSpaces(document.getElementById('databaseHostIP').value); params['dbHostname'] = encodeURIComponent(dbHostname); if (dbHostname === '') { problemList.push('<?jxlat "Database Host" field must not be empty.?>'); }  var dbInstance = ''; var dbInstanceRadioChecked = document.getElementById('dbInstanceRadio').checked; if (dbInstanceRadioChecked === true) { dbInstance = document.getElementById('databaseInstance').value; } params['dbInstance'] = encodeURIComponent(dbInstance);  var dbPort = ''; var dbPortRadioChecked = document.getElementById('dbPortRadio').checked; if (dbPortRadioChecked === true) { dbPort = document.getElementById('databasePort').value; if (dbPort === '') { problemList.push('<?jxlat "Database Port" field must not be empty.?>'); } else if (invalidPortNumber(dbPort)) { problemList.push('<?jxlat "Database Port" field contains an invalid port.?>'); } } params['dbPort'] = encodeURIComponent(dbPort);  if (problemList.length > 0) { var problemString = '<?jxlat The following problems were encountered:?>'; var i = 0; for (i = 0; i < problemList.length; ++i) { problemString += "\n" + problemList[i]; } alert(problemString); return false; }  var fixletID = parseInt(EvaluateRelevance('id of current fixlet')); var siteID = 0xffffffff & parseInt(EvaluateRelevance('id of current bes site')); TakeSecureFixletActionOnComputers(fixletID, siteID, ACTION, params, secureParams); return false; } }; </script><br></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+5.61 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[version of registration server >= "9.2.6"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[version of client >= "9.5.3.191"]]></Relevance>
+		<Relevance><![CDATA[version of registration server >= "9.5.5"]]></Relevance>
+		<Relevance><![CDATA[exists webui service whose(version of it >= "9.5.5")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[version of client >= "9.5.3.211"]]></Relevance>
+		<Relevance><![CDATA[version of registration server >= "9.5.5"]]></Relevance>
+		<Relevance><![CDATA[exists webui service whose(version of it >= "9.5.5")]]></Relevance>
+		<Relevance>exists setting "_WebUIAppEnv_WebUI_DIR" whose(exists folder(value of it))of client</Relevance>
+		<Relevance><![CDATA[(value of key "version" of json of file "package.json" of folders "datasync-app" of folders whose (name of it starts with "WebUI Data Sync") of folder (value of setting "_WebUIAppEnv_WORK_DIR" of client)) as string >= version "1.0"]]></Relevance>
+		<Category>Configuration</Category>
+		<DownloadSize>5879541</DownloadSize>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2016-12-12</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 29 Sep 2017 22:28:24 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component WUI</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 18 Dec 2018 16:03:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+//Failure here if unable to find the WebUI installation or data folders
+parameter "webuiInstallDir" = "{if (windows of operating system) then (folder(value of setting "_WebUIAppEnv_WebUI_DIR" of client)) else (folder "/opt/BESWebUI/bin")}"
+parameter "webuiDataDir" = "{folder "WebUI" of folder(value of setting "_WebUIAppEnv_WebUI_DIR" of client)}"
+
+//Delete old configuration utility, if present
+delete "{parameter "webuiInstallDir"}/WebUIConfig.exe"
+delete "{parameter "webuiInstallDir"}/WebUIConfig"
+delete __createfile
+
+//The WebUI Service can configure itself only since version 9.5.7
+if {version of webui service >= "9.5.7.56"}
+	if {windows of operating system}
+		wait "{pathname of file of webui service}" --configure --hostname="{parameter "dbHostname"}" --domain="{parameter "dbUserDomain"}" --user="{parameter "dbUserName"}" --password="{parameter "dbPassword"}" --instance="{parameter "dbInstance"}" --port={parameter "dbPort"} --directory="{parameter "webuiDataDir"}"
+	else
+		createfile until EOF
+#!/bin/bash
+LD_LIBRARY_PATH=/opt/BESWebUI/bin /opt/BESWebUI/bin/BESWebUI "$@"
+EOF
+		wait /bin/sh __createfile --configure --hostname="{parameter "dbHostname"}" --domain="{parameter "dbUserDomain"}" --user="{parameter "dbUserName"}" --password="{parameter "dbPassword"}" --instance="{parameter "dbInstance"}" --port={parameter "dbPort"} --directory="{parameter "webuiDataDir"}"
+		delete __createfile
+	endif
+else
+	//Download and extract pre-9.5.7 WebUI configuration utility
+	prefetch WebUIConfig.bfz sha1:93b74fda8c3697402d2d0d8101261e53cb3ad465 size:5867748 http://software.bigfix.com/download/webui/WebUIConfig-9.5.6.bfz sha256:a584c913f054fa65acf7af291bf0beb4bb9f412249ce1693d845664ac36e7045
+	extract WebUIConfig.bfz "{parameter "webuiInstallDir"}
+	if {windows of operating system}
+		wait "{parameter "webuiInstallDir"}\WebUIConfig.exe" --configure --hostname="{parameter "dbHostname"}" --domain="{parameter "dbUserDomain"}" --user="{parameter "dbUserName"}" --password="{parameter "dbPassword"}" --instance="{parameter "dbInstance"}" --port={parameter "dbPort"} --directory="{parameter "webuiDataDir"}"
+	else
+		wait chmod u+x "{parameter "webuiInstallDir"}/WebUIConfig"
+		createfile until EOF
+#!/bin/bash
+LD_LIBRARY_PATH=/opt/BESWebUI/bin /opt/BESWebUI/bin/WebUIConfig "$@"
+EOF
+		wait /bin/sh __createfile --configure --hostname="{parameter "dbHostname"}" --domain="{parameter "dbUserDomain"}" --user="{parameter "dbUserName"}" --password="{parameter "dbPassword"}" --instance="{parameter "dbInstance"}" --port={parameter "dbPort"} --directory="{parameter "webuiDataDir"}"
+		delete __createfile
+	endif
+	//Cleanup WebUI configuration utility
+	delete "{parameter "webuiInstallDir"}/WebUIConfig.exe"
+	delete "{parameter "webuiInstallDir"}/WebUIConfig"
+endif
+
+//Enable usage of Enterprise database
+setting "_WebUIAppEnv_USE_BFENT"="1" on "{parameter "action issue date" of action}" for client
+
+//Restart WebUI Service to load the new configuration
+if {windows of operating system}
+	wait net stop "BES WebUI"
+	wait net start "BES WebUI"
+else
+	wait service beswebui restart
+endif
+]]></ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</Action>
+	</Task>
+</BES>

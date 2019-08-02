@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3006137: Update changes the currency symbol of Lithuania from the Lithuanian litas (Lt) to the euro in Windows - Windows 8 Gold (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB3006137.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.43 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists key "Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_62d133044aa0dcd7" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17226") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Client-Features-Package-base~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-Server-Features-Package-base~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-g..lization-deployment_31bf3856ad364e35_none_ff13a821d8d257af" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17226") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-g..lization-deployment_31bf3856ad364e35_none_096852740d3319aa" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17226") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_62d133044aa0dcd7" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17226") of (default value of it as string as version)) of it) of it OR (exists key "amd64_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_62d133044aa0dcd7" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21343") of (default value of it as string as version)) of it) of it AND exists key "x86_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_06b2978092436ba1" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_06b2978092436ba1" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17226") of (default value of it as string as version)) of it) of it OR (exists key "x86_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_06b2978092436ba1" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21343") of (default value of it as string as version)) of it) of it AND exists key "amd64_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_62d133044aa0dcd7" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_62d133044aa0dcd7" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17226") of (default value of it as string as version)) of it) of it OR (exists key "amd64_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_62d133044aa0dcd7" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21343") of (default value of it as string as version)) of it) of it AND exists key "x86_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_06b2978092436ba1" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_06b2978092436ba1" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17226") of (default value of it as string as version)) of it) of it OR (exists key "x86_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_06b2978092436ba1" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.21343") of (default value of it as string as version)) of it) of it AND exists key "amd64_microsoft-windows-i..nal-core-locale-nls_31bf3856ad364e35_none_62d133044aa0dcd7" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-International-Client-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-g..lization-deployment_31bf3856ad364e35_none_ff13a821d8d257af" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17226") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-g..lization-deployment_31bf3856ad364e35_none_096852740d3319aa" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21343" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17226") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "e12798eade446f5532cb94b976708df5ee477f95"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>4641446</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3006137</SourceID>
+		<SourceReleaseDate>2015-02-23</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 30 Jun 2015 17:07:12 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 30 Jun 2015 17:07:12 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB3006137-x64.msu sha1:e12798eade446f5532cb94b976708df5ee477f95 size:4641446 http://download.microsoft.com/download/C/4/D/C4D4C635-6AA6-495B-AE6D-3683E28543EA/Windows8-RT-KB3006137-x64.msu sha256:7ee1482ec045b6001aed5c181238d509c5085850d08d3f3c7eadb9efa5d2d8de
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB3006137-x64.msu"}" /quiet /norestart
+
+action requires restart "e12798eade446f5532cb94b976708df5ee477f95"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3006137</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Acrobat 9.1 Available - Adobe Acrobat 9.0</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Adobe has released a new version of Adobe Acrobat. This update addresses a critical vulnerability that would cause the application to crash and could potentially allow an attacker to take control of the affected system. There are reports that this issue is being exploited. Use the action below to update Acrobat to the latest version (9.1).</P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+126 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2009-0658
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists regapp "acrobat.exe"</Relevance>
+		<Relevance>(exists key "HKLM\Software\Adobe\Adobe Acrobat\6.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\7.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\8.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\9.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\10.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\11.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\2015\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\DC\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\2017\" of it) of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2000" and service pack major version of it = 4) or (name of it = "WinXP" and ((it = 2 OR it = 3) of service pack major version of it)) or (name of it = "Win2003") or (name of it = "WinXP-2003") or (name of it = "WinVista" AND product type of it = nt workstation product type) or (name of it = "Win7")) of operating system</Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "6")]]></Relevance>
+		<Relevance>(exists key whose (value "DisplayName" of it as string contains "Adobe Acrobat" AND (value "DisplayName" of it as string does not contain "Security Update") AND value "DisplayVersion" of it as string as version = "9.0") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)</Relevance>
+		<Relevance><![CDATA[exists regapp "acrobat.exe" whose (version of it < "9.1.0.163")]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>132832256</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB09-03</SourceID>
+		<SourceReleaseDate>2009-03-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2009-0658</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 15 Apr 2011 03:07:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:acrobat:9.1:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Acrobat</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 13 Jul 2018 03:21:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if { (it as string contains "ENU" OR it as string contains "FRA" OR it as string contains "DEU" OR it as string contains "ITA" OR it as string contains "ESP" OR it as string contains "PTB" OR it as string contains "JPN" OR it as string contains "DAN" OR it as string contains "NLD" OR it as string contains "SUO" OR it as string contains "NOR" OR it as string contains "SVE") of value "UI" of key "HKLM\Software\Adobe\Adobe Acrobat\9.0\Language" of registry }
+prefetch AcroProStdUpd910_T1T2_incr.msp sha1:7945cb91d06ea03b339a61392007b6176454f798 size:108235264 http://ardownload.adobe.com/pub/adobe/acrobat/win/9.x/9.1/misc/AcroProStdUpd910_T1T2_incr.msp sha256:a509905590c59fe3440b3198f97b8387da47c3445285cc7e261c863f36f89094
+
+wait msiexec.exe /p "__Download\AcroProStdUpd910_T1T2_incr.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "7945cb91d06ea03b339a61392007b6176454f798"
+
+elseif{(it as string contains "BGR" OR it as string contains "CHS" OR it as string contains "CHT" OR it as string contains "KOR" OR it as string contains "CZE" OR it as string contains "POL" OR it as string contains "HUN" OR it as string contains "RUS" OR it as string contains "HRV" OR it as string contains "UKR" OR it as string contains "RUM" OR it as string contains "SKY" OR it as string contains "SLV" OR it as string contains "TUR" OR it as string contains "EUS" OR it as string contains "LTH" OR it as string contains "LVI") of value "UI" of key "HKLM\Software\Adobe\Adobe Acrobat\9.0\Language" of registry }
+prefetch AcroProStdUpd910_T3T4_incr.msp sha1:6fee39f8ecd0fc693a9a582a905365b4c6bfec36 size:132832256 http://ardownload.adobe.com/pub/adobe/acrobat/win/9.x/9.1/misc/AcroProStdUpd910_T3T4_incr.msp sha256:3d12633b1570aa1a0bfac8bf2ad7f38e41c5069919267d1a3110009bd41b7f98
+
+wait msiexec.exe /p "__Download\AcroProStdUpd910_T3T4_incr.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "6fee39f8ecd0fc693a9a582a905365b4c6bfec36"
+
+endif</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Acrobat.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=4087</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#acrobatwin</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in cross-platform applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#top20-cross-platform</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

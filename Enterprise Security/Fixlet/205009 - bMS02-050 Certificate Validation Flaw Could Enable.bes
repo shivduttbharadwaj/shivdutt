@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-050: Certificate Validation Flaw Could Enable Identity Spoofing in Windows 2000</Title>
+		<Description><![CDATA[
+Microsoft has released a security bulletin outlining a flaw in validation of digital certificates. This flaw would allow an attacker to create a phony certificate which would be accepted as valid. Microsoft recommends that all affected computers apply this patch.<BR><BR><b>Note</b>: Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note</b>: Client machines may briefly display progress windows during installation of this update.<BR><BR><b>Note:</b> This patch was re-released on November 20, 2002, to fix a number of issues. Microsoft recommends that all affected machines install the new version of the patch. Due to the manner in which the original patch was implemented, adding, removing or modifying hardware on your systems may have resulted in the display of warning messages stating hardware drivers have not passed Windows Logo testing even though in reality they actually may have. This new patch fixes that issue, and also fixes a newly discovered variant of the vulnerability. <BR><BR><b>File Size:</b> 7.23 MB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system is "Win2000"</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows 2000\SP4\Q329115" of registry</Relevance>
+		<Relevance>(csd version of operating system is "Service Pack 2") OR (csd version of operating system is "Service Pack 3")</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows 2000\SP4\Q327194" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>7590000</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB329115</SourceID>
+		<SourceReleaseDate>2002-09-04</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2002-0862; CVE-2002-1183</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q329115_W2K_SP4_X86_EN.exe sha1:a8bcadde9c7658819e208a9f169466a8b75f56fa size:7590000 http://download.microsoft.com/download/win2000platform/patch/q329115/nt5/en-us/Q329115_W2K_SP4_X86_EN.exe sha256:cc9e5c1ae0fa633fab04874fa1e15169d154a1d013c22b0efade090bb64c9aaa
+wait __download\Q329115_W2K_SP4_X86_EN.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-050.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-050.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

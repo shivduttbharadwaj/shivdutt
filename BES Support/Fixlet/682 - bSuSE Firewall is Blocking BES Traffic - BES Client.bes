@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>SuSE Firewall is Blocking BES Traffic - BES Client</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>The listed computers are using SuSEfirewall2 and are not configured to allow inbound UDP traffic on the port used by BES (BES uses port 52311 by default). </P> <P>The BES Server and BES Relays send UDP packets to the BES Clients to notify them that there is new information available such as new Fixlet messages, actions, and computer refreshes. BES Clients on relevant computers will not receive UDP notification packets and therefore will not see new actions or new Fixlet messages until they gather the new actionsite, which is by default, once a day. After configuring iptables to allow inbound UDP traffic on the BES Listen Port, BES Clients will resume normal communication with the BES Server and BES Relays.</P> <P><FONT size=2><STRONG>Note:</STRONG> </FONT>After this action is applied, affected BES Clients will not report until they have performed their standard once-per-day gather or until the BES Client is restarted. </P> <P><FONT size=2><STRONG>Note:</STRONG> Configuration changes made to SuSEfirewall2 will </FONT>include port 52311 to the <FONT size=2>FW_SERVICES_EXT_UDP zone.</P></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(if (version of client >= "8.0") then (unix of it) else ((it does not start with "Win" AND it does not start with "Mac OS X") of name of it)) of operating system]]></Relevance>
+		<Relevance><![CDATA[version of client >= "6"]]></Relevance>
+		<Relevance>name of operating system starts with "Linux SuSE"</Relevance>
+		<Relevance>exists file whose (name of it contains "SuSEfirewall2") of folders whose (name of it starts with "rc") of folder "/etc/init.d/"</Relevance>
+		<Relevance>exists file "/etc/sysconfig/SuSEfirewall2" whose (NOT exists lines whose (it starts with "FW_SERVICES_EXT_UDP=" AND it contains "52311" AND it does not contain "%2252311 %22") of it)</Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2009-07-23</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 22 Jul 2009 23:18:37 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 27 Jun 2013 00:23:15 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to leave SuSEfirewall2 enabled, but also allow incoming traffic on the port reserved for BES.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[//Modify the SuSEfirewall2 saved ruleset
+delete __appendfile
+appendfile #!/bin/bash
+if {exists file "/etc/sysconfig/SuSEfirewall2" whose (NOT exists lines whose (it starts with "FW_SERVICES_EXT_UDP=" AND it contains "%2252311 %22") of it)}
+	appendfile sed -i 's/^FW_SERVICES_EXT_UDP="/FW_SERVICES_EXT_UDP="52311 /' /etc/sysconfig/SuSEfirewall2
+endif
+appendfile sed -i 's/"52311 "/"52311"/' /etc/sysconfig/SuSEfirewall2
+appendfile /etc/init.d/SuSEfirewall2_setup restart
+
+wait chmod +x "{(client folder of current site as string) & "/__appendfile"}"
+wait "{(client folder of current site as string) & "/__appendfile"}"
+delete __appendfile]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to disable SuSEfirewall2 firewall.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete __appendfile
+appendfile #!/bin/bash
+appendfile chkconfig --level 2345 SuSEfirewall2_final off
+appendfile chkconfig --level 2345 SuSEfirewall2_setup off
+appendfile chkconfig --level 2345 SuSEfirewall2_init off
+appendfile /etc/init.d/SuSEfirewall2_setup stop
+
+wait chmod 555 "{(client folder of current site as string) & "/__appendfile"}"
+wait "{(client folder of current site as string) & "/__appendfile"}"
+delete delete __appendfile]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on how to make this action a "policy" action that will automatically open the BES port on any computer that has this Fixlet message relevant. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=113</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

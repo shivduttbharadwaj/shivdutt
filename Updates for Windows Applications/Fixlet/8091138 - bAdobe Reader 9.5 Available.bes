@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Reader 9.5 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Adobe has released a new version of Adobe Reader.&nbsp;Use the action below to update Adobe Reader to the latest version (9.5).</P> <P>This update&nbsp;disables Adobe Updater for all Adobe applications.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><SPAN id=fixletLinks><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT></SPAN> If Adobe Acrobat is installed,&nbsp;this update may modify existing .PDF file associations to point to Adobe Reader 9.5.</P><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade to Adobe Reader regardless of whether or not&nbsp;Adobe Reader is&nbsp;running action"&nbsp;will close any running instance of Adobe Reader on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable</SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetUpdatesForWindowsApplicationsFixletLinks; function SetUpdatesForWindowsApplicationsFixletLinks() { try {if (isEvansOrLater) { fixletLinks.innerHTML = Relevance('(format "<?rxlat <P><STRONG>Important Note: </STRONG>Manual installations of Adobe Reader 9 may automatically install <A href=%22http://www.adobe.com/products/air/%22>Adobe AIR</A> and <A href=%22http://www.adobe.com/acom/%22>Acrobat.com</A> as well. To remove Adobe AIR and Acrobat.com, please use the following Tasks:</P><ul><li>{0}</li><li>{1}</li></ul>?>" + (link of fixlet 8091003 of (bes site whose (name of it = "Updates for Windows Applications")) as string) + (link of fixlet 8091005 of (bes site whose (name of it = "Updates for Windows Applications")) as string) ) as string');} else { fixletLinks.innerHTML = EvaluateRelevance('"<P><STRONG>Important Note: </STRONG>Manual installations of Adobe Reader 9 may automatically install <A href=%22http://www.adobe.com/products/air/%22>Adobe AIR</A> and <A href=%22http://www.adobe.com/acom/%22>Acrobat.com</A> as well. To remove Adobe AIR and Acrobat.com, please use the following Tasks:</P><ul><li>" & (link of fixlet 8091003 of (bes site whose (name of it = "Updates for Windows Applications")) as string) & "</li><li>" & (link of fixlet 8091005 of (bes site whose (name of it = "Updates for Windows Applications")) as string) & "</li></ul>"');} } catch (e) {if (isEvansOrLater) { fixletLinks.innerHTML ='<?jxlat <P><STRONG>Important Note: </STRONG>Manual installations of Adobe Reader 9 may automatically install <A href="http://www.adobe.com/products/air/">Adobe AIR</A> and <A href="http://www.adobe.com/acom/">Acrobat.com</A> as well. To remove Adobe AIR and Acrobat.com, please use the following Tasks:</P><ul><li>Uninstall Adobe AIR (8091003)</li><li>Uninstall Acrobat.com (8091005)</li></ul>?>';} else { fixletLinks.innerHTML = '<P><STRONG>Important Note: </STRONG>Manual installations of Adobe Reader 9 may automatically install <A href="http://www.adobe.com/products/air/">Adobe AIR</A> and <A href="http://www.adobe.com/acom/">Acrobat.com</A> as well. To remove Adobe AIR and Acrobat.com, please use the following Tasks:</P><ul><li>Uninstall Adobe AIR (8091003)</li><li>Uninstall Acrobat.com (8091005)</li></ul>';} } } </SCRIPT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+41.5 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2011-2462, CVE-2011-4369, CVE-2011-4370, CVE-2011-4371, CVE-2011-4372, CVE-2011-4373
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists regapp "acrord32.exe"</Relevance>
+		<Relevance>(exists key "2017" of it OR exists key "DC" of it OR exists key "2015" of it OR exists key "11.0" of it OR exists key "10.0" of it OR exists key "9.0" of it OR exists key "8.0" of it OR exists key "7.0" of it OR exists key "6.0" of it OR exists key "5.0" of it) of key "HKLM\Software\Adobe\Acrobat Reader\" of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2000" and service pack major version of it = 4) or (name of it = "WinXP" and ((it = 2 OR it = 3) of service pack major version of it)) or (name of it = "WinXPe" and ((it = 2 OR it = 3) of service pack major version of it)) or (name of it = "Win2003") or (name of it = "WinXP-2003") or (name of it = "WinVista" AND product type of it = nt workstation product type) or (name of it = "Win7") or (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND (service pack major version of it = 1 OR service pack major version of it = 2)) or ((name of it = "Win2008R2") AND (service pack major version of it = 0 OR service pack major version of it = 1))) of operating system</Relevance>
+		<Relevance><![CDATA[exists regapp "acrord32.exe" whose (version of it < "9.5.0.270")]]></Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "6")]]></Relevance>
+		<Relevance>not (exists key whose (value whose (name of it contains "DisplayName") of it as string contains "Adobe Acrobat 5.0" AND exists value "UninstallString" of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry AND not exists regapp "acrobat.exe" whose (version of it = "5")) AND (not (exists key whose ((it as lowercase contains "adobe reader" and it as lowercase contains "mui") of (value "DisplayName" of it as string )) of it) of  key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>43544576</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB12-01</SourceID>
+		<SourceReleaseDate>2012-01-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2011-2462, CVE-2011-4369, CVE-2011-4370, CVE-2011-4371, CVE-2011-4372, CVE-2011-4373</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Jan 2012 15:43:00 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:reader:9.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Reader</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 04:40:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {exists key whose (value "UI" of it = "ENU") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_en_US.msi sha1:556e7b8b95486c2c54d7c41aea900707a2967f63 size:43544576 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/en_US/AdbeRdr950_en_US.msi sha256:9bfe8c7de38bb4e1b5328733908cb5f971de37884566d36078c0b7f5f3f34416
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_en_US.msi"
+
+elseif {exists key whose (value "UI" of it = "FRA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_fr_FR.msi sha1:f39c998f85bd683c4b175f4c9cb64d4a385569bb size:48378368 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/fr_FR/AdbeRdr950_fr_FR.msi sha256:8fdf4295e16270b105499cbe02a859a220efc5716795cc18bad5584b2813fa40
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_fr_FR.msi"
+
+elseif {exists key whose (value "UI" of it = "ITA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_it_IT.msi sha1:a246577f02587ef6addece15a3711298b81c784a size:47366656 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/it_IT/AdbeRdr950_it_IT.msi sha256:3037a26e48107b4c769898f34441fda61b56bb0ca0c94f5c3f8feee6ca303b15
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_it_IT.msi"
+
+
+elseif {exists key whose (value "UI" of it = "DEU") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_de_DE.msi sha1:8692a205c8f80f73a207ac365dfdf724bc48dfc4 size:49529344 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/de_DE/AdbeRdr950_de_DE.msi sha256:e34b5856e6fabd4a99eb4cfa756a42424a16eaa3078774743a3ac142c9665ced
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_de_DE.msi"
+
+elseif {exists key whose (value "UI" of it = "ESP") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_es_ES.msi sha1:144a833f43c76b20f07b33dc97d5ec2cd0b4f717 size:47924224 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/es_ES/AdbeRdr950_es_ES.msi sha256:c7030636edc01448a95d719a20b7598b446dbbde4ee49c848aef472b3a5fa47a
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_es_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "CHS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_zh_CN.msi sha1:33f6203e8fac83b090252343f224dc83573d350a size:68887040 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/zh_CN/AdbeRdr950_zh_CN.msi sha256:11dd56313e07f2326fdc41ef9e7d986e2c8d8d3f211077cbccb5923f649c4948
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_zh_CN.msi"
+
+elseif {exists key whose (value "UI" of it = "JPN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ja_JP.msi sha1:d34e2191fccca4c2fb8ea07615a6fe11af4a596a size:57870848 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ja_JP/AdbeRdr950_ja_JP.msi sha256:de883fa088d11056b341fedf8a3ae05e48a5f8b498cfb7969da902074ea06b52
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ja_JP.msi"
+
+elseif {exists key whose (value "UI" of it = "KOR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ko_KR.msi sha1:debc7d4521f53444426e2f09150fae32ce51c88d size:51882496 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ko_KR/AdbeRdr950_ko_KR.msi sha256:c8b9f9b5b196718d5c4b19b6dc4fd34a5848b4370bbb5872e77be43d7e2cd87a
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ko_KR.msi"
+
+elseif {exists key whose (value "UI" of it = "CHT") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_zh_TW.msi sha1:e6dc8b31623ea660229bcb0cd235de87dc3101f8 size:54321664 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/zh_TW/AdbeRdr950_zh_TW.msi sha256:0d775d3d1f7c670ce94c07e0a2269ec78fe19ecdfd2391b5acc2a1ef11c59b35
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_zh_TW.msi"
+
+elseif {exists key whose (value "UI" of it = "PTB") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_pt_BR.msi sha1:f24c7c6761800022b70c52ffbb3cab2869410244 size:45677056 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/pt_BR/AdbeRdr950_pt_BR.msi sha256:61419c157a8e5e7dc5bbdacc25c4e6540924076c6527e05525becaa3376b0a2a
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_pt_BR.msi"
+
+elseif {exists key whose (value "UI" of it = "CZE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_cs_CZ.msi sha1:6eff29874cb897c5d0e9fc00ada8835af2f13645 size:46826496 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/cs_CZ/AdbeRdr950_cs_CZ.msi sha256:e6a5c5902d3e36e4e5286166bf5d270f33640f7013ed6ea718c49e5ba2ebc813
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_cs_CZ.msi"
+
+elseif {exists key whose (value "UI" of it = "HUN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_hu_HU.msi sha1:1b2b72c71eb4870814b0346c60e3b61b5c86cea5 size:46355968 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/hu_HU/AdbeRdr950_hu_HU.msi sha256:cc929806f712f2278b61c53dd97e8127ace0fcc0a82be1114e47805592d9a897
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_hu_HU.msi"
+
+elseif {exists key whose (value "UI" of it = "POL") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_pl_PL.msi sha1:136e7b0ee556780b9d9d8f9c23fa71be471d4adc size:46412288 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/pl_PL/AdbeRdr950_pl_PL.msi sha256:82c1d5556f726d9b7dacb1c496a63a6aa89f8eb13f97f39e93639bc5046a438a
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_pl_PL.msi"
+
+elseif {exists key whose (value "UI" of it = "RUS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ru_RU.msi sha1:f612e5d70baa786bf8664efa1ed01120ec5781ff size:46259200 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ru_RU/AdbeRdr950_ru_RU.msi sha256:a8a6fc6dc29f93959de3dc07b01b8eb98c812a6fe45f4fbecbe4260be10fcf48
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ru_RU.msi"
+
+elseif {exists key whose (value "UI" of it = "BGR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_bg_BG.msi sha1:9d527fa25068370af30405279f5f47d95a0a31d2 size:46198784 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/bg_BG/AdbeRdr950_bg_BG.msi sha256:ef731f6003bd4878e8495861e60ead266d6fea51f172769f3d32338cb5f1b5d9
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_bg_BG.msi"
+
+elseif {exists key whose (value "UI" of it = "CAT") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ca_ES.msi sha1:e6ea2a637eb078f53c4998f84a75f6bb11669c9b size:46121984 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ca_ES/AdbeRdr950_ca_ES.msi sha256:fc988b4fd17a12862ac780b39d18e1ed2f8a945fb1603d2d29ac42671fd326b2
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ca_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "DAN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_da_DK.msi sha1:c15946e62e255dba372d80713afc54325dfb7aa2 size:46310400 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/da_DK/AdbeRdr950_da_DK.msi sha256:90e0bbee1574e6b65cf6fb1c0c415303a3fda35c916a590684f4b183c3c54c01
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_da_DK.msi"
+
+elseif {exists key whose (value "UI" of it = "ETI") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_et_EE.msi sha1:dac3dcc563b8450ff9fce6fdcf9b5ed9e34a8cc7 size:46083072 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/et_EE/AdbeRdr950_et_EE.msi sha256:efe98ce4d1e362fb8c6f6371706b4c1f44514b7c59a78e5192d3ab0338cc3368
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_et_EE.msi"
+
+elseif {exists key whose (value "UI" of it = "EUS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_eu_ES.msi sha1:8aa9a5d195d35727fe66bb793110a76db72736b2 size:45770752 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/eu_ES/AdbeRdr950_eu_ES.msi sha256:798aa171b96c48bfd00c7ba7e2243a3eead1f89676716c7659bc5593616db27a
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_eu_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "HRV") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_hr_HR.msi sha1:68e3bcafafeccdb9192541b5db797fe817f483df size:45977600 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/hr_HR/AdbeRdr950_hr_HR.msi sha256:f3846a375ff9680ca13a6989b81a3db87803773f4dc138726e10db21d1cd8188
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_hr_HR.msi"
+
+elseif {exists key whose (value "UI" of it = "LTH") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_lt_LT.msi sha1:86f8e663ad6dd45f5a491798b9ecf3204534ffac size:46032896 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/lt_LT/AdbeRdr950_lt_LT.msi sha256:f17bbcb8b6df93d2aa189018186bf99cd295f3f8d0020283bd9d668364a8d719
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_lt_LT.msi"
+
+elseif {exists key whose (value "UI" of it = "NLD") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_nl_NL.msi sha1:7cc82c70be4d5d63de0c43b161bd5abccb2f3b3c size:48128000 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/nl_NL/AdbeRdr950_nl_NL.msi sha256:49a0ada1fba69e9a1aa978eca37c16a47d40d47a16292ba62fa3706758f30ad2
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_nl_NL.msi"
+
+elseif {exists key whose (value "UI" of it = "NOR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_nb_NO.msi sha1:d56773b3b316900864623b7295a65112ccb3f05b size:46342144 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/nb_NO/AdbeRdr950_nb_NO.msi sha256:f2e98a3c6f9df434cecee58d5971d94264df27130cdb28824f9df9082f985a9e
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_nb_NO.msi"
+
+elseif {exists key whose (value "UI" of it = "LVI") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_lv_LV.msi sha1:0e0fbc46333465e13453f3b251f24e1879b6b3d5 size:45912576 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/lv_LV/AdbeRdr950_lv_LV.msi sha256:b80974a7e53050a7b6837361971470869ef023009a8d7ccf55a1f8404056dbfb
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_lv_LV.msi"
+
+elseif {exists key whose (value "UI" of it = "SUO") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_fi_FI.msi sha1:b794b44a799944fef6fa7f9aeee5320e7a84e038 size:45995520 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/fi_FI/AdbeRdr950_fi_FI.msi sha256:db163ae2f832b204fbe9d04362c968f127da78ba9dfa55dc9185e4bb7bf3eab4
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_fi_FI.msi"
+
+elseif {exists key whose (value "UI" of it = "SKY") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_sk_SK.msi sha1:d6e54ea7c632572a27062442774e3c93fd9f6dd4 size:45956096 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/sk_SK/AdbeRdr950_sk_SK.msi sha256:dff47062021e08db69c62ede0b37580dfe18c81bf9e1dd4e5d063f056c186812
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_sk_SK.msi"
+
+elseif {exists key whose (value "UI" of it = "RUM") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ro_RO.msi sha1:551dd8edab71d9252e8961d5c71b43db60d59b1f size:46004736 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ro_RO/AdbeRdr950_ro_RO.msi sha256:7f7b685590401cb63b84d91244471ae3ba348b56aaf9be2966c93c308f0eef7d
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ro_RO.msi"
+
+elseif {exists key whose (value "UI" of it = "SLV") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_sl_SI.msi sha1:fc2ed3a74b35e724010bf8c1141ffd0482f313c2 size:45935104 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/sl_SI/AdbeRdr950_sl_SI.msi sha256:99d01f0a620e9e9e82020afd9ef79f15d63a35277092414531805435fe68af45
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_sl_SI.msi"
+
+elseif {exists key whose (value "UI" of it = "TUR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_tr_TR.msi sha1:df02cd59922b1aea73e4b560998d44df0264f837 size:46567424 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/tr_TR/AdbeRdr950_tr_TR.msi sha256:cc20fe71a60b669c8c933b45b124eff7466de33fcf7481172c68416a84faef72
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_tr_TR.msi"
+
+elseif {exists key whose (value "UI" of it = "UKR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_uk_UA.msi sha1:74310506f64520783f4b840c75b43ac728251527 size:46024192 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/uk_UA/AdbeRdr950_uk_UA.msi sha256:5bfd8f6aaebe9ad72386e9a3c3cd9ae7f0b7ba1fb7947f6d67dc1a5fd268a94b
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_uk_UA.msi"
+
+elseif {exists key whose (value "UI" of it = "SVE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_sv_SE.msi sha1:14c9db21a1cee6d9d690e8a558f3d9a9c9368ccd size:48453120 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/sv_SE/AdbeRdr950_sv_SE.msi sha256:55d355fd54ad23eb7fec7263a7c5c7219be43d855fcc5b097fc6796b2fb5d3a7
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_sv_SE.msi"
+
+endif
+
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\9.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+delete temp.reg
+move __appendfile temp.reg
+wait regedit -s temp.reg
+action may require restart</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Adobe Reader regardless of whether Adobe Reader is running</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {exists key whose (value "UI" of it = "ENU") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_en_US.msi sha1:556e7b8b95486c2c54d7c41aea900707a2967f63 size:43544576 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/en_US/AdbeRdr950_en_US.msi sha256:9bfe8c7de38bb4e1b5328733908cb5f971de37884566d36078c0b7f5f3f34416
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_en_US.msi"
+
+elseif {exists key whose (value "UI" of it = "FRA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_fr_FR.msi sha1:f39c998f85bd683c4b175f4c9cb64d4a385569bb size:48378368 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/fr_FR/AdbeRdr950_fr_FR.msi sha256:8fdf4295e16270b105499cbe02a859a220efc5716795cc18bad5584b2813fa40
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_fr_FR.msi"
+
+elseif {exists key whose (value "UI" of it = "ITA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_it_IT.msi sha1:a246577f02587ef6addece15a3711298b81c784a size:47366656 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/it_IT/AdbeRdr950_it_IT.msi sha256:3037a26e48107b4c769898f34441fda61b56bb0ca0c94f5c3f8feee6ca303b15
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_it_IT.msi"
+
+
+elseif {exists key whose (value "UI" of it = "DEU") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_de_DE.msi sha1:8692a205c8f80f73a207ac365dfdf724bc48dfc4 size:49529344 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/de_DE/AdbeRdr950_de_DE.msi sha256:e34b5856e6fabd4a99eb4cfa756a42424a16eaa3078774743a3ac142c9665ced
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_de_DE.msi"
+
+elseif {exists key whose (value "UI" of it = "ESP") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_es_ES.msi sha1:144a833f43c76b20f07b33dc97d5ec2cd0b4f717 size:47924224 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/es_ES/AdbeRdr950_es_ES.msi sha256:c7030636edc01448a95d719a20b7598b446dbbde4ee49c848aef472b3a5fa47a
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_es_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "CHS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_zh_CN.msi sha1:33f6203e8fac83b090252343f224dc83573d350a size:68887040 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/zh_CN/AdbeRdr950_zh_CN.msi sha256:11dd56313e07f2326fdc41ef9e7d986e2c8d8d3f211077cbccb5923f649c4948
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_zh_CN.msi"
+
+elseif {exists key whose (value "UI" of it = "JPN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ja_JP.msi sha1:d34e2191fccca4c2fb8ea07615a6fe11af4a596a size:57870848 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ja_JP/AdbeRdr950_ja_JP.msi sha256:de883fa088d11056b341fedf8a3ae05e48a5f8b498cfb7969da902074ea06b52
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ja_JP.msi"
+
+elseif {exists key whose (value "UI" of it = "KOR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ko_KR.msi sha1:debc7d4521f53444426e2f09150fae32ce51c88d size:51882496 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ko_KR/AdbeRdr950_ko_KR.msi sha256:c8b9f9b5b196718d5c4b19b6dc4fd34a5848b4370bbb5872e77be43d7e2cd87a
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ko_KR.msi"
+
+elseif {exists key whose (value "UI" of it = "CHT") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_zh_TW.msi sha1:e6dc8b31623ea660229bcb0cd235de87dc3101f8 size:54321664 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/zh_TW/AdbeRdr950_zh_TW.msi sha256:0d775d3d1f7c670ce94c07e0a2269ec78fe19ecdfd2391b5acc2a1ef11c59b35
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_zh_TW.msi"
+
+elseif {exists key whose (value "UI" of it = "PTB") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_pt_BR.msi sha1:f24c7c6761800022b70c52ffbb3cab2869410244 size:45677056 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/pt_BR/AdbeRdr950_pt_BR.msi sha256:61419c157a8e5e7dc5bbdacc25c4e6540924076c6527e05525becaa3376b0a2a
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_pt_BR.msi"
+
+elseif {exists key whose (value "UI" of it = "CZE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_cs_CZ.msi sha1:6eff29874cb897c5d0e9fc00ada8835af2f13645 size:46826496 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/cs_CZ/AdbeRdr950_cs_CZ.msi sha256:e6a5c5902d3e36e4e5286166bf5d270f33640f7013ed6ea718c49e5ba2ebc813
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_cs_CZ.msi"
+
+elseif {exists key whose (value "UI" of it = "HUN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_hu_HU.msi sha1:1b2b72c71eb4870814b0346c60e3b61b5c86cea5 size:46355968 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/hu_HU/AdbeRdr950_hu_HU.msi sha256:cc929806f712f2278b61c53dd97e8127ace0fcc0a82be1114e47805592d9a897
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_hu_HU.msi"
+
+elseif {exists key whose (value "UI" of it = "POL") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_pl_PL.msi sha1:136e7b0ee556780b9d9d8f9c23fa71be471d4adc size:46412288 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/pl_PL/AdbeRdr950_pl_PL.msi sha256:82c1d5556f726d9b7dacb1c496a63a6aa89f8eb13f97f39e93639bc5046a438a
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_pl_PL.msi"
+
+elseif {exists key whose (value "UI" of it = "RUS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ru_RU.msi sha1:f612e5d70baa786bf8664efa1ed01120ec5781ff size:46259200 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ru_RU/AdbeRdr950_ru_RU.msi sha256:a8a6fc6dc29f93959de3dc07b01b8eb98c812a6fe45f4fbecbe4260be10fcf48
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ru_RU.msi"
+
+elseif {exists key whose (value "UI" of it = "BGR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_bg_BG.msi sha1:9d527fa25068370af30405279f5f47d95a0a31d2 size:46198784 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/bg_BG/AdbeRdr950_bg_BG.msi sha256:ef731f6003bd4878e8495861e60ead266d6fea51f172769f3d32338cb5f1b5d9
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_bg_BG.msi"
+
+elseif {exists key whose (value "UI" of it = "CAT") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ca_ES.msi sha1:e6ea2a637eb078f53c4998f84a75f6bb11669c9b size:46121984 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ca_ES/AdbeRdr950_ca_ES.msi sha256:fc988b4fd17a12862ac780b39d18e1ed2f8a945fb1603d2d29ac42671fd326b2
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ca_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "DAN") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_da_DK.msi sha1:c15946e62e255dba372d80713afc54325dfb7aa2 size:46310400 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/da_DK/AdbeRdr950_da_DK.msi sha256:90e0bbee1574e6b65cf6fb1c0c415303a3fda35c916a590684f4b183c3c54c01
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_da_DK.msi"
+
+elseif {exists key whose (value "UI" of it = "ETI") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_et_EE.msi sha1:dac3dcc563b8450ff9fce6fdcf9b5ed9e34a8cc7 size:46083072 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/et_EE/AdbeRdr950_et_EE.msi sha256:efe98ce4d1e362fb8c6f6371706b4c1f44514b7c59a78e5192d3ab0338cc3368
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_et_EE.msi"
+
+elseif {exists key whose (value "UI" of it = "EUS") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_eu_ES.msi sha1:8aa9a5d195d35727fe66bb793110a76db72736b2 size:45770752 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/eu_ES/AdbeRdr950_eu_ES.msi sha256:798aa171b96c48bfd00c7ba7e2243a3eead1f89676716c7659bc5593616db27a
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_eu_ES.msi"
+
+elseif {exists key whose (value "UI" of it = "HRV") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_hr_HR.msi sha1:68e3bcafafeccdb9192541b5db797fe817f483df size:45977600 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/hr_HR/AdbeRdr950_hr_HR.msi sha256:f3846a375ff9680ca13a6989b81a3db87803773f4dc138726e10db21d1cd8188
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_hr_HR.msi"
+
+elseif {exists key whose (value "UI" of it = "LTH") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_lt_LT.msi sha1:86f8e663ad6dd45f5a491798b9ecf3204534ffac size:46032896 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/lt_LT/AdbeRdr950_lt_LT.msi sha256:f17bbcb8b6df93d2aa189018186bf99cd295f3f8d0020283bd9d668364a8d719
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_lt_LT.msi"
+
+elseif {exists key whose (value "UI" of it = "NLD") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_nl_NL.msi sha1:7cc82c70be4d5d63de0c43b161bd5abccb2f3b3c size:48128000 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/nl_NL/AdbeRdr950_nl_NL.msi sha256:49a0ada1fba69e9a1aa978eca37c16a47d40d47a16292ba62fa3706758f30ad2
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_nl_NL.msi"
+
+elseif {exists key whose (value "UI" of it = "NOR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_nb_NO.msi sha1:d56773b3b316900864623b7295a65112ccb3f05b size:46342144 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/nb_NO/AdbeRdr950_nb_NO.msi sha256:f2e98a3c6f9df434cecee58d5971d94264df27130cdb28824f9df9082f985a9e
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_nb_NO.msi"
+
+elseif {exists key whose (value "UI" of it = "LVI") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_lv_LV.msi sha1:0e0fbc46333465e13453f3b251f24e1879b6b3d5 size:45912576 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/lv_LV/AdbeRdr950_lv_LV.msi sha256:b80974a7e53050a7b6837361971470869ef023009a8d7ccf55a1f8404056dbfb
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_lv_LV.msi"
+
+elseif {exists key whose (value "UI" of it = "SUO") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_fi_FI.msi sha1:b794b44a799944fef6fa7f9aeee5320e7a84e038 size:45995520 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/fi_FI/AdbeRdr950_fi_FI.msi sha256:db163ae2f832b204fbe9d04362c968f127da78ba9dfa55dc9185e4bb7bf3eab4
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_fi_FI.msi"
+
+elseif {exists key whose (value "UI" of it = "SKY") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_sk_SK.msi sha1:d6e54ea7c632572a27062442774e3c93fd9f6dd4 size:45956096 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/sk_SK/AdbeRdr950_sk_SK.msi sha256:dff47062021e08db69c62ede0b37580dfe18c81bf9e1dd4e5d063f056c186812
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_sk_SK.msi"
+
+elseif {exists key whose (value "UI" of it = "RUM") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_ro_RO.msi sha1:551dd8edab71d9252e8961d5c71b43db60d59b1f size:46004736 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/ro_RO/AdbeRdr950_ro_RO.msi sha256:7f7b685590401cb63b84d91244471ae3ba348b56aaf9be2966c93c308f0eef7d
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_ro_RO.msi"
+
+elseif {exists key whose (value "UI" of it = "SLV") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_sl_SI.msi sha1:fc2ed3a74b35e724010bf8c1141ffd0482f313c2 size:45935104 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/sl_SI/AdbeRdr950_sl_SI.msi sha256:99d01f0a620e9e9e82020afd9ef79f15d63a35277092414531805435fe68af45
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_sl_SI.msi"
+
+elseif {exists key whose (value "UI" of it = "TUR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_tr_TR.msi sha1:df02cd59922b1aea73e4b560998d44df0264f837 size:46567424 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/tr_TR/AdbeRdr950_tr_TR.msi sha256:cc20fe71a60b669c8c933b45b124eff7466de33fcf7481172c68416a84faef72
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_tr_TR.msi"
+
+elseif {exists key whose (value "UI" of it = "UKR") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_uk_UA.msi sha1:74310506f64520783f4b840c75b43ac728251527 size:46024192 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/uk_UA/AdbeRdr950_uk_UA.msi sha256:5bfd8f6aaebe9ad72386e9a3c3cd9ae7f0b7ba1fb7947f6d67dc1a5fd268a94b
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_uk_UA.msi"
+
+elseif {exists key whose (value "UI" of it = "SVE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr950_sv_SE.msi sha1:14c9db21a1cee6d9d690e8a558f3d9a9c9368ccd size:48453120 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.0/sv_SE/AdbeRdr950_sv_SE.msi sha256:55d355fd54ad23eb7fec7263a7c5c7219be43d855fcc5b097fc6796b2fb5d3a7
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr950_sv_SE.msi"
+
+endif
+
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\9.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+delete temp.reg
+move __appendfile temp.reg
+wait regedit -s temp.reg
+action may require restart</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Reader.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=5336</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#readerwin</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

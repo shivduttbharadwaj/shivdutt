@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-052: Vulnerabilities in .NET Framework and Silverlight Could Allow Remote Code Execution - .NET Framework 4.5 - Windows 8 Gold (KB2840632) (V2.0)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves five privately reported vulnerabilities and two publicly disclosed vulnerabilities in Microsoft .NET Framework and Microsoft Silverlight. The most severe of these vulnerabilities could allow remote code execution if a trusted application uses a particular pattern of code. An attacker who successfully exploited this vulnerability could gain the same user rights as the logged-on user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This security update is also referenced under KB2840632.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+9.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win8") AND service pack major version of it = 0) of operating system AND (value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2")</Relevance>
+		<Relevance>not pending restart "af403b9fba4d08b35b5bb5d877f73b63cb3027c9"</Relevance>
+		<Relevance><![CDATA[((exists file "presentationcore.resources.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19010"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "presentationframework.resources.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19010"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "presentationframework.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19112"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18058")))) of it) OR (exists file "system.componentmodel.composition.resources.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19010"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "system.componentmodel.composition.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19112"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18058")))) of it) OR (exists file "system.configuration.resources.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19010"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "system.configuration.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19112"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18058")))) of it) OR (exists file "system.data.linq.resources.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19010"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "system.data.linq.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.18058"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "system.data.sqlxml.resources.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19010"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "system.data.sqlxml.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19112"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18058")))) of it) OR (exists file "system.xml.resources.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19010"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "system.xml.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19112"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18058")))) of it) OR (exists file "windowsbase.resources.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19010"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "windowsbase.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19112"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18058")))) of it) OR (exists file "windowsformsintegration.resources.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.18010"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18010")))) of it) OR (exists file "system.data.linq.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19112"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18058")))) of it) OR (exists file "windowsformsintegration.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19112"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18058")))) of it) OR (exists file "presentationcore.dll" whose (((exists value "FileVersion" whose (it contains "qfe" OR it contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.19112"))) OR ((exists value "FileVersion" whose (not (it contains "qfe" OR it contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.18058")))) of it)) of (folder "MICROSOFT.NET\FRAMEWORK\V4.0.30319" of (windows folder))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>9833343</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2840632</SourceID>
+		<SourceReleaseDate>2013-08-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2013-3131; CVE-2013-3132; CVE-2013-3133; CVE-2013-3134</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB2840632-v2-x86.msu sha1:af403b9fba4d08b35b5bb5d877f73b63cb3027c9 size:9833343 http://download.microsoft.com/download/5/F/1/5F19210A-9F65-43DF-83F8-45D1B9A1356A/Windows8-RT-KB2840632-v2-x86.msu sha256:0b542259abd634af03b458a822593cae450ec9a1b97921b848edd861f3eebf53
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB2840632-v2-x86.msu"}" /quiet /norestart
+
+action requires restart "af403b9fba4d08b35b5bb5d877f73b63cb3027c9" ]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-052</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

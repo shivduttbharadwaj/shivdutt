@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4457133: KB4457133 (Preview of Monthly Rollup) - Windows 8.1 - KB4457133 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4462926.<br /><br />Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB4457133.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+202.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1")) of operating system</Relevance>
+		<Relevance>(name of it = "Win8.1" OR name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") of operating system</Relevance>
+		<Relevance>(exists keys ("Microsoft-Windows-Common-Foundation-Package~31bf3856ad364e35~x86~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Package_for_KB2919355~31bf3856ad364e35~x86~~6.3.1.14") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry</Relevance>
+		<Relevance><![CDATA[not exists keys (names of values whose ((it >= "9600.19137.1.7") of (following text of last "~" of name of it as version)) of keys "Package_for_RollupFix~31bf3856ad364e35~x86~~0.0.0.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackageIndex" of native registry) whose ((it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry]]></Relevance>
+		<Relevance>not pending restart "4486fe1b813ee5dbec5ca9cc76b15ed0724c048d"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>212620189</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4457133</SourceID>
+		<SourceReleaseDate>2018-09-19</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 05 Oct 2018 23:07:28 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4462926</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-10-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_8.1:-:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Oct 2018 04:11:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb4457133-x86_4486fe1b813ee5dbec5ca9cc76b15ed0724c048d.msu sha1:4486fe1b813ee5dbec5ca9cc76b15ed0724c048d size:212620189 http://download.windowsupdate.com/d/msdownload/update/software/updt/2018/09/windows8.1-kb4457133-x86_4486fe1b813ee5dbec5ca9cc76b15ed0724c048d.msu sha256:89427f627e6475d8e5692fb3b2baaf28a3c5b99f801d87f82e74ffed60126799
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows8.1-kb4457133-x86_4486fe1b813ee5dbec5ca9cc76b15ed0724c048d.msu"}" /quiet /norestart
+
+action requires restart "4486fe1b813ee5dbec5ca9cc76b15ed0724c048d"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4457133</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

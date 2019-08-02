@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>IBM BigFix Pre Upgrade Check (Version 9.5.13)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG><FONT size=2>IBM BigFix Pre Upgrade Check (Version 9.5.13)</FONT></STRONG></P><P><FONT size=2>This task performs a set of checks to verify if the IBM BigFix Server can be successfully upgraded to Version 9.5.13</FONT></P><P><FONT size=2>If you need specific credentials to access the database you can run the the Pre Upgrade Check for IBM BigFix 9.5.13 with specific DB credentials.</FONT></P><P><FONT size=2>A log file is created under the IBM BigFix Server path and contains details about the executed steps.</FONT></P><P><FONT size=2>If the task fails, the <B>preupgrade-9.5.13-&lt;datetime&gt;.err</B> log file is created in the IBM BigFix server directory.</FONT></P><P><FONT size=2>If the task is successful, the <B>preupgrade-9.5.13.out</B> log file is created in the IBM BigFix server directory.</FONT></P><P><FONT size=2>This task becomes not relevant only when all the checks are executed successfully.</FONT></P><BR><B>Optional Fields</B></TD></TR><TR><TD><LABEL for=secret>Specify Database Username:</LABEL></TD><TD> <INPUT id=secret type=password name=databaseUserName></TD></TR><TR><TD><LABEL for=secret>Specify Database Password:</LABEL></TD><TD> <INPUT id=secret type=password name=databasePassword><script> document.body.ontakeaction = function(event) { if(event.contentID=='Action1') { if (EvaluateRelevance('master flag of current console user') === "False") { alert('<?jxlat Only Master Operators can run this Fixlet.?>'); return false; } var dbUser = encodeURIComponent(document.getElementById('databaseUserName').value); var dbPassword = encodeURIComponent(document.getElementById('databasePassword').value); function testRequiredInput(value, alertMessage) { if (value === '') { alert(alertMessage); return false; } return true; }  TakeSecureFixletAction(Relevance('id of current fixlet'), Relevance('id of current bes site'), "Action1", {}, { secret1: dbUser, secret2: dbPassword } ); return false; } }</script></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+42.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(version of client >= "8.2") AND (version of registration server >= "8.2")]]></Relevance>
+		<Relevance><![CDATA[(if (windows of it) then ((major version of it > 6 OR (major version of it = 6 AND (minor version of it >= 1 OR service pack major version of it >= 2))) AND (platform id of it != 3) AND (architecture of it = "x86_64")) else (name of it starts with "Linux Red Hat Enterprise") AND ((major version of it > 6) OR (major version of it = 6 and minor version of it >= 3)) AND (architecture of it = "x86_64")) of operating system]]></Relevance>
+		<Relevance><![CDATA[(exists running service "BESRootServer" whose (version of it < "9.5.13.130" AND version of it >= "9.2.3") AND (if (windows of operating system) then (not exists running application "BESAdmin.exe") else (true)))]]></Relevance>
+		<Relevance><![CDATA[version of registration server <  "9.5.13.130"]]></Relevance>
+		<Relevance>if (windows of operating system) then not exists file "preupgrade-9.5.13.out" of parent folder of file of main gather service else  not exists file "/var/opt/BESServer/preupgrade-9.5.13.out"</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>44514562</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2019-05-15</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 16 May 2019 09:02:41 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain-attributes</Name>
+			<Value>BES Pre Upgrade Check</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 May 2019 09:02:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to run Pre Upgrade Check for IBM BigFix 9.5.13</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "currentDate" = "{((year of it as string & month of it as two digits & day_of_month of it as two digits) of date (local time zone) of it) of now as string}"
+parameter "currentTime" = "{concatenation "_" of (substrings separated by ":" of (preceding text of first " " of (time (local time zone)of now as string)))}"
+
+if {windows of operating system}
+	parameter "installDir" = "{parent folder of file of main gather service}"
+	folder delete "{(client folder of current site as string) & "\__Local\PreCheck"}"
+	folder create "{(client folder of current site as string) & "\__Local\PreCheck"}"
+
+	prefetch BESAdmin.exe sha1:5a9e05bba94a05dd51c5a56ee9109f15cfa0441c size:16233040 http://software.bigfix.com/download/bes/95/BigFix-BESAdmin-9.5.13.130.exe sha256:193f0f76217bda9672b47544acd8b57f0f0fbff0c003cef5893bf67c20255ae6
+	continue if {exists file "__Download\BESAdmin.exe"}
+	move __Download/BESAdmin.exe __Local\PreCheck\BESAdmin.exe
+
+	prefetch libBEScrypto64.dll sha1:f49c149723086aef88aa0c3ac54a11150e40e35f size:1997904 http://software.bigfix.com/download/bes/95/BigFix-libBEScrypto64-9.5.13.130.dll sha256:a469df4fd5778b30b043fd91615a3a2879617c27d7726a6d3aed7db598e3bc1c
+	continue if {exists file "__Download\libBEScrypto64.dll"}
+	move __Download\libBEScrypto64.dll __Local\PreCheck\libBEScrypto64.dll
+
+	prefetch libBEScrypto.dll sha1:bcef544b6365bb3c918ba3cb66bac09b25469cea size:1283152 http://software.bigfix.com/download/bes/95/BigFix-libBEScrypto-9.5.13.130.dll sha256:8e0b718a6f55a081863b33ce099c663f2c8302b68fef4059c755b494aa5f154a
+	continue if {exists file "__Download\libBEScrypto.dll"}
+	move __Download\libBEScrypto.dll __Local\PreCheck\libBEScrypto.dll
+
+	prefetch libBEScryptoFIPS64.dll sha1:448cca0f0f27e2bbf9487a89ceefc76a22064a0c size:2360400 http://software.bigfix.com/download/bes/95/BigFix-libBEScryptoFIPS64-9.5.13.130.dll sha256:6d0ad3ca0f5b046afacbc117afc3f6731afc0f118cc46d3eecc4c39d070267a8
+	continue if {exists file "__Download\libBEScryptoFIPS64.dll"}
+	move __Download\libBEScryptoFIPS64.dll __Local\PreCheck\libBEScryptoFIPS64.dll
+
+	prefetch libBEScryptoFIPS.dll sha1:7932b4dd74b68740d897dd28be1edd15483f9daf size:1510480 http://software.bigfix.com/download/bes/95/BigFix-libBEScryptoFIPS-9.5.13.130.dll sha256:8759b245ff3c8059b93fdb09aa4539c9ceee4f027c5f0410948d7a94a824e927
+	continue if {exists file "__Download\libBEScryptoFIPS.dll"}
+	move __Download\libBEScryptoFIPS.dll __Local\PreCheck\libBEScryptoFIPS.dll
+
+	if {(parameter "secret1" of action != "") and (parameter "secret2" of action != "")}
+		wait cmd.exe /C __Local\PreCheck\BESAdmin.exe /username={parameter "secret1" of action} /password={parameter "secret2" of action} /preupgrade /standalone /hideui
+	else
+		wait cmd.exe /C __Local\PreCheck\BESAdmin.exe /preupgrade /standalone /hideui
+	endif
+
+	// Check the registry to see if the BESAdmin command succeeded. Use plural statements to work around missing key or value errors.
+	if {exist values "Success" whose (it as string equals "1") of keys "HKEY_USERS\S-1-5-18\Software\BigFix\BFEAdmin\LastRunInfo" of registry}
+		//rename the preupgrade.out to preupgrade-9.5.13.out
+		move "{parameter "installDir" & "\preupgrade.out"}" "{parameter "installDir" & "\preupgrade-9.5.13.out"}"
+	else
+		//rename the preupgrade.out to preupgrade-9.5.13-datetime.err
+		move "{parameter "installDir" & "\preupgrade.out"}" "{parameter "installDir" & "\preupgrade-9.5.13-" & parameter "currentDate" & "-" & parameter "currentTime" & ".err"}"
+		continue if {false}
+	endif
+else
+	parameter "besServerPath" = "/opt/BESServer"
+	parameter "installDir" = "/var/opt/BESServer"
+
+	folder delete "{(client folder of current site as string) & "/__Local/PreCheck"}"
+	folder create "{(client folder of current site as string) & "/__Local/PreCheck"}"
+
+	prefetch BESAdmin sha1:2a2f24dbdd73205947fd76c031afb4e3aa23e42d size:15005104 http://software.bigfix.com/download/bes/95/BESAdmin-9.5.13.130 sha256:705aa7ff4fd7c0799bf2ea79999aba26e4ada1b063bdd6eed23db60514a6fbea
+	continue if {exists file "__Download/BESAdmin"}
+	move __Download/BESAdmin __Local/PreCheck/BESAdmin
+
+	prefetch libBEScrypto.so sha1:a233714c87b97c65a61e8bb218ccf2641e4c5b55 size:3062241 http://software.bigfix.com/download/bes/95/libBEScrypto-9.5.13.130.so sha256:bb9ec4c6e5d8cb4111fb7d84df1be5e5733644479350b81af03ba1aedeec48ff
+	continue if {exists file "__Download/libBEScrypto.so"}
+	move __Download/libBEScrypto.so __Local/PreCheck/libBEScrypto.so
+
+	prefetch libBEScryptoFIPS.so sha1:a233714c87b97c65a61e8bb218ccf2641e4c5b55 size:3062241 http://software.bigfix.com/download/bes/95/libBEScryptoFIPS-9.5.13.130.so sha256:bb9ec4c6e5d8cb4111fb7d84df1be5e5733644479350b81af03ba1aedeec48ff
+	continue if {exists file "__Download/libBEScryptoFIPS.so"}
+	move __Download/libBEScryptoFIPS.so __Local/PreCheck/libBEScryptoFIPS.so
+
+	//Create the new BESAdmin.sh
+	wait cp "{parameter "besServerPath" & "/bin/BESAdmin.sh"}" __Local/PreCheck/BESAdmin.sh
+	continue if {exists file "__Local/PreCheck/BESAdmin.sh"}
+
+	//Replace the path
+	parameter "oldPath" = "{parameter "besServerPath" & "/bin"}"
+	parameter "newPath" = "{(client folder of current site as string) & "/__Local/PreCheck"}"
+	parameter "filename" = "__Local/PreCheck/BESAdmin.sh"
+
+	// iterate through the file replacing lines as necessary
+	appendfile {concatenation "%0a" of ( if (it contains (parameter "oldPath") and it contains "BES_LIBPATH") then ((preceding text of first (parameter "oldPath") of it) & "%22" & (parameter "newPath") & "%22" & (following text of first (parameter "oldPath") of it) ) else ( if (it contains (parameter "oldPath")) then ((preceding text of first (parameter "oldPath") of it) & (parameter "newPath") & (following text of first (parameter "oldPath") of it) ) else (if (it contains "$BES_LIBPATH/BESAdmin") then ("%22" & "$BES_LIBPATH/BESAdmin" & "%22" & (following text of first "$BES_LIBPATH/BESAdmin" of it)) else it) )) of lines of file (parameter "filename")}
+
+	// backup the old file
+	move "{parameter "filename"}" "{parameter "filename"}.bak"
+
+	// replace with the new file
+	move __appendfile "{parameter "filename"}"
+
+	override wait
+		completion=job
+	wait chmod u=rwx __Local/PreCheck/BESAdmin.sh
+
+	override wait
+		completion=job
+	wait chmod u=rwx __Local/PreCheck/BESAdmin
+
+	if {(parameter "secret1" of action != "") and (parameter "secret2" of action != "")}
+		override wait
+		completion=job
+		wait __Local/PreCheck/BESAdmin.sh -preupgrade -standalone -dbUsername={parameter "secret1" of action} -dbPassword={parameter "secret2" of action}
+	else
+		override wait
+		completion=job
+		wait __Local/PreCheck/BESAdmin.sh -preupgrade -standalone
+	endif
+
+	if {exists true whose (if true then (exit code of action = 0) else false)}
+		//rename the preupgrade.out to preupgrade-9.5.13.out
+		move "{parameter "installDir" & "/preupgrade.out"}" "{parameter "installDir" & "/preupgrade-9.5.13.out"}"
+	else
+		//rename the preupgrade.out to preupgrade-9.5.13-datetime.err
+		move "{parameter "installDir" & "/preupgrade.out"}" "{parameter "installDir" & "/preupgrade-9.5.13-" & parameter "currentDate" & "-" & parameter "currentTime" & ".err"}"
+		continue if {false}
+	endif
+endif]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

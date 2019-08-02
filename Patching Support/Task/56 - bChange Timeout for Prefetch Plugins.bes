@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Change Timeout for Prefetch Plugins</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <TABLE id=__FixletHTMLField ?> <TBODY><BR> <TR> <TD><BR> <P>Deploy this Fixlet to an Endpoint to set the value of the '_BESClient_ActionManager_PrefetchPlugInTimeoutSeconds' client setting.</P>This configuration setting enables to customize the amount of time that the client waits, after executing a prefetch plug-in, for the plug-in to generate an answer.<BR> <P>The value of '_BESClient_ActionManager_PrefetchPlugInTimeoutSeconds' will be set to 30 minutes (1800 seconds).</P><BR></TD></TR></TBODY></TABLE><BR></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance><![CDATA[((value of setting "_BESClient_ActionManager_PrefetchPlugInTimeoutSeconds" of client as integer) < 1800) | True]]></Relevance>
+		<Category></Category>
+		<Source>BigFix</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2017-03-08</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 20 Mar 2017 09:02:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 04 May 2017 13:50:34 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// Prefetch plugin timeout
+setting "_BESClient_ActionManager_PrefetchPlugInTimeoutSeconds"="1800" on "{parameter "action issue date" of action}" for client
+</ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

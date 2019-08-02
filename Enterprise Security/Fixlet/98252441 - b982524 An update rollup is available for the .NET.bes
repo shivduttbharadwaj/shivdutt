@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>982524: An update rollup is available for the .NET Framework 3.5 SP1 and for the .NET Framework 2.0 SP2 in Windows XP and in Windows Server 2003 - Windows Server 2003 Gold / Windows XP Gold - KB982524</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update addresses a set of known issues of the Microsoft .NET Framework 3.5 Service Pack 1.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB982524.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+16.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win2003" AND service pack major version of it = 2) OR (name of it = "WinXP" AND ( service pack major version of it = 2 or service pack major version of it = 3))) of operating system</Relevance>
+		<Relevance><![CDATA[(((if (exists keys ((names of values of keys ("41E8829053EAFEA48BE8329D517B1FED") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "DC3BF90CC0D3D2F398A9A6D1762F70F3") AND exists key "InstallProperties" whose ((it = "2.2.30729" OR it = "2.3.30730") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "41A670B5874F6653EBA789C5C326F94A" of key "Patches" of it) of it) then (1) else (if (exists keys ("DC3BF90CC0D3D2F398A9A6D1762F70F3") of it) then (-2) else (0)))) + ((if (exists keys ((names of values of keys ("BFC15F7B279DEA041B674DCBE218A364") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "0DC1503A46F231838AD88BCDDC8E8F7C") AND exists key "InstallProperties" whose ((it = "3.2.30729" OR it = "3.2.30730") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "17BB7F68F8EF60333A529FE30E46718B" of key "Patches" of it) of it) then (1) else (if (exists keys ("0DC1503A46F231838AD88BCDDC8E8F7C") of it) then (-2) else (0))))) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry > 0]]></Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>16945512</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB982524</SourceID>
+		<SourceReleaseDate>2010-06-21</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 Gold |~| Windows XP Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP30SP2-KB982524-x86.exe sha1:83ad166138606d59c274cc3a495cacd7b4e3ce63 size:16945512 https://download.microsoft.com/download/4/2/6/426111FA-E964-44A1-B84E-90EAB1DE3EC8/NDP30SP2-KB982524-x86.exe sha256:bdb3464f7052233f05da317e513b2bd0b9969969bd1fdec4862c1d7fd200d24b
+
+waithidden __Download\NDP30SP2-KB982524-x86.exe /quiet /norestart
+
+action may require restart "83ad166138606d59c274cc3a495cacd7b4e3ce63"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/982524</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

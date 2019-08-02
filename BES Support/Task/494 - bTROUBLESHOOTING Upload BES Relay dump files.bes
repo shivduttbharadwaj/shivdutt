@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>TROUBLESHOOTING: Upload BES Relay dump files</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>In BES 7.0, first time failure data capture has been improved specifically for application exceptions by using dump files. A besrelay.dmp file will now&nbsp;be generated when an unexpected C++ exception is encountered by the BES Relay application. <P>This task detects computers that have a BES Relay dump file, and allows you to upload those files to the BES Server so it can be provided to BigFix Support.&nbsp;By default, the uploaded files will be placed in a subfolder under "%ProgramFiles%\BigFix Enterprise\BES Server\UploadManagerData\BufferDir\sha1" on the BES Server.&nbsp;The dump files are minidumps, so their size is typically less than 100kB.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.0"]]></Relevance>
+		<Relevance>name of operating system as lowercase contains "win"</Relevance>
+		<Relevance><![CDATA[(exists regapp "besrelay.exe") AND (version of regapp "besrelay.exe" >= "7.0")]]></Relevance>
+		<Relevance><![CDATA[(exists file "besrelay.dmp" of parent folder of regapp "besrelay.exe") OR (if login account of service "BESRelay" != "LocalSystem" then exists file ((((value "Local AppData" of it as string & "\BigFix\besrelay.dmp" ) of keys "Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of keys of key "HKU" of registry)) whose (it as string does not contain "\Default User\")) else false) ]]></Relevance>
+		<Category>Troubleshooting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2008-03-03</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 05 Oct 2004 00:05:45 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 04 Mar 2017 00:17:21 +0000</Value>
+		</MIMEField>
+		<Delay>PT15M</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upload BES Relay dump files to the BES Server and remove the dump files from the clients.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// create batch script to copy besrelay.dmp to c:\winnt\temp\bfdmp from relay install dir and Local AppData dir of logged in users, if they exist
+delete __appendfile 
+delete client.bat 
+appendfile @ECHO OFF 
+appendfile mkdir "{pathname of windows folder & "\temp\bfdmp"}" > NUL 2>NUL
+appendfile del "{pathname of windows folder & "\temp\bfdmp\*.dmp"}" > NUL 2>NUL
+
+appendfile move "{(pathname of parent folder of regapp "besrelay.exe") & "\besrelay.dmp"}" "{pathname of windows folder & "\temp\bfdmp\besrelay.dmp"}"
+
+appendfile {concatenation of ("move %22" & it & "%22 %22" & pathname of windows folder & "\temp\bfdmp\" & (preceding text of first "\" of following text of first "gs\" of it as string) & ".besrelay.dmp%22%0d%0a") of  (((value "Local AppData" of it as string & "\BigFix\besrelay.dmp") of keys "Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of keys of key "HKU" of registry) whose (it as string does not contain "\Default User\")) whose (exists file it)}
+
+move __appendfile client.bat 
+waithidden client.bat  
+
+// set max size to 10485760 to prevent too much data. If the zip file is to bigger than 10MBs the upload won't occur
+setting "_BESClient_ArchiveManager_MaxArchiveSize"="10485760" on "{parameter "action issue date" of action}" for client 
+setting "_BESClient_ArchiveManager_OperatingMode"="2" on "{parameter "action issue date" of action}" for client 
+// set the entire bfdmp dir to upload
+setting "_BESClient_ArchiveManager_FileSet-dmp"="{pathname of windows folder & "\temp\bfdmp\*.*"}" on "{parameter "action issue date" of action}" for client 
+
+// send results 
+archive now
+]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

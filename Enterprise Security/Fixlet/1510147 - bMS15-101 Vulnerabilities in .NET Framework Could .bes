@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-101: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege - Windows 7 SP1 / Windows Server 2008 SP2 / Windows Vista SP2 - .NET Framework 4.6 - KB3074233</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft .NET Framework. The most severe of the vulnerabilities could allow elevation of privilege if a user runs a specially crafted .NET application. However, in all cases, an attacker would have no way to force users to run the application; an attacker would have to convince users to do so.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB3074233.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.50 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2) OR ((name of it = "Win7") AND service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (exists key "Full" whose ((it = 393295 OR it = 393297) of value "Release" of it) of it) of native registry</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "32491BB19772E08389B7AC069CDBD724") AND exists key "InstallProperties" whose ((it = "4.6.00057") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "3948B1EA637C30538AA30CE3348BDE90" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "4755C4440EB6E323B9DD29F2C6C3A440") AND exists key "InstallProperties" whose ((it = "4.6.00081") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "3948B1EA637C30538AA30CE3348BDE90" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[exists (files ("ServiceModelEvents.dll"; "System.Core.dll"; "System.Data.dll"; "System.dll"; "System.Net.dll"; "System.Runtime.dll"; "System.Security.dll"; "System.ServiceProcess.dll"; "System.Web.dll"; "System.XML.dll"; "webengine.dll"; "webengine4.dll") of (folders ("Microsoft.NET\Framework\v4.0.30319";"Microsoft.NET\Framework64\v4.0.30319") of windows folder; system folder; system x64 folders)) whose (version of it < "4.6.1085.0")]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>1571616</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3074233</SourceID>
+		<SourceReleaseDate>2015-09-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-2504; CVE-2015-2526</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 09 Sep 2015 01:06:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.6:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 07 Apr 2017 12:27:46 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP46-KB3074233-x86.exe sha1:c349ea42707e0dc6a53314ed0a6d68d703a66602 size:1571616 http://download.microsoft.com/download/2/8/C/28C11F44-251A-43AC-9A25-DC80E6CAC137/NDP46-KB3074233-x86.exe sha256:a319945ca4a894493aa15c962eba3df892dc082a16b72bdeea75d97d6512b959
+
+waithidden __Download\NDP46-KB3074233-x86.exe /quiet /norestart
+
+action may require restart "c349ea42707e0dc6a53314ed0a6d68d703a66602"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-101</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

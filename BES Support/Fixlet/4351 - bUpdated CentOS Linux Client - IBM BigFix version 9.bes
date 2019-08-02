@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated CentOS Linux Client - IBM BigFix version 9.5.13 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.5.13 of IBM BigFix is now available for the CentOS Linux operating systems!<BR><BR></STRONG>The latest version of the IBM BigFix Client provides several enhancements and fixes. This Fixlet can upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to a 9.5 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM BigFix Server and Relays have been upgraded. It may take several hours for the Clients to notice that the Server and Relays are upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.<BR><BR><STRONG>Note: </STRONG>This client runs on supported CentOS Linux platforms on a 32-bit/64-bit x86 (versions 5, 6, 7).</FONT></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+85.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client < "9.5.13.130" and version of client >= "7.2"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.5"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "CentOS (5|6|7)") of name of operating system</Relevance>
+		<Relevance>((it = "x86_64") OR ((exists match (regex "^i[6-9]86$") of it) of it)) of architecture of operating system</Relevance>
+		<Relevance><![CDATA[if (version of client < "8.0") then true else ((not exists relay service) or (version of relay service >= "9.5.13"))]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>89440798</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2019-05-15</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 16 May 2019 09:02:41 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 May 2019 09:02:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Client 9.5.13 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {((exists match (regex "CentOS (6|7)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+	// CentOS Linux 6.x or 7.x 64 bit x86
+	prefetch BESClientUpgrade.rpm sha1:4ea6b14486cd3c8f8b04a33b95d6ded41848ec12 size:21659683 http://software.bigfix.com/download/bes/95/BESAgent-9.5.13.130-rhe6.x86_64.rpm sha256:527f51e7f06c1538cb81e975b82e84789cb172952a6a3086bd23bbc89e7e4045
+elseif {((exists match (regex "CentOS 5") of name of it) AND (architecture of it = "x86_64")) of operating system}
+	// CentOS Linux 5.x 64 bit x86
+	prefetch BESClientUpgrade.rpm sha1:e84e097683cc14b5ba0e878263406b1f27ea1a37 size:23440719 http://software.bigfix.com/download/bes/95/BESAgent-9.5.13.130-rhe5.x86_64.rpm sha256:4d90974a81bbed7a3b31fae873cb722a197cb15fb3f2857bd608e9b5b8867d2b
+elseif  {((exists match (regex "CentOS 6") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+	// CentOS Linux 6.x 32 bit x86 - i686 Minimum
+	prefetch BESClientUpgrade.rpm sha1:98cc3964c4606b59bbbf41f774d9a95052edd8fe size:21085989 http://software.bigfix.com/download/bes/95/BESAgent-9.5.13.130-rhe6.i686.rpm sha256:9b25f51fdef67ad61f547e8cab82ea881babff76a1f66d228a28ba2bf27dcc19
+elseif  {((exists match (regex "CentOS 5") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+	// CentOS Linux 5.x 32 bit x86 - i686 Minimum
+	prefetch BESClientUpgrade.rpm sha1:61b9dc76584ebed87d19c2a1aaebf94131dd7f69 size:23254407 http://software.bigfix.com/download/bes/95/BESAgent-9.5.13.130-rhe5.i686.rpm sha256:326508aef492476c4442ff362cec659238bf679bdec6d2015ca36b1e3bdd23ac
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESClientUpgrade.rpm"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {23440719 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESClientUpgrade.rpm __Local/Upgrade/BESClientUpgrade.rpm
+delete __appendfile
+appendfile #!/bin/sh
+if {exists file "/etc/init.d/besclient"}
+    appendfile /etc/init.d/besclient stop
+else
+    appendfile /etc/init.d/BESClient-{version of client as string} stop
+endif
+appendfile /bin/rpm -U __Local/Upgrade/BESClientUpgrade.rpm
+appendfile /etc/init.d/besclient start
+appendfile /bin/rm -f __Local/Upgrade/BESClientUpgrade.rpm
+move __appendfile __Local/Upgrade/besclientupgrade
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /bin/sh __Local/Upgrade/besclientupgrade]]></ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

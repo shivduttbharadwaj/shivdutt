@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Server/Console Components - Known Issues - IBM Endpoint Manager version 9.1.1088.0 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Version&nbsp;9.1.1088.0 of IBM Endpoint Manager is now available!</STRONG></P><P>The latest version of IBM Endpoint Manager provides several enhancements and fixes. Click the link below for more information on changes in IBM Endpoint Manager 9.1.</P><P>Internet Explorer must be a minimum of version 7.</P><P>Windows Installer 3.1 or greater must be installed to perform this upgrade. Use the action below to install Windows Installer 3.1 if it is a lower revision.</P><P>Once these prerequisites are met, you can use <?Relevance link of fixlet whose (name of it contains "IBM Endpoint Manager - Updated Platform Server Components version 9.1.1088.0") of site of current fixlet?> to upgrade IBM Endpoint Manager Servers and Consoles to version 9.1.1088.0.</P><P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.</P> <P>If you have any issues during the upgrade, you may want to review the manual upgrade instructions below to help resolve the issues.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.47 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance><![CDATA[((name of it starts with "Win") AND ((major version of it > 5) OR ((major version of it = 5) AND ((minor version of it = 1 AND service pack major version of it >= 3) OR (minor version of it = 2 AND service pack major version of it >= 2)))) AND (platform id of it != 3)) of operating system]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[((it < "9.1.1088.0" AND it >= "7.0.1") of version of main gather service) OR (exists regapp "BESConsole.exe" whose (version of it < "9.1.1088.0" AND version of it >= "6"))]]></Relevance>
+		<Relevance><![CDATA[not (exists file "msiexec.exe" whose (version of it >= "3.1") of system folder)]]></Relevance>
+		<Relevance><![CDATA[version of regapp "iexplore.exe" < "7"]]></Relevance>
+		<Relevance>if (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Brand" whose (exists value "value" of it) of registry) then (value "value" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Brand" of registry as string = "BigFix") else ("BigFix"="BigFix")</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>2585872</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2014-05-01</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 20 May 2014 21:52:24 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Server Console</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install Windows Installer 3.1 on relevant computers.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (2585872 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (2585872 < free space of drive of parent folder of client)}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+prefetch WindowsKBforServer.exe sha1:8318455b36ba0a748307459279d46f2f4cdb5a0e size:2585872 http://download.microsoft.com/download/1/4/7/147ded26-931c-4daf-9095-ec7baf996f46/WindowsInstaller-KB893803-v2-x86.exe sha2:69b61b2c00323cea3686315617d0f452e205dae10c47e02cbe1ea96fea38f582
+move __Download\WindowsKBforServer.exe __Local\Upgrade\WindowsKBforServer.exe
+wait __Local\Upgrade\WindowsKBforServer.exe /passive /quiet /norestart
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for manual upgrade instructions.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/bes/install/upgradebes.html</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the new features in IBM Endpoint Manager 9.1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/bes/changes/fullchangelist-91.txt</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view the Microsoft Windows Installer 3.1 information page.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?id=893803</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-052: Vulnerabilities in GDI+ Could Allow Remote Code Execution - Windows Server 2003 Gold(x64) (v2, re-released 3/10/2009)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS09-062. Whereas this Fixlet message previously applied to Windows&nbsp;Server 2003&nbsp;SP1/SP2 x64, it now only applies to&nbsp;Windows&nbsp;Server 2003&nbsp;SP1 x64.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> This patch was re-released on&nbsp;March 10, 2009 to address installation issues with the original patch. Customers who have successfully updated their systems do not need to reinstall this update.<BR><BR>Microsoft has released a security update that resolves several privately reported vulnerabilities in Microsoft Windows GDI+. These vulnerabilities could allow remote code execution if a user viewed a specially crafted image file using affected software or browsed a Web site that contains specially crafted content. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update&nbsp;will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB938464.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.18 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2003" AND (service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance><![CDATA[not exists file "gdiplus.dll" whose ((service pack major version of operating system = 2 AND version of it >= "5.2.3790.4278") OR (service pack major version of operating system = 1 AND version of it >= "5.2.3790.3126")) of folders of folder "WinSxS" of windows folder]]></Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB938464" of native registry AND not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB938464-v2" of native registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>4386696</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB954593</SourceID>
+		<SourceReleaseDate>2008-09-09</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2007-5348; CVE-2008-3012; CVE-2008-3013; CVE-2008-3014</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Graphics Device Interface</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 00:42:24 +0000</Value>
+		</MIMEField>
+		<Delay>P1D</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB938464-v2-x64-ENU.exe sha1:f0fe124566ab4d5e0674ea3fbf2dbd703dbee83d size:4386696 http://download.microsoft.com/download/9/4/9/949183C9-8D5B-491B-A178-C5C202400461/WindowsServer2003.WindowsXP-KB938464-v2-x64-ENU.exe sha256:8d84144585880981bdeb26d1b608ec001adba2521d95c13a3df3ccdbd295411a
+
+wait __Download\WindowsServer2003.WindowsXP-KB938464-v2-x64-ENU.exe /quiet /norestart
+
+action may require restart "f0fe124566ab4d5e0674ea3fbf2dbd703dbee83d"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-052.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-052.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

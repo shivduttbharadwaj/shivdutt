@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS16-108: Security Update for Microsoft Exchange Server - Exchange Server 2007 SP3 - KB3184711</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft Exchange Server. The most severe of the vulnerabilities could allow remote code execution in some Oracle Outside In libraries that are built into Exchange Server if an attacker sends an email with a specially crafted attachment to a vulnerable Exchange server.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB3184711.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+76.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("3FB0A67196A6BEE4596D6FF7E079150E") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "461C2B4266EDEF444B864AD6D9E5B613") AND exists key "InstallProperties" whose ((it = "8.3.83.6") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "9C3C9F6D0EC6645449BF65A7D6128864" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>79904768</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3184711</SourceID>
+		<SourceReleaseDate>2016-09-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2016-0138; CVE-2016-3575; CVE-2016-3581; CVE-2016-3582; CVE-2016-3583; CVE-2016-3595; CVE-2016-3594; CVE-2015-6014; CVE-2016-3593; CVE-2016-3592; CVE-2016-3596; CVE-2016-3591; CVE-2016-3574; CVE-2016-3576; CVE-2016-3577; CVE-2016-3578; CVE-2016-3579; CVE-2016-3580; CVE-2016-3590</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 14 Sep 2016 02:58:05 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:exchange_server:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Exchange2007-KB3184711-x86-EN.msp sha1:6288d162e71cac2d2a4a29c578de813e5926a186 size:79904768 https://download.microsoft.com/download/9/9/D/99D60701-62FE-4226-BA37-872F8095D1DF/Exchange2007-KB3184711-x86-EN.msp sha256:36128e190c543c6c1f651ff016e10646891be7a64354215b29da965a31d50676
+
+waithidden msiexec.exe /p __Download\Exchange2007-KB3184711-x86-EN.msp /quiet /norestart
+
+action may require restart "6288d162e71cac2d2a4a29c578de813e5926a186"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2016/MS16-108</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

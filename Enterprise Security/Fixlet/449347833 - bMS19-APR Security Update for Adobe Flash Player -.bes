@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-APR: Security Update for Adobe Flash Player - Windows Server 2012 R2 - Adobe Flash Player - KB4493478 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4497932.<br /><br /><div class="kb-summary-section section">This security update resolves vulnerabilities in Adobe Flash Player that is installed on any of the operating systems that are listed in the &quot;Applies to&quot; section.<br><p><br><br>To learn more about these vulnerabilities, see&nbsp;<a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/ADV190011" id="kb-link-2" managed-link="" target="_blank">ADV190011</a>.</p><br></div><br><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4493478.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+20.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win2012R2" OR (name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.3" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)) of operating system</Relevance>
+		<Relevance>(name of it = "Win2012R2" OR name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.3" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>(exists keys ("Microsoft-Windows-Common-Foundation-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry</Relevance>
+		<Relevance>if (exists key "ApplicabilityEvaluationCache\Package_for_KB4493478~31bf3856ad364e35~amd64~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4493478~31bf3856ad364e35~amd64~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Adobe-Flash-For-Windows-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND  (not exists key "amd64_adobe-flash-for-windows_31bf3856ad364e35_none_b4179b8118d18c9f" whose (exists value "7.3.9600.19327" of keys of it) of it OR not exists key "wow64_adobe-flash-for-windows_31bf3856ad364e35_none_be6c45d34d324e9a" whose (exists value "7.3.9600.19327" of keys of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)</Relevance>
+		<Relevance>not pending restart "af8494f5985065b3c9fa736d92f4418759ba8dcd"</Relevance>
+		<Relevance><![CDATA[not exists maxima whose(it > "7.3.9600.19327")  of (it as string as version) of values of keys of keys whose (name of it = "wow64_adobe-flash-for-windows_31bf3856ad364e35_none_be6c45d34d324e9a" or name of it = "amd64_adobe-flash-for-windows_31bf3856ad364e35_none_b4179b8118d18c9f" ) of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>21904755</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4493478</SourceID>
+		<SourceReleaseDate>2019-04-09</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2019-7096; CVE-2019-7108</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 Apr 2019 01:09:48 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4497932</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:adobe_flash_player:*:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>449793237</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-05-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2012R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Adobe Flash Player</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 May 2019 07:01:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb4493478-x64_af8494f5985065b3c9fa736d92f4418759ba8dcd.msu sha1:af8494f5985065b3c9fa736d92f4418759ba8dcd size:21904755 http://download.windowsupdate.com/d/msdownload/update/software/secu/2019/04/windows8.1-kb4493478-x64_af8494f5985065b3c9fa736d92f4418759ba8dcd.msu sha256:f7f485cebca52d8e2f96a1e5008849d4f9f118669daf38d451d95f535c85cb7d
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows8.1-kb4493478-x64_af8494f5985065b3c9fa736d92f4418759ba8dcd.msu"}" /quiet /norestart
+
+action requires restart "af8494f5985065b3c9fa736d92f4418759ba8dcd"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4493478</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

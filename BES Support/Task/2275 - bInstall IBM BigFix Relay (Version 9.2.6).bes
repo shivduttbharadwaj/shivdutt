@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install IBM BigFix Relay (Version 9.2.6)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><B>Installs the IBM BigFix Relay 9.2.6 on the selected Windows computers. <BR><BR></B></FONT><FONT size=2>For more information on IBM BigFix Relays, please visit the following support web pages:</P><UL> <LI><A href="http://support.bigfix.com/bes/misc/besrelays.html">IBM BigFix Relay FAQ</A> - Information on using IBM BigFix Relays to reduce bandwidth on slow WAN links, increase scalability, and increase performance. <LI><A href="http://support.bigfix.com/bes/misc/besrelayhealth.html">IBM BigFix Relay Health</A> - Information on best practices for setting up and maintaining IBM BigFix Relays.<P><STRONG>Note:</STRONG> This relay supports Windows versions XP (SP3 or later), XP-2003 (SP2 or later), 2003 (SP2 or later), Vista and above on a Pentium 4 or better.</P></FONT></LI></UL></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+8.05 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance>version of registration server = "9.2"</Relevance>
+		<Relevance>version of client = "9.2.6"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[((windows of it) AND ((major version of it > 5) OR ((major version of it = 5) AND ((minor version of it = 1 AND service pack major version of it >= 3) OR (minor version of it = 2 AND service pack major version of it >= 2)))) AND (platform id of it != 3) AND (embedded nt bit(suite mask of it) = false)) of operating system]]></Relevance>
+		<Relevance>not exists relay service</Relevance>
+		<Relevance>not exists main gather service</Relevance>
+		<Relevance><![CDATA[version of regapp "iexplore.exe" >= "5"]]></Relevance>
+		<Relevance>(x64 of it OR ia64 of it) of operating system OR (bit 26 of feature mask of main processor)</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>8436440</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2015-11-05</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 16 Nov 2015 18:07:45 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the IBM BigFix Relay 9.2.6 to the default location.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESRelay.exe sha1:3a72573672ba666735834feccb10ff24f012c3a0 size:8436440 http://software.bigfix.com/download/bes/92/BigFix-BES-Relay-9.2.6.94.exe sha256:f6a9484ea605645a56db99215cf026828901fe2dd07363782e9ad8429d764fb6
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (8436440 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (8436440 < free space of drive of parent folder of client)}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+move __Download\BESRelay.exe __Local\Upgrade\BESRelay.exe
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\windows\Installer]" "Logging"="voicewarmupx"
+wait __Local\Upgrade\BESRelay.exe /s /v"RESTARTBESCLIENT=0 REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+parameter "startTime" = "{apparent registration server time}"
+pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// Now force a relay selection to our newly installed relay
+relay select]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance">not((exists it AND running of it AND version of it = "9.2.6.94") of relay service)</SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to be prompted for a path where the IBM BigFix Relay 9.2.6 will be installed.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "Relay Install Location" with description "Please enter the path where you would like the IBM BigFix Relay installed:" with default value "C:\Program Files\BigFix Enterprise\BES Relay"
+prefetch BESRelay.exe sha1:3a72573672ba666735834feccb10ff24f012c3a0 size:8436440 http://software.bigfix.com/download/bes/92/BigFix-BES-Relay-9.2.6.94.exe sha256:f6a9484ea605645a56db99215cf026828901fe2dd07363782e9ad8429d764fb6
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+folder create "{parameter "Relay Install Location" of action}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (8436440 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (8436440 < free space of drive of folder(parameter "Relay Install Location" of action))}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+move __Download\BESRelay.exe __Local\Upgrade\BESRelay.exe
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\windows\Installer]" "Logging"="voicewarmupx"
+wait __Local\Upgrade\BESRelay.exe /s /v"INSTALLDIR=\"{parameter "Relay Install Location" of action}\" RESTARTBESCLIENT=0 REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn" 
+parameter "startTime" = "{apparent registration server time}"
+pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// Now force a relay selection to our newly installed relay
+relay select]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance">not((exists it AND running of it AND version of it = "9.2.6.94") of relay service)</SuccessCriteria>
+		</Action>
+		<Action ID="Action3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the IBM BigFix Relay 9.2.6 on the drive with the most free space.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESRelay.exe sha1:3a72573672ba666735834feccb10ff24f012c3a0 size:8436440 http://software.bigfix.com/download/bes/92/BigFix-BES-Relay-9.2.6.94.exe sha256:f6a9484ea605645a56db99215cf026828901fe2dd07363782e9ad8429d764fb6
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+parameter "Relay Install Location"="{name of drive whose (type of it = "DRIVE_FIXED" AND free space of it = maximum of (free spaces of drives whose (type of it = "DRIVE_FIXED")))}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (8436440 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (8436440 < free space of drive of folder(parameter "Relay Install Location"))}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+move __Download\BESRelay.exe __Local\Upgrade\BESRelay.exe
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\windows\Installer]" "Logging"="voicewarmupx"
+wait __Local\Upgrade\BESRelay.exe /s /v"INSTALLDIR=\"{parameter "Relay Install Location"}\Program Files\BigFix Enterprise\BES Relay\" RESTARTBESCLIENT=0 REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+parameter "startTime" = "{apparent registration server time}"
+pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// Now force a relay selection to our newly installed relay
+relay select]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance">not((exists it AND running of it AND version of it = "9.2.6.94") of relay service)</SuccessCriteria>
+		</Action>
+	</Task>
+</BES>

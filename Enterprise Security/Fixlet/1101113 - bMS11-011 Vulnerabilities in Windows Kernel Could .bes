@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-011: Vulnerabilities in Windows Kernel Could Allow Elevation of Privilege - Windows Server 2008 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS13-063. Whereas this Fixlet message previously applied to Windows Server 2008 Gold/SP2, it now only applies to Windows Server 2008 Gold.</P>Microsoft has released a security update that resolves one publicly disclosed vulnerability and one privately reported vulnerability in Microsoft Windows. The vulnerabilities could allow elevation of privilege if an attacker logged on locally and ran a specially crafted application. An attacker must have valid logon credentials and be able to log on locally to exploit these vulnerabilities. The vulnerabilities could not be exploited remotely or by anonymous users.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This security update is also referenced under KB2393802.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.39 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it =  "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND (service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "ntdll.dll" whose ((((exists value "FileVersion" whose (it contains "ldr") of version blocks of it)) AND (version of it >= "6.0.6001.22000") AND version of it < "6.0.6001.22777") OR (((exists value "FileVersion" whose (it contains "ldr") of version blocks of it)) AND (version of it >= "6.0.6002.22000") AND version of it < "6.0.6002.22505") OR (((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it)) AND (version of it >= "6.0.6001.18000") AND version of it < "6.0.6001.18538") OR (((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it)) AND (version of it >= "6.0.6002.18000") AND version of it < "6.0.6002.18327")) of it) OR (exists file "ntkrnlpa.exe" whose ((((exists value "FileVersion" whose (it contains "ldr") of version blocks of it)) AND (version of it >= "6.0.6001.22000") AND version of it < "6.0.6001.22777") OR (((exists value "FileVersion" whose (it contains "ldr") of version blocks of it)) AND (version of it >= "6.0.6002.22000") AND version of it < "6.0.6002.22505") OR (((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it)) AND (version of it >= "6.0.6001.18000") AND version of it < "6.0.6001.18538") OR (((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it)) AND (version of it >= "6.0.6002.18000") AND version of it < "6.0.6002.18327")) of it) OR (exists file "ntoskrnl.exe" whose ((((exists value "FileVersion" whose (it contains "ldr") of version blocks of it)) AND (version of it >= "6.0.6001.22000") AND version of it < "6.0.6001.22777") OR (((exists value "FileVersion" whose (it contains "ldr") of version blocks of it)) AND (version of it >= "6.0.6002.22000") AND version of it < "6.0.6002.22505") OR (((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it)) AND (version of it >= "6.0.6001.18000") AND version of it < "6.0.6001.18538") OR (((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it)) AND (version of it >= "6.0.6002.18000") AND version of it < "6.0.6002.18327")) of it)) of (system folder)]]></Relevance>
+		<Relevance>not pending restart "243c2cea38244f6269bb332cb8124409d3fcd1cb"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>3557167</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2393802</SourceID>
+		<SourceReleaseDate>2011-02-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2010-4398</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2008:-:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB2393802-x86.msu sha1:243c2cea38244f6269bb332cb8124409d3fcd1cb size:3557167 http://download.microsoft.com/download/A/9/F/A9F063AE-B072-45AE-B541-860428C4585F/Windows6.0-KB2393802-x86.msu sha256:316363ba3fc90d8f34abb63a17151bdf43e0b9712660a33e6cfdd0ac36cc151f
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB2393802-x86.msu"}" /quiet /norestart
+
+action requires restart "243c2cea38244f6269bb332cb8124409d3fcd1cb"  ]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-011.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS11-011.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

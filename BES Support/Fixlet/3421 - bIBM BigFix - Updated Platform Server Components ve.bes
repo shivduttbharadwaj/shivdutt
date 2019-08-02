@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>IBM BigFix - Updated Platform Server Components version 9.2.15 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Version&nbsp;9.2.15 of IBM BigFix is now available!</STRONG></P><P>System Requirements for IBM BigFix components (Server, Web Reports, Console): Windows 2008/Vista SP2 64-bit or better, RedHat Enterprise Linux 6 64-bit or better</P><SPAN id=relTag2Script6></SPAN><script>try{document.getElementById("relTag2Script6").innerHTML=EvaluateRelevance('(if (((applicable computer count of (fixlet of it)whose(name of it contains "BES Console no longer supported on your Operating System")) != 0) OR ((applicable computer count of (fixlet of it)whose(name of it contains "BES Web Reports no longer supported on your Operating System")) != 0) OR ((applicable computer count of (fixlet of it)whose(name of it contains "BES Server no longer supported on your Operating System")) != 0)OR ((applicable computer count of (fixlet of it) whose(name of it contains "Updated Windows Server/Console Components - Manual Upgrade Required - IBM BigFix version 9.2.15") != 0) OR ((applicable computer count of (fixlet of it)whose(name of it contains "Updated Windows Server/Console Components - Known Issues - IBM BigFix version 9.2.15")) != 0) OR ((applicable computer count of (fixlet of it)whose(name of it contains "Updated Red Hat Enterprise Linux Server - Manual Upgrade Required - IBM BigFix version 9.2.15")) != 0))) then ("<P><B><?rxlat Before upgrading any IBM BigFix Server or Console, please ensure that there are no computers reporting relevant for the following fixlets: ?><BR>" & ((if (applicable computer count of it != 0) then ((format " <?rxlat {0} ?><BR>" + (link of it as string))as string) else "")of(fixlet of it)whose(name of it contains "BES Console no longer supported on your Operating System")) & ((if (applicable computer count of it != 0) then ((format " <?rxlat {0} ?><BR>" + (link of it as string))as string) else "")of(fixlet of it)whose(name of it contains "BES Web Reports no longer supported on your Operating System")) & ((if (applicable computer count of it != 0) then ((format " <?rxlat {0} ?><BR>" + (link of it as string))as string) else "")of(fixlet of it)whose(name of it contains "BES Server no longer supported on your Operating System")) & ((if (applicable computer count of it != 0) then ((format " <?rxlat {0} ?><BR>" + (link of it as string))as string) else "")of(fixlet of it)whose(name of it contains "Updated Windows Server/Console Components - Manual Upgrade Required - IBM BigFix version 9.2.15") & ((if (applicable computer count of it != 0) then ((format " <?rxlat {0} ?><BR>" + (link of it as string))as string) else "")of(fixlet of it)whose(name of it contains "Updated Windows Server/Console Components - Known Issues - IBM BigFix version 9.2.15")) & ((if (applicable computer count of it != 0) then ((format " <?rxlat {0} ?><BR>" + (link of it as string))as string) else "")of(fixlet of it)whose(name of it contains "Updated Red Hat Enterprise Linux Server - Manual Upgrade Required - IBM BigFix version 9.2.15")) & "</B><?rxlat Otherwise, these computers will not be able to communicate with upgraded IBM BigFix components.?></P>"))else(""))of bes site whose (name of it = "BES Support")');}catch(e){}</script><P>IBM BigFix&nbsp;9.2 contains a number of powerful new features and performance optimizations. This Fixlet message will upgrade all IBM BigFix Server Components on all targeted computers (including IBM BigFix Consoles). Click the link below for more information on changes in IBM BigFix 9.2.</P><P><B>Please take a few moments to read through all of the upgrade material available before attempting the upgrade. Depending on the details of your deployment, the full upgrade process can take a while and IBM BigFix will not be usable during the upgrade process.</B><BR><BR>Please use the following upgrade path to upgrade to IBM BigFix 9.2 (upgrading in a different order may lead to problems): </P><OL><LI><STRONG>IBM BigFix Server components:</STRONG> Upgrade <SPAN style="COLOR: red; FONT-WEIGHT: bold">all IBM BigFix Server components at the same time (including Consoles)</SPAN> with this Fixlet message (if they are upgraded separately, you will not be able to connect with the IBM BigFix Console). <SPAN style="COLOR: red; FONT-WEIGHT: bold">Clients will notice that the IBM BigFix Server is updated and will begin to report any other upgrade Fixlets relevant (the clients by default check once per six hours for the version of the server on registration).</SPAN><LI><STRONG>IBM BigFix Relays:</STRONG> Upgrade all the relays using another Fixlet message that will become relevant for all old relays. <STRONG>Please upgrade the relays before the IBM BigFix Clients.</STRONG> <LI><STRONG>IBM BigFix Clients:</STRONG> It is recommended that you target the Client upgrade Fixlet message at "All Computers" instead of "Specific Computers" to make sure to upgrade all Clients who have not yet reported. </LI></OL><P>If you have any issues during the upgrade, you may want to review the manual upgrade link below to help resolve the issues.</P><P><STRONG><SPAN style="COLOR: red">Important Note:</SPAN></STRONG> It is recommended that you run this upgrade targeted <SPAN style="COLOR: red; FONT-WEIGHT: bold">to ALL COMPUTERS </SPAN> to allow the server to upgrade and then consoles to upgrade. <SPAN style="FONT-WEIGHT: bold">Consoles that are not targeted at the same time as the server will be unable to communicate with the upgraded server.</SPAN> </P><P><STRONG><SPAN style="COLOR: red">Important Note:</SPAN></STRONG> This fixlet will only upgrade Windows 2008/Vista SP2 64-bit or better and RedHat Enterprise Linux 6 64-bit or better. These are the only officially supported platforms and later releases will only be able to run on these platforms. </P><P><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT> If the IBM BigFix Console is open while the installer is running, the upgrade process will attempt to shut down the running IBM BigFix Console. Please deploy this action at a time when this service interruption is acceptable.</P><P><STRONG><SPAN style="COLOR: red">Important Note:</SPAN></STRONG> After upgrade, you are required to run the IBM BigFix Administration tool on the server to complete the setup of the Server. For the Linux platform, please include the "-syncmastheadandlicense" flag when running the tool. Please allocate enough time to complete this action after upgrading via a fixlet. IBM BigFix Consoles may not function until this process is completed and as it requires authentication it cannot be completed by this fixlet. In a DSA environment, the Administration tool must be run on each replica server after it is run on the main server.</P><SPAN id=TrendCPMWarning></SPAN><script>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; try{if (isEvansOrLater) {document.getElementById("TrendCPMWarning").innerHTML=Relevance('if (exists bes site whose (name of it = "Trend Core Protection Module")) then (("<?rxlat <P>Note: When upgrading the IBM BigFix Server to 9.2, the Trend Core Protection Module Server Component must also be upgraded. Please see Knowledge Base article <a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=1685">1685</a> for more information.?>") as string) else ("")');} else {document.getElementById("TrendCPMWarning").innerHTML=EvaluateRelevance('if (exists bes site whose (name of it = "Trend Core Protection Module")) then (("<P><B>Note:</B> When upgrading the IBM BigFix Server to 9.2, the Trend Core Protection Module Server Component must also be upgraded. Please see Knowledge Base article <a href=\'http://support.bigfix.com/cgi-bin/kbdirect.pl?id=1685\'>1685</a> for more information.") as string) else ("")');} }catch(e){}</script></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+890 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(version of client >= "8.2") AND (version of registration server >= "8.2")]]></Relevance>
+		<Relevance><![CDATA[(if (windows of it) then ((major version of it > 6 OR (major version of it = 6 AND (minor version of it >= 1 OR service pack major version of it >= 2))) AND (platform id of it != 3) AND (architecture of it = "x86_64")) else (exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (6|7)") of name of it) AND (architecture of it = "x86_64")) of operating system]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[(exists running service "BESRootServer" whose (version of it < "9.2.15.15" AND version of it >= "9.1") AND (if (windows of operating system) then (not exists running application "BESAdmin.exe") else (true))) OR (((if (windows of operating system) then (exists regapp "BESConsole.exe" whose (version of it < "9.2.15.15" AND version of it >= "9.1")) else false) OR (exists running service "BESWebReportsServer" whose (version of it < "9.2.15.15" AND version of it >= "9.1"))) AND (version of registration server = "9.2.15.15"))]]></Relevance>
+		<Relevance>not exists service "BESRootServer" OR (if (windows of operating system) then (exists key "HKLM\System\CurrentControlSet\Services\BESRootServer" whose (value "ObjectName" of it = "LocalSystem") of registry) else (true))</Relevance>
+		<Relevance>not exists service "FillDB" OR (if (windows of operating system) then (exists key "HKLM\System\CurrentControlSet\Services\FillDB" whose (value "ObjectName" of it = "LocalSystem") of registry) else (true))</Relevance>
+		<Relevance>not exists service "GatherDB" OR (if (windows of operating system) then (exists key "HKLM\System\CurrentControlSet\Services\GatherDB" whose (value "ObjectName" of it = "LocalSystem") of registry) else (true))</Relevance>
+		<Relevance>not exists service "BESWebReportsServer" OR (if (windows of operating system) then (exists key "HKLM\System\CurrentControlSet\Services\BESWebReportsServer" whose (value "ObjectName" of it = "LocalSystem") of registry) else (true))</Relevance>
+		<Relevance><![CDATA[if (windows of operating system and exists main gather service) then (exists versions whose (it >= "2007.100.1600.22") of files (first matches (case insensitive regex "[^%22]*sqlservr.exe") of image paths whose (it as string contains "sqlservr.exe") of running services whose (service name of it contains "MSSQL" AND image path of it as string contains "sqlservr.exe")) OR exists value "UseRemoteDB" whose (it as string = "1") of key "HKLM\Software\BigFix\Enterprise Server" of registry) else true]]></Relevance>
+		<Relevance><![CDATA[if (windows of operating system) then (version of regapp "iexplore.exe" >= "7" AND exists file "msiexec.exe" whose (version of it >= "3.1") of system folder) else (true)]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Relevance><![CDATA[if ((windows of operating system) AND (exists service "TEMA")) then (NOT (exists true whose (if true then (set of ((if (exists main gather service OR exists relay service) then (if (exists setting "_BESRelay_HTTPServer_PortNumber" whose (exist value of it) of client) then value of setting "_BESRelay_HTTPServer_PortNumber" of client else "52311") else ("0")); (if (exists main gather service) then (if (exists setting "_BESDataServer_HTTPServer_PortNumber" whose (exist value of it) of client) then value of setting "_BESDataServer_HTTPServer_PortNumber" of client else "52313") else ("0")); (if (exists main gather service) then (if (exists setting "_GatherService_HTTPServer_PortNumber" whose (exist value of it) of client) then value of setting "_GatherService_HTTPServer_PortNumber" of client else "52310") else ("0"));(if (exists service "WebReports") then (if (exists setting "_WebReports_HTTPServer_PortNumber" whose (exist value of it) of client) then value of setting "_WebReports_HTTPServer_PortNumber" of client else "80") else ("0"))) contains (node value of child node of xpaths "Configure/Call/Arg/New/Set" of xml document of file (Following text of first "%22" of Preceding text of first "bin" of (value "ImagePath" of key "HKLM\SYSTEM\CurrentControlSet\services\TEMA" of registry as string) & "config\jetty.xml"))) else false))) else (true)]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>933931312</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2018-09-27</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 03 Oct 2018 14:26:07 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Server Console Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 03 Oct 2018 14:26:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade all IBM BigFix Server, Console, and Installation Components installed on the target computers.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {windows of operating system}
+	folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+	// Update the IBM BigFix Server if it is installed
+	if {exists regapp "BESConsole.exe"}
+		prefetch BESConsoleUpgrade.exe sha1:ff33ac624369c4b08e1b8d092bcdff8dd4b5108f size:42436960 http://software.bigfix.com/download/bes/92/BigFix-BES-Console-9.2.15.15.exe sha256:06ce24169aa8e8a3f642380f7f3af53789b991a12e77244f177f7f2dc3774805
+	endif
+	// If the next line fails, there is not enough free space to complete this action
+	continue if {(if (exists variable "temp" of it) then (292373448 < free space of drive of folder(value of variable "temp" of it)) else true) of environment}
+	folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+	if {(exists running service "BESRootServer" whose (version of it < "9.2.15.15" AND version of it >= "9.1")) and not((exists key "HKLM\Software\BigFix\Enterprise Server" whose (exists value "UseRemoteDB" whose (it as string = "1") of it)of registry) and (exists value "Trusted_Connection" whose (it as string = "Yes") of key ("HKLM\Software\ODBC\ODBC.INI\" & (if (exists key "HKLM\Software\BigFix\Enterprise Server\Database" whose (exists value "DSN" of it) of it) then (value "DSN" of key "HKLM\Software\BigFix\Enterprise Server\Database" of it as string) else "bes_bfenterprise"))of registry))}
+		// If the next line fails, there is not enough free space to complete this action
+		continue if {292373448 < free space of drive of parent folder of file of service "BESRootServer"}
+		prefetch BESServerUpgrade.exe sha1:a060d5f983a474cfa08b7e4d5dc21c3b3d55cd00 size:198302528 http://software.bigfix.com/download/bes/92/BigFix-BES-Server-9.2.15.15.exe sha256:4e49553f3ee5de4b14379e591bab4acfe84632b6783956c6bfcac892906d02f1
+		move __Download\BESServerUpgrade.exe __Local\Upgrade\BESServerUpgrade.exe
+		parameter "RunningWR"="{exists running service "BESWebReportsServer"}"
+		override wait
+			completion=job
+		wait __Local\Upgrade\BESServerUpgrade.exe /s /Verbose"C:\besserverupgrade.log" /v"REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable"
+		// Verify that the server upgraded so we can terminate if the upgrade aborted for any reason such as server was previously running SQL2000
+		parameter "serverStartTime" = "{apparent registration server time}"
+		pause while {(apparent registration server time - time(parameter "serverStartTime")) < (60 * second)}
+		parameter "relaySelectTime" = "{last relay select time}"
+		relay select
+		// Fails here if server did not start up
+		continue if {exists running service "BESRootServer" whose(version of it = "9.2.15.15")}
+		if {"True" = parameter "RunningWR"}
+			continue if {exists running service "BESWebReportsServer" whose(version of it = "9.2.15.15")}
+		endif
+		delete __Local\Upgrade\BESServerUpgrade.exe
+		action may require restart
+		// Wait here to try and allow server to propagate the masthead
+		pause while {(((last relay select time - time(parameter "relaySelectTime"))<(90*it))AND((apparent registration server time - time(parameter "serverStartTime"))<(300*it))) of second}
+	elseif {(exists running service "BESWebReportsServer" whose (version of it < "9.2.15.15" AND version of it >= "9.1")) AND (not exists running service "BESRootServer")}
+		continue if {292373448 < free space of drive of parent folder of file of service "BESWebReportsServer"}
+		prefetch BESServerUpgrade.exe sha1:a060d5f983a474cfa08b7e4d5dc21c3b3d55cd00 size:198302528 http://software.bigfix.com/download/bes/92/BigFix-BES-Server-9.2.15.15.exe sha256:4e49553f3ee5de4b14379e591bab4acfe84632b6783956c6bfcac892906d02f1
+		// If the next line fails, there is not enough free space to complete this action
+		continue if {292373448  < free space of drive of client folder of current site}
+		// This action only upgrades a standalone web reports running server and not a root server so we don't leave the server without a matching console
+		continue if {exists running service "BESWebReportsServer" AND not exists service "BESRootServer"}
+		move __Download\BESServerUpgrade.exe __Local\Upgrade\BESServerUpgrade.exe
+		override wait
+			completion=job
+		wait __Local\Upgrade\BESServerUpgrade.exe /s /Verbose"C:\beswebreportsupgrade.log" /v"REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable"
+		delete __Local\Upgrade\BESServerUpgrade.exe
+		parameter "wrStartTime" = "{apparent registration server time}"
+		pause while {(apparent registration server time - time(parameter "wrStartTime")) < (60 * second)}
+		action may require restart
+	endif
+	// Upgrade the IBM BigFix BESServerAPI if present
+	if {(exists key "HKLM\SOFTWARE\BigFix\BESAPI\Paths" of it AND (version of it < "9.2.15.15") of file (value "base" of key "HKLM\SOFTWARE\BigFix\BESAPI\Paths" of it as string & "BESAPI.dll")) of registry}
+		prefetch BESServerAPI.exe sha1:dd8227b36dde080cd329ed18f4ffa2c6b8d6d1a8 size:21485832 http://software.bigfix.com/download/bes/92/BigFix-BES-ServerAPI-9.2.15.15.exe sha256:7226eb83cc3bf6c0b693a9916d1a6183dac88e716e00190e43e9e9025a5e98da
+		move __Download\BESServerAPI.exe __Local\Upgrade\BESServerAPI.exe
+		override wait
+			completion=job
+		wait __Local\Upgrade\BESServerAPI.exe /s /v"/l*voicewarmup \"{value "base" of key "HKLM\SOFTWARE\BigFix\BESAPI\Paths" of registry as string}besserverapi.log\" REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+		delete __Local\Upgrade\BESServerAPI.exe
+		action may require restart
+	endif
+	// Update the IBM BigFix Installation Folders if installed
+	if { (exists key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of registry) AND (version of file (value "InstallFolder" of key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of registry as string & "BESClientDeploy\BESClientDeploy.exe") < "9.2.15.15") }
+		prefetch BESFolders.exe sha1:fe142c15e4e623524bb3393c8156374f148841f9 size:292373448 http://software.bigfix.com/download/bes/92/BigFix-BES-9.2.15.15.exe sha256:46d935bfe5e7f43858b601aa5039372a5a02f6d266a0a2412d735905e25c90d6
+		regset "[HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer]" "Logging"="voicewarmupx"
+		move __Download\BESFolders.exe __Local\Upgrade\BESFolders.exe
+		override wait
+			completion=job
+		wait __Local\Upgrade\BESFolders.exe /s /Verbose"C:\besinstallationgeneratorupgrade.log" /v"REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable"
+		delete __Local\Upgrade\BESFolders.exe
+		action may require restart
+	endif
+	// Update the IBM BigFix Console if it is installed and if the server is installed only if it upgraded
+	if {(exists regapp "BESConsole.exe" whose (version of it < "9.2.15.15" AND version of it >= "9.1")) and (not exists main gather service or ((it = "9.2.15.15") of (if (version of client >= "8.0") then (version of main gather service) else (version of file ((if (character 0 of it = "%22") then (substring between "%22" of it) else it) of image path of main gather service)))))}
+		move __Download\BESConsoleUpgrade.exe __Local\Upgrade\BESConsoleUpgrade.exe
+		copy "{(parent folder of parent folder of client folder of current site) as string & "\ActionSite.afxm"}" __Local\Upgrade\ActionSite.afxm
+		override wait
+			completion=job
+		wait __Local\Upgrade\BESConsoleUpgrade.exe /s /v"/l*voicewarmup \"{location of regapp "BESConsole.exe"}\besconsoleupgrade.log\" REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+		// Verify that the Console upgraded successfully
+		parameter "consoleStartTime" = "{apparent registration server time}"
+		pause while {(apparent registration server time - time(parameter "consoleStartTime")) < (60 * second)}
+		continue if {exists regapp "BESConsole.exe" whose (version of it = "9.2.15.15")}
+		delete __Local\Upgrade\BESConsoleUpgrade.exe
+		action may require restart
+	endif
+	// Remove Server install now it has worked correctly
+	folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+	if {(version of client < "9.2.15.15") AND (exists running service "BESRootServer")}
+		folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+		prefetch BESClientUpgrade.exe sha1:4ccfdf8fb14e3b90bb12f983878a8e8c77915369 size:14207912 http://software.bigfix.com/download/bes/92/BigFix-BES-Client-9.2.15.15.exe sha256:13835295469f72bb684732598246d453d1f0c99eb4ec5a692300ecadb9e4ca75
+		move __Download\BESClientUpgrade.exe __Local\Upgrade\BESClientUpgrade.exe
+		// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+		wait __Local\Upgrade\BESClientUpgrade.exe /s /v"/l*voicewarmup \"{location of client}\besclientupgrade.log\" REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+	endif
+elseif {unix of operating system}
+	folder delete "{(client folder of current site as string) & "/__Local/Upgrade"}"
+	// If the next line fails, there is not enough free space to complete this action
+	continue if {(292373448 * 2)< free space of drive of data folder of client}
+	folder create "{(client folder of current site as string) & "/__Local/Upgrade"}"
+	if {((exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (6|7)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+		// Red Hat Enterprise Linux 6.x, 7.x 64-bit x86_64
+		prefetch ServerInstaller.tgz sha1:55cbfd0aafbd18e8926f1474fd411355a5a5db38 size:166822104 http://software.bigfix.com/download/bes/92/ServerInstaller_9.2.15.15-rhe6.x86_64.tgz sha256:64e214706ba27a045100e3803ad9ca0f4f181a7e79f5e547be980ffd8bd0bacf
+	else
+		// No Known Configuration
+		continue if false
+	endif
+	continue if {exists file "__Download/ServerInstaller.tgz"}
+	move __Download/ServerInstaller.tgz __Local/Upgrade/ServerInstaller.tgz
+	parameter "RunningServer"="{exists running service "BESRootServer"}"
+	parameter "RunningWR"="{exists running service "BESWebReportsServer"}"
+	override wait
+		completion=job
+	wait tar --directory=__Local/Upgrade -zxvf __Local/Upgrade/ServerInstaller.tgz
+	continue if {exists file "__Local/Upgrade/ServerInstaller_9.2.15.15-rhe6.x86_64/install.sh"}
+	wait chmod +x "__Local/Upgrade/ServerInstaller_9.2.15.15-rhe6.x86_64/install.sh"
+	override wait
+		completion=job
+	wait "__Local/Upgrade/ServerInstaller_9.2.15.15-rhe6.x86_64/install.sh" -upgrade -opt RUN_AS_FIXLET=true -opt IS_PREREQ_CHECK=true
+	// If the following command fails, the prerequisites are not installed for the upgrade to this version
+	// See /var/log/BESInstall.log for more details
+	continue if {exists true whose (if true then (exit code of action = 0) else false)}
+	override wait
+		completion=job
+	wait "__Local/Upgrade/ServerInstaller_9.2.15.15-rhe6.x86_64/install.sh" -upgrade -opt RUN_AS_FIXLET=true -opt BES_PREREQ_INSTALL=exit
+	parameter "ServerUpgradeResult"="{exists true whose (if true then (exit code of action = 0) else false)}"
+	if {"True" = parameter "RunningServer"}
+		wait /etc/init.d/besserver start
+		wait /etc/init.d/besfilldb start
+		wait /etc/init.d/besgatherdb start
+		parameter "unixServerStartTime" = "{apparent registration server time}"
+		pause while {(not exists running service "BESRootServer") AND ((apparent registration server time - time(parameter "unixServerStartTime")) < (300 * second))}
+	endif
+	if {"True" = parameter "RunningWR"}
+		wait /etc/init.d/beswebreports start
+	endif
+	// Catch any failure of the install script
+	continue if {"True" = parameter "ServerUpgradeResult"}
+	relay select
+	// Fails here if server did not start up
+	continue if {exists running service "BESRootServer" whose(version of it = "9.2.15.15")}
+	if {"True" = parameter "RunningWR"}
+		parameter "unixWRStartTime" = "{apparent registration server time}"
+		pause while {(not exists running service "BESWebReportsServer") AND ((apparent registration server time - time(parameter "unixWRStartTime")) < (300 * second))}
+		continue if {exists running service "BESWebReportsServer" whose(version of it = "9.2.15.15")}
+	endif
+	// Remove Server install now it has worked correctly
+	folder delete "{(client folder of current site as string) & "/__Local/Upgrade"}"
+	if {(version of client < "9.2.15.15") AND (exists running service "BESRootServer")}
+		folder create "{(client folder of current site as string) & "/__Local/Upgrade"}"
+		continue if {exists file "/var/opt/BESInstallers/Client/BESAgent-9.2.15.15-rhe5.x86_64.rpm"}
+		delete __appendfile
+		appendfile #!/bin/sh
+		appendfile /bin/rpm -U "/var/opt/BESInstallers/Client/BESAgent-9.2.15.15-rhe5.x86_64.rpm"
+		appendfile /etc/init.d/besclient start
+		move __appendfile __Local/Upgrade/besclientupgrade
+		// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+		wait /bin/sh __Local/Upgrade/besclientupgrade
+	endif
+endif]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[(exists running service "BESRootServer" whose (version of it < "9.2.15.15" AND version of client < "9.2.15.15")) OR (exists running service "BESWebReportsServer" whose (version of it < "9.2.15.15")) OR (if (windows of operating system) then (exists regapp "BESConsole.exe" whose (version of it < "9.2.15.15")) else (false))]]></SuccessCriteria>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for instructions to manually upgrade IBM BigFix Components on Windows Platforms.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.ibm.com/support/knowledgecenter/SSQL82_9.2.0/com.ibm.tivoli.tem.doc_9.2/Platform/Adm/c_manual_upgrade.html</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for instructions to manually upgrade IBM BigFix Components on Linux Platforms.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.ibm.com/support/knowledgecenter/SSQL82_9.2.0/com.ibm.tivoli.tem.doc_9.2/Platform/Adm/c_upgrading1_linux.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

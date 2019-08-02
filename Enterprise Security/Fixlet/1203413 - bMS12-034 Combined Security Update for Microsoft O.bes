@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-034: Combined Security Update for Microsoft Office, Windows, .NET Framework, and Silverlight - Windows XP SP2 (x64) (KB2686509)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves three publicly disclosed vulnerabilities and seven privately reported vulnerabilities in Microsoft Office, Microsoft Windows, the Microsoft .NET Framework, and Microsoft Silverlight. The most severe of these vulnerabilities could allow remote code execution if a user opens a specially crafted document or visits a malicious webpage that embeds TrueType font files. An attacker would have no way to force users to visit a malicious website. Instead, an attacker would have to convince users to visit the website, typically by getting them to click a link in an email message or Instant Messenger message that takes them to the attacker's website.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2686509.<BR></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+656 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP-2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP Version 2003\SP3\KB2686509" of x64 registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>672000</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2686509</SourceID>
+		<SourceReleaseDate>2012-05-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-3402; CVE-2012-0159; CVE-2012-0180; CVE-2012-0181; CVE-2012-1848</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_xp:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB2686509-x64-ENU.exe sha1:345be187191d6ee8c4e78a47cc0906753202e32e size:672000 http://download.microsoft.com/download/A/9/7/A97AEB8F-DD67-419C-972E-F95CC755E570/WindowsServer2003.WindowsXP-KB2686509-x64-ENU.exe sha256:e1adc7ad15cc22f9d0289f5b196e627f39a7b6f6fcaa5de5df6a7378c185fcaf
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB2686509-x64-ENU.exe /quiet /norestart
+
+action may require restart "345be187191d6ee8c4e78a47cc0906753202e32e"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS12-034</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

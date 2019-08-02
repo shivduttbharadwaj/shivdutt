@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4505903: Cumulative Update for Windows 10 Version 1903 - Windows 10 Version 1903 - KB4505903</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB4505903.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+108.0 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance>(name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>exists value "ReleaseID" whose (it as string = "1903") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance><![CDATA[(it as integer < 267) of value "UBR" of key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry]]></Relevance>
+		<Relevance>not pending restart "52268cd36aed64fbd9ade223fb9256a0c60f3184"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>113235706</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4505903</SourceID>
+		<SourceReleaseDate>2019-07-26</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 31 Jul 2019 22:10:28 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_10:1903:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win10</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 31 Jul 2019 22:10:28 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows10.0-kb4505903-x86_52268cd36aed64fbd9ade223fb9256a0c60f3184.msu sha1:52268cd36aed64fbd9ade223fb9256a0c60f3184 size:113235706 http://download.windowsupdate.com/c/msdownload/update/software/updt/2019/07/windows10.0-kb4505903-x86_52268cd36aed64fbd9ade223fb9256a0c60f3184.msu sha256:bc72113cb9deb9ae62fbf146880230d59ace92061e6670cdd401a9417ca43479
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows10.0-kb4505903-x86_52268cd36aed64fbd9ade223fb9256a0c60f3184.msu"}" /quiet /norestart
+
+action requires restart "52268cd36aed64fbd9ade223fb9256a0c60f3184"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4505903</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

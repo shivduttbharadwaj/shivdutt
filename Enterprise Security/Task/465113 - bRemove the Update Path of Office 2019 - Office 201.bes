@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Remove the Update Path of Office 2019 - Office 2019</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>This task removes the Update Path of Office 2019 applications in selected computers.</P> <P>Once the Update Path is removed, the client machines will revert to downloading the updates directly from Microsoft Content Delivery Network (CDN).</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>exists value "UpdateURL" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\ClickToRun\Configuration\" of native registry | False</Relevance>
+		<Category>Unspecified</Category>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2016-03-31</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 01 Aug 2019 19:56:59 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2019</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 01 Aug 2019 19:56:59 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {x64 of operating system}
+regdelete64 "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\ClickToRun\Configuration]" "UpdateURL"
+else
+regdelete "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\ClickToRun\Configuration]" "UpdateURL"
+endif</ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

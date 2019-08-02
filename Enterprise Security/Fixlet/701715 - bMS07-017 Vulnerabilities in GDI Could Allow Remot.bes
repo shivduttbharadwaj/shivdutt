@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS07-017: Vulnerabilities in GDI Could Allow Remote Code Execution - Windows Server 2003 (v2-custom, re-released 3/4/2009)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT color=#ff0000><STRONG>Important Note: </STRONG></FONT><FONT color=#000000>This patch was re-released unannounced on March 4, 2009. Microsoft has not made any official announcement of changes or made any recommendation&nbsp;pertaining to&nbsp;reinstallation, but BigFix testing has indicated that customers who have already successfully applied this update need not take any action.</FONT></P> <P><STRONG><FONT color=#ff0000>Important Note: </FONT></STRONG>This patch was re-released on&nbsp;December 9, 2008 to address minor issues unrelated to the stability of the update or the security of the intended target systems.&nbsp;The action below deploys the revised version of the patch. Customers who have already successfully applied this update need not take any action.</P> <P>Microsoft has released a patch&nbsp;resolving several newly discovered, publicly disclosed and privately reported&nbsp;vulnerabilities as well as additional issues discovered through internal investigations. If a user is logged on with administrative user rights, an attacker who successfully exploited the most severe of these&nbsp;vulnerabilities could take complete control of the affected workstation. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. </P> <P>After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Note:</B> Microsoft has announced that this patch&nbsp;will be included in a future Service Pack or Update Rollup.</P> <P><B><FONT color=#ff0000>Important Note:</FONT></B> There are several known issues associated with the installation of this patch. See the Caveats section of the security bulletin for more information.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.92 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2003" AND (it = 0 OR it = 1 OR it = 2) of service pack major version of it) of operating system</Relevance>
+		<Relevance>(NOT exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB925902" of registry) AND (NOT exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB925902-v2" of registry)</Relevance>
+		<Relevance><![CDATA[(service pack major version of operating system = 0 AND ((exists file "gdi32.dll" whose (version of it < "5.2.3790.651") of it OR exists file "mf3216.dll" whose (version of it < "5.2.3790.651") of it OR exists file "user32.dll" whose (version of it < "5.2.3790.651") of it OR exists file "win32k.sys" whose (version of it < "5.2.3790.651") of it) of system folder)) OR (service pack major version of operating system = 1 AND ((exists file "gdi32.dll" whose (version of it < "5.2.3790.2892") of it OR exists file "mf3216.dll" whose (version of it < "5.2.3790.2892") of it OR exists file "user32.dll" whose (version of it < "5.2.3790.2892") of it OR exists file "win32k.sys" whose (version of it < "5.2.3790.2892") of it) of system folder)) OR (service pack major version of operating system = 2 AND ((exists file "gdi32.dll" whose (version of it < "5.2.3790.4033") of it OR exists file "mf3216.dll" whose (version of it < "5.2.3790.4033") of it OR exists file "user32.dll" whose (version of it < "5.2.3790.4033") of it OR exists file "win32k.sys" whose (version of it < "5.2.3790.4033") of it) of system folder))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>3057200</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB925902</SourceID>
+		<SourceReleaseDate>2008-12-09</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2006-5758; CVE-2007-1211; CVE-2007-1212; CVE-2006-5586; CVE-2007-0038; CVE-2007-1215; CVE-2007-1213</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Graphics Device Interface</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 14 Nov 2016 09:13:37 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB925902-v2-x86-custom-ENU.exe sha1:b4cb4db21d24bc1042dfe24944962039ff0e1ab3 size:3057200 http://download.microsoft.com/download/4/0/D/40D21512-6742-46F7-8857-A939601E845C/WindowsServer2003-KB925902-v2-x86-custom-ENU.exe sha256:351d93777b95973af05a1b829b3409cbaef2e6c6de1f1813a6f2dfd5caf86ef7
+
+wait __Download\WindowsServer2003-KB925902-v2-x86-custom-ENU.exe /quiet /norestart
+
+action may require restart "8b91edee4ebca37a8e3684a532426e6aa194016c"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS07-017.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS07-017.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

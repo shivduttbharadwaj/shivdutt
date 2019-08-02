@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-070: Flaw in SMB Signing Could Enable Group Policy to be Modified - Windows XP</Title>
+		<Description><![CDATA[
+The SMB (Server Message Block) protocol is used both as a file-sharing protocol and as a means of disseminating group policy information from domain controllers to newly logged on users.&nbsp; Packets on an SMB session can be signed to improve the integrity of the session.&nbsp; <BR><BR>A flaw exists in the Windows XP implementation of the SMB protocol that would allow a malicious user to downgrade the signing settings of an SMB session, thereby allowing unsigned data to be sent between a client and server.&nbsp; <BR><BR>Any machine that communicates with a machine that requires SMB signing is exposed to this vulnerability.&nbsp; Microsoft rates this vulnerability as being a moderate security risk.<BR><b><BR>Note</b>: Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note:</b> Microsoft has announced that this patch will be included in Windows XP Service Pack 2. <BR><BR><b>File Size: </b>571 KB 
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(name of it = "WinXP" AND service pack major version of it <= 1) of operating system]]></Relevance>
+		<Relevance>((service pack major version of it = 0 AND not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP1\Q329170" of registry) OR (service pack major version of it = 1 AND not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP2\Q329170" of registry)) of operating system</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP2\KB811113" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>585576</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB329170</SourceID>
+		<SourceReleaseDate>2002-12-11</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-1256</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SMB Signing</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink></PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q329170_WXP_SP2_x86_ENU.exe sha1:458e92dc56386497498fa9fc6c5a06e5137340c1 size:585576 http://download.microsoft.com/download/9/7/5/9750cccd-b2dd-4e36-bffd-016d4a9549d7/Q329170_WXP_SP2_x86_ENU.exe sha256:c038116b75548fa8b91c90f4f9068eee71378af0254ef18e2642eee3c974bed2
+wait __download\Q329170_WXP_SP2_x86_ENU.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-070.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-070</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

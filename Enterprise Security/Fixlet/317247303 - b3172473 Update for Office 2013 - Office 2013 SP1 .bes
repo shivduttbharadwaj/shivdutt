@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3172473: Update for Office 2013 - Office 2013 SP1 - KB3172473</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft Office 2013 32-Bit Edition. This update provides the latest fixes to Microsoft Office 2013 32-Bit Edition. Additionally, this update contains stability and performance improvements.<p><B>Note:</B> This update is also referenced under KB3172473.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00005109110000000000000000F01FEC";"00005119F20000000000000000F01FEC";"00005119330000000000000000F01FEC";"00005109210000000000000000F01FEC";"00005119350000000000000000F01FEC";"00005119150000000000000000F01FEC";"00005119B10000000000000000F01FEC";"00005119B30000000000000000F01FEC";"00005109350000000000000000F01FEC";"00005109150000000000000000F01FEC";"00005109B10000000000000000F01FEC";"00005109C10000000000000000F01FEC";"00005109710000000000000000F01FEC";"00005109B30000000000000000F01FEC";"00005119810000000000000000F01FEC";"00005109510000000000000000F01FEC";"00005109810000000000000000F01FEC";"00005109610000000000000000F01FEC";"00005119610000000000000000F01FEC";"00005119110000000000000000F01FEC";"00005119510000000000000000F01FEC";"00005119410000000000000000F01FEC";"00005119310000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "4EEF6E5786D6035438ECE0AB0361E9D3" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "15.0" AND "|STSLIST.DLL|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "STSLIST.DLL" AND (item 3 of it = "15.0.5111.1001" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Tue, 29 Jan 2019 23:09:02 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "15.0.5111.1001")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{75E6FEE4-6D68-4530-83CE-0EBA30169E3D}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Relevance>not exists key "Patches\4EEF6E5786D6035438ECE0AB0361E9D3" of keys ("00005109110000000000000000F01FEC";"00005119F20000000000000000F01FEC";"00005119330000000000000000F01FEC";"00005109210000000000000000F01FEC";"00005119350000000000000000F01FEC";"00005119150000000000000000F01FEC";"00005119B10000000000000000F01FEC";"00005119B30000000000000000F01FEC";"00005109350000000000000000F01FEC";"00005109150000000000000000F01FEC";"00005109B10000000000000000F01FEC";"00005109C10000000000000000F01FEC";"00005109710000000000000000F01FEC";"00005109B30000000000000000F01FEC";"00005119810000000000000000F01FEC";"00005109510000000000000000F01FEC";"00005109810000000000000000F01FEC";"00005109610000000000000000F01FEC";"00005119610000000000000000F01FEC";"00005119110000000000000000F01FEC";"00005119510000000000000000F01FEC";"00005119410000000000000000F01FEC";"00005119310000000000000000F01FEC") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>2472136</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3172473</SourceID>
+		<SourceReleaseDate>2019-02-01</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 08 Feb 2019 05:08:44 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2013:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 27 Mar 2019 20:28:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch stslist2013-kb3172473-fullfile-x86-glb.exe sha1:86872bf0a162b18b3803086cfcfeae1038d37a3f size:2472136 https://download.microsoft.com/download/C/1/A/C1A82F72-2DAE-4A19-95BB-B7A1A3126E69/stslist2013-kb3172473-fullfile-x86-glb.exe sha256:e4c83999fe5e5ec275464adead48c0f0604c4dff61470b1123088416707cbe31
+
+waithidden __Download\stslist2013-kb3172473-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "86872bf0a162b18b3803086cfcfeae1038d37a3f"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/3172473</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

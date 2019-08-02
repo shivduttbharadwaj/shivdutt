@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-079: Vulnerabilities in Microsoft Forefront Unified Access Gateway Could Cause Remote Code Execution - Microsoft Forefront Unified Access Gateway 2010</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a security update that resolves five privately reported vulnerabilities in Microsoft Forefront Unified Access Gateway (UAG). The most severe of these vulnerabilities could allow remote code execution if a user visits an affected Web site using a specially crafted URL. However, an attacker would have no way to force users to visit such a Web site. Instead, an attacker would have to persuade users to visit the Web site, typically by getting them to click a link in an e-mail message or Instant Messenger message that takes users to the attacker's Web site.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.</P> <P><STRONG>Note:</STRONG> This Fixlet Message is for audit purposes only.<BR><BR><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG>&nbsp;IBM testing has confirmed this security patch applies correctly to systems only when manually run.</P> <P><STRONG>Note:</STRONG> There is no default action for this Fixlet message because it does not have a deployment action. For more information on default actions, see IBM BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2522482.<BR><BR></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+20.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists key whose ((it >= "4.0.1101.0" AND it < "4.0.1152.100") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" whose (it = "Microsoft Forefront Unified Access Gateway") of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry]]></Relevance>
+		<Relevance><![CDATA[((exists file "MobileInternalSite.Microsoft.UAG.MobileBrowsing.dll" whose ((version of it < "4.0.1101.63")) of it) OR (exists file "WhlFiltSecureRemote.dll" whose ((version of it < "4.0.1101.63")) of it) OR (exists file "WhlFilter.dll" whose ((version of it < "4.0.1101.63")) of it)) of ((folder (value "InstallPath" of key "HKEY_LOCAL_MACHINE\SOFTWARE\WhaleCom\e-Gap\Configuration" of native registry as string & "\von\bin")))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>21448192</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2522482</SourceID>
+		<SourceReleaseDate>2011-10-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-1895; CVE-2011-1896; CVE-2011-1897; CVE-2011-1969; CVE-2011-2012</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Forefront Unified Access Gateway 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:forefront_unified_access_gateway:2010:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>ForeFront</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-079.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2011/MS11-079</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

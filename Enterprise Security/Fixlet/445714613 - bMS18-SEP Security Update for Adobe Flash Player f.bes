@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-SEP: Security Update for Adobe Flash Player for Windows 10 Version 1607 - Windows 10 Version 1607 - Adobe Flash Player - KB4457146 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4467694.<br /><br /><div class="kb-summary-section section"><span><span><span><span>This security update resolves vulnerabilities in Adobe Flash Player that is installed on any of the operating systems that listed in the &quot;applies to&quot; section.</span></span></span></span><br><br><br><br>To learn more about the vulnerability, see&nbsp;<a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/ADV180023" id="kb-link-2" managed-link="" target="_blank">ADV180023</a>.</div><br><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4457146.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+10.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance>(name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>exists value "ReleaseID" whose (it as string = "1607") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4457146~31bf3856ad364e35~x86~~10.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4457146~31bf3856ad364e35~x86~~10.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Adobe-Flash-For-Windows-Package~31bf3856ad364e35~x86~~10.0.14393.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists keys ("Package_for_KB4132216~31bf3856ad364e35~x86~~10.0.1.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_adobe-flash-for-windows_31bf3856ad364e35_none_57f8fffd60741b69" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.14393" AND it < "10.0.14393.2486") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "51bb8e5e710d86f3a6367a83e0a86df0bb4eb05c"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>10717631</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4457146</SourceID>
+		<SourceReleaseDate>2018-09-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2018-1596</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Sep 2018 06:19:54 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4467694</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:adobe_flash_player:*:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>446769417</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-11-13</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win10</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Adobe Flash Player</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 14 Nov 2018 07:28:23 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows10.0-kb4457146-x86_51bb8e5e710d86f3a6367a83e0a86df0bb4eb05c.msu sha1:51bb8e5e710d86f3a6367a83e0a86df0bb4eb05c size:10717631 http://download.windowsupdate.com/d/msdownload/update/software/secu/2018/09/windows10.0-kb4457146-x86_51bb8e5e710d86f3a6367a83e0a86df0bb4eb05c.msu sha256:58f289691651750c1d5f65cf38f3edebc4c88072b56cc8fa9e3538620cadceec
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows10.0-kb4457146-x86_51bb8e5e710d86f3a6367a83e0a86df0bb4eb05c.msu"}" /quiet /norestart
+
+action requires restart "51bb8e5e710d86f3a6367a83e0a86df0bb4eb05c"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4457146</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

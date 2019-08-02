@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install IBM BigFix WebUI Service (Version 9.5.10)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><DIV class=FixletMessage><TABLE style="border: 1px solid red" id="__FixletHTMLField"><TBODY><TR><TD>Deploy this Fixlet on a device to install the IBM BigFix WebUI Service<br> <p>This Fixlet will:</p><ul><li>Install and start a service (Windows) or background process (Linux)</li><li>Establish a secure connection with the IBM BigFix Server</li> <li>Set relevant client settings</li><li>Send the database connection configuration to the WebUI server</li><li>Encrypt the database credentials</li><li>Store the configuration within the WebUI folder</li><li>Extract and run the WebUI service</li></ul><table> <tbody><tr> <td><br> <b>Deployment configuration</b></td> </tr><tr> <td class="input_title">Specify WebUI HTTPS Port:</td> <td><input onchange="handleEmpty(this.id)" id="webuiHttpsPort"></td> </tr><tr> <td class="input_title">Specify WebUI HTTP Redirect Port:</td> <td><input onchange="handleEmpty(this.id)" id= "webuiHttpPort"></td> </tr><tr> <td class="input_title">Specify Hostname or IP of Targeted Endpoint:</td> <td><input onchange="handleEmptyHostIP(this.id)" id="webuiRemoteHostIP"></td> </tr><tr> <td class="input_title">Windows Only: Custom Directory for the WebUI Service (Optional):</td> <td><input id="webuiDirectory"></td> </tr><tr> <td><br> <b>Database configuration</b></td> </tr><tr> <td class="input_title">Specify Database Username:</td> <td><input id="databaseUserName"></td> </tr><tr> <td class="input_title">Specify Domain Name (see below): </td> <td><input id="databaseUserDomain"></td> </tr><tr> <td class="input_title">Specify Database Password:</td> <td><input id="databasePassword" style= "WIDTH: 100%" type="password"></td> </tr><tr> <td class="input_title">Confirm Database Password:</td> <td><input id="databasePasswordConfirm" style="WIDTH: 100%" type="password"></td> </tr><tr> <td class="input_title">Specify BigFix Database Host (see below): </td> <td><input id="databaseHostIP"></td> </tr><tr> <td><br> <b>Optional database configuration</b></td> </tr><tr> <td class="input_title">Specify SQL Server Named Instance:</td> <td><input id="databaseInstance"></td> </tr><tr> <td class="input_title">Specify Database Port:</td> <td><input id="databasePort"></td> </tr></tbody> </table> </td> </tr><tr><td> <br/><P> Follow this knowledgecenter <a href="http://www.ibm.com/support/knowledgecenter/SSTK87_9.5.0/com.ibm.bigfix.webui.doc/WebUI/Admin_Guide/c_deployment_requirements.html"> link</a> to view deployment requirements and detailed information on the inputs to this fixlet </P><p><b>Deployment notes:</b></p><p><b><font color="red">Important Note:</font></b> IBM BigFix Server Version 9.5.10 is required to execute this Fixlet. Additionally only IBM BigFix Client Version 9.5.3 or later endpoints will be relevant for this Fixlet.</p><p><b><font color="red">Important Note:</font></b> An operating system patch is required for this Fixlet to become relevant for servers running Windows 2008 R2. This HotFix cannot be run automatically through a Fixlet. In order to apply the HotFix, administrators must visit <a href="http://support.microsoft.com/en-us/kb/2577795">http://support.microsoft.com/en-us/kb/2577795</a>, request the patch from Microsoft and apply the patch.</p><p><b><font color="red">Important Note:</font></b> Targeted Endpoint should be the same OS type as the IBM BigFix Server.</p><p><b><font color="red">Important Note:</font></b> Only install WebUI Service on one Endpoint per deployment.</p><p><b><font color="red">Important Note:</font></b> If upgrading from a previous WebUI instance, existing SSL certificates from the old WebUI location should be manually copied to the new WebUI location.</p><p><b><font color="red">Important Note:</font></b> Directories specified should not exist or should be empty, as the install and removal of WebUI may overwrite and/or clear these directories.</p> <p><b>Note:</b> For Windows Only: A custom directory can be specified to install the WebUI Service.</p> <p><b>Note:</b> Appropriate subdirectories will be created if custom directories are specified.</p><br/><p><b>Database configuration notes:<b></p><P><B><FONT color=red>Domain Name Note: </FONT></B>If connecting to SQL Server using Windows Credentials, a user domain will need to be specified. This field should be left empty if using SQL Authentication or DB2. </P><P><B><FONT color=red>Database Host Note: </FONT></B>The host should be a resolvable hostname (usually a FQDN) or an IP address. </P><p><b>Note:</b> If using a SQL Server Named Instance, ensure the SQL Server Browser service is running. Otherwise the WebUI will not be able to connect to the database.</b><p><b>Note:</b> The default port is 1433 for SQL Server and 50000 for DB2. This value will be ignored if connecting to a SQL Server named instance</p><p><b>Note:</b> WebUI index creation may take upwards of 20 minutes for a larger deployment. The WebUI will not be usable for this time.</p><script> var rootServerWindows = EvaluateRelevance('exists bes computer whose (root server flag of it = true AND operating system of it starts with "Win")'); var platformHost = EvaluateRelevance('substring before ":" of substring after "http://" of gather url of client license'); var webuiHttpPort = 80; var webuiHttpsPort = 443; var defaultDatabasePort = (rootServerWindows === 'True') ? 1433 : 50000; var ACTION = "Action1"; var certObj = new Object(); var webUIDir = ""; var hostnameIP=""; document.getElementById('webuiRemoteHostIP').value = hostnameIP; document.getElementById('webuiHttpPort').value = webuiHttpPort; document.getElementById('webuiHttpsPort').value = webuiHttpsPort; document.getElementById('webuiDirectory').value = webUIDir; document.getElementById('databasePort').value = defaultDatabasePort; function handleEmpty(id) { var textInput = document.getElementById(id); if (textInput.value.replace(/^\s+|\s+$/g, '') == "") { textInput.value = (id == 'webuiHttpPort' ? webuiHttpPort : webuiHttpsPort); } }; function handleEmptyHostIP(id) { var textInput = document.getElementById(id); if (textInput.value.replace(/^\s+|\s+$/g, '') == "") { textInput.value = hostnameIP; } }; function invalidPortNumber(port) { var numOnlyRegEx = /^[0-9]+$/; return (!numOnlyRegEx.test(port) || port < 1 || port > 65535 ); } function testRequiredInput(value, alertMessage) { if (value === '') { alert(alertMessage); return false; } return true; } document.body.ontakeaction = function(event) { if(event.contentID=='Action1') { if(EvaluateRelevance('master flag of current console user') === "False") { alert('<?jxlat Only Master Operators can run this Fixlet.?>'); return false; } var params = new Object(); var secureParams = new Object(); webUIDir = document.getElementById('webuiDirectory').value.replace(/^\s+|\s+$/g, ''); hostnameIP = document.getElementById('webuiRemoteHostIP').value.replace(/^\s+|\s+$/g, ''); if(hostnameIP === "") { alert('<?jxlat Must specify the hostname of targeted Endpoint.?>'); return false; } webuiHttpPort = document.getElementById('webuiHttpPort').value.replace(/^\s+|\s+$/g, ''); webuiHttpsPort = document.getElementById('webuiHttpsPort').value.replace(/^\s+|\s+$/g, ''); if (webuiHttpPort === "" || webuiHttpsPort === "") { alert('<?jxlat Must specify a port number.?>'); return false; } else if (webuiHttpPort === webuiHttpsPort) { alert('<?jxlat HTTP Redirect and HTTPS port must be different.?>'); return false; } else if ( invalidPortNumber(webuiHttpPort) || invalidPortNumber(webuiHttpsPort) ) { alert("<?jxlat Provide a valid port number.?>"); return false; } params["webuiHttpPort"] = webuiHttpPort; params["webuiHttpsPort"] = webuiHttpsPort; params["platformHost"] = platformHost; params["isRootWindows"] = rootServerWindows; if(webUIDir !== ""){ params["webUIDirEntered"] = webUIDir; } var getCertificate = confirm('<?jxlat Specified Hostname provided will be used to create a certificate to be used as a credential for WebUI to authenticate to the BigFix Server. This will not replace your current WebUI SSL certificates used when accessing the WebUI via a browser. Do you want to continue? ?>'); var ca; var authPair; if (getCertificate === true){ try{ ca = GetWebUICertificateAuthority(); authPair = GenerateWebUIAuthCertificate(hostnameIP); }catch(e){ alert('<?jxlat A IBM BigFix Server version of 9.5.10 is required to run this Fixlet.?>'); return false; } } else { return false; } secureParams['certAuth'] = ca; secureParams['authCert'] = authPair.certificate; secureParams['authKey'] = authPair.privateKey; secureParams['dbUser'] = encodeURIComponent(document.getElementById('databaseUserName').value); secureParams['dbPassword'] = encodeURIComponent(document.getElementById('databasePassword').value); var confirmPassword = encodeURIComponent(document.getElementById('databasePasswordConfirm').value); params['dbDomain'] = encodeURIComponent(document.getElementById('databaseUserDomain').value.replace(/^\s+|\s+$|\\$/g, '').toUpperCase()); params['dbHostname'] = encodeURIComponent(document.getElementById('databaseHostIP').value.replace(/^\s+|\s+$/g, '')); params['dbInstance'] = encodeURIComponent(document.getElementById('databaseInstance').value.replace(/^\s+|\s+$/g, '')); if (params['dbInstance'].length < 1) { params['dbPort'] = encodeURIComponent(document.getElementById('databasePort').value.replace(/^\s+|\s+$/g, '')); } else { params['dbPort'] = ''; } var dbUserRequired = "<?jxlat 'Database Username' field must not be empty.?>"; var dbPasswordRequired = "<?jxlat 'Database Password' field must not be empty.?>"; var dbHostnameRequired = "<?jxlat 'Database Host' field must not be empty.?>"; if (!(testRequiredInput(secureParams['dbUser'], dbUserRequired) && testRequiredInput(secureParams['dbPassword'], dbPasswordRequired) && testRequiredInput(params['dbHostname'], dbHostnameRequired))) { return false; } if (secureParams['dbPassword'] !== confirmPassword) { alert("<?jxlat Password fields do not match.?>"); return false; } if (params['dbInstance'].length < 1 && (!/^[0-9]+$/.test(params['dbPort']) || params['dbPort'] < 1 || params['dbPort'] > 65535)) { alert("<?jxlat Invalid Database port number.?>"); return false; } var fixletID = parseInt(EvaluateRelevance('id of current fixlet')); var siteID = 0xffffffff & parseInt(EvaluateRelevance('id of current bes site')); TakeSecureFixletActionOnComputers(fixletID, siteID, ACTION, params, secureParams); return false; } }</script><!--EndFixletField--></DIV></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+10.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[version of client >= "9.5.3.191"]]></Relevance>
+		<Relevance>version of registration server =  "9.5.10"</Relevance>
+		<Relevance>"x86_64" = architecture of operating system</Relevance>
+		<Relevance><![CDATA[if (windows of operating system) then (major version of it > 6 OR (major version of it = 6 AND minor version of it >= 1)) of operating system AND (platform id of it != 3) of operating system else (exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (6|7)") of name of it) of operating system]]></Relevance>
+		<Relevance>not exists webui service</Relevance>
+		<Relevance><![CDATA[(if (windows of it) then (if (major version of it = 6 and minor version of it = 1 and service pack major version of it <= 1) then NOT ((((exists key "Microsoft-Windows-WinPE-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21004") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21004") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21004") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-WinPE-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.21766") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.21766") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.21766") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry) else (true) ) else (true) ) of operating system]]></Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>11041818</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2018-09-28</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 01 Oct 2018 09:20:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain-attributes</Name>
+			<Value>BES Deploy WebUI</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 01 Oct 2018 09:20:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink><![CDATA[ to install the&nbsp; IBM BigFix WebUI&nbsp; 9.5.10 Service]]></PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "webuiHttpPortAvailable" = "{exists sockets whose(local port of it is (parameter "webuiHttpPort" as integer)) of network}"
+parameter "webuiHttpsPortAvailable" = "{exists sockets whose(local port of it is (parameter "webuiHttpsPort" as integer)) of network}"
+//Failure next means ports are in use on the endpoint
+continue if{(parameter "webuiHttpsPortAvailable" != "True") and (parameter "webuiHttpPortAvailable" != "True")}
+//Failure next means OS of endpoint does not match the Server's. If failure occurs, revoke WebUI Certificates for this endpoint.
+continue if{windows of operating system as string = parameter "isRootWindows"}
+//Failure next means authority for WebUI is missing from action
+continue if{(exists parameter "certAuth") and (exists parameter "authCert") and (exists parameter "authKey")}
+if {windows of operating system}
+	if {exists parameter "webUIDirEntered"}
+		parameter "webUIDir" = "{(if(last 1 of it is "\") then (preceding text of last "\" of it) else (it)) of ((parameter "webUIDirEntered" of action) as string)}\BES WebUI"
+		//Failure next if not fully qualified path
+		continue if {character 1 of parameter "webUIDir" = ":"}
+	else
+		if {exists key "HKLM\Software\BigFix\Enterprise Server" whose (value "EnterpriseServerFolder" of it != "") of registry}
+			parameter "webUIDir" = "{pathname of parent folder of folder(value "EnterpriseServerFolder" of key "HKLM\Software\BigFix\Enterprise Server" of registry as string)}\BES WebUI"
+		else
+			parameter "webUIDir" = "{pathname of program files x32 folder}\BigFix Enterprise\BES WebUI"
+		endif
+	endif
+	folder create "{parameter "webuiDir"}"
+else
+	folder create "/var/opt/BESWebUI"
+endif
+if {exists setting "_WebUIAppEnv_WORK_DIR" whose (value of it != "") of client}
+	parameter "sitesDir" = "{value of setting "_WebUIAppEnv_WORK_DIR" of client}"
+else
+	if {windows of operating system}
+		parameter "sitesDir" = "{parameter "webUIDir"}\WebUI\sites"
+	else
+		parameter "sitesDir" = "/var/opt/BESWebUI/WebUI/sites"
+	endif
+endif
+//check to see if we are on the BigFix server, and we did have a Legacy WebUI installed and using the default Database Directory
+if {exists setting "_WebUI_AppServer_IsEnabled" whose (value of it = "1") of client}
+	if {not exists setting "_WebUIAppEnv_WORK_DIR" whose (value of it != "") of client}
+		if{windows of operating system}
+			if {exists key "HKLM\Software\BigFix\Enterprise Server" whose (value "EnterpriseServerFolder" of it != "") of registry}
+				parameter "oldWebUISites" = "{pathname of folder(value "EnterpriseServerFolder" of key "HKLM\Software\BigFix\Enterprise Server" of registry as string)}\WebUI\sites"
+			else
+				parameter "oldWebUISites" = "{pathname of program files x32 folder}\BigFix Enterprise\BES Server\WebUI\sites"
+			endif
+			if {exists folder (parameter "oldWebUISites")}
+				folder create "{parameter "webUIDir"}\WebUI"
+				wait "{pathname of system folder}\cmd.exe" /C move "{parameter "oldWebUISites"}" "{parameter "webUIDir"}\WebUI"
+			endif
+		else
+			if {exists folder "/var/opt/BESServer/WebUI/sites"}
+				folder create /var/opt/BESWebUI/WebUI
+				move /var/opt/BESServer/WebUI/sites /var/opt/BESWebUI/WebUI/sites
+			endif
+		endif
+	endif
+	setting delete "_WebUI_AppServer_IsEnabled" on "{parameter "action issue date"}" for client
+endif
+setting "_WebUI_Redirect_Enable"="1" on "{parameter "action issue date" of action}" for client
+setting "_WebUIAppEnv_PLATFORM_HOST" = "{parameter "platformHost"}" on "{parameter "action issue date" of action}" for client
+setting "_WebUIAppEnv_WORK_DIR"="{parameter "sitesDir"}" on "{parameter "action issue date" of action}" for client
+setting "_WebUI_Redirect_Port"="{parameter "webuiHttpPort"}" on "{parameter "action issue date" of action}" for client
+setting "_WebUI_HTTPS_Port"="{parameter "webuiHttpsPort"}" on "{parameter "action issue date" of action}" for client
+delete __appendfile
+if {windows of operating system}
+	setting "_WebUIAppEnv_WebUI_DIR"="{parameter "webUIDir"}" on "{parameter "action issue date" of action}" for client
+	folder create "{parameter "webUIDir"}\Mirror"
+	delete "{parameter "webUIDir"}\Mirror\CppWindowsService.exe"
+	folder create "{parameter "webUIDir"}\WebUI\logs"
+	folder create "{parameter "webUIDir"}\cert"
+	prefetch WebUIService.bfz sha1:6a73f63391377e504b3252aed03d69cddc679396 size:5845817 http://software.bigfix.com/download/bes/95/BigFix-BES-WebUIService-9.5.10.79.bfz sha256:33624fdf33924cba965e6ef6ea66a0674f1194bd22afe0a9f8f740b3aba99434
+	extract WebUIService.bfz "{parameter "webUIDir"}"
+	delete "{parameter "webUIDir"}\cert\ca.crt"
+	appendfile {parameter "certAuth"}
+	move __appendfile "{parameter "webUIDir"}\cert\ca.crt"
+	delete "{parameter "webUIDir"}\cert\auth_cert.crt"
+	appendfile {parameter "authCert"}
+	move __appendfile "{parameter "webUIDir"}\cert\auth_cert.crt"
+	createfile until __EOF
+ren __appendfile auth_key.key
+cipher /e /a auth_key.key
+move /y auth_key.key "{parameter "webUIDir"}\cert\"
+__EOF
+	move __createfile createfile.bat
+	appendfile {parameter "authKey"}
+	wait "{pathname of system folder}\cmd.exe" /C createfile.bat
+	delete createfile.bat
+	//Fix Firewall
+	parameter "ProfileType"="{if ((current profile type of firewall = domain firewall profile type)|false) then "domain" else (if ((current profile type of firewall = public firewall profile type)|false) then "public" else (if ((current profile type of firewall = private firewall profile type)|false) then "private" else (if (exists key "HKLM\System\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile" whose (value "EnableFirewall" of it = 1) of registry) then "domain" else (if (exists key "HKLM\System\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile" whose (value "EnableFirewall" of it = 1) of registry) then "public" else "private"))))}"
+	wait "{pathname of system folder}\netsh.exe" advfirewall firewall add rule name="BES WebUI HTTP" dir=in action=allow program="{parameter "webUIDir"}\WebUI\node.exe" description="BigFix Enterprise WebUI HTTPS" enable=yes profile="public,private,domain" protocol=tcp localport={value of setting "_WebUI_Redirect_Port" of client} interfacetype=any
+	wait "{pathname of system folder}\netsh.exe" advfirewall firewall add rule name="BES WebUI HTTPS" dir=in action=allow program="{parameter "webUIDir"}\WebUI\node.exe" description="BigFix Enterprise WebUI" enable=yes profile="public,private,domain" protocol=tcp localport={value of setting "_WebUI_HTTPS_Port" of client} interfacetype=any
+	wait "{pathname of system folder}\netsh.exe" advfirewall firewall add rule name="BES WebUI (ICMPv4)" dir=in action=allow description="BigFix Enterprise WebUI ICMPv4" enable=yes profile="{parameter "ProfileType"}" protocol=ICMPv4 interfacetype=any
+	wait "{pathname of system folder}\netsh.exe" advfirewall firewall add rule name="BES WebUI (ICMPv6)" dir=in action=allow description="BigFix Enterprise WebUI ICMP" enable=yes profile="{parameter "ProfileType"}" protocol=ICMPv6 interfacetype=any
+	regset "{"[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\" & (if ((current profile type of firewall = domain firewall profile type)|false) then "DomainProfile]" else (if ((current profile type of firewall = private firewall profile type)|false) then "StandardProfile]" else (if ((current profile type of firewall = public firewall profile type)|false) then "PublicProfile]" else (if (parameter "ProfileType" = "domain") then "DomainProfile]" else (if (parameter "ProfileType" = "private") then "StandardProfile]" else "PublicProfile]")))))}" "DoNotAllowExceptions"=dword:00000000
+	if {exists running service "MpsSvc"}
+		waithidden cmd /c net stop "Windows Firewall"
+		waithidden cmd /c net start "Windows Firewall"
+	endif
+	wait "{pathname of system folder}\cmd.exe" /C {pathname of system folder}\sc.exe create BESWebUI binpath= "\"{parameter "webUIDir"}\WebUIService.exe\"" start= auto displayname= "BES WebUI"
+	wait "{pathname of system folder}\cmd.exe" /C {pathname of system folder}\sc.exe description BESWebUI "BES WebUI Service"
+	wait "{pathname of system folder}\cmd.exe" /C {pathname of system folder}\sc.exe config BESWebUI start=delayed-auto
+else
+	setting "_WebUIAppEnv_WebUI_DIR"="/var/opt/BESWebUI" on "{parameter "action issue date" of action}" for client
+	prefetch BESWebUI.rpm sha1:29ed5fde387719481dfabc8e76ad5c762d109d2b size:5196001 http://software.bigfix.com/download/bes/95/BESWebUI-9.5.10.79-rhe6.x86_64.rpm sha256:73105a52ff0ab9c4e8287a5224f00da4519245988629bd0e724ced8fff30e8af
+	folder delete "{(client folder of current site as string) & "/__Local/Upgrade"}"
+	folder create "{(client folder of current site as string) & "/__Local/Upgrade"}"
+	move __Download/BESWebUI.rpm __Local/Upgrade/BESWebUI.rpm
+	wait rpm -i __Local/Upgrade/BESWebUI.rpm
+	folder create /var/opt/BESWebUI/Mirror
+	folder create /var/opt/BESWebUI/cert
+	delete /var/opt/BESWebUI/cert/ca.crt
+	appendfile {parameter "certAuth"}
+	move __appendfile /var/opt/BESWebUI/cert/ca.crt
+	delete /var/opt/BESWebUI/cert/auth_cert.crt
+	appendfile {parameter "authCert"}
+	move __appendfile /var/opt/BESWebUI/cert/auth_cert.crt
+	createfile until __EOF
+#!/bin/bash
+mv __appendfile /var/opt/BESWebUI/cert/auth_key.key
+/bin/chmod 600 /var/opt/BESWebUI/cert/auth_key.key
+__EOF
+	delete /var/opt/BESWebUI/cert/auth_key.key
+	appendfile {parameter "authKey"}
+	wait /bin/sh __createfile
+	delete __createfile
+	delete __appendfile
+	appendfile #!/bin/bash
+	if {version of operating system >= "7"}
+		appendfile /bin/firewall-cmd --permanent --zone=public --add-port={value of setting "_WebUI_Redirect_Port" of client}/tcp
+		appendfile /bin/firewall-cmd --permanent --zone=public --add-port={value of setting "_WebUI_HTTPS_Port" of client}/tcp
+		wait /bin/firewall-cmd --state
+		if {exists true whose (if true then (exit code of action = 0) else false)}
+			appendfile /bin/systemctl restart firewalld
+		endif
+	endif
+	if {exists rpm "iptables"}
+		appendfile sed -i -n '1h;1!H;${{;g;s/*filter\n\(:[^\n]*\n\)*/&-A INPUT -m state --state NEW -m tcp -p tcp --dport {value of setting "_WebUI_Redirect_Port" of client} -j ACCEPT\n/g;p;}' /etc/sysconfig/iptables
+		appendfile sed -i -n '1h;1!H;${{;g;s/*filter\n\(:[^\n]*\n\)*/&-A INPUT -m state --state NEW -m tcp -p tcp --dport {value of setting "_WebUI_HTTPS_Port" of client} -j ACCEPT\n/g;p;}' /etc/sysconfig/iptables
+		wait /sbin/service iptables status
+		if {exists true whose (if true then (exit code of action = 0) else false)}
+			appendfile /sbin/service iptables restart
+		endif
+	endif
+	wait /bin/sh __appendfile
+endif
+// Setup Database configuration
+//Failure here if unable to find the WebUI installation or data folders
+parameter "webuiInstallDir" = "{ if ( windows of operating system) then ( parameter "webUIDir" ) else ( "/opt/BESWebUI/bin" ) }"
+parameter "webuiDataDir" = "{ if ( windows of operating system ) then ( ( parameter "webUIDir" )  & "\WebUI" ) else ( "/var/opt/BESWebUI/WebUI" ) }"
+parameter "pathSeparator" = "{ if (windows of operating system) then ( "\" ) else ( "/" ) }"
+if { not exists folder ( parameter "webuiDataDir" ) }
+	folder create { parameter "webuiDataDir" }
+endif
+if {windows of operating system}
+	wait "{pathname of file of webui service}" --configure --user="{parameter "dbUser"}" --password="{parameter "dbPassword"}" --hostname="{parameter "dbHostname"}" --domain="{parameter "dbDomain"}" --port={parameter "dbPort"} --directory="{parameter "webuiDataDir"}" --instance="{parameter "dbInstance"}"
+else
+	delete __createfile		
+	createfile until EOF
+#!/bin/bash
+LD_LIBRARY_PATH=/opt/BESWebUI/bin /opt/BESWebUI/bin/BESWebUI "$@"
+EOF
+	wait /bin/sh __createfile --configure --user="{parameter "dbUser"}" --password="{parameter "dbPassword"}" --hostname="{parameter "dbHostname"}" --domain="{parameter "dbDomain"}" --port={parameter "dbPort"} --directory="{parameter "webuiDataDir"}" --instance="{parameter "dbInstance"}"
+endif
+//Enable usage of Enterprise database
+setting "_WebUIAppEnv_USE_BFENT"="1" on "{parameter "action issue date" of action}" for client
+//Restart WebUI service
+if {windows of operating system}
+	wait net stop "BES WebUI"
+	wait net start "BES WebUI"
+else
+	wait service beswebui restart
+endif]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

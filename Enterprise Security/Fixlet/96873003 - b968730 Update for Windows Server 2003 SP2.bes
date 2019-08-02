@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>968730: Update for Windows Server 2003 SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><FONT size=2> <P>On a Windows Server 2003-based or Windows XP-based computer, you cannot obtain certificates from a Windows Server 2008-based certification authority (CA). This issue occurs if the CA is configured to use SHA2 256 encryption or higher encryption (SHA2 384 or SHA2 512).</P> <P>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR></P> <P><STRONG>Note:</STRONG> The hotfix is password protected by Microsoft, and&nbsp;has to be manually cached for it to run correctly.<BR><BR><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P></FONT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+732 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "Crypt32.dll" whose (version of it < "5.131.3790.4477") of it) of system folder]]></Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>749968</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB968730</SourceID>
+		<SourceReleaseDate>2009-03-19</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB968730-x86-ENU.exe sha1:e0749e1e91dc787e3cc83f1ff5e1f55927722071 size:749968 http://MANUAL_BES_CACHING_REQUIRED/WindowsServer2003-KB968730-x86-ENU.exe
+
+waithidden __Download\WindowsServer2003-KB968730-x86-ENU.exe /quiet /norestart
+
+action requires restart "e0749e1e91dc787e3cc83f1ff5e1f55927722071"  </ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 968730, which contains the hotfix description and the download link.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=968730</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

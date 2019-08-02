@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Virtual Server 2005 R2 - Service Pack 1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released Service Pack 1 for Virtual Server 2005 R2. Service Pack 1 includes new capabilities including the ability to be installed on servers with up to 32 physical processors, Virtual Server host clustering, iSCSI support, x64 support, enhanced PXE booting, and performance improvements.</P> <P><STRONG>Note: </STRONG>There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display dialog boxes during action execution.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT> </STRONG>This Fixlet message will stop and restart the service "Virtual Server." To prevent loss of data, Microsoft highly recommends that all running virtual machines are properly shut down before initiating the upgrade process.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+40.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2003" AND ((it = 0 OR it = 1 OR it = 2) of service pack major version of it)) OR (name of it = "WinXP" AND ((it = 2 OR it = 3) of service pack major version of it)) OR (name of it = "WinVista") OR (name of it = "Win2008")) of operating system</Relevance>
+		<Relevance><![CDATA[((exists key whose (value "DisplayName" of it as string contains "Microsoft Virtual Server 2005 R2" AND value "DisplayVersion" of it as string as version < "1.1.603.0" AND value "Language" of it = 1033) of it) AND (NOT exists key whose (value "DisplayName" of it as string contains "Microsoft Virtual Server 2005 R2" AND value "DisplayVersion" of it as string as version >= "1.1.603.0" AND value "Language" of it = 1033) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance>not pending restart "f8b6f6f69d4d490e5a43dfb8c2a0f6c5de184495"</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>42757000</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2007-04-18</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP|Win2008|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch setup.exe sha1:f8b6f6f69d4d490e5a43dfb8c2a0f6c5de184495 size:42757000 http://download.microsoft.com/download/d/7/2/d7235926-a10d-482c-a2ff-6e0d3130f869/32-BIT/setup.exe sha256:2da6345727b2136fc8bc18f02d4d562c678c18dfdb7fca9c0502a07e7216861b
+
+if{state of service "Virtual Server" = "Running"}
+delete __appendfile
+delete stop_virtual_server.bat
+appendfile @ECHO OFF
+appendfile net stop "Virtual Server"
+move __appendfile stop_virtual_server.bat
+waithidden stop_virtual_server.bat
+// just in case it doesn't happen right away
+pause while {state of service "Virtual Server" = "Running"}
+endif
+
+waithidden __Download\setup.exe /v" /qn REBOOT=ReallySuppress"
+
+// the patch restarts the service
+
+action may require restart "f8b6f6f69d4d490e5a43dfb8c2a0f6c5de184495"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Virtual Server 2005 R2 SP1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/virtualserver/evaluation/vsoverview.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

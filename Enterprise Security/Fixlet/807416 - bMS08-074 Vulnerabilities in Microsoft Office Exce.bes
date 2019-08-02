@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-074: Vulnerabilities in Microsoft Office Excel Could Allow Remote Code Execution - Office 2007 Gold (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update has been superseded because Microsoft has stopped offering the deployed binary.<br /><br />Microsoft has released a security update that resolves three privately reported vulnerabilities in Microsoft Office Excel that could allow remote code execution if a user opens a specially crafted Excel file. An attacker who successfully exploited these vulnerabilities could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB958437.<BR><BR><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+11.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((it = "12" AND it < "12.0.6215.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "0011" OR it = "0012" OR it = "0013" OR it = "0014" OR it = "002E" OR it = "002F" OR it = "0030" OR it = "0031" OR it = "0033" OR it = "0035" OR it = "00CA" OR it = "0016" OR it = "0029") of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance><![CDATA[((exists key "HKLM\SOFTWARE\Microsoft\Office\12.0\Excel\InstallRoot" whose (exists value "Path" of it) of registry) AND (exists file "xlcall32.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "excel.exe" whose (version of it < "12.0.6331.5000") of it) of folder (value "Path" of key "HKLM\SOFTWARE\Microsoft\Office\12.0\Excel\InstallRoot" of registry as string))]]></Relevance>
+		<Relevance>not pending restart "8ed87efb05c779aaed08bc6e0d0bea648b672396"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>11757088</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB959070</SourceID>
+		<SourceReleaseDate>2008-12-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2008-4264</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-06-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Excel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 17 Jun 2019 23:03:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch excel2007-kb958437-fullfile-x86-glb.exe sha1:8ed87efb05c779aaed08bc6e0d0bea648b672396 size:11757088 http://download.microsoft.com/download/E/A/5/EA5CB688-C5C4-4F51-B503-4B139814D1F0/excel2007-kb958437-fullfile-x86-glb.exe sha256:eb640da617f86c672fc42b76515bb2dfe75c38648e0ab27e8c032e11f6d5fad6
+
+waithidden __Download\excel2007-kb958437-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "8ed87efb05c779aaed08bc6e0d0bea648b672396"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-074.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-074.mspx</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

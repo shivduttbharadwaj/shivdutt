@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-073: Vulnerabilities in Microsoft Internet Information Services (IIS) Could Allow Information Disclosure - FTP Service 7.0 for IIS 7.0 - Windows Server 2008 SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves one publicly disclosed vulnerability and one privately reported vulnerability in Microsoft Internet Information Services (IIS). The more severe vulnerability could allow information disclosure if an attacker sends specially crafted FTP commands to the server.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2716513.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+160 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "FTPSVC.DLL" whose ((version of it >= "7.0.6545.14000" AND version of it < "7.0.6545.14980")) of it) of (folder "INETSRV\" of (system folder))]]></Relevance>
+		<Relevance>((exists keys ((if (exists key "F97D67CEBDECA5341AEF3ED925146DD2" of it) then (names of values of key "F97D67CEBDECA5341AEF3ED925146DD2" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "605722743D0886748B229F4FCBBF7E1C") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "7.0.6545.13931"  ) of it) AND (not exists key whose (name of it as string equals "E725BA676D728D542B2A22C94BD535A7") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>164352</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2716513</SourceID>
+		<SourceReleaseDate>2012-11-13</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2012-2532</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>IIS</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:iis:7.0:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ftp7_x86_kb2716513.msp sha1:6292e304a64f9fb89e48e846d451503f1a81cc42 size:164352 http://download.microsoft.com/download/E/3/8/E3803930-330B-429D-902B-4DFB15F0B665/ftp7_x86_kb2716513.msp sha256:552f7109b4d1216d4c704fab6997db688632a979b05a93022ba9b7408b946ac7
+
+waithidden msiexec.exe /p __Download\ftp7_x86_kb2716513.msp /quiet /norestart
+
+action may require restart "6292e304a64f9fb89e48e846d451503f1a81cc42"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS12-073</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

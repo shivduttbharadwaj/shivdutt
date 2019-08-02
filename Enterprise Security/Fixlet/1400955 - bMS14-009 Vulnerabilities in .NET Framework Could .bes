@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-009: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege - .NET Framework 3.5.1 - KB2911501 - Windows 7 SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two publicly disclosed vulnerabilities and one privately reported vulnerability in Microsoft .NET Framework. The most severe vulnerability could allow elevation of privilege if a user visits a specially crafted website or a website containing specially crafted web content. In all cases, however, an attacker would have no way to force users to visit such websites. Instead, an attacker would have to convince users to visit the compromised website, typically by getting them to click a link in an email message or in an Instant Messenger message that takes them to the attacker's website.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB2911501.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+772 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of it OR ia64 of it) of operating system</Relevance>
+		<Relevance>((name of it = "Win7") AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v2.0.5" AND value "SP" of it = 2) of it) of registry</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB2911501~31bf3856ad364e35~x86~~6.1.1.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB2911501~31bf3856ad364e35~x86~~6.1.1.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("WinEmb-NetFx20~31bf3856ad364e35~x86~~6.1.7601.17514") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_netfx-_vsavb7rtui_b03f5f7f11d50a3a_none_0423d08cd8736e26" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22553") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx-_vsavb7rtui_b03f5f7f11d50a3a_none_0423d08cd8736e26" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1" AND it < "6.1.7601.18354") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx-_vsavb7rt_b03f5f7f11d50a3a_none_66e998d2ac45dfda" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22553" OR it >= "6.1.7601.10000" AND it < "6.1.7601.18354") of (default value of it as string as version)) of it) of it OR exists key "msil_microsoft.vsa.vb.codedomprocessor_b03f5f7f11d50a3a_none_0d2df4c4fb302292" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22553") of (default value of it as string as version)) of it) of it OR exists key "msil_microsoft.vsa.vb.codedomprocessor_b03f5f7f11d50a3a_none_0d2df4c4fb302292" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1" AND it < "6.1.7601.18354") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7601.17514") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "x86_netfx-_vsavb7rtui_b03f5f7f11d50a3a_none_0423d08cd8736e26" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22553") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx-_vsavb7rtui_b03f5f7f11d50a3a_none_0423d08cd8736e26" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1" AND it < "6.1.7601.18354") of (default value of it as string as version)) of it) of it OR exists key "x86_netfx-_vsavb7rt_b03f5f7f11d50a3a_none_66e998d2ac45dfda" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22553" OR it >= "6.1.7601.10000" AND it < "6.1.7601.18354") of (default value of it as string as version)) of it) of it OR exists key "msil_microsoft.vsa.vb.codedomprocessor_b03f5f7f11d50a3a_none_0d2df4c4fb302292" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22553") of (default value of it as string as version)) of it) of it OR exists key "msil_microsoft.vsa.vb.codedomprocessor_b03f5f7f11d50a3a_none_0d2df4c4fb302292" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1" AND it < "6.1.7601.18354") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "5a0d066e5a944d4568d34a4c19ccb050c3dcc069"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>791149</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2911501</SourceID>
+		<SourceReleaseDate>2014-02-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2014-0257</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Feb 2014 04:36:14 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:3.5.1:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2911501-x86.msu sha1:5a0d066e5a944d4568d34a4c19ccb050c3dcc069 size:791149 http://download.microsoft.com/download/A/2/6/A26B576B-6573-499D-9DB0-31C42FC2A1DC/Windows6.1-KB2911501-x86.msu sha256:5fbe088f8c19a194fd9eb53fc4e4d8b6d6ec6c04314b337a19d2e0b69b3dc611
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2911501-x86.msu"}" /quiet /norestart
+
+action requires restart "5a0d066e5a944d4568d34a4c19ccb050c3dcc069"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS14-009</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

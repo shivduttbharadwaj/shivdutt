@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Distribute site mapping file</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><P><?hxlat This task distributes to clients the map of sites and products.?></P><BR><BR><script>var oldcurrentSitesToProducts = EvaluateRelevance('( substrings separated by "," of following text of first ":" of it, (concatenation "_" of substrings separated by " " of preceding text of first ":" of it) ) of elements of intersection of set of (( name of it ) & ":" & (concatenation "," of site urls of it) ) of (products of bes license)'); var oldcurrentProducts = EvaluateRelevance('(concatenation "_" of substrings separated by " " of it) of (unique values of names of ((products of bes license) whose ( name of it is not "IBM License Metric Tool")))'); var productMap = { 'Detect' : 'Detect', 'Patch_Management' : 'Patch', 'Lifecycle_Management' : 'Lifecycle', 'Power_Management' : 'Lifecycle', 'Server_Automation' : 'Lifecycle', 'Tivoli_Remote_Control' : 'Lifecycle', 'Software_Use_Analysis' : 'Inventory', 'Security_and_Compliance' : 'Compliance', 'PCI_DSS_Security_and_Compliance' : 'Compliance_Payment_Card_Industry_Add-on', 'Core_Protection_Module_(Trend)' : 'Protection', 'Trend_Micro_Data_Protection' : 'Protection_DLP_Add-on', 'Starter_Kit_for_Lifecycle_Management' : 'Starter_Kit_for_Lifecycle', 'IBM_Software' : 'skip', 'GTS_SCM' : 'skip', 'Mobile_Device_Management' : 'skip', 'PCI_DSS_Security_and_Compliance_Beta' : 'skip', 'Software_Use_Analysis_Beta' : 'skip', 'Starter_Kit_for_Security_and_Compliance' : 'skip', 'Tivoli_Provisioning_Manager_Beta' : 'skip' }; if (!Array.prototype.indexOf) { Array.prototype.indexOf = function(obj, start) { for (var i = (start || 0), j = this.length; i < j; i++) { if (this[i] === obj) { return i; } } return -1; } } var currentProducts=new Array(); for (i=0;i<oldcurrentProducts.length;i++){ if(productMap[oldcurrentProducts[i]]!=="skip" && typeof productMap[oldcurrentProducts[i]]!== 'undefined'){ if(currentProducts.indexOf(productMap[oldcurrentProducts[i]]) == -1){currentProducts.push( productMap[oldcurrentProducts[i]] ); } } } var currentSitesToProducts = new Array(); for (i=0;i<oldcurrentSitesToProducts.length;i++){ var myline = oldcurrentSitesToProducts[i]; for (j=0; j<oldcurrentProducts.length; j++){ myline = myline.replace(oldcurrentProducts[j] , productMap[oldcurrentProducts[j]]) ; } currentSitesToProducts.push( myline ); } document.write('<FORM id="form">'); document.write('<TR><TD><BR/><INPUT id=id_submit onclick="applyReduced(); return false;" type=submit value="<?hxlat Distribute?>"></TD></TR></FORM>'); function applyReduced() { var sitesToProds = calculateReducedList(); var fakeSite = "http://sync.bigfix.com/cgi-bin/bfgather/bessupport"; var fakePlusProducts = fakeSite + ","+currentProducts+"\n"; var fso; try{ fso = new ActiveXObject("Scripting.FileSystemObject"); var filePath = fso.GetSpecialFolder(2); var fileName = "siteMapping.csv"; var fullFilePath = filePath + "\\" + fileName; var fh = fso.CreateTextFile(fullFilePath, true); fh.Write(fakePlusProducts); for(var i=0; i<sitesToProds.length; i++){ fh.Write(sitesToProds[i]); } fh.close(); AddFileToSite("", fullFilePath, true); alert("<?hxlat INFO - file created and uploaded ?>"); } catch(err){ alert("<?hxlat ACTION REQUIRED\n\nOpen your Internet Explorer browser and identify:\n\n \'Internet options... Security... Internet... Custom Level... Initialize and script ActiveX controls not marked as safe for scripting\'\n\n Set the option to \'Prompt\' then try again. ?>"); } } function handleError(error) { alert('<?jxlat There was a problem: ?>' + error.message); } function calculateReducedList(){ if(!Array.indexOf){ Array.prototype.indexOf = function(obj){ for(var i=0; i<this.length; i++){ if(this[i]==obj){ return i; } } return -1; } } if (!String.prototype.trim) { String.prototype.trim = function () { return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, ''); }; } var rawList = currentSitesToProducts; var len = rawList.length; var reducedList = new Array(); var i,j; var sum=""; var processedSites = new Array();for (i=0;i<len;i++){ var out_splitted = rawList[i].split(","); var out_site = out_splitted[0].trim(); var out_prod = out_splitted[1].trim(); if(out_site === "" || processedSites.indexOf(out_site) != -1) { continue; } sum = out_site+","+out_prod; for(j=i+1;j<len;j++){ var in_splitted = rawList[j].split(","); var in_site = in_splitted[0].trim(); var in_prod = in_splitted[1].trim(); if(in_site === out_site && in_prod.length >0 && sum.indexOf("," + in_prod + ",") == -1 && sum.substring(sum.lastIndexOf(",")) !== ("," + in_prod)){ sum = sum+","+in_prod; } } sum += "\n"; reducedList.push(sum); processedSites.push(out_site); } return reducedList; }</script><P></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Category></Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jun 2016 12:47:50 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 May 2017 13:10:53 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+	</Fixlet>
+</BES>

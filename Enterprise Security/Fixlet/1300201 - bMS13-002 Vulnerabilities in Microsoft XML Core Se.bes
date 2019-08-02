@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-002: Vulnerabilities in Microsoft XML Core Services Could Allow Remote Code Execution - XML Core Services 4.0 - Windows XP SP3 / 2003 SP2 / Vista SP2 / 2008 SP2 / 7 Gold/SP1 / 8 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft XML Core Services. The vulnerabilities could allow remote code execution if a user views a specially crafted webpage using Internet Explorer. An attacker would have no way to force users to visit such a website. Instead, an attacker would have to convince users to visit the website, typically by getting them to click a link in an email message or Instant Messenger message that takes the user to the attacker's website.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2758694.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.97 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "Win8") AND service pack major version of it = 0 AND (value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2")) OR ((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR ((name of it = "Win7") AND (service pack major version of it = 1 OR service pack major version of it = 0)) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2) OR ((name of it = "Win2003") AND service pack major version of it = 2) OR ((name of it = "WinXP") AND service pack major version of it = 3)) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "Msxml4r.dll" whose (version of it < "4.30.2100.0" and version of it = "4.30") of it OR exists file "Msxml4.dll" whose (version of it < "4.30.2117.0" and version of it = "4.30") of it) of system folder]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2066376</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2758694</SourceID>
+		<SourceReleaseDate>2013-01-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2013-0007</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>XML Core Services</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|Win8|Win7|WinVista|WinXP|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:xml_core_services:4.0:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch msxml4-KB2758694-enu.exe sha1:24abccbcceaf5bea9c3e34ff1f64c2aa3d57e308 size:2066376 http://download.microsoft.com/download/A/7/6/A7611FFC-4F68-4FB1-A931-95882EC013FC/msxml4-KB2758694-enu.exe sha256:52d80e6e7ba94437199a2e6b51f00c7f483269c02bedec2253c4602f5209b31b
+
+waithidden __Download\msxml4-KB2758694-enu.exe /quiet /norestart
+
+action may require restart "24abccbcceaf5bea9c3e34ff1f64c2aa3d57e308"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2013/MS13-002</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

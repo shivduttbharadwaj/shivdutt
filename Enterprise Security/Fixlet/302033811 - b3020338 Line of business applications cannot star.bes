@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3020338: Line of business applications cannot start after you apply update 3006226 in Windows - Windows Server 2003 SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB3020338.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+741 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "oleaut32.dll" whose ((version of it < "5.2.3790.5488")) of it) of (system folder)]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb3020338" of registry)</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>759000</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3020338</SourceID>
+		<SourceReleaseDate>2015-02-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 12 Feb 2015 09:55:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 SP2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB3020338-x86-ENU.exe sha1:3ec3bfaaf56219e7c5da0793afcbaf7fdf06e8fd size:759000 http://download.microsoft.com/download/A/6/D/A6DC97BC-B068-429F-8408-12EB52DB75CA/WindowsServer2003-KB3020338-x86-ENU.exe sha256:4150a949a4c10c3295fdb0b63f7c2d7939c18544459090d3c642f586bc8a5da5
+
+waithidden __Download\WindowsServer2003-KB3020338-x86-ENU.exe /quiet /norestart
+
+action may require restart "3ec3bfaaf56219e7c5da0793afcbaf7fdf06e8fd"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3020338</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4130978: Time zone and DST changes in Windows for Morocco and the West Bank and Gaza - Windows 8.1 - KB4130978 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4339284.<br /><br />Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB4130978.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+785.7 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1")) of operating system</Relevance>
+		<Relevance>(name of it = "Win8.1" OR name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4130978~31bf3856ad364e35~amd64~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4130978~31bf3856ad364e35~amd64~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-i..rnational-timezones_31bf3856ad364e35_none_af76b7f278d145d5" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18998") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-base~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-IANA-TZDB-TimeZones-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-iana-tzdb-timezones_31bf3856ad364e35_none_dc42baaf3976ed2d" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18998") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-CoreSystem-Base-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-i..rnational-timezones_31bf3856ad364e35_none_af76b7f278d145d5" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18998") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-CoreSystem-WOW64-Base-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_microsoft-windows-i..rnational-timezones_31bf3856ad364e35_none_b9cb6244ad3207d0" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18998") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Client-Features-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (not exists key "amd64_microsoft-windows-systempri-refreshgc_31bf3856ad364e35_none_cc96d23a4844d10a" whose (exists value "6.3.9600.18998" of keys of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "870d75a780ed874dec26fbdf7feaa1ee62b7aeaa"</Relevance>
+		<Category>Update Rollup</Category>
+		<DownloadSize>804518</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4130978</SourceID>
+		<SourceReleaseDate>2018-05-17</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Sat, 02 Jun 2018 16:44:19 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4339284</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-10-24</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_8.1:-:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ime</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 24 Oct 2018 19:40:36 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb4130978-x64_870d75a780ed874dec26fbdf7feaa1ee62b7aeaa.msu sha1:870d75a780ed874dec26fbdf7feaa1ee62b7aeaa size:804518 http://download.windowsupdate.com/d/msdownload/update/software/uprl/2018/05/windows8.1-kb4130978-x64_870d75a780ed874dec26fbdf7feaa1ee62b7aeaa.msu sha256:97d5b1b3a41acf2933b6fa4d9ac89dfd7c9c342a0ee689b40244597305037160
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows8.1-kb4130978-x64_870d75a780ed874dec26fbdf7feaa1ee62b7aeaa.msu"}" /quiet /norestart
+
+action requires restart "870d75a780ed874dec26fbdf7feaa1ee62b7aeaa"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4130978</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

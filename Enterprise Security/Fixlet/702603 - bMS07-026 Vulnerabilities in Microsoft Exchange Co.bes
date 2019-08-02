@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS07-026: Vulnerabilities in Microsoft Exchange Could Allow Remote Code Execution - Microsoft Exchange 2003 SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>This update resolves several newly discovered, privately reported vulnerabilities. An attacker who successfully exploited the most severe of these vulnerabilities could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights.</P> <P>After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><STRONG>Note: </STRONG>The update for this issue may be included in a future service pack or update rollup.</P> <P><SPAN style="FONT-WEIGHT: bold; COLOR: red">Important Note:</SPAN> This update will stop and restart all affected Exchange 2003 services. Please schedule the update to occur at a time when a service interruption is acceptable.</P><P><B>Note:</B> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.73 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of operating system = "Win2000" AND (csd version of operating system = "Service Pack 4" OR csd version of operating system = "Service Pack 3")) OR (name of operating system = "Win2003")</Relevance>
+		<Relevance><![CDATA[exists file "Cdoex.dll" whose(version of it < "6.5.7652.24") of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\CDO") OR ((exists file "Excdo.dll" whose (version of it < "6.5.7652.24") of it OR exists file "Exmime.dll" whose (version of it < "6.5.7652.24") of it OR exists file "Exosal.dll" whose (version of it < "6.5.7652.24") of it OR exists file "Store.exe" whose (version of it < "6.5.7652.24") of it) of folder (value "Services" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string & "\bin")) OR exists file "Mdbmsg.dll" whose (version of it < "6.5.7652.24") of folder (value "Services" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string & "\res")]]></Relevance>
+		<Relevance>(value "ServicePackNumber" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry = 2)</Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Exchange Server 2003\SP3\KB931832" of registry)</Relevance>
+		<Relevance>exists key whose (value "DisplayName" of it as string contains "Microsoft Exchange") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\Exchange\Setup" whose (value "NewestBuild" of it as integer = 6944) of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>3908496</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB931832</SourceID>
+		<SourceReleaseDate>2007-05-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2007-0220; CVE-2007-0039; CVE-2007-0213</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Exchange2003-KB931832-x86-ENU.exe sha1:16e659b6e5756896dccd3d39ee4f99354ecb0ce5 size:3908496 http://download.microsoft.com/download/6/b/f/6bf2e21c-a552-4e34-a1e4-958d299cf166/Exchange2003-KB931832-x86-ENU.exe sha256:9f591ed2a659a9e9b14d1fd2ffa9eb5f7eb21b7d2e7d43789bc30716ebabde03
+
+wait __Download\Exchange2003-KB931832-x86-ENU.exe /quiet /norestart
+
+action may require restart</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS07-026.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/ms07-026.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

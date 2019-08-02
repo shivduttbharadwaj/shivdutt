@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Office Web Components Should Be Updated - BES Console - OWC 2003 - Windows Vista/2008/Win7</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT size=2>The listed computers are running the BES Console&nbsp;but&nbsp;have a problematic version of&nbsp;Office Web Components (OWC) installed. These computers have a version of OWC&nbsp;2003 that comes with SQL Server 2005 Enterprise Edition and which is known to cause BES Console to crash on&nbsp;Windows Vista/Windows Server&nbsp;2008/Windows 7/Windows Server 2008R2.</FONT></P> <P><FONT size=2>It is recommended that you upgrade OWC&nbsp;2003 to a later, stand-alone version&nbsp;by using the action below.</FONT></P> <P><FONT size=2><STRONG>Note:</STRONG> After OWC is installed, BES documents&nbsp;must be reopened before missing graphics will be displayed.</FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+17.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>exists regapp "BESConsole.exe"</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance><![CDATA[version of regapp "BESConsole.exe" >= "6.0"]]></Relevance>
+		<Relevance>(it = "WinVista" OR it = "Win2008" OR it = "Win2008R2" OR it = "Win7")of name of operating system</Relevance>
+		<Relevance><![CDATA[exists folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Web Components\11") AND (exists file "owc11.dll" whose (version of it < "12.0.4518.1014") of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Web Components\11"))]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>18470712</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 02 May 2008 22:03:04 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 06 Jan 2014 19:12:31 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Office Web Components.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch owc11.exe sha1:1fc5601201c531d254f1fefa09288b2c9e3304c5 size:18470712 http://download.microsoft.com/download/c/f/f/cff746cd-f17c-40d8-acf2-50d2200ad28b/owc11.exe  sha256:83cf93b09fa76dcfadf29ad0a1908f9dabfca24feedc7c1d4a82cd2aacd57b3d
+
+wait __Download\owc11.exe /quiet /extract:.
+
+wait msiexec.exe /i owc11.msi reboot=reallysuppress /q
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information regarding BES and OWC.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=339</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

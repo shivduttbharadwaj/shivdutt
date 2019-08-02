@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>944043: Description of the Windows Server 2008 read-only domain controller compatibility pack for Windows Server 2003 clients and for Windows XP clients and for Windows Vista - Windows 2003 SP1/SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve an issue when a Windows Server 2008 Read Only Domain Controller is added to the network that has Windows XP or Windows Server 2003.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P><B>Note:</B> This update is also referenced under KB944043.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+8.87 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2003") AND (service pack major version of it = 1 OR service pack major version of it =2)) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "adsldp.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "adsmsext.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "dsuiext.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "gptext.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "localspl.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "lsasrv.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "msv1_0.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "netlogon.dll" whose (version of it < "5.2.3790.4272") of it) OR (exists file "ntdsa.dll" whose (version of it < "5.2.3790.4272") of it) OR (exists file "ntdsapi.dll" whose (version of it < "5.2.3790.4272") of it) OR (exists file "w32time.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "w32tm.exe" whose (version of it < "5.2.3790.4275") of it) OR (exists file "wkssvc.dll" whose (version of it < "5.2.3790.4275") of it)) of (system wow64 folder) OR (exists file "ntdsa.dll" whose (version of it < "5.2.3790.4272") of it) of (system wow64 folder) OR ((exists file "adsldp.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "adsmsext.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "dsuiext.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "gptext.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "localspl.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "lsasrv.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "msv1_0.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "netlogon.dll" whose (version of it < "5.2.3790.4272") of it) OR (exists file "ntdsa.dll" whose (version of it < "5.2.3790.4272") of it) OR (exists file "ntdsapi.dll" whose (version of it < "5.2.3790.4272") of it) OR (exists file "w32time.dll" whose (version of it < "5.2.3790.4275") of it) OR (exists file "w32tm.exe" whose (version of it < "5.2.3790.4275") of it) OR (exists file "wkssvc.dll" whose (version of it < "5.2.3790.4275") of it)) of (system x64 folder) OR (exists file "ntdsa.dll" whose (version of it < "5.2.3790.4272") of it) of (system x64 folder) OR (exists file "policman.dll" whose (version of it < "5.2.3790.4275") of it) of (folder "WBEM" of (system x64 folder)) OR (exists file "policman.dll" whose (version of it < "5.2.3790.4275") of it) of (folder "WBEM" of (system wow64 folder))]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb944043-v5" of x64 registry)</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>9298480</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB944043</SourceID>
+		<SourceReleaseDate>2008-05-26</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB944043-v5-x64-ENU.exe sha1:a29633d9836bde721bd441fc8abe053a6fca5459 size:9298480 http://download.microsoft.com/download/c/5/b/c5bd27cf-966e-4ebc-a5d8-319cca08399a/WindowsServer2003.WindowsXP-KB944043-v5-x64-ENU.exe sha256:468cc99e25e7828115b4932312202784c954ecc2e4713ef48614238a5d4fd28a
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB944043-v5-x64-ENU.exe /quiet /norestart
+
+action may require restart "a29633d9836bde721bd441fc8abe053a6fca5459"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/944043</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

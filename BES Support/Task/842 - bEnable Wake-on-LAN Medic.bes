@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Enable Wake-on-LAN Medic</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+This Task will install the latest version of the Wake-on-LAN Medic Utility. <BR><BR>This utility is used to wake up computers based on the schedule defined in the Schedule Wake on LAN wizard. Additionally, it will send a wake up request to any Last Men Standing that may have been shutdown.<BR><BR><b>Note:</b> The BES Server Plugin Service must be installed on the BES server in order to deploy this utility.
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4834631
+ </DIV>]]></Description>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance>if (name of operating system contains "Linux") then (exists (folder "/var/opt/BESServer/Applications") whose (exists file "MFS-Linux" of it)) else (exists service "BESPluginService")</Relevance>
+		<Relevance><![CDATA[if (name of operating system contains "Linux") then (exists file "/var/opt/BESServer/Applications/MasterOperatorCredentials") else (if (if(version of client >= "8.2") then (version of main gather service >= "9.0") else  (false)) then (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\MFSConfig" whose ((exists value "RESTUsername" whose (it != "") of it) AND (exists value "RESTPassword" whose (it != "") of it)) of registry) else (((exists value "SOAPUsername" whose (it != "") of it) AND (exists value "SOAPPassword" whose (it != "") of it) AND (exists value "WRHTTP" whose (it != "") of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\BESReports" of registry))]]></Relevance>
+		<Relevance>if (name of operating system contains "Linux") then ((not exists folder "BESWoLMedic" of it or not exists file whose (name of it = "BESWoLMedic") of folder "BESWoLMedic" of it) of folder "Applications" of folder "/var/opt/BESServer") else ((not exists folder "BESWoLMedic" of it or not exists file whose (name of it = "BESWoLMedic.exe") of folder "BESWoLMedic" of it) of folder "Applications" of folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string))</Relevance>
+		<Category>Wake-on-LAN</Category>
+		<DownloadSize>4834631</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2010-08-13</SourceReleaseDate>
+		<SourceSeverity>N/A</SourceSeverity>
+		<CVENames>N/A</CVENames>
+		<SANSID>N/A</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 17 Nov 2011 19:28:18 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 05 May 2016 21:45:48 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to enable the Wake-on-LAN Medic utility.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {name of operating system contains "Linux"}
+
+	prefetch BESWoLMedic sha1:290c27906424e2eb621b78b02a23a3919c983899 size:8020380 http://software.bigfix.com/download/bes/util/BESWoLMedic-linux-x86-64 sha256:6d170e61283c81c53572319467262507ce3bef135396f7cdccd8944c525fa1c6
+	// adding realm
+	if {version of main gather service >= "9.2.6"}
+
+		parameter "ApplicationParams" = "-besserver %BESHTTP% -r %RESTURL% -u %MOUSERNAME% -p %MOPASSWORD% -e "IBM BigFix Server""
+
+	else
+
+		parameter "ApplicationParams" = "-besserver %BESHTTP% -r %RESTURL% -u %MOUSERNAME% -p %MOPASSWORD% -e "IBM Endpoint Manager Server""
+
+	endif
+	parameter "applicationsFolder" = "/var/opt/BESServer/Applications"
+	
+	delete __appendfile
+
+	appendfile mkdir {parameter "applicationsFolder"}/BESWoLMedic
+	appendfile mkdir {parameter "applicationsFolder"}/Config
+	appendfile mv "{pathname of client folder of current site & "/__Download/BESWoLMedic"}" "{parameter "applicationsFolder"}/BESWoLMedic/BESWoLMedic"
+	appendfile chmod 700 "{pathname of client folder of current site & "/__Download/BESWoLMedic"}" "{parameter "applicationsFolder"}/BESWoLMedic/BESWoLMedic"
+
+	delete "{(pathname of client folder of current site) & "/script"}"
+	move "{pathname of client folder of current site}/__appendfile" "{pathname of client folder of current site}/script"
+	wait chmod 700 "{pathname of client folder of current site}/script"
+	wait "{(pathname of client folder of current site) & "/script"}"
+
+	delete __createfile
+
+	createfile until _end_
+<?xml version="1.0"?>
+<BESPluginRegistration>
+	<Name>BESWoLMedic</Name>
+	<Command>"{parameter "applicationsFolder"}/BESWoLMedic/BESWoLMedic" {parameter "ApplicationParams"}</Command>
+	<Schedule>
+		<WaitPeriodSeconds>300</WaitPeriodSeconds>
+	</Schedule>
+	<ForceKill>true</ForceKill>
+</BESPluginRegistration>
+_end_
+		
+	delete "{parameter "applicationsFolder"}/Config/BESWoLMedic.xml"
+	move "__createfile" "{parameter "applicationsFolder"}/Config/BESWoLMedic.xml"
+
+else
+
+	if {version of main gather service >= "9.0"}
+	
+		// Applicable to Gilman Windows server
+		prefetch BESWoLMedicBundle.zip sha1:60f1a0cf6c4b2dc8f3c699d7cb1ac9b59c0bae76 size:7418853 http://software.bigfix.com/download/bes/util/WoLMedicBundle-2.0.6.zip sha256:bf11814ebe8d691412c485571f5e560dfa63b250b6e40e693560d3be42d01bbe
+		
+		
+		// adding realm
+		if {version of main gather service >= "9.2.6"}
+
+			parameter "ApplicationParams" = "-besserver %BESHTTP% -r %RESTURL% -u %MOUSERNAME% -p %MOPASSWORD% -e "IBM BigFix Server""
+
+		else
+
+			parameter "ApplicationParams" = "-besserver %BESHTTP% -r %RESTURL% -u %MOUSERNAME% -p %MOPASSWORD% -e "IBM Endpoint Manager Server""
+
+		endif
+
+	else
+	
+		// Applicable to Windows pre-Gilman servers
+		prefetch BESWoLMedicBundle.zip sha1:da57ac10aec86bb5118d92f2b655e0ce442f93e3 size:4066761 http://software.bigfix.com/download/bes/util/WoLMedicBundle-1.0.22.zip sha256:2d48ea4ed91350ab08e1fda1081af48ebbb127235763f2adf8b03e53bb1ebf88
+		parameter "ApplicationParams" = "-besserver %BESHTTP% -webreports %WRHTTP% -u %SOAPUSERNAME% -p %SOAPPASSWORD%"
+	
+	endif
+	
+	prefetch unzip.exe sha1:e1652b058195db3f5f754b7ab430652ae04a50b8 size:167936 http://software.bigfix.com/download/redist/unzip-5.52.exe sha256:8d9b5190aace52a1db1ac73a65ee9999c329157c8e88f61a772433323d6b7a4a
+	utility __Download\unzip.exe
+	
+	// vpro setings
+	if {not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\MFSConfig" whose (exists value "PowerWoLSCSServer" of it) of registry}
+		regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\MFSConfig]" "PowerWoLSCSServer"=""
+		regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\MFSConfig]" "PowerWoLSCSUsername"=""
+		regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\MFSConfig]" "PowerWoLSCSPassword"=""
+	endif
+
+	delete __createfile
+	delete createDIR.bat
+
+	//Move utility to MFS folder
+	parameter "MFS_FOLDER"="{ value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications" }"
+
+	createfile until _end_
+	@ECHO OFF
+	mkdir "{parameter "MFS_FOLDER"}\BESWoLMedic" > NUL 2>NUL
+	mkdir "{parameter "MFS_FOLDER"}\config" > NUL 2>NUL
+	_end_
+
+	move __createfile createDIR.bat
+	wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" createDIR.bat
+
+	waithidden __Download\unzip.exe -qq -o -d "{parameter "MFS_FOLDER"}\BESWoLMedic" __Download\BESWoLMedicBundle.zip
+
+	delete __createfile
+
+//Configure MFS to run Wake-on-LAN medic
+createfile until _end_
+<?xml version="1.0"?>
+<BESPluginRegistration>
+	<Name>BESWoLMedic</Name>
+	<Command>"{ value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\BESWoLMedic\BESWoLMedic.exe" }" {parameter "ApplicationParams"}</Command>
+	<Schedule>
+		<WaitPeriodSeconds>300</WaitPeriodSeconds>
+	</Schedule>
+	<ForceKill>true</ForceKill>
+</BESPluginRegistration>
+_end_
+
+	delete "{value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\Config\BESWoLMedic.xml"}"
+
+	move "__createfile" "{value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\Config\BESWoLMedic.xml"}"
+
+endif]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

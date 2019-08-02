@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-036: Vulnerabilities in Microsoft Graphics Component Could Allow Remote Code Execution - Office 2010 SP1 - KB2863942</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been partially superseded by MS15-044. Whereas this Fixlet previously applied to Office 2010 SP1/SP2, it now only applies to Office 2010 SP1.</P>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Windows, Microsoft Office, and Microsoft Lync. The vulnerabilities could allow remote code execution if a user opens a specially crafted file or webpage. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2863942.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.16 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00004109910000000000000000F01FEC";"000041592500B0400000000000F01FEC";"00004159250031400000000000F01FEC";"00004159FA0031400000000000F01FEC";"00004109AB0000000000000000F01FEC";"00004109210000000000000000F01FEC";"00004119B10000000000000000F01FEC";"00004109A30000000000000000F01FEC";"000041091A0000000000000000F01FEC";"00004109810000000000000000F01FEC";"00004159FA0072400000000000F01FEC";"00004159250042400000000000F01FEC";"00004119440000000000000000F01FEC";"00004159FA0001400000000000F01FEC";"00004119410000000000000000F01FEC";"00004109440000000000000000F01FEC";"00004159FA0040800000000000F01FEC";"00004109110000000000000000F01FEC";"00004109B80000000000000000F01FEC";"00004119A10000000000000000F01FEC";"00004109A10000000000000000F01FEC";"00004159250040800000000000F01FEC";"00004119750000000000000000F01FEC";"00004159FA0042400000000000F01FEC";"00004109710000000000000000F01FEC";"00004159FA0020400000000000F01FEC";"000041592500C0400000000000F01FEC";"00004109260000000000000000F01FEC";"00004159FA0040400000000000F01FEC";"00004119510000000000000000F01FEC";"000041592500E0400000000000F01FEC";"00004159FA0060400000000000F01FEC";"000041191A0000000000000000F01FEC";"00004109160000000000000000F01FEC";"00004109610000000000000000F01FEC";"00004159250090400000000000F01FEC";"00004159FA0080400000000000F01FEC";"00004159FA0070400000000000F01FEC";"00004119610000000000000000F01FEC";"00004159FA0090400000000000F01FEC";"00004159250040400000000000F01FEC";"00004159250050400000000000F01FEC";"00004159FA00C0400000000000F01FEC";"00004159FA00B0400000000000F01FEC";"00004159FA00E0400000000000F01FEC";"00004159FA00D0400000000000F01FEC";"00004159250080400000000000F01FEC";"00004159250070400000000000F01FEC";"00004159250060400000000000F01FEC";"00004159250010400000000000F01FEC";"00004159FA0010400000000000F01FEC";"00004159FA0091400000000000F01FEC";"00004109750000000000000000F01FEC";"00004109510000000000000000F01FEC";"00004159250061800000000000F01FEC";"000041592500D0400000000000F01FEC";"00004159FA0050400000000000F01FEC";"00004159250051400000000000F01FEC";"00004159250091400000000000F01FEC";"00004159250011400000000000F01FEC";"000041592500A0C00000000000F01FEC";"00004159FA0051400000000000F01FEC";"00004159FA00A1400000000000F01FEC";"00004159FA0061800000000000F01FEC";"00004109D30000000000000000F01FEC";"00004159FA0062400000000000F01FEC";"00004159FA0052400000000000F01FEC";"00004159250022400000000000F01FEC";"00004159FA00A1800000000000F01FEC";"00004159FA0011400000000000F01FEC";"00004159FA00A0C00000000000F01FEC";"00004119810000000000000000F01FEC";"00004159FA0093400000000000F01FEC";"00004119110000000000000000F01FEC";"00004159FA00F3400000000000F01FEC";"00004119B80000000000000000F01FEC";"00004159FA0022400000000000F01FEC";"00004119910000000000000000F01FEC";"00004159FA0081400000000000F01FEC";"00004159250041400000000000F01FEC";"00004119210000000000000000F01FEC";"00004159250081400000000000F01FEC";"00004159250061400000000000F01FEC";"00004119330000000000000000F01FEC";"00004109660000000000000000F01FEC";"00004159250021400000000000F01FEC";"00004119AB0000000000000000F01FEC";"00004159FA0021400000000000F01FEC";"00004159250001400000000000F01FEC";"00004159FA0041400000000000F01FEC";"00004159FA0061400000000000F01FEC";"00004159FA00B1400000000000F01FEC";"00004119A30000000000000000F01FEC";"00004109B10000000000000000F01FEC";"000041592500B1400000000000F01FEC";"00004159FA00D1400000000000F01FEC";"00004109B30000000000000000F01FEC";"00004159FA00E1400000000000F01FEC";"00004159FA00F1400000000000F01FEC";"00004119310000000000000000F01FEC";"00004119B30000000000000000F01FEC";"000041592500D1400000000000F01FEC";"000041592500F1400000000000F01FEC";"00004109C10000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D6B86C236082E8447BD7C9E4717469E1" of key "Patches" of it) of it OR exists keys ("00004119D11000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.4763.1000" OR it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D6B86C236082E8447BD7C9E4717469E1" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2268504</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2863942</SourceID>
+		<SourceReleaseDate>2014-06-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2014-1817; CVE-2014-1818</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Jun 2014 02:41:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Graphics Component</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2010:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ogl2010-kb2863942-fullfile-x86-glb.exe sha1:a225638ab770e94d10eaabdae877066a885d78e7 size:2268504 http://download.microsoft.com/download/7/2/6/7263B7C1-CAB6-4D8D-81B0-0E2BBEE8235A/ogl2010-kb2863942-fullfile-x86-glb.exe sha256:4551f08da740684b04294c69df9508ef8c456530b8d7c504622644acc32f53f3
+
+waithidden __Download\ogl2010-kb2863942-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "a225638ab770e94d10eaabdae877066a885d78e7"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS14-036</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-AUG: Security update for Microsoft Exchange Server 2013 and 2016 - Exchange Server 2016 CU10 - KB4340731 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p><STRONG>Note:</STRONG> This update has been superseded by KB4459266.<br /><br />This security update resolves vulnerabilities in Microsoft Exchange. To learn more about these vulnerabilities, see the following Common Vulnerabilities and Exposures (CVE):&nbsp;</p><br><br><ul><br>	<li><a href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8302" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8302</a></li><br>	<li><a href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8374" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8374</a></li><br></ul><br><p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> This security update is also referenced under KB4340731.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+124.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("BA952A4AF77A930438A2724B13DDFFAE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "442189DC8B9EA5040962A6BED9EC1F1F") AND exists key "InstallProperties" whose ((it = "15.1.1531.3") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F4DA09F20927E3740BF0372EF4D57A71" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>130932736</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4340731</SourceID>
+		<SourceReleaseDate>2018-08-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2018-8302; CVE-2018-8374</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 Aug 2018 07:29:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4459266</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-10-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:exchange_server:2016:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2016</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Jun 2019 05:16:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Exchange2016-KB4340731-x64-en.msp sha1:688d16e8ba77ec42795537cd34d2bd50af2cf7a8 size:130932736 https://download.microsoft.com/download/5/2/F/52F1EB7D-F129-44F4-9E91-A73F0D19024D/Exchange2016-KB4340731-x64-en.msp sha256:8d02b993d3fa288f00cf129f5d01aaea4f7242f59580777787e9ebd9dc20f637
+
+waithidden msiexec.exe /p __Download\Exchange2016-KB4340731-x64-en.msp /quiet /norestart
+
+action may require restart "688d16e8ba77ec42795537cd34d2bd50af2cf7a8"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4340731</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Install/Update IBM BigFix Client Deploy Tool (Version 9.5.12)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><B>Installs the IBM BigFix Client Deploy Tool 9.5.12 on the selected Windows or Linux computers.<BR><BR></B>The target must have a IBM BigFix Client to install.<BR><BR></FONT><FONT size=2>For more information on IBM BigFix Client Deploy Tool, please visit the following support web pages:<UL> <LI><A href="https://www.ibm.com/support/knowledgecenter/SSQL82_9.5.0/com.ibm.bigfix.doc/Platform/Installation/c_using_the_client_deploy_tool_new.html">IBM BigFix Client Deploy Tool.</A></LI></UL></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+68.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[version of client >= "9.1"]]></Relevance>
+		<Relevance>if(windows of operating system)then(not exists regapp "BESConsole.exe")else(true)</Relevance>
+		<Relevance>((windows of it)OR((exists match(regex "Linux Red Hat Enterprise (Server|Client|Workstation) (5|6|7)")of it)OR(exists match(regex "CentOS (5|6|7)")of it)OR(exists match(regex "Ubuntu (12|14|16|18)")of it)OR(exists match(regex "Linux SuSE Enterprise (Desktop|Server) (11|12)")of it))of name of it)of operating system</Relevance>
+		<Relevance>(if(exists match(regex "(Red Hat|SuSE|CentOS)")of name of it)then(((exists match(regex "^i[6-9]86$")of it)OR(it = "x86_64"))of architecture of it)else(true)) of operating system</Relevance>
+		<Relevance>(if(name of it starts with "Linux Ubuntu")then(((it = "x86_64"))of architecture of it)else(true))of operating system</Relevance>
+		<Relevance><![CDATA[(if(windows of it)then((major version of it >= 6)AND(platform id of it != 3)AND(embedded nt bit(suite mask of it)=false))else(true))of operating system]]></Relevance>
+		<Relevance><![CDATA[(if(windows of it)then(not exists regapp "BESClientDeploy.exe" whose(version of it >= "9.5.12.68"))else(if(exists match(regex "(Red Hat|SuSE|CentOS)")of it)then(not exists package "BESClientDeployTool" whose(version of(rpm version record of it) >= "9.5.12.68")of rpm)else(if(it contains "Ubuntu") then(not exists package "besclientdeploytool" whose(version of it >= "9.5.12.68" )of debianpackages)else(false)))of name of it)of operating system]]></Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>71420783</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2019-03-01</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 11 Mar 2019 10:58:50 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 11 Mar 2019 10:58:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install/update the IBM BigFix Client Deploy Tool 9.5.12 .</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {windows of operating system}
+				prefetch BigFix-BES-CDT.msi sha1:d549af76e0786f284a74069be98aece2a5360d99 size:35427328 http://software.bigfix.com/download/bes/95/BigFix-BES-CDT-9.5.12.68.msi sha256:5583dc6c946a84e0ffd02f2f0eec13606b894b18cba80808b2d397a0f442e729
+				// If the next line fails, there is not enough free space to complete this action
+				if { 30000000 > free space of drive of folder ( location of client as string ) }
+				exit 1
+				endif
+				move __Download\BigFix-BES-CDT.msi __Local\Get\BigFix-BES-CDT.msi
+				wait msiexec /i __Local\Get\BigFix-BES-CDT.msi /quiet /l*voicewarmup "{location of client}\udtinstall.log" 
+				delete __Local\Get\BigFix-BES-CDT.msi
+			elseif { name of operating system contains "Ubuntu"}
+				if {(((exists match (regex "Ubuntu (12|14|16|18)") of it) of name of it) AND (architecture of it = "x86_64")) of operating system}
+					prefetch BESClientDeployTool.deb sha1:1a01c1d2957839536c505c7407f439c2cdf8535a size:5768944 http://software.bigfix.com/download/bes/95/BESClientDeployTool-9.5.12.68-ubuntu10.amd64.deb sha256:68b7b13bf1d5e98dab4bd0f872d1f9102ad3a5ce5b6e3223999dce12b244e4b4
+				else
+					// No Known Configuration
+					continue if false
+				endif
+				continue if {exists file "__Download/BESClientDeployTool.deb"}
+				folder delete "{client folder of current site as string}/__Local/Upgrade"
+				folder create "{client folder of current site as string}/__Local/Upgrade"
+				move __Download/BESClientDeployTool.deb __Local/Upgrade/BESClientDeployTool.deb
+				delete __appendfile
+				appendfile #!/bin/sh
+				appendfile /usr/bin/dpkg -i __Local/Upgrade/BESClientDeployTool.deb
+				appendfile /bin/rm -f __Local/Upgrade/BESClientDeployTool.deb
+				move __appendfile __Local/Upgrade/BESClientDeployTool
+				// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+				wait /bin/sh __Local/Upgrade/BESClientDeployTool
+			else
+				//RPM variant
+				if {((((exists match (regex "Linux Red Hat Enterprise (Server|Client|Workstation) 5") of it) OR (exists match (regex "CentOS 5") of it)) of name of it) AND (architecture of it = "x86_64")) of operating system}
+					prefetch BESClientDeployToolUpgrade.rpm sha1:f5790c9fbcd1e4f0c3f8f5fbaca151a3216579d8 size:5749891 http://software.bigfix.com/download/bes/95/BESClientDeployTool-9.5.12.68-rhe5.x86_64.rpm sha256:1ccfc49a97349881b481f0f46c3289d6d40812979b3ba7958905af8b916ac510
+				elseif {((((exists match (regex "Linux Red Hat Enterprise (Server|Client|Workstation) 5") of it) OR (exists match (regex "CentOS 5") of it)) of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+					prefetch BESClientDeployToolUpgrade.rpm sha1:c36770565f5a1d668761e4e70c1dcd51ba407d51 size:5271441 http://software.bigfix.com/download/bes/95/BESClientDeployTool-9.5.12.68-rhe5.i686.rpm sha256:c5d5da8d0d99e377c6240fa6d73db09b2eb4e5087df5336e6c06f129c11df40e
+				elseif {((((exists match (regex "Linux Red Hat Enterprise (Server|Client|Workstation) (6|7)") of it) OR (exists match (regex "CentOS (6|7)") of it)) of name of it) AND (architecture of it = "x86_64")) of operating system}
+					prefetch BESClientDeployToolUpgrade.rpm sha1:8544f3a95eed85708c2f7585fd3912fc683893e6 size:5585099 http://software.bigfix.com/download/bes/95/BESClientDeployTool-9.5.12.68-rhe6.x86_64.rpm sha256:42e23adfc3e2f12d4a203881d5be63eb798dcf3b299b6d0399285c3629a8cbbb
+				elseif {((((exists match (regex "Linux Red Hat Enterprise (Server|Client|Workstation) 6") of it) OR (exists match (regex "CentOS 6") of it)) of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+					prefetch BESClientDeployToolUpgrade.rpm sha1:628d8bfd7ef18b5add1a83ddf0e651e95aaf45f4 size:5096917 http://software.bigfix.com/download/bes/95/BESClientDeployTool-9.5.12.68-rhe6.i686.rpm sha256:8e995e9b583188ff32b79e33894ec79c002f6142aa258dbbbde82b5b8bcbdc7d
+				elseif {((exists match (regex "Linux SuSE Enterprise (Desktop|Server) (11|12)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+					prefetch BESClientDeployToolUpgrade.rpm sha1:eb65169aeeb395e2898a6758ddaa8fbf0eae886e size:4500110 http://software.bigfix.com/download/bes/95/BESClientDeployTool-9.5.12.68-sle11.x86_64.rpm sha256:89385c8e1e002154a90f9aeadac5f6ce3af13d8bed97fde554dc30daf387cbae
+				elseif {((exists match (regex "Linux SuSE Enterprise (Desktop|Server) 11") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+					prefetch BESClientDeployToolUpgrade.rpm sha1:f2e3f47fbea28aea1ea5b3da0e768eaeb327575f size:4021053 http://software.bigfix.com/download/bes/95/BESClientDeployTool-9.5.12.68-sle11.i686.rpm sha256:51e32f4ad76b7f754309a0ceed8584112935c68ddde6106f7e88fc933943020c
+				else
+					continue if false
+				endif				
+				continue if {exists file "__Download/BESClientDeployToolUpgrade.rpm"}
+				folder delete "{client folder of current site as string}/__Local/Upgrade"
+				folder create "{client folder of current site as string}/__Local/Upgrade"
+				move __Download/BESClientDeployToolUpgrade.rpm __Local/Upgrade/BESClientDeployToolUpgrade.rpm
+				parameter "UpgradeCdt"="{exists package "BESClientDeployTool" of rpm}"
+				if {"True" = parameter "UpgradeCdt"}
+					wait rpm -U __Local/Upgrade/BESClientDeployToolUpgrade.rpm
+				else
+					wait rpm -i __Local/Upgrade/BESClientDeployToolUpgrade.rpm
+				endif
+				delete __Local/Upgrade/BESClientDeployToolUpgrade.rpm			
+			endif]]></ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

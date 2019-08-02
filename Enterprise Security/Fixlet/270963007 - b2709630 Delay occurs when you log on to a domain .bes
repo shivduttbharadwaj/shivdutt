@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2709630: Delay occurs when you log on to a domain from a computer that is running Windows 7 or Windows Server 2008 R2 - Windows 7 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been partially superseded by KB3021674. Whereas this Fixlet message previously applied to Windows 7 Gold/SP1, it now only applies to Windows 7 Gold.</P>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB2709630.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+313 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win7") AND (service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance><![CDATA[((((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~x86~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "x86_microsoft-windows-profsvc_31bf3856ad364e35_none_455ea131f4c62a89" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21985" OR it >= "6.1.7601.10000" AND it < "6.1.7601.17832") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~x86~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~x86~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~x86~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "x86_microsoft-windows-profsvc_31bf3856ad364e35_none_455ea131f4c62a89" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21985" OR it >= "6.1.7601.10000" AND it < "6.1.7601.17832") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.1.7600.16385" of it) of item 0 of it AND (exists key "x86_microsoft-windows-profsvc_31bf3856ad364e35_none_455ea131f4c62a89" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21205" OR it >= "6.1.7600.10000" AND it < "6.1.7600.17014") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~x86~~6.1.7600.16385" of it) of item 0 of it AND (exists key "x86_microsoft-windows-profsvc_31bf3856ad364e35_none_455ea131f4c62a89" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21205" OR it >= "6.1.7600.10000" AND it < "6.1.7600.17014") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "01349ea0e660438fc78b13185d3bb96d71675d3d"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>321311</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2709630</SourceID>
+		<SourceReleaseDate>2012-06-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 30 Sep 2014 06:06:49 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows 7 SP1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 00:42:24 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2709630-x86.msu sha1:01349ea0e660438fc78b13185d3bb96d71675d3d size:321311 http://download.microsoft.com/download/3/0/6/30654EE9-08E0-4444-BB13-97619BD4E674/Windows6.1-KB2709630-x86.msu sha256:facad52b76bc8aa75d70025cb9faabab1e95817362e1ef240ed7b402e7695a1b
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2709630-x86.msu"}" /quiet /norestart
+
+action requires restart "01349ea0e660438fc78b13185d3bb96d71675d3d"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2709630</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

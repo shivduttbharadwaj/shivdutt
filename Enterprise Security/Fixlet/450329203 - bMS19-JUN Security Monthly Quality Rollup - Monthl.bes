@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-JUN: Security Monthly Quality Rollup - Monthly Rollup - Windows 7 SP1 - KB4503292 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4507449.<br /><br />A security issue has been identified in a Microsoft software product that could affect your system. You can help protect your system by installing this update from Microsoft. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article. After you install this update, you may have to restart your system.<p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4503292.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+270.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win7")) of operating system</Relevance>
+		<Relevance>(name of it = "Win7" AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\Package_for_RollupFix~31bf3856ad364e35~amd64~~7601.24468.1.6" whose (value "CurrentState" of it = 112) of native registry</Relevance>
+		<Relevance><![CDATA[not exists keys (names of values whose ((it >= "7601.24468.1.6") of (following text of last "~" of name of it as version)) of keys "Package_for_RollupFix~31bf3856ad364e35~amd64~~0.0.0.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackageIndex" of native registry) whose ((it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry]]></Relevance>
+		<Relevance>not pending restart "a35bb4ea16d1d529fde9abfe8a0c16e9061f74cd"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>283876186</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4503292</SourceID>
+		<SourceReleaseDate>2019-06-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2019-0713; CVE-2019-0722; CVE-2019-0888; CVE-2019-0904; CVE-2019-0905; CVE-2019-0906; CVE-2019-0907; CVE-2019-0908; CVE-2019-0909; CVE-2019-0920; CVE-2019-0941; CVE-2019-0943; CVE-2019-0948; CVE-2019-0960; CVE-2019-0968; CVE-2019-0972; CVE-2019-0973; CVE-2019-0974; CVE-2019-0977; CVE-2019-0984; CVE-2019-0985; CVE-2019-0986; CVE-2019-0988; CVE-2019-1005; CVE-2019-1009; CVE-2019-1010; CVE-2019-1011; CVE-2019-1012; CVE-2019-1013; CVE-2019-1014; CVE-2019-1015; CVE-2019-1016; CVE-2019-1017; CVE-2019-1019; CVE-2019-1025; CVE-2019-1028; CVE-2019-1038; CVE-2019-1039; CVE-2019-1040; CVE-2019-1043; CVE-2019-1045; CVE-2019-1046; CVE-2019-1047; CVE-2019-1048; CVE-2019-1049; CVE-2019-1053; CVE-2019-1055; CVE-2019-1080; CVE-2019-1081</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Jun 2019 05:16:35 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4507449</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_7:-:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>450744901</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>IE</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows6.1-kb4503292-x64_a35bb4ea16d1d529fde9abfe8a0c16e9061f74cd.msu sha1:a35bb4ea16d1d529fde9abfe8a0c16e9061f74cd size:283876186 http://download.windowsupdate.com/d/msdownload/update/software/secu/2019/06/windows6.1-kb4503292-x64_a35bb4ea16d1d529fde9abfe8a0c16e9061f74cd.msu sha256:497ca782a3377d77ec44f2a0be461525b0bb159f7e015165771fed6934d7ac54
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows6.1-kb4503292-x64_a35bb4ea16d1d529fde9abfe8a0c16e9061f74cd.msu"}" /quiet /norestart
+
+action requires restart "a35bb4ea16d1d529fde9abfe8a0c16e9061f74cd"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4503292</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

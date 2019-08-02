@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Reader 11.0 Available (MUI Installer)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Adobe has released a new version of Adobe Reader.&nbsp;Use the action below to update Adobe Reader to the latest version (11.0).</P> <P>This update&nbsp;disables Adobe Updater for all Adobe applications.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><SPAN id=fixletLinks><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT></SPAN> If Adobe Acrobat is installed,&nbsp;this update may modify existing .PDF file associations to point to Adobe Reader 11.0.</P> <P><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade to Adobe Reader&nbsp;11.0 regardless of whether or not&nbsp;Adobe Reader is&nbsp;running action"&nbsp;will close any running instance of Adobe Reader on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable.</SPAN></P> <P><SPAN><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG>&nbsp;Microsoft Windows Update KB930627 is required for both Windows XP SP2 (x64) and Windows Server 2003 SP2 (x64).</SPAN></SPAN></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+46.21 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists regapp "acrord32.exe"</Relevance>
+		<Relevance>(exists key "2017" of it OR exists key "DC" of it OR exists key "2015" of it OR exists key "11.0" of it OR exists key "10.0" of it OR exists key "9.0" of it OR exists key "8.0" of it OR exists key "7.0" of it OR exists key "6.0" of it OR exists key "5.0" of it) of key "HKLM\Software\Adobe\Acrobat Reader\" of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((NOT x64 of operating system AND (((name of it = "WinXP") AND service pack major version of it = 3) OR (value "ProductName" of it = "Microsoft Windows Server 2003 R2") of key "HKLM\Software\Microsoft\Windows NT\CurrentVersion\" of registry)) OR ((x64 of it AND service pack major version of it = 2) of operating system AND ((name of it = "WinXP-2003" AND exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows XP Version 2003\SP3\KB930627" of x64 registry) OR ((value "ProductName" of it = "Microsoft Windows Server 2003 R2") of key "HKLM\Software\Microsoft\Windows NT\CurrentVersion\" of registry AND exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB930627" of x64 registry))) OR name of it = "Win2008" OR name of it = "Win2008R2" OR name of it = "Win7" OR name of it = "Win8" OR name of it = "Win2012" OR name of it = "Win8.1" OR name of it = "Win2012R2") of operating system</Relevance>
+		<Relevance><![CDATA[exists regapp "acrord32.exe" whose (version of it < "11.0.00")]]></Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "7")]]></Relevance>
+		<Relevance>not (exists key whose (value whose (name of it contains "DisplayName") of it as string contains "Adobe Acrobat 5.0" AND exists value "UninstallString" of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry AND not exists regapp "acrobat.exe" whose (version of it = "5")) </Relevance>
+		<Relevance><![CDATA[(exists key whose ((it starts with "Adobe Reader" and it contains "MUI") of (value "DisplayName" of it as string) AND (it < "11") of (value "DisplayVersion" of it as string as version)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>48461312</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2012-11-14</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 17 Apr 2014 08:46:45 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:reader:11.0:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Reader</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 18 Aug 2018 04:27:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch AdbeRdr11000_mui_Std.zip sha1:b056028e10b887ab7541f8c11655417fdbc5f68a size:141015434 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/misc/AdbeRdr11000_mui_Std.zip sha256:ecb34bb1a10cf0dadd09103f0f8c378153e01620d4d5c2ba795c273633dc1880
+
+if {(not exists folder "unzip" of parent folder of regapp "besclient.exe") OR (not exists file "unzip.exe" whose (sha1 of it = "e1652b058195db3f5f754b7ab430652ae04a50b8") of folder "unzip" of parent folder of regapp "besclient.exe")}
+
+prefetch unzip-5.52.exe sha1:e1652b058195db3f5f754b7ab430652ae04a50b8 size:167936 http://software.bigfix.com/download/redist/unzip-5.52.exe sha2:8d9b5190aace52a1db1ac73a65ee9999c329157c8e88f61a772433323d6b7a4a
+
+delete __appendfile
+delete move.bat
+
+appendfile @ECHO OFF
+//delete folder if it exists
+appendfile {if (exists folder (pathname of parent folder of regapp "besclient.exe" as string & "\unzip")) then ("rmdir /Q /S " & "%22" & (pathname of parent folder of regapp "besclient.exe" as string & "\unzip%22 > NUL 2>NUL")) else ""}
+appendfile mkdir "{pathname of parent folder of regapp "besclient.exe"}\unzip" > NUL 2>NUL
+appendfile move "__download\unzip-5.52.exe" "{pathname of parent folder of regapp "besclient.exe"}\unzip\unzip.exe" > NUL 2>NUL
+
+move __appendfile move.bat
+
+waithidden move.bat
+
+endif
+
+delete AdbeRdr11000_mui_Std.zip
+copy __Download\AdbeRdr11000_mui_Std.zip AdbeRdr11000_mui_Std.zip
+waithidden "{pathname of file "unzip.exe" of folder "unzip" of parent folder of regapp "besclient.exe"}" -o "{pathname of client folder of current site & "\AdbeRdr11000_mui_Std.zip"}" -d "{pathname of client folder of current site & "\AdbeRdr11000_mui_Std"}"
+delete AdbeRdr11000_mui_Std.zip
+
+waithidden msiexec /i AdbeRdr11000_mui_Std\AcroRead.msi EULA_ACCEPT=YES SUPPRESS_APP_LAUNCH=YES /qn /norestart
+
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\11.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+
+delete temp.reg
+
+move __appendfile temp.reg
+
+wait regedit -s temp.reg
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade to Adobe Reader XI regardless of whether Adobe Reader is running</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch AdbeRdr11000_mui_Std.zip sha1:b056028e10b887ab7541f8c11655417fdbc5f68a size:141015434 http://ardownload.adobe.com/pub/adobe/reader/win/11.x/11.0.00/misc/AdbeRdr11000_mui_Std.zip sha256:ecb34bb1a10cf0dadd09103f0f8c378153e01620d4d5c2ba795c273633dc1880
+
+if {(not exists folder "unzip" of parent folder of regapp "besclient.exe") OR (not exists file "unzip.exe" whose (sha1 of it = "e1652b058195db3f5f754b7ab430652ae04a50b8") of folder "unzip" of parent folder of regapp "besclient.exe")}
+
+prefetch unzip-5.52.exe sha1:e1652b058195db3f5f754b7ab430652ae04a50b8 size:167936 http://software.bigfix.com/download/redist/unzip-5.52.exe sha2:8d9b5190aace52a1db1ac73a65ee9999c329157c8e88f61a772433323d6b7a4a
+
+delete __appendfile
+delete move.bat
+
+appendfile @ECHO OFF
+//delete folder if it exists
+appendfile {if (exists folder (pathname of parent folder of regapp "besclient.exe" as string & "\unzip")) then ("rmdir /Q /S " & "%22" & (pathname of parent folder of regapp "besclient.exe" as string & "\unzip%22 > NUL 2>NUL")) else ""}
+appendfile mkdir "{pathname of parent folder of regapp "besclient.exe"}\unzip" > NUL 2>NUL
+appendfile move "__download\unzip-5.52.exe" "{pathname of parent folder of regapp "besclient.exe"}\unzip\unzip.exe" > NUL 2>NUL
+
+move __appendfile move.bat
+
+waithidden move.bat
+
+endif
+
+delete AdbeRdr11000_mui_Std.zip
+copy __Download\AdbeRdr11000_mui_Std.zip AdbeRdr11000_mui_Std.zip
+waithidden "{pathname of file "unzip.exe" of folder "unzip" of parent folder of regapp "besclient.exe"}" -o "{pathname of client folder of current site & "\AdbeRdr11000_mui_Std.zip"}" -d "{pathname of client folder of current site & "\AdbeRdr11000_mui_Std"}"
+delete AdbeRdr11000_mui_Std.zip
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+
+waithidden msiexec /i AdbeRdr11000_mui_Std\AcroRead.msi EULA_ACCEPT=YES SUPPRESS_APP_LAUNCH=YES /qn /norestart
+
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\11.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+
+delete temp.reg
+
+move __appendfile temp.reg
+
+wait regedit -s temp.reg
+]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#readerwin</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 930627.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/930627</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2962184: Xbox Music app update for WSUS for Windows 8.1 - Windows 8.1 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> This update is also referenced under KB2962184.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+40.12 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance><![CDATA[(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3" AND (not exists value "CurrentMajorVersionNumber" of it OR value "CurrentMajorVersionNumber" of it as integer < 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system]]></Relevance>
+		<Relevance>not exists key "F3D22211B94E0EC4D855CB3993415CB8" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance><![CDATA[((exists it whose (it starts with "Microsoft.ZuneMusic") of names of folders of it) AND (not exists it whose (it starts with "Microsoft.ZuneMusic" AND (it as version >= "2014.321.1036.1167") of preceding text of first "_" of following text of first "_" of it) of names of folders of it)) of folder (value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of native registry as string & "\WindowsApps")]]></Relevance>
+		<Relevance>not pending restart "677098d48ae1f61bfc5d8cd7a98641795956439a"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>42063683</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2962184</SourceID>
+		<SourceReleaseDate>2014-07-07</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 30 Sep 2014 06:06:49 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8.1 Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>WSUS</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 17 Sep 2015 06:16:38 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb2962184-x86_677098d48ae1f61bfc5d8cd7a98641795956439a.cab sha1:677098d48ae1f61bfc5d8cd7a98641795956439a size:42063683 http://download.windowsupdate.com/d/msdownload/update/software/updt/2014/07/windows8.1-kb2962184-x86_677098d48ae1f61bfc5d8cd7a98641795956439a.cab sha256:64e07d598a86f5997d5f0ff6f28963d68236a92ff4073678ad2e5d198fd370d4
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\windows8.1-kb2962184-x86_677098d48ae1f61bfc5d8cd7a98641795956439a.cab __Download\windows8.1-kb2962184-x86.msi
+
+waithidden msiexec.exe /i __Download\windows8.1-kb2962184-x86.msi /quiet /norestart
+
+action requires restart "677098d48ae1f61bfc5d8cd7a98641795956439a"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2962184</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

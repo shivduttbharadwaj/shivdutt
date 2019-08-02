@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2962393: Security Advisory: Update for vulnerability in Juniper Networks Windows In-Box Junos Pulse client (KB2964757) - Windows 8.1 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft is announcing the availability of an update for the Juniper Networks Windows In-Box Junos Pulse Client for Windows 8.1 and Windows RT 8.1. The update addresses a vulnerability in the Juniper VPN client by updating the affected Juniper VPN client libraries contained in affected versions of Microsoft Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This update is also referenced under KB2962393.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.53 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[((exists key "Juniper-VpnPlugin-Package~31bf3856ad364e35~x86~~6.3.9600.16384" of it) of item 0 of it AND (exists key "x86_juniper-vpnplugin-appx_31bf3856ad364e35_none_d8184a6db69c2ace" whose (exists key whose ((it >= "6.3.9600" AND it < "6.3.9600.16662") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance><![CDATA[(number of (elements of ((set of (if (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) then elements whose (it contains "KB2919355" AND it does not contain "_") of ((set of ((substrings before "~" of substrings after "for_" of names of keys whose (name of it contains "for_" AND (it = 96 or it = 112 or it = 6 or it = 7) of (value "CurrentState" of it as integer)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) as uppercase))) else (nothing))))) < 1)]]></Relevance>
+		<Relevance>not pending restart "5db9081c52985ae24bf697b7965b8cfa1efc2128"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>1604273</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2962393</SourceID>
+		<SourceReleaseDate>2014-05-05</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 06 May 2014 10:05:20 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8.1 Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 11 Jun 2015 01:54:29 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB2964757-x86.msu sha1:5db9081c52985ae24bf697b7965b8cfa1efc2128 size:1604273 http://download.microsoft.com/download/4/1/A/41A2FFA0-19B9-4FDD-8160-B95E5AF2ADD9/Windows8.1-KB2964757-x86.msu sha256:b12d72e43c4ef5f0235894036c0066598cee4b85321b80cb254bab86d7b88834
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB2964757-x86.msu"}" /quiet /norestart
+
+action requires restart "5db9081c52985ae24bf697b7965b8cfa1efc2128"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2962393</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

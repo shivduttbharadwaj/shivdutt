@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-032: 26 June 2002 Cumulative Patch for Windows Media Player 6.4</Title>
+		<Description><![CDATA[
+Microsoft has released a cumulative patch that eliminates all previously addressed security vulnerabilities affecting Windows Media Player 6.4. This patch also eliminates three new security vulnerabilities, the most serious of which could be used to run code of an attacker's choice. Microsoft strongly recommends installing this patch as soon as possible. For more information on the full scope of the patch, please read the information link below. After downloading and installing this patch, the affected computers will no longer be susceptible to these vulnerabilities. <BR><BR><b>Note: </b>Affected computers will report back as 'Fixed' once the patch has run successfully, but if Windows Media Player is running while the patch installs, the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note:</b> Client machines may briefly display minimized progress windows during installation of this update. <BR><BR><b>File Size:</b> 892 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists regapp "mplayer2.exe" whose (version of it = "6.4") AND not exists regapp "wmplayer.exe"</Relevance>
+		<Relevance><![CDATA[(name of operating system = "Win2000" AND version of file "msdxm.ocx" of system folder < "6.4.9.1124") OR ((name of operating system = "Win98" OR name of operating system = "WinME" OR name of operating system = "WinNT") AND version of file "msdxm.ocx" of system folder < "6.4.7.1124")]]></Relevance>
+		<Relevance><![CDATA[name of operating system != "Win2000" OR csd version of operating system < "Service Pack 4"]]></Relevance>
+		<Relevance>not exists site whose (name of it is "Patches for Windows NT 4")</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>913528</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB320920</SourceID>
+		<SourceReleaseDate>2002-06-26</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2002-0372; CVE-2002-0373; CVE-2002-0615</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Media Player</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT|WinME|Win98</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch wm320920_64.exe sha1:a7c6b4c812662b6b7bfa418a7bab8dc45a2db365 size:913528 http://download.microsoft.com/download/winmediaplayer/Update/320920/W98NT42KMe/EN-US/wm320920_64.exe sha256:f8c6e792b6313bed803335e1d638ffef8403068b1f2a70c280892c4b6e8612a4
+wait __download\wm320920_64.exe /Q:A /R:N
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-032.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-032</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

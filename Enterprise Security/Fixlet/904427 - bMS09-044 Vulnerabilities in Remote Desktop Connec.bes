@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-044: Vulnerabilities in Remote Desktop Connection Could Allow Remote Code Execution - RDP 6.1 - Windows Server 2008 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note:</STRONG> This fixlet has been partially superseded by MS13-029.</P>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Remote Desktop Connection. The vulnerabilities could allow remote code execution if an attacker successfully convinced a user of Terminal Services to connect to a malicious RDP server or if a user visits a specially crafted Web site that exploits this vulnerability. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB956744.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.13 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND ((it = 1) of (service pack major version of it))) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists file "aaclient.dll" whose ((version of it < "6.0.6000.16865" AND exists value "FileVersion" whose (NOT (it contains "_qfe" OR it contains "_ldr")) of version blocks of it AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18000" AND exists value "FileVersion" whose (NOT (it contains "_qfe" OR it contains "_ldr")) of version blocks of it AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21061" AND exists value "FileVersion" whose (it contains "_qfe" OR it contains "_ldr") of version blocks of it AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22443" AND exists value "FileVersion" whose (it contains "_qfe" OR it contains "_ldr") of version blocks of it AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18005" AND exists value "FileVersion" whose (NOT (it contains "_qfe" OR it contains "_ldr")) of version blocks of it AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22146" AND exists value "FileVersion" whose (it contains "_qfe" OR it contains "_ldr") of version blocks of it AND service pack major version of operating system = 2)) of it) OR (exists file "mstscax.dll" whose ((version of it < "6.0.6000.16865" AND exists value "FileVersion" whose (NOT (it contains "_qfe" OR it contains "_ldr")) of version blocks of it AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18266" AND exists value "FileVersion" whose (NOT (it contains "_qfe" OR it contains "_ldr")) of version blocks of it AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21061" AND exists value "FileVersion" whose (it contains "_qfe" OR it contains "_ldr") of version blocks of it AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22443" AND exists value "FileVersion" whose (it contains "_qfe" OR it contains "_ldr") of version blocks of it AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18045" AND exists value "FileVersion" whose (NOT (it contains "_qfe" OR it contains "_ldr")) of version blocks of it AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22146" AND exists value "FileVersion" whose (it contains "_qfe" OR it contains "_ldr") of version blocks of it AND service pack major version of operating system = 2)) of it) OR (exists file "tsgqec.dll" whose ((version of it < "6.0.6000.16865" AND exists value "FileVersion" whose (NOT (it contains "_qfe" OR it contains "_ldr")) of version blocks of it AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18000" AND exists value "FileVersion" whose (NOT (it contains "_qfe" OR it contains "_ldr")) of version blocks of it AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21061" AND exists value "FileVersion" whose (it contains "_qfe" OR it contains "_ldr") of version blocks of it AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22443" AND exists value "FileVersion" whose (it contains "_qfe" OR it contains "_ldr") of version blocks of it AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18005" AND exists value "FileVersion" whose (NOT (it contains "_qfe" OR it contains "_ldr")) of version blocks of it AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22146" AND exists value "FileVersion" whose (it contains "_qfe" OR it contains "_ldr") of version blocks of it AND service pack major version of operating system = 2)) of it)) of (system folder))]]></Relevance>
+		<Relevance>not pending restart "b86c8c00c34ddbf0bb7d487da42785d31138066b"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1180477</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB970927</SourceID>
+		<SourceReleaseDate>2009-08-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2009-1133; CVE-2009-1929</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Remote Desktop Connection</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB956744-x86.msu sha1:b86c8c00c34ddbf0bb7d487da42785d31138066b size:1180477 http://download.microsoft.com/download/2/3/9/239E5E97-E79E-44A1-B1AF-8169D19886E4/Windows6.0-KB956744-x86.msu sha256:83403b5a411fe78ab7bfccb1d689b248bed43a6b19ea84ba3a8789ffd442c468
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB956744-x86.msu"}" /quiet /norestart
+
+action requires restart "b86c8c00c34ddbf0bb7d487da42785d31138066b"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-044.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-044.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>925474: Microsoft Exchange Server Standard Anti-spam Filter Updates v3.3.14227.472 - Exchange Server 2007 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p>Microsoft Exchange Server 2007 Enterprise Anti-spam Filter Updates keep the heuristics for the anti-spam content filter current.</p>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB925474.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[((exists keys ((if (exists key "9C1E3B0515477E04AAB2EF3575348A2D" of it) then (names of values of key "9C1E3B0515477E04AAB2EF3575348A2D" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "C8D01F3C07DB61542B4BFB9610897014") AND (exists key whose (name of it equals "InstallProperties"    AND value "DisplayVersion" of it as string as version < "3.3.14227.472") of it) AND (not exists key whose (name of it equals "D3BFD13E3675AF741A40853AC4E540FE") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry]]></Relevance>
+		<Category>Definition Update</Category>
+		<DownloadSize>4309572</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB925474</SourceID>
+		<SourceReleaseDate>2014-10-28</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 07 Nov 2014 16:18:19 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows Server 2008 R2 Gold |~| Windows Server 2008 R2 SP1 |~| Windows Server 2008 R2 Gold |~| Windows Server 2012 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch asdat-x64-3.3.14227.472_f0ba97541ab47080fa02b70b1ffee5ce107aefcd.cab sha1:f0ba97541ab47080fa02b70b1ffee5ce107aefcd size:4309572 http://download.windowsupdate.com/d/msdownload/update/software/defu/2014/10/asdat-x64-3.3.14227.472_f0ba97541ab47080fa02b70b1ffee5ce107aefcd.cab sha256:4a2e9e2358c80b7d71ea0720729d27f9fa2b441f70361a2ee01d3ae6a49f56b4
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\asdat-x64-3.3.14227.472_f0ba97541ab47080fa02b70b1ffee5ce107aefcd.cab __Download\ASDat-x64-3.3.14227.472.msp
+
+waithidden msiexec.exe /p __Download\ASDat-x64-3.3.14227.472.msp /quiet /norestart
+
+action may require restart "f0ba97541ab47080fa02b70b1ffee5ce107aefcd"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/925474</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

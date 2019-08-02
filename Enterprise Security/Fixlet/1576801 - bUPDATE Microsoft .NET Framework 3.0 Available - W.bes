@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Microsoft .NET Framework 3.0 Available - Windows XP/2003/Vista</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The Microsoft .NET Framework 3.0 is the new managed code programming model for Windows. It combines the power of the .NET Framework version 2.0 with new technologies for building applications that have visually compelling user experiences, seamless communication across technology boundaries, and the ability to support a wide range of business processes. These new technologies are Windows Presentation Foundation, Windows Communication Foundation, Windows Workflow Foundation, and Windows CardSpace.<BR><BR><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT><STRONG> </STRONG>This update is no longer available from the Microsoft Download Center. Customers are encouraged to download newer versions of .NET Framework which also includes .NET Framework 3.0 (http://www.microsoft.com/en-us/download/details.aspx?id=21).<BR><BR><B>Note: </B>This Fixlet Message is for audit purposes only.<BR><BR><B>Note:</B> There is no default action for this Fixlet message because it does not have a deployment action. For more information on default actions, see BigFix KB #474.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+50.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((name of it = "WinXP" AND service pack major version of it >= 2) OR (name of it = "Win2003" AND service pack major version of it >= 1) OR (name of it = "WinVista" AND product type of it = nt workstation product type AND service pack major version of it >= 0)) of operating system]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.0\Setup" whose (value "InstallSuccess" of it = 1) of registry </Relevance>
+		<Relevance>not exists value whose (name of it starts with ".NET CLR 3") of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\5.0\User Agent\Post Platform" of registry</Relevance>
+		<Relevance>(not exists key "ESRemovedFixlets" of key "HKLM\Software\BigFix\EnterpriseClient" of registry) OR (not exists value "1576801" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry) OR (value "1576801" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry ) != 1</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>52770576</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2006-11-21</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinVista|WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to learn more about the .NET Framework 3.0.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://msdn2.microsoft.com/en-us/library/aa964978.aspx</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> if you wish to remove this Fixlet message and mark it as fixed on affected computers. In doing so, you accept the risk of not closing this vulnerability on affected computers.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\Software\BigFix\EnterpriseClient\ESRemovedFixlets]" "1576801"=dword:00000001</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

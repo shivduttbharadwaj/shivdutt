@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install BES Client Helper Service</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>This task will install the BES Client Helper Service on the selected computers.</P> <P>The BES Client Helper Service will periodically check on the BES Client service and attempt to restart it if the service is stopped.&nbsp; It will also attempt to perform a number of troubleshooting steps if the service in not starting up correctly.</P> <P>The default behavior for the BES Client Helper Service will be to check the status of the BES Client once a day.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+717 KB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(windows of it AND major version of it >= 5 AND platform id of it != 3) of operating system]]></Relevance>
+		<Relevance>not exists service "BESClientHelper"</Relevance>
+		<Category>Support</Category>
+		<DownloadSize>733271</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 20 Oct 2008 22:45:10 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 14 Mar 2017 13:40:46 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the BES Client Helper Service with the default configuration.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESClientHelper.exe sha1:716dd662996960b028135e92906c8936e537263e size:2629729 http://software.bigfix.com/download/bes/util/BESClientHelper-3.0.0.80.exe sha256:157ff5caf9f03cebc4e8b906d85d2c39f1666dd75d0b3f9efd19ef708400c277
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper]" "ServiceRunPeriod"=""
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper]" "ServiceInstallationParameters"=""
+
+delete  "{pathname of parent folder of client & "\BESClientHelper.exe"}"
+move __Download\BESClientHelper.exe "{pathname of parent folder of client & "\BESClientHelper.exe"}"
+
+waithidden "{pathname of parent folder of client & "\BESClientHelper.exe"}" -install auto]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the BES Client Helper Service and use a custom configuration. You will be prompted for the frequency to check on the BES Client, and whether you want additional logging. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "Service Run Period" with description "Please specify the frequency to check on the BES Client, in seconds (default 86400):" with default value "86400"
+action parameter query "Enable Logging" with description "Enable additional logging (Yes or No):" with default value "Yes"
+
+prefetch BESClientHelper.exe sha1:716dd662996960b028135e92906c8936e537263e size:2629729 http://software.bigfix.com/download/bes/util/BESClientHelper-3.0.0.80.exe sha256:157ff5caf9f03cebc4e8b906d85d2c39f1666dd75d0b3f9efd19ef708400c277
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper]" "ServiceRunPeriod"="{parameter "Service Run Period" of action}"
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\BESClientHelper]" "ServiceInstallationParameters"="{if ((parameter "Enable Logging" of action) as string as lowercase = "yes") then "-l" else ""}"
+
+delete  "{pathname of parent folder of client & "\BESClientHelper.exe"}"
+move __Download\BESClientHelper.exe "{pathname of parent folder of client & "\BESClientHelper.exe"}"
+
+waithidden "{pathname of parent folder of client & "\BESClientHelper.exe"}" -install auto]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

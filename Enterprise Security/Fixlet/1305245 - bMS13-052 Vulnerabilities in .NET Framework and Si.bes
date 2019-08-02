@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-052: Vulnerabilities in .NET Framework and Silverlight Could Allow Remote Code Execution - .NET Framework 4.5 - Windows Vista SP2 / 2008 SP2 / 7 SP1 (KB2840642) (V2.0)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves five privately reported vulnerabilities and two publicly disclosed vulnerabilities in Microsoft .NET Framework and Microsoft Silverlight. The most severe of these vulnerabilities could allow remote code execution if a trusted application uses a particular pattern of code. An attacker who successfully exploited this vulnerability could gain the same user rights as the logged-on user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2840642.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+10.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR ((name of it = "Win7") AND service pack major version of it = 1) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "PresentationCore.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of raw version block of it) AND (version of it >= "4.0.30319.19000" and version of it < "4.0.30319.19115")) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of raw version block of it) AND (version of it >= "4.0.30319.17000" and version of it < "4.0.30319.18060"))) of it) OR (exists file "PresentationFramework.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of raw version block of it) AND (version of it >= "4.0.30319.19000" and version of it < "4.0.30319.19115")) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of raw version block of it) AND (version of it >= "4.0.30319.17000" and version of it < "4.0.30319.18060"))) of it) OR (exists file "WindowsBase.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of raw version block of it) AND (version of it >= "4.0.30319.19000" and version of it < "4.0.30319.19115")) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of raw version block of it) AND (version of it >= "4.0.30319.17000" and version of it < "4.0.30319.18060"))) of it) OR (exists file "WindowsFormsIntegration.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of raw version block of it) AND (version of it >= "4.0.30319.19000" and version of it < "4.0.30319.19115")) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of raw version block of it) AND (version of it >= "4.0.30319.17000" and version of it < "4.0.30319.18060"))) of it)) of (folder "Microsoft.NET\Framework\v4.0.30319\WPF" of windows folder)]]></Relevance>
+		<Relevance>((exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "924216F900A444D388FC41D62AEEF129") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.5.50710"  ) of it) AND (not exists key whose (name of it equals "AC0F93011E1C17335842410483FBA182") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "924216F900A444D388FC41D62AEEF129") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.5.50709"  ) of it) AND (not exists key whose (name of it equals "AC0F93011E1C17335842410483FBA182") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>11090056</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2840642</SourceID>
+		<SourceReleaseDate>2013-08-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2013-3129</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP45-KB2840642-v2-x86.exe sha1:f58732b0488e05e22724ea658ffb96687ec7ddb9 size:11090056 http://download.microsoft.com/download/F/2/6/F26F41AF-8E80-4DC5-A3CA-7EB389B22196/NDP45-KB2840642-v2-x86.exe sha256:4821cd9709143ec6f183d07a10945aa5e2f25f84895808721ed305a37d3d294f
+
+waithidden __Download\NDP45-KB2840642-v2-x86.exe /quiet /norestart
+
+action may require restart "f58732b0488e05e22724ea658ffb96687ec7ddb9"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-052</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-054: Unchecked Buffer in File Decompression Functions Could Lead to Code Execution - Windows ME</Title>
+		<Description><![CDATA[
+Microsoft has released a patch that closes two security vulnerabilities in the Compressed Folders feature of Windows ME. The compressed folder feature allows compressed files to be treated as folders. The Compressed Folders feature can be used to create, add files to, and extract files from compressed files. Microsoft recommends that all users apply this patch to close this vulnerability.<BR><BR><b>Note:</b> Upon completion of its action, affected computers will report 'Fixed'. Once they have been restarted, they will report their final status.<BR><BR><b>File Size:</b> 286 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system is "WinME"</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Setup\Updates\WinME\UPD329048" of registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>293184</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB329048</SourceID>
+		<SourceReleaseDate>2002-10-02</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-0370; CVE-2002-1139</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>File Decompression Functions</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinME</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch 329048_3E84647A527E386B05A78DD79AF876BFCFC147E1.exe sha1:91a09cd72aaed57c58c4af3b5594cd3cf16d13e0 size:293184 http://www.download.windowsupdate.com/msdownload/update/v3-19990518/CabPool/329048_3E84647A527E386B05A78DD79AF876BFCFC147E1.exe sha256:f32042677925c526da8ca17f9089113aca74c231ceb8f4ad179ef8f3c7f20a61
+wait __download\329048_3E84647A527E386B05A78DD79AF876BFCFC147E1.exe /Q:A /R:N</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-054.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-054</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

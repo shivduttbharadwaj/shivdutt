@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS16-019: Security Update for .NET Framework to Address Denial of Service - Windows Server 2008 R2 SP1 / Windows 7 SP1 / Windows Server 2008 SP2 / Windows Vista SP2 - .NET Framework 4.6/4.6.1 - KB3127233 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft .NET Framework. The more severe of the vulnerabilities could cause denial of service if an attacker inserts specially crafted XSLT into a client-side XML web part, causing the server to recursively compile XSLT transforms.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB3127233.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.65 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2) OR ((name of it = "Win7") AND service pack major version of it = 1) OR ((name of it = "Win2008R2") AND service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (exists key "Full" whose ((it = 394271 OR it = 393297) of value "Release" of it) of it) of native registry</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "8701690C78887DC3A83DFE072656E841") AND exists key "InstallProperties" whose ((it = "4.6.00112") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D7D92D0310850A132A90B6E69C87C5ED" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "5D136A49A03B8DD36BC511710CD97AE3") AND exists key "InstallProperties" whose ((it = "4.6.00081") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D7D92D0310850A132A90B6E69C87C5ED" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "2BF638084FAB7363780C1D50DDA251CA") AND exists key "InstallProperties" whose ((it = "4.6.00127") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D7D92D0310850A132A90B6E69C87C5ED" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "DA48C6FCBB16BCC3FB6BFE9612A8BDC9") AND exists key "InstallProperties" whose ((it = "4.6.00106") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D7D92D0310850A132A90B6E69C87C5ED" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "1735F6DB1CAD0F03D9EDAC6C97E1823C") AND exists key "InstallProperties" whose ((it = "4.6.01055") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D7D92D0310850A132A90B6E69C87C5ED" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "7CD655640CFEE16338E20E9A0B2DFEBA") AND exists key "InstallProperties" whose ((it = "4.6.01067") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D7D92D0310850A132A90B6E69C87C5ED" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "A38AB0D65B76D62338491124174FDE53") AND exists key "InstallProperties" whose ((it = "4.6.00129") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D7D92D0310850A132A90B6E69C87C5ED" of key "Patches" of it) of it OR exists keys ((names of values of keys ("9DD53E019628E1F3794F990FADC3C2CE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "5B2BCA77FD4D20133BB507BEE52B24BB") AND exists key "InstallProperties" whose ((it = "4.6.01063") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "D7D92D0310850A132A90B6E69C87C5ED" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[exists (files ("ServiceModelEvents.dll"; "System.Core.dll"; "System.Data.dll"; "System.dll"; "System.Net.dll"; "System.Runtime.dll"; "System.Security.dll"; "System.ServiceProcess.dll"; "System.Web.dll"; "System.XML.dll"; "webengine.dll"; "webengine4.dll") of (folders ("Microsoft.NET\Framework\v4.0.30319";"Microsoft.NET\Framework64\v4.0.30319") of windows folder; system folder; system x64 folders)) whose (version of it < "4.6.1085.0")]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>1733224</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3127233</SourceID>
+		<SourceReleaseDate>2016-02-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2016-0047; CVE-2016-0033</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 Feb 2016 01:38:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4.6:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.6.1:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2|Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 07 Apr 2017 12:27:46 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP46-KB3127233-x64.exe sha1:a82f88c2a6e6eaa3d772ea72b36870a064306fe5 size:1733224 https://download.microsoft.com/download/F/2/0/F207EE4A-B1E5-44D4-8308-8892C90FB128/NDP46-KB3127233-x64.exe sha256:8a098545683be0a38e5844f0d2894940ed73d6bc3437e52e4f2bb1a7fd2feb58
+
+waithidden __Download\NDP46-KB3127233-x64.exe /quiet /norestart
+
+action may require restart "a82f88c2a6e6eaa3d772ea72b36870a064306fe5"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS16-019</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

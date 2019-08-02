@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Disable Encryption for Clients</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>This task will remove Crypto Utility from the BES Client folder.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+441 KB
+ </DIV>
+]]></Description>
+		<Relevance>exists folder "BFEncrypt" whose (exists file "private.pem" of it OR exists file "public.cert" of it) of parent folder of client</Relevance>
+		<Relevance>name of operating system starts with "Win"</Relevance>
+		<Category>Setup</Category>
+		<DownloadSize>451072</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2012-06-28</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 28 Jun 2012 20:58:46 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 14 Mar 2017 13:40:46 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to enable encryption for BigFix Clients.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">parameter "cryptoFolderPath" = "{parent folder of client}\BFEncrypt"
+parameter "cryptoFilePath" = "{parameter "cryptoFolderPath"}\AppEngUtility.dll"
+
+//delete the registry keys
+delete temp.reg
+appendfile REGEDIT4
+appendfile [-HKEY_LOCAL_MACHINE\Software\Bigfix\EnterpriseClient\EncryptionControl]
+move __appendfile temp.reg
+waithidden regedit -s temp.reg
+
+//unregister the dll
+waithidden "{pathname of system folder}\cmd.exe" /C regsvr32.exe /u /s "{parameter "cryptoFilePath"}" 
+
+//delete the folder
+waithidden "{pathname of system folder}\cmd.exe" /C rmdir /Q /S "{parameter "cryptoFolderPath"}" </ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

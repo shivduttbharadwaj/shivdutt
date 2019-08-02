@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4493453: KB4493453 (Preview of Monthly Rollup) - Windows Server 2008 R2 SP1 - KB4493453 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4499164.<br /><br />Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB4493453.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+268.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2008R2")) of operating system</Relevance>
+		<Relevance>(name of it = "Win2008R2" AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\Package_for_RollupFix~31bf3856ad364e35~amd64~~7601.24417.1.14" whose (value "CurrentState" of it = 112) of native registry</Relevance>
+		<Relevance><![CDATA[not exists keys (names of values whose ((it >= "7601.24417.1.14") of (following text of last "~" of name of it as version)) of keys "Package_for_RollupFix~31bf3856ad364e35~amd64~~0.0.0.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackageIndex" of native registry) whose ((it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry]]></Relevance>
+		<Relevance>not pending restart "1c3ae76c69a227b1f149f947a6f2beeee5591c51"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>281858375</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4493453</SourceID>
+		<SourceReleaseDate>2019-04-24</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 29 Apr 2019 22:59:18 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4499164</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2008:r2:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>449916401</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-05-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 May 2019 07:01:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows6.1-kb4493453-x64_1c3ae76c69a227b1f149f947a6f2beeee5591c51.msu sha1:1c3ae76c69a227b1f149f947a6f2beeee5591c51 size:281858375 http://download.windowsupdate.com/d/msdownload/update/software/updt/2019/04/windows6.1-kb4493453-x64_1c3ae76c69a227b1f149f947a6f2beeee5591c51.msu sha256:af98630a4840f4fbb222131f38e5fb99fd12627e23b66491c0e5b22fac5e8afa
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows6.1-kb4493453-x64_1c3ae76c69a227b1f149f947a6f2beeee5591c51.msu"}" /quiet /norestart
+
+action requires restart "1c3ae76c69a227b1f149f947a6f2beeee5591c51"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4493453</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

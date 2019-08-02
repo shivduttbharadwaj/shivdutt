@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Windows Server 2008 Service Pack 2 Available - Installation Not Complete</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><P>Microsoft has released a service pack for Windows Server 2008. Windows Server 2008 Service Pack 2 provides enhanced security, increased reliability, and improved performance. Microsoft recommends that all Windows Server 2008 users download and install this service pack.</P> <SPAN id=fixletLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetEnterpriseSecurityCLSFixletLink; function SetEnterpriseSecurityCLSFixletLink(){try {if (isEvansOrLater) {fixletLink.innerHTML = Relevance('(format "<?rxlat <p><STRONG>The listed computers have not yet completed the Server 2008 Service Pack 2 Installation. Although actions deployed through {0} may have reported back as failed, please wait for this fixlet to become non-relevant, at which point the Service Pack installation will have completed.</p></STRONG>?>" + (link "<?rxlat Fixlet Message #482?>" of fixlet 482 of (bes site whose (name of it = name of site of current fixlet)) as string) ) as string');} else {fixletLink.innerHTML = EvaluateRelevance('"<p><STRONG>The listed computers have not yet completed the Server 2008 Service Pack 2 Installation. Although actions deployed through " & (link "Fixlet Message #482" of fixlet 482 of (bes site whose (name of it = name of site of current fixlet)) as string) & " may have reported back as failed, please wait for this fixlet to become non-relevant, at which point the Service Pack installation will have completed.</p></STRONG>"');}}catch (e){if (isEvansOrLater) {fixletLink.innerHTML ='<?jxlat <p><STRONG>The listed computers have not yet completed the Server 2008 Service Pack 2 Installation. Although actions deployed through Fixlet message #482 may have reported back as failed, please wait for this fixlet to become non-relevant, at which point the Service Pack installation will have completed.</STRONG></p>?>';} else {fixletLink.innerHTML = '<p><STRONG>The listed computers have not yet completed the Server 2008 Service Pack 2 Installation. Although actions deployed through Fixlet message #482 may have reported back as failed, please wait for this fixlet to become non-relevant, at which point the Service Pack installation will have completed.</STRONG></p>';}}}</SCRIPT> <STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> This service pack includes several changes that may impair functionality of existing applications. BigFix <STRONG><FONT color=#ff0000>strongly</FONT></STRONG> recommends that you fully test the deployment of this update prior to rolling out the update in your production environment. <P></P> <P><B>Note:</B> There is no default action for this Fixlet message because it does not have a deployment action. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it =  "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND (service pack major version of it = 1 OR service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance>(service pack major version of operating system = 1)</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\Sqm" whose (exists key whose (name of it starts with "VistaSP2-KB948465") of it) of registry</Relevance>
+		<Relevance>not pending restart "106c0484d7449cc4b70353c21d0c0d63e4ba66c3"</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB948465</SourceID>
+		<SourceReleaseDate>2009-05-25</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the deployment guide for Windows Server 2008 Service Pack 2.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/library/dd335037(WS.10).aspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Enable Client support for Central European languages - Windows</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT size=2> <TABLE> <TBODY> <TR> <TD> <P><FONT size=2><STRONG>Enables support for Czech, Hungarian, Polish, and Russian in the IBM Endpoint Manager Client.</STRONG></FONT></P></TD></TR></TBODY></TABLE></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+119 KB
+ </DIV>
+]]></Description>
+		<Relevance>name of operating system starts with "Win"</Relevance>
+		<Relevance>(not exists file "CSY.xlat" of it OR not exists file "HUN.xlat" of it OR not exists file "PLK.xlat" of it OR not exists file "RUS.xlat" of it OR exists file "CSY.xlat" whose (sha1 of it != "3dd4d9d8ffb24922038d781e7f1075b14d007c1f") of it OR exists file "HUN.xlat" whose (sha1 of it != "8ffe289dc6908fdd193a987f2ee217e49627e067") of it OR exists file "PLK.xlat" whose (sha1 of it != "86fdb511e37900e6a47c8b0a85153f72a026f94c") of it OR exists file "RUS.xlat" whose (sha1 of it != "0e91dc2981560be7f28e2cca93a5899614768295") of it) of folder "Reference" of folder "BESLib" of parent folder of client</Relevance>
+		<Category>BES Support</Category>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-12-17</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 20 Jul 2012 18:21:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 06 Jan 2014 19:12:31 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to enable Client support for Central European languages.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "referenceDir"="{folder "Reference" of folder "BESLib" of parent folder of client}"
+
+if {(not exists file "CSY.xlat" of it OR exists file "CSY.xlat" whose (sha1 of it != "3dd4d9d8ffb24922038d781e7f1075b14d007c1f") of it) of folder (parameter "referenceDir")}
+	delete "{parent folder of client as string & "/BESLib/Reference/CSY.xlat"}"
+	prefetch CSY.xlat sha1:3dd4d9d8ffb24922038d781e7f1075b14d007c1f size:26478 http://software.bigfix.com/download/bes/clientui/CSY.xlat sha256:eaf123a0a844147a0a9dfd59113d52f3c7d2a5ed7252b227b2ab91f9b008690c
+	move __Download\CSY.xlat "{parent folder of client as string & "/BESLib/Reference/CSY.xlat"}"
+endif
+
+if {(not exists file "HUN.xlat" of it OR exists file "HUN.xlat" whose (sha1 of it != "8ffe289dc6908fdd193a987f2ee217e49627e067") of it) of folder (parameter "referenceDir")}
+	delete "{parent folder of client as string & "/BESLib/Reference/HUN.xlat"}"
+	prefetch HUN.xlat sha1:8ffe289dc6908fdd193a987f2ee217e49627e067 size:29814 http://software.bigfix.com/download/bes/clientui/HUN.xlat sha256:9c3ff509705dfb5fe01a2e8e09b06c5a246f8d7b4751bd7602bf0524b268e3f1
+	move __Download\HUN.xlat "{parent folder of client as string & "/BESLib/Reference/HUN.xlat"}"
+endif
+
+if {(not exists file "PLK.xlat" of it OR exists file "PLK.xlat" whose (sha1 of it != "86fdb511e37900e6a47c8b0a85153f72a026f94c") of it) of folder (parameter "referenceDir")}
+	delete "{parent folder of client as string & "/BESLib/Reference/PLK.xlat"}"
+	prefetch PLK.xlat sha1:86fdb511e37900e6a47c8b0a85153f72a026f94c size:28732 http://software.bigfix.com/download/bes/clientui/PLK.xlat sha256:2a24333c50475d794f9c18d0e937df1a9c1a50c8899f3bcd52854e946815776e
+	move __Download\PLK.xlat "{parent folder of client as string & "/BESLib/Reference/PLK.xlat"}"
+endif
+
+if {(not exists file "RUS.xlat" of it OR exists file "RUS.xlat" whose (sha1 of it != "0e91dc2981560be7f28e2cca93a5899614768295") of it) of folder (parameter "referenceDir")}
+	delete "{parent folder of client as string & "/BESLib/Reference/RUS.xlat"}"
+	prefetch RUS.xlat sha1:0e91dc2981560be7f28e2cca93a5899614768295 size:37153 http://software.bigfix.com/download/bes/clientui/RUS.xlat sha256:f67a0a2ebe039eed2cdeb93aa8dfe0a60eeccac54b75b238493d9ee21099ee76
+	move __Download\RUS.xlat "{parent folder of client as string & "/BESLib/Reference/RUS.xlat"}"
+endif]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

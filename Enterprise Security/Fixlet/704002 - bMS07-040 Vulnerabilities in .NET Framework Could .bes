@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS07-040: Vulnerabilities in .NET Framework Could Allow Remote Code Execution - .NET Framework 1.1 SP1 - Windows 2003 SP1 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS09-061. Whereas this Fixlet message previously applied to Windows&nbsp;2003 SP1/SP2, it now only applies to Windows&nbsp;2003 SP1.</P> <P>The listed computers have faulty installations of a patch for the vulnerability described in MS07-040. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<BR><BR>Microsoft has released a patch that resolves three privately reported vulnerabilities. Two of these vulnerabilities could allow remote code execution on client systems with .NET Framework installed, and one could allow information disclosure on Web servers running ASP.NET. In all remote code execution cases, users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR><B>Note:</B> Microsoft has announced that the update for this issue may be included in a future update rollup.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR></P> <P><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT><FONT color=#000000> BigFix has received reports of various issues associated with the deployment of this patch. Please take extra caution to qualify this update in a test environment prior to use in a production environment.</FONT></P> <P><B>Note:</B> This security update is also referenced under KB933854.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.38 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of operating system = "Win2003" AND (csd version of operating system = "Service Pack 1")) </Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v1.1.4322" of registry) or (exists key whose (name of it as string contains "Microsoft .NET Framework" and name of it as string contains "v1.1") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry) OR (exists key whose (value "DisplayName" of it as string contains "Microsoft .NET Framework" AND value "DisplayName" of it as string contains "1.1") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)</Relevance>
+		<Relevance><![CDATA[((exists file "Aspnet_isapi.dll" whose (version of it < "1.1.4322.2407") of it OR exists file "Aspnet_wp.exe" whose (version of it < "1.1.4322.2407") of it OR exists file "Corperfmonext.dll" whose (version of it < "1.1.4322.2407") of it OR exists file "Mscorie.dll" whose (version of it < "1.1.4322.2407") of it OR exists file "Mscorld.dll" whose (version of it < "1.1.4322.2407") of it OR exists file "Mscorlib.dll" whose (version of it < "1.1.4322.2407") of it OR exists file "Mscorsn.dll" whose (version of it < "1.1.4322.2407") of it OR exists file "Mscorsvr.dll" whose (version of it < "1.1.4322.2407") of it OR exists file "Mscorwks.dll" whose (version of it < "1.1.4322.2407") of it OR exists file "Netfxupdate.exe" whose (version of it < "1.0.3705.3") of it OR exists file "Setregni.exe" whose (version of it < "1.1.4322.2034") of it OR exists file "System.web.dll" whose (version of it < "1.1.4322.2407") of it OR exists file "Togac.exe" whose (version of it < "1.1.4322.573") of it ) of folder ((value "InstallRoot" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework" of registry as string) & "v1.1.4322")) OR (exists file "Mscoree.dll" whose (version of it < "2.0.50727.253" of it) of system folder)]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB933854" of registry</Relevance>
+		<Relevance>NOT pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>3550088</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB931212</SourceID>
+		<SourceReleaseDate>2007-07-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2007-0041; CVE-2007-0042</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>704001</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003-KB933854-x86-ENU.exe sha1:44ea0a651ebaee22047eda5a5af9e7b5a51080b8 size:3550088 http://download.microsoft.com/download/6/f/4/6f48523c-140c-4607-a41a-f48e8145db82/WindowsServer2003-KB933854-x86-ENU.exe sha256:0fac5910cf4451e695ad74d79080aa277dee3053fe14de5711768077ad26c922
+
+wait __Download\WindowsServer2003-KB933854-x86-ENU.exe /quiet /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS07-040.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/ms07-040.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

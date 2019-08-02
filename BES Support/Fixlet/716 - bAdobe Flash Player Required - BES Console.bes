@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Flash Player Required - BES Console</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <DIV class=subsection>Adobe Flash Player 9 or greater needs to be installed for Internet Explorer to use many dashboards and wizards in the BES Console.</DIV> <DIV class=subsection>&nbsp;</DIV> <DIV class=subsection><STRONG>Note:</STRONG> Starting with Internet Explorer 10, Adobe Flash Player is a built-in add-on.</DIV> <DIV class=subsection>&nbsp;</DIV> <DIV class=subsection><STRONG>Note:</STRONG> For Windows Server 2012, you must enable the Desktop Experience feature to allow the Adobe Flash Player add-on in Internet Explorer.</DIV> <DIV class=subsection>&nbsp;</DIV> <DIV class=subsection><STRONG>Note:</STRONG> For Windows Server 2016 to enable Adobe Flash Player you must open the cmd line, type the following command and then reboot the system:<br> dism /online /add-package /packagepath:"C:\Windows\servicing\Packages\Adobe-Flash-For-Windows-Package~31bf3856ad364e35~amd64~~10.0.14393.0.mum" </DIV> <DIV class=subsection>&nbsp;</DIV> <DIV class=subsection>It is recommended that computers&nbsp;running the BES Console have the latest version of Adobe Flash Player installed for Internet Explorer. </DIV> <SCRIPT type=text/javascript>document.body.ontakeaction = function(event) { if (event.contentID != 'Action1') { return true; } var wmi = GetObject("winmgmts:{impersonationLevel=impersonate}"); var e = new Enumerator(wmi.InstancesOf("Win32_OperatingSystem")); var versionList; for ( ; !e.atEnd(); e.moveNext()) { var version = e.item().Version; versionList = version.split('.'); } var shell = new ActiveXObject('WScript.Shell'); if (versionList.length >= 2 && versionList[0] === '6' && parseInt(versionList[1]) >= 2) { shell.run('http://social.technet.microsoft.com/wiki/contents/articles/10531.windows-server-8-beta-how-to-enable-desktop-experience-feature.aspx'); } else { shell.run('http://get.adobe.com/flashplayer/otherversions/'); } return false; };</SCRIPT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists regapp "BESConsole.exe"</Relevance>
+		<Relevance><![CDATA[version of regapp "BESConsole.exe" >= "6.0"]]></Relevance>
+		<Relevance><![CDATA[NOT (exists folder "macromed\flash" whose (exists file whose (((it starts with "flash" AND it ends with ".ocx") OR (it = "swflash.ocx")) of (name of it as lowercase) AND version of it >= "9") of it) of system folder)]]></Relevance>
+		<Relevance>if (name of operating system = "Win2012" OR name of operating system = "Win2012R2" OR name of operating system = "Win2016") then not exists key whose (name of it starts with "Adobe-Flash-For-Windows-Package" and value "CurrentState" of it = 112) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry else true</Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 29 Jul 2010 17:34:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 31 Oct 2017 13:48:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about how to install/enable Adobe Flash Player.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// if (name of operating system = "Win2012")
+// then http://get.adobe.com/flashplayer/otherversions/
+// else http://social.technet.microsoft.com/wiki/contents/articles/10531.windows-server-8-beta-how-to-enable-desktop-experience-feature.aspx</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information regarding the BES Console and Adobe Flash Player.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=339</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

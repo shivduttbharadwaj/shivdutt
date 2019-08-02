@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Microsoft .NET Framework 1.0 Service Pack 3 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released Service Pack 3 for Microsoft .NET Framework. This critical update focuses on security topics, includes a number of bug fixes, and addresses other issues found after the initial release of the .NET Framework.</FONT></P> <P><FONT size=2><STRONG><FONT color=#ff0000>Important Note: </FONT></STRONG>Installation of this&nbsp;service pack&nbsp;can fail if you have installed&nbsp;any .NET Framework hot fixes released after Service Pack 3, including security hot fix MS05-004. This service pack&nbsp;must be installed&nbsp;prior to installing later hot fixes. See Microsoft KB Article <A href="http://support.microsoft.com/default.aspx/kb/899619"><FONT color=#0000ff>899619</FONT></A>&nbsp;</FONT><FONT size=2>for more information. Microsoft recommends&nbsp;uninstalling the affected hot fixes before deploying Service Pack 3. See the BigFix KB Article&nbsp;<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=314"><FONT color=#0000ff size=2>here</FONT></A>&nbsp;for an example&nbsp;custom action script which&nbsp;will remove security hot fix&nbsp;MS05-004.</FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+9.64 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win98" OR name of operating system = "WinME" OR name of operating system = "WinNT" OR name of operating system = "Win2000" OR name of operating system = "WinXP" OR name of operating system = "Win2003"</Relevance>
+		<Relevance>(exists key whose (name of it as string contains "Microsoft .NET Framework" and name of it as string contains "v1.0" and name of it as string as lowercase does not contain "hotfix") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry) OR (exists key whose (value "DisplayName" of it as string contains "Microsoft .NET Framework" AND value "DisplayName" of it as string contains "1.0" AND value "DisplayName" of it as string as lowercase does not contain "hotfix") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)</Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry) OR (not exists key whose (value "Description" of it as string as lowercase contains "kb867461") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.0" of registry)</Relevance>
+		<Relevance><![CDATA[version of regapp "iexplore.exe" >= "5.01"]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>10111792</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2004-08-30</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT|WinME|Win98|WinXP|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch NDP1.0sp3-KB867461-X86-Enu.exe sha1:10dfd974be3197af667ac6986ba94e8e76c202ba size:10111792 http://download.microsoft.com/download/d/b/0/db03c2e9-f8d6-41e4-b389-3027c48dcb33/NDP1.0sp3-KB867461-X86-Enu.exe sha256:635cbbfee0def9f275b86786214ae3968c7ebfff337a570f2c73b6064c6fb65d
+
+wait __download\NDP1.0sp3-KB867461-X86-Enu.exe /q
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view more information about Microsoft .NET Framework Service Pack 3.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=867461</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

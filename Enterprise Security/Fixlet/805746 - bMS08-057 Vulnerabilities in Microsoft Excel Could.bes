@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-057: Vulnerabilities in Microsoft Excel Could Allow Remote Code Execution - Sharepoint Server 2007 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS09-021. Whereas this Fixlet message previously applied to SharePoint Server 2007 Gold/SP1, it now only applies to SharePoint Server 2007 Gold.</P> <P>Microsoft has released a security update that resolves three privately reported vulnerabilities in Microsoft Office Excel that could allow remote code execution if a user opens a specially crafted Excel file. An attacker who successfully exploited these vulnerabilities could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Note:</B> Microsoft has announced that this update may be included in a future&nbsp;update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB955937.<BR><BR><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+18.0 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists key whose (exists value "DisplayVersion" whose ((it = "12" AND it < "12.0.6219.1000") of (it as string as version)) of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "110D") of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance><![CDATA[exists file whose (name of it as lowercase starts with "xlsrv.dll" AND version of it < "12.0.6324.5001") of folder (value "BinPath" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office Server\12.0" of registry as string)]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>18848096</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB956416</SourceID>
+		<SourceReleaseDate>2008-10-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2008-4019</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Excel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch office2007-kb955937-fullfile-x86-glb.exe sha1:102c9b0b595e0031149d46c96f6434871c49b95a size:18848096 http://download.microsoft.com/download/a/2/5/a25f961a-77e0-4bb8-9052-e59dfab16774/office2007-kb955937-fullfile-x86-glb.exe sha256:eee7b6b257cf8af3709f8af12ef3e6b1880874568bae5a5e507d10c89143161a
+
+waithidden __Download\office2007-kb955937-fullfile-x86-glb.exe /quiet /norestart
+
+ 
+action may require restart "102c9b0b595e0031149d46c96f6434871c49b95a"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-057.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-057.mspx</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

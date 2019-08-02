@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Mozilla Firefox (x64) 60.7.0 ESR Available (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This patch has been superseded by Firefox ESR 60.7.1.<br /><br />Mozilla has released a new version of the Firefox browser. Use the action below to update Firefox to the latest version (60.7.0 ESR).<BR><BR><B>Note</B>: Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note</B>: Client machines may briefly display a cancellable extraction progress windows during installation of this update.<BR><BR><B>Note</B>: This update uses dynamic download so that only the necessary Firefox binary will be downloaded on the servers. <BR><BR><B>Note</B>: You must add https://ftp.mozilla.org/.*,  the Firefox download source to the DownloadWhitelist.txt file, which is located in BigFix Enterprise\BESServer\Mirror Server\Config\. This only needs to be done once.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> Choosing the "Upgrade Firefox regardless of whether or not Firefox running action" will close any running instance of Firefox on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+37.4 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2019-9815; CVE-2019-9816; CVE-2019-9817; CVE-2019-9818; CVE-2019-9819; CVE-2019-9820; CVE-2019-11691; CVE-2019-11692; CVE-2019-11693; CVE-2019-7317; CVE-2019-9797; CVE-2018-18511; CVE-2019-11694; CVE-2019-11698; CVE-2019-5798; CVE-2019-9800
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[(exists regapp "firefox.exe" whose (product version of it < "60.7.0")) OR ((exists value "CurrentVersion" whose ((preceding text of first " " of (it as string)) as version < "60.7.0") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of x64 registry) AND (NOT exists value "CurrentVersion" whose ((preceding text of first " " of (it as string)) as version >= "60.7.0") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of x64 registry))]]></Relevance>
+		<Relevance>(name of it as uppercase contains "ESR") of key of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of x64 registry</Relevance>
+		<Relevance>((name of it = "WinXP-2003" AND service pack major version of it = 2) OR (name of it = "Win2003"  AND service pack major version of it = 1) OR (name of it = "WinVista") OR (name of it = "Win7") OR (name of it = "Win8") OR (name of it = "Win8.1") OR (name of it = "Win10")) of operating system</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>39167192</DownloadSize>
+		<Source>Mozilla</Source>
+		<SourceID>MFSA2019-14</SourceID>
+		<SourceReleaseDate>2019-05-21</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2019-9815; CVE-2019-9816; CVE-2019-9817; CVE-2019-9818; CVE-2019-9819; CVE-2019-9820; CVE-2019-11691; CVE-2019-11692; CVE-2019-11693; CVE-2019-7317; CVE-2019-9797; CVE-2018-18511; CVE-2019-11694; CVE-2019-11698; CVE-2019-5798; CVE-2019-9800</CVENames>
+		<SANSID>SANS C1</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 23 May 2019 00:53:47 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-06-20</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:mozilla:firefox_esr:60.7.0:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Mozilla Firefox</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 20 Jun 2019 18:13:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Firefox only if Firefox is not currently running. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[begin prefetch block
+
+if {exists key whose (name of it as string contains "en-US") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=329e39f8ee4c5e99397c1ab76f5b44beb7ff4c07 size=39167192 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/en-US/Firefox%2520Setup%252060.7.0esr.exe sha256=38b58bba2ffed90cb144ae4bb47dc0ca090fe4eac808c60e755af7e817c8aa7d"}
+	
+elseif {exists key whose (name of it as string contains "fr") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=3881f8e3f676fb5486dea09dd64b536af32c30b9 size=39334280 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/fr/Firefox%2520Setup%252060.7.0esr.exe sha256=682c6068fdf84a260200e8eeffcd3dfdd9473645c06abf66f94b7017f72c5682"}
+	
+elseif {exists key whose (name of it as string contains "de") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=34e6c2d91e66fe00eb1534e0d311e2d2dcdd1351 size=39039480 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/de/Firefox%2520Setup%252060.7.0esr.exe sha256=1ee9f6e4df12e26bd72353a3bd99d4720f594292a33f342e644eefc010758f6e"}
+	
+elseif {exists key whose (name of it as string contains "it") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=5d166bba9b306d7290c22cb8bc342feefc7af27d size=38945448 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/it/Firefox%2520Setup%252060.7.0esr.exe sha256=5e9164c8a5304d3bd8fb348597170b1cbd64360eb8744e9c012a692826541b40"}
+	
+elseif {exists key whose (name of it as string contains "es-ES") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=c4c68302b369a33fb656a79409034788eb89eeb7 size=38988872 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/es-ES/Firefox%2520Setup%252060.7.0esr.exe sha256=861f32ab0b191ccebff879387a8fefe3cf512967db6754e6fc2cec723182da09"}
+	
+elseif {exists key whose (name of it as string contains "zh-CN") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=5aac197f41065cd4542a164d1876353e4c6df429 size=39034960 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/zh-CN/Firefox%2520Setup%252060.7.0esr.exe sha256=1a41d2b3fce1fd86d1f5c67cb607bd03d93f59653c782f28a62091609d9139a8"}
+	
+elseif {exists key whose (name of it as string contains "ja") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=929f08801597fa84586f6cfc6a8eb0b3d6298723 size=39218368 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/ja/Firefox%2520Setup%252060.7.0esr.exe sha256=69854ffe279baf2d7a00c3b70e4a386697a33a042a6647ca363049b1153f6de8"}
+	
+
+elseif {exists key whose (name of it as string contains "zh-TW") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=4e899f79bb2ffd2b590ffe5fa30663189e4f8293 size=39203408 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/zh-TW/Firefox%2520Setup%252060.7.0esr.exe sha256=8698cbda209eb8d8d3df871863b16452bf68b274300466bce7182ca6e34eea79"}
+	
+
+elseif {exists key whose (name of it as string contains "ko") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=94eddeaed14f6ad12bf76a3dd2f7f428f10864ed size=39029256 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/ko/Firefox%2520Setup%252060.7.0esr.exe sha256=4bdffc6307919a5a80c03d78789bb15eeb8f6f1407d75eb95987b8ea7caeff1a"}
+	
+elseif {exists key whose (name of it as string contains "pt-BR") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=471d9503e650656c9a19ac8710427edd902744d4 size=39180088 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/pt-BR/Firefox%2520Setup%252060.7.0esr.exe sha256=3695cc160a76eb90aff341015eed59b33005255af33c090a661abeb0791ff487"}
+	
+elseif {exists key whose (name of it as string contains "ru") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=3b8ca70f805aa4a2952504b37165e325b688a04f size=39476624 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/ru/Firefox%2520Setup%252060.7.0esr.exe sha256=abc183f5ea857cd16e42f34cec89e08bef1fec30110ed5b224765f86d5feda79"}
+	
+elseif {exists key whose (name of it as string contains "pl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=20e190b24039ca7a10574b9a43c5afbfc276af25 size=39975216 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/pl/Firefox%2520Setup%252060.7.0esr.exe sha256=174722110c4375135c25f6f727db7893f6953b5db6749ff0ed2f1f8a1f0ac948"}
+	
+elseif {exists key whose (name of it as string contains "hu") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=7910e4d770e7487da1732131b0cd898cf16aa5ff size=39603104 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/hu/Firefox%2520Setup%252060.7.0esr.exe sha256=602dfb0e0f4cef683b9d67a6c4328414d02aa95c63cc0954d9b3459e81191165"}
+	
+elseif {exists key whose (name of it as string contains "cs") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=1c709343f512562a8343cadacdc3284c214aa70a size=39034648 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/cs/Firefox%2520Setup%252060.7.0esr.exe sha256=e261ae96d32b2324706f5c1378942edb42d03819bfc91a90bab82ab7df363d5d"}
+	
+elseif {exists key whose (name of it as string contains "en-GB") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=2aee3c50f52e8e11cb013bf4cf5626009eb7e0c0 size=39008976 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/en-GB/Firefox%2520Setup%252060.7.0esr.exe sha256=f0d21aabdedb839a343d14a75658ec2481da6f1f7be4cba6dbaff0f98a278689"}
+	
+endif
+
+collect prefetch items
+end prefetch block
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete]" "MozillaFirefoxDesktopIcon"="{if (exists file ((value "Common Desktop" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string)&"\Mozilla Firefox.lnk")) then "" else escape of (value "Common Desktop" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string & "\Mozilla Firefox.lnk")}"
+
+wait __Download\Firefox_Setup_60.7.0esr.exe -ms -ira -hideBanner -cleanUpOnUpgrade 
+
+delete {value "MozillaFirefoxDesktopIcon" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete" of registry as string} 
+
+regdelete "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete]" "MozillaFirefoxDesktopIcon"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Firefox regardless of whether or not Firefox is currently running.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[begin prefetch block
+
+if {exists key whose (name of it as string contains "en-US") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=329e39f8ee4c5e99397c1ab76f5b44beb7ff4c07 size=39167192 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/en-US/Firefox%2520Setup%252060.7.0esr.exe sha256=38b58bba2ffed90cb144ae4bb47dc0ca090fe4eac808c60e755af7e817c8aa7d"}
+	
+elseif {exists key whose (name of it as string contains "fr") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=3881f8e3f676fb5486dea09dd64b536af32c30b9 size=39334280 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/fr/Firefox%2520Setup%252060.7.0esr.exe sha256=682c6068fdf84a260200e8eeffcd3dfdd9473645c06abf66f94b7017f72c5682"}
+	
+elseif {exists key whose (name of it as string contains "de") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=34e6c2d91e66fe00eb1534e0d311e2d2dcdd1351 size=39039480 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/de/Firefox%2520Setup%252060.7.0esr.exe sha256=1ee9f6e4df12e26bd72353a3bd99d4720f594292a33f342e644eefc010758f6e"}
+	
+elseif {exists key whose (name of it as string contains "it") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=5d166bba9b306d7290c22cb8bc342feefc7af27d size=38945448 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/it/Firefox%2520Setup%252060.7.0esr.exe sha256=5e9164c8a5304d3bd8fb348597170b1cbd64360eb8744e9c012a692826541b40"}
+	
+elseif {exists key whose (name of it as string contains "es-ES") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=c4c68302b369a33fb656a79409034788eb89eeb7 size=38988872 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/es-ES/Firefox%2520Setup%252060.7.0esr.exe sha256=861f32ab0b191ccebff879387a8fefe3cf512967db6754e6fc2cec723182da09"}
+	
+elseif {exists key whose (name of it as string contains "zh-CN") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=5aac197f41065cd4542a164d1876353e4c6df429 size=39034960 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/zh-CN/Firefox%2520Setup%252060.7.0esr.exe sha256=1a41d2b3fce1fd86d1f5c67cb607bd03d93f59653c782f28a62091609d9139a8"}
+	
+elseif {exists key whose (name of it as string contains "ja") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=929f08801597fa84586f6cfc6a8eb0b3d6298723 size=39218368 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/ja/Firefox%2520Setup%252060.7.0esr.exe sha256=69854ffe279baf2d7a00c3b70e4a386697a33a042a6647ca363049b1153f6de8"}
+	
+elseif {exists key whose (name of it as string contains "zh-TW") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=4e899f79bb2ffd2b590ffe5fa30663189e4f8293 size=39203408 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/zh-TW/Firefox%2520Setup%252060.7.0esr.exe sha256=8698cbda209eb8d8d3df871863b16452bf68b274300466bce7182ca6e34eea79"}
+	
+elseif {exists key whose (name of it as string contains "ko") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=94eddeaed14f6ad12bf76a3dd2f7f428f10864ed size=39029256 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/ko/Firefox%2520Setup%252060.7.0esr.exe sha256=4bdffc6307919a5a80c03d78789bb15eeb8f6f1407d75eb95987b8ea7caeff1a"}
+	
+elseif {exists key whose (name of it as string contains "pt-BR") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=471d9503e650656c9a19ac8710427edd902744d4 size=39180088 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/pt-BR/Firefox%2520Setup%252060.7.0esr.exe sha256=3695cc160a76eb90aff341015eed59b33005255af33c090a661abeb0791ff487"}
+	
+elseif {exists key whose (name of it as string contains "ru") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=3b8ca70f805aa4a2952504b37165e325b688a04f size=39476624 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/ru/Firefox%2520Setup%252060.7.0esr.exe sha256=abc183f5ea857cd16e42f34cec89e08bef1fec30110ed5b224765f86d5feda79"}
+	
+elseif {exists key whose (name of it as string contains "pl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=20e190b24039ca7a10574b9a43c5afbfc276af25 size=39975216 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/pl/Firefox%2520Setup%252060.7.0esr.exe sha256=174722110c4375135c25f6f727db7893f6953b5db6749ff0ed2f1f8a1f0ac948"}
+	
+elseif {exists key whose (name of it as string contains "hu") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=7910e4d770e7487da1732131b0cd898cf16aa5ff size=39603104 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/hu/Firefox%2520Setup%252060.7.0esr.exe sha256=602dfb0e0f4cef683b9d67a6c4328414d02aa95c63cc0954d9b3459e81191165"}
+	
+elseif {exists key whose (name of it as string contains "cs") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=1c709343f512562a8343cadacdc3284c214aa70a size=39034648 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/cs/Firefox%2520Setup%252060.7.0esr.exe sha256=e261ae96d32b2324706f5c1378942edb42d03819bfc91a90bab82ab7df363d5d"}
+	
+elseif {exists key whose (name of it as string contains "en-GB") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_60.7.0esr.exe sha1=2aee3c50f52e8e11cb013bf4cf5626009eb7e0c0 size=39008976 url=https://ftp.mozilla.org/pub/firefox/releases/60.7.0esr/win64/en-GB/Firefox%2520Setup%252060.7.0esr.exe sha256=f0d21aabdedb839a343d14a75658ec2481da6f1f7be4cba6dbaff0f98a278689"}
+	
+endif
+
+
+collect prefetch items
+end prefetch block
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill firefox /a" else "taskkill /F /IM firefox.exe"}
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete]" "MozillaFirefoxDesktopIcon"="{if (exists file ((value "Common Desktop" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string)&"\Mozilla Firefox.lnk")) then "" else escape of (value "Common Desktop" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string & "\Mozilla Firefox.lnk")}"
+
+wait __Download\Firefox_Setup_60.7.0esr.exe -ms -ira -hideBanner -cleanUpOnUpgrade 
+
+delete {value "MozillaFirefoxDesktopIcon" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete" of registry as string} 
+
+regdelete "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete]" "MozillaFirefoxDesktopIcon"
+
+]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about this Firefox release.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.mozilla.org/en-US/firefox/60.7.0/releasenotes/</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Mozilla.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.mozilla.org/security/known-vulnerabilities/firefoxESR.html</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in Mozilla and Firefox browsers.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c1</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

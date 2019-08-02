@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Unblock Automatic Delivery of IE 9 - Windows Vista/2008/7/2008 R2 (x64)</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Microsoft has released the Internet Explorer&nbsp;9 Blocker Toolkit, which enables IT Administrators to disable automatic delivery of Internet Explorer&nbsp;9. <SPAN></SPAN></P> <P><SPAN>For computers running Windows Vista, Windows Server 2008, Windows 7 or Windows Server 2008 R2 the Blocker Toolkit prevents the machine from receiving Internet Explorer 9 as an important update via Automatic Updates on the Windows Update and Microsoft Update sites; Internet Explorer 9 will be listed as an optional update.</SPAN></P> <P><SPAN><SPAN><SPAN>The Blocker Toolkit will not prevent users from manually installing Internet Explorer 9 as a Recommended update from the Windows Update or Microsoft Update sites, from the Microsoft Download Center, or from external media.</SPAN></SPAN></SPAN></P> <P><SPAN><SPAN><SPAN><STRONG>Note:</STRONG> The action below sets the registry value "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Setup\9.0\DoNotAllowIE90" to "0" to unblock automatic delivery of IE 9. The task&nbsp;<SPAN id=fixletLink></SPAN>&nbsp;can be used to undo this action. <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = setLink; function setLink() { try { fixletLink.innerHTML = EvaluateRelevance('link of bes fixlets whose (id of it = 570 AND name of site of it = name of site of current fixlet)'); } catch (e) {if (isEvansOrLater) { fixletLink.innerHTML ='<?jxlat Block Automatic Delivery of IE 9 - Windows Vista/2008/7/2008 R2 (x64) (ID: 570)?>';} else { fixletLink.innerHTML = 'Block Automatic Delivery of IE 9 - Windows Vista/2008/7/2008 R2 (x64) (ID: 570)';} } } </SCRIPT> </SPAN></SPAN></SPAN></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(it = "Win7" or it = "WinVista" OR it = "Win2008" OR it = "Win2008R2") of name of operating system</Relevance>
+		<Relevance>exists key "HKLM\SOFTWARE\Microsoft\Internet Explorer\Setup\9.0" whose (value "DoNotAllowIE90" of it = 1) of x64 registry</Relevance>
+		<Category>Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2011-03-15</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2|Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Configuration UpdateBlocking</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 25 Nov 2015 08:12:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset64 "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Setup\9.0]" "DoNotAllowIE90"=dword:00000000</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the Internet Explorer 9 Blocker Toolkit.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri"><![CDATA[http://www.microsoft.com/downloads/en/details.aspx?familyid=a6169467-b793-4d17-837d-01776bf2bea4&displaylang=en]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

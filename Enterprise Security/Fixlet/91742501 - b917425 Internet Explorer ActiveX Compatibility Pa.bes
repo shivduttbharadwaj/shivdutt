@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>917425: Internet Explorer ActiveX Compatibility Patch for Mshtml.dll - IE 6.0 - Windows XP SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a patch for computers that have installed the Cumulative Security Update for Internet Explorer released in Microsoft Security Bulletin MS06-013. <BR><BR>The update disables the behavior of the Microsoft Internet Explorer ActiveX update that is included in Internet Explorer security update 912812 (Microsoft Security Bulletin MS06-013). Microsoft strongly recommends that this compatibility patch be deployed only to systems that are affected by the new functionality that is introduced by the Internet Explorer ActiveX update.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><FONT color=red><B>Important Note:</B></FONT> The Compatibility Patch will function until an Internet Explorer update is released as part of the June 2006 update cycle, at which time the changes to the way Internet Explorer handles ActiveX controls will be permanent.<B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.12 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinXP" AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance>version of regapp "iexplore.exe" as string starts with "6"</Relevance>
+		<Relevance>exists value "MinorVersion" whose (it as string as lowercase contains "sp2") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP3\KB912812" of registry</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP3\KB917425" of registry</Relevance>
+		<Relevance><![CDATA[((exists file "Mshtml.dll" whose (version of it >= "6.0.2900.2873" AND version of it < "6.0.2900.2876") of it) of system folder) ]]></Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>2224440</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB917425</SourceID>
+		<SourceReleaseDate>2006-04-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsXP-KB917425-x86-ENU.exe sha1:7912815968381eba8b17347fd7806456f5018b59 size:2115896 http://download.microsoft.com/download/7/4/1/74192c9c-0cd5-41d0-9bfb-b19d503ff1e5/WindowsXP-KB917425-x86-ENU.exe sha256:03100b21cd23e7a92168ac3baff4f4fdcb9974715ef1b5fc5ddc41f2e45c2c37
+
+wait __Download\WindowsXP-KB917425-x86-ENU.exe /passive /quiet /norestart
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 917425.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/917425</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS06-013.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2006/MS06-013</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

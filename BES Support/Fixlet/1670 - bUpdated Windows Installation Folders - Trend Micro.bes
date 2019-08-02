@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Installation Folders - Trend Micro Endpoint Security Platform version 9.0.787.0 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><b>Version 9.0.787.0 of Trend Micro Endpoint Security Platform is now available! <BR></b><BR>The following list of computers have outdated Trend Micro Endpoint Security Platform Installers, created by the Installation Generator during initial installation. It is recommended that you upgrade these installation folders to install Trend Micro Endpoint Security Platform 9.0 components so that all further installations of the Trend Micro Endpoint Security Platform Server, Client, and Console will be the latest version.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+229 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>name of operating system starts with "Win"</Relevance>
+		<Relevance>name of operating system starts with "Win"</Relevance>
+		<Relevance><![CDATA[version of file (value "InstallFolder" of key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of registry as string & "BESClientDeploy\BESClientDeploy.exe") < "9.0.787.0"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>if (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Brand" whose (exists value "value" of it) of registry) then (value "value" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Brand" of registry as string = "Trend") else ("Trend"="BigFix")</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>240309880</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-10-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 08 Oct 2013 09:45:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Install</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade your Trend Micro Endpoint Security Platform Installation folders.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESFolders.exe sha1:c22e06333760e6c55f9c86964a319f5014e02f7b size:240309880 http://software.bigfix.com/download/bes/90/Trend-BES-9.0.787.0.exe
+delete __Local\Get\BESFolders.exe
+// If the next line fails, there is not enough free space to complete this action
+continue if {240309880  < free space of drive of client folder of current site}
+move __Download\BESFolders.exe __Local\Get\BESFolders.exe
+wait __Local\Get\BESFolders.exe /s /Verbose"C:\besinstallationgenerator.log" /v"REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable"
+delete __Local\Get\BESFolders.exe]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for manual upgrade instructions.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/bes/install/upgradebes.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

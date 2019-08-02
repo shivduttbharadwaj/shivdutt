@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2345886: Description of the update that implements Extended Protection for Authentication in the Server service - Windows Server 2003 SP2 - KB2345886</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to help strengthen authentication credentials in specific scenarios. After you install this item, you may have to restart your computer.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB2345886.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+715 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "srvsvc.dll" whose ((version of it < "5.2.3790.4758")) of it) of (system folder) OR (exists file "srv.sys" whose ((version of it < "5.2.3790.4758")) of it) of (folder "drivers" of system folder)]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb2345886" of registry)</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>733056</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2345886</SourceID>
+		<SourceReleaseDate>2010-10-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch windowsserver2003-kb2345886-x86-enu_6bef04385cacb36eba80816590eac2ec0f364b16.exe sha1:6bef04385cacb36eba80816590eac2ec0f364b16 size:733056 http://download.windowsupdate.com/msdownload/update/software/crup/2010/09/windowsserver2003-kb2345886-x86-enu_6bef04385cacb36eba80816590eac2ec0f364b16.exe sha256:fd43a030ceb2109994d9d2f32c3ee0ca7d30dfb2c5245348f534e55ea61d52b2
+
+waithidden __Download\windowsserver2003-kb2345886-x86-enu_6bef04385cacb36eba80816590eac2ec0f364b16.exe /quiet /norestart
+
+action may require restart "6bef04385cacb36eba80816590eac2ec0f364b16"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://go.microsoft.com/fwlink/?LinkId=202472</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS06-064: Vulnerabilities in TCP/IP IPv6 Could Allow Denial of Service - Windows Server 2003</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+Microsoft has released a patch that resolves a publicly disclosed vulnerability as well as additional issues discovered through internal investigations in the IPv6 Windows implementation of the Internet Control Message Protocol (ICMP) and TCP. An attacker who successfully exploited the most severe of these vulnerabilities against an affected system could cause the system to stop responding or automatically reboot.<BR><BR>After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><b>Note:</b> Microsoft has announced that this patch will be included in a future Service Pack or Update Rollup.
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+660 KB
+ </DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2003" AND (it = "") of csd version of it) of operating system</Relevance>
+		<Relevance>NOT exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP2\KB922819" of registry</Relevance>
+		<Relevance><![CDATA[(csd version of operating system = "" AND ((exists file "tcpip6.sys" whose (version of it < "5.2.3790.576") of it) of folder "drivers" of system folder OR (exists file "6to4svc.dll" whose (version of it < "5.2.3790.576") of it) of system folder)) OR (csd version of operating system = "Service Pack 1" AND ((exists file "tcpip6.sys" whose (version of it < "5.2.3790.2771") of it) of folder "drivers" of system folder OR (exists file "6to4svc.dll" whose (version of it < "5.2.3790.2771") of it) of system folder))]]></Relevance>
+		<Relevance>not exists key "HKLM\Software\Microsoft\Updates\Windows Server 2003\SP2\KB914961" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>676664</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB922819</SourceID>
+		<SourceReleaseDate>2006-10-10</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<CVENames>CVE-2004-0790; CVE-2004-0230; CVE-2005-0688</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>TCP/IP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003-KB922819-x86-ENU.exe sha1:22c5d80f99afb4a79b6245a4b5db1e8c95cb03fa size:676664 http://download.microsoft.com/download/a/d/2/ad2acd40-3ae7-49d3-88fe-064a71ccc61a/WindowsServer2003-KB922819-x86-ENU.exe sha256:e73e7c8db6f2f3a4d08caee6c323ac644c1851a25465ede99c0d3a1f812dc75c
+
+wait __Download\WindowsServer2003-KB922819-x86-ENU.exe /quiet /passive /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS06-064.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2006/MS06-064</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

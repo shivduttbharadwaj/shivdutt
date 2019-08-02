@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS06-071: Vulnerabilities in Microsoft XML Core Services Could Allow Remote Code Execution - XML Core Services 4.0</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+Microsoft has released a patch that resolves a newly discovered, privately reported vulnerability in Microsoft XML Core Services. An attacker who successfully exploited this vulnerability could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. <BR><BR>After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><b>Note:</b> Microsoft has announced that this patch may be included in a future Update Rollup.<BR><BR><b>Note:</b> This security update is also referenced under KB927978.
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+5.37 MB
+ </DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "Msxml4.dll" whose (version of it < "4.20.9841.0") of system folder)]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2") of system folder]]></Relevance>
+		<Relevance>NOT exists key "HKLM\SOFTWARE\Microsoft\Updates\MSXML4SP2\Q927978" of registry</Relevance>
+		<Relevance>(name of it = "WinXP" and (csd version of it = "" OR csd version of it = "Service Pack 1") OR name of it = "Win2000" AND (csd version of it != "Service Pack 4") OR name of it = "Win2003" AND (csd version of it = "")) of operating system</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>5629208</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB928088</SourceID>
+		<SourceReleaseDate>2006-11-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2006-5745</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>XML Core Services</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch msxml4-KB927978-enu.exe sha1:d364f9fe80c3965e79f6f64609fc253dfeb69c25 size:5629208 http://download.microsoft.com/download/e/2/e/e2e92e52-210b-4774-8cd9-3a7a0130141d/msxml4-KB927978-enu.exe sha256:7602c2a6d2a46ef2b4028438d2cce67fe437a9bfb569249ea38141b4756b4e03
+
+wait __Download\msxml4-KB927978-enu.exe {(if exists file "msiexec.exe" whose (version of it = "2") of system folder then "/q REBOOT=ReallySuppress" else "/quiet /norestart" )}
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS06-071.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2006/MS06-071</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>Application Information for Office 365 - Office 2013</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>This analysis retrieves information for the Office 365 - Office 2013 applications that are installed on the endpoints in your infrastructure.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>exists keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Relevance>Exists value "DisplayVersion" whose (it as string as version = "15.0") of keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Category>Unspecified</Category>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2016-03-31</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 31 Mar 2016 07:06:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office 365</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 31 Mar 2016 07:06:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="Office 365 - Office 2013 Update Path" ID="1">(value "UpdateURL" of it as string) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\15.0\ClickToRun\Configuration" of native registry | "N/A"</Property>
+	</Analysis>
+</BES>

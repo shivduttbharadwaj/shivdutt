@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Ubuntu Client - IBM BigFix version 9.5.2 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.5.2 of IBM BigFix is now available for the Ubuntu operating system!<BR><BR></STRONG>The latest version of the IBM BigFix Client provides several enhancements and fixes. This Fixlet message will upgrade IBM BigFix Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade IBM BigFix Relays to a 9.5 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM BigFix Server and Relays have been upgraded. It may take several hours for the Clients to notice that the Server and Relays are upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.<BR><BR><STRONG>Note: </STRONG>This client runs on supported Ubuntu LTS platforms using a 32-bit x86(versions 12,14,16), 64-bit x86(versions 12,14,16), or PPC 64 LittleEndian (version 14).</FONT></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+46.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(it >= "9.5" OR it < "9.2.17") of version of client]]></Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client < "9.5.2.56" and version of client >= "7.2"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.5"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "Ubuntu( Server|)( LTS|) (12|14|16)") of name of operating system</Relevance>
+		<Relevance><![CDATA[((it = "x86_64") OR (if (exists match (regex "^i[3-9]86$") of it) then (family of main processor >= 4) else false) OR (it ="ppc64le")) of architecture of operating system]]></Relevance>
+		<Relevance>(if ("ppc64le" = architecture of it) then ((major version of it = 14) AND (little endian of it)) else (true)) of operating system</Relevance>
+		<Relevance><![CDATA[(not exists relay service) or (version of relay service >= "9.5.2")]]></Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>48434472</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2016-05-16</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 17 May 2016 17:59:24 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 02 Apr 2019 09:31:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Client 9.5.2 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {(architecture of it = "x86_64") of operating system}
+	// Ubuntu 12,14,16 LTS 64 bit x86
+	prefetch BESClientUpgrade.deb sha1:f02d210259d9b1b3bcc0328274e56abadc3ac17e size:19708820 http://software.bigfix.com/download/bes/95/BESAgent-9.5.2.56-ubuntu10.amd64.deb sha256:e3f55479d16cb3ee5e342fe92dd053c3a4531fe5c8a54d2c81ec54a6eed2ca73
+elseif {(exists match (regex "^i[3-9]86$") of architecture of it) of operating system}
+	// Ubuntu 12,14,16 LTS 32 bit x86
+	prefetch BESClientUpgrade.deb sha1:ad81a316b7c2225dfa1e011d50df280f8451bc55 size:19498212 http://software.bigfix.com/download/bes/95/BESAgent-9.5.2.56-ubuntu10.i386.deb sha256:a9d4c74cf77bdd2df1f1dfe9323ffbeda9f925d07bcd86b98e5317abe42bd46b
+elseif {(("ppc64le" = architecture of it) AND (little endian of it) AND (major version of operating system = 14)) of operating system}
+	// Ubuntu 14 LTS 64bit PPCLE
+	prefetch BESClientUpgrade.deb sha1:ebfde225b5b5747fb5a597f656605e21a25aee04 size:9227440 http://software.bigfix.com/download/bes/95/BESAgent-9.5.2.56-ubuntu144.ppc64el.deb sha256:00886338af498694fc6ed2533d6058f5fe7a9fe7f7afbc9695412d132f095602
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESClientUpgrade.deb"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {19708820 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESClientUpgrade.deb __Local/Upgrade/BESClientUpgrade.deb
+delete __appendfile
+appendfile #!/bin/sh
+appendfile /etc/init.d/besclient stop
+appendfile /usr/bin/dpkg -i __Local/Upgrade/BESClientUpgrade.deb
+appendfile /etc/init.d/besclient start
+appendfile /bin/rm -f __Local/Upgrade/BESClientUpgrade.deb
+move __appendfile __Local/Upgrade/besclientupgrade
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /bin/sh __Local/Upgrade/besclientupgrade]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.5.2.56"]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

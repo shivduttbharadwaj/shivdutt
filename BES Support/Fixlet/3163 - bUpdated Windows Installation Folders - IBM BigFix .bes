@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Installation Folders - IBM BigFix version 9.2.12 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><b>Version 9.2.12 of IBM BigFix is now available! <BR></b><BR>The following list of computers have outdated IBM BigFix Installers, created by the Installation Generator during initial installation. It is recommended that you upgrade these installation folders to install IBM BigFix 9.2 components so that all further installations of the IBM BigFix Server, Client, and Console will be the latest version.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+278 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance><![CDATA[((windows of it) AND (major version of it > 6 OR (major version of it = 6 AND (minor version of it >= 1 OR service pack major version of it >= 2))) AND (platform id of it != 3) AND (architecture of it = "x86_64")) of operating system]]></Relevance>
+		<Relevance><![CDATA[version of file (value "InstallFolder" of key "HKLM\SOFTWARE\BigFix\BES Installation Generator" of registry as string & "BESClientDeploy\BESClientDeploy.exe") < "9.2.12.18"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>292232192</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-10-16</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 19 Oct 2017 13:10:36 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Install</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 19 Oct 2017 13:10:36 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade your IBM BigFix Installation folders.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESFolders.exe sha1:88f856adf580c5190bd1e3933434f017966ad209 size:292232192 http://software.bigfix.com/download/bes/92/BigFix-BES-9.2.12.18.exe sha256:421e7508d89df194fde43df04686eae1b3f934599b1ee481f15c32184a351526
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (292232192 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (292232192 < free space of drive of parent folder of client)}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+move __Download\BESFolders.exe __Local\Upgrade\BESFolders.exe
+wait __Local\Upgrade\BESFolders.exe /s /Verbose"C:\besinstallationgenerator.log" /v"REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable"
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for manual upgrade instructions.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/bes/install/upgradebes.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

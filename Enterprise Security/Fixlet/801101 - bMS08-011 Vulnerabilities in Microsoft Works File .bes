@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-011: Vulnerabilities in Microsoft Works File Converter Could Allow Remote Code Execution - Office 2003 SP2/SP3</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+Microsoft has released a security update for Microsoft Works File Converter. It resolves three privately reported vulnerabilities in the Microsoft Works File Converter. An attacker who successfully exploited this vulnerability could take complete control of an affected system. <BR><BR>After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities. <BR><BR><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted. <BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Important Note:</b> There are known issues associated with the installation of this patch. See the Caveats section of the security bulletin for more information. <BR><BR><b>Note:</b> This security update is also referenced under KB943973.<BR><BR><b>Note:</b> There is no default action for this Fixlet message due to known issues associated with the installation of this patch. Please review the Known Issues section of the security bulletin prior to deploying this patch. For more information on default actions, see BigFix KB #474.
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+431 KB
+ </DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(name of operating system = "Win2000" AND csd version of operating system >= "Service Pack 3") OR name of operating system = "WinXP" OR name of operating system = "Win2003"]]></Relevance>
+		<Relevance><![CDATA[(exists regapp "powerpnt.exe" AND version of regapp "powerpnt.exe" = "11" as version AND version of regapp "powerpnt.exe" >= "11.0.6564.0" as version) OR (exists regapp "excel.exe" AND version of regapp "excel.exe" = "11" as version AND version of regapp "excel.exe" >= "11.0.6560.0" as version) OR (exists regapp "winword.exe" AND version of regapp "winword.exe" = "11" as version AND version of regapp "winword.exe" >= "11.0.6568.0" as version) OR (exists regapp "outlook.exe" AND version of regapp "outlook.exe" = "11" as version AND version of regapp "outlook.exe" >= "11.0.6565.0" as version) OR (exists regapp "mspub.exe" AND version of regapp "mspub.exe" = "11" as version AND version of regapp "mspub.exe" >= "11.0.6565.0" as version) OR (exists regapp "msaccess.exe" AND version of regapp "msaccess.exe" = "11" as version AND version of regapp "msaccess.exe" >= "11.0.6566.0" as version) OR (exists regapp "frontpg.exe" AND version of regapp "frontpg.exe" = "11" as version AND version of regapp "frontpg.exe" >= "11.0.6552.0" as version) OR (exists regapp "infopath.exe" AND version of regapp "infopath.exe" = "11" as version AND version of regapp "infopath.exe" >= "11.0.6565.0" as version)]]></Relevance>
+		<Relevance>((exists key "HKEY_CLASSES_ROOT\Installer\Products" of registry) AND (exists key whose ((value "ProductName" of it as string contains "Office") AND (value "ProductName" of it as string contains "2003") AND ((value "ProductName" of it as string contains "Professional Enterprise Edition") OR (value "ProductName" of it as string contains "Standard Edition") OR (value "ProductName" of it as string contains "Basic Edition") OR (value "ProductName" of it as string contains "Small Business Edition") OR (value "ProductName" of it as string contains "Professional Edition"))) of key "HKEY_CLASSES_ROOT\Installer\Products" of registry))</Relevance>
+		<Relevance><![CDATA[exists file "MSOINTL.DLL" whose (language of version block of it contains "English") of (folders of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11"))]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2.0") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\TextConv") whose (exists file "works632.cnv" whose (version of it < "7.3.1005.0" and language of only version block of it contains "English") of it)]]></Relevance>
+		<Relevance><![CDATA[exists key whose (value "DisplayVersion" of it as string as version >= "11.0.7969.0" as version AND (character 1 of it = "9" AND (character 2 of it = "0" OR character 2 of it = "1") AND (first 2 of following text of first 3 of it = "11" OR first 2 of following text of first 3 of it = "12" OR first 2 of following text of first 3 of it = "13" OR first 2 of following text of first 3 of it = "CA" OR first 2 of following text of first 3 of it = "E3") AND (preceding text of first "}" of it ends with "6000-11D3-8CFE-0150048383C9")) of name of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>441416</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB947081</SourceID>
+		<SourceReleaseDate>2008-02-12</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2007-0216; CVE-2008-0105; CVE-2008-0108</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Works File Converter</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch office2003-KB943973-FullFile-ENU.exe sha1:c6429bbd34fc8182367eb37d34acfada1ef0aa11 size:441416 http://download.microsoft.com/download/2/3/3/23383749-c05a-4148-94f7-e1951095f429/office2003-KB943973-FullFile-ENU.exe sha256:272cb826e82c27c9a7ce50c32cc8d1d0fcb71e1039a456cea2c462dafc861872
+
+wait __Download\office2003-KB943973-FullFile-ENU.exe /q:a /r:n /c:"msiexec /p WORKS632.msp REBOOT=ReallySuppress /qn"
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-011.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2008/MS08-011</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

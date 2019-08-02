@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-AUG: Security update for Microsoft Office Compatibility Pack Service Pack 3 - Office Compatibility Pack SP3 - KB4032212 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4092466.<br /><br /><div><br><p>This security update resolves vulnerabilities in Microsoft Office that could allow remote code execution and&nbsp;information disclosure if a user opens a specially crafted Office file. To learn more about these vulnerabilities, see <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-8375" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8375</a>&nbsp;and <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-8382" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8382</a>.<br><br><br><br><strong>Note</strong> To apply this security update, you must have the release version of <a data-content-id="" data-content-type="" href="http://support.microsoft.com/kb/949585" target="_blank">Service Pack 3 for the 2007 Microsoft Office Suite</a> installed on a computer that is running Windows Embedded POSReady 2009.</p><br></div><br><p><B>Note:</B> This security update is also referenced under KB4032212.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+9.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ("00002109020090400000000000F01FEC";"00002119B20000000000000000F01FEC";"000021090200A1400000000000F01FEC";"00002109020022400000000000F01FEC";"00002109020042400000000000F01FEC";"00002109810000000000000000F01FEC";"00002109020070400000000000F01FEC";"00002109020040800000000000F01FEC";"00002119030000000000000000F01FEC";"00002119F20000000000000000F01FEC";"00002119310000000000000000F01FEC";"00002109020050400000000000F01FEC";"00002109020021400000000000F01FEC";"00002109110000000000000000F01FEC";"00002109020001400000000000F01FEC";"000021090200E1400000000000F01FEC";"00002109020091400000000000F01FEC";"00002109020041400000000000F01FEC";"00002109020061800000000000F01FEC";"000021090200E0400000000000F01FEC";"000021090200D0400000000000F01FEC";"00002109020010400000000000F01FEC";"00002119210000000000000000F01FEC";"00002119130000000000000000F01FEC";"00002119E20000000000000000F01FEC";"00002109020020400000000000F01FEC";"00002119530000000000000000F01FEC";"00002109210000000000000000F01FEC";"00002119B10000000000000000F01FEC";"000021090200B0400000000000F01FEC";"000021090200C0400000000000F01FEC";"00002109B10000000000000000F01FEC";"000021090200B1400000000000F01FEC";"00002109020093400000000000F01FEC";"00002109020052400000000000F01FEC";"000021090200D1400000000000F01FEC";"00002119810000000000000000F01FEC";"00002109020080400000000000F01FEC";"00002109020060400000000000F01FEC";"00002119110000000000000000F01FEC";"00002109020040400000000000F01FEC";"000021090200A0C00000000000F01FEC";"000021090200F1400000000000F01FEC";"000021090200A1800000000000F01FEC";"00002109020011400000000000F01FEC";"00002109020031400000000000F01FEC";"00002119AC0000000000000000F01FEC";"00002109030000000000000000F01FEC";"00002109020081400000000000F01FEC";"00002109AC0000000000000000F01FEC";"00002109020061400000000000F01FEC";"00002109020051400000000000F01FEC";"00002109020040C00000000000F01FEC";"00002119410000000000000000F01FEC";"00002119330000000000000000F01FEC";"00002119730000000000000000F01FEC";"00002109020062400000000000F01FEC";"00002109020072400000000000F01FEC";"00002109410000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.6612.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "E090986DBE0DDFE43AA1EF202EA12B25" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "12.0" AND "|XL12CNV.EXE|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "XL12CNV.EXE" AND (item 3 of it = "12.0.6802.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Mon, 23 Jul 2018 18:54:20 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "12.0.6802.5000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{D689090E-D0EB-4EFD-A31A-FE02E21AB252}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>9907408</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4032212</SourceID>
+		<SourceReleaseDate>2018-08-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-8375; CVE-2018-8382</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 Aug 2018 07:29:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4092466</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-09-11</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office_compatibility_pack:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Office Compatibility Pack</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 23 Jul 2019 19:37:10 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch xlconv2007-kb4032212-fullfile-x86-glb.exe sha1:164ab5da2052cf8b2cdeb5db87bcea3773141442 size:9907408 https://download.microsoft.com/download/7/F/4/7F40B481-8B86-4FC4-B235-F809034DF663/xlconv2007-kb4032212-fullfile-x86-glb.exe sha256:338324f3d64b15094cf79904e16b81579bc5950c0805dfa55fd7b505f6394722
+
+waithidden __Download\xlconv2007-kb4032212-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "164ab5da2052cf8b2cdeb5db87bcea3773141442"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4032212</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-062: Vulnerabilities in GDI+ Could Allow Remote Code Execution - Windows Vista Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS11-029. Whereas this Fixlet message previously applied to Windows Vista Gold/SP1, it now only applies to Windows Vista Gold.<BR><BR>Microsoft has released a security update that resolves several privately reported vulnerabilities in Microsoft Windows GDI+. These vulnerabilities could allow remote code execution if a user viewed a specially crafted image file using affected software or browsed a Web site that contains specially crafted content. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB958869.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.34 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinVista" AND product type of it = nt workstation product type AND ((it = 0) of service pack major version of it)) of operating system</Relevance>
+		<Relevance>not pending restart "72ba3711c1212b8b2c6180d3744a063acaf9c093"</Relevance>
+		<Relevance><![CDATA[number of (elements of ((set of (if (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) then elements whose (it contains "KB958869" AND it does not contain "_") of (set of ((substrings before "~" of substrings after "for_" of names of keys whose (name of it contains "for_" AND (it = 96 or it = 112 or it = 6 or it = 7) of (value "CurrentState" of it as integer)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) as uppercase)) else (nothing))))) < 1]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1408821</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB957488</SourceID>
+		<SourceReleaseDate>2009-10-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2009-2503; CVE-2009-2504</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>GDI+</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>P1D</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB958869-x86.msu sha1:72ba3711c1212b8b2c6180d3744a063acaf9c093 size:1408821 http://download.microsoft.com/download/5/F/D/5FDADAB3-503F-4FE0-8113-6747D328570B/Windows6.0-KB958869-x86.msu sha256:b7006d5f70e05be54e4aac85fc0cf207b97d4bf5adab7390c3f1e52b1a7078bd
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB958869-x86.msu"}" /quiet /norestart
+
+action requires restart "72ba3711c1212b8b2c6180d3744a063acaf9c093"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-062.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2009/MS09-062</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

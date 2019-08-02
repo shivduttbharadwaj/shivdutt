@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>BES Server is Using a Non-Default Port That May Cause BES Clients to Not Report</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>The BES Server is set&nbsp;to use a port other then 52311 for communication&nbsp;with BES&nbsp;components&nbsp;and this may cause problems&nbsp;resynchronizing BES Clients.&nbsp; As a result, if a BES Client gets out of sync with the BES Server, the client will no longer be able to send up reports until a "refresh" is sent through the BES Console.&nbsp;This bug is fixed in BES 5.0 but&nbsp;earlier versions of BES may experience this problem.</FONT></P> <P><FONT size=2>This bug can be solved by&nbsp;configuring the FillDB service to use the correct port instead of the default port 52311.&nbsp; The action below will set a registry key and restart the FillDB service.</FONT></P> <P><FONT size=2><STRONG>Note:</STRONG> A command prompt may briefly appear on the BES Server machine while the FillDB service is restarted.</FONT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry AND value "Version" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry < "5.0.0.0" ]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry AND value "Port" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry != "52311"</Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\FillDB" of registry AND not exists value "ClientRegisterURL" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\FillDB" of registry) OR value "ClientRegisterURL" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\FillDB" of registry as string contains ":52311"</Relevance>
+		<Relevance>exists service "FillDB"</Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2004-10-06</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 07 Oct 2004 00:21:47 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Potential</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to configure FillDB to use the correct port.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\FillDB]" "ClientRegisterURL"="http://{value "Hostname" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry}/cgi-bin/bfenterprise/clientregister.exe"
+dos net stop FILLDB
+dos net start FILLDB</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>Application Information for Office 2016 - Office 2016</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>This analysis retrieves information for the Office 2016 applications that are installed on the endpoints in your infrastructure.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(exists keys whose (((it contains "office" and it contains "2016")) of (value "DisplayName" of it as string as lowercase) AND value "DisplayVersion" of it as string as version = "16") of it AND not exists keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of it) of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Category>Unspecified</Category>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2016-03-31</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 31 Mar 2016 07:06:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2016</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 Mar 2017 04:24:53 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="Office 2016 Update Path" ID="1">(value "UpdatePath" of it as string) of key "HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate" of native registry | "N/A"</Property>
+		<Property Name="Office 2016 Update Channel" ID="2" EvaluationPeriod="PT0S">if ((exists value "UpdateBranch" whose (it as string as lowercase = "current") of keys "HKLM\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" of it OR (not exists value "UpdateBranch" of keys "HKLM\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" of it AND exists value "CDNBaseUrl" whose (it as string as lowercase contains "492350f6-3a01-4f97-b9c0-c7c6ddf67d60") of keys "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of it)) of native registry) then "Current Channel" else (if ((exists value "UpdateBranch" whose (it as string as lowercase = "business") of keys "HKLM\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" of it OR (not exists value "UpdateBranch" of keys "HKLM\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" of it AND exists value "CDNBaseUrl" whose (it as string as lowercase contains "7ffbc6bf-bc32-4f92-8982-f9dd17fd3114") of keys "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of it)) of native registry) then "Deferred Channel" else if ((exists value "UpdateBranch" whose (it as string as lowercase = "firstreleasedeferred") of keys "HKLM\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" of it OR (not exists value "UpdateBranch" of keys "HKLM\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" of it AND exists value "CDNBaseUrl" whose (it as string as lowercase contains "b8f9b850-328d-4355-9145-c59439a0c4cf") of keys "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of it)) of native registry) then "First Release of Deferred Channel" else "N/A")</Property>
+	</Analysis>
+</BES>

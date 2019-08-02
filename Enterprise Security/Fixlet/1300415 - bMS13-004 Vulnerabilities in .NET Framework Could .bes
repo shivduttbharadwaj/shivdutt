@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-004: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege - .NET Framework 3.0 SP2 - Windows XP SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS14-053. Whereas this Fixlet message previously applied to Windows XP SP2 / Windows Server 2003 SP2 (x64), it now only applies to Windows XP SP2 (x64).</P> Microsoft has released a security update that resolves four privately reported vulnerabilities in the .NET Framework. The most severe of these vulnerabilities could allow elevation of privilege if a user views a specially crafted webpage using a web browser that can run XAML Browser Applications (XBAPs). The vulnerabilities could also be used by Windows .NET applications to bypass Code Access Security (CAS) restrictions. An attacker who successfully exploited these vulnerabilities could gain the same user rights as the logged-on user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2756918.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+37.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP-2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v3.0" AND value "SP" of it = 2) of it) of registry</Relevance>
+		<Relevance>((exists keys ((if (exists key "1AB0D676B62717449828AF03D1D15569" of it) then (names of values of key "1AB0D676B62717449828AF03D1D15569" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "DC3BF90CC0D3D2F398A9A6D1762F70F3") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "2.3.30730"  ) of it) AND (not exists key whose (name of it as string equals "D9C4477FFE90DB1388D413C9E776AE51") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "1AB0D676B62717449828AF03D1D15569" of it) then (names of values of key "1AB0D676B62717449828AF03D1D15569" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "DC3BF90CC0D3D2F398A9A6D1762F70F3") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "2.2.30729"  ) of it) AND (not exists key whose (name of it as string equals "D9C4477FFE90DB1388D413C9E776AE51") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "1AB0D676B62717449828AF03D1D15569" of it) then (names of values of key "1AB0D676B62717449828AF03D1D15569" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "DC3BF90CC0D3D2F398A9A6D1762F70F3") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "2.3.30730"  ) of it) AND (not exists key whose (name of it as string equals "672AAB94B88605836B138D810E1716C7") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "1AB0D676B62717449828AF03D1D15569" of it) then (names of values of key "1AB0D676B62717449828AF03D1D15569" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "DC3BF90CC0D3D2F398A9A6D1762F70F3") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "2.2.30729"  ) of it) AND (not exists key whose (name of it as string equals "672AAB94B88605836B138D810E1716C7") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "BFC15F7B279DEA041B674DCBE218A364" of it) then (names of values of key "BFC15F7B279DEA041B674DCBE218A364" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "0DC1503A46F231838AD88BCDDC8E8F7C") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "3.2.30730"  ) of it) AND (not exists key whose (name of it as string equals "FCC03B2E2FFC9403693A60A7BF2AA83F") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "BFC15F7B279DEA041B674DCBE218A364" of it) then (names of values of key "BFC15F7B279DEA041B674DCBE218A364" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "0DC1503A46F231838AD88BCDDC8E8F7C") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "3.2.30729"  ) of it) AND (not exists key whose (name of it as string equals "FCC03B2E2FFC9403693A60A7BF2AA83F") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance><![CDATA[((exists file "System.ServiceModel.WasHosting.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "3.0.4506.5845"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "3.0.4506.4037")))) of it) OR (exists file "System.ServiceModel.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "3.0.4506.5845"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "3.0.4506.4037")))) of it) OR (exists file "System.Runtime.Serialization.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "3.0.4506.5845"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "3.0.4506.4037")))) of it) OR (exists file "SMdiagnostics.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "3.0.4506.5845"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "3.0.4506.4037")))) of it) OR (exists file "ServiceMonikerSupport.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "3.0.4506.5845"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "3.0.4506.4037")))) of it)) of (folder "MICROSOFT.NET\FRAMEWORK64\V3.0\WINDOWS COMMUNICATION FOUNDATION\" of (windows folder)) OR ((exists file "System.ServiceModel.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "3.0.4506.5845"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "3.0.4506.4037")))) of it) OR (exists file "System.Runtime.Serialization.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "3.0.4506.5845"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "3.0.4506.4037")))) of it) OR (exists file "System.IdentityModel.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "3.0.4506.5845"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "3.0.4506.4037")))) of it)) of (folder "REFERENCE ASSEMBLIES\MICROSOFT\FRAMEWORK\V3.0\" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x64 registry as folder))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>38960168</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2756918</SourceID>
+		<SourceReleaseDate>2013-01-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2013-0001; CVE-2013-0002; CVE-2013-0003; CVE-2013-0004</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:3.0:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP30SP2-KB2756918-x64.exe sha1:24139123c6c09a18090978b88cc2c34116b951b6 size:38960168 http://download.microsoft.com/download/0/7/E/07EE2FFC-85A3-449C-87B8-82DE3D49DDEC/NDP30SP2-KB2756918-x64.exe sha256:bfd167da576570ad220ad180b21243d31cc433c2def2baa067f84f2c551b90c5
+
+waithidden __Download\NDP30SP2-KB2756918-x64.exe /quiet /norestart
+
+action may require restart "24139123c6c09a18090978b88cc2c34116b951b6"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-004</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

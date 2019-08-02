@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS16-014: Security Update for Microsoft Windows to Address Remote Code Execution - Windows 8.1 Gold - KB3126434 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft Windows. The most severe of the vulnerabilities could allow remote code execution if an attacker is able to log on to a target system and run a specially crafted application.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3126434.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+657 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1")) of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3126434~31bf3856ad364e35~amd64~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3126434~31bf3856ad364e35~amd64~~6.3.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-multimedia~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-CoreSystem-MSF-Core-Multimedia-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-Package-AutoMerged-multimedia~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-msf-core_31bf3856ad364e35_none_5f871321275da3b8" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18185") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-multimedia~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Features-Package-AutoMerged-multimedia~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_microsoft-windows-msf-core_31bf3856ad364e35_none_69dbbd735bbe65b3" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18185") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "305a6f14ffc6bbf55be58d78d2dae6123fe1bc32"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>673017</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3126434</SourceID>
+		<SourceReleaseDate>2016-02-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2016-0044</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 Feb 2016 01:38:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_8.1:-:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB3126434-x64.msu sha1:305a6f14ffc6bbf55be58d78d2dae6123fe1bc32 size:673017 https://download.microsoft.com/download/5/2/E/52EB6A8C-717F-4F51-A7EC-9533B745DA2F/Windows8.1-KB3126434-x64.msu sha256:fa7cac9ff30d38b320eed97d20bc4180f5a5b6158ef29af620ced23c83250a74
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB3126434-x64.msu"}" /quiet /norestart
+
+action requires restart "305a6f14ffc6bbf55be58d78d2dae6123fe1bc32"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS16-014</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

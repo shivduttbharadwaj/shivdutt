@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-065: Security Update for Internet Explorer - Windows Server 2003 SP2 - IE 8 - KB3065822 (x64) - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The listed computers have faulty installations of a patch for the vulnerability described in MS15-065. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<br><br>Microsoft has released a security update that resolves vulnerabilities in Internet Explorer. The most severe of the vulnerabilities could allow remote code execution if a user views a specially crafted webpage using Internet Explorer. An attacker who successfully exploited these vulnerabilities could gain the same user rights as the current user. Customers whose accounts are configured to have fewer user rights on the system could be less impacted than those who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB3065822.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+24.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists file "iexplore.exe" whose (version of it >= "8.0.6001.18702") of (folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder))) AND (exists file "iexplore.exe" whose (version of it < "8.1.0.0") of (folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder))) )) OR ( (value "forcepostupdateinstall" of key "HKEY_LOCAL_MACHINE\software\microsoft\internet explorer\setup\8.0\wu" of registry as integer = 1)) AND (it >= "8.0.6001.18702" AND it <= "8.1.0.0") of version (value "Version" of key "HKLM\SOFTWARE\Microsoft\Internet Explorer" of registry as string)]]></Relevance>
+		<Relevance>version of regapp "iexplore.exe" = "8"</Relevance>
+		<Relevance><![CDATA[((exists file "iedvtool.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "ieproxy.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "iexplore.exe" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "jsdbgui.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "jsprofilerui.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wiedvtool.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wieproxy.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wiexplore.exe" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wjsdbgui.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wjsprofilerui.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wxpshims.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "xpshims.dll" whose ((version of it < "8.0.6001.23707")) of it)) of  (folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x64 registry as folder)) OR ((exists file "iexplore.exe" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wiexplore.exe" whose ((version of it < "8.0.6001.23707")) of it)) of (folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x32 registry as folder))  OR ((exists file "corpol.dll" whose ((version of it < "2008.0.0.23707")) of it) OR (exists file "dxtmsft.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "dxtrans.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "ie4uinit.exe" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "iedkcs32.dll" whose ((version of it < "18.0.6001.23707")) of it) OR (exists file "ieframe.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "iepeers.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "iertutil.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "inetcpl.cpl" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "jscript.dll" whose ((version of it < "5.8.6001.23676")) of it) OR (exists file "jsproxy.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "licmgr10.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "msfeeds.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "msfeedsbs.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "mshtml.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "mshtmled.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "msrating.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "mstime.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "occache.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "url.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "urlmon.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "vbscript.dll" whose ((version of it < "5.8.6001.23707")) of it) OR (exists file "webcheck.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wininet.dll" whose ((version of it < "8.0.6001.23707")) of it)) of (system wow64 folder) OR ((exists file "iedvtool.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "ieproxy.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "iexplore.exe" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "jsdbgui.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "jsprofilerui.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wiedvtool.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wieproxy.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wiexplore.exe" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wjsdbgui.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wjsprofilerui.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wxpshims.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "xpshims.dll" whose ((version of it < "8.0.6001.23707")) of it)) of (folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x32 registry as folder))  OR ((exists file "corpol.dll" whose ((version of it < "2008.0.0.23707")) of it) OR (exists file "dxtmsft.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "dxtrans.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "ie4uinit.exe" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "iedkcs32.dll" whose ((version of it < "18.0.6001.23707")) of it) OR (exists file "ieframe.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "iepeers.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "iertutil.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "inetcpl.cpl" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "jscript.dll" whose ((version of it < "5.8.6001.23676")) of it) OR (exists file "jsproxy.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "licmgr10.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "msfeeds.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "msfeedsbs.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "mshtml.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "mshtmled.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "msrating.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "mstime.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "occache.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "url.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "urlmon.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "vbscript.dll" whose ((version of it < "5.8.6001.23707")) of it) OR (exists file "webcheck.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wininet.dll" whose ((version of it < "8.0.6001.23707")) of it)) of (system x64 folder) OR ((exists file "vgx.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wvgx.dll" whose ((version of it < "8.0.6001.23707")) of it)) of (folder "MICROSOFT SHARED\VGX" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x32 registry as folder))  OR ((exists file "iexplore.exe" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wiexplore.exe" whose ((version of it < "8.0.6001.23707")) of it)) of  (folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x64 registry as folder)) OR ((exists file "vgx.dll" whose ((version of it < "8.0.6001.23707")) of it) OR (exists file "wvgx.dll" whose ((version of it < "8.0.6001.23707")) of it)) of  (folder "MICROSOFT SHARED\VGX" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x64 registry as folder))]]></Relevance>
+		<Relevance>NOT((not exists key "hklm\software\microsoft\updates\windows server 2003\sp0\kb3065822-ie8" of x64 registry))</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>25253112</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3065822</SourceID>
+		<SourceReleaseDate>2015-07-14</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2015-1738; CVE-2015-2372; CVE-2015-2385; CVE-2015-2388; CVE-2015-2390; CVE-2015-2397; CVE-2015-2398; CVE-2015-2402; CVE-2015-2403; CVE-2015-2404; CVE-2015-2406; CVE-2015-2410; CVE-2015-2413; CVE-2015-2414; CVE-2015-2421; CVE-2015-2422; CVE-2015-1733</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 Jul 2015 03:45:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>1506561</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:ie:8:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch IE8-WindowsServer2003-KB3065822-x64-ENU.exe sha1:9b3204d5db8caf6db7ea710a69a9ab2958a0c2d3 size:25253112 http://download.microsoft.com/download/B/7/C/B7C04DB8-698A-4167-810F-9CD1B5F13011/IE8-WindowsServer2003-KB3065822-x64-ENU.exe sha256:1a0edca601383ae44dd558833a222a2b1bab83e3730fdb4b7c3fa94b49125da2
+
+waithidden __Download\IE8-WindowsServer2003-KB3065822-x64-ENU.exe /quiet /norestart
+
+action may require restart "9b3204d5db8caf6db7ea710a69a9ab2958a0c2d3"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-065</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

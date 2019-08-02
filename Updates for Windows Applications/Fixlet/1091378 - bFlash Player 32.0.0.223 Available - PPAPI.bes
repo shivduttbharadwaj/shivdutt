@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Flash Player 32.0.0.223 Available - PPAPI</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><FONT size=2> <P>Adobe has released a new version of the Flash Player Plugin (32.0.0.223) for PPAPI. Use the action below to update Flash Player to the latest version.</P> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Note:</B> Client machines may briefly display progress windows during installation of this update.</P> <P><FONT color=red><B>Important Note:</B></FONT> If the Flash Player is running, a pop-up message may be displayed prompting the user to reboot their computer once the update is complete. The action will not complete until the prompt is closed. To prevent this behavior, you may want to deploy this action with the user constraint "Run only when no user is present" or display a message box before action execution instructing the user to shut down all web browsers before applying this update.</P></FONT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+20.1 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>(exists folder "macromed\flash" of system folder AND (exists file whose ((it starts with "flash" and it ends with ".ocx") of (name of it as lowercase)) of it OR exists file whose ((it starts with "swflash" and it ends with ".ocx") of (name of it as lowercase)) of it OR exists file whose (((it starts with "npswf32" or it starts with "pepflashplayer") and it ends with ".dll") of (name of it as lowercase)) of it) of folder "macromed\flash" of system folder) OR (exists key "HKLM\Software\Mozilla" whose (exists key whose (name of it does not contain "Netscape" AND exists key "Extensions" whose (exists file whose ((it starts with "npswf32" and it ends with ".dll") of (name of it as lowercase)) of folder (value "Plugins" of it as string)) of it) of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists folder "Macromed\Flash" whose (exists file whose (version of it < "32.0.0.223" AND name of it as string contains "pepflashplayer" AND name of it as string contains ".dll") of it) of system folder) OR (exists key "HKLM\Software\Macromedia\FlashPlayerPepper" whose (value "Version" of it as string as version < "32.0.0.223") of registry)]]></Relevance>
+		<Relevance>(it != "WinNT" AND it != "Win95" AND it != "Win2000") of name of operating system</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>21116952</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2019-07-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>SANS C4</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 11 Jul 2019 19:28:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:flash_player:32.0.0.223:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe FlashPlayer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 11 Jul 2019 19:28:02 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch install_flash_player_ppapi.exe sha1:28834a4badb1382c72f1a20aa9d9334721970ab3 size:21116952 http://fpdownload.adobe.com/get/flashplayer/pdc/32.0.0.223/install_flash_player_ppapi.exe sha256:6ad6c83bdfc7ea2967629cac674475efe89ee002ddc88e63ea6b8c186530cd57
+
+wait __Download\install_flash_player_ppapi.exe /install
+
+if {exists scheduled task whose (name of it = "Adobe Flash Player Updater")}
+waithidden cmd /C schtasks /Delete /TN "Adobe Flash Player Updater" /F >> action.log
+endif
+
+if {exists scheduled task whose (name of it = "Adobe Flash Player PPAPI Notifier")}
+waithidden cmd /C schtasks /Delete /TN "Adobe Flash Player PPAPI Notifier" /F >> action.log
+endif
+
+action may require restart "28834a4badb1382c72f1a20aa9d9334721970ab3"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/flashplayer/downloads.html</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#flashplayer</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in media player applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c4</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

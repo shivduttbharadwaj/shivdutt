@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Enable Wake-from-Standby by Magic Packet - Windows XP/Vista/Win7/2008 and Mac OS 10.4/10.5/10.6/10.7</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Network adapters can be configured to wake a computer from standby if they receive a Wake-on-LAN Magic Packet.</P> <P>This Fixlet will set all capable network adapters to wake from standby only when a Wake-on-LAN packet is received. </P> <P><STRONG>Note:</STRONG> This does not affect a computers ability to Wake-on-LAN from the powered off or Hibernate power state.</P> <P><STRONG>Note: </STRONG>This&nbsp;Task is not&nbsp;applicable on computers designated as&nbsp;Last Man Standing.<BR></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(it = "WinXP" OR it = "WinXP-2003" OR it = "WinVista" OR it = "Win7" OR it = "Win2008" OR it = "Win2008R2" OR it = "Mac OS X") of name of operating system</Relevance>
+		<Relevance>if ((it = "WinXP" OR it = "WinXP-2003" OR it = "WinVista" OR it = "Win7" OR it = "Win2008" OR it = "Win2008R2") of name of operating system) then ((not exists values whose (name of it = "PnPCapabilities" AND it as integer = 288) of keys whose (value "Characteristics" of it as integer = 132) of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002bE10318}" of registry)) else (if (name of operating system ="Mac OS X") then (if exists file "/Library/Preferences/SystemConfiguration/com.apple.PowerManagement.plist" then ((if it = 0 then true else false) of integer "Wake On LAN" of dictionary "AC Power" of dictionary "Custom Profile" of dictionary of file "/Library/Preferences/SystemConfiguration/com.apple.PowerManagement.plist") else false) else false)</Relevance>
+		<Relevance>not exists settings whose(name of it contains "PowerManagement_LastManStanding" AND value of it = "1") of client</Relevance>
+		<Category>Wake-on-LAN</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2010-08-13</SourceReleaseDate>
+		<SourceSeverity>N/A</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 17 Nov 2011 19:28:18 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>Manage_WFSBMP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 01 Aug 2012 01:09:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to enable Wake-from-Standby on all network adapters. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if{name of operating system = "Mac OS X"}
+	wait pmset -a womp 1
+else if{(it = "WinXP" OR it = "WinXP-2003" OR it = "WinVista" OR it = "Win7" OR it = "Win2008" OR it = "Win2008R2") of name of operating system}
+	delete __appendfile
+delete enableWakeFromStandby.reg
+
+appendfile {"Windows Registry Editor Version 5.00%0d%0a%0d%0a" & concatenation "%0d%0a"  of ( "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002bE10318}}\" & name of it &"]%0d%0a%22PnPCapabilities%22=dword:00000120%0d%0a")of keys whose (value "Characteristics" of it as integer  = 132 AND (not exists value "PnPCapabilities"  of it OR value "PnPCapabilities"  of it as integer != 288 )) of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002bE10318}}" of registry}
+copy __appendfile enableWakeFromStandby.reg
+waithidden cmd /c regedit -s enableWakeFromStandby.reg
+
+action requires restart
+endifs]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

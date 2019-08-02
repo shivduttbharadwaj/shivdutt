@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS01-059: Unchecked Universal Plug and Play Buffer in WinME - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS01-059. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>This patch eliminates "Unchecked Universal Plug and Play Buffer" security holes in Windows ME. Microsoft has rated these security vulnerabilities as critical, and strongly recommends that this patch be installed immediately. For more information on the full scope of the patch, please read the information link below. After installing this patch, affected computers will no longer be susceptible to these vulnerabilities. <BR><BR><b>Note:</b> Affected computers will report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note</b>: Client machines may briefly display a command prompt window during installation of this update. <BR><BR><b>File Size</b>: 223 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinME"</Relevance>
+		<Relevance>NOT ((not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{e6efec7d-797a-45ee-8eb4-afdb90c0d644}" of registry) or (not exists value "IsInstalled" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{e6efec7d-797a-45ee-8eb4-afdb90c0d644}" of registry) or (value "IsInstalled" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{e6efec7d-797a-45ee-8eb4-afdb90c0d644}" of registry != 1))</Relevance>
+		<Relevance>value "Installed" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Setup\OptionalComponents\UPNP" of registry = "1"</Relevance>
+		<Relevance><![CDATA[((exists file (pathname of system folder & "\upnp.dll")) AND (version of file (pathname of system folder & "\upnp.dll") < "4.90.3003.0")) OR ((exists file (pathname of system folder & "\ssdpapi.dll")) AND (version of file (pathname of system folder & "\ssdpapi.dll") < "4.90.3003.0")) OR  ((exists file (pathname of system folder & "\ssdpsrv.exe")) AND (version of file (pathname of system folder & "\ssdpsrv.exe") < "4.90.3003.0"))]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>228928</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB314757</SourceID>
+		<SourceReleaseDate>2001-12-20</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2001-0876; CVE-2001-0877</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>105903</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinME</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch 314757usam.exe sha1:4a0c598be0797f0536de0aeab473712a7b66fab4 size:228928 http://download.microsoft.com/download/winme/Update/22940/WinMe/EN-US/314757USAM.EXE sha256:bfd22fe562752a63a8d069232c008995a8fd0356fae8b79f23cfc6b4320e5bbe
+wait __download/314757USAM.EXE /Q:A /R:N
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS01-059.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/ms01-059.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

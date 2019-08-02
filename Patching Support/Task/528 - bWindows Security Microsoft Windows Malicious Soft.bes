@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Windows Security: Microsoft Windows Malicious Software Removal Tool - Run</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Microsoft has released the Microsoft Windows Malicious Software Removal Tool to help remove specific, prevalent malicious software from computers that are running any of the following Microsoft operating systems:</P> <UL> <LI>Windows Server 2016 <LI>Windows 10 <LI>Windows Server 2012 <LI>Windows 8.1 <LI>Windows Server 2012 <LI>Windows 8 <LI>Windows 2008 R2 <LI>Windows 7 <LI>Windows 2008 </LI></UL> <P>&nbsp;</P> <P>The Malicious Software Removal Tool supersedes all virus-cleaner tools that were previously released by Microsoft. <BR><BR><B>Note:</B> After running Microsoft Windows Malicious Software Removal Tool on client computers, you can retrieve various information regarding the last scan results, configuration settings, and other tool statistics by activating the "Windows Security: Microsoft Windows Malicious Software Removal Tool - Run Statistics" and the "Windows Security: Microsoft Windows Malicious Software Removal Tool - Configuration Information" analyses.<BR><BR><B>Important Note:</B> The presence of multiple versions of the Malicious Software Removal Tool on the client will prevent this task from becoming relevant. Fixlet message "Microsoft Windows Malicious Software Removal Tool - Duplicate Versions Present" detects this scenario and can be used to remove duplicate versions of the tool.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false</Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance><![CDATA[exists folder (pathname of parent folder of client folder of site "actionsite" as string & "\__MSTools\RemovalTool") AND exists file whose (name of it contains "KB890830") of folder (pathname of parent folder of client folder of site "actionsite" as string & "\__MSTools\RemovalTool") AND number of files whose (name of it contains "KB890830") of folder (pathname of parent folder of client folder of site "actionsite" as string & "\__MSTools\RemovalTool") = 1]]></Relevance>
+		<Category>Run</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Q890830</SourceID>
+		<SourceReleaseDate>2012-02-19</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 24 Jan 2014 08:33:23 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Configuration MSRT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>528</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 11 Jun 2019 19:13:38 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to run the Microsoft Windows Malicious Software Removal Tool.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// delete files
+delete "{pathname of parent folder of client folder of site "actionsite"}\__MSTools\RemovalTool\script.bat"
+delete __appendfile
+delete "{pathname of parent folder of client folder of site "actionsite"}\__MSTools\RemovalTool\script.log"
+delete "{pathname of windows folder}\Debug\mrt.log"
+
+// set reg key
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\LastRunStats]" "LastRunStartTime"="{now}"
+
+// run tool
+wait "{pathname of client folder of site "bessupport" & "\RunQuiet.exe"}" "{pathname of file whose (name of it contains "KB890830") of folder (pathname of parent folder of client folder of site "actionsite" as string & "\__MSTools\RemovalTool")}" /q
+
+// copy tool log using type because the file format is not correct. and keep a copy of original multiple scan results log in the windows\debug folder. we delete mrt.log every scan because we want to be able to extract info from a single scan result. keep a full version of the log, append each scan result to this one. 
+
+appendfile @ECHO OFF 
+appendfile type "{pathname of windows folder}\Debug\mrt.log" > "{pathname of parent folder of client folder of site "actionsite"}\__MSTools\RemovalTool\script.log"
+appendfile type "{pathname of windows folder}\Debug\mrt.log" >> "{pathname of windows folder}\Debug\mrt_multiple.log"
+move __appendfile  "{pathname of parent folder of client folder of site "actionsite"}\__MSTools\RemovalTool\script.bat"
+
+wait "{pathname of client folder of site "bessupport" & "\RunQuiet.exe"}" "{pathname of parent folder of client folder of site "actionsite"}\__MSTools\RemovalTool\script.bat"
+
+// set more reg keys
+delete __appendfile
+delete RemovalToolRun.reg
+
+appendfile REGEDIT4
+
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\LastRunStats]
+appendfile "LastRunFinishTime"="{now}"
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\OverallRunStats]
+appendfile "NumberOfTimesRun"="{(value "NumberOfTimesRun" of key "HKLM\Software\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\OverallRunStats" of registry as integer) + 1}"
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\OverallRunStats]
+appendfile "FirstTimeRun"="{if (exists value "FirstTimeRun" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\OverallRunStats" of registry) then (value "FirstTimeRun" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\OverallRunStats" of registry) else (value "LastRunStartTime" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\LastRunStats" of registry)}"
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\OverallRunStats]
+appendfile "LastTimeRun"="{value "LastRunStartTime" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics\LastRunStats" of registry}"
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics]
+appendfile "Results"="{if (exists line whose (it contains "Results Summary") of file (pathname of parent folder of client folder of site "actionsite" & "\__MSTools\RemovalTool\script.log") AND exists line whose (it contains "Return code") of file (pathname of parent folder of client folder of site "actionsite" & "\__MSTools\RemovalTool\script.log")) then (preceding text of substring "Return code" of following text of last "-" of (concatenation "  " of lines of file (pathname of parent folder of client folder of site "actionsite" & "\__MSTools\RemovalTool\script.log"))) else (if (exists line whose (it contains "Results Summary") of file (pathname of parent folder of client folder of site "actionsite" & "\__MSTools\RemovalTool\script.log") AND exists line whose (it does not contain "Return code") of file (pathname of parent folder of client folder of site "actionsite" & "\__MSTools\RemovalTool\script.log")) then (preceding text of last "" of following text of last "-" of (concatenation " " of lines of file (pathname of parent folder of client folder of site "actionsite" & "\__MSTools\RemovalTool\script.log"))) else nothings)}"
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics]
+appendfile "NumErrors"="{number of lines whose (it contains "ERROR:") of file (pathname of parent folder of client folder of site "actionsite" & "\__MSTools\RemovalTool\script.log") as string}"
+appendfile 
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool\Statistics]
+appendfile "Errors"="{if (exists line whose (it contains "ERROR:") of file (pathname of parent folder of client folder of site "actionsite" & "\__MSTools\RemovalTool\script.log")) then (concatenation "==BES==" of following texts of firsts "ERROR:" of (lines whose (it contains "ERROR:") of file (pathname of parent folder of client folder of site "actionsite" & "\__MSTools\RemovalTool\script.log")) as string) else "No Errors."}"
+
+move __appendfile RemovalToolRun.reg
+
+// run the .reg file
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of system folder & "\cmd.exe"}" /c regedit /s RemovalToolRun.reg]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view more information from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/890830</ActionScript>
+		</Action>
+	</Task>
+</BES>

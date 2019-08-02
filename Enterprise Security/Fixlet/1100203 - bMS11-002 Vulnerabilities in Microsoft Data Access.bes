@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-002: Vulnerabilities in Microsoft Data Access Components Could Allow Remote Code Execution - Microsoft Data Access Components 2.8 SP2 - Windows XP SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Data Access Components. The vulnerabilities could allow remote code execution if a user views a specially crafted Web page. An attacker who successfully exploited this vulnerability could gain the same user rights as the local user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2419635.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.97 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP-2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "odbc32.dll" whose (version of it < "3.526.4795.0") of it) of (system wow64 folder) OR (exists file "odbc32.dll" whose (version of it < "3.526.4795.0") of it) of (system x64 folder) OR ((exists file "msado15.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado20.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado21.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado25.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado26.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado27.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadomd.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadox.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado15.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado20.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado21.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado25.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado26.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado27.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadomd.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadox.dll" whose (version of it < "2.82.4795.0") of it)) of (folder "SYSTEM\ADO" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x32 registry as folder))  OR ((exists file "msado15.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado20.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado21.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado25.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado26.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado27.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadomd.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadox.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado15.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado20.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado21.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado25.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado26.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado27.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadomd.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadox.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsjro.dll" whose (version of it < "2.82.4795.0") of it)) of  (folder "SYSTEM\ADO" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x64 registry as folder)) OR ((exists file "msado15.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado20.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado21.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado25.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado26.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado27.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadomd.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadox.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado15.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado20.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado21.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado25.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado26.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado27.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadomd.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadox.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsjro.dll" whose (version of it < "2.82.4795.0") of it)) of (folder "SYSTEM\ADO" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x32 registry as folder))  OR ((exists file "msadco.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadcs.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadco.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadcs.dll" whose (version of it < "2.82.4795.0") of it)) of (folder "SYSTEM\MSADC" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x32 registry as folder))  OR ((exists file "msado15.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado20.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado21.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado25.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado26.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msado27.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadomd.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadox.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado15.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado20.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado21.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado25.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado26.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsado27.tlb" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadomd.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadox.dll" whose (version of it < "2.82.4795.0") of it)) of  (folder "SYSTEM\ADO" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x64 registry as folder)) OR ((exists file "msadco.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "msadcs.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadco.dll" whose (version of it < "2.82.4795.0") of it) OR (exists file "wmsadcs.dll" whose (version of it < "2.82.4795.0") of it)) of  (folder "SYSTEM\MSADC" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x64 registry as folder))]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows xp version 2003\sp3\kb2419635" of x64 registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>3114368</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2419635</SourceID>
+		<SourceReleaseDate>2011-01-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2011-0026; CVE-2011-0027</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Data Access Components</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:data_access_components:2.8:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB2419635-x64-ENU.exe sha1:bc59f77c03b721bc908ad996acc843e4fa9bd596 size:3114368 http://download.microsoft.com/download/E/4/C/E4C65FFE-BC75-4A68-8328-2B4C92A097CD/WindowsServer2003.WindowsXP-KB2419635-x64-ENU.exe sha256:cb3ccede490add8d6af6d84291526f81f45c0a529de202902c6a68c8d9adf603
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB2419635-x64-ENU.exe /quiet /norestart
+
+action may require restart "bc59f77c03b721bc908ad996acc843e4fa9bd596"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-002.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS11-002.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

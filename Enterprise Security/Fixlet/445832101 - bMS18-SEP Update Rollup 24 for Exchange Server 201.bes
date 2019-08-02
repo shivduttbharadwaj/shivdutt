@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-SEP: Update Rollup 24 for Exchange Server 2010 Service Pack 3 - Exchange Server 2010 SP3 - KB4458321 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4468742.<br /><br />Update Rollup 24 For Exchange 2010 SP3 (KB4458321)<p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> This update is also referenced under KB4458321.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+49.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("BA952A4AF77A930438A2724B13DDFFAE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "AE1D439464EB1B8488741FFA028E291C") AND exists key "InstallProperties" whose ((it = "14.3.123.4") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "4D8BCD845AF6E1A43960E431901C0488" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>51908608</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4458321</SourceID>
+		<SourceReleaseDate>2018-09-05</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 07 Nov 2018 00:10:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4468742</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:exchange_server:2010:sp3sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>446874201</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-01-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2010 SP3</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 15 Jan 2019 06:56:18 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Exchange2010-KB4458321-x64-en.msp sha1:c85651975fe4a161f41be03ea29dcefe614d3f40 size:51908608 https://download.microsoft.com/download/7/9/A/79ABA59C-D2F5-4C96-ADB7-E01BBCE4D2E2/Exchange2010-KB4458321-x64-en.msp sha256:d8c7946b86efcf1dea8ed2ce349c794b0d04ea1dbdf8dec0cdc85f18c2af713f
+
+waithidden msiexec.exe /p __Download\Exchange2010-KB4458321-x64-en.msp /quiet /norestart
+
+action may require restart "c85651975fe4a161f41be03ea29dcefe614d3f40"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4458321</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

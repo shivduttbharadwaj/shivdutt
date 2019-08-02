@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>TROUBLESHOOTING: Upload BES Relay Logs</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>This task will upload the BES Relay log files (if it exists) on all Relay machines to the BES Server through the BES Upload Manager. By default the uploaded files will be placed in a subfolder under "C:\Program Files\BigFix Enterprise\BES Server\UploadManagerData\BufferDir\" on the BES Server.</P> <P><STRONG>Note:</STRONG>&nbsp;If the size of the&nbsp;log files on the relay is larger than&nbsp;10 MB, it will <STRONG>not</STRONG> be uploaded to the BES Server. The action script can be modified&nbsp;to set a higher limit.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service</Relevance>
+		<Relevance><![CDATA[exists file ((value of setting "_BESRelay_HTTPServer_LogFilePath" of client)  |  (if (windows of operating system) then ((value "EnterpriseServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of registry) as string & "logfile.txt") else ("/var/log/BESRelay.log")))]]></Relevance>
+		<Category>Troubleshooting</Category>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 17 Jul 2014 18:20:38 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 04 Mar 2017 00:17:21 +0000</Value>
+		</MIMEField>
+		<Delay>PT15M</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "UploadFile"="{pathname of file ((value of setting "_BESRelay_HTTPServer_LogFilePath" of client)  |  (if (windows of operating system) then ((value "EnterpriseServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of registry) as string & "logfile.txt") else ("/var/log/BESRelay.log")))}"
+
+// set max size to 10485760 to prevent too much data. If the zip file is to bigger than 10MBs the upload won't occur
+setting "_BESClient_ArchiveManager_MaxArchiveSize"="10485760" on "{parameter "action issue date" of action}" for client 
+setting "_BESClient_ArchiveManager_OperatingMode"="2" on "{parameter "action issue date" of action}" for client 
+// set the entire bfdmp dir to upload
+setting "_BESClient_ArchiveManager_FileSet-relaylog"="{parameter "UploadFile"}" on "{parameter "action issue date" of action}" for client 
+
+// send results 
+archive now
+]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

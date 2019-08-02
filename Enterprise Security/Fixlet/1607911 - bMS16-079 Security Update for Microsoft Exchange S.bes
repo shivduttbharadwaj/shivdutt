@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS16-079: Security Update for Microsoft Exchange Server - Exchange Server 2016 - KB3150501 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilites in Microsoft Exchange Server. The most severe of the vulnerabilities could allow information disclosure if an attacker sends a specially crafted image URL in an Outlook Web Access (OWA) message that is loaded, without warning or filtering, from the attacker-controlled URL.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB3150501.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+53.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("BA952A4AF77A930438A2724B13DDFFAE") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "442189DC8B9EA5040962A6BED9EC1F1F") AND exists key "InstallProperties" whose ((it = "15.1.225.42") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "8E8BA105C3DC3C244AD2257FEEB56122" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>56213504</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3150501</SourceID>
+		<SourceReleaseDate>2016-06-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2016-0028; CVE-2015-6013; CVE-2015-6014; CVE-2015-6015</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 14 Jun 2016 23:35:27 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:exchange_server:2016:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2016</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Exchange2016-KB3150501-x64-en.msp sha1:5b4d2be5c9a1c89241b455726b2ef3fab54ed28e size:56213504 https://download.microsoft.com/download/7/7/C/77C4A3C8-EF68-4E37-8334-3659DAE11085/Exchange2016-KB3150501-x64-en.msp sha256:1179a5989f96b7049285afbe049fb7aa8ee8cf5bf111cdfe6ad62656b705dfa5
+
+waithidden msiexec.exe /p __Download\Exchange2016-KB3150501-x64-en.msp /quiet /norestart
+
+action may require restart "5b4d2be5c9a1c89241b455726b2ef3fab54ed28e"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2016/MS16-079</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

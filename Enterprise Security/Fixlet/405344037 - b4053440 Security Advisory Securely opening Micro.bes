@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4053440: Security Advisory: Securely opening Microsoft Office documents that contain Dynamic Data Exchange (DDE) fields - Disable Workaround (Enable DDE feature) - Outlook/Word 2007</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <DIV class=FixletMessage> <P>Microsoft is releasing this security advisory to provide information regarding security settings for Microsoft Office applications.</P><P>Microsoft Office provides several methods for transferring data between applications. The DDE protocol is a set of messages and guidelines. It sends messages between applications that share data, and uses shared memory to exchange data between applications. Applications can use the DDE protocol for one-time data transfers and for continuous exchanges in which applications send updates to one another as new data becomes available.</P> <P><STRONG>Note:</STRONG>Setting this registry key will disable automatic update for DDE field and OLE links. Users can still enable the update by right-clicking on the field and clicking "Update Field".</P></DIV></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+Unspecified
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[exist keys whose ((it > 10 and it < 54) of length of name of it and ((value "fNoCalclinksOnopen_90_1" of it as integer = 1) of key "Software\Microsoft\Office\12.0\Word\Options\vpref" of it)) of key "HKEY_USERS" of native registry]]></Relevance>
+		<Category>Undo Workaround</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4053440</SourceID>
+		<SourceReleaseDate>2017-11-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 14 Nov 2017 08:43:28 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:outlook:2007:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Outlook</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 27 Dec 2017 03:58:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete __appendfile
+delete enableDDE.reg
+
+appendfile Windows Registry Editor Version 5.00
+appendfile
+appendfile {concatenation "%0d%0a" of ("[HKEY_USERS\" & it & "\Software\Microsoft\Office\12.0\Word\Options\vpref]%0d%0a" & "%22fNoCalclinksOnopen_90_1%22=-") of names of keys whose ((it > 10 and it < 54) of length of name of it and ((value "fNoCalclinksOnopen_90_1" of it as integer = 1) of key "Software\Microsoft\Office\12.0\Word\Options\vpref" of it)) of key "HKEY_USERS" of native registry}
+
+
+copy __appendfile enableDDE.reg
+
+waithidden cmd.exe /C reg.exe IMPORT enableDDE.reg
+
+delete enableDDE.reg]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://technet.microsoft.com/library/security/4053440</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

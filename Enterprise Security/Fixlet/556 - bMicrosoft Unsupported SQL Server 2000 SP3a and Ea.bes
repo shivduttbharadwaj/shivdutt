@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Microsoft Unsupported: SQL Server 2000 SP3a and Earlier</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Microsoft no longer provides security update support for&nbsp;SQL Server&nbsp;2000 SP3a and earlier. Support&nbsp;for&nbsp;SQL Server 2000&nbsp;SP3a ended on the date listed below. See the links below&nbsp;for more&nbsp;SQL Server&nbsp;expiration dates.&nbsp;&nbsp;</P> <P>These products have reached the end of their lifecycles and Microsoft is no longer providing security updates for them. BigFix will continue to provide content for security patches released prior to the&nbsp;support expiration date, but will not be able to provide content for newly discovered vulnerabilities.</P> <P>Microsoft recommends migrating these systems to supported versions to prevent potential exposure to vulnerabilities.</P> <P>SQL Server&nbsp;service pack support&nbsp;expiration date:</P> <UL> <LI>SQL Server&nbsp;2000 Service Pack 3a:&nbsp;July 10, 2007</LI></UL></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists keys "Setup" whose ((value "SQLPath" of it as string contains "%00" and ((version of it = "2000" and version of it < "2000.80.2039.0") of file "sqlservr.exe" of folder (preceding text of last "%00" of (value "SQLPath" of it as string) as string & "\Binn"))) OR (value "SQLPath" of it as string does not contain "%00" and ((version of it = "2000" and version of it < "2000.80.2039.0") of file "sqlservr.exe" of folder ((value "SQLPath" of it) as string & "\Binn")))) of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server" of registry) OR (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSSQLServer\Setup" whose ((value "SQLPath" of it as string contains "%00" and ((version of it = "2000" and version of it < "2000.80.2039.0") of file "sqlservr.exe" of folder (preceding text of last "%00" of (value "SQLPath" of it as string) as string & "\Binn"))) OR (value "SQLPath" of it as string does not contain "%00" and ((version of it = "2000" and version of it < "2000.80.2039.0") of file "sqlservr.exe" of folder ((value "SQLPath" of it) as string & "\Binn")))) of registry)]]></Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry</Relevance>
+		<Category>Microsoft Unsupported</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2007-07-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings Windows Applications</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 24 Apr 2019 19:14:36 +0000</Value>
+		</MIMEField>
+		<Delay>PT10M</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Microsoft Support Lifecycle Web site.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/default.aspx?scid=fh;[ln];lifecycle</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Microsoft Product Support Services Web site.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/gp/lifesupsps</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for the Windows Operating System Product Support Lifecycle FAQ.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/default.aspx?scid=fh;%5bln%5d;LifeWinFAQ</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

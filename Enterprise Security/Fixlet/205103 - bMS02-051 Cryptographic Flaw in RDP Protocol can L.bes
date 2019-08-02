@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-051: Cryptographic Flaw in RDP Protocol can Lead to Information Disclosure - Windows XP</Title>
+		<Description><![CDATA[
+Microsoft has released a patch that closes security vulnerabilities in the Remote Data Protocol (RDP). RDP provides the means by which Windows systems can provide remote terminal sessions to clients. Two security vulnerabilities, both of which are eliminated by this patch, have been discovered in various RDP implementations.<BR><BR><b>Note</b>: Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note</b>: This patch is included in Windows XP Service Pack 1.<BR><BR><b>File Size:</b> 283 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP") AND (service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP1\Q324720" of registry</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP1\Q324380" of registry</Relevance>
+		<Relevance><![CDATA[exists file "Rdpwd.sys" of folder (pathname of system folder & "\drivers")]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP2\KB811113" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>290664</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB324380</SourceID>
+		<SourceReleaseDate>2002-09-18</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-0863; CVE-2002-0864</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q324380_WXP_SP1_x86_ENU.exe sha1:a767172451ab2753ea485875d67f8cdb311ce8fe size:290664 http://download.microsoft.com/download/whistler/Patch/Q324380/WXP/EN-US/Q324380_WXP_SP1_x86_ENU.exe sha256:c72c462d9b49d416c906768d37e3af6be4fcceb870e7ffc08e8b8341a5c5ff6b
+wait __download\Q324380_WXP_SP1_x86_ENU.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-051.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-051</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

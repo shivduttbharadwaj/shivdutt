@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3119142: Update for Microsoft Visual C++ 2012 Update 4 Redistributable Package - Visual C++ Redist for Visual Studio 2012 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>If you use Visual Studio 2012 RTM product to build C++ apps and use certain functionality from the C++ Standard Template Library in your projects, then you might run into a runtime failure similar to the following: "The procedure entry point_ crtCreateSymbolicLinkW could not be located in the dynamic link library MSVCR110.dll" This was caused due to certain missing function exports in the runtime DLL msvcr110.dll that shipped with VS2012 RTM. This problem was eventually fixed in Visual Studio 2012 Update 4. This article ensures that the correct runtime DLLs are provided to all users who had previously installed the faulty DLLs from Visual Studio 2012 RTM<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.85 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>exists key whose (value "DisplayName" of it as string starts with "Microsoft Visual C++ 2012 Redistributable" AND value "DisplayVersion" of it as string as version = "11.0") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Relevance><![CDATA[NOT exists key whose (value "DisplayName" of it as string starts with "Microsoft Visual C++ 2012 Redistributable" AND value "DisplayVersion" of it as string as version >= "11.0.61030.0") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>7186992</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3119142</SourceID>
+		<SourceReleaseDate>2016-01-12</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 24 Feb 2016 14:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Visual Studio</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Visual Studio 2012</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 00:42:24 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch vcredist_x64_1a5d93dddbc431ab27b1da711cd3370891542797.exe sha1:1a5d93dddbc431ab27b1da711cd3370891542797 size:7186992 http://download.windowsupdate.com/d/msdownload/update/software/crup/2015/02/vcredist_x64_1a5d93dddbc431ab27b1da711cd3370891542797.exe sha256:681be3e5ba9fd3da02c09d7e565adfa078640ed66a0d58583efad2c1e3cc4064
+
+waithidden __Download\vcredist_x64_1a5d93dddbc431ab27b1da711cd3370891542797.exe /install /quiet /norestart
+
+action may require restart "1a5d93dddbc431ab27b1da711cd3370891542797"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see more information about for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.microsoft.com/en-us/download/details.aspx?id=30679</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

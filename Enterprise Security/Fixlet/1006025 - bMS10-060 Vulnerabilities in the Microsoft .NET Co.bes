@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-060: Vulnerabilities in the Microsoft .NET Common Language Runtime Could Allow Remote Code Execution - Microsoft Silverlight 3 for Developers</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft .NET Framework and Microsoft Silverlight. The vulnerabilities could allow remote code execution on a client system if a user views a specially crafted Web page using a Web browser that can run XAML Browser Applications (XBAPs) or Silverlight applications, or if an attacker succeeds in convincing a user to run a specially crafted Microsoft .NET application. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights. The vulnerabilities could also allow remote code execution on a server system running IIS, if that server allows processing ASP.NET pages and an attacker succeeds in uploading a specially crafted ASP.NET page to that server and executing the page, as could be the case in a Web hosting scenario.<BR><BR><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><STRONG>Note:</STRONG> This security update is also referenced under <SPAN style="WIDOWS: 2; TEXT-TRANSFORM: none; TEXT-INDENT: 0px; BORDER-COLLAPSE: separate; FONT: medium 'Times New Roman'; WHITE-SPACE: normal; ORPHANS: 2; LETTER-SPACING: normal; COLOR: rgb(0,0,0); WORD-SPACING: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px" class=Apple-style-span><SPAN style="LINE-HEIGHT: 14px; BORDER-COLLAPSE: collapse; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; FONT-SIZE: 11px" class=Apple-style-span>KB978464</SPAN></SPAN>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.70 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Silverlight" whose (exists value "Version" whose (it as string as version = "3") of it ) of registry</Relevance>
+		<Relevance>exists key whose (value "DisplayName" of it as string starts with "Microsoft Visual Studio Team System 2008" or value "DisplayName" of it as string starts with "Microsoft Visual Studio 2008" or value "DisplayName" of it as string starts with "Microsoft Visual Web Developer 2008 Express Edition with SP1" AND not (value "DisplayName" of it as string starts with "Microsoft Visual Studio 2008 Shell")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates" whose (exists key whose (name of it starts with "Microsoft Visual Studio 2008" AND exists key "SP1" of it OR name of it starts with "Microsoft Visual Studio Team System" AND exists key "SP1" of it OR name of it starts with "Microsoft Visual Web Developer 2008 Express Edition" AND exists key "SP1" of it) of it) of registry</Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Silverlight" whose (exists value "Version" whose (it as string as version < "3.0.50611.0") of it ) of registry]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>4938616</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB978464</SourceID>
+		<SourceReleaseDate>2010-08-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2009-2497</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Silverlight</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:silverlight:*:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Silverlight</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Silverlight.3.0_Developer.exe sha1:1787c9222c884840d0e34cb5c7c299de5385dfea size:6725528 http://download.microsoft.com/download/0/C/4/0C490C52-D317-4BAF-967A-321D58E2670A/runtime/Silverlight.3.0_Developer.exe sha256:9fa69fef8c8dbbf76ea1739e94ba436ab46051ad7545815a63cd7cd9b2e510a7
+
+waithidden __Download\Silverlight.3.0_Developer.exe /q
+
+action may require restart "1787c9222c884840d0e34cb5c7c299de5385dfea"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-060.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS10-060.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

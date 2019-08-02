@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2827229: Description of the SharePoint Server 2013 update 2827229 - SharePoint Server 2013 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft SharePoint Enterprise Server 2013 . This update provides the latest fixes to Microsoft SharePoint Enterprise Server 2013 . Additionally, this update contains stability and performance improvements.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2827229.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+64.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((exists key whose ((name of it equals "00005109451100000100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4481.1005") of it) AND (not exists key whose (name of it equals "63F5204D94639C44B971A71F2FE65521") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>67992032</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2827229</SourceID>
+		<SourceReleaseDate>2013-11-20</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 R2 Gold |~| Windows Server 2012 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch edu2013-kb2827229-fullfile-x64-glb.exe sha1:f82f2d9dd7c8b9573f92611bcbd829b92820a71f size:67992032 http://download.microsoft.com/download/7/A/1/7A11AFF6-BD8E-46B6-8702-E7021E7B3A28/edu2013-kb2827229-fullfile-x64-glb.exe sha256:51c72909d3a652cef0dc3bb0515dc75805d36a7c776987ebef352aa1ddb1d570
+
+waithidden __Download\edu2013-kb2827229-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "f82f2d9dd7c8b9573f92611bcbd829b92820a71f"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2827229</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

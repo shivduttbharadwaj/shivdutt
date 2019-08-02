@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Windows Installer Service is Disabled</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <p>The listed computers have the Windows Installer service disabled. Deployment packages that use the Windows Installer service will fail on these computers.</p> <p>This Fixlet will start the Windows Installer service. The first action will set the Windows Installer service to start on demand (manually), while the second action will set the service to automatically start. </p> <p><strong><FONT color=#ff0000>Important Note: </FONT></strong> Enabling the Windows Installer service might cause machines to automatically patching themselves if they have the automatic update service running as well. The third action enables the Windows Installer service and disables automatic updates. </p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+0
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>exists service "MSIServer" whose (start type of it = "disabled")</Relevance>
+		<Category>Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2008-11-19</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 22 Apr 2019 05:26:42 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to set the Windows Installer service to start on demand (manual) and start the service.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if{exists service "MSIServer" whose (start type of it = "disabled")}
+
+delete start_win_installer.bat 
+delete __appendfile
+appendfile @ECHO OFF
+appendfile sc config MSIServer start= demand
+appendfile sc start MSIServer 
+move __appendfile start_win_installer.bat 
+waithidden start_win_installer.bat
+
+else
+
+delete start_win_installer.bat 
+delete __appendfile
+appendfile @ECHO OFF
+appendfile sc start MSIServer 
+move __appendfile start_win_installer.bat 
+waithidden start_win_installer.bat
+
+endif</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to set the Windows Installer service to start automatically and start the service.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if{exists service "MSIServer" whose (start type of it = "disabled")}
+
+delete start_win_installer.bat 
+delete __appendfile
+appendfile @ECHO OFF
+appendfile sc config MSIServer start= auto
+appendfile sc start MSIServer 
+move __appendfile start_win_installer.bat 
+waithidden start_win_installer.bat
+
+else
+
+delete start_win_installer.bat 
+delete __appendfile
+appendfile @ECHO OFF
+appendfile sc start MSIServer 
+move __appendfile start_win_installer.bat 
+waithidden start_win_installer.bat
+
+endif</ActionScript>
+		</Action>
+		<Action ID="Action3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to set the Windows Installer service to start automatically, start the service, and disable automatic updates. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">delete start_win_installer.bat 
+delete __appendfile
+appendfile @ECHO OFF
+appendfile sc config MSIServer start= auto
+appendfile sc start MSIServer 
+move __appendfile start_win_installer.bat 
+waithidden start_win_installer.bat
+
+delete start_win_installer.bat 
+delete __appendfile
+appendfile @ECHO OFF
+appendfile sc start MSIServer 
+move __appendfile start_win_installer.bat 
+waithidden start_win_installer.bat
+
+RegSet "[HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WindowsUpdate\AU]" "NoAutoUpdate"=dword:00000001</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information on configuring how services are started.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/library/cc739213.aspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

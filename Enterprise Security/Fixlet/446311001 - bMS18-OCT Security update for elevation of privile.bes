@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-OCT: Security update for elevation of privilege vulnerability - Visual Studio 2015 Update 3 - KB4463110 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This update has been superseded by KB4469516.<br /><br />An elevation of privilege vulnerability exists when the Diagnostics Hub Standard Collector or the Visual Studio Standard Collector allows file creation in arbitrary locations..</P><SPAN lang=EN> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P></SPAN> <P><B>Note:</B> This security update is also referenced under KB4456688.&nbsp;&nbsp;</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.48 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>exists keys ((names of values of keys ("E99E7F506F97F353698B58D9FC25D5E8";"E34563BB52AC50433A850EFA2736944D";"7522FE80695A42934B4D8B3FFE23EE88";"B2855BB1075376C388A848E424F374D3";"B69A170321C03423D84CE6BED30FB651") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "E5B285D12142C8B388F72660574D78C4" OR name of it = "5C4282D485AD2443BB097FE16A0BE79A" OR name of it = "E31ADFC6843AB51328A006B3CBDB6748" OR name of it = "06F460ED2256013369565B3E7EB86383" OR name of it = "6268CF9129A135932A64398E71A49D28") AND exists key "InstallProperties" whose ((it = "14.0.23107") of (value "DisplayVersion" of it as string as version)) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance>not exists keys whose (name of it contains "KB4463110" and value "PackageVersion" of it = "14.0.27527") of keys of key "HKLM\Software\Microsoft\Updates" of x32 registry</Relevance>
+		<Relevance>not pending restart "675961aabdfa243a8fe3e8c9db092ef577b450df"</Relevance>
+		<Relevance>exists key whose ( (it = "enterprise" OR it = "professional" OR it = "community") of name of it AND value "Install" of it = 1 AND value "UpdateVersion" of it = "14.0.25420") of key "HKLM\software\microsoft\devdiv\vs\servicing\14.0" of x32 registry</Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DevDiv\Servicing\14.0\core" whose (value "UpdateVersion" of it as string as version >= "14.0.25431") of x32 registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>3634384</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4463110</SourceID>
+		<SourceReleaseDate>2018-10-02</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE 2018-0952</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 05 Oct 2018 23:07:28 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4469516</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>446951601</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:visual_studio:2015:3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-04-18</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 22:19:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch vs14-kb4463110.exe sha1:675961aabdfa243a8fe3e8c9db092ef577b450df size:3634384 https://download.visualstudio.microsoft.com/download/pr/00c1156e-74ee-4ba9-99c5-d6b91e8de6ca/8b9352c014b3cab3cd5cade2c29fb4c2/vs14-kb4463110.exe  sha256:7a44b99cd19edbdabf27c7200fc9e5cb5615d32259be5f969bd6740c055b623b
+
+waithidden __Download\vs14-kb4463110.exe /Q /NoRestart
+
+action may require restart "675961aabdfa243a8fe3e8c9db092ef577b450df"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4463110</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

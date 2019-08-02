@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>TROUBLESHOOTING: Uninstall BES Client</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>If you want to remove the BES Clients from a computer, you&nbsp;can&nbsp;remove it using this&nbsp;task in two ways:</P> <UL> <LI><STRONG>Uninstall the BES Client</STRONG> - this&nbsp;removes the BES Client application, but will leave behind&nbsp;configuration options, settings, and other traces of the application. This will allows you to reinstall the BES Client at a later time and keep the same computer ID and configuration. <LI><STRONG>Remove all traces of the BES Client</STRONG> - this will uninstall the BES Client and remove all of the configuration files and registry keys. If you reinstall the BES Client on the computer at a later time, it will use a different computer ID (thereby appearing as a completely separate computer in BES). </LI></UL> <P><B>Note:</B>&nbsp;The action to remove the BES Client will not delete the folder "C:\Program Files\BigFix Enterprise".<BR><BR><STRONG>Note:</STRONG> Client machines may briefly display DOS windows during action execution.</P> <P><STRONG>Note:</STRONG>&nbsp;If you use the second option to remove BES Client, "BES Client" folder and its subfolder "__BESData\BES Support" may still exist after running the fixlet.</P> <P><STRONG>Note:</STRONG> This task will not report relevant on the BES Server and BES Relays. To remove the BES Client on a BES Relay, you must first uninstall the BES Relay using the appropriate BES Relay uninstall task.</P> <P><FONT color=#ff0000><STRONG>Important Note:</FONT></STRONG> The BES Clients will not be able to report the final status of the action because they will be removed before the action completes. Instead, the BES Clients will stop responding and the action status will report back as 'Evaluating', 'Failed', or 'Running'. You will need to manually remove the computer from the BES Console after the BES Client is uninstalled.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> This task will not become relevant on machines on which the BES Client has been hidden from the Add/Remove Programs List. Please use the&nbsp;<SPAN id=fixletLink></SPAN><SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetFixletLink; function SetFixletLink() { try {if (isEvansOrLater) { fixletLink.innerHTML = Relevance('(format "<?rxlat {0} and {1}?>" + link of fixlet 252 of bes site whose (name of it = "BES Support") as string + link of fixlet 326 of bes site whose (name of it = "BES Support") as string) as string');} else { fixletLink.innerHTML = EvaluateRelevance('link of fixlet 252 of bes site whose (name of it = "BES Support") as string & " and " & link of fixlet 326 of bes site whose (name of it = "BES Support") as string');} } catch (e) {if (isEvansOrLater) { fixletLink.innerHTML ='<?jxlat Restore BES Clients to the Add/Remove Programs List (ID: 252) and Restore BES Clients to the Add/Remove Programs List - MSI (ID: 326)?>';} else { fixletLink.innerHTML = 'Restore BES Clients to the Add/Remove Programs List (ID: 252) and Restore BES Clients to the Add/Remove Programs List - MSI (ID: 326)';} } }</SCRIPT>&nbsp;tasks prior to using this removal task.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>name of operating system starts with "Win" AND (((it = "BES Client" OR it = "Enterprise Client") of name of parent folder of regapp "BESClient.exe") AND exists (values "DisplayName" of keys of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry) whose ((it = "IBM BigFix Client" OR it = "IBM Endpoint Manager Client" OR it = "BigFix Enterprise Client" OR it = "BigFix for IBM Proventia ESC Client" OR it = "ESP Agent" OR it = "Trend Micro Endpoint Security Platform" OR it = "Tivoli Endpoint Manager Client") of (it as string)))</Relevance>
+		<Relevance>not (exists relay service OR exists main gather service)</Relevance>
+		<Category>Troubleshooting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2003-05-12</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 19 Oct 2004 03:45:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 22 Dec 2015 19:17:54 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to uninstall the BES Client.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {name of operating system starts with "Win"}
+    // create a batch file to create the temp folder
+    delete __appendfile 
+    delete tempdir.bat
+    appendfile @echo off
+    appendfile {if (exists variable "temp" of environment) then ("") else if (exists folder "temp" of windows folder) then ("") else ("mkdir " & pathname of windows folder as string & "\temp")}
+    move __appendfile tempdir.bat 
+    wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" tempdir.bat
+    delete tempdir.bat
+    delete "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunQuiet.exe") else (pathname of folder "temp" of windows folder as string & "\RunQuiet.exe")}"
+    delete "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\delClient.iss") else (pathname of folder "temp" of windows folder as string & "\delClient.iss")}"
+    copy "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunQuiet.exe") else (pathname of folder "temp" of windows folder as string & "\RunQuiet.exe")}"
+    copy "{pathname of client folder of site "BESSupport" & "\delClient.iss"}" "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\delClient.iss") else (pathname of folder "temp" of windows folder as string & "\delClient.iss")}"
+
+    // create a batch file to uninstall client and run BESRemove from a different directory
+    appendfile @echo off
+    appendfile cd {if (exists variable "temp" of environment) then (value of variable "temp" of environment as string) else (pathname of folder "temp" of windows folder as string)}
+    appendfile {(if it as lowercase starts with "msiexec" then preceding text of first "%00" of it else preceding text of first "%20-" of it) of (value "UninstallString" of key whose ((it = "IBM BigFix Client" OR it = "IBM Endpoint Manager Client" OR it = "BigFix Enterprise Client" OR it = "BigFix for IBM Proventia ESC Client" OR it = "ESP Agent" OR it = "Trend Micro Endpoint Security Platform" OR it = "Tivoli Endpoint Manager Client") of (value "DisplayName" of it as string)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" of registry as string)}{if (value "UninstallString" of key whose ((it = "IBM BigFix Client" OR it = "IBM Endpoint Manager Client" OR it = "BigFix Enterprise Client" OR it = "BigFix for IBM Proventia ESC Client" OR it = "ESP Agent" OR it = "Trend Micro Endpoint Security Platform" OR it = "Tivoli Endpoint Manager Client") of (value "DisplayName" of it as string)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" of registry as string as lowercase starts with "msiexec") then " /qn" else (" -s --uninstallsilent " & (if version of regapp "BESClient.exe" >= "5.1" then " -f1" & (if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\delClient.iss") else (pathname of folder "temp" of windows folder as string & "\delClient.iss")) else ""))}
+
+    // move batch file to temp directory
+    delete "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunBESRemove.bat") else (pathname of folder "temp" of windows folder as string & "\RunBESRemove.bat")}"
+    copy "__appendfile" "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunBESRemove.bat") else (pathname of folder "temp" of windows folder as string & "\RunBESRemove.bat")}"
+
+    // run batchfile
+    run "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunQuiet.exe") else (pathname of folder "temp" of windows folder as string & "\RunQuiet.exe")}" "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunBESRemove.bat") else (pathname of folder "temp" of windows folder as string & "\RunBESRemove.bat")}"
+else
+    continue if {false}
+endif]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to completely remove all traces of the BES Client.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESRemove.exe sha1:a92a1e012f8ddeac96c49c561d80960bced4ce82 size:2609936 http://software.bigfix.com/download/bes/92/util/BESRemove9.2.6.94.exe sha256:74ea7a28aae16fdb64bfbe370ee04bd147c6c18a755ce68032dbf656a3d68a89
+
+// create a batch file to create the temp folder
+delete __appendfile 
+delete tempdir.bat
+appendfile @echo off
+appendfile {if (exists variable "temp" of environment) then ("") else if (exists folder "temp" of windows folder) then ("") else ("mkdir " & pathname of windows folder as string & "\temp")}
+
+move __appendfile tempdir.bat 
+
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" tempdir.bat
+delete tempdir.bat
+
+delete "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\BESRemove.exe") else (pathname of folder "temp" of windows folder as string & "\BESRemove.exe")}"
+
+delete "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunQuiet.exe") else (pathname of folder "temp" of windows folder as string & "\RunQuiet.exe")}"
+
+delete "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\delClient.iss") else (pathname of folder "temp" of windows folder as string & "\delClient.iss")}"
+
+move "__download/BESRemove.exe" "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\BESRemove.exe") else (pathname of folder "temp" of windows folder as string & "\BESRemove.exe")}"
+
+copy "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunQuiet.exe") else (pathname of folder "temp" of windows folder as string & "\RunQuiet.exe")}"
+
+copy "{pathname of client folder of site "BESSupport" & "\delClient.iss"}" "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\delClient.iss") else (pathname of folder "temp" of windows folder as string & "\delClient.iss")}"
+
+// create a batch file to uninstall client and run BESRemove from a different directory
+
+appendfile @echo off
+appendfile cd {if (exists variable "temp" of environment) then (value of variable "temp" of environment as string) else (pathname of folder "temp" of windows folder as string)}
+appendfile {(if it ends with "%00" then preceding text of first "%00" of it else it) of (value "UninstallString" of key whose ((it = "IBM BigFix Client" OR it = "IBM Endpoint Manager Client" OR it = "BigFix Enterprise Client" OR it = "BigFix for IBM Proventia ESC Client" OR it = "ESP Agent" OR it = "Trend Micro Endpoint Security Platform" OR it = "Tivoli Endpoint Manager Client") of (value "DisplayName" of it as string)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" of registry as string)} {if (value "UninstallString" of key whose ((it = "IBM BigFix Client" OR it = "IBM Endpoint Manager Client" OR it = "BigFix Enterprise Client" OR it = "BigFix for IBM Proventia ESC Client" OR it = "ESP Agent" OR it = "Trend Micro Endpoint Security Platform" OR it = "Tivoli Endpoint Manager Client") of (value "DisplayName" of it as string)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" of registry as string as lowercase starts with "msiexec") then "/qn" else ("/s --uninstallsilent " & (if version of regapp "BESClient.exe" < "5.1" then " /f1 %22" & (if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\delClient.iss") else (pathname of folder "temp" of windows folder as string & "\delClient.iss")) & "%22" else ""))}
+appendfile RunQuiet.exe BESRemove.exe /silent /force /client
+appendfile rmdir /s /q "{pathname of parent folder of client}" > NUL 2> NUL
+
+// move batch file to temp directory
+
+delete "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunBESRemove.bat") else (pathname of folder "temp" of windows folder as string & "\RunBESRemove.bat")}"
+
+copy "__appendfile" "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunBESRemove.bat") else (pathname of folder "temp" of windows folder as string & "\RunBESRemove.bat")}"
+
+// run batchfile
+
+run "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunQuiet.exe") else (pathname of folder "temp" of windows folder as string & "\RunQuiet.exe")}" "{if (exists variable "temp" of environment) then (value of variable "temp" of environment as string & "\RunBESRemove.bat") else (pathname of folder "temp" of windows folder as string & "\RunBESRemove.bat")}"]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3061064: Updates for Skype for Business Server 2015 - Skype for Business Server 2015 - KB3061064 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This download includes all available updates for Skype for Business Server 2015.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br> <p><B>Note:</B> There is no default action for this Fixlet message due to known issues associated with the installation of this patch. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</p><B>Note:</B> This update is also referenced under KB3061064.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+96.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists key "{8595E559-E401-42EE-BBB6-BC6E73FAB5B8}" whose ((it = "6.0" AND it < "6.0.9319.272") of (value "DisplayVersion" of it as string as version)) of it OR exists key "{220A57DE-E66D-4F55-A331-C37ACA4C14AF}" whose ((it = "6.0" AND it < "6.0.9319.510") of (value "DisplayVersion" of it as string as version)) of it OR exists key "{A185550F-9598-49B1-907A-E0BF5FBED77E}" whose ((it = "6.0" AND it < "6.0.9319.510") of (value "DisplayVersion" of it as string as version)) of it OR exists key "{9C542ACC-FA70-4B00-8C00-1E16DFFA6BE7}" whose ((it = "6.0" AND it < "6.0.9319.272") of (value "DisplayVersion" of it as string as version)) of it OR exists key "{DE39F60A-D57F-48F5-A2BD-8BA3FE794E1F}" whose ((it = "6.0" AND it < "6.0.9319.510") of (value "DisplayVersion" of it as string as version)) of it OR exists key "{0389E2EC-B097-42E8-A17E-4D24CAEF7308}" whose ((it = "6.0" AND it < "6.0.9319.503") of (value "DisplayVersion" of it as string as version)) of it OR exists key "{51B3AF2A-335E-497A-94C5-82A332E60BCF}" whose ((it = "6.0" AND it < "6.0.9319.281") of (value "DisplayVersion" of it as string as version)) of it OR exists key "{21BE08F9-CAF1-4168-B58B-45594921DFC7}" whose ((it = "6.0" AND it < "6.0.9319.510") of (value "DisplayVersion" of it as string as version)) of it OR exists key "{C3FF05AC-3EF0-45A8-A7F2-9FD3C0F6DE39}" whose ((it = "6.0" AND it < "6.0.9319.510") of (value "DisplayVersion" of it as string as version)) of it OR exists key "{B6BCD5A0-0A41-4C00-B9AC-9AAE00398988}" whose ((it = "6.0" AND it < "6.0.9319.510") of (value "DisplayVersion" of it as string as version)) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>100772576</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3061064</SourceID>
+		<SourceReleaseDate>2017-12-13</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 08 Sep 2015 16:46:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 R2 |~| Windows Server 2012 |~| Windows Server 2012 R2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Microsoft Lync Server and Microsoft Lync</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Skype for Business Server 2015</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Skype for Business Server and Lync Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 20 May 2019 09:08:33 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SkypeServerUpdateInstaller.exe sha1:ad01e267935c30ad37c0d62689d962fabf465392 size:100772576 http://download.microsoft.com/download/F/B/C/FBC09794-2DB9-415E-BBC7-7202E8DF7072/SkypeServerUpdateInstaller.exe sha256:e3f26486691633b514a67e1a1f46a90f194c006e600b1bf415485891a1db3cfe
+
+waithidden __Download\SkypeServerUpdateInstaller.exe /silentmode
+
+action may require restart "ad01e267935c30ad37c0d62689d962fabf465392"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3061064</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

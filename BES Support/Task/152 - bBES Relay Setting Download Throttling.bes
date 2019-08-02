@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Relay Setting: Download Throttling</Title>
+		<Description><![CDATA[
+The BES Relay can "throttle" the download speed by limiting the amount of bytes it downloads per second from its parent BES Relay (or the BES Server). <BR><BR>This type of throttling is useful if there is limited network bandwidth between the BES Relay and its parent BES Relay (or the BES Server). You should consider using this throttling setting if the speed of these connections is less than 384 kbps and you should almost certainly use this setting if the speed is less than 128 kbps.<BR><BR><b>Note:</b> Do <b>not</b> set the "Reapply" behavior when taking this action or you may cause the BES Client to constantly reset this setting.
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>not exists main gather service</Relevance>
+		<Relevance>TRUE</Relevance>
+		<Category>BES Server/Relay Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 22 Jun 2004 18:22:35 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to enable download traffic throttling on the listed BES Relays. You will be prompted for the limit on download traffic (bytes/sec).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "_BESGather_Download_LimitBytesPerSecond" with description "Please enter the limit on download traffic (bytes/sec):"
+
+// Fail if value is not between 1 and 4,294,967,296
+continue if {parameter "_BESGather_Download_LimitBytesPerSecond" of action as integer >= 1 AND parameter "_BESGather_Download_LimitBytesPerSecond" of action as integer <= 4294967296}
+
+setting "_BESGather_Download_LimitBytesPerSecond"="{parameter "_BESGather_Download_LimitBytesPerSecond" of action}" on "{parameter "action issue date" of action}" for client
+
+// Restart the Relay
+if {name of operating system starts with "Win"}
+    dos net stop BESRelay
+    dos net start BESRelay
+elseif {name of operating system starts with "AIX"}
+    wait /etc/rc.d/rc2.d/KBESRelayd stop
+    wait /etc/rc.d/rc2.d/SBESRelayd start_skipclientrestart
+elseif {(it starts with "SunOS" OR it starts with "Linux") of name of operating system}
+    wait /etc/init.d/besrelay stop
+    wait /etc/init.d/besrelay start_skipclientrestart
+else
+    continue if {false}
+endif
+
+parameter "waitTime" = "{apparent registration server time}"
+pause while {((apparent registration server time) - time (parameter "waitTime")) < 5*second}
+relay select]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to disable download throttling on the listed BES Relays.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[setting "_BESGather_Download_LimitBytesPerSecond"="0" on "{parameter "action issue date" of action}" for client
+
+// Restart the Relay
+if {name of operating system starts with "Win"}
+    dos net stop BESRelay
+    dos net start BESRelay
+elseif {name of operating system starts with "AIX"}
+    wait /etc/rc.d/rc2.d/KBESRelayd stop
+    wait /etc/rc.d/rc2.d/SBESRelayd start_skipclientrestart
+elseif {(it starts with "SunOS" OR it starts with "Linux") of name of operating system}
+    wait /etc/init.d/besrelay stop
+    wait /etc/init.d/besrelay start_skipclientrestart
+else
+    continue if {false}
+endif
+
+parameter "waitTime" = "{apparent registration server time}"
+pause while {((apparent registration server time) - time (parameter "waitTime")) < 5*second}
+relay select]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about BES bandwidth throttling.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/bes/misc/besthrottling.html</ActionScript>
+		</Action>
+	</Task>
+</BES>

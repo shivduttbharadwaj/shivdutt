@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-059: Vulnerabilities in the Tracing Feature for Services Could Allow Elevation of Privilege - Windows 7</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves one publicly disclosed vulnerability and one privately reported vulnerability in the Tracing Feature for Services. The vulnerabilities could allow elevation of privilege if an attacker runs a specially crafted application. An attacker must have valid logon credentials and be able to log on locally to exploit this vulnerability. The vulnerability could not be exploited remotely or by anonymous users.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+205 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win7") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "rtutils.dll" whose ((((exists value "FileVersion" whose (it contains "ldr") of version blocks of it)) AND (version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20738") OR (((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it)) AND version of it < "6.1.7600.16617")) of it) of ((folder (pathname of (system folder) & "\")))]]></Relevance>
+		<Relevance>not pending restart "a3c9d9b0b82ebfdcd61962357720e4de067fefac"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>210410</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB982799</SourceID>
+		<SourceReleaseDate>2010-08-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2010-2554; CVE-2010-2555</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Tracing Feature for Services</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_7:-:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB982799-x86.msu sha1:a3c9d9b0b82ebfdcd61962357720e4de067fefac size:210410 http://download.microsoft.com/download/6/0/5/60599C66-29B7-4D14-BE17-E9754F3DA90B/Windows6.1-KB982799-x86.msu sha256:7e71abd0a109b1943aba0d51f89d0a43d33c1efc2d842901dddf9f71999d3d28
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB982799-x86.msu"}" /quiet /norestart
+
+action requires restart "a3c9d9b0b82ebfdcd61962357720e4de067fefac"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-059.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS10-059.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

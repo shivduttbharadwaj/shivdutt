@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-060: Vulnerabilities in Microsoft Visio Could Allow Remote Code Execution - Visio 2010 Gold/SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Visio. The vulnerabilities could allow remote code execution if a user opens a specially crafted Visio file. An attacker who successfully exploited this vulnerability could gain the same user rights as the logged-on user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2553008.<BR><BR><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled. <P><SPAN id=dashboardLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetOfficeOverviewLink; function SetOfficeOverviewLink() { try {if (isEvansOrLater) { dashboardLink.innerHTML = Relevance('(format "<?rxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the {0}.?>" + link "<?rxlat Microsoft Office Overview Dashboard?>" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string ) as string');} else { dashboardLink.innerHTML = EvaluateRelevance('"<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the " & link "Microsoft Office Overview Dashboard" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string & "."');} } catch (e) {if (isEvansOrLater) { dashboardLink.innerHTML ='<?jxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.?>';} else { dashboardLink.innerHTML = '<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.';} } } </SCRIPT> </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+23.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((exists file "AEC.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "BSTORM.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "DBENGR.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "DRILLDWN.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "DWGCNV.DLL" whose ((version of it = "14" AND version of it < "14.0.6015.1000")) of it) OR (exists file "DWGDP.DLL" whose ((version of it = "14" AND version of it < "14.0.6015.1000")) of it) OR (exists file "FACILITY.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "GANTT.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "HVAC.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "ORGCHART.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "ORGCHWIZ.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "PE.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "SG.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "TIMESOLN.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "UML.DLL" whose ((version of it = "14" AND version of it < "14.0.6106.5001")) of it) OR (exists file "VISBRGR.DLL" whose ((version of it = "14" AND version of it < "14.0.6106.5000")) of it) OR (exists file "VISCOLOR.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "VISDLGU.DLL" whose ((version of it = "14" AND version of it < "14.0.6015.1000")) of it) OR (exists file "VISGRF.DLL" whose ((version of it = "14" AND version of it < "14.0.6015.1000")) of it) OR (exists file "VISICON.EXE" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "VISIO.EXE" whose ((version of it = "14" AND version of it < "14.0.6106.5000")) of it) OR (exists file "VISLIB.DLL" whose ((version of it = "14" AND version of it < "14.0.6106.5000")) of it) OR (exists file "VISSUPP.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "VISUTILS.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "VISWEB.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it) OR (exists file "XFUNC.DLL" whose ((version of it = "14" AND version of it < "14.0.6009.1000")) of it)) of (parent folder of regapp "visio.exe" whose (version of it ="14"))]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance>exists regapp whose (name of it = "VISIO.EXE" AND version of it ="14")</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>24478152</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2553008</SourceID>
+		<SourceReleaseDate>2011-08-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-1972</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Visio</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:visio:2010:gold:*:*:*:*:*:*; cpe:2.3:a:microsoft:visio:2010:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Visio2010-kb2553008-fullfile-x64-glb.exe sha1:9ff09c04d76fa5f9cddde935e1edd7d19ff2b1db size:24478152 http://download.microsoft.com/download/4/8/9/48967829-8F48-4348-9C4D-53299BAE29F3/Visio2010-kb2553008-fullfile-x64-glb.exe sha256:563e47c8b5263026c336070581bc4f8b3501a86a188de518346156147bed6e84
+
+waithidden __Download\Visio2010-kb2553008-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "9ff09c04d76fa5f9cddde935e1edd7d19ff2b1db"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-060.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS11-060.mspx</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

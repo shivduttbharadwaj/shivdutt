@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-023: Vulnerabilities in Microsoft Office Could Allow Remote Code Execution - Office 2010 SP1 - KB2878284 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS15-012. Whereas this Fixlet message previously applied to Office 2010 SP1 / SP2 (x64), it now only applies to Office 2010 SP1 (x64).</P>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Office. The most severe vulnerability could allow remote code execution if a user opens an Office file that is located in the same network directory as a specially crafted library file. An attacker who successfully exploited this vulnerability could gain the same user rights as the current user. Customers whose accounts are configured to have fewer user rights on the system could be less impacted than those who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2878284.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+93.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(((if (exists keys ("00004109F10070400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "03F69D46C4FCECC4AA2F8F093984FB53" of key "Patches" of it) of it) then (1) else (if (exists keys ("00004109F10070400100000000F01FEC") of it) then (-32) else (0)))) + ((if (exists keys ("00004109F10090400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "C5E08E8E61DEEEE49B2FAD6149D152D3" of key "Patches" of it) of it) then (1) else (if (exists keys ("00004109F10090400100000000F01FEC") of it) then (-32) else (0)))) + ((if (exists keys ("00004109F100A0C00100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "52B9E48E6BEBF2F448BB57C5ADE8980C" of key "Patches" of it) of it) then (1) else (if (exists keys ("00004109F100A0C00100000000F01FEC") of it) then (-32) else (0)))) + ((if (exists keys ("00004109F100C0400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "CA7056F9F8D71C649BF0957C28E8E0D0" of key "Patches" of it) of it) then (1) else (if (exists keys ("00004109F100C0400100000000F01FEC") of it) then (-32) else (0)))) + ((if (exists keys ("00004109F10091400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "A73FBF38429A63940A504E6BB075C38A" of key "Patches" of it) of it) then (1) else (if (exists keys ("00004109F10091400100000000F01FEC") of it) then (-32) else (0)))) + ((if (exists keys ("00004109F10040800100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "2D60B7342D668AF478FDF3683E60DF42" of key "Patches" of it) of it) then (1) else (if (exists keys ("00004109F10040800100000000F01FEC") of it) then (-32) else (0)))) + ((if (exists keys ("00004109F10040400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.6029.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "48052E7C6565A1640B4DA4DCB47BEE4B" of key "Patches" of it) of it) then (1) else (if (exists keys ("00004109F10040400100000000F01FEC") of it) then (-32) else (0))))) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry > 0]]></Relevance>
+		<Relevance><![CDATA[((exists file "Css7data0009.dll" whose (version of it < "14.0.7113.5000") of it) or (exists file "Nl7models0009.dll" whose (version of it < "14.0.7113.5000") of it)) of (folder (value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of native registry as string & "\Microsoft Office\Office14"))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>97629896</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2878284</SourceID>
+		<SourceReleaseDate>2014-05-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2014-1756</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 14 May 2014 07:29:15 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2010:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch proofloc2010-kb2878284-fullfile-x64-glb.exe sha1:34e853247eaa2c8074d285d9ec2329bcb79a4b06 size:97629896 http://download.microsoft.com/download/A/5/1/A51AEFA2-D314-4A1E-AD01-5E2E3DBB759C/proofloc2010-kb2878284-fullfile-x64-glb.exe sha256:fc018df6b2d1216f7339583fe277500e2a5b6d218c85752ff3b279c34921ff22
+
+waithidden __Download\proofloc2010-kb2878284-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "34e853247eaa2c8074d285d9ec2329bcb79a4b06"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS14-023</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: MSXML 4.0 SP2 Available</Title>
+		<Description><![CDATA[
+Microsoft has released XML Core Services (MSXML) 4.0 Service Pack 2, formerly called the Microsoft XML parser. This service pack adds a number of bug fixes to MSXML 4.0. The computers listed have MSXML 4.0 installed and may be vulnerable to various known security issues. <BR><BR><b>Note</b>: The BigFix program requires this update to establish a baseline for vulnerability analysis. <BR><BR><b>Note</b>: Microsoft does not support upgrades from any technical previews of MSXML 4.0; please refer to Microsoft's MSXML 4.0 SP2 download page below for more information.<BR><BR><b>File Size:</b> 5.04 MB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((exists file "msxml4.dll" of system folder) AND (version of file "msxml4.dll" of system folder < "4.20.9818.0")) ]]></Relevance>
+		<Relevance><![CDATA[(exists file "msiexec.exe" of system folder) AND (version of file "msiexec.exe" of system folder >= "2.0")]]></Relevance>
+		<Relevance>((name of it = "WinXP") OR (name of it = "Win2000") OR (name of it = "Win2003")) of operating system</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>5289984</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2002-08-01</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>MSXML</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch msxml.msi sha1:5c439de4bd3c125bcfe7f8f659e9a307b079303e size:5289984 http://download.microsoft.com/download/9/6/5/9657c01e-107f-409c-baac-7d249561629c/msxml.msi sha256:f51f79d6b2638dcc56205f233c1fa2029f09cb7397350f5e7549644eb5c2a249
+
+wait {pathname of system folder}\msiexec.exe /i __download\msxml.msi /q
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft on MSXML 4.0 SP2.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri"><![CDATA[http://www.microsoft.com/downloads/details.aspx?FamilyID=3144b72b-b4f2-46da-b4b6-c5d7485f2b42&DisplayLang=en]]></ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

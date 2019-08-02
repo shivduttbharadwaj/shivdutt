@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-062: Vulnerabilities in GDI+ Could Allow Remote Code Execution - .NET Framework 1.1 SP1 - Windows 2000 SP4</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves several privately reported vulnerabilities in Microsoft Windows GDI+. These vulnerabilities could allow remote code execution if a user viewed a specially crafted image file using affected software or browsed a Web site that contains specially crafted content. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB971108.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.68 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2000" AND (service pack major version of it = 4)) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose ((name of it starts with "v1.1" and value "SP" of it = 1) of it) of it) of registry</Relevance>
+		<Relevance><![CDATA[exists file "Gdiplus.dll" whose (version of it < "5.2.6001.22319") of folder ((value "InstallRoot" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework" of registry as string) & "v1.1.4322")]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\.NETFramework\1.1\M971108" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>7002048</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB957488</SourceID>
+		<SourceReleaseDate>2009-10-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2009-2504</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 03 Nov 2016 08:59:23 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP1.1sp1-KB971108-X86.exe sha1:1a7407dfe0f78608e8c5913b03af472d35b9b362 size:7002048 http://download.microsoft.com/download/3/3/C/33CAA8F1-9058-4CB1-A1DB-64D9F7721E87/NDP1.1sp1-KB971108-X86.exe sha256:dbcd2ba9f48c0a6c649abe028b09ea349a5f76fa595b74b9d38af9cce48c5687
+
+waithidden __Download\NDP1.1sp1-KB971108-X86.exe /q /norestart
+
+action may require restart "1a7407dfe0f78608e8c5913b03af472d35b9b362"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-062.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-062.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

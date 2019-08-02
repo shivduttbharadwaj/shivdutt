@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2904266: December 2013 cumulative time zone update for Windows operating systems - Windows XP SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2904266.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+703 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "WinXP-2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(NOT exists file "tzchange.exe" of (system x64 folder) AND NOT exists file "tzchange.exe" of (system wow64 folder)) OR (exists file "tzchange.exe" whose ((version of it < "5.2.3790.5257")) of it) of (system x64 folder) OR (exists file "tzchange.exe" whose ((version of it < "5.2.3790.5257")) of it) of (system wow64 folder)]]></Relevance>
+		<Category>Rollup</Category>
+		<DownloadSize>720632</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2904266</SourceID>
+		<SourceReleaseDate>2013-12-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 SP2 |~| Windows XP Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB2904266-x64-ENU.exe sha1:35cb691389d789a9564ee42a4fd47fa78b0c8bc4 size:720632 http://download.microsoft.com/download/C/3/6/C3620896-4C6C-4D82-86DC-A966AEB81D18/WindowsServer2003.WindowsXP-KB2904266-x64-ENU.exe sha256:8483c1d6886a6700bfe5bc2c78f8a012121f4ed58404e3b24b720786dbabc264
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB2904266-x64-ENU.exe /quiet /norestart
+
+action may require restart "35cb691389d789a9564ee42a4fd47fa78b0c8bc4"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2904266</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

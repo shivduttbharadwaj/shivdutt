@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-074: Vulnerabilities in Microsoft SharePoint Could Allow Elevation of Privilege - Groove Data Bridge Server 2007 SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves five privately reported vulnerabilities and one publicly disclosed vulnerability in Microsoft SharePoint and Windows SharePoint Services. The most severe vulnerabilities could allow elevation of privilege if a user clicked on a specially crafted URL or visited a specially crafted Web site. For the most severe vulnerabilities, Internet Explorer 8 and Internet Explorer 9 users browsing to a SharePoint site in the Internet Zone are at a reduced risk because, by default, the XSS Filter in Internet Explorer 8 and Internet Explorer 9 helps to block the attacks in the Internet Zone. The XSS Filter in Internet Explorer 8 and Internet Explorer 9, however, is not enabled by default in the Intranet Zone.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2552999.<BR><BR></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.26 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "DWDCW20.DLL" whose ((version of it < "12.0.6545.5000")) of it) of (folder "DW" of it) of folder ( (value "commonFilesDIR" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of x64 registry as string & "\Microsoft Shared\"))]]></Relevance>
+		<Relevance><![CDATA[exists key whose (value "DisplayName" of it as string contains "Groove Server 2007 Data Bridge" AND value "DisplayVersion" of it as string as version >= "12.0.6425.1000" AND value "DisplayVersion" of it as string as version < "12.0.6612.1000") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2370456</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2552999</SourceID>
+		<SourceReleaseDate>2011-09-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-1252; CVE-2011-1892</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint:2007:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch groovedatabridge2007-kb2552999-fullfile-x64-glb.exe sha1:2e23bd07a630896a4882cea9676550e4d79cfce7 size:2370456 http://download.microsoft.com/download/A/8/2/A82BE02D-2DED-4D61-80DD-93B277653170/groovedatabridge2007-kb2552999-fullfile-x64-glb.exe sha256:4b36a8a1cdf2f0af7f1e7a7f1987774c48dd736918183fce4b246b6ad01f092b
+
+waithidden __Download\groovedatabridge2007-kb2552999-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "2e23bd07a630896a4882cea9676550e4d79cfce7"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-074.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS11-074.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

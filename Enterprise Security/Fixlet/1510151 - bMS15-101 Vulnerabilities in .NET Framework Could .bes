@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-101: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege - Windows Server 2008 SP2 / Windows Vista SP2 - .NET Framework 2.0 SP2 - KB3074541</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft .NET Framework. The most severe of the vulnerabilities could allow elevation of privilege if a user runs a specially crafted .NET application. However, in all cases, an attacker would have no way to force users to run the application; an attacker would have to convince users to do so.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3074541.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+797 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v2.0" AND value "SP" of it = 2) of it) of registry</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3074541~31bf3856ad364e35~x86~~6.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3074541~31bf3856ad364e35~x86~~6.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else (((exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.0.6000.16386") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Package_129_for_KB948465~31bf3856ad364e35~x86~~6.0.1.18005";"Package_25_for_KB948465~31bf3856ad364e35~x86~~6.0.1.18005") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "msil_system.drawing_b03f5f7f11d50a3a_none_63b1ce04a60d0e16" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23748" OR it >= "6.0.6002.10000" AND it < "6.0.6002.19440") of (default value of it as string as version)) of it) of it OR exists key "msil_system.directoryservices.protocols_b03f5f7f11d50a3a_none_0b8f955b29369eee" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23748" OR it >= "6.0.6002.10000" AND it < "6.0.6002.19440") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.0.6001.18000") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Package_129_for_KB948465~31bf3856ad364e35~x86~~6.0.1.18005";"Package_25_for_KB948465~31bf3856ad364e35~x86~~6.0.1.18005") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "msil_system.drawing_b03f5f7f11d50a3a_none_63b1ce04a60d0e16" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23748" OR it >= "6.0.6002.10000" AND it < "6.0.6002.19440") of (default value of it as string as version)) of it) of it OR exists key "msil_system.directoryservices.protocols_b03f5f7f11d50a3a_none_0b8f955b29369eee" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23748" OR it >= "6.0.6002.10000" AND it < "6.0.6002.19440") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "f489e17b512b622c1b26d92e12338729e376de6a"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>817075</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3074541</SourceID>
+		<SourceReleaseDate>2015-09-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-2504</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 09 Sep 2015 01:06:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:2.0:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB3074541-x86.msu sha1:f489e17b512b622c1b26d92e12338729e376de6a size:817075 http://download.microsoft.com/download/3/1/E/31E07446-417F-4EE5-9A59-DCD3AF7A2AF4/Windows6.0-KB3074541-x86.msu sha256:1a409d73db23ed554a98094e469d0860d7cb88971546cbad12cc37059b4e82b4
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB3074541-x86.msu"}" /quiet /norestart
+
+action requires restart "f489e17b512b622c1b26d92e12338729e376de6a"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-101</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

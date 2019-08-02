@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-090: Cumulative Security Update of ActiveX Kill Bits - Windows XP SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves a privately reported vulnerability that is currently being exploited. The vulnerability exists in the InformationCardSigninHelper Class ActiveX control. The vulnerability could allow remote code execution if a user views a specially crafted webpage with Internet Explorer, instantiating the ActiveX control. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2900986.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+670 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP-2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance>NOT (((exists key "{19916e01-b44e-4e31-94a4-4696df46157b}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{c2c4f00a-720e-4389-aeb9-e9c4b0d93c6f}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{53001f3a-f5e1-4b90-9c9f-00e09b53c5f1}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{19916e01-b44e-4e31-94a4-4696df46157b}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{19916e01-b44e-4e31-94a4-4696df46157b}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{c2c4f00a-720e-4389-aeb9-e9c4b0d93c6f}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{c2c4f00a-720e-4389-aeb9-e9c4b0d93c6f}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{53001f3a-f5e1-4b90-9c9f-00e09b53c5f1}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{53001f3a-f5e1-4b90-9c9f-00e09b53c5f1}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{19916e01-b44e-4e31-94a4-4696df46157b}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{c2c4f00a-720e-4389-aeb9-e9c4b0d93c6f}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it) AND (exists key "{53001f3a-f5e1-4b90-9c9f-00e09b53c5f1}" whose (exists value "Compatibility Flags" whose (it as string = "1024") of it) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility" of x64 registry)</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\HotFix\KB2900986" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>686840</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2900986</SourceID>
+		<SourceReleaseDate>2013-11-12</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2013-3918</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ActiveX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_xp:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB2900986-x64-ENU.exe sha1:26659a1f3ff46858826a1b9a98751f39962a6274 size:686840 http://download.microsoft.com/download/5/C/E/5CEFC330-3F63-4581-94EF-8336EB199683/WindowsServer2003.WindowsXP-KB2900986-x64-ENU.exe sha256:8e9e883982de365e68853858a3232e0b7c5d9d6f3c00c6ea9cbe837473d6573a
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB2900986-x64-ENU.exe /quiet /norestart
+
+action may require restart "26659a1f3ff46858826a1b9a98751f39962a6274"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-090</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

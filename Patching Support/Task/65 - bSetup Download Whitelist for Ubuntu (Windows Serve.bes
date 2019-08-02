@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Setup Download Whitelist for Ubuntu (Windows Server)</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <DIV class=FixletMessage> <P>This task adds the Ubuntu repository url to the server download whitelist.&nbsp; The server will then allow the dynamic download from the Ubuntu repository.</P></DIV></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance>if (name of operating system as lowercase starts with "win") then (exists main gather service) else false</Relevance>
+		<Relevance><![CDATA[if (exist file (( value "StoragePath" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\GlobalOptions" of registry ) as string & "Mirror Server\Config\DownloadWhitelist.txt")) then ((not exist line whose (it as lowercase contains "http://security.ubuntu.com/ubuntu/.*") of  file (( value "StoragePath" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\GlobalOptions" of registry ) as string & "Mirror Server\Config\DownloadWhitelist.txt")) OR (not exist line whose (it as lowercase contains "http://archive.ubuntu.com/ubuntu/.*") of  file (( value "StoragePath" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\GlobalOptions" of registry ) as string & "Mirror Server\Config\DownloadWhitelist.txt"))) else true ]]></Relevance>
+		<Category></Category>
+		<Source>IBM</Source>
+		<SourceID></SourceID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 25 Jan 2019 08:37:03 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 25 Jan 2019 08:37:03 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "WhitelistFile"="{value "EnterpriseServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of x32 registry as string & "Mirror Server\Config\DownloadWhitelist.txt"}"
+
+delete __appendfile
+
+if {exists file (parameter "WhitelistFile" of action)}
+    appendfile {concatenation "%0d%0a" of lines whose (it does not contain "http://security.ubuntu.com/ubuntu/.*" ) of file (parameter "WhitelistFile" of action)}
+endif
+
+appendfile http://archive.ubuntu.com/ubuntu/.*
+appendfile http://security.ubuntu.com/ubuntu/.*
+
+delete "{parameter "WhitelistFile" of action}"
+move __appendfile "{parameter "WhitelistFile" of action}"]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-032: Cumulative Security Update of ActiveX Kill Bits - Windows Server 2008</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a security update that resolves a publicly reported vulnerability for the Microsoft Speech API. The vulnerability could allow remote code execution if a user viewed a specially crafted Web page using Internet Explorer and has the Speech Recognition feature in Windows enabled. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights. This update also includes a kill bit for software produced by BackWeb.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.</P> <P><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT> Two of the kill bits mentioned in the Security Bulletin ({3BEE4890-4FE9-4A37-8C1E-5E7E12791C1F} and {47206204-5ECA-11D2-960F-00C04F8EE628}) are enabled by default on Windows Server 2008 and will not be automatically set by the update on Server 2008 systems. As such, Server 2008 systems with these kill bits disabled will fail for action 1 below. Action 2 will explicitly set all kill bits instead of using the Microsoft patch.</P><P><B>Note:</B> There is no default action for this Fixlet message because it has multiple actions, none of which is clearly recommended over the others. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+205 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it =  "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008" and service pack major version of it = 0))) of operating system</Relevance>
+		<Relevance><![CDATA[if (version of client < "6.0") then (not pending restart) else (not pending restart "d136501425a97831c678749a08a05760341c4c66")]]></Relevance>
+		<Relevance>NOT (((exists key "{22FD7C0A-850C-4A53-9821-0B0915C96139}" whose (value "Compatibility Flags" of it as string = "1024") of it) AND (exists key "{314111B8-A502-11D2-BBCA-00C04F8EC294}" whose (value "Compatibility Flags" of it as string = "1024") of it) AND (exists key "{314111C6-A502-11D2-BBCA-00C04F8EC294}" whose (value "Compatibility Flags" of it as string = "1024") of it) AND (exists key "{3BEE4890-4FE9-4A37-8C1E-5E7E12791C1F}" whose (value "Compatibility Flags" of it as string = "1024") of it) AND (exists key "{40F23EB7-B397-4285-8F3C-AACE4FA40309}" whose (value "Compatibility Flags" of it as string = "1024") of it) AND (exists key "{47206204-5ECA-11D2-960F-00C04F8EE628}" whose (value "Compatibility Flags" of it as string = "1024") of it) AND (exists key "{5F810AFC-BB5F-4416-BE63-E01DD117BD6C}" whose (value "Compatibility Flags" of it as string = "1024") of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility" of registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>209944</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB950760</SourceID>
+		<SourceReleaseDate>2008-06-10</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<CVENames>CVE-2007-0675</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ActiveX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the security update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB950760-x86.msu sha1:d136501425a97831c678749a08a05760341c4c66 size:209944 http://download.microsoft.com/download/2/f/9/2f9e4b94-9e88-4a74-9447-c7f67a76f6e4/Windows6.0-KB950760-x86.msu sha256:2f260379d119842f4ae736905738c732f9b4b1b0e7c52691f87dc063c08efc10
+
+wait "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB950760-x86.msu"}" /quiet /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action requires restart "d136501425a97831c678749a08a05760341c4c66"  
+]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to set all kill bits explicitly.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\{"%7b22FD7C0A-850C-4A53-9821-0B0915C96139%7d"}]" "Compatibility Flags"=dword:00000400
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\{"%7b314111B8-A502-11D2-BBCA-00C04F8EC294%7d"}]" "Compatibility Flags"=dword:00000400
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\{"%7b314111C6-A502-11D2-BBCA-00C04F8EC294%7d"}]" "Compatibility Flags"=dword:00000400
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\{"%7b3BEE4890-4FE9-4A37-8C1E-5E7E12791C1F%7d"}]" "Compatibility Flags"=dword:00000400
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\{"%7b40F23EB7-B397-4285-8F3C-AACE4FA40309%7d"}]" "Compatibility Flags"=dword:00000400
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\{"%7b47206204-5ECA-11D2-960F-00C04F8EE628%7d"}]" "Compatibility Flags"=dword:00000400
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility\{"%7b5F810AFC-BB5F-4416-BE63-E01DD117BD6C%7d"}]" "Compatibility Flags"=dword:00000400</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-032.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-032.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

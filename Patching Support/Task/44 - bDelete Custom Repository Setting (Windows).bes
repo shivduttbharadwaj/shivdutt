@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Delete Custom Repository Setting (Windows)</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>Delete the Custom Repository Setting on selected Windows computers.</TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false</Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists setting "_BESClient_AllowCustomRepoDownloads" of client and exists value of setting "_BESClient_AllowCustomRepoDownloads" of client</Relevance>
+		<Category></Category>
+		<Source></Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 10 Dec 2015 05:36:41 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sun, 14 Feb 2016 13:37:35 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">setting delete "_BESClient_AllowCustomRepoDownloads" on "{parameter "action issue date" of action}" for client</ActionScript>
+		</Action>
+	</Task>
+</BES>

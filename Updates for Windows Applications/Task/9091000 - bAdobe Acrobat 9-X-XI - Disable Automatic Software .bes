@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Adobe Acrobat 9/X/XI - Disable Automatic Software Updates</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>The Automatic Software Update feature for Adobe Acrobat 9/X/XI is currently enabled on detected machines. Use the action below to disable this feature.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display DOS windows during action execution.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists regapp "acrobat.exe"</Relevance>
+		<Relevance>(exists key "HKLM\Software\Adobe\Adobe Acrobat\6.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\7.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\8.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\9.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\10.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\11.0\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\2015\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\DC\" of it OR exists key "HKLM\Software\Adobe\Adobe Acrobat\2017\" of it) of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists regapp "acrobat.exe" whose (version of it = "9" or version of it = "10" or version of it = "11")</Relevance>
+		<Relevance>(NOT exists key "HKLM\SOFTWARE\Adobe\Adobe ARM\1.0\ARM" whose (value "iCheck" of it = 0) of registry) OR (NOT exists key "HKLM\SOFTWARE\Adobe\Adobe ARM\1.0\ARM" of registry)</Relevance>
+		<Category>Configuration</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 29 Apr 2013 07:48:08 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Configuration AutoUpdate 3rdPartyApp Adobe Acrobat</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 13 Jul 2018 03:21:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+
+
+delete AdobeUpdaterPrefs.reg
+
+move __appendfile AdobeUpdaterPrefs.reg
+
+wait regedit -s AdobeUpdaterPrefs.reg</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Acrobat.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/products/acrobat/</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#readerwin</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in cross-platform applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c1</ActionScript>
+		</Action>
+	</Task>
+</BES>

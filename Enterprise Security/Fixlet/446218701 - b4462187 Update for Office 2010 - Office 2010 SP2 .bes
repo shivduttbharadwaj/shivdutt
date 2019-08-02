@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4462187: Update for Office 2010 - Office 2010 SP2 - KB4462187 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft Office 2010 64-Bit Edition. This update provides the latest fixes to Microsoft Office 2010 64-Bit Edition. Additionally, this update contains stability and performance improvements.<p><B>Note:</B> This update is also referenced under KB4462187.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00004109810000000100000000F01FEC";"00004119B80000000100000000F01FEC";"00004119110000000100000000F01FEC";"00004119D11000000100000000F01FEC";"00004109910000000100000000F01FEC";"00004109710000000100000000F01FEC";"00004109110000000100000000F01FEC";"00004119310000000100000000F01FEC";"00004119210000000100000000F01FEC";"00004109210000000100000000F01FEC";"00004119410000000100000000F01FEC";"00004119810000000100000000F01FEC";"00004119330000000100000000F01FEC";"00004119910000000100000000F01FEC";"00004119B10000000100000000F01FEC";"00004109B80000000100000000F01FEC";"00004109B10000000100000000F01FEC";"00004109D30000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.7015.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "795E3E43FC415A640BC24EF0C2F3EAFE" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "14.0" AND "|OARTCONV.DLL|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "OARTCONV.DLL" AND (item 3 of it = "14.0.7229.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Tue, 22 Jan 2019 16:39:02 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7229.5000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{34E3E597-14CF-46A5-B02C-E40F2C3FAEEF}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Relevance>not exists key "Patches\795E3E43FC415A640BC24EF0C2F3EAFE" of keys ("00004109810000000100000000F01FEC";"00004119B80000000100000000F01FEC";"00004119110000000100000000F01FEC";"00004119D11000000100000000F01FEC";"00004109910000000100000000F01FEC";"00004109710000000100000000F01FEC";"00004109110000000100000000F01FEC";"00004119310000000100000000F01FEC";"00004119210000000100000000F01FEC";"00004109210000000100000000F01FEC";"00004119410000000100000000F01FEC";"00004119810000000100000000F01FEC";"00004119330000000100000000F01FEC";"00004119910000000100000000F01FEC";"00004119B10000000100000000F01FEC";"00004109B80000000100000000F01FEC";"00004109B10000000100000000F01FEC";"00004109D30000000100000000F01FEC") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>6539264</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4462187</SourceID>
+		<SourceReleaseDate>2019-01-25</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 08 Feb 2019 05:08:44 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2010:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 27 Mar 2019 20:28:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch oartconv2010-kb4462187-fullfile-x64-glb.exe sha1:910884ae995b06d09fb30c548cb2e7f2a0e9dda5 size:6539264 https://download.microsoft.com/download/6/C/4/6C443274-CB5F-4FAB-85DC-3C4A7EC344D0/oartconv2010-kb4462187-fullfile-x64-glb.exe sha256:2aefd20d99aba0295c63f8f6f8645ed8715d6b4c54a5d35297784c634254642b
+
+waithidden __Download\oartconv2010-kb4462187-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "910884ae995b06d09fb30c548cb2e7f2a0e9dda5"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4462187</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

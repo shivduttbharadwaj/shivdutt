@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-020: Vulnerabilities in SMB Client Could Allow Remote Code Execution - Windows Server 2003 SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves one publicly disclosed and several privately reported vulnerabilities in Microsoft Windows. The vulnerabilities could allow remote code execution if an attacker sent a specially crafted SMB response to a client-initiated SMB request. To exploit these vulnerabilities, an attacker must convince the user to initiate an SMB connection to a specially crafted SMB server.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.18 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "mrxsmb.sys" whose (version of it < "5.2.3790.4671") of it) OR (exists file "rdbss.sys" whose (version of it < "5.2.3790.4671") of it)) of ((folder "drivers" of system x64 folder )) OR ((exists file "mrxsmb.sys" whose (version of it < "5.2.3790.4671") of it) OR (exists file "rdbss.sys" whose (version of it < "5.2.3790.4671") of it)) of (( folder "drivers" of system wow64 folder))]]></Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB980232" of x64 registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1239424</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB980232</SourceID>
+		<SourceReleaseDate>2010-04-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2010-0269; CVE-2010-0476</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SMB Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2003:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB980232-x64-ENU.exe sha1:ce4c3dbb926ddb4356367d02a73adaf21e476d31 size:1239424 http://download.microsoft.com/download/0/A/5/0A53AF91-E8F6-4586-A1DF-BF09ACD63076/WindowsServer2003.WindowsXP-KB980232-x64-ENU.exe sha256:2a0272fd89bc02cd9c7fdb613bc5b028850a50e0951951294e9a34c14471ea4d
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB980232-x64-ENU.exe /quiet /norestart
+
+action may require restart "ce4c3dbb926ddb4356367d02a73adaf21e476d31"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-020.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS10-020.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

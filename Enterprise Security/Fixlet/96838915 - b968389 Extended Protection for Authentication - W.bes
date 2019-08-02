@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>968389: Extended Protection for Authentication - Windows Server 2008 Gold/SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft is announcing the availability of a new feature, Extended Protection for Authentication, on the Windows platform. This feature enhances the protection and handling of credentials when authenticating network connections by using Integrated Windows Authentication (IWA). <BR><BR>The update itself does not directly provide protection against specific attacks such as credential forwarding, but allows applications to opt in to Extended Protection for Authentication. <P><FONT color=red><B>Important Note:</B></FONT>&nbsp; This fixlet contains multiple deployment actions. To specify whether Extended Protection for Authentication will be enabled or disabled on the client, apply the appropriate action.&nbsp; This feature must be manually enabled on the server on a service-by-service basis, including for telnet.&nbsp; Please see Microsoft Security Advisory <A href="http://www.microsoft.com/technet/security/advisory/973811.mspx">973811</A> for details.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG>&nbsp; Enabling Extended Protection on the client will cause additional registry keys to be set and NTLMv2 Authentication to be enabled. Please see Microsoft Knowledge Base Article <A href="http://support.microsoft.com/kb/239869">239869</A>&nbsp;for more information.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinVista" AND product type of it != nt workstation product type) OR name of it = "Win2008" AND (it = 1 OR it = 2) of service pack major version of it) of operating system</Relevance>
+		<Relevance><![CDATA[(disjunction of (((exists file "kerberos.dll" whose ((version of it < "6.0.6000.16870" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18272" AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21067" AND version of it >= "6.0.6000.21000" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22450" AND version of it >= "6.0.6001.22000" AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18051" AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22152" AND version of it >= "6.0.6002.22000" AND service pack major version of operating system = 2)) of it) OR (exists file "lsasrv.dll" whose ((version of it < "6.0.6000.16870" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18272" AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21067" AND version of it >= "6.0.6000.21000" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22450" AND version of it >= "6.0.6001.22000" AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18051" AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22152" AND version of it >= "6.0.6002.22000" AND service pack major version of operating system = 2)) of it) OR (exists file "lsass.exe" whose ((version of it < "6.0.6000.16870" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18272" AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21067" AND version of it >= "6.0.6000.21000" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22450" AND version of it >= "6.0.6001.22000" AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18051" AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22152" AND version of it >= "6.0.6002.22000" AND service pack major version of operating system = 2)) of it) OR (exists file "msv1_0.dll" whose ((version of it < "6.0.6000.16870" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18272" AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21067" AND version of it >= "6.0.6000.21000" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22450" AND version of it >= "6.0.6001.22000" AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18051" AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22152" AND version of it >= "6.0.6002.22000" AND service pack major version of operating system = 2)) of it) OR (exists file "schannel.dll" whose ((version of it < "6.0.6000.16870" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18272" AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21067" AND version of it >= "6.0.6000.21000" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22450" AND version of it >= "6.0.6001.22000" AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18051" AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22152" AND version of it >= "6.0.6002.22000" AND service pack major version of operating system = 2)) of it) OR (exists file "secur32.dll" whose ((version of it < "6.0.6000.16870" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18272" AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21067" AND version of it >= "6.0.6000.21000" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22450" AND version of it >= "6.0.6001.22000" AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18051" AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22152" AND version of it >= "6.0.6002.22000" AND service pack major version of operating system = 2)) of it) OR (exists file "wdigest.dll" whose ((version of it < "6.0.6000.16870" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18272" AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21067" AND version of it >= "6.0.6000.21000" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22450" AND version of it >= "6.0.6001.22000" AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18051" AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22152" AND version of it >= "6.0.6002.22000" AND service pack major version of operating system = 2)) of it)) of (system wow64 folder ; system x64 folder))) OR (disjunction of (((exists file "ksecdd.sys" whose ((version of it < "6.0.6000.16870" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.18272" AND service pack major version of operating system = 1) OR (version of it < "6.0.6000.21067" AND version of it >= "6.0.6000.21000" AND service pack major version of operating system = 0) OR (version of it < "6.0.6001.22450" AND version of it >= "6.0.6001.22000" AND service pack major version of operating system = 1) OR (version of it < "6.0.6002.18051" AND service pack major version of operating system = 2) OR (version of it < "6.0.6002.22152" AND version of it >= "6.0.6002.22000" AND service pack major version of operating system = 2)) of it)) of folders "drivers" of (system wow64 folder ; system x64 folder)))]]></Relevance>
+		<Relevance>not pending restart "750d6bf62f9ef63588a085de50aa2aa33fc391fe"</Relevance>
+		<Category>Security Advisory</Category>
+		<DownloadSize>3353589</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB968369</SourceID>
+		<SourceReleaseDate>2009-08-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process without enabling Extended Protection for Authentication.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB968389-x64.msu sha1:750d6bf62f9ef63588a085de50aa2aa33fc391fe size:3353589 http://download.microsoft.com/download/C/4/2/C422B9EB-A752-4B62-B099-437AAFB24C6C/Windows6.0-KB968389-x64.msu sha256:83c9d254da7676b703dcc0ab8fa78faee9a07d7aecc1fbbc68896fbd24cbc111
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB968389-x64.msu"}" /quiet /norestart
+
+action requires restart "750d6bf62f9ef63588a085de50aa2aa33fc391fe"]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process and enable client-side Extended Protection for Authentication.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB968389-x64.msu sha1:750d6bf62f9ef63588a085de50aa2aa33fc391fe size:3353589 http://download.microsoft.com/download/C/4/2/C422B9EB-A752-4B62-B099-437AAFB24C6C/Windows6.0-KB968389-x64.msu sha256:83c9d254da7676b703dcc0ab8fa78faee9a07d7aecc1fbbc68896fbd24cbc111
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB968389-x64.msu"}" /quiet /norestart
+
+regset "[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\LSA]" "SuppressExtendedProtection"=dword:00000000
+
+regset "[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa]" "LmCompatibilityLevel"=dword:00000003
+
+action requires restart "750d6bf62f9ef63588a085de50aa2aa33fc391fe"]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information on Microsoft KB 968389.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=968389</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information on Microsoft Security Advisory 973811.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/advisory/973811.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

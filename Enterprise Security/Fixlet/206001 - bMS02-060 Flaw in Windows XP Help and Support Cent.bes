@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-060: Flaw in Windows XP Help and Support Center</Title>
+		<Description><![CDATA[
+Microsoft has released a security bulleting relating to a vulnerability in the Help and Support Center feature of Windows XP.&nbsp; If correctly exploited, it could allow a malicious user to delete files on affected computers.&nbsp; Microsoft recommends that all computers with this vulnerability apply this patch or upgrade to Service Pack 1 of Windows XP immediately.<BR><BR><b>Note: </b>If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Note:</b> Computers may briefly display a progress window while this patch is executing. <BR><BR><b>Note:</b> Upon completion of its action, affected computers will report 'Pending Restart'. Once they have been restarted, they will report their final status. <BR><BR><b>Note:</b> This patch is included in Windows XP Service Pack 1.<BR><BR><b>File Size:</b> 1.29 MB<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP") AND (service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP1\Q328940" of registry</Relevance>
+		<Relevance><![CDATA[exists file whose ((name of it is "pchshell.dll" AND version of it < "5.1.2600.101") OR (name of it is "pchsvc.dll" AND version of it < "5.1.2600.101") OR (name of it is "helpctr.exe" AND version of it < "5.1.2600.101") OR (name of it is "helpsvc.exe" AND version of it < "5.1.2600.101") OR (name of it is "hscupd.exe" AND version of it < "5.1.2600.101") OR (name of it is "msconfig.exe" AND version of it < "5.1.2600.101")) of folder "PCHEALTH\HELPCTR\Binaries" of windows folder]]></Relevance>
+		<Relevance>not pending restart "a5a11a7ac4d37faa17b1cc75497ada51e9b18934"</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP2\KB811113" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1353576</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB328940</SourceID>
+		<SourceReleaseDate>2002-10-16</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-0974</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q328940_WXP_SP1_x86_ENU.exe sha1:a5a11a7ac4d37faa17b1cc75497ada51e9b18934 size:1353576 http://download.microsoft.com/download/whistler/Patch/Q328940/WXP/EN-US/Q328940_WXP_SP1_x86_ENU.exe sha256:eaa1fa7c38868ba7178a5695548be35fd225f06be9190c7530494f9e0d64a090
+wait __download/Q328940_WXP_SP1_x86_ENU.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart "a5a11a7ac4d37faa17b1cc75497ada51e9b18934"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-060.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2002/MS02-060</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-026: Vulnerabilities in Forefront Unified Access Gateway (UAG) Could Allow Information Disclosure - Microsoft Forefront Unified Access Gateway 2010 SP1 Update 1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Forefront Unified Access Gateway (UAG). The more severe of the vulnerabilities could allow information disclosure if an attacker sends a specially crafted query to the UAG server.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2649262.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+18.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists key whose ((it >= "4.0.1773.10100") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" whose (it = "Microsoft Forefront Unified Access Gateway") of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry]]></Relevance>
+		<Relevance><![CDATA[((exists file "Configuration.exe" whose ((version of it < "4.0.1773.10190")) of it) OR (exists file "UserMgrCore.dll" whose ((version of it < "4.0.1773.10190")) of it)) of (folder (value "InstallPath" of key "HKEY_LOCAL_MACHINE\SOFTWARE\WhaleCom\e-Gap\Configuration" of native registry as string & "\common\bin")) OR ((exists file "WhlFiltAuthorization.dll" whose ((version of it < "4.0.1773.10190")) of it) OR (exists file "WhlFiltEncoding.dll" whose ((version of it < "4.0.1773.10190")) of it) OR (exists file "WhlFiltFormLogin.dll" whose ((version of it < "4.0.1773.10190")) of it) OR (exists file "WhlFiltSSO.dll" whose ((version of it < "4.0.1773.10190")) of it) OR (exists file "WhlFilter.dll" whose ((version of it < "4.0.1773.10190")) of it) OR (exists file "WhlGlobalUtilities.dll" whose ((version of it < "4.0.1773.10190")) of it) OR (exists file "WhlServerProxy.dll" whose ((version of it < "4.0.1773.10190")) of it)) of (folder (value "InstallPath" of key "HKEY_LOCAL_MACHINE\SOFTWARE\WhaleCom\e-Gap\Configuration" of native registry as string & "\von\bin"))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>19597312</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2649262</SourceID>
+		<SourceReleaseDate>2012-04-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2012-0146; CVE-2012-0147</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Forefront Unified Access Gateway (UAG)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Forefront Unified Access Gateway 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:forefront_unified_access_gateway:2010:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>ForeFront</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch UAG-KB2649262-v4.0.1773.10190-ENU.msp sha1:4dd916400689500cb661218b7a42190977a2783c size:19597312 http://download.microsoft.com/download/2/5/D/25DDE761-6797-4738-80AF-88B286D9BE03/UAG-KB2649262-v4.0.1773.10190-ENU.msp sha256:f9762a2cb479052aa9970c567eb89f7103dcfe534ac6b23b66059a1e1f5475a9
+
+waithidden msiexec.exe /p __Download\UAG-KB2649262-v4.0.1773.10190-ENU.msp /qn
+
+action may require restart "4dd916400689500cb661218b7a42190977a2783c"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS12-026</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

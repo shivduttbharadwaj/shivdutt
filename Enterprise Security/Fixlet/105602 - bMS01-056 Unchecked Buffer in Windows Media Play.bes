@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS01-056: "Unchecked Buffer" in Windows Media Player .ASF Processor - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS01-056. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>Advanced Streaming Format (ASF) is a streaming media format supported by Windows Media Player. According to Microsoft, a vulnerability in the .ASF Processor could allow a malicious ASF file to cause Media Player to crash or allow an attacker to run code on the user's computer. <BR><BR><b>Note:</b> Client machines may briefly display progress windows during installation of this update. <BR><BR><b>Note:</b> Affected computers will report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted. <BR><BR><b>Note:</b> This patch is included in Windows 200 Service Pack 3.<BR><BR><b>File Size:</b> 780 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system != "WinXP"</Relevance>
+		<Relevance><![CDATA[((exists regapp "mplayer2.exe") AND (version of regapp "mplayer2.exe" = "6.4") AND (not exists site whose (name of it is "Patches for Windows NT 4"))) OR ((exists regapp "wmplayer.exe") AND (version of regapp "wmplayer.exe" <= "7.1") AND (version of regapp "wmplayer.exe" >= "7.0"))]]></Relevance>
+		<Relevance>NOT ((not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Media Player" of registry) OR (not exists key whose (name of it contains "308567") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Media Player" of registry))</Relevance>
+		<Relevance><![CDATA[((name of operating system = "Win2000") AND (((exists file (pathname of system folder & "\dxmasf.dll")) AND (version of file (pathname of system folder & "\dxmasf.dll") < "6.4.9.1121")) OR ((exists file (pathname of system folder & "\msdxm.ocx")) AND (version of file (pathname of system folder & "\msdxm.ocx") < "6.4.9.1121")))) OR ((name of operating system != "Win2000") AND (((exists file (pathname of system folder & "\dxmasf.dll")) AND (version of file (pathname of system folder & "\dxmasf.dll") < "6.4.7.1121")) OR ((exists file (pathname of system folder & "\msdxm.ocx")) AND (version of file (pathname of system folder & "\msdxm.ocx") < "6.4.7.1121"))))]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Relevance><![CDATA[name of operating system != "Win2000" OR (name of operating system = "Win2000" AND (csd version of operating system does not contain "Service Pack" OR first 1 of following text of last "Service Pack " of csd version of operating system as integer < 3))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>798792</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB308567</SourceID>
+		<SourceReleaseDate>2001-11-20</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2001-0719</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>105601</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Media Player</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch wm308567.exe sha1:60565c15514bfab91cdcb181c6869d2783f9c2f9 size:798792 http://download.microsoft.com/download/winmediaplayer/Update/308567/WIN98MeXP/EN-US/wm308567.exe sha256:26cb2c3db867016f967619408d5c15380191ae01ae97847be953c1eef457177c
+wait __download/wm308567.exe /Q:A /R:N
+action requires restart
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS01-056.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/ms01-056.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

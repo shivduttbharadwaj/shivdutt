@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-021: Vulnerabilities in Windows Kernel Could Allow Elevation of Privilege - Windows Vista Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note</STRONG>: This bulletin has been partially superseded by MS10-047. Whereas this Fixlet message previously applied to Windows Vista Gold/SP1/SP2, it now only applies to Windows&nbsp;Vista Gold.</P> <P>Microsoft has released a security update that resolves several privately reported vulnerabilities in Microsoft Windows. The most severe of these vulnerabilities could allow elevation of privilege if an attacker logged on locally and ran a specially crafted application. An attacker must have valid logon credentials and be able to log on locally to exploit these vulnerabilities. The vulnerabilities could not be exploited remotely or by anonymous users.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><STRONG>Note:</STRONG> This security update is also referenced under KB979683.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.60 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinVista" AND product type of it = nt workstation product type) AND (service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "ntkrnlpa.exe" whose (( (version of it >= "6.0.6000.16000") AND version of it < "6.0.6000.17021") OR ( (version of it >= "6.0.6000.20000") AND version of it < "6.0.6000.21226") OR ((version of it >= "6.0.6001.18000") AND version of it < "6.0.6001.18427") OR ((version of it >= "6.0.6001.22000") AND version of it < "6.0.6001.22636") OR ((version of it >= "6.0.6002.18000") AND version of it < "6.0.6002.18209") OR ((version of it >= "6.0.6002.22000") AND version of it < "6.0.6002.22341")) of it) of ((folder (pathname of (system folder) & "\")))]]></Relevance>
+		<Relevance>not pending restart "ea071ebd31c3f90104d4ab1b24292378d0714e37"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2721754</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB979683</SourceID>
+		<SourceReleaseDate>2010-04-13</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2010-0234; CVE-2010-0481; CVE-2010-0810</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_vista:-:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB979683-x86.msu sha1:ea071ebd31c3f90104d4ab1b24292378d0714e37 size:2721754 http://download.microsoft.com/download/3/7/B/37B0A418-B87C-49B5-BED9-1F9F0CDE5E0C/Windows6.0-KB979683-x86.msu sha256:dad0fd1fc2cbe4ba41a553937dd392f7273beda050f460e8fa45b2ca369386ba
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB979683-x86.msu"}" /quiet /norestart
+
+action requires restart "ea071ebd31c3f90104d4ab1b24292378d0714e37"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-021.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2010/MS10-021</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

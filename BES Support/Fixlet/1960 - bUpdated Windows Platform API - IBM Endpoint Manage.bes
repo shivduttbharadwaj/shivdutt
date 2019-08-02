@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Platform API - IBM Endpoint Manager version 9.2.2 Now Available! (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><FONT size=2> <P><STRONG>Version&nbsp;9.2.2 of IBM Endpoint Manager is now available!</STRONG><BR><BR>The latest version of the IBM Endpoint Manager API provides several enhancements and fixes. This Fixlet can upgrade all IBM Endpoint Manager API installations on the targeted computers. Once the IBM Endpoint Manager Server is upgraded to 9.2, older versions of the API will no longer be able to communicate with the IBM Endpoint Manager Server.</P> <P><STRONG><FONT color=red>Please upgrade your IBM Endpoint Manager Server before upgrading the IBM Endpoint Manager API.</FONT></STRONG></P> <P>More information about the API can be found in the pdf documents linked below.</P></FONT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+25.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance>version of registration server = "9.2.2.21"</Relevance>
+		<Relevance><![CDATA[((windows of it) AND (major version of it >= 6) AND (platform id of it != 3) AND (architecture of it = "x86_64")) of operating system]]></Relevance>
+		<Relevance><![CDATA[version of file (value "base" of key "HKLM\SOFTWARE\BigFix\BESAPI\Paths" of registry as string & "BESAPI.dll") < "9.2.2.21"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>27128624</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2015-01-30</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 05 Feb 2015 18:09:15 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy API</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager API 9.2.2 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESServerAPI.exe sha1:2f16a8fd3192c05c25e0b23d501b9d2245955513 size:27128624 http://software.bigfix.com/download/bes/92/BigFix-BES-ServerAPI-9.2.2.21.exe sha256:a348ec1a63ea15aec7121934ef82c8620ff621062ae263b4b991fc281f2c141d
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (27128624 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (27128624 < free space of drive of parent folder of client)}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+move __Download\BESServerAPI.exe __Local\Upgrade\BESServerAPI.exe
+wait __Local\Upgrade\BESServerAPI.exe /s /v"/l*voicewarmup \"{value "base" of key "HKLM\SOFTWARE\BigFix\BESAPI\Paths" of registry as string}besserverapi.log\" REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to read the IBM Endpoint Manager API reference (pdf).</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/download/bes/misc/BESDatabaseAPIReference-7.0.pdf</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to read the IBM Endpoint Manager Import-Export reference (pdf).</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/product/documents/BESImportExportReference-6.0.pdf</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

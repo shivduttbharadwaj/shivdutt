@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Windows Security: Microsoft Windows Malicious Software Removal Tool - Uninstallation</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Microsoft has released the Microsoft Windows Malicious Software Removal Tool to help remove specific, prevalent malicious software from computers that are running any of the following Microsoft operating systems:</P> <UL> <LI>Windows Server 2016 <LI>Windows 10 <LI>Windows Server 2012 R2 <LI>Windows 8.1 <LI>Windows Server 2012 <LI>Windows 8 <LI>Windows 2008 R2 <LI>Windows 7 <LI>Windows 2008 </LI></UL> <P>&nbsp;</P> <P>The Malicious Software Removal Tool supersedes all virus-cleaner tools that were previously released by Microsoft.&nbsp; <BR><BR>The listed computers have Microsoft Windows Malicious Software Removal Tool installed. If you no longer want to run the tool, you may use this task to remove this tool from selected computers.<BR><BR><B>Note:</B> After removing the Microsoft Windows Malicious Software Removal Tool on client computers, you can re-install the latest version of the tool using the "Windows Security: Microsoft Windows Malicious Software Removal Tool - Deploy" task.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false</Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance><![CDATA[exists file whose (name of it contains "KB890830") of folder (pathname of parent folder of client folder of site "actionsite" as string & "\__MSTools\RemovalTool")]]></Relevance>
+		<Relevance><![CDATA[number of files whose (name of it contains "KB890830") of folder (pathname of parent folder of client folder of site "actionsite" as string & "\__MSTools\RemovalTool") = 1]]></Relevance>
+		<Category>Uninstall</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Q890830</SourceID>
+		<SourceReleaseDate>2012-02-19</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 24 Jan 2014 08:33:23 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Configuration MSRT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-requested-id</Name>
+			<Value>529</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 11 Jun 2019 19:13:38 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to uninstall the Microsoft Windows Malicious Software Removal Tool and clear all run statistics.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete delmsrt.reg
+delete __appendfile
+
+appendfile REGEDIT4
+appendfile
+appendfile [-HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\MSTools\RemovalTool]
+appendfile 
+
+move __appendfile delmsrt.reg
+
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of system folder & "\cmd.exe"}" /c regedit /s delmsrt.reg
+
+delete __appendfile
+delete MalwareRemoveRemove.bat
+appendfile @ECHO OFF
+
+appendfile rmdir /q /s "{pathname of parent folder of client folder of site "actionsite"}\__MSTools\RemovalTool" > NUL 2> NUL
+
+move __appendfile MalwareRemoveRemove.bat
+
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" MalwareRemoveRemove.bat]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to uninstall the Microsoft Windows Malicious Software Removal Tool only.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete __appendfile
+delete MalwareRemoveRemove.bat
+appendfile @ECHO OFF
+
+appendfile rmdir /q /s "{pathname of parent folder of client folder of site "actionsite"}\__MSTools\RemovalTool" > NUL 2> NUL
+
+move __appendfile MalwareRemoveRemove.bat
+
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" MalwareRemoveRemove.bat]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

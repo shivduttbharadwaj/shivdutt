@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>976749: Update for Internet Explorer 8 - Windows 7</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a hotfix to address application compatibility issues in specific browsing scenarios after customers&nbsp;apply MS09-054.<BR><BR><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win7" and service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists file "msfeedssync.exe" whose (version of it >= "8.0.7600.16385") of it) OR (exists file "mshtml.tlb" whose (version of it >= "8.0.7600.16385") of it) OR (exists file "mshtml.dll" whose ((version of it >= "8.0.7600.20000" AND version of it >= "8.0.7600.20521") OR (version of it >= "8.0.7600.16419")) of it) OR (exists file "msfeedsbs.dll" whose ((version of it >= "8.0.7600.20000" AND version of it >= "8.0.7600.20521") OR (version of it >= "8.0.7600.16419")) of it)) of (system folder))]]></Relevance>
+		<Relevance>not pending restart "0786020243a78bea10e75f2b8ad0f0962cf9ff4b"</Relevance>
+		<Relevance><![CDATA[(((exists file "mshtml.dll" whose ((version of it < "8.0.7600.16444")) of it) OR (exists file "mshtml.tlb" whose ((version of it < "8.0.7600.16385")) of it)) of (system folder))]]></Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>3203820</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB976749</SourceID>
+		<SourceReleaseDate>2009-11-02</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB976749-x86.msu sha1:0786020243a78bea10e75f2b8ad0f0962cf9ff4b size:3203820 http://download.microsoft.com/download/7/F/6/7F64BEF9-C229-47D7-B923-58FE662B91FF/Windows6.1-KB976749-x86.msu sha256:95c4c77a99a72d8495a32c823235a636012ea0709ea57742a83d8014c70b83df
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB976749-x86.msu"}" /quiet /norestart
+
+action requires restart "0786020243a78bea10e75f2b8ad0f0962cf9ff4b"  ]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 976749. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/976749</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>WinZip TEMPLATE_VERSION Available</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><BR><P><STRONG>Note:</STRONG> This is the Fixlet Template ONLY. To create a fixlet, use "Fixlet Maker" wizard. </P><div style='display:none' notes>Only supports the Winzip ".msi" installer.</div></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false</Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance><![CDATA[exists key whose (value "DisplayName" of it as string contains "WinZip" AND (it < "TEMPLATE_VERSION") of (it as version) of concatenation "" of (if it = "(" then "." else if it = " " OR it = ")" then "" else it) of (characters of it) of (value "DisplayVersion" of it as string)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance>(not exists running application "winzip32.exe") and (not exists running application "winzip64.exe")</Relevance>
+		<Category>Update</Category>
+		<Source>Winzip</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>1900-01-01</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 24 Jan 2014 08:33:23 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-additional-notes</Name>
+			<Value>Only support Winzip ".msi" installer.</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp WinZipInternationalLLC WinZip</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-template-os</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-template_properties</Name>
+			<Value>[ {"name": "TEMPLATE_FILE", "type": "file", "displayname": "Installation File", "description": "Upload installation file", "fileName": "TEMPLATE_FILE_NAME", "fileLink": "TEMPLATE_FILE_LINK", "sha1": "TEMPLATE_FILE_SHA1", "size": "123456789", "sha2": "TEMPLATE_FILE_SHA2"}, {"name": "TEMPLATE_VERSION", "type": "version", "displayname": "Software Version", "description": "In the format xx.xx.xx"}, {"name": "1900-01-01", "type": "releaseDate", "displayname": "Release Date", "description": "release Date"} ]</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-name</Name>
+			<Value>WinZip</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-template-id</Name>
+			<Value>winzipTemplate</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-vendor-name</Name>
+			<Value>WinZip</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 29 Apr 2015 23:18:05 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch TEMPLATE_FILE_NAME sha1:TEMPLATE_FILE_SHA1 size:123456789 TEMPLATE_FILE_LINK sha256:TEMPLATE_FILE_SHA2
+
+waithidden msiexec /I __Download\TEMPLATE_FILE_NAME /qn
+waithidden taskkill /F /IM WZQKPICK.EXE
+
+action may require restart "TEMPLATE_FILE_SHA1"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about WinZip.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.winzip.com</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

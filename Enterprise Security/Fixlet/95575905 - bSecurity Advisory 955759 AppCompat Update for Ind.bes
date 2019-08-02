@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Security Advisory 955759: AppCompat Update for Indeo Codec - Windows Server 2003 SP2</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Microsoft is announcing the availability of an update that provides security mitigations to the Indeo codec on supported editions of Microsoft Windows 2000, Windows XP, and Windows Server 2003. </P> <P>The Indeo codec on systems running Microsoft Windows 2000, Windows XP, and Windows Server 2003 could allow code remote code execution when opening specially crafted media content. The update blocks the Indeo codec from being launched in Internet Explorer or Windows Media player. The update also removes the ability for this codec to be loaded when browsing the Internet with any other applications. By only allowing applications to use the Indeo codec when the media content is from the local system or from the intranet zone, and by preventing Internet Explorer and Windows Media Player from launching the codec at all, this update removes the most common remote attack vectors but still allows games or other applications that leverage the codec locally to continue to function. </P> <P>Microsoft encourages customers running supported editions of Microsoft Windows 2000, Windows XP, and Windows 2003 to review and install this update. By installing this update and deregistering the codec on these older operating systems, customers will have the same mitigations included in Windows Vista and Windows 7.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2003" AND (it = 2) of service pack major version of it)) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "aclayers.dll" whose (version of it < "5.2.3790.4624") of it) of folder "APPPATCH" of (windows folder)]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb955759" of registry)</Relevance>
+		<Category>Security Advisory</Category>
+		<DownloadSize>1063808</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB954157</SourceID>
+		<SourceReleaseDate>2009-12-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to disable the Indeo codec in Internet Explorer and Windows Media Player.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch windowsserver2003-kb955759-x86-enu.exe sha1:fb1e5b3ddfc533d8a1ded8b3eb1e638d8b863fae size:1063808 http://download.microsoft.com/download/7/b/a/7bab3cfd-2adc-4ebf-8d6f-6fdb70fcf6d2/windowsserver2003-kb955759-x86-enu.exe sha256:5e743bbf496ad04bd24b48ee25f2974ec93804f5e10254980c67ab63b8c09c2d
+
+waithidden __Download\windowsserver2003-kb955759-x86-enu.exe /quiet /norestart
+
+action may require restart "fb1e5b3ddfc533d8a1ded8b3eb1e638d8b863fae"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to learn more about this security advisory.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/advisory/954157.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

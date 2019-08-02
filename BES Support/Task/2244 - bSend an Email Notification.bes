@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Send an Email Notification</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><br>				<DIV id=fixletMessage2 class=FixletMessage><br><br>					<DIV id=paramFixletDescription><br><br>						<P>Use this Task to send an email notification using the notification service. After you have installed the notification service and configured the SMTP settings, you can use this Task to send email notifications. For example, you can include this Task in a Baseline, and will receive an email notification when the Baseline has completed.<br><br>						   The From field in this Task is automatically populated when you install the notification service using Task 154(157 Linux). You can overwrite the value with a different email address here. Note that you can also change the default From value using Task 156.</P><br><br>						<P><STRONG>Prerequisites:</STRONG></P><br><br>						<UL><br><br>							<LI>The email notification service must be installed before running this Task. To install the email notification service use the <?relevance  (link of fixlets 2238 of bes site whose (id of it = 1))?> Task to install on a Windows server or the <?relevance  (link of fixlets 2241 of bes site whose (id of it = 1))?> Task to install on a Linux server. </LI><br><br>							<LI>The SMTP notification settings must also be configured before running this Task.To configure the SMTP settings, run Task <?relevance  (link of fixlets 2240 of bes site whose (id of it = 1))?> to configure SMTP Settings for the Notification Service.</LI>	<br><br>						</UL><br><br>						<P><B>Complete the following form and click Take Action:</B></P><br>					</DIV><br><br>					<DIV id=plainOrdinaryFixletDescription><br><br>						<P>You can use this Task to send an email using the Notification Service.</P><br><br>						<P><STRONG>Prerequisites:</STRONG></P><br><br>						<UL><br><br>							<LI>The email notification service must be installed before running this Task. To install the email notification service use the <?relevance  (link of fixlets 2238 of bes site whose (id of it = 1))?> Task to install on a Windows server or the <?relevance  (link of fixlets 2241 of bes site whose (id of it = 1))?> Task to install on a Linux server. </LI><br><br>							<LI>The SMTP notification settings must also be configured before running this Task.To configure the SMTP settings, run Task <?relevance  (link of fixlets 2240 of bes site whose (id of it = 1))?> to configure SMTP Settings for the Notification Service.</LI>	<br><br>						</UL><br><br>						<P><B>Complete the following form and click Take Action:</B></P><br><br>					</DIV><br>					<script>
+loaded = false;
+function loadScript(url, callback){
+	var head = document.getElementsByTagName("head")[0];
+	var script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = url;
+	script.onreadystatechange = callback;
+	script.onload = callback;
+	head.appendChild(script);
+};
+loaded = false;
+function scriptLoaded(){
+	var isSha2Required = function() {
+	 	var bRequired = EvaluateRelevance('sha256 download of bes license');	 	 
+	};
+	
+	if (!loaded){
+		if (typeof FixletUtils !== 'undefined'){
+			loaded = true;
+			paramFixletDescription.style.display="block" ;
+			plainOrdinaryFixletDescription.style.display="none" ;
+			FixletUtils.initFixletRender();
+		}
+		else
+		{	
+			paramFixletDescription.style.display="none" ;
+			plainOrdinaryFixletDescription.style.display="block" ;
+		}
+	}
+}
+loadScript("vrt_FixletUtils.js", scriptLoaded);
+					</script><br><br><br>					<DIV class=FixletProperty></DIV><br>				</DIV></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance><![CDATA[version of main gather service >= "9"]]></Relevance>
+		<Relevance><![CDATA[(not exists(if(windows of it)then substring between "%22" of substring before "," of(substring after ": " of ((lines of file(value "EnterpriseServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\NotificationService\resources\config\messagingConf.json"))whose(it as lowercase contains "%22host%22:")))else substring between "%22" of substring before "," of substring after ":" of lines whose(it as lowercase contains "host")of file "/var/opt/BESServer/Applications/NotificationService/resources/config/messagingConf.json")whose(it as string = "")AND(exists(if(windows of it)then exists (file(value "EnterpriseServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\NotificationService\resources\config\messagingConf.json"))else exists(file "/var/opt/BESServer/Applications/NotificationService/resources/config/messagingConf.json"))))of operating system]]></Relevance>
+		<Relevance><![CDATA[(if(windows of it)then(exists (file (value "EnterpriseServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\NotificationService\resources\config\messagingConf.json")))else if(name of it contains "Linux")then(exists file "/var/opt/BESServer/Applications/NotificationService/resources/config/messagingConf.json")else(false))of operating system	]]></Relevance>
+		<Category>Notification</Category>
+		<Source>IBM</Source>
+		<SourceID>201505201200</SourceID>
+		<SourceReleaseDate>2015-06-30</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 17 Dec 2015 21:33:00 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>analysis-dependencies</Name>
+			<Value>{       "2243 - Notification Service Settings ":{          "Name":"Notification Service Settings",          "Id":"2243"       }    }</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>parametercustomeventstag</Name>
+			<Value>{     submitMessageSubject : function (elemValue, metaDataobjects ) {      var messageSubject =  String(elemValue);      messageSubject = messageSubject.replace(/\\/g,'\\\\\\\\');      messageSubject = messageSubject.replace(/\"/g,'\\\\\\\"');      return messageSubject;     },     submitMessageBody : function (elemValue, metaDataobjects ) {      var messageBody =  String(elemValue);      messageBody = messageBody.replace(/\\/g,'\\\\\\\\');      var regExCrLf = new RegExp("\r\n");      if (regExCrLf.test(messageBody)) {       messageBody = messageBody.replace(/\r\n/g,'\\\\n');      } else {       messageBody = messageBody.replace(/\n/g,'\\\\n');      }      messageBody = messageBody.replace(/\"/g,'\\\\\\\"');      return messageBody;     }    }</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>parameterfixletinfotag</Name>
+			<Value>{       "FixletInfo":{          "fixletInfoId":"Fixlet_2244",          "messageFileName":"vrt_MimeMessages.js"       }    }</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>parametermetadatatag</Name>
+			<Value>{       "ToField":{          "Name":"ToField",          "Title":"To :",          "Description":"The recipients of the email. A comma (,) separated list of email addresses to which an email will be sent.",          "UIType":"TextArea",          "Required":"1",          "Default":"",          "CustomValidator":"validateToField"       },       "FromField":{          "Name":"FromField",          "Title":"From :",          "Description":"The sender of the email. This is the name recipients will see when they receive the email.",          "UIType":"TextBox",          "Required":"1",          "ValueType":"relevance",          "Values":"values of results of property 3 /* Notification From Email Setting */  of bes fixlet whose (analysis flag of it and name of site of it contains \"BES Support\" and id of it = 2243)",          "Default":"BigfixEmailNotification@BigFix.com",          "CustomValidator":"validateFromField"       },       "SubjectField":{          "Name":"SubjectField",          "Title":"Subject :",          "Description":"The title of the email. A summary describing what information is contained in the email.",          "UIType":"TextBox",          "Required":"1",          "Default":"",          "CustomEvents":[             {                "event":"onFormSubmit",                "action":"submitMessageSubject"             }          ],          "CustomValidator":"validateSubjectField"       },       "BodyField":{          "Name":"BodyField",          "Title":"Body :",          "Description":"The content of the email. The main body of information to be sent with the email.",          "UIType":"TextArea",          "Required":"1",          "CustomEvents":[             {                "event":"onFormSubmit",                "action":"submitMessageBody"             }          ],          "Default":""       },       "BigfixUser":{          "Name":"BigfixUser",          "Title":"BigFix Operator Username: ",          "Description":"Username for the BigFix Operator for whom the email will be sent.",          "UIType":"TextBox",          "Required":"1",          "Default":""       },       "BigfixPass":{          "Name":"BigfixPass",          "Title":"BigFix Operator Password :",          "Description":"Password for the specified BigFix operator.",          "UIType":"TextBox",          "SubUIType":"Password",          "Required":"1",          "Encrypt":"true",          "Default":"",          "CustomValidator":"validatePassword"       },       "BigfixPass_Confirmation":{          "Name":"BigfixPass_Confirmation",          "Title":"Confirm Password :",          "Description":"Verify the password.",          "UIType":"TextBox",          "SubUIType":"Password",          "Required":"1",          "Encrypt":"true",          "Default":"",          "FormOnly":"true"       },       "notifServPort":{          "Name":"notifServPort",          "Title":"Port",          "UIType":"TextBox",          "Visible":"false",          "ValueType":"relevance",          "Values":"values of results of property 5 /* Notification Service Port*/ of bes fixlet whose (analysis flag of it and name of site of it contains \"BES Support\" and id of it = 2243) as trimmed string"       },       "notifServDNS":{          "Name":"notifServDNS",          "Title":"Hostname",          "UIType":"TextBox",          "Visible":"false",          "ValueType":"relevance",          "Values":"(hostname of it) of bes computers whose( root server flag of it = true)"       }    }</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>parametermessagestag</Name>
+			<Value>{       "FixletGlobalMessages":{          "ERROR_2244_emailToFieldErrMsg":"Invalid email recipient list. Enter a comma (,) separated list of valid email addresses.",          "ERROR_2244_emailToFieldNewlineErrMsg":"Invalid email recipient list. The list of email addresses contains one or more newline characters that must be removed.",          "ERROR_2244_invalidSubjectFieldErrMsg":"Invalid email subject specified. The email subject can contain a maximum of 998 characters.",          "ERROR_2244_invalidFromFieldErrMsg":"Invalid email address specified.A single valid email address must be specified.",          "ERROR_2244_passwordMismatchErrMsg":"Error: Passwords do not match."       }    }</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>parametervalidatortag</Name>
+			<Value><![CDATA[{     validateToField : function ( validationObj ) {      var currentValue = validationObj["currentValue"];      currentValue = FixletUtils.trimStr(currentValue);      if( currentValue.match(/^[^\r\n]*[\r\n]+[^\r\n]*$/gi) ) {       return "ERROR_2244_emailToFieldNewlineErrMsg";      }      var values = currentValue.split(",");      for( var i = 0; i < values.length; i++ ) {       values[i] = FixletUtils.trimStr(values[i]);       if( values[i] != '' ) {        if( !values[i].match(/^([\s]*([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)[\s]*)$/i) ) {         return "ERROR_2244_emailToFieldErrMsg";        }       }      }      if( (currentValue.length == 0 ) ) {       return "ERROR_2244_emailToFieldErrMsg";      }     },     validateFromField : function ( validationObj ) {      var currentValue = validationObj["currentValue"];      currentValue = FixletUtils.trimStr(currentValue);      if(!currentValue.match(/^([\s]*([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)[\s]*)$/i)) {       return "ERROR_2244_invalidFromFieldErrMsg";      }     },     validateSubjectField : function ( validationObj ) {      var currentValue = validationObj["currentValue"];      currentValue = FixletUtils.trimStr(currentValue);      if( currentValue.length > 998 ) {       return "ERROR_2244_invalidSubjectFieldErrMsg";            }     },     validatePassword : function ( validationObj, metaDataobjects ) {      var currentValue = validationObj["currentValue"];      currentValue = FixletUtils.trimStr(currentValue);      var verifyValue = FixletUtils.getElementText("BigfixPass_Confirmation", metaDataobjects);      if (currentValue != verifyValue) {       return "ERROR_2244_passwordMismatchErrMsg";      }     }    }]]></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 28 Mar 2017 21:47:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "ToField" with description "The recipients of the email. A comma (,) separated list of email addresses to which an email will be sent." with default ""
+action parameter query "FromField" with description "The sender of the email. This is the name recipients will see when they receive the email." with default "BigfixEmailNotification@BigFix.com"
+action parameter query "SubjectField" with description "The title of the email. A summary describing what information is contained in the email." with default ""
+action parameter query "BodyField" with description "The content of the email. The main body of information to be sent with the email." with default ""
+action parameter query "BigfixUser" with description "Username for the BigFix operator." with default ""
+// Define parameters
+parameter "action_id" = "{id of action}"
+parameter "curr_site_path" = "{client folder of current site}"
+parameter "encrypted_pw_file" = "{parameter "curr_site_path" & "/encrypted." & parameter "action_id" & ".txt"}"
+if { windows of operating system }
+    parameter "nsBinDirWin" = "{ value "EnterpriseServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\NotificationService\bin" }"
+    parameter "applicationsFolder" = "{ value "EnterpriseServerFolder" of key "HKLM\SOFTWARE\BigFix\Enterprise Server" of registry as string}"
+else
+    parameter "applicationsFolder" = "/var/opt/BESServer/Applications"
+    wait yum -y install curl.x86_64
+endif
+parameter "jsonPayLoad" = "{{\"smtp\":{{\"delivery\":{{\"to\":\"{parameter "ToField"}\",\"from\":\"{parameter "FromField"}\"},\"message\":{{\"subject\": \"{parameter "SubjectField"}\",\"body\":\"{parameter "BodyField"}\"}}}"
+//If we are on Windows, don't bother with CURL, use a JS standalone app
+if { windows of operating system }
+    createfile until END_OF_PAYLOAD
+    var jsonPayload = "{parameter "jsonPayLoad"}";
+    var sendEmail = function(username, password, jsonContent){
+      //var modifiedJsonContent = jsonContent.replace(/\'\'/g,"\"");
+      xmlhttp = new ActiveXObject("Msxml2.ServerXMLHTTP");
+      xmlhttp.setOption(2,13056);
+          
+      xmlhttp.open("POST","https://{parameter "notifServDNS"}:{parameter "notifServPort"}/api/send/email",false,username,password);
+      /**
+       * handles response
+       */
+      xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+          WScript.Echo(xmlhttp.responseText);
+        }
+        if (xmlhttp.readyState==4 ){
+          WScript.Echo(xmlhttp.status);
+          if (parseInt(xmlhttp.status, 10) > 299){
+            WScript.Quit(1);
+          }
+        }
+        if (xmlhttp.readyState == 1 ){
+          WScript.Echo("Connection established");
+        }
+        if (xmlhttp.readyState == 2 ){
+          WScript.Echo("Request received");
+        }
+        if (xmlhttp.readyState == 3 ){
+          WScript.Echo("Processing request");
+        }
+      }
+      xmlhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+      xmlhttp.send(jsonContent);
+    }
+    sendEmail("{parameter "BigfixUser" as trimmed string}","{parameter "BigfixPass"}",jsonPayload);
+END_OF_PAYLOAD
+    copy __createfile "{parameter "nsBinDirWin"}/__generated_{id of action}.js"
+     
+    wait cscript "{parameter "nsBinDirWin"}/__generated_{id of action}.js"
+    continue if {exit code of action = 0}
+    delete "{parameter "nsBinDirWin"}/__generated_{id of action}.js"
+else
+    parameter "jsonPayloadForLinux" = "{(concatenation "\" of (substrings separated by "\\" of (parameter "jsonPayload")))}" 
+    wait curl -k -H "Content-Type:application/json;charset=UTF-8"  -u "{parameter "BigfixUser" as trimmed string}":"{parameter "BigfixPass"}" -X POST -d "{ parameter "jsonPayloadForLinux" }" https://{parameter "notifServDNS"}:{parameter "notifServPort"}/api/send/email
+    continue if {exit code of action = 0}
+endif]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Internet Explorer 7 Available - Windows XP SP2/SP3 (BES Console Installed)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Internet Explorer 7 is now available. It includes many new enhancements and security features. Use the action below to upgrade to Internet Explorer 7.</P> <P><STRONG>Note</STRONG>: This fixlet is only applicable to systems with the BES Console installed. For systems that do not have the BES Console, please see fixlet 23122.</P> <P><SPAN style="FONT-WEIGHT: bold">Note:</SPAN> Affected computers will report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><SPAN style="FONT-WEIGHT: bold">Note:</SPAN> Installation of Internet Explorer 7 may add shortcuts to the Start Menu and Quick Launch toolbar. It may also add folders and links to the Favorites Menu, as well as change the home page of Internet Explorer. Upon installation, users will be required to set their own preferences.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display progress windows during action execution.</P> <P><SPAN style="FONT-WEIGHT: bold; COLOR: red">Important Note:</SPAN> It is highly recommended that client computers be rebooted shortly after the IE 7 upgrade is complete.  In the pending restart state, the client computer can exhibit inconsistent behavior and may be unusable.</P> <P><SPAN style="FONT-WEIGHT: bold; COLOR: red">Important Note:</SPAN> Installation of Internet Explorer 7 may fail if it cannot validate Windows XP.  There are also other known issues associated with the installation of Internet Explorer 7.  See the Release Notes for more information. Please take extra caution to qualify this update in a test environment prior to use in a production environment.</P><P><B>Note:</B> There is no default action for this Fixlet message due to known issues associated with the installation of this patch. Please review the Known Issues section of the security bulletin prior to deploying this patch. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+14.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinXP" AND (it = 2 OR it = 3) of service pack major version of it) of operating system</Relevance>
+		<Relevance><![CDATA[version of regapp "iexplore.exe" < "7"]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP\SP0\ie7\Filelist" of registry</Relevance>
+		<Relevance>exists regapp "BESConsole.exe"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>15505200</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2006-10-18</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch IE7-WindowsXP-x86-enu.exe sha1:d39b89c360fbaa9706b5181ae4718100687a5326 size:15452536 http://download.microsoft.com/download/3/8/8/38889DC1-848C-4BF2-8335-86C573AD86D9/IE7-WindowsXP-x86-enu.exe sha256:bf5c325bbe3f4174869b2a8ff75f92833e7f7debe64777ed0faf293c7725cbef
+
+wait __Download\IE7-WindowsXP-x86-enu.exe /quiet /update-no /no-default /norestart
+
+action requires restart "d39b89c360fbaa9706b5181ae4718100687a5326"
+
+regset "[HKEY_LOCAL_MACHINE\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BLOCK_LMZ_SCRIPT]" "BESConsole.exe"=dword:00000000</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view the Release Notes for Internet Explorer 7.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://msdn2.microsoft.com/en-us/ie/aa740486.aspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

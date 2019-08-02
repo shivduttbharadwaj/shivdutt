@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Start BES Client Logging Service</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>The BES Client Logging Service is required for real-time logging, but it is not started. Use the below action to&nbsp;start the BES Client Logging Service.</P> <P>The following BigFix Extensions require the BES Client Logging Service:</P> <UL> <LI>AntiPest 2 <LI>AntiVirus <LI>DLP <LI>Firewall <LI>Power Management (on 7.2 clients)</LI></UL> <P>&nbsp;</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>name of operating system as lowercase starts with "win" </Relevance>
+		<Relevance><![CDATA[version of client >= "6"]]></Relevance>
+		<Relevance>(exists service "BESClientLoggingService" and not exists running service "BESClientLoggingService")</Relevance>
+		<Relevance><![CDATA[(((exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\DLP" whose (exists folder (values "installedPath" of it as string) whose (exists file "BESLeakProofCTRL.exe" whose (version of it >= "1.1.0.17") of it)) of registry))) OR   ((exist regapp "BigFixAntiPest.exe" whose (version of it >= "0.9.0.34"))) OR   ((if (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\ComputerAssociates\eTrustAntivirus\CurrentVersion\Path" whose (exists value "HOME" of it) of registry) then (exists file ((value "HOME" of key "HKEY_LOCAL_MACHINE\SOFTWARE\ComputerAssociates\eTrustAntivirus\CurrentVersion\Path" of registry as string) & "\InoOEM.dll") whose (version of it = "7.1")) else (false)) AND (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\AntiVirus" of registry)) OR   ((exists key "HKEY_LOCAL_MACHINE\SOFTWARE\CA\HIPSEngine\Products\BigFixFW" whose (exists value "UninstallCmdLine" of it) of registry)) OR   (((exists setting "PowerManagement_PowerTrackingEnabled" whose (value of it = "1" or value of it = "2") of client)) AND NOT ((((name of operating system starts with "Win") AND (version of client >= "8") ) AND (exists setting "_BESClient_PowerHistory_EnablePowerHistory" whose (exists value whose (it = "1") of it) of client))))]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 27 Apr 2007 18:42:15 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 12 Jul 2011 22:23:36 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to restart the BES Client Logging Service.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[//restart the BESClientLoggingService
+delete __appendfile
+delete __netquiet.bat
+
+appendfile start "" /min /b net start BESClientLoggingService > NUL 2> NUL
+move __appendfile netquiet.bat
+
+waithidden netquiet.bat
+
+delete netquiet.bat]]></ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

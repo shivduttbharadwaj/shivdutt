@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-AUG: Delta Update for Windows Server 2016 - Windows Server 2016 - Delta Update - KB4343887 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4457131.<br /><br />A security issue has been identified in a Microsoft software product that could affect your system. You can help protect your system by installing this update from Microsoft. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article. After you install this update, you may have to restart your system.<p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4343887.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+462.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((it starts with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10 AND exists value "ReleaseId" of it AND value "ReleaseId" of it as integer = 1607) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>(name of it = "Win2016" OR name of it starts with "Win20" AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>exists value "ReleaseID" whose (it as string = "1607") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance><![CDATA[(it as integer < 2430) of value "UBR" of key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry]]></Relevance>
+		<Relevance>(it as integer = 2363) of value "UBR" of key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry AND not exists setting "_BESClient_WindowsOS_ApplyCumulativeUpdateOnly" whose (value of it as integer = 1) of client</Relevance>
+		<Relevance>not pending restart "c96979dbdc9382de1f305cf5a436b4543bfec14e"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>484694758</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4343887</SourceID>
+		<SourceReleaseDate>2018-08-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2018-0952; CVE-2018-3615; CVE-2018-8200; CVE-2018-8204; CVE-2018-8253; CVE-2018-8266; CVE-2018-8316; CVE-2018-8339; CVE-2018-8340; CVE-2018-8341; CVE-2018-8343; CVE-2018-8344; CVE-2018-8345; CVE-2018-8347; CVE-2018-8348; CVE-2018-8349; CVE-2018-8351; CVE-2018-8353; CVE-2018-8355; CVE-2018-8357; CVE-2018-8358; CVE-2018-8360; CVE-2018-8370; CVE-2018-8371; CVE-2018-8372; CVE-2018-8373; CVE-2018-8381; CVE-2018-8385; CVE-2018-8388; CVE-2018-8389; CVE-2018-8394; CVE-2018-8398; CVE-2018-8401; CVE-2018-8403; CVE-2018-8404; CVE-2018-8405; CVE-2018-8406</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 Aug 2018 07:29:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4457131</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-09-11</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2016:-:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2016</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 12 Sep 2018 06:19:54 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows10.0-kb4343887-x64_delta_c96979dbdc9382de1f305cf5a436b4543bfec14e.msu sha1:c96979dbdc9382de1f305cf5a436b4543bfec14e size:484694758 http://download.windowsupdate.com/d/msdownload/update/software/secu/2018/08/windows10.0-kb4343887-x64_delta_c96979dbdc9382de1f305cf5a436b4543bfec14e.msu sha256:9b3cb6b2c164bc5506254f6c70fb7900609b2286fdd94befe7d6bb7988ff4b80
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows10.0-kb4343887-x64_delta_c96979dbdc9382de1f305cf5a436b4543bfec14e.msu"}" /quiet /norestart
+
+action requires restart "c96979dbdc9382de1f305cf5a436b4543bfec14e"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4343887</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

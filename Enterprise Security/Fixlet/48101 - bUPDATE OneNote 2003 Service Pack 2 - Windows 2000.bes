@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: OneNote 2003 Service Pack 2 - Windows 2000/XP/2003 (Network/Local Installation)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+Microsoft has released OneNote 2003 Service Pack 2. This update contains contains significant security enhancements, stability improvements, and performance improvements. Some of the fixes that are included with OneNote 2003 SP2 were previously released in separate updates. OneNote 2003 SP2 combines the previously released fixes into one update.<BR><BR><b>Note:</b> A progress window may display briefly in the background while this update is running.<BR><BR><b>Note:</b> Some Office updates will <b>force</b> the affected computer to restart without displaying a warning message if Office applications are open when this update is run. To prevent this from happening, shut down all Office applications prior to applying this update.<BR><BR><b>Note:</b> The "Local Installation" action requires a local user to insert the correct OneNote 2003 CD in a local CD-ROM drive <b>only</b> if the OneNote 2003 installation files are not already cached locally.<BR><BR><b>Note:</b> The "Network Installation" action will disable the Local Installation Source if it exists and points the installer to the specified network share.<BR><BR><b>Note:</b> If Windows Installer version 3.0 is installed you will need to upgrade to Windows Installer version 3.1. <BR><BR><b>Note:</b> There is no default action for this Fixlet message because it has multiple actions, none of which is clearly recommended over the others. For more information on default actions, see BigFix KB #474.
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+30.8 MB
+ </DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of operating system = "Win2000" AND (csd version of operating system = "Service Pack 3" OR csd version of operating system = "Service Pack 4")) OR name of operating system = "Win2003" OR name of operating system = "WinXP"</Relevance>
+		<Relevance><![CDATA[exists regapp "onenote.exe" whose (version of it < "11.0.6554.0")]]></Relevance>
+		<Relevance>exists key whose ((value "ProductName" of it as string contains "OneNote") AND (value "ProductName" of it as string contains "2003") AND (value "Language" of it as integer = 1033)) of key "HKEY_CLASSES_ROOT\Installer\Products" of registry</Relevance>
+		<Relevance><![CDATA[exists file "MSOINTL.DLL" whose (language of version block of it contains "English") of (folders of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11"))]]></Relevance>
+		<Relevance><![CDATA[(exists file "msiexec.exe" of system folder) AND (version of file "msiexec.exe" of system folder >= "2.0") AND (version of file "msiexec.exe" of system folder != "3.0")]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>32334608</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB887619</SourceID>
+		<SourceReleaseDate>2005-09-27</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process. Requires CD in local CD-ROM. (Local Installation)</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch OneNote2003SP2-KB887619-FullFile-ENU.exe sha1:b5c845b9bc9c8f38803a095bcc46e48a872ba5ec size:32334608 http://download.microsoft.com/download/0/1/2/012feb2a-003d-48a3-9631-657904f58b08/OneNote2003SP2-KB887619-FullFile-ENU.exe sha256:fa8ff6e1be46e7b994988a8a49956daf946c69274f97abb8f018f9a0130a7e8c
+
+wait __Download\OneNote2003SP2-KB887619-FullFile-ENU.exe /q:a /c:"msiexec /p Onenotesp2.msp REBOOT=ReallySuppress /qn"
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process. You will be required to provide the network location of the appropriate OneNote 2003 CD. (Network Installation)</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "CDLocationOneNote2003" with description "Please enter the network location of the shared OneNote 2003 CD:"
+
+regset "[{(if (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\11.0\Delivery" of registry AND (exists key whose (exists value "CDCache" of it AND (character 1 of it = "9" AND (character 2 of it = "0" OR character 2 of it = "1") AND first 2 of following text of first 3 of it = "A1" AND (preceding text of first "%7d" of it ends with "6000-11D3-8CFE-0150048383C9")) of name of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\11.0\Delivery" of registry)) then ("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\11.0\Delivery\" & (("%7b" & (following text of first "%7b" of (preceding text of first "%7d" of it)) & "%7d") of name of key whose (exists value "CDCache" of it AND (character 1 of it = "9" AND (character 2 of it = "0" OR character 2 of it = "1") AND first 2 of following text of first 3 of it = "A1" AND (preceding text of first "%7d" of it ends with "6000-11D3-8CFE-0150048383C9")) of name of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\11.0\Delivery" of registry)) else ("HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\OneNote2003"))}]" "CDCache"="0"
+regset "[{("HKEY_CLASSES_ROOT\Installer\Products\" & (name of keys whose ((value "ProductName" of it) as string contains "OneNote" AND (value "ProductName" of it) as string contains "2003") of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry) & "\SourceList")}]" "LastUsedSource"="n;13;{escapes of (parameter "CDLocationOneNote2003" of action)}\\"
+regset "[{("HKEY_CLASSES_ROOT\Installer\Products\" & (name of keys whose ((value "ProductName" of it) as string contains "OneNote" AND (value "ProductName" of it) as string contains "2003" AND (value "Language" of it as integer = 1033)) of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry) & "\SourceList\Net")}]" "13"="{escapes of (parameter "CDLocationOneNote2003" of action)}\\"
+
+prefetch OneNote2003SP2-KB887619-FullFile-ENU.exe sha1:b5c845b9bc9c8f38803a095bcc46e48a872ba5ec size:32334608 http://download.microsoft.com/download/0/1/2/012feb2a-003d-48a3-9631-657904f58b08/OneNote2003SP2-KB887619-FullFile-ENU.exe sha256:fa8ff6e1be46e7b994988a8a49956daf946c69274f97abb8f018f9a0130a7e8c
+
+wait __Download\OneNote2003SP2-KB887619-FullFile-ENU.exe /q:a /c:"msiexec /p Onenotesp2.msp REBOOT=ReallySuppress /qn"
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/887619</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

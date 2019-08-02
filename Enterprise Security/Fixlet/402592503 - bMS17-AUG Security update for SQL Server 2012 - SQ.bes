@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS17-AUG: Security update for SQL Server 2012 - SQL Server 2012 SP3 - Cumulative Update - KB4025925 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4057121.<br /><br />Install this update to resolve issues in SQL Server 2012 SP3 CU Analysis Services. For a complete listing of the issues resolved in this update, see the associated Microsoft Knowledge Base article. After you install this update, you may have to restart your computer.<p><B>Note:</B> This security update is also referenced under KB4019090.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+337.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[(exists keys whose (exists value "CurrentVersion" whose ((it = "11" and it >= "11.0.6020") of (it as string as version)) of key "MSSQLServer\CurrentVersion" of it AND exists value "PatchLevel" whose ((it >= "11.3.6020" AND it <= "11.3.6598") of (it as string as version)) of key "Setup" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (x32 registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it = "11" and it >= "11.0.6020") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (x32 registry)) whose (item 0 of it = item 1 of it))]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>353830080</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4019090</SourceID>
+		<SourceReleaseDate>2017-08-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2017-8516</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 09 Aug 2017 04:52:10 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4057121</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sql_server:2012:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>405712103</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-10</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2012</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jul 2019 21:37:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch sqlserver2012-kb4025925-x86_0ac1120e57ce0869ce3e8fdda3832c726fe921b7.exe sha1:0ac1120e57ce0869ce3e8fdda3832c726fe921b7 size:353830080 http://download.windowsupdate.com/d/msdownload/update/software/secu/2017/08/sqlserver2012-kb4025925-x86_0ac1120e57ce0869ce3e8fdda3832c726fe921b7.exe sha256:88e801879cad8013fea3f6a7f5fa27fc84264dbbbadeeaeb98f65c2fce117ff9
+
+waithidden __Download\sqlserver2012-kb4025925-x86_0ac1120e57ce0869ce3e8fdda3832c726fe921b7.exe /q /allinstances /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "0ac1120e57ce0869ce3e8fdda3832c726fe921b7"</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (non-Microsoft cluster environments).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch sqlserver2012-kb4025925-x86_0ac1120e57ce0869ce3e8fdda3832c726fe921b7.exe sha1:0ac1120e57ce0869ce3e8fdda3832c726fe921b7 size:353830080 http://download.windowsupdate.com/d/msdownload/update/software/secu/2017/08/sqlserver2012-kb4025925-x86_0ac1120e57ce0869ce3e8fdda3832c726fe921b7.exe sha256:88e801879cad8013fea3f6a7f5fa27fc84264dbbbadeeaeb98f65c2fce117ff9
+
+waithidden __Download\sqlserver2012-kb4025925-x86_0ac1120e57ce0869ce3e8fdda3832c726fe921b7.exe /q /allinstances /clusterpassive /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "0ac1120e57ce0869ce3e8fdda3832c726fe921b7"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4019090</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

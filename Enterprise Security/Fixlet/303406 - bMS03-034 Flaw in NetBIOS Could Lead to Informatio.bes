@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-034: Flaw in NetBIOS Could Lead to Information Disclosure - Windows Server 2003 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS03-034. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>Microsoft has released a patch eliminating a security vulnerability in Network basic input/output system (NetBIOS). This vulnerability involves one of the NetBIOS over TCP services, the NetBIOS Name Service. An attacker could seek to exploit this vulnerability by sending a NetBIOS over TCP Name Service query to the target system. The attacker could then examine the query response to see if it contained random data from the target system's memory. <BR><BR><b>Note: </b>Affected computers will report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted. <BR><BR><b>Note:</b> Microsoft has announced that this patch will be included in Windows Server 2003 Service Pack 1. <BR><BR><b>File Size:</b> 353 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win2003" AND csd version of operating system = ""</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP1\KB824105" of registry</Relevance>
+		<Relevance><![CDATA[exists file (pathname of system folder & "\drivers" & "\netbt.sys") whose (version of it < "5.2.3790.69")]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP1\KB889101" of registry</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Relevance>not exists key "HKLM\Software\Microsoft\Updates\Windows Server 2003\SP2\KB914961" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>361760</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB824105</SourceID>
+		<SourceReleaseDate>2003-09-03</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<CVENames>CVE-2003-0661</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>303401</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>NetBIOS</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003-KB824105-x86-ENU.exe sha1:e40a94f45f8d24ee734dfca5ce51b53fe6b81fa5 size:361760 http://download.microsoft.com/download/9/8/a/98aed36b-2dc7-4e60-873f-e019ee492319/WindowsServer2003-KB824105-x86-ENU.exe sha256:cd50140df4fbbb5d2b2b8d15ae587dfa2e2bb98ef16387b00a9c8648d17b4162
+
+wait __download\WindowsServer2003-KB824105-x86-ENU.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-034.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-034.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

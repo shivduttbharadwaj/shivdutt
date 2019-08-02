@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>959209: Update for the .NET Framework 3.5 (May 2009) - Windows Server 2003 Gold / Windows XP Gold - KB958481</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to address a set of known application compatibility issues with Microsoft .NET Framework 3.5 Service Pack 1.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB959209.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+8.57 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(name of it = "WinXP" OR name of it = "Win2003") of operating system</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("41E8829053EAFEA48BE8329D517B1FED") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "DC3BF90CC0D3D2F398A9A6D1762F70F3") AND exists key "InstallProperties" whose ((it = "2.2.30729") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "C3CFBEEB1B8483A43A5C18AB91FDF504" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>8981856</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB959209</SourceID>
+		<SourceReleaseDate>2008-12-17</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 Gold |~| Windows XP Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP20SP2-KB958481-x86.exe sha1:04fcde4b28dd4f6db7548831d35d1c6bf38e1335 size:8981856 https://download.microsoft.com/download/C/6/A/C6ADC586-2518-404B-8973-E1E22C556AF4/NDP20SP2-KB958481-x86.exe sha256:a77a8787b603afaae82f414f980d96d9c8d1d0e8446d039cba018d4f3dad8dec
+
+waithidden __Download\NDP20SP2-KB958481-x86.exe /quiet /norestart
+
+action may require restart "04fcde4b28dd4f6db7548831d35d1c6bf38e1335"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/959209</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>
