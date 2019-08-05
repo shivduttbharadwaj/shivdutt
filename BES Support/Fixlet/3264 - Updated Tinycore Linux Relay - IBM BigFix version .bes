@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Tinycore Linux Relay - IBM BigFix version 9.2.13 Now Available!</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><DIV class=FixletMessage><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.2.13 of IBM BigFix is now available for all the instances of the Tiny Core Virtual&nbsp;Relay!<BR><BR></STRONG>The latest version of the IBM BigFix Relay provides several enhancements and fixes. This Fixlet can upgrade all the instances of the Tiny Core Virtual Relays on the targeted computers.<BR><BR></FONT></FONT></FONT><FONT size=2><FONT color=#ff0000><STRONG><FONT color=#000000>Note:</FONT></STRONG></FONT><FONT color=#000000> This Fixlet message will only become relevant on computers after the IBM BigFix Server has been upgraded. This fixlet will also update the Client on any Relay installation. It may take a little while for the IBM BigFix Clients to notice that the Server is upgraded.<BR><BR><STRONG>Note:</STRONG> It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Relays and Clients will get upgraded.<BR><BR><STRONG>Note:</STRONG> This upgrade may take several minutes to run because the IBM BigFix Client will also be replaced as part of the upgrade process and the Clients will not report their action results right away.</FONT></FONT></P></DIV><DIV class=FixletProperty><H4>File Size:</H4> 16.95 MB </DIV></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance>(name of operating system) as lowercase contains "tinycore"</Relevance>
+		<Relevance><![CDATA[version of client > "9.2.8"]]></Relevance>
+		<Relevance>version of registration server = "9.2"</Relevance>
+		<Relevance><![CDATA[exists relay service whose (version of it < "9.2.13.7")]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Relevance>exists match (regex "^i[6-9]86$") of architecture of operating system</Relevance>
+		<Relevance>exists file "/usr/share/doc/tc/release.txt"</Relevance>
+		<Category>Upgrade</Category>
+		<Source>IBM</Source>
+		<SourceID></SourceID>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 23 Jan 2018 14:28:00 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 23 Jan 2018 14:28:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Relay and Client 9.2.13 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch besSetup.tcz sha1:5e53622f7b0d19700cc6c2edd329773c10ecd90d size:17772544 http://software.bigfix.com/download/bes/92/besSetup-9.2.13.7.tcz sha256:740567e3cb9fd6b7ab95c577f84874d6f788cd8df81afc45a13d5df09ebd7400
+
+continue if {exists file "__Download/besSetup.tcz"}
+
+delete "/mnt/sda1/tce/optional/besSetup.tcz"
+
+move __Download/besSetup.tcz "/mnt/sda1/tce/optional/besSetup.tcz"
+
+folder create "/opt/bigFix/log"
+folder create "/opt/bigFix/status"
+folder create "/opt/bigFix/config"
+
+run sudo chown -R tc:staff "/opt/bigFix/"
+
+if {exists file "/opt/bigFix/besSetup.log"}
+	move "/opt/bigFix/besSetup.log" "/opt/bigFix/log/besSetup.log"
+endif
+
+if {exists file "/opt/bigFix/network.conf"}
+	move "/opt/bigFix/network.conf" "/opt/bigFix/config/network.conf"
+endif
+
+if {exists file "/opt/bigFix/network_template.conf"}
+	move "/opt/bigFix/network_template.conf" "/opt/bigFix/config/network_template.conf"
+endif
+
+if {exists file "/opt/bigFix/proxy.conf"}
+	move "/opt/bigFix/proxy.conf" "/opt/bigFix/config/proxy.conf"
+endif
+
+if {exists file "/opt/bigFix/server.conf"}
+	move "/opt/bigFix/server.conf" "/opt/bigFix/config/server.conf"
+endif
+
+if {exists file "/opt/bigFix/templateReady"}
+	move "/opt/bigFix/templateReady" "/opt/bigFix/status/templateReady"
+endif
+
+if {exists file "/opt/bigFix/instanceReady"}
+	move "/opt/bigFix/instanceReady" "/opt/bigFix/status/instanceReady"
+endif
+
+if {exists file "/mnt/sda1/tce/optional/open-vm-tools.tcz"}
+	run sudo touch "/opt/bigFix/status/vmwareToolsReady"	
+endif
+
+run sudo reboot
+</ActionScript>
+			<SuccessCriteria Option="RunToCompletion"></SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information about relays.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.ibm.com/support/knowledgecenter/SSQL82_9.5.0/com.ibm.bigfix.doc/Platform/Installation/c_tiny_core_introduction.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

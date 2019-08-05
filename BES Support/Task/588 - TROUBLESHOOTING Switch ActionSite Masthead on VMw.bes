@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title><![CDATA[TROUBLESHOOTING: Switch ActionSite Masthead on VMware ESX Server < 9.0]]></Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Sometimes it is necessary to switch the BES Client's action site masthead. The action site masthead serves the following functions: <BR></P> <UL> <LI>Acts as a configuration file with parameters such as BES Server IP address, port number, locking behavior, etc. <LI>Contains information necessary for the digital signature security scheme that BES uses (the masthead contains the public key information) <LI>Contains the licensing information that allow BES users to operate BES with a specified number of users for a specified length of time A common use for this task is to switch BES Clients from one BES Server to another.</LI></UL> <P>A common use for this task is to switch BES Clients from one BES Server to another. This task applies only to&nbsp;ESX Server&nbsp;based computers.</P> <P><STRONG>Note: &nbsp;</STRONG>This action will download the file&nbsp;from&nbsp;url <A href="http://localhost:52311/Uploads/masthead.afxm">http://localhost:52311/<FONT size=2>Uploads</FONT>/masthead.afxm</A> and use it as the new masthead. Please put the file at that location or use a custom action to change the download url. </P> <P><STRONG>Note:</STRONG> The actions below will remove manual BES Relay settings from the BES Client prior to switching the BES Client masthead. </P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Please make sure the new action site masthead is valid and points to a working BES Server. Once the masthead is switched, the BES Client may not be able to report the final status of the action because they&nbsp;may be pointing to a different BES Server.&nbsp; Due to the complexity of this action, please&nbsp;fully test this action before use in a production environment.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance><![CDATA[(if (version of client >= "8.0") then (unix of it) else ((it does not start with "Win" AND it does not start with "Mac OS X") of name of it)) of operating system]]></Relevance>
+		<Relevance><![CDATA[if (version of client < "8") then (exists file ("/etc/init.d/BESClient-" & version of client as string)) else (exists file "/etc/init.d/besclient")]]></Relevance>
+		<Relevance>name of operating system starts with "VMware ESX Server 3" OR name of operating system starts with "VMware ESX 4"</Relevance>
+		<Relevance><![CDATA[version of client < "9.0"]]></Relevance>
+		<Relevance>not exists relay service</Relevance>
+		<Category>Common Tasks</Category>
+		<DownloadSize>9216</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 08 Oct 2008 17:12:20 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to switch actionsite masthead.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[setting "__RelayServer1"="" on "{parameter "action issue date" of action}"  for client
+setting "__RelayServer2"="" on "{parameter "action issue date" of action}"  for client
+setting "_BESClient_RelaySelect_FailoverRelay"="" on "{parameter "action issue date" of action}"  for client
+setting "_BESClient_Register_Affiliation_SeekList"="" on "{parameter "action issue date" of action}"  for client
+setting "_BESClient_RelaySelect_TertiaryRelayList"="" on "{parameter "action issue date" of action}"  for client
+
+download http://localhost:52311/Uploads/masthead.afxm
+
+//continue if {(size of it = 8213 and sha1 of it = "267c5ca821c50e302ce5b6fb9dccaf3b8572169a") of file "masthead.afxm" of folder "__Download"}
+
+delete /etc/opt/BESClient/actionsite.afxm_old
+delete /etc/opt/BESClient/ActionSite.afxm_old
+
+if {exists file ("/etc/opt/BESClient/actionsite.afxm")}
+move /etc/opt/BESClient/actionsite.afxm /etc/opt/BESClient/actionsite.afxm_old
+move __Download/masthead.afxm /etc/opt/BESClient/actionsite.afxm
+else
+move /etc/opt/BESClient/ActionSite.afxm /etc/opt/BESClient/ActionSite.afxm_old
+move __Download/masthead.afxm /etc/opt/BESClient/ActionSite.afxm
+endif
+
+delete "{(client folder of current site as string) & "/__appendfile"}"
+appendfile #!/bin/sh
+appendfile sleep 5
+if {version of client < "8"}
+appendfile /etc/init.d/BESClient-{version of client} stop
+appendfile sleep 5
+appendfile /etc/init.d/BESClient-{version of client} start
+else
+appendfile /etc/init.d/besclient restart
+endif
+wait chmod 555 "{(client folder of current site as string) & "/__appendfile"}"
+run "{(client folder of current site as string) & "/__appendfile"}"]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

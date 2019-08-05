@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Solaris Client - IBM Endpoint Manager version 9.1.1275.0 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.1.1275.0 of IBM Endpoint Manager is now available for the Solaris operating system!<BR><BR></STRONG>The latest version of the IBM Endpoint Manager Client provides several enhancements and fixes. This Fixlet can upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM Endpoint Manager Server and Relays have been upgraded. It may take several hours for the Clients to notice that the Server and Relays are upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.</P> <P><STRONG>Important Note: </STRONG>In rare cases the Client may fail to automatically start after the upgrade is complete, and must be manually started. Please contact technical support if this occurs. <P><STRONG>Note: </STRONG>This client runs on supported Solaris platforms on an x86 (version 10, 11) or a SPARC (versions 9, 10, 11).</FONT></FONT></P></FONT></FONT></P></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+228 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client < "9.1.1275.0" and version of client >= "7.2"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.1"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>(exists match (regex "SunOS 5.(9|10|11)") of it ) of name of operating system</Relevance>
+		<Relevance><![CDATA[if (version of client < "8.0") then true else ((not exists relay service) or (version of relay service >= "9.1.1275.0"))]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>239289344</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2016-06-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 20 Jun 2016 13:36:13 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager Client 9.1.1275.0 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {name of operating system contains "5.11"}
+	if {type of main processor contains "i386"}
+		prefetch BESClientUpgrade.pkg sha1:aa8d802152a237c2dbbfb5af9b353896ecceab43 size:56929792 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1275.0.x86_sol11.pkg sha256:918794204acef605bac565a9e52d6415a8f0dae3efd3a42c8cb1b2a9a4f4557d
+	elseif {type of main processor contains "sparc"}
+		prefetch BESClientUpgrade.pkg sha1:852516536972cd69618e7b2da1b6c5528fdc5b70 size:48841216 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1275.0.sparc_sol11.pkg sha256:96618d45e6f97bab9ec1ff343719d5ba9f6a6b584b4ddb63bc0647b5b062805c
+	endif
+elseif {name of operating system contains "5.10"}
+	if {type of main processor contains "i386"}
+		prefetch BESClientUpgrade.pkg sha1:dec0b3277a0cbd91ea467a6e4bf744e04bdde909 size:43254784 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1275.0.x86_sol10.pkg sha256:50a20923472f2cbfd6f00cbce38c7bdf88163472fc12c2141e05d7a7f097d25a
+	elseif {type of main processor contains "sparc"}
+		prefetch BESClientUpgrade.pkg sha1:dc6f5cff7e9b97186faeda7c4264a4c8d25ae30e size:44584960 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1275.0.sparc_sol10.pkg sha256:26388f0ac3601507dc98c8966c2f008d55b7dd01e0ce1c7892cff3da03ffee39
+	endif
+elseif {(name of operating system contains "5.9") AND (type of main processor contains "sparc")}
+	// Solaris 9 SPARC
+	prefetch BESClientUpgrade.pkg sha1:1e5767edc9793d48f672a8f8d258d1878d9ec4f3 size:45678592 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1275.0.sparc_sol9.pkg sha256:6aac307bd72ce8424755168b43e4676fe5929fad9db9ea17a56c5f84c7c6e34d
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESClientUpgrade.pkg"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {56929792 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESClientUpgrade.pkg __Local/Upgrade/BESClientUpgrade.pkg
+delete __appendfile
+appendfile mail=
+appendfile instance=overwrite
+appendfile partial=nocheck
+appendfile runlevel=nocheck
+appendfile idepend=nocheck
+appendfile space=ask
+appendfile setuid=nocheck
+appendfile conflict=nocheck
+appendfile action=nocheck
+appendfile basedir=default
+move __appendfile __Local/Upgrade/solaris_admin_file
+delete __appendfile
+appendfile #!/bin/sh
+if {(version of client = "9.1") AND (exists match (regex "SunOS 5.(10|11)") of it ) of name of operating system}
+	appendfile /usr/sbin/svccfg delete -f BESClient
+	appendfile /etc/init.d/besclient stop
+endif
+appendfile /usr/sbin/pkgrm -a __Local/Upgrade/solaris_admin_file -n BESagent
+appendfile if [ -f /etc/zones/index ]; then
+appendfile     # system supports Solaris zones
+appendfile     ZONE_ARG="-G"
+appendfile else
+appendfile     # system does not support Solaris zones
+appendfile     ZONE_ARG=
+appendfile fi
+appendfile /usr/sbin/pkgadd $ZONE_ARG -a __Local/Upgrade/solaris_admin_file -n -d __Local/Upgrade/BESClientUpgrade.pkg BESagent
+appendfile /bin/rm -f __Local/Upgrade/BESClientUpgrade.pkg
+appendfile /bin/rm -f __Local/Upgrade/solaris_admin_file
+move __appendfile __Local/Upgrade/besclientupgrade
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /bin/sh __Local/Upgrade/besclientupgrade]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.1.1275.0"]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2687447: Description of Office 2010 Filter Pack SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Service Pack 2 (SP2) for Microsoft Office 2010 Filter Pack 64-Bit Edition contains new updates which improve security, performance, and stability. Additionally, the SP is a roll-up of all previously released updates.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2687447.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.72 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[((exists key whose ((name of it equals "00004159000290400100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.6029.1000"  AND value "DisplayVersion" of it as string as version < "14.0.7015.1000") of it) AND (not exists key whose (name of it equals "2F13F039B6651FF45903EA66D40E80D9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00004159000290400100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.7007.1000"  AND value "DisplayVersion" of it as string as version < "14.0.7015.1000") of it) AND (not exists key whose (name of it equals "2F13F039B6651FF45903EA66D40E80D9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00004159000290400100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.4763.1000"  AND value "DisplayVersion" of it as string as version < "14.0.7015.1000") of it) AND (not exists key whose (name of it equals "2F13F039B6651FF45903EA66D40E80D9") of key "Patches" of it)) of it) OR (exists key whose ((name of it equals "00004159000290400100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.7011.1000"  AND value "DisplayVersion" of it as string as version < "14.0.7015.1000") of it) AND (not exists key whose (name of it equals "2F13F039B6651FF45903EA66D40E80D9") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>4952640</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2687447</SourceID>
+		<SourceReleaseDate>2013-07-19</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows Server 2003 Gold |~| Windows Vista Gold |~| Windows XP Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch filterpacksp2010-kb2687447-fullfile-x64-en-us.exe sha1:cb372bab8ba63ee97754272e99d48337f7a91235 size:4952640 http://download.microsoft.com/download/D/C/A/DCA32A51-6954-4814-8838-422BD3F508F8/filterpacksp2010-kb2687447-fullfile-x64-en-us.exe sha256:8a1ee923e9033a53ea95c30f85f76d8d8c743ae00efdc0eb9c47ef554d7ca7d1
+
+waithidden __Download\filterpacksp2010-kb2687447-fullfile-x64-en-us.exe /quiet /norestart
+
+action may require restart "cb372bab8ba63ee97754272e99d48337f7a91235"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2687447</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

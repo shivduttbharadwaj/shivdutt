@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-012: Vulnerabilities in Windows Could Allow Elevation of Privilege - MSDTC Transaction Facility - Windows Vista Gold/SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves four publicly disclosed vulnerabilities in Microsoft Windows. The vulnerabilities could allow elevation of privilege if an attacker is allowed to log on to the system and then run a specially crafted application. The attacker must be able to run code on the local machine in order to exploit this vulnerability. An attacker who successfully exploited any of these vulnerabilities could take complete control over the affected system.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update&nbsp;will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB952004.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+454 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinVista" AND product type of it = nt workstation product type AND (service pack major version of it = 0 OR service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists file "msdtcprx.dll" whose (((exists value "FileVersion" whose (it contains "ldr") of version blocks of it) AND (service pack major version of operating system = 1) AND version of it < "2001.12.6931.22197") OR ((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it) AND (service pack major version of operating system = 0) AND version of it < "2001.12.6930.16697") OR ((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it) AND (service pack major version of operating system = 1) AND version of it < "2001.12.6931.18085") OR ((exists value "FileVersion" whose (it contains "ldr") of version blocks of it) AND (service pack major version of operating system = 0) AND version of it < "2001.12.6930.20852")) of it) OR (exists file "xolehlp.dll" whose (((exists value "FileVersion" whose (it contains "ldr") of version blocks of it) AND (service pack major version of operating system = 1) AND version of it < "2001.12.6931.22197") OR ((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it) AND (service pack major version of operating system = 0) AND version of it < "2001.12.6930.16697") OR ((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it) AND (service pack major version of operating system = 1) AND version of it < "2001.12.6931.18085") OR ((exists value "FileVersion" whose (it contains "ldr") of version blocks of it) AND (service pack major version of operating system = 0) AND version of it < "2001.12.6930.20852")) of it))) of system folder]]></Relevance>
+		<Relevance>not pending restart "cbad8c7eea25ff4cfbca2828b3a63d13c54440e2"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>465885</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB959454</SourceID>
+		<SourceReleaseDate>2009-04-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2008-1436; CVE-2009-0078; CVE-2009-0080</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB952004-x86.msu sha1:cbad8c7eea25ff4cfbca2828b3a63d13c54440e2 size:465885 http://download.microsoft.com/download/E/B/D/EBDE512F-DFD0-42F6-817F-20D9D940DE3D/Windows6.0-KB952004-x86.msu sha256:3334ac6b2b28d06476135b2f1ddfb3f2ef58b4e9388b778f5d8fc1b9c3ba9d44
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB952004-x86.msu"}" /quiet /norestart
+
+action requires restart "cbad8c7eea25ff4cfbca2828b3a63d13c54440e2"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-012.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-012.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

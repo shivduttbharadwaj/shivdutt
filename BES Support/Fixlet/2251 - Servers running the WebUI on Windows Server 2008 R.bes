@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Servers running the WebUI on Windows Server 2008 R2 need HotFix</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>This Audit Fixlet detects if:</P> <UL> <LI>The WebUI is enabled on the BigFix Server <LI>The operating system is Windows Server 2008 R2 <LI>The HotFix KB2577795 has not been applied<BR></LI></UL> <P>The WebUI must be running on the machine in order for the fixlet to detect if the HotFix for KB2577795 is required.</P> <P>This HotFix cannot be run automatically through a fixlet. In order to apply the HotFix, administrators must visit <A href="https://support.microsoft.com/en-us/kb/2577795">https://support.microsoft.com/en-us/kb/2577795</A>, request the patch from Microsoft and apply the patch.&nbsp;</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of registration server >= "9.2.6"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>exists setting "_WebUI_AppServer_IsEnabled" whose (value of it = "1") of client or exists service "BESWebUI"</Relevance>
+		<Relevance><![CDATA[(windows of it and (major version of it = 6 and minor version of it = 1 and service pack major version of it <= 1)) of operating system]]></Relevance>
+		<Relevance><![CDATA[(((exists key "Microsoft-Windows-WinPE-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21004") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21004") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21004") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-WinPE-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.21766") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.21766") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-winsock-core_31bf3856ad364e35_none_09855afc6f639990" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.21766") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Category>Audit</Category>
+		<Source>BigFix</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2015-11-17</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 17 Nov 2015 17:28:26 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Critical WUI</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 18 Aug 2017 16:37:52 +0000</Value>
+		</MIMEField>
+		<Delay>PT5M</Delay>
+	</Fixlet>
+</BES>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS17-APR: Security update for Office Online Server - Office Online Server - KB3127895 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>A security vulnerability exists in Microsoft Office Online Server that could allow arbitrary code to run when a maliciously modified file is opened. This update resolves that vulnerability.<p><B>Note:</B> This update is also referenced under KB3127895.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+839.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("00006100251100000100000000F01FEC";"00006100351100000100000000F01FEC";"00006100151100000100000000F01FEC") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "00006109351191400100000000F01FEC" OR name of it = "000061093511D0400100000000F01FEC" OR name of it = "00006109351161800100000000F01FEC" OR name of it = "00006109351141400100000000F01FEC" OR name of it = "000061093511E0400100000000F01FEC" OR name of it = "00006109351161400100000000F01FEC" OR name of it = "000061093511B0400100000000F01FEC" OR name of it = "00006109351151400100000000F01FEC" OR name of it = "000061093511C0400100000000F01FEC" OR name of it = "00006109351131400100000000F01FEC" OR name of it = "00006109351121400100000000F01FEC" OR name of it = "00006109251100000100000000F01FEC" OR name of it = "000061093511D1400100000000F01FEC" OR name of it = "00006109351190400100000000F01FEC" OR name of it = "000061093511A0C00100000000F01FEC" OR name of it = "00006109351101400100000000F01FEC" OR name of it = "00006109351111400100000000F01FEC" OR name of it = "00006109351160400100000000F01FEC" OR name of it = "00006109351150400100000000F01FEC" OR name of it = "00006109151100000100000000F01FEC" OR name of it = "00006109351170400100000000F01FEC" OR name of it = "00006109351180400100000000F01FEC" OR name of it = "00006109351140800100000000F01FEC" OR name of it = "000061093511F1400100000000F01FEC" OR name of it = "00006109351140400100000000F01FEC" OR name of it = "000061093511E1400100000000F01FEC" OR name of it = "00006109351110400100000000F01FEC") AND exists key "InstallProperties" whose ((it = "16.0.7601.6800") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "6772A9E68FA18FE4CA4CB6899A2A60FA" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>880150144</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3127895</SourceID>
+		<SourceReleaseDate>2017-04-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2017-0195</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Apr 2017 06:34:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office_online_server:2016:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office Online Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 23 Jul 2019 19:37:10 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch wacserver2016-kb3127895-fullfile-x64-glb.exe sha1:190ac9def59867eed4d75889bdedad65db59ef6a size:880150144 https://download.microsoft.com/download/E/B/3/EB32A7AF-8A01-4A7D-AA1D-82415E7F8834/wacserver2016-kb3127895-fullfile-x64-glb.exe sha256:a199ceb749588db508bddd076fb1cb6906b62468b75dd5095b8cf0438e6b9cf6
+
+waithidden __Download\wacserver2016-kb3127895-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "190ac9def59867eed4d75889bdedad65db59ef6a"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/3127895</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

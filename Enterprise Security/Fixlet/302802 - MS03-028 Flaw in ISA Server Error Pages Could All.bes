@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-028: Flaw in ISA Server Error Pages Could Allow Cross-Site Scripting Attack - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS03-028. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>Microsoft has released a patch eliminating a security vulnerability in ISA Server 2000. A cross-site scripting vulnerability exists in many of these error pages that are returned by ISA Server under specific error conditions. To exploit this flaw, an attacker would have to first be aware of a specific ISA server and its access policies or host an ISA server of their own and create specific access policies designed to exploit this vulnerability. The attacker could then craft a request to trigger a page refusal. Once the attack was crafted, the attacker would have to host a Web site containing the link, or send the link to the user in the form of an HTML e-mail. After the user previewed or opened the e-mail, the malicious site could be visited automatically without further user interaction. In the Web-based attack scenario, an attacker would have no way to force a user to visit the Web site. After downloading and installing this patch, affected computers will no longer be susceptible to this vulnerability. <BR><BR><b>Note:</b> Client machines may briefly display progress windows during installation of this update. <BR><BR><b>Note:</b> Microsoft has announced that this patch will be included in ISA Server 2000 Service Pack 2. <BR><BR><b>File Size:</b> 110 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry AND exists value "ImagePath" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry AND exists file (preceding text of last "%00" of (value "ImagePath" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry as string)) whose (version of it <"4")]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft ISA Server SP" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Fpc\Hotfixes\SP1\277" of registry</Relevance>
+		<Relevance><![CDATA[exists file whose (modification time of it < "Mon, 30 Jun 2003 11:49:58 -0700" as time AND (name of it as lowercase = "10053.htm" OR name of it as lowercase = "10053r.htm" OR name of it as lowercase = "10054.htm" OR name of it as lowercase = "10054r.htm" OR name of it as lowercase = "10060.htm" OR name of it as lowercase = "10060r.htm" OR name of it as lowercase = "10061.htm" OR name of it as lowercase = "10061r.htm" OR name of it as lowercase = "11001.htm" OR name of it as lowercase = "11001r.htm" OR name of it as lowercase = "11002.htm" OR name of it as lowercase = "11002r.htm" OR name of it as lowercase = "11004.htm" OR name of it as lowercase = "11004r.htm" OR name of it as lowercase = "12206.htm" OR name of it as lowercase = "12206r.htm" OR name of it as lowercase = "1460.htm" OR name of it as lowercase = "1460r.htm" OR name of it as lowercase = "2r.htm" OR name of it as lowercase = "401r.htm" OR name of it as lowercase = "407.htm" OR name of it as lowercase = "502.htm" OR name of it as lowercase = "504.htm" OR name of it as lowercase = "64.htm" OR name of it as lowercase = "64r.htm")) of folder (value "InstallDirectory" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Fpc" of registry as string & "ErrorHtmls") OR exists file whose (modification time of it < "Mon, 30 Jun 2003 11:50:00 -0700" as time AND (name of it as lowercase = "default.htm" OR name of it as lowercase = "defaultr.htm")) of folder (value "InstallDirectory" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Fpc" of registry as string & "ErrorHtmls") ]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>113168</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB816456</SourceID>
+		<SourceReleaseDate>2003-07-16</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2003-0526</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>302801</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>ISA Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch ISA2000-KB816456-x86.exe sha1:58b90e8a380dd313bf8f5675d65aba8c54a9dba4 size:113168 http://download.microsoft.com/download/4/6/4/464c95cd-8488-410d-bacb-69b25eaa7822/ISA2000-KB816456-x86.exe sha256:b9947134d828e7a9241bb1bf051aa44f15f35c00e70842f9998132362f7a1d17
+wait __download/ISA2000-KB816456-x86.exe /q:a /r:n
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-028.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-028.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

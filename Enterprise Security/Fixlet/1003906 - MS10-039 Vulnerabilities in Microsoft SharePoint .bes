@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-039: Vulnerabilities in Microsoft SharePoint Could Allow Elevation of Privilege - Office InfoPath 2007 SP1/SP2 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update has been superseded because Microsoft has stopped offering the deployed binary.<br /><br />Microsoft has released a security update that resolves one publicly disclosed and two privately reported vulnerabilities in Microsoft SharePoint. The most severe vulnerability could allow elevation of privilege if an attacker convinced a user of a targeted SharePoint site to click on a specially crafted link<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update&nbsp;will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB979441.<BR><BR><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.46 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[((exists file "INFOPATH.EXE" whose (version of it < "12.0.6529.5000") of it) OR (exists file "IPDESIGN.DLL" whose (version of it < "12.0.6529.5000") of it) OR (exists file "IPEDITOR.DLL" whose (version of it < "12.0.6529.5000") of it) OR (exists file "IPOLK.DLL" whose (version of it < "12.0.6511.5000") of it) OR (exists file "IPOMINT.DLL" whose (version of it < "12.0.6500.5000") of it) OR (exists file "REGFORM.EXE" whose (version of it < "12.0.6501.5000") of it)) of ((folder (value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\12.0\Common\InstallRoot" of registry as string)))]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((it >= "12.0.6215.1000" AND it <= "12.0.6425.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "002E" or it = "0011" or it = "0030" OR it = "0044" OR it = "10D7") of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance>not pending restart "08f7cbc8b7624610ff20e348734c8ea914fb6bbf"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>6771880</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2028554</SourceID>
+		<SourceReleaseDate>2010-06-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2010-1257</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-06-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:infopath:2007:sp1:*:*:*:*:*:*; cpe:2.3:a:microsoft:infopath:2007:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 17 Jun 2019 23:03:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch office-kb979441-fullfile-x86-glb.exe sha1:08f7cbc8b7624610ff20e348734c8ea914fb6bbf size:6771880 http://download.microsoft.com/download/C/5/1/C517054A-F12A-4246-A4B4-15DC7ED8A2A1/office-kb979441-fullfile-x86-glb.exe sha256:574c0db52ef39ff504ed63e5522f68f0e9386baf4dd0e5c9718a294ad8b80baa
+
+waithidden __Download\office-kb979441-fullfile-x86-glb.exe /quiet /norestart
+
+action requires restart "08f7cbc8b7624610ff20e348734c8ea914fb6bbf"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-039.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS10-039.mspx</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

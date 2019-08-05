@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Client Setting: Enable Debug Logging</Title>
+		<Description><![CDATA[
+ For troubleshooting purposes, it is sometimes useful to enable the advanced debug log on a BES Client so it will log every activity. Use the action below to enable this log.&nbsp; The file will be named "besclientdebug.log" and located in the same folder as the BES Client.<BR><BR>When you enable this log, you will be prompted for a level of detail. The higher the value, the greater the detail of the messages written to the log. If you do not know which level to choose, then choose 1000.<BR><BR><b>Note:</b> Do <b>not</b> set the "Reapply" behavior when taking this action or you may cause the BES Client to constantly reset this setting.
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not exists setting "_BESClient_EMsg_Detail" of client OR value of setting "_BESClient_EMsg_Detail" of client = "0"</Relevance>
+		<Category>BES Client Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 22 Jun 2004 21:26:49 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 Nov 2017 14:22:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to enable the debug logging.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "_BESClient_EMsg_Detail" with description "Please enter the level of detail for the BES Client debug log (1-10000):" and with default value "1000"
+
+// Fail if level of detail is not between 1 and 10000
+continue if {parameter "_BESClient_EMsg_Detail" of action as integer >= 1 AND parameter "_BESClient_EMsg_Detail" of action as integer <= 10000}
+
+setting "_BESClient_EMsg_Detail"="{parameter "_BESClient_EMsg_Detail" of action}" on "{parameter "action issue date" of action}" for client
+
+if {name of operating system contains "Android"}
+
+setting "_BESClient_EMsg_File"="/mnt/sdcard/besclientdebug.log" on "{parameter "action issue date" of action}" for client
+
+else
+
+setting "_BESClient_EMsg_File"="{if (name of operating system as lowercase starts with "win") then (pathname of parent folder of regapp "BESClient.exe" & "\") else (pathname of (parent folder of parent folder of (client folder of current site)) & "/")}besclientdebug.log" on "{parameter "action issue date" of action}" for client
+
+endif
+
+setting "_BESClient_EMsg_EvalLog"="1" on "{parameter "action issue date" of action}" for client]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink><![CDATA[for more information about logging on&nbsp; clients.]]></PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www-01.ibm.com/support/docview.wss?uid=swg21505873</ActionScript>
+		</Action>
+	</Task>
+</BES>

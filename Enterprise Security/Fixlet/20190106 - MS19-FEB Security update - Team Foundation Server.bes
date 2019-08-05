@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-FEB: Security update - Team Foundation Server 2018 Update 3.2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>A security vulnerability exists in Team Foundation Server 2018 Update 3.2. This update resolves that vulnerability.</P> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.11 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\TeamFoundationServer\16.0" of native registry and exists (value "BuildNumber" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\TeamFoundationServer\16.0" of native registry) whose (it as string as version = "16.131.28507.4")</Relevance>
+		<Relevance><![CDATA[(not exists file "Microsoft.TeamFoundation.WorkItemTracking.Web.dll" whose (version of it < "16.131.28605.6.") of folder "Application Tier\Web Services\bin" of it) of (folder ((value "InstallPath" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\TeamFoundationServer\16.0" of native registry as string)))]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>1163919</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2019-02-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2019-0742;CVE-2019-0743</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Feb 2019 07:58:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink>to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch tfs2018.3.2patch1.exe sha1:d73dc24d61e2c317b45cccdea6694bc7c0bf0ccd size:1171000 https://download.visualstudio.microsoft.com/download/pr/ba621036-16e5-4770-9229-2cdec8751cc6/2cc91a6d3737a444877610c242029199/tfs2018.3.2patch1.exe sha256:93fc8faf7a4bc6599ed32e3d4bb9bb1e440bcb7c13edac3ac12fbfd62cebb9a2
+
+waithidden __Download\tfs2018.3.2patch1.exe /Q /NoRestart
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view more information about this update at the Microsoft security portal.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-0742</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

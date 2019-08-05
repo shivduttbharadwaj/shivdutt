@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-002: Vulnerabilities in Microsoft XML Core Services Could Allow Remote Code Execution - XML Core Services 5.0 - Groove 2007 SP2/SP3 / Office SharePoint Server 2007 SP2/SP3</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft XML Core Services. The vulnerabilities could allow remote code execution if a user views a specially crafted webpage using Internet Explorer. An attacker would have no way to force users to visit such a website. Instead, an attacker would have to convince users to visit the website, typically by getting them to click a link in an email message or Instant Messenger message that takes the user to the attacker's website.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2687497.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.74 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((exists key whose ((name of it as string equals "000021095F0100000000000000F01FEC") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.6425.1000") of it) AND (not exists key whose (name of it as string equals "EC2D301019C5F5342A4325A61AD1D0D4") of key "Patches" of it)) of it) OR (exists key whose ((name of it as string equals "000021095F0100000000000000F01FEC") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.6612.1000") of it) AND (not exists key whose (name of it as string equals "EC2D301019C5F5342A4325A61AD1D0D4") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance><![CDATA[exists file "msxml5.dll" whose (version of it < "5.20.1096.0") of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11")]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1825816</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2687497</SourceID>
+		<SourceReleaseDate>2013-01-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2013-0006; CVE-2013-0007</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>XML Core Services</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:xml_core_services:5.0:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch msxml5s2007-kb2687497-fullfile-x86-glb.exe sha1:cc63a5eb4a0c383299b0bd768819bce1e29d0671 size:1825816 http://download.microsoft.com/download/5/8/5/58550590-B3E9-4726-9A3D-42D077D56B16/msxml5s2007-kb2687497-fullfile-x86-glb.exe sha256:4d8fd77f2be66f3779df23629e6739b7fec482686969592e5bb994664d8710b2
+
+waithidden __Download\msxml5s2007-kb2687497-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "cc63a5eb4a0c383299b0bd768819bce1e29d0671"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-002</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

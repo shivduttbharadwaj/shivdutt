@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated AIX Client - IBM Endpoint Manager version 9.1.1301.0 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.1.1301.0 of IBM Endpoint Manager is now available for the AIX operating system!<BR><BR></STRONG>The latest version of the IBM Endpoint Manager Client provides several enhancements and fixes. This Fixlet can upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to a 9.1 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM Endpoint Manager Server and Relays have been upgraded. It may take several hours for the IBM Endpoint Manager Clients to notice that the IBM Endpoint Manager Server and Relays are upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the IBM Endpoint Manager Client service will be restarted as part of the upgrade process and the clients will not report their action results right away.<BR><BR><STRONG>Note: </STRONG>This client runs on supported AIX platforms on AIX 6.1 (Requires Technology Level 4), AIX 7.1. Supports VIOS host installs.</FONT></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+41.7 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client < "9.1.1301.0" and version of client >= "7.2"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.1"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "(AIX|AIX VIOS) (6.1|7.1)") of name of operating system</Relevance>
+		<Relevance><![CDATA[if ((build of operating system = "6") AND (version of client >= "8.2")) then (exists true whose (if true then (current technology level of operating system as string >= "6100-04") else false)) else true]]></Relevance>
+		<Relevance><![CDATA[(not exists relay service) OR ("9.1.1301.0" <= version of relay service)]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>43692032</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2016-12-01</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 05 Dec 2016 15:10:53 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager Client 9.1.1301.0 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {exists match (regex "(AIX|AIX VIOS) (6.1|7.1)") of name of operating system}
+	// AIX 6.1, 7.1 64bit
+	prefetch BESClientUpgrade.pkg sha1:8d7917325d441011762d7892844cb256624e5398 size:43692032 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1301.0.ppc64_aix61.pkg sha256:42015019e443fc2b47c7d7ce656120a8082ac59cdb2df9550bbf4c1e16d247b4
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESClientUpgrade.pkg"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {43692032 < free space of drive of folder "/var/tmp"}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+delete /var/tmp/BESClientUpgrade.pkg
+move __Download/BESClientUpgrade.pkg /var/tmp/BESClientUpgrade.pkg
+if {build of operating system <= "6"}
+	if {version of client >= "8.2"}
+		continue if {if (build of operating system = "6") then (current technology level of operating system as string >= "6100-04") else (current technology level of operating system as string >= "5300-08")}
+	else
+		createfile until __EOF
+#!/usr/bin/sh
+OSLEVEL=`/usr/bin/oslevel -r`
+REL=`/usr/bin/echo $OSLEVEL | /usr/bin/sed 's/\(.*\)-.*/\1/'`
+TL_DIGIT1=`/usr/bin/echo $OSLEVEL | /usr/bin/sed 's/.*-\(.\).*/\1/'`
+TL_DIGIT2=`/usr/bin/echo $OSLEVEL | /usr/bin/sed 's/.*-.\(.\).*/\1/'`
+if [ "$REL" = "6100" ]; then
+    if [ "$TL_DIGIT1" -eq 0 ] && [ "$TL_DIGIT2" -lt 4 ]; then
+        exit 1
+    fi
+fi
+exit 0
+__EOF
+		move __createfile __Local/Upgrade/besoslevelcheck
+		wait /bin/sh __Local/Upgrade/besoslevelcheck
+		// If next line fails, the platform does not have the sufficent OS Technology Level to run this release
+		continue if {exit code of action = 0}
+		delete __Local/Upgrade/besoslevelcheck
+	endif
+endif
+delete __appendfile
+appendfile #!/usr/bin/sh 
+if {version of client < "9.0"}
+	appendfile TMPDIR=/tmp/BESCLIENT9.1.1301.0_upgrade_fixlet_symlinks
+	appendfile preserve_BES_symlinks() {{
+	appendfile 		/bin/rm -fr $TMPDIR
+	appendfile 		/bin/mkdir $TMPDIR
+	appendfile 		for i in ${{@}
+	appendfile 		do
+	appendfile 			N=`echo $i | sed s/[\/\ ]/_/g`
+	appendfile 			if [ -L "${{i}" ]; then
+	appendfile 				/bin/ls -l "${{i}" | /bin/awk '{{ print $11 }' > "${{TMPDIR}/${{N}"
+	appendfile 				/bin/rm "${{i}"
+	appendfile 			fi
+	appendfile 		done
+	appendfile }
+	appendfile restore_BES_symlinks() {{
+	appendfile 		for i in ${{@}
+	appendfile 		do
+	appendfile 			N=`echo ${{i} | sed 's/[\/\ ]/_/g'`
+	appendfile 			if [ -f "${{TMPDIR}/${{N}" ]; then
+	appendfile 				dst=`/bin/cat "${{TMPDIR}/${{N}"`
+	appendfile 				for f in `/bin/ls -A "${{i}"`; do
+	appendfile 					/bin/rm -fr ${{dst}/$f
+	appendfile 					/bin/mv -f "${{i}/$f" "${{dst}/$f"
+	appendfile 				done
+	appendfile 				/bin/rm -fr "${{i}"
+	appendfile 				/bin/ln -s "$dst" "${{i}"
+	appendfile 			fi
+	appendfile 		done
+	appendfile 		/bin/rm -fr $TMPDIR
+	appendfile }
+	appendfile CLIENTDIRS="/var/opt/BESClient"
+	appendfile preserve_BES_symlinks ${{CLIENTDIRS}
+endif
+appendfile /usr/sbin/installp -u BESClient
+appendfile /usr/sbin/installp -agqYXd /var/tmp/BESClientUpgrade.pkg BESClient
+if {version of client < "9.0"}
+	appendfile /etc/rc.d/rc2.d/KBESClientd stop
+	appendfile restore_BES_symlinks ${{CLIENTDIRS}
+endif
+appendfile /bin/rm -f /var/tmp/BESClientUpgrade.pkg
+appendfile /etc/rc.d/rc2.d/SBESClientd start
+delete __Local/Upgrade/besclientupgrade
+move __appendfile __Local/Upgrade/besclientupgrade
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /bin/sh __Local/Upgrade/besclientupgrade]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.1.1301.0"]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

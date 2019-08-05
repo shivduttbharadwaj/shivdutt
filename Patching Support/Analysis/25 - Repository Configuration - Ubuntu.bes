@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>Repository Configuration - Ubuntu</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size=2 face=Helv><FONT size=2 face=Helv><br><P>This analysis retrieves information about the registered custom repository URLs on Ubuntu endpoints</FONT></FONT>. </P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance>name of operating system as lowercase contains "ubuntu"</Relevance>
+		<Relevance><![CDATA[version of operating system >= "10.04" as version]]></Relevance>
+		<Source>Internal</Source>
+		<SourceReleaseDate>2014-02-21</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 01 Oct 2014 01:01:36 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 15 Aug 2016 06:40:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="APT Lines" ID="1">unique values of ((item 0 of it)) of ((lines starting with "deb " of it, it) of (file "/etc/apt/sources.list"))</Property>
+	</Analysis>
+</BES>

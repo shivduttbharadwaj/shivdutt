@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated CentOS Linux Client - IBM Endpoint Manager version 9.0.785.0 Now Available! (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.0.785.0 of IBM Endpoint Manager is now available for the CentOS Linux operating systems!<BR><BR></STRONG>The latest version of the IBM Endpoint Manager Client provides several enhancements and fixes. This Fixlet can upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to&nbsp;a 9.0&nbsp;version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM Endpoint Manager Server and Relays have been upgraded. It may take several hours for the Clients to notice that the Server and Relays are upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.<BR><BR><STRONG>Note: </STRONG>This client runs on supported CentOS Linux platforms on a 32-bit/64-bit x86 (versions 5, 6).</FONT></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+17.0 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>name of operating system does not start with "Win"</Relevance>
+		<Relevance><![CDATA[version of client < "9.0.785.0" and version of client >= "7.0"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.0"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "CentOS (5|6)") of name of operating system</Relevance>
+		<Relevance>((it = "x86_64") OR ((exists match (regex "^i[6-9]86$") of it) of it)) of architecture of operating system</Relevance>
+		<Relevance><![CDATA[if (version of client < "8.0") then true else ((not exists relay service) or (version of relay service >= "9.0.785.0") or (version of client = "9.0.777.0"))]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>17845745</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-09-30</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 07 Oct 2013 18:04:53 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager Client 9.0.785.0 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {((exists match (regex "CentOS.* (5|6)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+	// CentOS Linux 5.x or 6.x 64 bit x86
+	prefetch BESClientUpgrade.rpm sha1:04d607a55757edab59937af08cf609c25c8bc49a size:8923891 http://software.bigfix.com/download/bes/90/BESAgent-9.0.785.0-rhe5.x86_64.rpm
+elseif  {((exists match (regex "CentOS.* (5|6)") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+	// CentOS Linux 5.x or 6.x 32 bit x86 - i686 Minimum
+	prefetch BESClientUpgrade.rpm sha1:c793ba992e68b57a1b8f46c2bb844ac329568dd6 size:8921854 http://software.bigfix.com/download/bes/90/BESAgent-9.0.785.0-rhe5.i686.rpm
+else
+	// No Known Configuration
+	continue if false
+endif
+
+continue if {exists file "__Download/BESClientUpgrade.rpm"}
+delete "/var/tmp/BESClientUpgrade.rpm"
+// If the next line fails, there is not enough free space to complete this action
+continue if {8923891 < free space of drive of folder "/var/tmp"}
+move __Download/BESClientUpgrade.rpm "/var/tmp/BESClientUpgrade.rpm"
+
+delete "{(client folder of current site as string) & "/__appendfile"}"
+appendfile #!/bin/sh
+if {exists file "/etc/init.d/besclient"}
+    appendfile /etc/init.d/besclient stop
+else
+    appendfile /etc/init.d/BESClient-{version of client as string} stop
+endif
+appendfile /bin/rpm -U "/var/tmp/BESClientUpgrade.rpm"
+appendfile /etc/init.d/besclient start
+appendfile /bin/rm -f "/var/tmp/BESClientUpgrade.rpm"
+
+delete /var/tmp/besclientupgrade
+move "{(client folder of current site as string) & "/__appendfile"}" /var/tmp/besclientupgrade
+wait chmod +x /var/tmp/besclientupgrade
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /var/tmp/besclientupgrade]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.0.785.0"]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

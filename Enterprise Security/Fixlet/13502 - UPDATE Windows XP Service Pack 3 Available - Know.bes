@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Windows XP Service Pack 3 Available - Known Issues - Free Space</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released a service pack for Windows XP. Windows XP Service Pack 3 (SP3) includes all previously released Windows XP updates, including security updates and hotfixes. It also includes select out-of-band releases, and a small number of new enhancements, which do not significantly change customers' experience with the operating system.</FONT></P> <P><FONT size=2>The listed computers have less than 1.5 GB of free hard drive space. Microsoft recommends having at least 1.5 GB of available space before attempting the installation of Service Pack 3. Please see the release notes for Windows XP Service Pack 3 linked below for more information.</FONT></P><P><B>Note:</B> This security update is also referenced under KB936929.</P><P><B>Note:</B> There is no default action for this Fixlet message because it does not have a deployment action. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinXP"</Relevance>
+		<Relevance><![CDATA[build number of operating system >= 2600]]></Relevance>
+		<Relevance>(it = "" OR it = "Service Pack 1" OR it = "Service Pack 2") of csd version of operating system</Relevance>
+		<Relevance><![CDATA[(free space of drive of parent folder of system folder /1048576) < 1500]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB936330</SourceID>
+		<SourceReleaseDate>2008-05-06</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the release notes for Windows XP SP3.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=936929</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

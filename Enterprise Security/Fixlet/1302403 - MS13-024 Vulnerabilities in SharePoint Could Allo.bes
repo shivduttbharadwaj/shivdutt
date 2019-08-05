@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-024: Vulnerabilities in SharePoint Could Allow Elevation of Privilege - SharePoint Foundation 2010 SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves four privately reported vulnerabilities in Microsoft SharePoint and Microsoft SharePoint Foundation. The most severe vulnerabilities could allow elevation of privilege if a user clicks a specially crafted URL that takes the user to a targeted SharePoint site.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2687418.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+31.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(((exists file "CSISRV.DLL" whose ((version of it < "14.0.6134.5000")) of it) OR (exists file "CSISRVEXE.EXE" whose ((version of it < "14.0.6123.5000")) of it)) of folder "Microsoft Shared\Web Server Extensions\14\BIN" of folder ((value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of native registry) as string)) OR (((exists file "MICROSOFT.WEB.COMMANDUI.DLL" whose ((version of it < "14.0.6128.5000")) of it)) of folder "Microsoft Shared\Web Server Extensions\14\ISAPI" of folder ((value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of native registry) as string)) OR (((exists file "MICROSOFT.SHAREPOINT.PROXY.DLL" whose ((version of it < "14.0.6131.5000")) of it)) of folder "Microsoft Shared\Web Server Extensions\14\CONFIG\BIN" of folder ((value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of native registry) as string)) OR (exists (files "MICROSOFT.SHAREPOINT.CLIENT.DLL" whose ((version of it < "14.0.6131.5000")) of it) of folders whose (name of it starts with "14.") of (folder (pathname of windows folder & "\assembly\GAC_MSIL\Microsoft.SharePoint.Client"))) OR (exists (files "MICROSOFT.SHAREPOINT.CLIENT.SERVERRUNTIME.DLL" whose (version of it < "14.0.6108.5000") of it) of folders whose (name of it starts with "14.") of (folder (pathname of windows folder & "\assembly\GAC_MSIL\Microsoft.SharePoint.Client.ServerRuntime"))) OR (exists (files "MICROSOFT.SHAREPOINT.IDENTITYMODEL.DLL" whose ((version of it < "14.0.6120.5000")) of it) of folders whose (name of it starts with "14.") of (folder (pathname of windows folder & "\assembly\GAC_MSIL\Microsoft.SharePoint.IdentityModel")))]]></Relevance>
+		<Relevance>((exists key whose ((name of it as string equals "00004109011100000100000000F01FEC" OR name of it as string equals "00004109410100000100000000F01FEC") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "14.0.6029.1000") of it) AND (not exists key whose (name of it as string equals "ECC87E289833FC64183B21A7D781A878") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>33167400</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2687418</SourceID>
+		<SourceReleaseDate>2013-03-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2013-0080; CVE-2013-0084; CVE-2013-0085</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 31 Jul 2018 23:59:46 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch wss2010-kb2687418-fullfile-x64-glb.exe sha1:9db7605c62cb6daab93e564557999b6027dfc926 size:33167400 http://download.microsoft.com/download/1/C/0/1C0C9AD9-798C-43F9-88C5-DBCBD6F0CDB7/wss2010-kb2687418-fullfile-x64-glb.exe sha256:b2e9a860142706698b2d058beff66415f48d6e1577c43103c375fa40949a2ade
+
+waithidden __Download\wss2010-kb2687418-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "9db7605c62cb6daab93e564557999b6027dfc926"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/bulletin/MS13-024</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-APR: Security update for the information disclosure vulnerability - Visual Studio 2015 Update 3 - KB4087371</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>This security update addresses the PDB issue that is described in CVE-2018-1037, in which a PDB file may contain uninitialized heap content in a process that updates an existing PDB file, such as mspdbsrv.exe.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> This update is also referenced under KB4087371.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.16 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("B234B2FCD2691913CBE29A04DFECF38E";"7B33C450A025AB03989439304FC957DA") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "54D9CEFB4DABC7D36B7A88D7126E2CA5" OR name of it = "1EC079F8C0B549B35910B86C76C7CD65") AND exists key "InstallProperties" whose ((it = "14.0.24210") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "7682F93F6942E4A47BAD0C0F581412F7" of key "Patches" of it) of it OR exists keys ((names of values of keys ("2EDEFEA9AB3C3423783D6F96BFF28407";"1E08C60E4B64FE339A884565A93F2864") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "F331648BA8E0A5E3DA7CEF44B960F9F2" OR name of it = "3C8C55C6B0B63773FB8554032512DEA6") AND exists key "InstallProperties" whose ((it = "15.0.24210") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "7682F93F6942E4A47BAD0C0F581412F7" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "15.0" OR value "ProductVersion" of it as string as version = "14.0" AND "|MSPDB140.DLL_DTINMYQFEQGN.QZSWMZ3WYNAAFS_X86|MSPDB140.DLL_NE4QGJFRCUMAN6HWVPA_CPW_T30_X86|MSPDBCORE.DLL_PUF20HJSO70XPYXSG6DT4BHNQBU_X86|MSPDBCORE.DLL_SJXY9D0NQBVEYC4IMWRQKHKZG74_X86|MSPDBSRV.EXE_KKN.VEYSVOCYB1DRCW.XO1EY1IQ_X86|MSPDBSRV.EXE_TCCG6FK1BUHAGYVZNYXDOVNSMZY_X86|MSPDBST.DLL_540P2X58_NZLI_2OJBKNOPBAV1A_X86|MSPDBST.DLL_QL5CBJ6XVDZLK6QV8AGVBI2LVKU_X86|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "15.0" OR it = "14.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "15.0" OR it = "14.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "15.0" OR it = "14.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "MSPDB140.DLL_DTINMYQFEQGN.QZSWMZ3WYNAAFS_X86" AND (item 3 of it = "14.00.24235.0" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 06 Jul 2018 02:03:14 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.00.24235.0") OR item 0 of it = "MSPDB140.DLL_NE4QGJFRCUMAN6HWVPA_CPW_T30_X86" AND (item 3 of it = "14.00.24235.0" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 06 Jul 2018 02:03:14 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.00.24235.0") OR item 0 of it = "MSPDBCORE.DLL_PUF20HJSO70XPYXSG6DT4BHNQBU_X86" AND (item 3 of it = "14.00.24235.0" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 06 Jul 2018 02:03:14 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.00.24235.0") OR item 0 of it = "MSPDBCORE.DLL_SJXY9D0NQBVEYC4IMWRQKHKZG74_X86" AND (item 3 of it = "14.00.24235.0" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 06 Jul 2018 02:03:14 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.00.24235.0") OR item 0 of it = "MSPDBSRV.EXE_KKN.VEYSVOCYB1DRCW.XO1EY1IQ_X86" AND (item 3 of it = "14.00.24235.0" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 06 Jul 2018 02:03:14 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.00.24235.0") OR item 0 of it = "MSPDBSRV.EXE_TCCG6FK1BUHAGYVZNYXDOVNSMZY_X86" AND (item 3 of it = "14.00.24235.0" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 06 Jul 2018 02:03:14 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.00.24235.0") OR item 0 of it = "MSPDBST.DLL_540P2X58_NZLI_2OJBKNOPBAV1A_X86" AND (item 3 of it = "14.00.24235.0" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 06 Jul 2018 02:03:14 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.00.24235.0") OR item 0 of it = "MSPDBST.DLL_QL5CBJ6XVDZLK6QV8AGVBI2LVKU_X86" AND (item 3 of it = "14.00.24235.0" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 06 Jul 2018 02:03:14 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.00.24235.0")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{F39F2867-2496-4A4E-B7DA-C0F08541217F}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Relevance><![CDATA[exists key whose ( (it = "ultimate" OR it = "enterprise" OR it = "premium" OR it = "professional" OR it = "community") of name of it AND value "UpdateVersion" of it as string as version >= "14.0.25431") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DevDiv\vs\Servicing\14.0" of x32 registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>6464480</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4087371</SourceID>
+		<SourceReleaseDate>2018-04-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-1037</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Apr 2018 08:32:21 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:visual_studio_2015:-:update3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Developer Tools, Runtimes, and Redistributables</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Visual Studio 2015</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 26 Oct 2018 18:29:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch VS14-KB4087371.exe sha1:df129ba5448973fbd81471107e16c7d2e0199bb7 size:6464480 https://download.visualstudio.microsoft.com/download/pr/12043007/da90565370532f6d2ddbea5ce0303fe9/VS14-KB4087371.exe sha256:c452851427b185162e0fbf2fd62e2d5ef000bfb184a62d0c0fb273d4546f937e
+
+waithidden __Download\VS14-KB4087371.exe /Q /NoRestart
+
+action may require restart "df129ba5448973fbd81471107e16c7d2e0199bb7"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4087371</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

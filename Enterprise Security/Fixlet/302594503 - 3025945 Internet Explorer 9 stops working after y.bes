@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3025945: Internet Explorer 9 stops working after you install update 3008923 in Windows - Windows 7 SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This update is also referenced under KB3025945.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.70 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win7") AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance>version of regapp "iexplore.exe" = "9"</Relevance>
+		<Relevance><![CDATA[((exists key "Microsoft-Windows-InternetExplorer-VistaPlus-Update~31bf3856ad364e35~x86~~9.4.8112.16421" of it OR exists key "Microsoft-Windows-InternetExplorer-VistaPlus-Update~31bf3856ad364e35~x86~~9.4.8112.16443" of it) of item 0 of it AND (exists key "x86_microsoft-windows-ieframe_31bf3856ad364e35_none_33803cec58d5f1e9" whose (exists key (if (exists default value of it) then default value of it as string else "9.4") whose ((it >= "9.4.8112.20000" AND it < "9.4.8112.20724" OR it >= "9.4.8112.20000" AND it < "9.4.8112.20722" OR it >= "9.4.8112.20000" AND it < "9.4.8112.20719" OR it >= "9.4.8112.10000" AND it < "9.4.8112.16619" OR it >= "9.4.8112.10000" AND it < "9.4.8112.16607" OR it >= "9.4.8112.10000" AND it < "9.4.8112.16603") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "ba77aa242aa4a0991c8879f9a04aaedd4c4b67c0"</Relevance>
+		<Relevance><![CDATA[number of (elements of ((set of (if (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) then elements whose ((it contains "KB3008923" ) AND it does not contain "_") of (set of ((substrings before "~" of substrings after "for_" of names of keys whose (name of it contains "for_" AND (it = 96 or it = 112 or it = 6 or it = 7) of (value "CurrentState" of it as integer)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) as uppercase)) else (nothing))))) > 0]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>3881811</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3025945</SourceID>
+		<SourceReleaseDate>2015-01-12</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 23 Jan 2015 06:16:13 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 SP1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch ie9-windows6.1-kb3025945-x86_ba77aa242aa4a0991c8879f9a04aaedd4c4b67c0.msu sha1:ba77aa242aa4a0991c8879f9a04aaedd4c4b67c0 size:3881811 http://download.windowsupdate.com/d/msdownload/update/software/updt/2015/01/ie9-windows6.1-kb3025945-x86_ba77aa242aa4a0991c8879f9a04aaedd4c4b67c0.msu sha256:61a68b442a4f5e3e5bcf4181021cba3cbc9929a750ebac1633df831f8ed2bc5b
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\ie9-windows6.1-kb3025945-x86_ba77aa242aa4a0991c8879f9a04aaedd4c4b67c0.msu"}" /quiet /norestart
+
+action requires restart "ba77aa242aa4a0991c8879f9a04aaedd4c4b67c0"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3025945</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

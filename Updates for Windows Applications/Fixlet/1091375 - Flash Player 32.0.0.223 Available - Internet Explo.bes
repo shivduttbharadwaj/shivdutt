@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Flash Player 32.0.0.223 Available - Internet Explorer</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P>Adobe has released a new version of Flash Player (32.0.0.223) for Internet Explorer. Use one of the actions below to update the Flash Player ActiveX control to the latest version.</P> <P><STRONG>Important Note:</STRONG> There are two different installer packages for deploying this version of Flash Player ActiveX. Both will update your Flash Player to the latest version.</P> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG>  For the update to take effect immediately, choose the "Close Internet Explorer and deploy the Flash Player ActiveX .EXE Installer." action. The action will close any running instance of Internet Explorer on the client machines. Schedule the update to occur at a time when a service interruption is acceptable.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+19.8 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+Unspecified
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>(exists folder "macromed\flash" of system folder AND (exists file whose ((it starts with "flash" and it ends with ".ocx") of (name of it as lowercase)) of it OR exists file whose ((it starts with "swflash" and it ends with ".ocx") of (name of it as lowercase)) of it OR exists file whose (((it starts with "npswf32" or it starts with "pepflashplayer") and it ends with ".dll") of (name of it as lowercase)) of it) of folder "macromed\flash" of system folder) OR (exists key "HKLM\Software\Mozilla" whose (exists key whose (name of it does not contain "Netscape" AND exists key "Extensions" whose (exists file whose ((it starts with "npswf32" and it ends with ".dll") of (name of it as lowercase)) of folder (value "Plugins" of it as string)) of it) of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists folder "macromed\flash" of system folder) AND ((exists file whose (((it starts with "flash" and it ends with ".ocx") OR (it = "swflash.ocx")) of (name of it as lowercase) and version of it < "32.0.0.223") of it and not exists file whose ((it starts with "flash" and it ends with ".ocx") of (name of it as lowercase) and version of it >= "32.0.0.223") of it) of folder "macromed\flash" of system folder)]]></Relevance>
+		<Relevance>(it != "WinNT" AND it != "Win95" AND it != "Win2000" AND it!= "Win8" AND it != "Win2012" AND it != "Win8.1" AND it != "Win2012R2" AND it != "Win10" AND it != "Win2016") of name of operating system</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2.0") of system folder]]></Relevance>
+		<Relevance>name of operating system != "Win2016" OR not (name of it starts with "Win20" AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>20786712</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2019-07-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>SANS C4</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 11 Jul 2019 19:28:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:flash_player:32.0.0.223:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe FlashPlayer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 11 Jul 2019 19:28:02 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the Flash Player ActiveX .EXE Installer.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch install_flash_player_ax.exe sha1:5d888aeaf5d7faa7730bd27e9ecb9aba006e1b0e size:20786712 http://fpdownload.adobe.com/get/flashplayer/pdc/32.0.0.223/install_flash_player_ax.exe  sha256:69d2319f3dcee93bd9b1efc725da843e647f049168e84ce3eaea30689477eb29
+
+wait __Download\install_flash_player_ax.exe /install
+
+if {exists scheduled task whose (name of it = "Adobe Flash Player Updater")}
+waithidden cmd /C schtasks /Delete /TN "Adobe Flash Player Updater" /F >> action.log
+endif
+
+action may require restart "5d888aeaf5d7faa7730bd27e9ecb9aba006e1b0e"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to close Internet Explorer and deploy the Flash Player ActiveX .EXE Installer.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch install_flash_player_ax.exe sha1:5d888aeaf5d7faa7730bd27e9ecb9aba006e1b0e size:20786712 http://fpdownload.adobe.com/get/flashplayer/pdc/32.0.0.223/install_flash_player_ax.exe  sha256:69d2319f3dcee93bd9b1efc725da843e647f049168e84ce3eaea30689477eb29
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill iexplore /a" else "taskkill /F /IM iexplore.exe"}
+
+wait __Download\install_flash_player_ax.exe /install
+
+if {exists scheduled task whose (name of it = "Adobe Flash Player Updater")}
+waithidden cmd /C schtasks /Delete /TN "Adobe Flash Player Updater" /F >> action.log
+endif
+
+action may require restart "5d888aeaf5d7faa7730bd27e9ecb9aba006e1b0e"]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/flashplayer/downloads.html</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#flashplayer</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in media player applications.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c4</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

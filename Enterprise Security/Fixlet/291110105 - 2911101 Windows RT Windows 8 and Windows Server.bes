@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2911101: Windows RT, Windows 8, and Windows Server 2012 update rollup - Windows 8 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB2911101.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.35 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists key "Microsoft-Windows-Common-Drivers-Package-drivers~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_input.inf_31bf3856ad364e35_none_2b9f33cb1347df67" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16769") of (default value of it as string as version)) of it) of it OR (exists key "x86_input.inf_31bf3856ad364e35_none_2b9f33cb1347df67" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it AND exists key "x86_hidi2c.inf_31bf3856ad364e35_none_b5f1e308a1d50100" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-Common-Foundation-Package~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_microsoft-windows-tcpip-binaries_31bf3856ad364e35_none_aaf8a46599b19664" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20846" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16734") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-WinPE-Drivers-Package-drivers~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_hidi2c.inf_31bf3856ad364e35_none_b5f1e308a1d50100" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16769") of (default value of it as string as version)) of it) of it OR (exists key "x86_hidi2c.inf_31bf3856ad364e35_none_b5f1e308a1d50100" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it AND exists key "x86_input.inf_31bf3856ad364e35_none_2b9f33cb1347df67" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-Client-Drivers-Package-drivers~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_hidi2c.inf_31bf3856ad364e35_none_b5f1e308a1d50100" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16769") of (default value of it as string as version)) of it) of it OR (exists key "x86_hidi2c.inf_31bf3856ad364e35_none_b5f1e308a1d50100" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it AND exists key "x86_input.inf_31bf3856ad364e35_none_2b9f33cb1347df67" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-Client-Features-Package-net~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_microsoft-windows-wwanapndatabase_31bf3856ad364e35_none_4b055336df3e2d53" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20888" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16771") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Common-Drivers-Package-drivers~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_input.inf_31bf3856ad364e35_none_2b9f33cb1347df67" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16769") of (default value of it as string as version)) of it) of it OR (exists key "x86_input.inf_31bf3856ad364e35_none_2b9f33cb1347df67" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it AND exists key "x86_hidi2c.inf_31bf3856ad364e35_none_b5f1e308a1d50100" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-Common-Foundation-Package~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_microsoft-windows-tcpip-binaries_31bf3856ad364e35_none_aaf8a46599b19664" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20846" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16734") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Common-Foundation-Package~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_microsoft-windows-tcpip-binaries_31bf3856ad364e35_none_aaf8a46599b19664" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20846" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16734") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-INF-hidi2c~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_hidi2c.inf_31bf3856ad364e35_none_b5f1e308a1d50100" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16769") of (default value of it as string as version)) of it) of it OR (exists key "x86_hidi2c.inf_31bf3856ad364e35_none_b5f1e308a1d50100" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it AND exists key "x86_input.inf_31bf3856ad364e35_none_2b9f33cb1347df67" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-INF-input~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_input.inf_31bf3856ad364e35_none_2b9f33cb1347df67" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16769") of (default value of it as string as version)) of it) of it OR (exists key "x86_input.inf_31bf3856ad364e35_none_2b9f33cb1347df67" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it AND exists key "x86_hidi2c.inf_31bf3856ad364e35_none_b5f1e308a1d50100" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20886") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-WWAN-Client-Package~31bf3856ad364e35~x86~~6.2.9200.16384" of it) of item 0 of it AND (exists key "x86_microsoft-windows-wwanapndatabase_31bf3856ad364e35_none_4b055336df3e2d53" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.20888" OR it >= "6.2.9200.10000" AND it < "6.2.9200.16771") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "68cdb7c2848805a84507d80adf8d802e28036fe0"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>1411257</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2911101</SourceID>
+		<SourceReleaseDate>2014-01-13</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 19 Feb 2014 10:07:50 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8 Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB2911101-x86.msu sha1:68cdb7c2848805a84507d80adf8d802e28036fe0 size:1411257 http://download.microsoft.com/download/6/F/F/6FF4E624-0990-469A-86DD-C0E30135EC7C/Windows8-RT-KB2911101-x86.msu sha256:dce5f3d88a1fabb262010516c4a5322232d6403a32efdeea7d2a5ec77ba598bf
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB2911101-x86.msu"}" /quiet /norestart
+
+action requires restart "68cdb7c2848805a84507d80adf8d802e28036fe0"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2911101</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

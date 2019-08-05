@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Acrobat DC 2015.006.30121 Available - Adobe Acrobat DC - Classic Track (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been superseded by 15.006.30198.<br /><br />Adobe has released a new version of Adobe Acrobat DC. Use the action below to update Adobe Acrobat DC to the latest version (2015.006.30121).</P> <P><B>Note:</B> Affected computers might report back as 'Pending Restart' once the patch runs successfully, but will not report back their final status until the computer is restarted.</P> <P><SPAN id=fixletLinks></SPAN><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade Adobe Acrobat DC regardless of whether or not Adobe Acrobat DC is running" action will close any running instance of Adobe Acrobat DC on the client machines. Schedule the update to occur at a time when a service interruption is acceptable.</SPAN></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+104 MB 
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2016-1007; CVE-2016-1008; CVE-2016-1009
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[version of operating system >= "6.1"]]></Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "8")]]></Relevance>
+		<Relevance><![CDATA[(exists key whose (value "DisplayName" of it as string contains "Adobe Acrobat DC" AND (it>"15.0.0" and it < "15.006.30121") of (value "DisplayVersion" of it as string as version)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Relevance>exists matches (regex "\d*\.\d*\.30\d*") of (value "DisplayVersion" of it as string) of keys whose (value "DisplayName" of it as string contains "Adobe Acrobat DC") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>109166592</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB16-09</SourceID>
+		<SourceReleaseDate>2016-03-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2016-1007; CVE-2016-1008; CVE-2016-1009</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 20 Apr 2016 04:00:11 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2016-07-13</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Acrobat</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 04:40:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Acrobat2015Upd1500630121.msp sha1:0ed68b8fd911e5f8097ce327404b4f9a6f7929f3 size:109166592 http://ardownload.adobe.com/pub/adobe/acrobat/win/Acrobat2015/1500630121/Acrobat2015Upd1500630121.msp sha256:cd9e8f7686d4ba86730bfb9519cd6226793014f19885cc6e5df0fd6bd2286d03
+
+wait msiexec.exe /p "__Download\Acrobat2015Upd1500630121.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "0ed68b8fd911e5f8097ce327404b4f9a6f7929f3"</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Adobe Acrobat DC regardless of whether or not Adobe Acrobat DC is running.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Acrobat2015Upd1500630121.msp sha1:0ed68b8fd911e5f8097ce327404b4f9a6f7929f3 size:109166592 http://ardownload.adobe.com/pub/adobe/acrobat/win/Acrobat2015/1500630121/Acrobat2015Upd1500630121.msp sha256:cd9e8f7686d4ba86730bfb9519cd6226793014f19885cc6e5df0fd6bd2286d03
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrobat /a" else "taskkill /F /IM acrobat.exe"}
+
+wait msiexec.exe /p "__Download\Acrobat2015Upd1500630121.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "0ed68b8fd911e5f8097ce327404b4f9a6f7929f3"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Acrobat.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=6033</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#acrobatwin</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS17-OCT: Security update for the Windows GDI information disclosure vulnerability - Windows Server 2008 SP2 - KB4042121 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4471319.<br /><br /><div class="kb-summary-section section">An information disclosure vulnerability exists in the way that the Windows Graphics Device Interface (GDI) handles objects in memory, which could&nbsp;allow&nbsp;an attacker to retrieve information from a targeted system.<br><br><br><br>To learn more about the vulnerability, go to <a href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2017-11816" id="kb-link-2" target="_self"> CVE-2017-11816</a>.</div><br><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This security update is also referenced under KB4042121.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+344.4 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008"))) of operating system</Relevance>
+		<Relevance>((name of it = "Win2008" OR name of it = "WinVista" AND product type of it != nt workstation product type) AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4042121~31bf3856ad364e35~x86~~6.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4042121~31bf3856ad364e35~x86~~6.0.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Package_129_for_KB948465~31bf3856ad364e35~x86~~6.0.1.18005";"Package_239_for_KB948465~31bf3856ad364e35~x86~~6.0.1.18005";"Package_25_for_KB948465~31bf3856ad364e35~x86~~6.0.1.18005") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.0.6000.16386") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-gdi32_31bf3856ad364e35_none_56d52316f2421c57" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002" AND it < "6.0.6002.24200") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~x86~~6.0.6001.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-gdi32_31bf3856ad364e35_none_56d52316f2421c57" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002" AND it < "6.0.6002.24200") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~x86~~6.0.6001.18000") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "x86_microsoft-windows-gdi32_31bf3856ad364e35_none_56d52316f2421c57" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002" AND it < "6.0.6002.24200") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "0faff16a6f8a2860febf6436a46de7c6b26e9c99"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>352629</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4042121</SourceID>
+		<SourceReleaseDate>2017-10-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2017-11816</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Oct 2017 00:33:52 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4471319</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2008:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>447131903</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-16</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 18:11:24 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows6.0-kb4042121-x86_0faff16a6f8a2860febf6436a46de7c6b26e9c99.msu sha1:0faff16a6f8a2860febf6436a46de7c6b26e9c99 size:352629 http://download.windowsupdate.com/d/msdownload/update/software/secu/2017/09/windows6.0-kb4042121-x86_0faff16a6f8a2860febf6436a46de7c6b26e9c99.msu sha256:320605f309325f808cf8a070105dd50e64bbf40be96cd485f7f2a73a0028575a
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows6.0-kb4042121-x86_0faff16a6f8a2860febf6436a46de7c6b26e9c99.msu"}" /quiet /norestart
+
+action requires restart "0faff16a6f8a2860febf6436a46de7c6b26e9c99"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4042121</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

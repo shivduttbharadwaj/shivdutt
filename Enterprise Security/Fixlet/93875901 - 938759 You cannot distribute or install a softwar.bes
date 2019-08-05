@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>938759: You cannot distribute or install a software package in Windows Server 2003 if the software package contains a very large signed file - Windows Server 2003 - KB938759</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve an issue where you cannot distribute or install a software package in Windows Server 2003 if the software package contains a very large signed CAB/EXE file.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB938759.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1003 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win2003") AND (service pack major version of it = 1 OR service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "crypt32.dll" whose ((service pack major version of operating system = 1 AND ((version of it < "5.131.3790.3086"))) OR (service pack major version of operating system = 2 AND ((version of it < "5.131.3790.4231")))) of it) OR (exists file "imagehlp.dll" whose ((service pack major version of operating system = 1 AND ((version of it < "5.2.3790.3086"))) OR (service pack major version of operating system = 2 AND ((version of it < "5.2.3790.4231")))) of it) OR (exists file "wintrust.dll" whose ((service pack major version of operating system = 1 AND ((version of it < "5.131.3790.3086"))) OR (service pack major version of operating system = 2 AND ((version of it < "5.131.3790.4231")))) of it)) of (system folder)]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb938759-v4" of registry)</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>1027120</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB938759</SourceID>
+		<SourceReleaseDate>2008-03-19</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 SP1 |~| Windows Server 2003 SP2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB938759-v4-x86-ENU.exe sha1:4611db23b1c693b43bb7de822d5e1fe2ee34bef7 size:1027120 https://download.microsoft.com/download/0/f/e/0fe306f3-22e8-4456-8d33-7f9158988148/WindowsServer2003-KB938759-v4-x86-ENU.exe sha256:b59c830a418525ee7ab6c0d5bb8f3d05610cc673aa5ada30d14dd198aaa89463
+
+waithidden __Download\WindowsServer2003-KB938759-v4-x86-ENU.exe /quiet /norestart
+
+action may require restart "4611db23b1c693b43bb7de822d5e1fe2ee34bef7"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/938759</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

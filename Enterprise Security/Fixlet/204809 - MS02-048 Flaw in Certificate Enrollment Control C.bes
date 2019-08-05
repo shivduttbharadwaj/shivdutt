@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-048: Flaw in Certificate Enrollment Control Could Allow Deletion of Digital Certificates - Windows ME</Title>
+		<Description><![CDATA[
+Microsoft has released a patch eliminating a security vulnerability in Windows ME. The vulnerability results from a flaw in Certificate Enrollment Control, an ActiveX control responsible for enrolling web-based certificates. A malicious user can launch a denial of service attack by deleting or corrupting digital certificates on a user's system. This patch eliminates the vulnerability by upgrading the Certificate Enrollment Control.<BR><BR><b>Note:</b> Once this Fixlet has completed its action, affected computers will report back 'Pending Restart', as the vulnerability will not yet be closed. Once the computer has been restarted, it will report its final status.<BR><BR><b>File Size:</b> 211 KB<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinME"</Relevance>
+		<Relevance><![CDATA[exists key "HKLM\Software\Microsoft\Internet Explorer" whose (exists value "version" whose (it as string as version >= "5.00.2919.6307") of it) of registry]]></Relevance>
+		<Relevance><![CDATA[((exists file (pathname of system folder & "\xenroll.dll")) AND (version of file (pathname of system folder & "\xenroll.dll") < "5.131.3659.0"))]]></Relevance>
+		<Relevance>not pending restart "4d83c11dbc956b4b8097971b0fb661f63c6ed562"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>216896</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB323172</SourceID>
+		<SourceReleaseDate>2002-08-28</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2002-0699</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Certificate Enrollment Control</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinME</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch 323172USAM.EXE sha1:4d83c11dbc956b4b8097971b0fb661f63c6ed562 size:216896 http://download.microsoft.com/download/WINME/PATCH/24421/WINME/EN-US/323172USAM.EXE sha256:9dbd8188f643ef430ed1810d6d0bead7b8d74478044c77962e311c0c4ddf4159
+wait __download/323172USAM.EXE /Q:A /R:N
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart "4d83c11dbc956b4b8097971b0fb661f63c6ed562"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-048.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-048.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

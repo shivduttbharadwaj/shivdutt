@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS04-044: Vulnerabilities in Windows Kernel and LSASS Could Allow Elevation of Privilege - Windows NT Terminal Server (Large System Partition)</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released a patch eliminating several security vulnerabilities in the Windows Kernel. An attacker who successfully exploited these vulnerabilities could take complete control of an affected system. After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities.</FONT></P><FONT size=2> <P><FONT size=2><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> The listed computers have system partitions larger than 7.8 GB and may not restart correctly after installing this patch. </FONT>See <A href="http://support.microsoft.com/kb/885835"><FONT color=#0000ff>Microsoft Knowledge Base Article 885835</FONT></A> for more information. If necessary, you can deploy the patch by issuing a 'custom action' using the action script provided in fixlet #404409.</P> <P> </P><!--StartFragment --></FONT><P><B>Note:</B> There is no default action for this Fixlet message because it does not have a deployment action. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinNT" and major version of operating system = 4</Relevance>
+		<Relevance>csd version of operating system contains "6"</Relevance>
+		<Relevance>(value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry as string contains "Terminal Server")</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix\KB885835" whose (value "Installed" of it = 1) of registry </Relevance>
+		<Relevance><![CDATA[(exists file "Ntkrnlmp.exe" whose (version of it < "4.0.1381.33591") of it OR exists file "Ntoskrnl.exe" whose (version of it < "4.0.1381.33591") of it) of system folder]]></Relevance>
+		<Relevance><![CDATA[(total space of drive of system folder / 1024 / 1024) >= 7885]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB885835</SourceID>
+		<SourceReleaseDate>2004-12-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2004-0893; CVE-2004-0894</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS04-044.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS04-044.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

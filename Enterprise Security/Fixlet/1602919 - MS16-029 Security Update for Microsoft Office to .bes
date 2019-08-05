@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS16-029: Security Update for Microsoft Office to Address Remote Code Execution - Office 2007 SP3 - KB2956110</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft Office. The most severe of the vulnerabilities could allow remote code execution if a user opens a specially crafted Microsoft Office file. An attacker who successfully exploited the vulnerabilities could run arbitrary code in the context of the current user. Customers whose accounts are configured to have fewer user rights on the system could be less impacted than those who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2956110.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.57 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00002119B20000000000000000F01FEC";"00002119030000000000000000F01FEC";"00002119F20000000000000000F01FEC";"00002119610000000000000000F01FEC";"00002119110000000000000000F01FEC";"00002119310000000000000000F01FEC";"000021190E0000000000000000F01FEC";"000021090E0000000000000000F01FEC";"00002109110000000000000000F01FEC";"00002119A10000000000000000F01FEC";"00002119AC0000000000000000F01FEC";"00002109030000000000000000F01FEC";"00002109A10000000000000000F01FEC";"00002109AC0000000000000000F01FEC";"00002119210000000000000000F01FEC";"00002119130000000000000000F01FEC";"00002119E20000000000000000F01FEC";"00002119410000000000000000F01FEC";"00002119530000000000000000F01FEC";"00002119CB0000000000000000F01FEC";"00002109CB0000000000000000F01FEC";"00002119330000000000000000F01FEC";"00002119920000000000000000F01FEC";"00002109210000000000000000F01FEC";"00002109410000000000000000F01FEC";"00002119B10000000000000000F01FEC";"00002109610000000000000000F01FEC";"00002109B10000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.6612.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "A0FDC884C8905FC45825ADF5F2B78792" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "12.0" AND "|FL_MSOSEC_DLL_____X86.3643236F_FC70_11D3_A536_0090278A1BB8|FL_MSVCR71_DLL_11_____X86.3643236F_FC70_11D3_A536_0090278A1BB8|FL_OTKLOADR_DLL_____X86.3643236F_FC70_11D3_A536_0090278A1BB8|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (exists key whose ((it = "12.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "FL_MSOSEC_DLL_____X86.3643236F_FC70_11D3_A536_0090278A1BB8" AND (item 1 of it = true AND item 2 of it = "7.10.5078.0" OR item 2 of it < "7.10.5078.0") OR item 0 of it = "FL_MSVCR71_DLL_11_____X86.3643236F_FC70_11D3_A536_0090278A1BB8" AND (item 1 of it = true AND item 2 of it = "7.10.3078.0" OR item 2 of it < "7.10.3078.0") OR item 0 of it = "FL_OTKLOADR_DLL_____X86.3643236F_FC70_11D3_A536_0090278A1BB8" AND (item 1 of it = true AND item 2 of it = "7.10.5079.0" OR item 2 of it < "7.10.5079.0")) of (value "File" of it as string as uppercase, (value "IsFullFile" of it as integer = 0 OR value "PatchGUID" of it as string as uppercase != "{488CDF0A-098C-4CF5-8552-DA5F2F7B7829}"), value "ComponentVersion" of it as string as version) AND ((set of (((names of values of keys "00002110310000000000000000F01FEC" of it);(names of values of keys "00002110030000000000000000F01FEC" of it);(names of values of keys "00002100030000000000000000F01FEC" of it);(names of values of keys "00002110920000000000000000F01FEC" of it);(names of values of keys "00002110610000000000000000F01FEC" of it);(names of values of keys "00002100610000000000000000F01FEC" of it);(names of values of keys "00002110F20000000000000000F01FEC" of it);(names of values of keys "00002110CB0000000000000000F01FEC" of it);(names of values of keys "00002100CB0000000000000000F01FEC" of it);(names of values of keys "00002110A10000000000000000F01FEC" of it);(names of values of keys "000021100E0000000000000000F01FEC" of it);(names of values of keys "000021000E0000000000000000F01FEC" of it);(names of values of keys "00002100A10000000000000000F01FEC" of it);(names of values of keys "00002110330000000000000000F01FEC" of it);(names of values of keys "00002110530000000000000000F01FEC" of it);(names of values of keys "00002110130000000000000000F01FEC" of it);(names of values of keys "00002110110000000000000000F01FEC" of it);(names of values of keys "00002100110000000000000000F01FEC" of it);(names of values of keys "00002110410000000000000000F01FEC" of it);(names of values of keys "00002100410000000000000000F01FEC" of it);(names of values of keys "00002110AC0000000000000000F01FEC" of it);(names of values of keys "00002100AC0000000000000000F01FEC" of it);(names of values of keys "00002110210000000000000000F01FEC" of it);(names of values of keys "00002100210000000000000000F01FEC" of it);(names of values of keys "00002110E20000000000000000F01FEC" of it);(names of values of keys "00002110B20000000000000000F01FEC" of it);(names of values of keys "00002110B10000000000000000F01FEC" of it);(names of values of keys "00002100B10000000000000000F01FEC" of it)) whose (set of ("00002119310000000000000000F01FEC";"00002119030000000000000000F01FEC";"00002109030000000000000000F01FEC";"00002119920000000000000000F01FEC";"00002119610000000000000000F01FEC";"00002109610000000000000000F01FEC";"00002119F20000000000000000F01FEC";"00002119CB0000000000000000F01FEC";"00002109CB0000000000000000F01FEC";"00002119A10000000000000000F01FEC";"000021190E0000000000000000F01FEC";"000021090E0000000000000000F01FEC";"00002109A10000000000000000F01FEC";"00002119330000000000000000F01FEC";"00002119530000000000000000F01FEC";"00002119130000000000000000F01FEC";"00002119110000000000000000F01FEC";"00002109110000000000000000F01FEC";"00002119410000000000000000F01FEC";"00002109410000000000000000F01FEC";"00002119AC0000000000000000F01FEC";"00002109AC0000000000000000F01FEC";"00002119210000000000000000F01FEC";"00002109210000000000000000F01FEC";"00002119E20000000000000000F01FEC";"00002119B20000000000000000F01FEC";"00002119B10000000000000000F01FEC";"00002109B10000000000000000F01FEC") contains it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) contains name of it)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>2699160</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2956110</SourceID>
+		<SourceReleaseDate>2016-03-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2016-0057</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 09 Mar 2016 00:51:18 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch otkruntimertl2007-kb2956110-fullfile-x86-glb.exe sha1:9c3474f8f6d4a2e0695ac587462dd693a323eae3 size:2699160 https://download.microsoft.com/download/5/C/E/5CED86CB-2391-42BC-84A4-32331A1BC9A1/otkruntimertl2007-kb2956110-fullfile-x86-glb.exe sha256:a7ab0e17c37222d09962b44c69dec8da005bff6c22a81227145aa40c18bb079b
+
+waithidden __Download\otkruntimertl2007-kb2956110-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "9c3474f8f6d4a2e0695ac587462dd693a323eae3"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS16-029</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-030: Unchecked Buffer in DirectX Could Enable System Compromise - Windows NT TSE - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS03-030. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<BR> <BR>Microsoft has released a patch eliminating a "buffer overrun" vulnerability in its DirectX technology. DirectX consists of a set of low-level interfaces that are used by Windows programs for multimedia support. A flaw exists in the function used by DirectShow, a client-side technology within DirectX, that checks parameters in a Musical Instrument Digital Interface (MIDI) file. By hosting a specially crafted MIDI file on a Web site or sending it through a HTML-based e-mail, an attacker could exploit this vulnerability if a user opens the file. A successful attack could cause DirectShow, or an application making use of DirectShow, to fail. A successful attack could also potentially cause an attacker's code to run on the user's computer in the security context of the user. After applying this patch, affected computers will no longer be susceptible to this vulnerability. <BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted. <BR><BR><b>File Size:</b> 512 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinNT" AND major version of operating system = 4</Relevance>
+		<Relevance>(value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry as string contains "Terminal Server")</Relevance>
+		<Relevance>csd version of operating system contains "6"</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{22d6f312-b0f6-11d0-94ab-0080c74c7e95}" whose (value "IsInstalled" of it = 1) of registry</Relevance>
+		<Relevance><![CDATA[exists file "quartz.dll" whose (version of it = "6.1.5" AND version of it < "6.1.5.132") of system folder]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix\Q819696" of registry</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>523856</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB819696</SourceID>
+		<SourceReleaseDate>2003-07-23</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2003-0346</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>303013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>DirectX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q819696i.EXE sha1:bc26cca2e69e6b7108b85a55cc6a99d6136ab5f9 size:523856 http://download.microsoft.com/download/a/a/1/aa178d3c-01c8-4365-b4a4-9341ced81211/Q819696i.EXE sha256:3ff16421a36f2a2f731f823d1e092e09620fd140c824e8a4a8534159be16262d
+wait __download\Q819696i.EXE -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-030.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-030.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

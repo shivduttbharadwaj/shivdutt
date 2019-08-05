@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install IBM Endpoint Manager Relay (Version 9.0.649.0) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><B>Installs the IBM Endpoint Manager Relay 9.0.649.0 on the selected Windows computers. <BR><BR></B></FONT><FONT size=2>For more information on IBM Endpoint Manager Relays, please visit the following support web pages:</P> <UL> <LI><A href="http://support.bigfix.com/bes/misc/besrelays.html">IBM Endpoint Manager Relay FAQ</A> - Information on using IBM Endpoint Manager Relays to reduce bandwidth on slow WAN links, increase scalability, and increase performance. <LI><A href="http://support.bigfix.com/bes/misc/besrelayhealth.html">IBM Endpoint Manager Relay Health</A> - Information on best practices for setting up and maintaining IBM Endpoint Manager Relays.</FONT></LI></UL></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+7.33 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>name of operating system starts with "Win"</Relevance>
+		<Relevance>version of registration server = "9.0"</Relevance>
+		<Relevance>version of client = "9.0.649.0"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[((name of it starts with "Win") AND (major version of it > 5 OR minor version of it >= 1) AND (platform id of it != 3)) of operating system]]></Relevance>
+		<Relevance>not exists relay service</Relevance>
+		<Relevance>not exists main gather service</Relevance>
+		<Relevance><![CDATA[version of regapp "iexplore.exe" >= "5"]]></Relevance>
+		<Relevance>"BigFix" = brand of client</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>7681096</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-05-03</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 May 2013 22:35:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the IBM Endpoint Manager Relay to the default location.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[continue if {name of operating system is not "Win2000" or not exists running application "mmc.exe"}
+prefetch BESRelay.exe sha1:6e601671285d7060ea704da4d1337f04291e32a4 size:7681096 http://software.bigfix.com/download/bes/90/BigFix-BES-Relay-9.0.649.0.exe
+delete __Local\Get\BESRelay.exe
+// If the next line fails, there is not enough free space to complete this action
+continue if {7681096  < free space of drive of client folder of current site}
+move __Download\BESRelay.exe __Local\Get\BESRelay.exe
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\windows\Installer]" "Logging"="voicewarmupx"
+wait __Local\Get\BESRelay.exe /s /v"RESTARTBESCLIENT=0 REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+delete __Local\Get\BESRelay.exe
+
+// Now force a relay selection to our newly installed relay
+relay select]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance">not((exists it AND running of it AND version of it = "9.0.649.0") of relay service)</SuccessCriteria>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to be prompted for a path where the IBM Endpoint Manager Relay will be installed.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "Relay Install Location" with description "Please enter the path where you would like the IBM Endpoint Manager Relay installed:" with default value "C:\Program Files\BigFix Enterprise\BES Relay"
+continue if {name of operating system is not "Win2000" or not exists running application "mmc.exe"}
+prefetch BESRelay.exe sha1:6e601671285d7060ea704da4d1337f04291e32a4 size:7681096 http://software.bigfix.com/download/bes/90/BigFix-BES-Relay-9.0.649.0.exe
+delete __Local\Get\BESRelay.exe
+// If the next line fails, there is not enough free space to complete this action
+continue if {7681096  < free space of drive of client folder of current site}
+move __Download\BESRelay.exe __Local\Get\BESRelay.exe
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\windows\Installer]" "Logging"="voicewarmupx"
+wait __Local\Get\BESRelay.exe /s /v"INSTALLDIR=\"{parameter "Relay Install Location" of action}\" RESTARTBESCLIENT=0 REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn" 
+delete __Local\Get\BESRelay.exe
+
+// Now force a relay selection to our newly installed relay
+relay select]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance">not((exists it AND running of it AND version of it = "9.0.649.0") of relay service)</SuccessCriteria>
+		</Action>
+		<Action ID="Action3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the IBM Endpoint Manager Relay on the drive with the most free space.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[continue if {name of operating system is not "Win2000" or not exists running application "mmc.exe"}
+prefetch BESRelay.exe sha1:6e601671285d7060ea704da4d1337f04291e32a4 size:7681096 http://software.bigfix.com/download/bes/90/BigFix-BES-Relay-9.0.649.0.exe
+delete __Local\Get\BESRelay.exe
+// If the next line fails, there is not enough free space to complete this action
+continue if {7681096  < free space of drive of client folder of current site}
+move __Download\BESRelay.exe __Local\Get\BESRelay.exe
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\windows\Installer]" "Logging"="voicewarmupx"
+wait __Local\Get\BESRelay.exe /s /v"INSTALLDIR=\"{name of drive whose (type of it = "DRIVE_FIXED" AND free space of it = maximum of (free spaces of drives whose (type of it = "DRIVE_FIXED")))}\Program Files\BigFix Enterprise\BES Relay\" RESTARTBESCLIENT=0 REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+delete __Local\Get\BESRelay.exe
+parameter "startTime" = "{apparent registration server time}"
+pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+// Now force a relay selection to our newly installed relay
+relay select]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance">not((exists it AND running of it AND version of it = "9.0.649.0") of relay service)</SuccessCriteria>
+		</Action>
+	</Task>
+</BES>

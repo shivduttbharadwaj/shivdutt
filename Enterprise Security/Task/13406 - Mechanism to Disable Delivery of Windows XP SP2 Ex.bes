@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Mechanism to Disable Delivery of Windows XP SP2 Expires on April 12th, 2005</Title>
+		<Description><![CDATA[
+To provide additional time for validation and testing of Windows XP Service Pack 2 (SP2), Microsoft provided a tool to temporarily disable delivery of SP2 through Windows Update and Automatic Updates. This mechanism will expire on April 12th, 2005. After that date, Windows XP SP2 will be delivered to all Windows XP and Windows XP Service Pack 1 machines.<BR><BR>The computers listed below have disabled the delivery of Windows XP SP2 and have Automatic Updates enabled. These computers will automatically install Windows XP SP2 after April 12th, 2005.<BR><BR>If your organization is not yet ready to upgrade to Windows XP SP2, use the action below to disable Automatic Updates completely before April 12th, 2005. You can deploy SP2 through BES at a later time through Fixlet messages #13404 and #13405.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(name of it = "WinXP" and service pack major version of it < 2) of operating system]]></Relevance>
+		<Relevance>(exists key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate" of it AND exists value "DoNotAllowXPSP2" whose (it as string = "1") of key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate" of it) of registry</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update" whose (value "AUOptions" of it as string = "1") of registry</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry</Relevance>
+		<Category>Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2005-03-31</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT10M</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to disable Automatic Updates.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update]" "AUOptions"=dword:00000001</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view more information from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/prodtechnol/winxppro/maintain/sp2aumng.mspx</ActionScript>
+		</Action>
+	</Task>
+</BES>

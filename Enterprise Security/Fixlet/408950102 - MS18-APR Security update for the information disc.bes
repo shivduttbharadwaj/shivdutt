@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-APR: Security update for the information disclosure vulnerability - Visual Studio 2012 Update 5 - KB4089501</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><SPAN>This security update addresses the PDB security issue described in<SPAN>&nbsp;</SPAN></SPAN><A href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-1037" target=_self>CVE-2018-1037</A><SPAN>, in which PDB files may contain uninitialized heap content in a process that updates an existing PDB file, like mspdbsrv.exe.</SPAN><BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> This update is also referenced under KB4089501.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+26.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists keys ("8AC9843965660A335ACA0EDEDE1BC7E3") whose (exists key "InstallProperties" whose ((it >= "11.0.50727" AND it < "12") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "A0E4DE32E4F7394439AFCD0D52DAF540" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry]]></Relevance>
+		<Relevance><![CDATA[(exists keys ("8AC9843965660A335ACA0EDEDE1BC7E3") whose (not exists key "A0E4DE32E4F7394439AFCD0D52DAF540" of key "Patches" of it) of it ) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry OR ((exists keys whose (number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND (item 0 of it = "FL_mspdbsrv_exe_135545_135545_x86_ln.3643236F_FC70_11D3_A536_0090278A1BB8" AND item 1 of it < "11.0.60610.1" OR item 0 of it = "FL_mspdbsrv_exe_135545_135545_x86_ln.3643236F_FC70_11D3_A536_0090278A1BB8" AND item 1 of it < "11.0.60610.1" OR item 0 of it = "FL_mspdbst_dll_amd64" AND item 1 of it < "11.0.60610.1" OR item 0 of it = "FL_mspdbcore_dll_135519_135519_x86_ln.3643236F_FC70_11D3_A536_0090278A1BB8" AND item 1 of it < "11.0.60610.1" OR item 0 of it = "WinC_x64_nat_mspdbXXX.dll_F" AND item 1 of it < "11.0.60610.1" OR item 0 of it = "WinC_compiler_x86_mspdb120.dll_F" AND item 1 of it < "11.0.60610.1" OR item 0 of it = "FL_mspdbcore_dll_135519_135519_amd64_ln.3643236F_FC70_11D3_A536_0090278A1BB8" AND item 1 of it < "11.0.60610.1" OR item 0 of it = "WinC_compiler_x86_mspdbcore.dll_F" AND item 1 of it < "11.0.60610.1" OR item 0 of it = "FL_mspdbst_dll_x86_ln.3643236F_FC70_11D3_A536_0090278A1BB8" AND item 1 of it < "11.0.60610.1") of (value "File" of it as string as uppercase, value "ComponentVersion" of it as string as version)) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>27816448</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4089501</SourceID>
+		<SourceReleaseDate>2018-04-18</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-1037</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 25 Apr 2018 09:38:11 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Developer Tools, Runtimes, and Redistributables</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Visual Studio 2012</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 25 Apr 2018 09:38:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch VS11-KB4089501.exe sha1:2bcf6f07640ce853bd95fe9960c8d6460cf855d0 size:27816448 https://download.visualstudio.microsoft.com/download/pr/12064878/0050b099d6fb882f69547ee3011651f3/VS11-KB4089501.exe sha256:cd4991befa4d0e80d35699b8f55b0c91d08f7d8d8bd26c1b148a43d325c1ccfe
+
+waithidden __Download\VS11-KB4089501.exe /Q /NoRestart
+
+action may require restart "2bcf6f07640ce853bd95fe9960c8d6460cf855d0"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/en-us/help/4089501</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

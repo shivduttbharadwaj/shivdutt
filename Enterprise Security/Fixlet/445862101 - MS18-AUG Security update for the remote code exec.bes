@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-AUG: Security update for the remote code execution vulnerability in SQL Server 2016 SP2 (CU) - SQL Server 2016 SP2 - KB4458621 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><p><STRONG>Note:</STRONG> This update has been superseded by KB4505222.<br /><br />A buffer overflow vulnerability exists in Microsoft SQL Server that could allow remote code execution on an affected system. An attacker who successfully exploits&nbsp;this vulnerability could execute code in the context of the SQL Server Database Engine service account.</p><br><br><p>To learn more about the vulnerability, see<a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2018-8273" id="kb-link-2" target="_blank">&nbsp;CVE-2018-8273</a>.</p><br><br><p>This update is a replacement for the update&nbsp;<a data-content-id="4293807" data-content-type="article" href="" managed-link="" target="_blank">KB4293807</a>&nbsp;that was&nbsp;released on August 14, 2018.&nbsp; If you have previously applied the original update <a data-content-id="4293807" data-content-type="article" href="" managed-link="" target="_blank">KB4293807</a>, we recommend that you install the update&nbsp;<a data-content-id="4458621" data-content-type="article" href="" managed-link="" target="_blank">KB4458621</a> as soon as possible.</p><br><p><B>Note:</B> This security update is also referenced under KB4458621.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+672.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[(exists keys whose (exists value "Version" whose ((it = "13" AND it >= "13.2.5026") of (it as string as version)) of key "Setup" of it AND exists value "PatchLevel" whose ((it >= "13.2.5149" AND it < "13.2.5201") of (it as string as version)) of key "Setup" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (x64 registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it >= "13.0.5149" AND it < "13.0.5201") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (x64 registry)) whose (item 0 of it = item 1 of it))]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>705133088</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4458621</SourceID>
+		<SourceReleaseDate>2018-08-21</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2018-8273</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 22 Aug 2018 01:41:36 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4505222</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sql_server:2016:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>450522201</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2016</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch sqlserver2016-kb4458621-x64_b9943968ae9b91b06ae1795adb01c891be63b5b7.exe sha1:b9943968ae9b91b06ae1795adb01c891be63b5b7 size:705133088 http://download.windowsupdate.com/c/msdownload/update/software/secu/2018/08/sqlserver2016-kb4458621-x64_b9943968ae9b91b06ae1795adb01c891be63b5b7.exe sha256:1b63456fe0742f8896f9e0202a97e412d1e54017e8bd9a086836372a9d57d097
+
+waithidden __Download\sqlserver2016-kb4458621-x64_b9943968ae9b91b06ae1795adb01c891be63b5b7.exe /q /allinstances /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "b9943968ae9b91b06ae1795adb01c891be63b5b7"</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (non-Microsoft cluster environments).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch sqlserver2016-kb4458621-x64_b9943968ae9b91b06ae1795adb01c891be63b5b7.exe sha1:b9943968ae9b91b06ae1795adb01c891be63b5b7 size:705133088 http://download.windowsupdate.com/c/msdownload/update/software/secu/2018/08/sqlserver2016-kb4458621-x64_b9943968ae9b91b06ae1795adb01c891be63b5b7.exe sha256:1b63456fe0742f8896f9e0202a97e412d1e54017e8bd9a086836372a9d57d097
+
+waithidden __Download\sqlserver2016-kb4458621-x64_b9943968ae9b91b06ae1795adb01c891be63b5b7.exe /q /allinstances /clusterpassive /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "b9943968ae9b91b06ae1795adb01c891be63b5b7"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4458621</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

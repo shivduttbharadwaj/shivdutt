@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install IBM BigFix Console (Version 9.5.6)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><B>Installs the IBM BigFix Console 9.5.6 on the selected Windows endpoints (minimum target is Vista/2008 SP2 64-bit)<BR>The version of the server must be 9.5.6.63 to ensure database version compatibility.<BR><BR></B></FONT><FONT size=2>For more information on the IBM BigFix Console, please visit the following support web pages:</P> <UL> <LI><A href="https://www.ibm.com/support/knowledgecenter/SSQL82_9.5.0/com.ibm.bigfix.doc/Platform/Installation/c_console_requirements.html">IBM BigFix Console System Requirements</A></FONT></LI></UL></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+48.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[(it >= "9.5" OR it < "9.2.17") of version of client]]></Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance>version of registration server = "9.5.6.63"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[((windows of it) AND ((major version of it > 6) OR (major version of it = 6 AND (minor version of it >= 1 OR service pack major version of it >= 2))) AND (architecture of it = "x86_64") AND (platform id of it != 3) AND (embedded nt bit(suite mask of operating system) = false)) of operating system]]></Relevance>
+		<Relevance>not exists regapp "BESConsole.exe"</Relevance>
+		<Relevance>not exists main gather service</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Relevance>not exists regapp "BESClientDeploy.exe"</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>50486160</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-07-11</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 13 Jul 2017 13:38:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Console</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 02 Apr 2019 09:31:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the IBM BigFix Console 9.5.6 to the default location.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESConsole.exe sha1:e53e24a2ce630c2c9309389c120d4ad615d6055c size:50486160 http://software.bigfix.com/download/bes/95/BigFix-BES-Console-9.5.6.63.exe sha256:9f398db511d656dc20dccdf3089d72f81293a54f9a90d5e9f4a4f7be14c1940d
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+// If the next line fails, there is not enough free space to complete this action
+continue if {((if (exists variable "temp" of it) then (50486160 < free space of drive of folder(value of variable "temp" of it)) else true) of environment) AND (50486160 < free space of drive of parent folder of client)}
+folder create "{(client folder of current site as string) & "\__Local\Upgrade"}"
+move __Download\BESConsole.exe __Local\Upgrade\BESConsole.exe
+copy "{(parent folder of parent folder of client folder of current site) as string & "\ActionSite.afxm"}" __Local\Upgrade\ActionSite.afxm
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\windows\Installer]" "Logging"="voicewarmupx"
+wait __Local\Upgrade\BESConsole.exe /s /v"/l*voicewarmup \"{location of client}\besconsoleinstall.log\" REBOOT=ReallySuppress MSIRESTARTMANAGERCONTROL=Disable /qn"
+folder delete "{(client folder of current site as string) & "\__Local\Upgrade"}"
+action may require restart]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance">not(exists regapp "BESConsole.exe" whose (version of it = "9.5.6.63"))</SuccessCriteria>
+		</DefaultAction>
+	</Task>
+</BES>

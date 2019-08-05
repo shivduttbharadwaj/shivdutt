@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Ubuntu Linux Relay - IBM BigFix version 9.5.13 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.5.13 of IBM BigFix is now available for Ubuntu Linux operating systems!<BR><BR></STRONG>The latest version of the IBM BigFix Relay provides several enhancements and fixes. This Fixlet can upgrade all Relays on the targeted computers.<BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to a 9.5 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note:</FONT></STRONG></FONT><FONT color=#000000> This Fixlet message will only become relevant on computers after the IBM BigFix Server has been upgraded. Clients will notice that the IBM BigFix Server is updated and will begin to report any other upgrade Fixlets relevant (the clients by default check once per six hours for the version of the server on registration). This fixlet will also update the Client on any Relay installation.<BR><BR><STRONG>Note:</STRONG> It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Relays and Clients will get upgraded.<BR><BR><STRONG>Note:</STRONG> This upgrade may take several minutes to run because the IBM BigFix Client will also be replaced as part of the upgrade process and the Clients will not report their action results right away.</FONT></FONT></P> <P><STRONG>Note:</STRONG> This relay runs on supported Ubuntu Linux platforms on AMD64 (versions 14, 16, 18) processors.</P> <P><STRONG>Note:</STRONG> If the relay to upgrade is version 9.5.7 or 9.5.8, the relay package will be removed (along with every file in /var/opt/BESRelay) and then re-installed.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+29.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client >= "9.5.5"]]></Relevance>
+		<Relevance>version of registration server = "9.5"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "Ubuntu (14|16|18)") of name of operating system</Relevance>
+		<Relevance>((it = "x86_64")) of architecture of operating system</Relevance>
+		<Relevance><![CDATA[exists relay service whose (version of it < "9.5.13.130")]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>31190924</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2019-05-15</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 16 May 2019 09:02:41 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 May 2019 09:02:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Relay and Client 9.5.13 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {(((exists match (regex "Ubuntu (14|16|18)") of it) of name of it) AND (architecture of it = "x86_64")) of operating system}
+	prefetch BESRelayUpgrade.deb sha1:9fce28f8a6772e534f03332422504bbd9d116bec size:7647594 http://software.bigfix.com/download/bes/95/BESRelay-9.5.13.130-ubuntu10.amd64.deb sha256:d04bb49b57e8a2fc3909ef4489ce52d4f1953560bc2338649270569d5ebef246
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESRelayUpgrade.deb"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {23543330 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESRelayUpgrade.deb __Local/Upgrade/BESRelayUpgrade.deb
+parameter "RunningRelay"="{exists running service "BESRelay"}"
+wait /etc/init.d/besrelay stop
+if {version of relay service >= "9.5.7.90" AND version of relay service < "9.5.9.0"}
+	// A bug on 9.5.7 and 9.5.8 prevents the upgrade so we need to FULLY remove the package and then re-install
+	wait dpkg -r BESRelay
+endif
+wait /usr/bin/dpkg -i __Local/Upgrade/BESRelayUpgrade.deb
+if {"True" = parameter "RunningRelay"}
+	wait /etc/init.d/besrelay start_skipclientrestart
+	parameter "startTime" = "{apparent registration server time}"
+	pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+	relay select
+	// Fails here if a previously running relay did not start up
+	continue if {exists running service "BESRelay"}
+endif
+continue if {exit code of action = 0 AND version of relay service = "9.5.13.130"}
+delete __Local/Upgrade/BESRelayUpgrade.deb
+if {version of client < "9.5.13.130"}
+	if {(architecture of it = "x86_64") of operating system}
+        	// Ubuntu 14,16,18 LTS 64 bit x86
+        	prefetch BESClientUpgrade.deb sha1:fe49d2d9814801041d020d8773007d6fc9c5b4ef size:23543330 http://software.bigfix.com/download/bes/95/BESAgent-9.5.13.130-ubuntu10.amd64.deb sha256:be12601104b221a7236558eebbc44656a40cf1798ed83cd447699204dd8b34ff
+	else
+		// No Known Configuration
+		continue if false
+	endif
+	continue if {exists file "__Download/BESClientUpgrade.deb"}
+	move __Download/BESClientUpgrade.deb __Local/Upgrade/BESClientUpgrade.deb
+	delete __createfile
+	createfile until __EOF
+#!/bin/sh
+/usr/bin/dpkg -i __Local/Upgrade/BESClientUpgrade.deb
+/etc/init.d/besclient start
+/bin/rm -f __Local/Upgrade/BESClientUpgrade.deb
+__EOF
+	move __createfile __Local/Upgrade/besclientupgrade
+	// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+	wait /bin/sh __Local/Upgrade/besclientupgrade
+endif]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information about relays.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/TEM%20Relays</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

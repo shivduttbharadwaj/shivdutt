@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS17-MAY: Cumulative update for SharePoint Server 2013 - SharePoint Server 2013 SP1 - KB3191913 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft SharePoint Enterprise Server 2013 . This update provides the latest fixes to Microsoft SharePoint Enterprise Server 2013 . Additionally, this update contains stability and performance improvements.<p><B>Note:</B> This security update is also referenced under KB3191913.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.4 GB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00005109D51110400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4571.1502" OR it = "15.0.4569.1506") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "6BE45FD53BA04FA4C89D8E2F0EB4FDD2" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "15.0" AND "|ACCESSSERVER.RESOURCES.DLL.1025|ACCESSSERVICES.RESOURCES.DLL.1025|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "15.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "ACCESSSERVER.RESOURCES.DLL.1025" AND (item 3 of it = "15.0.4442.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Wed, 19 Apr 2017 22:04:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "15.0.4442.1000") OR item 0 of it = "ACCESSSERVICES.RESOURCES.DLL.1025" AND (item 3 of it = "15.0.4687.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Wed, 19 Apr 2017 22:04:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "15.0.4687.1000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{5DF54EB6-0AB3-4AF4-8CD9-E8F2E04BDF2D}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry) AND ((set of (((names of values of keys "00005100D51100000100000000F01FEC" of it)) whose (set of ("00005109D51110400100000000F01FEC") contains it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) contains name of it)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>1518205640</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3191913</SourceID>
+		<SourceReleaseDate>2017-05-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2017-0281</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 May 2017 03:55:52 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint_server:2013:sp1:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 13 Jul 2017 15:03:01 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ubersrv2013-kb3191913-fullfile-x64-glb.exe sha1:dd7f6f152b524e0bb213fbf99806feb2f224b7a6 size:1518205640 https://download.microsoft.com/download/1/7/C/17CDBC5E-7A02-4E24-8AE6-209AF7776B2B/ubersrv2013-kb3191913-fullfile-x64-glb.exe sha256:69e640198064741ffcdef00ecb049e57bf73d4162102d94f5375ee8edb5cd5ba
+
+waithidden __Download\ubersrv2013-kb3191913-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "dd7f6f152b524e0bb213fbf99806feb2f224b7a6"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/3191913</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

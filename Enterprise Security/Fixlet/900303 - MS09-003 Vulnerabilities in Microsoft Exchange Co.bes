@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-003: Vulnerabilities in Microsoft Exchange Could Allow Remote Code Execution - Exchange Server 2003 SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Exchange Server. The first vulnerability could allow remote code execution if a specially crafted TNEF message is sent to a Microsoft Exchange Server. An attacker who successfully exploited this vulnerability could take complete control of the affected system with Exchange Server service account privileges. The second vulnerability could allow denial of service if a specially crafted MAPI command is sent to a Microsoft Exchange Server. An attacker who successfully exploited this vulnerability could cause the Microsoft Exchange System Attendant service and other services that use the EMSMDB32 provider to stop responding.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.</P> <P><STRONG>Note:</STRONG> Microsoft has announced that this update may be included in a future update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB959897.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.57 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(((exists file "mapi32.dll" whose (version of it < "6.5.7654.12") of it) OR (exists file "emsmdb32.dll" whose (version of it < "6.5.7654.12") of it))) of ((system folder)) OR (((exists file "cdoex.dll" whose (version of it < "6.5.7654.12") of it))) of ((folder "MICROSOFT SHARED\CDO" of (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder))) OR (((exists file "mdbmsg.dll" whose (version of it < "6.5.7654.12") of it))) of ((folder "RES" of (value "ExchangeServerAdmin" of key "HKLM\Software\Microsoft\Exchange\Setup" of registry as folder))) OR (((exists file "excdo.dll" whose (version of it < "6.5.7654.12") of it) OR (exists file "exosal.dll" whose (version of it < "6.5.7654.12") of it) OR (exists file "exoledb.dll" whose (version of it < "6.5.7654.12") of it) OR (exists file "cdo.dll" whose (version of it < "6.5.7654.12") of it) OR (exists file "lsmexhc.dll" whose (version of it < "6.5.7654.12") of it) OR (exists file "emsmta.exe" whose (version of it < "6.5.7654.12") of it) OR (exists file "mapi32.dll" whose (version of it < "6.5.7654.12") of it) OR (exists file "davex.dll" whose (version of it < "6.5.7654.12") of it) OR (exists file "rtdsmcal.dll" whose (version of it < "6.5.7654.12") of it) OR (exists file "store.exe" whose (version of it < "6.5.7654.12") of it) OR (exists file "madfb.dll" whose (version of it < "6.5.7654.12") of it))) of ((folder "BIN" of (value "ExchangeServerAdmin" of key "HKLM\Software\Microsoft\Exchange\Setup" of registry as folder)))]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\exchange server 2003\sp3\kb959897" of registry)</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\Exchange\Setup" whose (value "NewestBuild" of it as integer = 6944) of registry</Relevance>
+		<Relevance>exists key whose (value "DisplayName" of it as string contains "Microsoft Exchange") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance>(value "ServicePackNumber" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry = 2)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>6886272</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB959239</SourceID>
+		<SourceReleaseDate>2009-02-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2009-0098; CVE-2009-0099</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Exchange Server 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Exchange</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Exchange2003-KB959897-x86-ENU.exe sha1:d9b00789c26dea82f54ae9b3515695d754b61288 size:6886272 http://download.microsoft.com/download/2/F/3/2F3C67F4-B4E9-40D0-93DA-5DF03BE80C33/Exchange2003-KB959897-x86-ENU.exe sha256:19e3bb515ca11785d10b2ed6a9659b194f4046a4e4db6cc17f605d302b189621
+
+waithidden __Download\Exchange2003-KB959897-x86-ENU.exe /quiet /norestart
+
+action may require restart "d9b00789c26dea82f54ae9b3515695d754b61288"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-003.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-003.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

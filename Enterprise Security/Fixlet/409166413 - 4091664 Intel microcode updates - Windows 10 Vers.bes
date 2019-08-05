@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4091664: Intel microcode updates - Windows 10 Version 1607 - Windows 10 Version 1607 - KB4091664 (x64) (V5.0) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4091664.<br /><br />Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.</p><p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB4091664.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance>(name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4091664~31bf3856ad364e35~amd64~~10.0.5.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4091664~31bf3856ad364e35~amd64~~10.0.5.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-NanoServer-Win32Compat-Package~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreSingleLanguageEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EducationEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EducationNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSNEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-PPIProEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterEvalCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterNanoEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerHyperCoreEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerSolutionEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardEvalCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardNanoEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStorageStandardEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStorageWorkgroupEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-UtilityVMEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-WinPE-Package~31bf3856ad364e35~amd64~~10.0.14393.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists keys ("Package_for_KB4132216~31bf3856ad364e35~amd64~~10.0.1.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-MCUpdate-UpdateDLLs-IntelAMD-Package~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerCore-SKU-Foundation-onecore-Package~31bf3856ad364e35~amd64~~10.0.14393.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreSingleLanguageEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EducationEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EducationNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSNEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-PPIProEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterEvalCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterNanoEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerHyperCoreEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerSolutionEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardEvalCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardNanoEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStorageStandardEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStorageWorkgroupEdition~31bf3856ad364e35~amd64~~10.0.14393.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-m..update-genuineintel_31bf3856ad364e35_none_26e96c7d6611cd3c" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.14393.0" AND it < "10.0.14393.2516") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB4132216~31bf3856ad364e35~amd64~~10.0.1.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Win32Compat-SC-SKUFound-Adapter-onecore-Package~31bf3856ad364e35~amd64~~10.0.14393.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-CoreSingleLanguageEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EducationEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EducationNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-EnterpriseSNEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-PPIProEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterEvalCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerDatacenterNanoEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerHyperCoreEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerSolutionEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardEvalCorEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardEvalEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStandardNanoEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStorageStandardEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-ServerStorageWorkgroupEdition~31bf3856ad364e35~amd64~~10.0.14393.0";"Microsoft-Windows-UtilityVMEdition~31bf3856ad364e35~amd64~~10.0.14393.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-m..update-genuineintel_31bf3856ad364e35_none_26e96c7d6611cd3c" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.14393.0" AND it < "10.0.14393.2516") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB4132216~31bf3856ad364e35~amd64~~10.0.1.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Win32Compat-SC-SKUFound-Adapter-onecore-Package~31bf3856ad364e35~amd64~~10.0.14393.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-NanoServer-Win32Compat-Package~31bf3856ad364e35~amd64~~10.0.14393.0") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-m..update-genuineintel_31bf3856ad364e35_none_26e96c7d6611cd3c" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.14393.0" AND it < "10.0.14393.2516") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "206a0eeae7cc2064f2c13381dbf31cd3b8fc6f6d"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>1290370</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4091664</SourceID>
+		<SourceReleaseDate>2018-09-13</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 19 Sep 2018 02:31:47 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4091664</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_10:1607:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>409166417</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-03-18</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win10</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 19 Mar 2019 00:21:37 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows10.0-kb4091664-v5-x64_206a0eeae7cc2064f2c13381dbf31cd3b8fc6f6d.msu sha1:206a0eeae7cc2064f2c13381dbf31cd3b8fc6f6d size:1290370 http://download.windowsupdate.com/c/msdownload/update/software/updt/2018/09/windows10.0-kb4091664-v5-x64_206a0eeae7cc2064f2c13381dbf31cd3b8fc6f6d.msu sha256:eaa51a1eda3dbf7c4a2f21b5948eeee95daf0a86697e9dc037a163f49c18d22d
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows10.0-kb4091664-v5-x64_206a0eeae7cc2064f2c13381dbf31cd3b8fc6f6d.msu"}" /quiet /norestart
+
+action requires restart "206a0eeae7cc2064f2c13381dbf31cd3b8fc6f6d"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4091664</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

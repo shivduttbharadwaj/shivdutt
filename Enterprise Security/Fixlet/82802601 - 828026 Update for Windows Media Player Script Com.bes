@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>828026: Update for Windows Media Player Script Commands - WinXP, Win2000, 2003 Server</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2 face=verdana>Microsoft has released an update to Microsoft Windows Media Player. This update changes settings and adds new logic to media player components in order to protect against possible security vulnerabilities.<BR><BR><STRONG>Note: </STRONG>If this patch has been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><STRONG>Note: </STRONG>Affected computers may report back as 'Pending Restart' once the patch has run successfully, this indicates the vulnerability will not be closed until the affected computer is restarted.</FONT><FONT size=2 face=verdana><BR><BR><STRONG>Note:</STRONG> Client machines may briefly display progress windows during installation of this update.<BR><BR><B><FONT color=#ff0000>Important Note: </FONT></B>This update may <B>force</B> affected computers to restart if Windows Media Player is running.<BR> <P></P> <P><FONT color=#ff0000></P> <P><STRONG>Important Note: </STRONG></FONT>Hotfixes have no default action.</P> <P><B>File Size:</B> 2.2 MB</FONT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinXP" OR name of operating system = "Win2000" OR name of operating system = "Win2003"</Relevance>
+		<Relevance><![CDATA[exists file "wmp.dll" whose (version of it as version < "9.0.0.3075") of system folder OR exists file "Wmpcore7.dll" whose (version of it as version < "7.10.0.3075") of system folder OR exists file "Wmpcore8.dll" whose (version of it as version < "8.0.0.4491") of system folder OR exists file "Msdxm.ocx" whose (version of it as version < "6.4.9.1128") of system folder]]></Relevance>
+		<Relevance>not pending restart "7caa1f88a107ba7f64cae1607f7782e7136b78f2"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>2914040</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB828026</SourceID>
+		<SourceReleaseDate>2004-02-10</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Media Player</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsMedia-Q828026-x86-ENU.exe sha1:7caa1f88a107ba7f64cae1607f7782e7136b78f2 size:2914040 http://download.microsoft.com/download/c/e/0/ce005267-09e9-423b-a360-7db7825b4b36/WindowsMedia-Q828026-x86-ENU.exe sha256:d3613608392d30eddc546af99c17e00a0a7474505f76c66b304b00d8758fdc58
+
+wait __download\WindowsMedia-Q828026-x86-ENU.exe -quiet
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart "7caa1f88a107ba7f64cae1607f7782e7136b78f2"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 828026.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/default.aspx?scid=kb;en-us;828026</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

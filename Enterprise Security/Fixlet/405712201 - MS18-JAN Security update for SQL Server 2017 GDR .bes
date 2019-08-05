@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-JAN: Security update for SQL Server 2017 GDR - SQL Server 2017 - KB4057122 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4293803.<br /><br />This update refreshes Microsoft SQL Server 2017 RTM.<p><B>Note:</B> This update is also referenced under KB4057122.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+431.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[(exists keys whose (exists value "CurrentVersion" whose ((it = "14" AND it < "14.0.2000.63") of (it as string as version)) of key "MSSQLServer\CurrentVersion" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (native registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it = "14" AND it < "14.0.2000.63") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (native registry)) whose (item 0 of it = item 1 of it))]]></Relevance>
+		<Relevance>(exists keys whose (exists value "CurrentVersion" whose ((it = "14" AND it = "14.0.1000.169") of (it as string as version)) of key "MSSQLServer\CurrentVersion" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (native registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it = "14" AND it = "14.0.1000.169") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (native registry)) whose (item 0 of it = item 1 of it))</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>452037808</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4057122</SourceID>
+		<SourceReleaseDate>2018-01-03</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>ADV180002</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 05 Jan 2018 08:20:21 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4293803</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-08-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sql_server:2017:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2017</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 Aug 2018 07:29:02 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SQLServer2017-KB4057122-x64.exe sha1:48c5b2c6047a81871e9d72c62a73090411d68368 size:452037808 https://download.microsoft.com/download/9/E/C/9EC96F74-D30B-4A7F-BE1E-58FE7A8E8ABD/SQLServer2017-KB4057122-x64.exe sha256:77597036b1ddc3561bce084931f794f6abf667f3ba359bd0d641b86f5242e89a
+
+waithidden __Download\SQLServer2017-KB4057122-x64.exe /q /allinstances /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "48c5b2c6047a81871e9d72c62a73090411d68368"</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (non-Microsoft cluster environments).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SQLServer2017-KB4057122-x64.exe sha1:48c5b2c6047a81871e9d72c62a73090411d68368 size:452037808 https://download.microsoft.com/download/9/E/C/9EC96F74-D30B-4A7F-BE1E-58FE7A8E8ABD/SQLServer2017-KB4057122-x64.exe sha256:77597036b1ddc3561bce084931f794f6abf667f3ba359bd0d641b86f5242e89a
+
+waithidden __Download\SQLServer2017-KB4057122-x64.exe /q /allinstances /clusterpassive /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "48c5b2c6047a81871e9d72c62a73090411d68368"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4057122</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

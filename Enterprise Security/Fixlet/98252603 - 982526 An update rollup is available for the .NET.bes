@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>982526: An update rollup is available for the .NET Framework 3.5 SP1 in Windows 7 and in Windows Server 2008 R2 - Windows 7 / Windows Server 2008 R2 - KB958488 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update addresses a set of known issues of the Microsoft .NET Framework 3.5 Service Pack 1.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB982526.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.86 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win7") AND service pack major version of it = 0) OR ((name of it = "Win2008R2") AND service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>if (exists key "ApplicabilityEvaluationCache\Package_for_KB958488~31bf3856ad364e35~amd64~~6.2.7600.16513" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB958488~31bf3856ad364e35~amd64~~6.2.7600.16513" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385";"Microsoft-Windows-EmbeddedCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (not exists key "amd64_microsoft-windows-n..4-shared-deployment_31bf3856ad364e35_none_b11b4738147079fb" whose (exists value "6.2.7600.16513" of keys of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)</Relevance>
+		<Relevance>not pending restart "a137e4f328f01146dfa75d7b5a576090dee948dc"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>5091790</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB982526</SourceID>
+		<SourceReleaseDate>2010-06-21</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 |~| Windows Server 2008 R2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2|Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB958488-v6001-x64.msu sha1:a137e4f328f01146dfa75d7b5a576090dee948dc size:5091790 https://download.microsoft.com/download/9/4/F/94F85C4F-BAED-4ACC-A53A-FA0358C8891B/Windows6.1-KB958488-v6001-x64.msu sha256:a5f4243ce8b07c9222284fd8ff6f7e742d934c57c89de9cab5d88c74402264e3
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB958488-v6001-x64.msu"}" /quiet /norestart
+
+action requires restart "a137e4f328f01146dfa75d7b5a576090dee948dc"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/982526</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

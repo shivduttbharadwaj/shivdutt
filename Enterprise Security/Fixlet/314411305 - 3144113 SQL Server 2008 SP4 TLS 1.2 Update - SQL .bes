@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3144113: SQL Server 2008 SP4 TLS 1.2 Update - SQL Server 2008 SP4 - QFE Branch - KB3144113 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Install this update to resolve issues in Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><STRONG>Note:</STRONG> This&nbsp;hotfix is also referenced under KB3144113.</P> <P><STRONG>Note:</STRONG> This&nbsp;hotfix must be manually cached for it&nbsp;to run correctly.&nbsp; For more information on how to manually cache files, see BigFix KB #390.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+76.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists keys whose (exists value "CurrentVersion" whose ((it = "10.00" AND it >= "10.00.6000") of (it as string as version)) of key "MSSQLServer\CurrentVersion" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (x64 registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it = "10.00" AND it >= "10.00.6000") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (x64 registry)) whose (item 0 of it = item 1 of it))]]></Relevance>
+		<Relevance><![CDATA[(((if (exists keys ((names of values of keys ("F9CFEE21BF19B0940BB017463CC16105") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (not exists key "DF9E9544A5E35FF48913744BF625AEE3" of key "Patches" of it) of it) then (1) else (if (exists keys ("491A4BC5D3513FA479706C0C87B86F4C") whose (not exists key "DF9E9544A5E35FF48913744BF625AEE3" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("C123A124412231743BBE52F3F2CBEC94") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (not exists key "13A9C4B66DB285A40AF6BAECBB1CD673" of key "Patches" of it) of it) then (1) else (if (exists keys ("5B84B90E141EA724BAC03D06157222A4") whose (not exists key "13A9C4B66DB285A40AF6BAECBB1CD673" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("E2C88835C8EDBF949BEC422A51B5668E") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (not exists key "28FFE304DD25845489ECF2C1D9123F06" of key "Patches" of it) of it) then (1) else (if (exists keys ("3D07144457FD4224BAB0CA80D803306E") whose (not exists key "28FFE304DD25845489ECF2C1D9123F06" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("5164AA0C428B59049826E411D796D7BF") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (not exists key "BD9F0D9FDD0917D479672570304549A5" of key "Patches" of it) of it) then (1) else (if (exists keys ("05AC97829951B4F49BCE11011C90C461") whose (not exists key "BD9F0D9FDD0917D479672570304549A5" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("67147DC6A4C02E34CB521AE4E5EFDFAA") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (not exists key "52112578520E9494D8AFBC90CC9F4ED4" of key "Patches" of it) of it) then (1) else (if (exists keys ("18156258C6642A441811E1ACAD896D62") whose (not exists key "52112578520E9494D8AFBC90CC9F4ED4" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("67147DC6A4C02E34CB521AE4E5EFDFAA") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (not exists key "8F5CFFD2F0B9015429EAAFD3838B4AD7" of key "Patches" of it) of it) then (1) else (if (exists keys ("D91D8054EF702274887C7251925657B6") whose (not exists key "8F5CFFD2F0B9015429EAAFD3838B4AD7" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("F9CFEE21BF19B0940BB017463CC16105") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (not exists key "26894DF3AEE13BF418375B709B7235BD" of key "Patches" of it) of it) then (1) else (if (exists keys ("F6F4CDE64D0ED854D856C088BA498239") whose (not exists key "26894DF3AEE13BF418375B709B7235BD" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("15553B44C8C311E49AC30EAAFDDF1822") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (exists key "InstallProperties" whose ((it = "10.4.6000.29") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "8B751D7180CD04C4586D11C310CA724B" of key "Patches" of it) of it) then (1) else (if (exists keys ("2FA3985E53F26A74AAE43E71C6B75688") whose (not exists key "8B751D7180CD04C4586D11C310CA724B" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("E94DF15D3BC98D045A17E07D6BFE7C3F") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (exists key "InstallProperties" whose ((it = "10.4.6000.29") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "08E684B3A970B144199BC9685F2DAAE0" of key "Patches" of it) of it) then (1) else (if (exists keys ("13E75BD3A5763B14893976873AE77DE3") whose (not exists key "08E684B3A970B144199BC9685F2DAAE0" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("A337717141F33094CBBCC1542CB73DAA") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (exists key "InstallProperties" whose ((it = "10.4.6000.29") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F36AA82C022EC794AB6D9A1988964E36" of key "Patches" of it) of it) then (1) else (if (exists keys ("49174557E41908D49AC9465C779AD2CA") whose (not exists key "F36AA82C022EC794AB6D9A1988964E36" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("C97ACBC10DB7F4F49B72EE7DB742C91E") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (exists key "InstallProperties" whose ((it = "10.4.6000.29") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "FA3E4FC0AC9DC3B468F5ECA6567B7CF2" of key "Patches" of it) of it) then (1) else (if (exists keys ("CA48CE04E32E3BF4E98544A63E92E5DF") whose (not exists key "FA3E4FC0AC9DC3B468F5ECA6567B7CF2" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("C45DEF34AB10D174CB43B83F5F970123") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (exists key "InstallProperties" whose ((it = "10.4.6000.29") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "1AC23ADB3C3CC55418403837E8CD8839" of key "Patches" of it) of it) then (1) else (if (exists keys ("512A8E9026457BF4488F7C98EC79F852") whose (not exists key "1AC23ADB3C3CC55418403837E8CD8839" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("4FD5134006D0756489882728C81AC783") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (exists key "InstallProperties" whose ((it = "10.4.6000.29") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "2AFA6D109CF5015498EE195B8B176EDF" of key "Patches" of it) of it) then (1) else (if (exists keys ("DBDD7FE5498E8C546B4632E20AF70E14") whose (not exists key "2AFA6D109CF5015498EE195B8B176EDF" of key "Patches" of it) of it) then (-14) else (0)))) + ((if (exists keys ((names of values of keys ("8398D2317C3940B49AE325455173DE17") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose (exists key "InstallProperties" whose ((it = "10.4.6000.29") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "37FE8D85644215E4D930EBF46FEBDE19" of key "Patches" of it) of it) then (1) else (if (exists keys ("096117C1622571C4BA64D5C7C2828FD2") whose (not exists key "37FE8D85644215E4D930EBF46FEBDE19" of key "Patches" of it) of it) then (-14) else (0))))) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry > 0]]></Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>80657600</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3144113</SourceID>
+		<SourceReleaseDate>2017-02-04</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 03 Feb 2017 19:42:31 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 31 Jul 2019 00:00:56 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SQLServer2008-KB3144113-x64.exe sha1:23145dc51929e32474e5a5b93643d6ae6a883d14 size:80657600 http://MANUAL_BES_CACHING_REQUIRED/SQLServer2008-KB3144113-x64.exe sha256:89c354363de8cdb52e428ec06978618e6c09801110c3c013c39b566139c38cea
+
+waithidden __Download\SQLServer2008-KB3144113-x64.exe /quiet /allinstances /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "23145dc51929e32474e5a5b93643d6ae6a883d14"
+</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

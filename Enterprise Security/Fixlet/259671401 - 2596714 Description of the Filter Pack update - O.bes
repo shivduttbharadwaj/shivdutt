@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2596714: Description of the Filter Pack update - Office 2007 - KB2596714</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft Office 2007 suites . This update provides the latest fixes to Microsoft Office 2007 suites . Additionally, this update contains stability and performance improvements.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB2596714.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.91 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00002159000250400100000000F01FEC";"00002159000270400100000000F01FEC";"00002159000240800100000000F01FEC";"00002159000210400100000000F01FEC";"000021590002E1400000000000F01FEC";"00002159000242400000000000F01FEC";"00002159000262400000000000F01FEC";"00002159000222400000000000F01FEC";"00002159000240800000000000F01FEC";"000021590002C0400000000000F01FEC";"00002159000270400000000000F01FEC";"000021590002A1400100000000F01FEC";"000021590002E0400000000000F01FEC";"00002159000261800100000000F01FEC";"00002159000291400100000000F01FEC";"00002159000201400100000000F01FEC";"00002159000231400100000000F01FEC";"00002159000251400100000000F01FEC";"00002159000221400100000000F01FEC";"00002159000211400100000000F01FEC";"000021590002A0C00100000000F01FEC";"00002159000220400000000000F01FEC";"00002159000291400000000000F01FEC";"00002159000250400000000000F01FEC";"00002159000240400000000000F01FEC";"00002159000272400100000000F01FEC";"000021590002A1800100000000F01FEC";"00002159000210400000000000F01FEC";"00002159000262400100000000F01FEC";"00002159000242400100000000F01FEC";"000021590002A1400000000000F01FEC";"00002159000261400000000000F01FEC";"00002159000251400000000000F01FEC";"00002159000252400100000000F01FEC";"00002159000222400100000000F01FEC";"00002159000231400000000000F01FEC";"00002159000293400100000000F01FEC";"00002159000281400000000000F01FEC";"00002159000241400000000000F01FEC";"00002159000221400000000000F01FEC";"00002159000211400000000000F01FEC";"000021590002A0C00000000000F01FEC";"00002159000201400000000000F01FEC";"000021590002F1400000000000F01FEC";"00002159000240400100000000F01FEC";"00002159000260400100000000F01FEC";"00002159000252400000000000F01FEC";"00002159000280400100000000F01FEC";"00002159000220400100000000F01FEC";"000021590002A1800000000000F01FEC";"000021590002B1400000000000F01FEC";"00002159000272400000000000F01FEC";"000021590002D1400000000000F01FEC";"000021590002D0400000000000F01FEC";"00002159000280400000000000F01FEC";"000021590002B1400100000000F01FEC";"00002159000281400100000000F01FEC";"00002159000260400000000000F01FEC";"000021590002B0400000000000F01FEC";"00002159000261400100000000F01FEC";"00002159000293400000000000F01FEC";"00002159000241400100000000F01FEC";"00002159000261800000000000F01FEC";"000021590002F1400100000000F01FEC";"000021590002E1400100000000F01FEC";"000021590002D1400100000000F01FEC";"000021590002C0400100000000F01FEC";"000021590002E0400100000000F01FEC";"000021590002D0400100000000F01FEC";"000021590002B0400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.4518.1104") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "56B1F146D6EA21A48BD79924D8C0324A" of key "Patches" of it) of it OR exists keys ("00002159000290400000000000F01FEC";"00002159000290400100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.4518.1070" OR it = "12.0.4518.1104") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "56B1F146D6EA21A48BD79924D8C0324A" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "12.0" AND "|VISFILT.DLL.X64|VISFILT.DLL.X86|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (exists key whose ((it = "12.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "VISFILT.DLL.X64" AND (item 3 of it = "12.0.6606.1000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Wed, 30 Nov 2011 10:03:04 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "12.0.6606.1000") OR item 0 of it = "VISFILT.DLL.X86" AND (item 3 of it = "12.0.6650.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Wed, 30 Nov 2011 10:03:04 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "12.0.6650.5000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{641F1B65-AE6D-4A12-B87D-99428D0C23A4}|" contains ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry) AND ((set of (((names of values of keys "00002150000200000000000000F01FEC" of it);(names of values of keys "00002150000200000100000000F01FEC" of it)) whose (set of ("00002159000210400000000000F01FEC";"00002159000220400000000000F01FEC";"00002159000250400000000000F01FEC";"00002159000260400000000000F01FEC";"00002159000270400000000000F01FEC";"00002159000280400000000000F01FEC";"00002159000290400000000000F01FEC";"000021590002A0C00000000000F01FEC";"00002159000252400000000000F01FEC";"000021590002B0400000000000F01FEC";"000021590002C0400000000000F01FEC";"000021590002D0400000000000F01FEC";"00002159000293400000000000F01FEC";"000021590002A1400000000000F01FEC";"000021590002E0400000000000F01FEC";"00002159000201400000000000F01FEC";"00002159000211400000000000F01FEC";"00002159000221400000000000F01FEC";"00002159000272400000000000F01FEC";"00002159000262400000000000F01FEC";"00002159000241400000000000F01FEC";"00002159000231400000000000F01FEC";"00002159000251400000000000F01FEC";"00002159000261400000000000F01FEC";"00002159000261800000000000F01FEC";"00002159000281400000000000F01FEC";"00002159000291400000000000F01FEC";"000021590002B1400000000000F01FEC";"00002159000242400000000000F01FEC";"000021590002A1800000000000F01FEC";"000021590002D1400000000000F01FEC";"000021590002E1400000000000F01FEC";"000021590002F1400000000000F01FEC";"00002159000222400000000000F01FEC";"00002159000240800000000000F01FEC";"00002159000240400000000000F01FEC";"00002159000210400100000000F01FEC";"00002159000220400100000000F01FEC";"00002159000250400100000000F01FEC";"00002159000260400100000000F01FEC";"00002159000270400100000000F01FEC";"00002159000280400100000000F01FEC";"00002159000290400100000000F01FEC";"000021590002A0C00100000000F01FEC";"00002159000252400100000000F01FEC";"000021590002B0400100000000F01FEC";"000021590002C0400100000000F01FEC";"000021590002D0400100000000F01FEC";"00002159000293400100000000F01FEC";"000021590002A1400100000000F01FEC";"000021590002E0400100000000F01FEC";"00002159000201400100000000F01FEC";"00002159000211400100000000F01FEC";"00002159000221400100000000F01FEC";"00002159000272400100000000F01FEC";"00002159000262400100000000F01FEC";"00002159000241400100000000F01FEC";"00002159000231400100000000F01FEC";"00002159000251400100000000F01FEC";"00002159000261400100000000F01FEC";"00002159000261800100000000F01FEC";"00002159000281400100000000F01FEC";"00002159000291400100000000F01FEC";"000021590002B1400100000000F01FEC";"00002159000242400100000000F01FEC";"000021590002A1800100000000F01FEC";"000021590002D1400100000000F01FEC";"000021590002E1400100000000F01FEC";"000021590002F1400100000000F01FEC";"00002159000222400100000000F01FEC";"00002159000240800100000000F01FEC";"00002159000240400100000000F01FEC") contains it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) contains name of it)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>3052896</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2596714</SourceID>
+		<SourceReleaseDate>2012-02-10</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 |~| Windows Server 2003 |~| Windows Vista |~| Windows XP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Filter Pack</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch visfilter2007-kb2596714-fullfile-x86-glb.exe sha1:5e17b09285300ea08c24c329f04b4c425df8c817 size:3052896 https://download.microsoft.com/download/B/E/0/BE0DDE12-B152-4F23-88E0-3E8336032C77/visfilter2007-kb2596714-fullfile-x86-glb.exe sha256:7d0d3b66de8539d87133309c90f9c9fe9e755c93bbd0f234f466322a52acd4d6
+
+waithidden __Download\visfilter2007-kb2596714-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "5e17b09285300ea08c24c329f04b4c425df8c817"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2596714</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

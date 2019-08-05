@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2608659: Update rollup for the SIS component in Windows Storage Server 2008 R2 - Windows Storage Server 2008 R2 Gold/SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><SPAN> <P><SPAN>This is an update rollup for the Single Instance Storage (SIS) component in Windows Storage Server 2008 R2.</SPAN><BR><B></B></P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><STRONG>Note:</STRONG> The hotfix is password protected by Microsoft, and&nbsp;has to be manually cached for it to run correctly. For more information on how to manually cache files see <A href="http://www-01.ibm.com/support/docview.wss?uid=swg21506037">http://www-01.ibm.com/support/docview.wss?uid=swg21506037</A>.</P> <P><STRONG>Note:</STRONG> There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P> <P><STRONG>Note:</STRONG> To deploy this Fixlet, ensure that Windows Update service is not disabled.</P> <P><B>Note:</B> This update is also referenced under KB2608659.</P></SPAN></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+677 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2008R2") AND (service pack major version of it = 1 or service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance><![CDATA[((((exists key "Microsoft-Windows-FailoverCluster-Core-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-FailoverCluster-Core-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-FailoverCluster-Core-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "WinEmb-FS-Advanced~31bf3856ad364e35~amd64~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "x86_microsoft-windows-sisbkup_31bf3856ad364e35_none_a4f71326d38f21f3" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21812" OR it >= "6.1.7601.10000" AND it < "6.1.7601.17686") of (default value of it as string as version)) of it) of it OR (exists key "x86_microsoft-windows-sisbkup_31bf3856ad364e35_none_a4f71326d38f21f3" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.21812") of (default value of it as string as version)) of it) of it AND exists key "amd64_microsoft-windows-sisbkup_31bf3856ad364e35_none_0115aeaa8bec9329" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21812") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR (((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-FailoverCluster-Core-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "WinEmb-FS-Advanced~31bf3856ad364e35~amd64~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-sisbkup_31bf3856ad364e35_none_0115aeaa8bec9329" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21812" OR it >= "6.1.7601.10000" AND it < "6.1.7601.17686") of (default value of it as string as version)) of it) of it OR (exists key "amd64_microsoft-windows-sisbkup_31bf3856ad364e35_none_0115aeaa8bec9329" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.21812") of (default value of it as string as version)) of it) of it AND exists key "x86_microsoft-windows-sisbkup_31bf3856ad364e35_none_a4f71326d38f21f3" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21812") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR (((exists key "WinEmb-FS-Advanced~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "WinEmb-FS-Advanced~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-FailoverCluster-Core-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "WinEmb-FS-Advanced~31bf3856ad364e35~amd64~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-sisbkup_31bf3856ad364e35_none_0115aeaa8bec9329" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21812" OR it >= "6.1.7601.10000" AND it < "6.1.7601.17686") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-sisbkup_31bf3856ad364e35_none_a4f71326d38f21f3" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21812" OR it >= "6.1.7601.10000" AND it < "6.1.7601.17686") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-FailoverCluster-Core-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-WOW64-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "x86_microsoft-windows-sisbkup_31bf3856ad364e35_none_a4f71326d38f21f3" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21047" OR it >= "6.1.7600.10000" AND it < "6.1.7600.16879") of (default value of it as string as version)) of it) of it OR (exists key "x86_microsoft-windows-sisbkup_31bf3856ad364e35_none_a4f71326d38f21f3" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21047") of (default value of it as string as version)) of it) of it AND exists key "amd64_microsoft-windows-sisbkup_31bf3856ad364e35_none_0115aeaa8bec9329" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21047") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-sisbkup_31bf3856ad364e35_none_0115aeaa8bec9329" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21047" OR it >= "6.1.7600.10000" AND it < "6.1.7600.16879") of (default value of it as string as version)) of it) of it OR (exists key "amd64_microsoft-windows-sisbkup_31bf3856ad364e35_none_0115aeaa8bec9329" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.21047") of (default value of it as string as version)) of it) of it AND exists key "x86_microsoft-windows-sisbkup_31bf3856ad364e35_none_a4f71326d38f21f3" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21047") of (default value of it as string as version)) of it) of it)) of item 1 of it) OR ((exists key "WinEmb-FS-Advanced~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-sisbkup_31bf3856ad364e35_none_0115aeaa8bec9329" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21047" OR it >= "6.1.7600.10000" AND it < "6.1.7600.16879") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-sisbkup_31bf3856ad364e35_none_a4f71326d38f21f3" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21047" OR it >= "6.1.7600.10000" AND it < "6.1.7600.16879") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "f603d267c1dc169b2423d040bde8055863e8e65c"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>693410</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2608659</SourceID>
+		<SourceReleaseDate>2013-02-12</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 08 Jan 2015 00:29:13 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Storage Server 2008 R2 Gold/SP1 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SIS</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 22 May 2015 08:49:02 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows6.1-kb2608659-x64_f603d267c1dc169b2423d040bde8055863e8e65c.msu sha1:f603d267c1dc169b2423d040bde8055863e8e65c size:293727 http://download.windowsupdate.com/msdownload/update/software/updt/2012/08/windows6.1-kb2608659-x64_f603d267c1dc169b2423d040bde8055863e8e65c.msu sha256:316a7bae8062c80e459d71a17d0c8cc151f7420741e387da0ed6d2a3138a0478
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows6.1-kb2608659-x64_f603d267c1dc169b2423d040bde8055863e8e65c.msu"}" /quiet /norestart
+
+action requires restart "f603d267c1dc169b2423d040bde8055863e8e65c" ]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2608659</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

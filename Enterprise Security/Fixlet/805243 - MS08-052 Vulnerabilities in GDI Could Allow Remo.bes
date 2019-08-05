@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-052: Vulnerabilities in GDI+ Could Allow Remote Code Execution - Report Viewer 2008 Redistributable Package</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a security update that resolves several privately reported vulnerabilities in Microsoft Windows GDI+. These vulnerabilities could allow remote code execution if a user viewed a specially crafted image file using affected software or browsed a Web site that contains specially crafted content. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update&nbsp;will be included in a future service pack.<BR><BR><B>Note:</B> This security update is also referenced under KB954766.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display a progress bar during action execution.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.87 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinXP" OR name of it = "Win2003" OR name of it = "WinXP-2003" OR name of it = "WinVista" OR name of it = "Win2008") of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "Microsoft.ReportViewer.Common.dll" whose (version of it < "9.0.21022.142" as version AND version of it >= "9" as version) of folders whose (name of it starts with "9") of folder (pathname of windows folder & "\assembly\GAC_MSIL\Microsoft.ReportViewer.Common")) AND (exists file "Microsoft.ReportViewer.WebForms.dll" whose (version of it < "9.0.21022.142" as version AND version of it >= "9" as version) of folders whose (name of it starts with "9") of folder (pathname of windows folder & "\assembly\GAC_MSIL\Microsoft.ReportViewer.WebForms")) AND (exists file "Microsoft.ReportViewer.WinForms.dll" whose (version of it < "9.0.21022.142" as version AND version of it >= "9" as version) of folders whose (name of it starts with "9") of folder (pathname of windows folder & "\assembly\GAC_MSIL\Microsoft.ReportViewer.WinForms")) AND (exists file "Microsoft.ReportViewer.ProcessingObjectModel.dll" whose (version of it < "9.0.21022.142" as version AND version of it >= "9" as version) of folders whose (name of it starts with "9") of folder (pathname of windows folder & "\assembly\GAC_MSIL\Microsoft.ReportViewer.ProcessingObjectModel"))]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DevDiv\VB\Servicing\9.0\ROS\1033" whose (value "Install" of it = 1) of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>3008064</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB954593</SourceID>
+		<SourceReleaseDate>2008-09-09</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2007-5348; CVE-2008-3012; CVE-2008-3013; CVE-2008-3014; CVE-2008-3015</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Graphics Device Interface</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP|Win2008|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch ReportViewer.exe sha1:24988e00cdaae1722c45b9d4f55133e524b5a959 size:3008064 http://download.microsoft.com/download/0/9/d/09d3df2d-abec-4ebe-bc64-260b05a30feb/ReportViewer.exe sha256:bb5c115e0d507307633565ed90d2050e38290678768cef5037300a3ba2c3430c
+
+wait __Download\ReportViewer.exe /q:a /r:n
+
+ 
+
+action may require restart "80ec5fd67ca8c472f792c4e57fd5e1c971150765"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-052.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-052.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2696547: Manage SMBv1 in Windows and Windows Server - Disable Workaround (Remove SMB v1 completely) - Windows 8.1 / Windows 10 / Windows Server 2012 R2 / Windows Server 2016 - KB2696547</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>This fixlet will install SMBv1 on Windows and Windows Servers, providing the method for customers who have removed SMBv1 to restore the SMBv1 service. Removing SMBv1 on SMB servers provides the alternative method for customers who can not apply <A href="https://technet.microsoft.com/library/security/MS17-010">MS17-010</A> patch.</FONT></FONT> This security update <A href="https://technet.microsoft.com/library/security/MS17-010">MS17-010</A>&nbsp;resolves vulnerabilities in Microsoft Windows. The most severe of the vulnerabilities could allow remote code execution if an attacker sends specially crafted messages to a Microsoft Server Message Block 1.0 (SMBv1) server.</P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the removing of SMB v1. Machine with SMBv1 removed will not be able to access files and folders on Windows Server 2003, which can only negotiate SMBv1. For more information please review <A href="https://blogs.technet.microsoft.com/josebda/2015/04/21/the-deprecation-of-smb1-you-should-be-planning-to-get-rid-of-this-old-smb-dialect">The Deprecation of SMBv1</A>. <P><B>Note:</B> There is no default action for this Fixlet message due to known issues associated with the installation of this patch. Please review the Known Issues prior to deploying this patch. </P><B>Note:</B> This update is also referenced under KB2696547.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+Unspecified
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((((name of it = "Win2012" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win2012R2")) or (name of it = "Win2016" OR name of it starts with "Win20" AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) or (((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1") AND service pack major version of it = 0) or (name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)) of operating system</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mrxsmb10" of native registry</Relevance>
+		<Category>Undo Workaround</Category>
+		<Source>Microsoft</Source>
+		<SourceID>KB2696547</SourceID>
+		<SourceReleaseDate>2017-05-15</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 23 May 2017 16:45:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {((((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1") AND service pack major version of it = 0) or name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system}
+
+// Disable wow64 redirection on x64 OSes
+action uses wow64 redirection {not x64 of operating system}
+
+delete __createfile
+
+//    CREATEFILE
+createfile until END_OF_FILE
+
+Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart
+
+END_OF_FILE
+
+delete powershell.ps1
+move __createfile powershell.ps1
+
+waithidden { pathname of file ((it as string) of value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" of native registry) } -ExecutionPolicy Bypass -File powershell.ps1
+
+else
+
+action uses wow64 redirection {not x64 of operating system}
+delete __createfile
+createfile until END_OF_FILE
+
+Install-WindowsFeature -Name FS-SMB1
+
+END_OF_FILE
+
+delete powershell.ps1
+move __createfile powershell.ps1
+
+waithidden { pathname of file ((it as string) of value "Path" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" of native registry) } -ExecutionPolicy Bypass -File powershell.ps1
+
+endif
+
+wait sc.exe config lanmanworkstation depend= bowser/mrxsmb10/mrxsmb20/nsi 
+action requires restart</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/2696547</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

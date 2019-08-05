@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Enable Viewing of Stored Dashboard Data through Web Reports</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>BES 7.0.1 and higher supports the ability to store dashboard data in the BES database. This feature can be used for historical reporting purposes in sites such as Power Management.</P> <P>Later versions of Web Reports include this functionality by default.</P> <P></P> <P>This Fixlet will enable the viewing of stored dashboard data through Web Reports in versions capable of using the functionality but which did not include the support.</P> <P></P> <P>Only the BES Server will be relevant for this Fixlet.</P> <P></P> <P><STRONG>Note: </STRONG>The BES Web Reports Service will be restarted if it is currently running.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance><![CDATA[(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" whose ((value "Version" of it) as string as version >= "7.0.1" AND (value "Version" of it) as string as version <= "7.0.9" AND exists value "BESInstalled" of it AND value "BESInstalled" of it =1) of registry)]]></Relevance>
+		<Relevance><![CDATA[not exists folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string &"Reference" ) whose(exists file "BESOJO.xsd" of it)]]></Relevance>
+		<Relevance><![CDATA[version of client >= "6.0"]]></Relevance>
+		<Category>Optional</Category>
+		<DownloadSize>1024</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2008-01-31</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 08 Feb 2008 18:42:15 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Web</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to enable viewing of stored dashboard data through Web Reports.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch BESOJO.xsd sha1:c1076fbe899bf05f6ade9d4f93162660f8c14a46 size:1814 http://software.bigfix.com/download/bes/misc/BESOJO.xsd sha256:448d54900480b11b1078d4de88a63a83bafd27dc2c3cdd34400ffb861d203024
+
+waithidden "{pathname of system folder}\cmd.exe" /C mkdir "{ value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string&"Reference" }"
+
+copy "__download\BESOJO.xsd" "{ value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string &"Reference"}\BESOJO.xsd"
+
+if {exists running services whose (display name of it = "BES Web Reports Server")}
+waithidden "{pathname of system folder}\cmd.exe" /C net stop "BES Web Reports Server"
+waithidden "{pathname of system folder}\cmd.exe" /C net start "BES Web Reports Server"
+endif
+]]></ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

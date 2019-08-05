@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-062: Vulnerabilities in GDI+ Could Allow Remote Code Execution - Groove 2007 SP1/SP2 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P>This update has been superseded because Microsoft has stopped offering the deployed binary.<br /><br />Microsoft has released a security update that resolves several privately reported vulnerabilities in Microsoft Windows GDI+. These vulnerabilities could allow remote code execution if a user viewed a specially crafted image file using affected software or browsed a Web site that contains specially crafted content. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.</P> <P><STRONG>Note: </STRONG>Microsoft has indicated that this patch is applicable to Groove 2007 Gold/SP1. However, BigFix testing has confirmed that the patch will apply correctly to systems which meet the relevance criteria. </P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><STRONG>Note:</STRONG> Microsoft has announced that this update will be included in a future service pack or&nbsp;update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB972581.</P> <P><STRONG>Note:</STRONG> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.39 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((it >= "12.0.6215.1000" AND it <= "12.0.6425.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "00BA") of last 4 of (first 14 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance><![CDATA[exists file "ogl.dll" whose ((it = "12" AND it < "12.0.6509.5000") of version of it) of folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office12")]]></Relevance>
+		<Relevance>not pending restart "d8fff6efda1023634544b75685181bb0abe3972f"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2515904</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB957488</SourceID>
+		<SourceReleaseDate>2009-10-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2009-2500; CVE-2009-2501; CVE-2009-2502; CVE-2009-2503; CVE-2009-2504; CVE-2009-3126</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-06-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>GDI+</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 17 Jun 2019 23:03:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch office2007-972581-fullfile-x86-glb.exe sha1:d8fff6efda1023634544b75685181bb0abe3972f size:2515904 http://download.microsoft.com/download/B/3/9/B39F6A83-4977-4C26-9A78-3F3C6B97C0AA/office2007-972581-fullfile-x86-glb.exe sha256:8d9bd7693f251a1360c83736268b86ee15479071f1ab89717bd76105717bad32
+
+waithidden __Download\office2007-972581-fullfile-x86-glb.exe /quiet /passive /norestart
+
+action may require restart "d8fff6efda1023634544b75685181bb0abe3972f"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-062.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-062.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

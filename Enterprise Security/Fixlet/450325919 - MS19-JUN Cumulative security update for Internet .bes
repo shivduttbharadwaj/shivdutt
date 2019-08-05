@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-JUN: Cumulative security update for Internet Explorer - Windows Server 2012 - IE 11 - KB4503259 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4507434.<br /><br />Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer. <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</P> <P><B>Note:</B> This update is also referenced under KB4503259.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+24.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.2" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>(name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.2" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>version of regapp "iexplore.exe" = "11"</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB4503259~31bf3856ad364e35~amd64~~11.4.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (4294967264;4294967232;0;2;4;32;64;101) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB4503259~31bf3856ad364e35~amd64~~11.4.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-InternetExplorer-VistaPlus-Update~31bf3856ad364e35~amd64~~11.4.9600.19329") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key whose (name of it starts with "amd64_microsoft-windows-ie-versioninfo_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "x86_microsoft-windows-ie-versioninfo_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "amd64_microsoft-windows-i..tocolimplementation_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "x86_microsoft-windows-i..tocolimplementation_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "amd64_microsoft-windows-scripting-vbscript_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "wow64_microsoft-windows-scripting-vbscript_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "amd64_microsoft-windows-scripting-jscript9_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "wow64_microsoft-windows-scripting-jscript9_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "amd64_microsoft-windows-scripting-jscript_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "wow64_microsoft-windows-scripting-jscript_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "amd64_microsoft-windows-ie-htmlrendering_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "wow64_microsoft-windows-ie-htmlrendering_31bf3856ad364e35_none" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-InternetExplorer-Package~31bf3856ad364e35~amd64~en-US~11.4.9600.19329") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key whose (name of it starts with "amd64_microsoft-windows-s..-jscript9.resources_31bf3856ad364e35_en-us" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "x86_microsoft-windows-s..-jscript9.resources_31bf3856ad364e35_en-us" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "amd64_microsoft-windows-i..rendering.resources_31bf3856ad364e35_en-us" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "x86_microsoft-windows-i..rendering.resources_31bf3856ad364e35_en-us" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "amd64_microsoft-windows-i..mentation.resources_31bf3856ad364e35_en-us" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it OR exists key whose (name of it starts with "x86_microsoft-windows-i..mentation.resources_31bf3856ad364e35_en-us" AND exists key (if (exists default value of it) then default value of it as string else "11.4") whose ((it >= "11.4.9600" AND it < "11.4.9600.19377") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "97db11dcf4c8d4d48b094c94da99090bf7ca9d99"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>26158531</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4503259</SourceID>
+		<SourceReleaseDate>2019-06-11</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2019-0920; CVE-2019-0988; CVE-2019-1005; CVE-2019-1038; CVE-2019-1055; CVE-2019-1080; CVE-2019-1081'</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Jun 2019 05:16:35 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4507434</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:ie:11:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>450743419</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2012</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>IE 11</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch ie11-windows6.2-kb4503259-x64_97db11dcf4c8d4d48b094c94da99090bf7ca9d99.msu sha1:97db11dcf4c8d4d48b094c94da99090bf7ca9d99 size:26158531 http://download.windowsupdate.com/d/msdownload/update/software/secu/2019/05/ie11-windows6.2-kb4503259-x64_97db11dcf4c8d4d48b094c94da99090bf7ca9d99.msu sha256:d2098a278207579d67c16a395332735da8025100e8d33fb9ccf229c1d272d629
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\ie11-windows6.2-kb4503259-x64_97db11dcf4c8d4d48b094c94da99090bf7ca9d99.msu"}" /quiet /norestart
+
+action requires restart "97db11dcf4c8d4d48b094c94da99090bf7ca9d99"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4503259</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

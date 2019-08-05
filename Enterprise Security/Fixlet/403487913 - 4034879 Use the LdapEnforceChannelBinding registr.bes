@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4034879: Use the LdapEnforceChannelBinding registry entry to make LDAP authentication over SSL/TLS more secure - Windows Server 2008 SP2 / 2008 R2 SP1 / 2012 / 2012 R2 / 2016 - Enable Channel Binding Validation without Compatibility - KB4034879</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>CVE-2017-8563 introduces a registry setting that administrators can use to help make LDAP authentication over SSL/TLS more secure. <P></P> <P><B>Note:</B> This update is also referenced under KB4034879.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+Unspecified
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win2008" OR name of it = "WinVista" AND product type of it != nt workstation product type) AND service pack major version of it = 2) OR (name of it = "Win2008R2" AND service pack major version of it = 1) OR name of it = "Win2012" OR name of it = "Win2012R2" OR name of it = "Win2016") of operating system</Relevance>
+		<Relevance>product type of operating system = nt domain controller product type</Relevance>
+		<Relevance><![CDATA[exists keys ("amd64_microsoft-windows-d..toryservices-ntdsai_31bf3856ad364e35_none_d84570429e32f8f9";"amd64_microsoft-windows-ldap-client_31bf3856ad364e35_none_754ca5c5e20e6c9d";"x86_microsoft-windows-d..toryservices-ntdsai_31bf3856ad364e35_none_7c26d4bee5d587c3";"x86_microsoft-windows-ldap-client_31bf3856ad364e35_none_192e0a4229b0fb67") whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it = "6.0.6002" AND (it >= "6.0.6002.24130" OR it < "6.0.6002.20000" AND it >= "6.0.6002.19810")) of (default value of it as string as version)) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of native registry OR (number of (elements of ((set of (if (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) then elements whose ((it contains "KB4025337" OR it contains "KB4025333" OR it contains "KB4025343") AND it does not contain "_") of (set of ((substrings before "~" of substrings after "for_" of names of keys whose (name of it contains "for_" AND (it = 96 or it = 112 or it = 6 or it = 7) of (value "CurrentState" of it as integer)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry) as uppercase)) else (nothing))))) > 0) OR (exists keys (names of values whose (((it = "7601" and it >= "7601.23862.1.6") OR (it = "9200" and it >= "9200.22224.1.3") OR (it = "9600" and it >= "9600.18756.1.4") OR (it = "10240" and it >= "10240.17488.1.14") OR (it = "10586" and it >= "10586.1007.1.13") OR (it = "14393" and it >= "14393.1480.1.15") OR (it = "15063" and it >= "15063.483.1.13")) of (following text of last "~" of name of it as version)) of keys ("Package_for_RollupFix~31bf3856ad364e35~amd64~~0.0.0.0";"Package_for_RollupFix~31bf3856ad364e35~x86~~0.0.0.0") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackageIndex" of native registry) whose ((it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry)]]></Relevance>
+		<Relevance>not exists value "LdapEnforceChannelBinding" whose (it as integer = 2) of key "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\NTDS\Parameters" of native registry</Relevance>
+		<Category>Setting</Category>
+		<Source>Microsoft</Source>
+		<SourceID>KB4034879</SourceID>
+		<SourceReleaseDate>2017-07-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 07 Aug 2017 09:51:10 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows:*:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008|Win2008R2|Win2012|Win2012R2|Win2016</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to enable the setting.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\NTDS\Parameters]" "LdapEnforceChannelBinding"=dword:00000002</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4034879</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

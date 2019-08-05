@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: SQL Server / MSDE 2000 Service Pack 4 Available (Non-Default SQL Instances and Non-Microsoft MSDE Installs)</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT face=Verdana size=2>Microsoft has released Service Pack 4 (SP4) for SQL Server 2000. This Service Pack includes updates to the data engine, database client utilities (such as SQL Server Enterprise Manager and osql for SQL Server 2000), and database client connectivity components (such as the OLE DB Provider for SQL Server, the SQL Server Open Database Connectivity (ODBC) driver, and the client Net-Libraries).<BR><BR><STRONG>Note:</STRONG> This Fixlet message detects named instances of SQL Server 2000 and SQL Server Desktop Engine (MSDE) installed by third-party applications. Due to the complexity of installation for these instances, installation of this patch must be completed manually.</FONT><BR><BR><B>Note:</B> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists ((keys of it) whose (exists ((key "MSSQLServer\CurrentVersion" of it) whose (value "Language" of it = 1033)))) of key "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of registry</Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server" whose (value "InstalledInstances" of it as string as lowercase is not "mssqlserver%00%00") of registry) OR ((not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSSQLServer\Setup" whose (value "FeatureName" of it as string as lowercase is "sqlrun") of registry) AND (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\MSDE" of registry) AND (not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\80\Registration" of registry))</Relevance>
+		<Relevance><![CDATA[(exists keys "Setup" whose ((value "SQLPath" of it as string contains "%00" and version of file "sqlservr.exe" of folder (preceding text of last "%00" of (value "SQLPath" of it as string) as string & "\Binn") < "2000.80.2039.0") OR (value "SQLPath" of it as string does not contain "%00" and version of file "sqlservr.exe" of folder ((value "SQLPath" of it) as string & "\Binn") as string as version < "2000.80.2039.0")) of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server" of registry) OR (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSSQLServer\Setup" whose ((value "SQLPath" of it as string contains "%00" and version of file "sqlservr.exe" of folder (preceding text of last "%00" of (value "SQLPath" of it as string) as string & "\Binn") < "2000.80.2039.0") OR (value "SQLPath" of it as string does not contain "%00" and version of file "sqlservr.exe" of folder ((value "SQLPath" of it) as string & "\Binn") as string as version < "2000.80.2039.0")) of registry)]]></Relevance>
+		<Relevance>(not exists key "ESRemovedFixlets" of key "HKLM\Software\BigFix\EnterpriseClient" of registry) OR (not exists value "204015" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry) OR (value "204015" of key "HKLM\Software\BigFix\EnterpriseClient\ESRemovedFixlets" of registry ) != 1</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB884525</SourceID>
+		<SourceReleaseDate>2005-05-06</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft on SQL Server Service Pack 4.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri"><![CDATA[http://www.microsoft.com/downloads/details.aspx?FamilyID=8e2dfc8d-c20e-4446-99a9-b7f0213f8bc5&DisplayLang=en]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> if you wish to remove this Fixlet message and mark it as fixed on affected computers. In doing so, you accept the risk of not closing this vulnerability on affected computers.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\Software\BigFix\EnterpriseClient\ESRemovedFixlets]" "204015"=dword:00000001</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

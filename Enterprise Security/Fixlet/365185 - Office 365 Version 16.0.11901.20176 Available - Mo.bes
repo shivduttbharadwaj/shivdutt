@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Office 365 Version 16.0.11901.20176 Available - Monthly Channel - Office 365 (French)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P>Use the action below to update the Office 365 applications that are installed through Click-to-Run to version 16.0.11901.20176.</P> <P><B><FONT color=#ff0000>Important Note:</FONT></B> Ensure that Network Share is updated to the latest version if you configured your Office 365 applications to download from a Network Share location instead of Microsoft Client Delivery Network (CDN).</P> <P><STRONG>Note:</STRONG> Ensure that all the programs to be updated are closed to avoid failure to update. </P> <P>The first action is a silent&nbsp;update and will not display the&nbsp;update status. If a program is open, no prompt will appear to ask you to close the program before continuing the update. </P> <P>The second action will prompt you to close programs that are open during the update process.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.6 GB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>exists keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Relevance>exists value "DisplayVersion" whose (it as string as version = "16.0") of keys whose (value "DisplayName" of it as string as lowercase contains "office 365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Relevance>(exists value "UpdateBranch" whose (it as string as lowercase = "current") of keys "HKLM\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" of it OR (exists value "UpdateBranch" whose (it as string as lowercase = "monthly") of keys "HKLM\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" of it) OR (not exists value "UpdateBranch" of keys "HKLM\SOFTWARE\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" of it AND exists value "CDNBaseUrl" whose (it as string as lowercase contains "492350f6-3a01-4f97-b9c0-c7c6ddf67d60") of keys "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of it)) of native registry</Relevance>
+		<Relevance><![CDATA[exists value "DisplayVersion" whose ((it ="16.0" and it < "16.0.11901.20176") of (it as string as version)) of keys whose (value "DisplayName" of it as string as lowercase contains "365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry]]></Relevance>
+		<Relevance>exists value "ClientCulture" whose(it as string as lowercase = "fr-fr") of keys "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of native registry</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>3825688216</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2019-07-29</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 31 Oct 2016 08:19:46 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:office:365:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office 365</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 365</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to update Office 365.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[continue if {not exists running application ("winword.exe"; "excel.exe"; "powerpnt.exe"; "onenote.exe"; "outlook.exe"; "mspub.exe"; "msaccess.exe"; "lync.exe")}
+
+parameter "SourceFolder"="{pathname of parent folder of regapp "besclient.exe" as string & "\Office365AdvPatch"}"
+
+if {(value of setting "_BESClient_Office365_Update_Source" of client as lowercase ="client_local_cache") | False}
+
+if {exists folder (parameter "SourceFolder")}
+	folder delete "{parameter "SourceFolder"}"
+endif
+
+folder create "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176"
+
+if{exists value "Platform" whose (it as string as lowercase = "x86") of keys "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of native registry}
+
+prefetch v32_16.0.11901.20176.cab sha1:1be2ff56dc011c448fb89558800c334d33f4c7b6 size:17235 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v32_16.0.11901.20176.cab sha256:f6e9ce7b81a4ea3ecf8071571e1069d90d893b094f033fbbf2b921d798904a01
+move "__Download\v32_16.0.11901.20176.cab" "{parameter "SourceFolder"}\Office\Data\v32_16.0.11901.20176.cab"
+
+prefetch v32.cab sha1:1be2ff56dc011c448fb89558800c334d33f4c7b6 size:17235 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v32_16.0.11901.20176.cab sha256:f6e9ce7b81a4ea3ecf8071571e1069d90d893b094f033fbbf2b921d798904a01
+move "__Download\v32.cab" "{parameter "SourceFolder"}\Office\Data\v32.cab"
+
+prefetch i320.cab sha1:1f9c27445ace79b681b9163c378577a81a0db97c size:21164104 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i320.cab sha256:157755d12057c808ec4325c32ea70975b882cecdc575d6de922b4ea6e44ee8d4
+move "__Download\i320.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i320.cab"
+
+prefetch s320.cab sha1:57b1b62104023449d70927566a5896b868a3b7be size:4303255 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s320.cab sha256:e0d9c97d5670b905128202916136417b32b042f06178927c0c2d4d2018f53092
+move "__Download\s320.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s320.cab"
+
+prefetch stream.x86.x-none.dat sha1:880d47261374394ea1491e00a0ff7190b2c44c8a size:1474390101 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x86.x-none.dat sha256:83d6449ad6f33c2a77b1759124135615da9a4237b3cf63d2953c7b7e33c93589
+move "__Download\stream.x86.x-none.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x86.x-none.dat"
+
+prefetch i321036.cab sha1:0907d409fd939220fcfce6dc95387b331caec176 size:15823 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i321036.cab sha256:9d16cbd26d96ee67957a14d231d5e561c8229e99e8b6997a4a5bb3e7ad3d9c18
+move "__Download\i321036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i321036.cab"
+
+prefetch s321036.cab sha1:c5ffaf740b9393e66c19b57062d208386bb6f935 size:1065729 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s321036.cab sha256:5c13a8a16a5eb852462feb051ab7f042e84086fda94572bee898efae11cb4de3
+move "__Download\s321036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s321036.cab"
+
+prefetch stream.x86.fr-fr.dat sha1:f2baecbd42ccf9301888d9e53bb2e64324dcb0ff size:282198112 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x86.fr-fr.dat sha256:736b8b0dd555997a8f0b79308c818f4ee6cf8a3479dc72b3c10e260444d7dfdf
+move "__Download\stream.x86.fr-fr.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x86.fr-fr.dat"
+
+else
+
+prefetch v64_16.0.11901.20176.cab sha1:79b0ca361cf69aaa48bd20e15e0c050242169d8b size:17235 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v64_16.0.11901.20176.cab sha256:b44f1a39a67e3840da05b67e2ff582f5045acf52e5664c75bbfc9abe374e5c1a
+move "__Download\v64_16.0.11901.20176.cab" "{parameter "SourceFolder"}\Office\Data\v64_16.0.11901.20176.cab"
+
+prefetch v64.cab sha1:79b0ca361cf69aaa48bd20e15e0c050242169d8b size:17235 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v64_16.0.11901.20176.cab sha256:b44f1a39a67e3840da05b67e2ff582f5045acf52e5664c75bbfc9abe374e5c1a
+move "__Download\v64.cab" "{parameter "SourceFolder"}\Office\Data\v64.cab"
+
+prefetch s640.cab sha1:5bb459208971769d20d117b08f7469df50aa57e3 size:4537251 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s640.cab sha256:a4164d7b778c46eea896b85f458cb1c223e2fe9fb235960bb63210bda1448e37
+move "__Download\s640.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s640.cab"
+
+prefetch stream.x64.x-none.dat sha1:1beaaf733bd20b163e80f8f6ffe465bae59aa183 size:1723979416 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x64.x-none.dat sha256:070f4834a61acfefdc8320994c1e80a8df9b64dd286f4778df7f567b4da3dd32
+move "__Download\stream.x64.x-none.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x64.x-none.dat"
+
+prefetch s641036.cab sha1:0be75830ae7e1c1ea2aa1088225a769b37cc4b06 size:1103415 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s641036.cab sha256:4e1875b6f5475dd464a2a8d158629621a9eb267699e3a9bcceb5b29457dc9ae4
+move "__Download\s641036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s641036.cab"
+
+prefetch stream.x64.fr-fr.dat sha1:5013d4aee6edcaf895a3768e2a0b6ae70d9454b3 size:284940855 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x64.fr-fr.dat sha256:9b3ad7983bed87226961ddb1985081d52318f2480f837d257550b1af3a50a6a3
+move "__Download\stream.x64.fr-fr.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x64.fr-fr.dat"
+
+endif
+
+
+prefetch i640.cab sha1:776106f67f1d53bfff693873baf91c094ea62da3 size:27939662 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i640.cab sha256:6e83dd55b42f859b96ac34bea6d1e8a762dc23533a3a2dfd62582f639223dd83
+move "__Download\i640.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i640.cab"
+
+prefetch i641036.cab sha1:10eae0178e3571bb5e21c0c76ca7caabd8b5bdb4 size:16039 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i641036.cab sha256:6d19d77be0f6f92f4bb39079d76fecf5c23254b3cd0dbc6f2131d92f46deb89f
+move "__Download\i641036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i641036.cab"
+
+if {x64 of operating system}
+regset64 "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"="{escape of parameter "SourceFolder"}"
+else
+regset"[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"="{escape of parameter "SourceFolder"}"
+endif
+
+endif
+
+waithidden {"%22" & value "ClientFolder" of key "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of native registry as string & "\OfficeC2RClient.exe%22 /update user updatepromptuser=False displaylevel=False updatetoversion=16.0.11901.20176"}
+
+pause while {Not exists value "DisplayVersion" whose (it as string as version = "16.0.11901.20176" ) of keys whose (value "DisplayName" of it as string as lowercase contains "365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry}
+
+if {(value of setting "_BESClient_Office365_Update_Source" of client as lowercase ="client_local_cache") | False}
+
+// After installation Cleanup
+folder delete "{parameter "SourceFolder"}"
+
+if {x64 of operating system}
+regdelete64 "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"
+else
+regdelete "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"
+endif
+
+endif]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to update Office 365 with status windows showing during the update process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "SourceFolder"="{pathname of parent folder of regapp "besclient.exe" as string & "\Office365AdvPatch"}"
+
+if {(value of setting "_BESClient_Office365_Update_Source" of client as lowercase ="client_local_cache") | False}
+
+if {exists folder (parameter "SourceFolder")}
+	folder delete "{parameter "SourceFolder"}"
+endif
+
+folder create "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176"
+
+if{exists value "Platform" whose (it as string as lowercase = "x86") of keys "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of native registry}
+
+prefetch v32_16.0.11901.20176.cab sha1:1be2ff56dc011c448fb89558800c334d33f4c7b6 size:17235 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v32_16.0.11901.20176.cab sha256:f6e9ce7b81a4ea3ecf8071571e1069d90d893b094f033fbbf2b921d798904a01
+move "__Download\v32_16.0.11901.20176.cab" "{parameter "SourceFolder"}\Office\Data\v32_16.0.11901.20176.cab"
+
+prefetch v32.cab sha1:1be2ff56dc011c448fb89558800c334d33f4c7b6 size:17235 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v32_16.0.11901.20176.cab sha256:f6e9ce7b81a4ea3ecf8071571e1069d90d893b094f033fbbf2b921d798904a01
+move "__Download\v32.cab" "{parameter "SourceFolder"}\Office\Data\v32.cab"
+
+prefetch i320.cab sha1:1f9c27445ace79b681b9163c378577a81a0db97c size:21164104 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i320.cab sha256:157755d12057c808ec4325c32ea70975b882cecdc575d6de922b4ea6e44ee8d4
+move "__Download\i320.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i320.cab"
+
+prefetch s320.cab sha1:57b1b62104023449d70927566a5896b868a3b7be size:4303255 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s320.cab sha256:e0d9c97d5670b905128202916136417b32b042f06178927c0c2d4d2018f53092
+move "__Download\s320.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s320.cab"
+
+prefetch stream.x86.x-none.dat sha1:880d47261374394ea1491e00a0ff7190b2c44c8a size:1474390101 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x86.x-none.dat sha256:83d6449ad6f33c2a77b1759124135615da9a4237b3cf63d2953c7b7e33c93589
+move "__Download\stream.x86.x-none.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x86.x-none.dat"
+
+prefetch i321036.cab sha1:0907d409fd939220fcfce6dc95387b331caec176 size:15823 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i321036.cab sha256:9d16cbd26d96ee67957a14d231d5e561c8229e99e8b6997a4a5bb3e7ad3d9c18
+move "__Download\i321036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i321036.cab"
+
+prefetch s321036.cab sha1:c5ffaf740b9393e66c19b57062d208386bb6f935 size:1065729 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s321036.cab sha256:5c13a8a16a5eb852462feb051ab7f042e84086fda94572bee898efae11cb4de3
+move "__Download\s321036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s321036.cab"
+
+prefetch stream.x86.fr-fr.dat sha1:f2baecbd42ccf9301888d9e53bb2e64324dcb0ff size:282198112 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x86.fr-fr.dat sha256:736b8b0dd555997a8f0b79308c818f4ee6cf8a3479dc72b3c10e260444d7dfdf
+move "__Download\stream.x86.fr-fr.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x86.fr-fr.dat"
+
+else
+
+prefetch v64_16.0.11901.20176.cab sha1:79b0ca361cf69aaa48bd20e15e0c050242169d8b size:17235 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v64_16.0.11901.20176.cab sha256:b44f1a39a67e3840da05b67e2ff582f5045acf52e5664c75bbfc9abe374e5c1a
+move "__Download\v64_16.0.11901.20176.cab" "{parameter "SourceFolder"}\Office\Data\v64_16.0.11901.20176.cab"
+
+prefetch v64.cab sha1:79b0ca361cf69aaa48bd20e15e0c050242169d8b size:17235 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v64_16.0.11901.20176.cab sha256:b44f1a39a67e3840da05b67e2ff582f5045acf52e5664c75bbfc9abe374e5c1a
+move "__Download\v64.cab" "{parameter "SourceFolder"}\Office\Data\v64.cab"
+
+prefetch s640.cab sha1:5bb459208971769d20d117b08f7469df50aa57e3 size:4537251 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s640.cab sha256:a4164d7b778c46eea896b85f458cb1c223e2fe9fb235960bb63210bda1448e37
+move "__Download\s640.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s640.cab"
+
+prefetch stream.x64.x-none.dat sha1:1beaaf733bd20b163e80f8f6ffe465bae59aa183 size:1723979416 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x64.x-none.dat sha256:070f4834a61acfefdc8320994c1e80a8df9b64dd286f4778df7f567b4da3dd32
+move "__Download\stream.x64.x-none.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x64.x-none.dat"
+
+prefetch s641036.cab sha1:0be75830ae7e1c1ea2aa1088225a769b37cc4b06 size:1103415 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s641036.cab sha256:4e1875b6f5475dd464a2a8d158629621a9eb267699e3a9bcceb5b29457dc9ae4
+move "__Download\s641036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s641036.cab"
+
+prefetch stream.x64.fr-fr.dat sha1:5013d4aee6edcaf895a3768e2a0b6ae70d9454b3 size:284940855 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x64.fr-fr.dat sha256:9b3ad7983bed87226961ddb1985081d52318f2480f837d257550b1af3a50a6a3
+move "__Download\stream.x64.fr-fr.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x64.fr-fr.dat"
+
+endif
+
+
+prefetch i640.cab sha1:776106f67f1d53bfff693873baf91c094ea62da3 size:27939662 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i640.cab sha256:6e83dd55b42f859b96ac34bea6d1e8a762dc23533a3a2dfd62582f639223dd83
+move "__Download\i640.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i640.cab"
+
+prefetch i641036.cab sha1:10eae0178e3571bb5e21c0c76ca7caabd8b5bdb4 size:16039 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i641036.cab sha256:6d19d77be0f6f92f4bb39079d76fecf5c23254b3cd0dbc6f2131d92f46deb89f
+move "__Download\i641036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i641036.cab"
+
+if {x64 of operating system}
+regset64 "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"="{escape of parameter "SourceFolder"}"
+else
+regset"[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"="{escape of parameter "SourceFolder"}"
+endif
+
+endif
+
+waithidden {"%22" & value "ClientFolder" of key "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of native registry as string & "\officec2rclient.exe%22 /update user updatepromptuser=False updatetoversion=16.0.11901.20176"}
+
+pause while {Not exists value "DisplayVersion" whose (it as string as version = "16.0.11901.20176" ) of keys whose (value "DisplayName" of it as string as lowercase contains "365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry}
+
+
+if {(value of setting "_BESClient_Office365_Update_Source" of client as lowercase ="client_local_cache") | False}
+
+// After installation Cleanup
+folder delete "{parameter "SourceFolder"}"
+
+if {x64 of operating system}
+regdelete64 "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"
+else
+regdelete "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"
+endif
+
+endif]]></ActionScript>
+		</Action>
+		<Action ID="Action3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to update Office 365 - download v32*/v64* cab files with nohash.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[continue if {not exists running application ("winword.exe"; "excel.exe"; "powerpnt.exe"; "onenote.exe"; "outlook.exe"; "mspub.exe"; "msaccess.exe"; "lync.exe")}
+
+parameter "SourceFolder"="{pathname of parent folder of regapp "besclient.exe" as string & "\Office365AdvPatch"}"
+
+if {(value of setting "_BESClient_Office365_Update_Source" of client as lowercase ="client_local_cache") | False}
+
+if {exists folder (parameter "SourceFolder")}
+	folder delete "{parameter "SourceFolder"}"
+endif
+
+folder create "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176"
+
+if{exists value "Platform" whose (it as string as lowercase = "x86") of keys "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of native registry}
+
+download as v32_16.0.11901.20176.cab http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v32_16.0.11901.20176.cab
+move "__Download\v32_16.0.11901.20176.cab" "{parameter "SourceFolder"}\Office\Data\v32_16.0.11901.20176.cab"
+
+download as v32.cab http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v32_16.0.11901.20176.cab
+move "__Download\v32.cab" "{parameter "SourceFolder"}\Office\Data\v32.cab"
+
+prefetch i320.cab sha1:1f9c27445ace79b681b9163c378577a81a0db97c size:21164104 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i320.cab sha256:157755d12057c808ec4325c32ea70975b882cecdc575d6de922b4ea6e44ee8d4
+move "__Download\i320.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i320.cab"
+
+prefetch s320.cab sha1:57b1b62104023449d70927566a5896b868a3b7be size:4303255 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s320.cab sha256:e0d9c97d5670b905128202916136417b32b042f06178927c0c2d4d2018f53092
+move "__Download\s320.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s320.cab"
+
+prefetch stream.x86.x-none.dat sha1:880d47261374394ea1491e00a0ff7190b2c44c8a size:1474390101 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x86.x-none.dat sha256:83d6449ad6f33c2a77b1759124135615da9a4237b3cf63d2953c7b7e33c93589
+move "__Download\stream.x86.x-none.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x86.x-none.dat"
+
+prefetch i321036.cab sha1:0907d409fd939220fcfce6dc95387b331caec176 size:15823 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i321036.cab sha256:9d16cbd26d96ee67957a14d231d5e561c8229e99e8b6997a4a5bb3e7ad3d9c18
+move "__Download\i321036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i321036.cab"
+
+prefetch s321036.cab sha1:c5ffaf740b9393e66c19b57062d208386bb6f935 size:1065729 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s321036.cab sha256:5c13a8a16a5eb852462feb051ab7f042e84086fda94572bee898efae11cb4de3
+move "__Download\s321036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s321036.cab"
+
+prefetch stream.x86.fr-fr.dat sha1:f2baecbd42ccf9301888d9e53bb2e64324dcb0ff size:282198112 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x86.fr-fr.dat sha256:736b8b0dd555997a8f0b79308c818f4ee6cf8a3479dc72b3c10e260444d7dfdf
+move "__Download\stream.x86.fr-fr.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x86.fr-fr.dat"
+
+else
+
+download as v64_16.0.11901.20176.cab http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v64_16.0.11901.20176.cab
+move "__Download\v64_16.0.11901.20176.cab" "{parameter "SourceFolder"}\Office\Data\v64_16.0.11901.20176.cab"
+
+download as v64.cab http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v64_16.0.11901.20176.cab
+move "__Download\v64.cab" "{parameter "SourceFolder"}\Office\Data\v64.cab"
+
+prefetch s640.cab sha1:5bb459208971769d20d117b08f7469df50aa57e3 size:4537251 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s640.cab sha256:a4164d7b778c46eea896b85f458cb1c223e2fe9fb235960bb63210bda1448e37
+move "__Download\s640.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s640.cab"
+
+prefetch stream.x64.x-none.dat sha1:1beaaf733bd20b163e80f8f6ffe465bae59aa183 size:1723979416 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x64.x-none.dat sha256:070f4834a61acfefdc8320994c1e80a8df9b64dd286f4778df7f567b4da3dd32
+move "__Download\stream.x64.x-none.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x64.x-none.dat"
+
+prefetch s641036.cab sha1:0be75830ae7e1c1ea2aa1088225a769b37cc4b06 size:1103415 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s641036.cab sha256:4e1875b6f5475dd464a2a8d158629621a9eb267699e3a9bcceb5b29457dc9ae4
+move "__Download\s641036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s641036.cab"
+
+prefetch stream.x64.fr-fr.dat sha1:5013d4aee6edcaf895a3768e2a0b6ae70d9454b3 size:284940855 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x64.fr-fr.dat sha256:9b3ad7983bed87226961ddb1985081d52318f2480f837d257550b1af3a50a6a3
+move "__Download\stream.x64.fr-fr.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x64.fr-fr.dat"
+
+endif
+
+
+prefetch i640.cab sha1:776106f67f1d53bfff693873baf91c094ea62da3 size:27939662 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i640.cab sha256:6e83dd55b42f859b96ac34bea6d1e8a762dc23533a3a2dfd62582f639223dd83
+move "__Download\i640.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i640.cab"
+
+prefetch i641036.cab sha1:10eae0178e3571bb5e21c0c76ca7caabd8b5bdb4 size:16039 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i641036.cab sha256:6d19d77be0f6f92f4bb39079d76fecf5c23254b3cd0dbc6f2131d92f46deb89f
+move "__Download\i641036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i641036.cab"
+
+if {x64 of operating system}
+regset64 "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"="{escape of parameter "SourceFolder"}"
+else
+regset"[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"="{escape of parameter "SourceFolder"}"
+endif
+
+endif
+
+waithidden {"%22" & value "ClientFolder" of key "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of native registry as string & "\OfficeC2RClient.exe%22 /update user updatepromptuser=False displaylevel=False updatetoversion=16.0.11901.20176"}
+
+pause while {Not exists value "DisplayVersion" whose (it as string as version = "16.0.11901.20176" ) of keys whose (value "DisplayName" of it as string as lowercase contains "365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry}
+
+if {(value of setting "_BESClient_Office365_Update_Source" of client as lowercase ="client_local_cache") | False}
+
+// After installation Cleanup
+folder delete "{parameter "SourceFolder"}"
+
+if {x64 of operating system}
+regdelete64 "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"
+else
+regdelete "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"
+endif
+
+endif]]></ActionScript>
+		</Action>
+		<Action ID="Action4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to update Office 365 with status windows showing during the update process - download v32*/v64* cab files with nohash.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "SourceFolder"="{pathname of parent folder of regapp "besclient.exe" as string & "\Office365AdvPatch"}"
+
+if {(value of setting "_BESClient_Office365_Update_Source" of client as lowercase ="client_local_cache") | False}
+
+if {exists folder (parameter "SourceFolder")}
+	folder delete "{parameter "SourceFolder"}"
+endif
+
+folder create "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176"
+
+if{exists value "Platform" whose (it as string as lowercase = "x86") of keys "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of native registry}
+
+download as v32_16.0.11901.20176.cab http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v32_16.0.11901.20176.cab
+move "__Download\v32_16.0.11901.20176.cab" "{parameter "SourceFolder"}\Office\Data\v32_16.0.11901.20176.cab"
+
+download as v32.cab http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v32_16.0.11901.20176.cab
+move "__Download\v32.cab" "{parameter "SourceFolder"}\Office\Data\v32.cab"
+
+prefetch i320.cab sha1:1f9c27445ace79b681b9163c378577a81a0db97c size:21164104 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i320.cab sha256:157755d12057c808ec4325c32ea70975b882cecdc575d6de922b4ea6e44ee8d4
+move "__Download\i320.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i320.cab"
+
+prefetch s320.cab sha1:57b1b62104023449d70927566a5896b868a3b7be size:4303255 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s320.cab sha256:e0d9c97d5670b905128202916136417b32b042f06178927c0c2d4d2018f53092
+move "__Download\s320.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s320.cab"
+
+prefetch stream.x86.x-none.dat sha1:880d47261374394ea1491e00a0ff7190b2c44c8a size:1474390101 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x86.x-none.dat sha256:83d6449ad6f33c2a77b1759124135615da9a4237b3cf63d2953c7b7e33c93589
+move "__Download\stream.x86.x-none.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x86.x-none.dat"
+
+prefetch i321036.cab sha1:0907d409fd939220fcfce6dc95387b331caec176 size:15823 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i321036.cab sha256:9d16cbd26d96ee67957a14d231d5e561c8229e99e8b6997a4a5bb3e7ad3d9c18
+move "__Download\i321036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i321036.cab"
+
+prefetch s321036.cab sha1:c5ffaf740b9393e66c19b57062d208386bb6f935 size:1065729 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s321036.cab sha256:5c13a8a16a5eb852462feb051ab7f042e84086fda94572bee898efae11cb4de3
+move "__Download\s321036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s321036.cab"
+
+prefetch stream.x86.fr-fr.dat sha1:f2baecbd42ccf9301888d9e53bb2e64324dcb0ff size:282198112 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x86.fr-fr.dat sha256:736b8b0dd555997a8f0b79308c818f4ee6cf8a3479dc72b3c10e260444d7dfdf
+move "__Download\stream.x86.fr-fr.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x86.fr-fr.dat"
+
+else
+
+download as v64_16.0.11901.20176.cab http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v64_16.0.11901.20176.cab
+move "__Download\v64_16.0.11901.20176.cab" "{parameter "SourceFolder"}\Office\Data\v64_16.0.11901.20176.cab"
+
+download as v64.cab http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/v64_16.0.11901.20176.cab
+move "__Download\v64.cab" "{parameter "SourceFolder"}\Office\Data\v64.cab"
+
+prefetch s640.cab sha1:5bb459208971769d20d117b08f7469df50aa57e3 size:4537251 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s640.cab sha256:a4164d7b778c46eea896b85f458cb1c223e2fe9fb235960bb63210bda1448e37
+move "__Download\s640.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s640.cab"
+
+prefetch stream.x64.x-none.dat sha1:1beaaf733bd20b163e80f8f6ffe465bae59aa183 size:1723979416 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x64.x-none.dat sha256:070f4834a61acfefdc8320994c1e80a8df9b64dd286f4778df7f567b4da3dd32
+move "__Download\stream.x64.x-none.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x64.x-none.dat"
+
+prefetch s641036.cab sha1:0be75830ae7e1c1ea2aa1088225a769b37cc4b06 size:1103415 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/s641036.cab sha256:4e1875b6f5475dd464a2a8d158629621a9eb267699e3a9bcceb5b29457dc9ae4
+move "__Download\s641036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\s641036.cab"
+
+prefetch stream.x64.fr-fr.dat sha1:5013d4aee6edcaf895a3768e2a0b6ae70d9454b3 size:284940855 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/stream.x64.fr-fr.dat sha256:9b3ad7983bed87226961ddb1985081d52318f2480f837d257550b1af3a50a6a3
+move "__Download\stream.x64.fr-fr.dat" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\stream.x64.fr-fr.dat"
+
+endif
+
+
+prefetch i640.cab sha1:776106f67f1d53bfff693873baf91c094ea62da3 size:27939662 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i640.cab sha256:6e83dd55b42f859b96ac34bea6d1e8a762dc23533a3a2dfd62582f639223dd83
+move "__Download\i640.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i640.cab"
+
+prefetch i641036.cab sha1:10eae0178e3571bb5e21c0c76ca7caabd8b5bdb4 size:16039 http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/office/data/16.0.11901.20176/i641036.cab sha256:6d19d77be0f6f92f4bb39079d76fecf5c23254b3cd0dbc6f2131d92f46deb89f
+move "__Download\i641036.cab" "{parameter "SourceFolder"}\Office\Data\16.0.11901.20176\i641036.cab"
+
+if {x64 of operating system}
+regset64 "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"="{escape of parameter "SourceFolder"}"
+else
+regset"[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"="{escape of parameter "SourceFolder"}"
+endif
+
+endif
+
+waithidden {"%22" & value "ClientFolder" of key "HKLM\SOFTWARE\Microsoft\Office\ClickToRun\Configuration" of native registry as string & "\officec2rclient.exe%22 /update user updatepromptuser=False updatetoversion=16.0.11901.20176"}
+
+pause while {Not exists value "DisplayVersion" whose (it as string as version = "16.0.11901.20176" ) of keys whose (value "DisplayName" of it as string as lowercase contains "365") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry}
+
+
+if {(value of setting "_BESClient_Office365_Update_Source" of client as lowercase ="client_local_cache") | False}
+
+// After installation Cleanup
+folder delete "{parameter "SourceFolder"}"
+
+if {x64 of operating system}
+regdelete64 "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"
+else
+regdelete "[HKEY_LOCAL_MACHINE\software\policies\microsoft\office\16.0\common\officeupdate]" "UpdatePath"
+endif
+
+endif]]></ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://technet.microsoft.com/fr-fr/office/mt465751</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

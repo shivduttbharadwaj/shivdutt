@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-045: Vulnerabilities in Kernel-Mode Drivers Could Allow Elevation of Privilege - Windows 8.1 Gold - KB2976897 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves three privately reported vulnerabilities in Microsoft Windows. The most severe of these vulnerabilities could allow elevation of privilege if an attacker logs on to the system and runs a specially crafted application. An attacker must have valid logon credentials and be able to log on locally to exploit these vulnerabilities.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB2976897.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.54 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists key "Microsoft-WinPE-SKU-Foundation-Package-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it AND exists key "Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-lddmcore_31bf3856ad364e35_none_21428fb1442731c4" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "WinPE-HTA-Package-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it AND exists key "Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-directx-direct3d11_31bf3856ad364e35_none_1d698610d4ce618e" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-directx-dxgi_31bf3856ad364e35_none_e08a022fe843a4d8" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Server-Features-WOW64-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Printing-ServerCore-Package-windows-WOW64~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) AND exists key "Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14" of it) of item 0 of it AND (exists key "x86_microsoft-windows-directx-direct3d11_31bf3856ad364e35_none_c14aea8d1c70f058" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-directx-dxgi_31bf3856ad364e35_none_846b66ac2fe633a2" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-Client-Features-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Printing-ServerCore-Package-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-ServerCore-DX-Package~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Server-Features-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) AND exists key "Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-directx-direct3d11_31bf3856ad364e35_none_1d698610d4ce618e" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-directx-dxgi_31bf3856ad364e35_none_e08a022fe843a4d8" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-Client-Features-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-ServerCore-SKU-Foundation-Package-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Server-Features-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) AND exists key "Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-lddmcore_31bf3856ad364e35_none_21428fb1442731c4" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-Client-Features-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-Server-Features-Package-AutoMerged-windows~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) AND exists key "Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-d..wmanager-compositor_31bf3856ad364e35_none_1505feb739f3828b" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-d..wmanager-compositor_31bf3856ad364e35_none_b8e7633381961155" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17210") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "8ff664b151d191a88954882459518516dbf969c4"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>3709962</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2976897</SourceID>
+		<SourceReleaseDate>2014-08-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2014-0318; CVE-2014-1819; CVE-2014-4064</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Aug 2014 04:18:19 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Kernel-Mode Driverss</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_8.1:-:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB2976897-x64.msu sha1:8ff664b151d191a88954882459518516dbf969c4 size:3709962 http://download.microsoft.com/download/0/B/7/0B781F52-64A7-4432-AAED-E7CC04A71575/Windows8.1-KB2976897-x64.msu sha256:d56a0fd1f2602df567671f37edaa3a5357f293248f39578762139bf38a923815
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB2976897-x64.msu"}" /quiet /norestart
+
+action requires restart "8ff664b151d191a88954882459518516dbf969c4"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS14-045</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

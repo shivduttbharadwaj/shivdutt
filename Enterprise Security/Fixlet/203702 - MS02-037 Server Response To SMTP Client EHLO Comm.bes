@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-037: Server Response To SMTP Client EHLO Command Results In Buffer Overrun - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS02-037. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>Microsoft has released a patch eliminating a security vulnerability in Exchange 5.5. The vulnerability results because of an unchecked buffer in the Internet Mail Connector (IMC) code that generates the response to the EHLO protocol command. If the total length of the message exceeds a particular value, the data will overrun the buffer. If the buffer were overrun with random data, it would result in the failure of the IMC. If, however, the buffer were overrun with carefully chosen data, it could be possible for the attacker to run code in the security context of the IMC, which runs as Exchange 5.5 Service Account.<BR><BR><b>File Size: </b>1.09 MB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry) AND (first 3 of (version of file "admin.exe" of folder (value "AdminDest" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string) as string) = "5.5")</Relevance>
+		<Relevance><![CDATA[value "Comments" of version block of file "admin.exe" of folder (value "AdminDest" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Exchange\Setup" of registry as string) >= "Service Pack 4"]]></Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Exchange Server 5.5\SP5\Q326322" of registry) AND (value "IsInstalled" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Exchange Server 5.5\SP5\Q326322" of registry != 0)</Relevance>
+		<Relevance><![CDATA[(not exists file (value "Location" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Exchange Server 5.5\SP5\Q326322\filelist\0" of registry as string)) OR (version of file (value "Location" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Exchange Server 5.5\SP5\Q326322\filelist\0" of registry as string) < (value "Version" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Exchange Server 5.5\SP5\Q326322\filelist\0" of registry as string)) OR (not exists file (value "Location" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Exchange Server 5.5\SP5\Q326322\filelist\1" of registry as string)) OR (version of file (value "Location" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Exchange Server 5.5\SP5\Q326322\filelist\1" of registry as string) < (value "Version" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Exchange Server 5.5\SP5\Q326322\filelist\1" of registry as string))]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1153744</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB326322</SourceID>
+		<SourceReleaseDate>2002-07-24</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-0698</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>203701</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q326322enui386.EXE sha1:9cfe977198433e85556770342e1ffb211f235f4f size:1153744 http://download.microsoft.com/download/exch55/Patch/05.05.59.2656/NT45/EN-US/Q326322enui386.EXE sha256:8a9b9e37c5f584d2d48843ea170509f3859725f1b813a54104ea08a5ec29d535
+wait __download\Q326322enui386.EXE /s
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-037.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-037.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

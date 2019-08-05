@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4498951: Cumulative Update 15 for SQL Server 2017 - SQL Server 2017 - KB4498951 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4505225.<br /><br />After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<P><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT> SQL Server instances operating in a non-Microsoft cluster environment should be upgraded using the CLUSTERPASSIVE option. Please use the second action below to upgrade in these environments.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Note:</B> There is no default action for this Fixlet message because it has multiple actions, none of which is clearly recommended over the others. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P><p><B>Note:</B> This update is also referenced under KB4498951.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+527.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[(exists keys whose (exists value "CurrentVersion" whose ((it = "14" AND it < "14.0.3162.1") of (it as string as version)) of key "MSSQLServer\CurrentVersion" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (native registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it = "14" AND it < "14.0.3162.1") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (native registry)) whose (item 0 of it = item 1 of it))]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>553522504</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4498951</SourceID>
+		<SourceReleaseDate>2019-05-24</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 31 May 2019 21:15:57 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4505225</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sql_server:2017:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>450522501</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-07-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2017</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch sqlserver2017-kb4498951-x64_b143d28a48204eb6ebab62394ce45df53d73f286.exe sha1:b143d28a48204eb6ebab62394ce45df53d73f286 size:553522504 http://download.windowsupdate.com/d/msdownload/update/software/updt/2019/05/sqlserver2017-kb4498951-x64_b143d28a48204eb6ebab62394ce45df53d73f286.exe sha256:f10abc85a6681e0ffca40296159b97a6c1bec81435d5f282337c8d755433c68e
+
+waithidden __Download\sqlserver2017-kb4498951-x64_b143d28a48204eb6ebab62394ce45df53d73f286.exe /q /allinstances /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "b143d28a48204eb6ebab62394ce45df53d73f286"</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (non-Microsoft cluster environments).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch sqlserver2017-kb4498951-x64_b143d28a48204eb6ebab62394ce45df53d73f286.exe sha1:b143d28a48204eb6ebab62394ce45df53d73f286 size:553522504 http://download.windowsupdate.com/d/msdownload/update/software/updt/2019/05/sqlserver2017-kb4498951-x64_b143d28a48204eb6ebab62394ce45df53d73f286.exe sha256:f10abc85a6681e0ffca40296159b97a6c1bec81435d5f282337c8d755433c68e
+
+waithidden __Download\sqlserver2017-kb4498951-x64_b143d28a48204eb6ebab62394ce45df53d73f286.exe /q /allinstances /clusterpassive /IACCEPTSQLSERVERLICENSETERMS
+
+action may require restart "b143d28a48204eb6ebab62394ce45df53d73f286"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4498951</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

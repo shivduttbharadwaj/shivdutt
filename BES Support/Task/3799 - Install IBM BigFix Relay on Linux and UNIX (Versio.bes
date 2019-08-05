@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install IBM BigFix Relay on Linux and UNIX (Version 9.5.12)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><B>Installs the IBM BigFix Relay 9.5.12 on the selected Linux or UNIX computers. <BR><BR></B>The target must have a IBM BigFix Client of 9.5.12 to install.<BR><BR></FONT><FONT size=2>For more information on IBM BigFix Relays, please visit the following support web pages:</P> <UL> <LI><A href="http://support.bigfix.com/bes/misc/besrelays.html">IBM BigFix Relay FAQ</A> - Information on using IBM BigFix Relays to reduce bandwidth on slow WAN links, increase scalability, and increase performance. <LI><A href="http://support.bigfix.com/bes/misc/besrelayhealth.html">IBM BigFix Relay Health</A> - Information on best practices for setting up and maintaining IBM BigFix Relays.</FONT></LI></UL></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+145 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance>version of registration server = "9.5"</Relevance>
+		<Relevance>version of client = "9.5.12"</Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>((exists match (regex "Red Hat Enterprise [a-zA-Z]* (5|6|7)") of it) OR (exists match (regex "CentOS (5|6|7)") of it) OR (exists match (regex "Ubuntu (14|16|18)") of it) OR (exists match (regex "SunOS 5.(10|11)") of it) OR (exists match (regex "(AIX|AIX VIOS) (6.1|7.1|7.2)") of it) OR (exists match (regex "Linux SuSE Enterprise (Desktop|Server) (11|12)") of it)) of name of operating system</Relevance>
+		<Relevance>not exists relay service</Relevance>
+		<Relevance>not exists main gather service</Relevance>
+		<Relevance>if (name of operating system starts with "Linux Red Hat") then (((exists match (regex "^i[6-9]86$") of it) OR (it = "x86_64")) of architecture of operating system) else true</Relevance>
+		<Relevance>if (name of operating system starts with "Linux SuSE") then (((exists match (regex "^i[6-9]86$") of it) OR (it = "x86_64")) of architecture of operating system) else true</Relevance>
+		<Relevance>if (name of operating system starts with "Linux Ubuntu") then (((it = "x86_64")) of architecture of operating system) else true</Relevance>
+		<Relevance>if (name of operating system starts with "SunOS") then (exists processor whose ((type of it contains "sparc") OR (type of it contains "i386"))) else true</Relevance>
+		<Relevance><![CDATA[if (name of operating system = "AIX 6.1") then ((architecture of operating system = "ppc64") AND (exists true whose (if true then (current technology level of operating system >= "6100-04") else false))) else true]]></Relevance>
+		<Relevance>if ((it = "AIX 7.1" OR it = "AIX 7.2") of name of operating system) then (architecture of operating system = "ppc64") else true</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>153031436</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2019-03-01</SourceReleaseDate>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 11 Mar 2019 10:58:50 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 11 Mar 2019 10:58:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the IBM BigFix Relay 9.5.12.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {(40037376 < free space of drive of client folder of current site) AND (40037376 < free space of drive of folder "/opt")}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+
+if {exists match (regex "SunOS 5.(10|11)") of name of operating system}
+	if  {exists processor whose (type of it contains "sparc")}
+		prefetch BESRelay.pkg sha1:bae08c7825c36e1b7841b7620fd27eb074d79586 size:34394624 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68.sparc_sol10.pkg sha256:9162e5b2341c6733e18e2e22ca0bec3b347c35aab8fabd59e2a887c12468b391
+	else
+		prefetch BESRelay.pkg sha1:e04060e173f474a82ce9610552f1a70e4e521c87 size:30006272 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68.x86_sol10.pkg sha256:1a8234ca9bdec97d7c41fc343eba48478865c79ed66dbe1843fd12d18c9e648d
+	endif
+	continue if {exists file "__Download/BESRelay.pkg"}
+	move __Download/BESRelay.pkg __Local/Upgrade/BESRelay.pkg
+	delete __appendfile
+	appendfile mail=
+	appendfile instance=overwrite
+	appendfile partial=nocheck
+	appendfile runlevel=nocheck
+	appendfile idepend=nocheck
+	appendfile space=ask
+	appendfile setuid=nocheck
+	appendfile conflict=nocheck
+	appendfile action=nocheck
+	appendfile basedir=default
+	move __appendfile __Local/Upgrade/solaris_admin_file
+	delete __appendfile
+	appendfile #!/bin/sh
+	appendfile if [ -f /etc/zones/index ]; then
+	appendfile     # system supports Solaris zones
+	appendfile     ZONE_ARG="-G"
+	appendfile else
+	appendfile     # system does not support Solaris zones
+	appendfile     ZONE_ARG=
+	appendfile fi
+	appendfile /usr/sbin/pkgadd $ZONE_ARG -a __Local/Upgrade/solaris_admin_file -n -d __Local/Upgrade/BESRelay.pkg BESRelay
+	move __appendfile __Local/Upgrade/installrelay
+	wait /bin/sh __Local/Upgrade/installrelay
+	wait /etc/init.d/besrelay start_skipclientrestart
+	delete __Local/Upgrade/BESRelay.pkg
+
+elseif {name of operating system starts with "AIX"}
+	if {((exists match (regex "AIX (6.1|7.)") of name of operating system)) AND (architecture of operating system = "ppc64") }
+		prefetch BESRelay.pkg sha1:f8617dda0980bfc36ea3a1fe1a7ee6df8c63ed4f size:40037376 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68.ppc64_aix61.pkg sha256:f557e8fcf1a66477b6e97adf0da71d9807bc8d1007e8d7ebf752e0f663558217
+	else
+		continue if false
+	endif
+	continue if {exists file "__Download/BESRelay.pkg"}
+	move __Download/BESRelay.pkg /var/tmp/BESRelay.pkg
+	wait installp -agqYXd /var/tmp/BESRelay.pkg BESRelay
+	wait /etc/rc.d/rc2.d/SBESRelayd start_skipclientrestart
+	delete /var/tmp/BESRelay.pkg
+
+elseif {name of operating system starts with "Linux Ubuntu"}
+	if {(((exists match (regex "Ubuntu (14|16|18)") of it) of name of it) AND (architecture of it = "x86_64")) of operating system}
+		prefetch BESRelay.deb sha1:3e0b0ab5a632759f6c0fb25c14bfcfc75270e623 size:7633510 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68-ubuntu10.amd64.deb sha256:aa990a71d857bcc7edebe16fd7afd2240779a97b7aab8e9ef80d856c1cf75f3c
+        else
+                continue if false
+        endif
+	continue if {exists file "__Download/BESRelay.deb"}
+        move __Download/BESRelay.deb __Local/Upgrade/BESRelay.deb
+	wait /usr/bin/dpkg -i __Local/Upgrade/BESRelay.deb
+
+	// Initialize relay configuration
+	delete __appendfile
+	appendfile  #!/bin/sh
+	appendfile  if [ -f /usr/bin/perl ]; then
+	appendfile      masthead=/etc/opt/BESClient/actionsite.afxm
+	appendfile      configfile=/var/opt/BESRelay/besrelay.config
+	appendfile      gatherurl=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Gather-URL:\s+(http://\S+)# ) {{ print $1; }' $masthead )
+	appendfile      cat /var/opt/BESRelay/besrelay.config.default > $configfile
+	appendfile
+	appendfile      echo >> $configfile
+	appendfile
+	appendfile      echo "[Software\\BigFix\\Enterprise Server]" >> $configfile
+	appendfile      printf "__Installer_Masthead_GatherURL\t\t= %s\n\n" "$gatherurl" >> $configfile
+	appendfile
+	appendfile      URL=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Registration-URL:\s+([[:print:]]+)# ) {{ print $1; }' $masthead )
+	appendfile      if [ -n "$URL" ]; then
+	appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_Enterprise Server_ClientRegister_ParentRelayURL]" >> $configfile
+	appendfile          printf "value\t\t= %s\n\n" "$URL" >> $configfile
+	appendfile      fi
+	appendfile
+	appendfile      URL=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Report-URL:\s+([[:print:]]+)# ) {{ print $1; }' $masthead )
+	appendfile      PORT=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Report-URL:\s+http://\S+:(\d+)# ) {{ print $1; }' $masthead )
+	appendfile      if [ -n "$URL" ]; then
+	appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_BESRelay_PostResults_ParentRelayURL]" >> $configfile
+	appendfile          printf "value\t\t= %s\n\n" "$URL" >> $configfile
+	appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_BESRelay_HTTPServer_PortNumber]" >> $configfile
+	appendfile          printf "value\t\t= %s\n\n" "$PORT" >> $configfile
+	appendfile      fi
+	appendfile
+	appendfile      URL=$(  /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Gather-URL:\s+(http://\S+:\d+)# ) {{ print $1; }' $masthead )
+	appendfile      PORT=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Gather-URL:\s+http://\S+:(\d+)# ) {{ print $1; }' $masthead )
+	appendfile      if [ -n "$URL" -a -n "$PORT" ]; then
+	appendfile          echo "[Software\\BigFix\\Enterprise Server\\GatherService]" >> $configfile
+	appendfile          printf "HttpContentLocation\t\t= %s/bfmirror/bfsites\n\n" "$URL" >> $configfile
+	appendfile
+	appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_Enterprise Server_ClientRegister_UDPMessagePort]" >> $configfile
+	appendfile          printf "value\t\t= %s\n\n" "$PORT" >> $configfile
+	appendfile      fi
+	appendfile
+	appendfile      URL=$( /usr/bin/perl -ne 'if( m#^X-BES-Mirror-Gather-URL:\s+([[:print:]]+)# ) {{ print $1; }' $masthead )
+	appendfile      if [ -n "$URL" ]; then
+	appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_BESGather_Comm_ParentRelayURL]" >> $configfile
+	appendfile          printf "value\t\t= %s\n\n" "$URL" >> $configfile
+	appendfile      fi
+	appendfile
+	appendfile      URL=$( /usr/bin/perl -ne 'if( m#^X-BES-Mirror-Download-URL:\s+([[:print:]]+)# ) {{ print $1; }' $masthead )
+	appendfile      if [ -n "$URL" ]; then
+	appendfile          echo "[Software\\BigFix\\Enterprise Server\\GatherService]" >> $configfile
+	appendfile          printf "DownloadMirror URL\t\t= %s\n\n" "$URL" >> $configfile
+	appendfile      fi
+	appendfile  fi
+	appendfile
+
+	move __appendfile __Local/Upgrade/setup_configfile.sh
+	wait /bin/sh __Local/Upgrade/setup_configfile.sh
+
+	wait /etc/init.d/besrelay start_skipclientrestart
+	delete __Local/Upgrade/BESRelay.deb
+	delete __Local/Upgrade/setup_configfile.sh
+
+else // RPM Variants
+	if {((((exists match (regex "Red Hat Enterprise [a-zA-Z]* (6|7)") of it) OR (exists match (regex "CentOS (6|7)") of it)) of name of it) AND (architecture of it = "x86_64")) of operating system}
+		prefetch BESRelay.rpm sha1:42a8bccfceaaa956724b795361a1ef13a48e22e2 size:7413464 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68-rhe6.x86_64.rpm sha256:87c341761eb12c795bde272f7b5a4cb722f85b4e8b060f6127780fd22132155b
+	elseif {((((exists match (regex "Red Hat Enterprise [a-zA-Z]* 5)") of it) OR (exists match (regex "CentOS 5") of it)) of name of it) AND (architecture of it = "x86_64")) of operating system}
+		prefetch BESRelay.rpm sha1:0172ebc97a4989c4523b20f9c3e03f0f74365bef size:7742046 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68-rhe5.x86_64.rpm sha256:23d79c2995e8c66113ac3307a0ab070780fbb2f69a4df39d05d22a35831feaf7
+	elseif {((((exists match (regex "Red Hat Enterprise [a-zA-Z]* 6") of it) OR (exists match (regex "CentOS 6") of it)) of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+		prefetch BESRelay.rpm sha1:f2ae51e4c69b94bc5e8cde03eacd76ee535df733 size:6830430 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68-rhe6.i686.rpm sha256:b4c4d501b9676ff4cef64b5d71245aba1ac153cf50a789895993594dbddcec70
+	elseif {((((exists match (regex "Red Hat Enterprise [a-zA-Z]* 5") of it) OR (exists match (regex "CentOS 5") of it)) of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+		prefetch BESRelay.rpm sha1:0ef078745263b60c313b3b66e2df9c21e204e0ec size:7300596 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68-rhe5.i686.rpm sha256:d77964055159f7716b4c98c77b401dfef08a799b5e3f64aa3bfa78ecd1b20503
+	elseif {((exists match (regex "Linux SuSE Enterprise (Desktop|Server) (11|12)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+		prefetch BESRelay.rpm sha1:4090b279be1bacd94e1d02c3505c8e006eb14deb size:6113116 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68-sle11.x86_64.rpm sha256:543018497c3f66df4e5d11b2163ddb131a51758ff8d215ff298ef343bb84a8b0
+	elseif {((exists match (regex "Linux SuSE Enterprise (Desktop|Server) 11") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+		prefetch BESRelay.rpm sha1:33c3ebf9c5b29383dd8f302c845030bb112d4e0d size:5560002 http://software.bigfix.com/download/bes/95/BESRelay-9.5.12.68-sle11.i686.rpm sha256:176965e831b5ee2b32bf40e1fafe89513871ee1688a9638f67f60a0efccefe06
+	else
+		continue if false
+	endif
+	continue if {exists file "__Download/BESRelay.rpm"}
+	move __Download/BESRelay.rpm __Local/Upgrade/BESRelay.rpm
+	wait rpm -i __Local/Upgrade/BESRelay.rpm
+
+	if {(((exists match (regex "Red Hat Enterprise [a-zA-Z]* (5|6|7)") of it) OR (exists match (regex "CentOS (5|6|7)") of it)) of name of it) of operating system}
+		// Initialize relay configuration
+		delete __appendfile
+		appendfile  #!/bin/sh
+		appendfile  if [ -f /usr/bin/perl ]; then
+		appendfile      masthead=/etc/opt/BESClient/actionsite.afxm
+		appendfile      configfile=/var/opt/BESRelay/besrelay.config
+		appendfile      gatherurl=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Gather-URL:\s+(http://\S+)# ) {{ print $1; }' $masthead )
+		appendfile      cat /var/opt/BESRelay/besrelay.config.default > $configfile
+		appendfile
+		appendfile      echo >> $configfile
+		appendfile
+		appendfile      echo "[Software\\BigFix\\Enterprise Server]" >> $configfile
+		appendfile      printf "__Installer_Masthead_GatherURL\t\t= %s\n\n" "$gatherurl" >> $configfile
+		appendfile
+		appendfile      URL=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Registration-URL:\s+([[:print:]]+)# ) {{ print $1; }' $masthead )
+		appendfile      if [ -n "$URL" ]; then
+		appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_Enterprise Server_ClientRegister_ParentRelayURL]" >> $configfile
+		appendfile          printf "value\t\t= %s\n\n" "$URL" >> $configfile
+		appendfile      fi
+		appendfile
+		appendfile      URL=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Report-URL:\s+([[:print:]]+)# ) {{ print $1; }' $masthead )
+		appendfile      PORT=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Report-URL:\s+http://\S+:(\d+)# ) {{ print $1; }' $masthead )
+		appendfile      if [ -n "$URL" ]; then
+		appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_BESRelay_PostResults_ParentRelayURL]" >> $configfile
+		appendfile          printf "value\t\t= %s\n\n" "$URL" >> $configfile
+		appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_BESRelay_HTTPServer_PortNumber]" >> $configfile
+		appendfile          printf "value\t\t= %s\n\n" "$PORT" >> $configfile
+		appendfile      fi
+		appendfile
+		appendfile      URL=$(  /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Gather-URL:\s+(http://\S+:\d+)# ) {{ print $1; }' $masthead )
+		appendfile      PORT=$( /usr/bin/perl -ne 'if( m#^X-Fixlet-Site-Gather-URL:\s+http://\S+:(\d+)# ) {{ print $1; }' $masthead )
+		appendfile      if [ -n "$URL" -a -n "$PORT" ]; then
+		appendfile          echo "[Software\\BigFix\\Enterprise Server\\GatherService]" >> $configfile
+		appendfile          printf "HttpContentLocation\t\t= %s/bfmirror/bfsites\n\n" "$URL" >> $configfile
+		appendfile
+		appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_Enterprise Server_ClientRegister_UDPMessagePort]" >> $configfile
+		appendfile          printf "value\t\t= %s\n\n" "$PORT" >> $configfile
+		appendfile      fi
+		appendfile
+		appendfile      URL=$( /usr/bin/perl -ne 'if( m#^X-BES-Mirror-Gather-URL:\s+([[:print:]]+)# ) {{ print $1; }' $masthead )
+		appendfile      if [ -n "$URL" ]; then
+		appendfile          echo "[Software\\BigFix\\EnterpriseClient\\Settings\\Client\\_BESGather_Comm_ParentRelayURL]" >> $configfile
+		appendfile          printf "value\t\t= %s\n\n" "$URL" >> $configfile
+		appendfile      fi
+		appendfile
+		appendfile      URL=$( /usr/bin/perl -ne 'if( m#^X-BES-Mirror-Download-URL:\s+([[:print:]]+)# ) {{ print $1; }' $masthead )
+		appendfile      if [ -n "$URL" ]; then
+		appendfile          echo "[Software\\BigFix\\Enterprise Server\\GatherService]" >> $configfile
+		appendfile          printf "DownloadMirror URL\t\t= %s\n\n" "$URL" >> $configfile
+		appendfile      fi
+		appendfile  fi
+		appendfile
+
+		move __appendfile __Local/Upgrade/setup_configfile.sh
+		wait /bin/sh __Local/Upgrade/setup_configfile.sh
+	endif
+
+	wait /etc/init.d/besrelay start_skipclientrestart
+	delete __Local/Upgrade/BESRelay.rpm
+
+	if {exists file "__Local/Upgrade/setup_configfile.sh"}
+		delete __Local/Upgrade/setup_configfile.sh
+	endif
+
+endif
+parameter "startTime" = "{apparent registration server time}"
+pause while {(apparent registration server time - time(parameter "startTime")) < (30 * second)}
+// Now force a relay selection to our newly installed relay
+relay select]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

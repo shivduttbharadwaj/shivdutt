@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-068: Vulnerabilities in Windows Hyper-V Could Allow Remote Code Execution - Windows 8.1 Gold - KB3046339 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft Windows. The vulnerabilities could allow remote code execution in a host context if a specially crafted application is run by an authenticated and privileged user on a guest virtual machine hosted by Hyper-V. An attacker must have valid logon credentials for a guest virtual machine to exploit this vulnerability.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3046339.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+354 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3") OR name of it = "Win8.1") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists key "Microsoft-Hyper-V-ClientEdition-Package~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Hyper-V-ServerEdition-Package~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Hyper-V-ServerHyperCoreEdition-Package~31bf3856ad364e35~amd64~~6.3.9600.16384" of it OR exists key "Microsoft-Windows-CoreSystem-HyperV-Vm-Package~31bf3856ad364e35~amd64~~6.3.9600.16384" of it) AND exists key "Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14" of it) of item 0 of it AND (exists key "amd64_microsoft-hyper-v-i..ationcomponents-vss_31bf3856ad364e35_none_134cf78d50ceb021" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17723") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-hyper-v-i..components-timesync_31bf3856ad364e35_none_25e6564bdaaa81a5" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17723") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-hyper-v-i..components-shutdown_31bf3856ad364e35_none_5e9e0b3345a57dad" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17723") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-hyper-v-i..ationcomponents-rdv_31bf3856ad364e35_none_1368ee8f50bc1127" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17723") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-hyper-v-i..ponents-kvpexchange_31bf3856ad364e35_none_6deb41c61988bcdb" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17723") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-hyper-v-i..omponents-heartbeat_31bf3856ad364e35_none_53699a67d955b4f5" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17723") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-hyper-v-i..ents-guestinterface_31bf3856ad364e35_none_2825736b92c7d152" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.17723") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "b24b39e3d681358a888945686b0f6dbfcbb94e1e"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>363168</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3046339</SourceID>
+		<SourceReleaseDate>2015-07-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2015-2361; CVE-2015-2362</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 Jul 2015 03:45:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_8.1:-:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Hyper-V</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB3046339-x64.msu sha1:b24b39e3d681358a888945686b0f6dbfcbb94e1e size:363168 http://download.microsoft.com/download/4/D/9/4D9C7BB0-CB93-4EB3-A8D5-F83DC7160F73/Windows8.1-KB3046339-x64.msu sha256:b2491f3c6689b9cc65602a0df8c235e173d6a6d88088cac492d45b348be05ddb
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB3046339-x64.msu"}" /quiet /norestart
+
+action requires restart "b24b39e3d681358a888945686b0f6dbfcbb94e1e"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-068</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Unblock Automatic Delivery of IE 8 - Windows XP/2003/Vista/2008</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Microsoft has released the Internet Explorer&nbsp;8 Blocker Toolkit, which enables IT Administrators to disable automatic delivery of Internet Explorer&nbsp;8. <SPAN></SPAN></P> <P><SPAN>For computers running Windows XP or Windows Server 2003, the Blocker Toolkit prevents the machine from receiving Internet Explorer 8 as a high-priority update via Automatic Updates and the Express install option on the Windows Update and Microsoft Update sites; Internet Explorer 8 will be listed as an optional update with the Custom install option.</SPAN></P> <P><SPAN><SPAN>For computers running Windows Vista or Windows Server 2008, the Blocker Toolkit prevents the machine from receiving Internet Explorer 8 as an important update via Automatic Updates on the Windows Update and Microsoft Update sites; Internet Explorer 8 will be listed as an optional update.</SPAN></SPAN></P> <P><SPAN><SPAN><SPAN>The Blocker Toolkit will not prevent users from manually installing Internet Explorer 8 as a Recommended update from the Windows Update or Microsoft Update sites, from the Microsoft Download Center, or from external media.</SPAN></SPAN></SPAN></P> <P><SPAN><SPAN><SPAN><STRONG>Note:</STRONG> The action below sets the registry value "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Setup\8.0\DoNotAllowIE80" to "0" to unblock automatic delivery of IE 8. The task&nbsp;<SPAN id=fixletLink></SPAN>&nbsp;can be used to undo this action.<SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = setLink; function setLink() { try { fixletLink.innerHTML = EvaluateRelevance('link of bes fixlets whose (id of it = 458 AND name of site of it = name of site of current fixlet)'); } catch (e) {if (isEvansOrLater) { fixletLink.innerHTML ='<?jxlat Block Automatic Delivery of IE 8 - Windows XP/2003/Vista/2008 (ID: 458)?>';} else { fixletLink.innerHTML = 'Block Automatic Delivery of IE 8 - Windows XP/2003/Vista/2008 (ID: 458)';} } } </SCRIPT></SPAN></SPAN></SPAN></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(it = "WinXP" OR it = "Win2003" OR it = "WinVista" OR it = "Win2008") of name of operating system</Relevance>
+		<Relevance>exists key "HKLM\SOFTWARE\Microsoft\Internet Explorer\Setup\8.0" whose (value "DoNotAllowIE80" of it = 1) of registry</Relevance>
+		<Category>Setting</Category>
+		<Source>Microsoft</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2009-01-05</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinVista|WinXP|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Configuration UpdateBlocking</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Setup\8.0]" "DoNotAllowIE80"=dword:00000000</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the Internet Explorer 8 Blocker Toolkit.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri"><![CDATA[http://www.microsoft.com/downloads/details.aspx?FamilyID=21687628-5806-4ba6-9e4e-8e224ec6dd8c&displaylang=en]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

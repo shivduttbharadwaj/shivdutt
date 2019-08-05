@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-035: Cumulative Security Update for Internet Explorer - IE 6 - Windows XP SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note</STRONG>: This bulletin has been partially superseded by MS10-053. Whereas this Fixlet message previously applied to Windows XP SP2/SP3, it now only applies to Windows XP SP2.</P> <P>Microsoft has released a security update that resolves five privately reported vulnerabilities and one publicly disclosed vulnerability in Internet Explorer. The most severe vulnerabilities could allow remote code execution if a user views a specially crafted Web page using Internet Explorer. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.</P> <P><STRONG>Note:</STRONG> This security update is also referenced under KB982381.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.77 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP") AND (service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "iexplore.exe" whose (version of it < "7.0.0.0") of ( folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder))) ) AND (it >= "6.0.2900.5512" AND it <= "6.0.2900.5512") of version (value "Version" of key "HKLM\SOFTWARE\Microsoft\Internet Explorer" of registry as string) OR ((exists file "iexplore.exe" whose (version of it < "7.0.0.0") of ( folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder))) ) AND (it >= "6.0.2900.2180" AND it <= "6.0.2900.2180") of version (value "Version" of key "HKLM\SOFTWARE\Microsoft\Internet Explorer" of registry as string)]]></Relevance>
+		<Relevance><![CDATA[((exists file "browseui.dll" whose (((service pack major version of operating system = 2) AND version of it < "6.0.2900.3698") OR ((service pack major version of operating system = 3) AND version of it < "6.0.2900.5969")) of it) OR (exists file "cdfview.dll" whose (version of it < "6.0.2900.3698") of it) OR (exists file "danim.dll" whose (version of it < "6.3.1.148") of it) OR (exists file "dxtmsft.dll" whose (version of it < "6.3.2900.3698") of it) OR (exists file "dxtrans.dll" whose (version of it < "6.3.2900.3698") of it) OR (exists file "extmgr.dll" whose (version of it < "6.0.2900.3698") of it) OR (exists file "html.iec" whose (version of it < "2009.10.31.10") of it) OR (exists file "ieencode.dll" whose (version of it < "2009.10.31.10") of it) OR (exists file "iepeers.dll" whose (((service pack major version of operating system = 2) AND version of it < "6.0.2900.3698") OR ((service pack major version of operating system = 3) AND version of it < "6.0.2900.5969")) of it) OR (exists file "inseng.dll" whose (version of it < "6.0.2900.3698") of it) OR (exists file "jsproxy.dll" whose (version of it < "6.0.2900.3698") of it) OR (exists file "mshtml.dll" whose (((service pack major version of operating system = 2) AND version of it < "6.0.2900.3698") OR ((service pack major version of operating system = 3) AND version of it < "6.0.2900.5969")) of it) OR (exists file "mshtmled.dll" whose (version of it < "6.0.2900.3698") of it) OR (exists file "msrating.dll" whose (version of it < "6.0.2900.3698") of it) OR (exists file "mstime.dll" whose (version of it < "6.0.2900.3698") of it) OR (exists file "pngfilt.dll" whose (version of it < "6.0.2900.3698") of it) OR (exists file "shdocvw.dll" whose (((service pack major version of operating system = 2) AND version of it < "6.0.2900.3698") OR ((service pack major version of operating system = 3) AND version of it < "6.0.2900.5969")) of it) OR (exists file "shlwapi.dll" whose (version of it < "6.0.2900.3698") of it) OR (exists file "tdc.ocx" whose (version of it < "1.3.0.3131") of it) OR (exists file "urlmon.dll" whose (((service pack major version of operating system = 2) AND version of it < "6.0.2900.3698") OR ((service pack major version of operating system = 3) AND version of it < "6.0.2900.5969")) of it) OR (exists file "wininet.dll" whose (((service pack major version of operating system = 2) AND version of it < "6.0.2900.3698") OR ((service pack major version of operating system = 3) AND version of it < "6.0.2900.5969")) of it)) of ((system folder)) OR (exists file "iedw.exe" whose (version of it < "5.1.2600.3698") of it) of (( folder "INTERNET EXPLORER" of (value "ProgramFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of registry as folder)))]]></Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows xp\sp4\kb982381" of registry)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>5001080</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB982381</SourceID>
+		<SourceReleaseDate>2010-06-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2010-1259; CVE-2010-1262</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:ie:6:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsXP-KB982381-x86-ENU.exe sha1:946b3243e33f1feb340276d6e40a9a5ef88a2cb8 size:5001080 http://download.microsoft.com/download/2/3/A/23A96787-6EE8-4CC6-89A1-2F4B55A190F1/WindowsXP-KB982381-x86-ENU.exe sha256:b014708d9021348a97359dacac44a5f078c19065ee50aaf2a9051357b425ab00
+
+waithidden __Download\WindowsXP-KB982381-x86-ENU.exe /quiet /norestart
+
+action may require restart "946b3243e33f1feb340276d6e40a9a5ef88a2cb8"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-035.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2010/MS10-035</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

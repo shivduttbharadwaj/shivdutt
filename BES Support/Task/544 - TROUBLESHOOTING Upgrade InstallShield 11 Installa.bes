@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>TROUBLESHOOTING: Upgrade InstallShield 11 Installation Engine</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>Other applications, including previous BES clients, may have installed a problematic version of the Installshield 11&nbsp;installation engine. This&nbsp;may cause client upgrades to fail. Use this task to upgrade to a working version of the InstallShield 11 installation engine.</P> <P><STRONG>Note:</STRONG> Client machines may briefly display&nbsp;DOS windows during action execution.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance><![CDATA[major version of operating system >= 5]]></Relevance>
+		<Relevance>exists folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string) whose (exists file "InstallShield\Professional\RunTime\IsProBE.tlb" of it OR exists folder "InstallShield\Professional\RunTime\11\00" of it)</Relevance>
+		<Relevance><![CDATA[exists folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string) whose (version of file "InstallShield\Professional\RunTime\objectps.dll" of it <= version "11.0.0.28844")]]></Relevance>
+		<Category>Troubleshooting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 18 Jul 2008 17:30:26 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 06 Jan 2014 19:12:31 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade the InstallShield installation engine on the selected clients.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[delete "{pathname of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string) & "\InstallShield\Professional\RunTime\IsProBE.tlb"}"
+
+delete __appendfile
+
+appendfile @ECHO OFF
+appendfile rmdir /S /Q "{pathname of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string) & "\InstallShield\Professional\RunTime\11\00"}" > NUL 2> NUL 
+
+delete rmdir.bat
+copy __appendfile rmdir.bat
+wait rmdir.bat
+
+prefetch InstallShieldEngineUpdate1100.exe sha1:e6b7116e61a3317463e9ff870f5c4a495f7fd3a4 size:2793091 http://support.installshield.com/kb/files/Q108322/InstallShieldEngineUpdate1100.exe sha256:70506ae93bc30e88ac03cd47d583fc95ac9e4003fafc8a97400075fca25d5884
+
+wait __download\InstallShieldEngineUpdate1100.exe /s
+
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view BigFix Knowledge Base article 162, which provides more information about InstallShield errors.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=162</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to more information from InstallShield about updating to the newest Installshield engine.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri"><![CDATA[http://consumerdocs.installshield.com/selfservice/viewContent.do?externalId=Q108158&sliceId=1]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

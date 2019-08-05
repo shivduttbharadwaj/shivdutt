@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Restart BES Clients</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT face=verdana size=2> <P>The listed computers&nbsp;have the&nbsp;setting "RestartBESClient" set to "yes", which indicates that&nbsp;you would like to&nbsp;force a restart of&nbsp;the BES Client application&nbsp;on these computers. You&nbsp;can&nbsp;restart the BES Clients using the action below:</P> <P><STRONG>Important Note:</STRONG> The BES Clients will&nbsp;be temporarily unable to report the final status of the action because they&nbsp;will stop running&nbsp;before the action completes. Instead, the BES Clients will stop responding and the action status will report back as 'Evaluating', 'Failed',&nbsp;or 'Running'. </P> <P>&nbsp;</P></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[((if (version of client >= "8.0") then (windows of it) else (name of it starts with "Win")) AND platform id of it != 3) of operating system]]></Relevance>
+		<Relevance>exists setting "RestartBESClient" of client</Relevance>
+		<Relevance>value of setting "RestartBESClient" of client as lowercase = "yes"</Relevance>
+		<Relevance>(name of operating system = "Win2000") OR (name of operating system = "WinNT") OR (name of operating system = "WinXP") OR (name of operating system = "WinXPe")</Relevance>
+		<Category>Optional</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2003-05-21</SourceReleaseDate>
+		<SourceSeverity>Low</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 22 May 2003 01:10:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 27 Jun 2013 00:23:15 +0000</Value>
+		</MIMEField>
+		<Delay>PT5M</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to restart the BES Client on the computers selected below.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">delete __appendfile
+delete __createfile
+delete clientRestart.bat
+delete clientRegReset.reg
+
+appendfile @echo off
+appendfile echo Your administrator is restarting the BES Client... Please Wait...
+appendfile net stop BESClient
+appendfile net start BESClient
+
+createfile until end-reg-edit-command
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\Settings\Client\RestartBESClient]
+"value"="no"
+end-reg-edit-command
+
+move __createfile clientRegReset.reg
+appendfile regedit /s clientRegReset.reg
+
+copy __appendfile clientRestart.bat
+
+run clientRestart.bat</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

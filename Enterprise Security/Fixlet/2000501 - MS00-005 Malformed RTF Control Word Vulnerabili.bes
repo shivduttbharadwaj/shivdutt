@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS00-005: "Malformed RTF Control Word" Vulnerability in Windows 98 and 98 SE</Title>
+		<Description><![CDATA[
+Microsoft has released a patch for the "Malformed RTF Control Word" security vulnerability in Windows 98. This vulnerability could allow a malicious user to crash affected computers or applications by exploiting a buffer overrun in the RTF reader. After installing this patch, affected computers will no longer be susceptible to this vulnerability.<BR><BR><b>Note</b>: Affected machines <b>must shut down all running applications</b> before applying this patch.<BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted. <BR><BR><b>Note:</b> This patch may fail to install correctly if some of the affected files are at an unsafe version while some are at a safe version.&nbsp; The patch will run to completion but after restart the computer will report this Fixlet message as still being relevant and the action will report as failed.&nbsp; Computers with this problem are still vulnerable and should be patched again.<BR><BR><b>File Size: </b>818 KB<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win98"</Relevance>
+		<Relevance><![CDATA[((exists "riched32.dll" of system folder) AND (version of file "riched32.dll" of system folder < "5.0.1461.82")) OR ((exists file "Usp10.dll" of system folder) AND (version of file "Usp10.dll" of system folder < "1.325.2180.1" as version)) OR ((exists file "riched20.dll" of system folder) AND (version of file "riched20.dll" of system folder < "5.0.153.0"))]]></Relevance>
+		<Relevance>not pending restart "26bb03e24ea67404880defae03f15b3dba621c6b"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>838328</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB249973</SourceID>
+		<SourceReleaseDate>2000-01-17</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2000-0073</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win98</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch 249973USA8.exe sha1:26bb03e24ea67404880defae03f15b3dba621c6b size:838328 http://download.microsoft.com/download/win98SE/Update/5072/W98/EN-US/249973USA8.exe sha256:102361e92e0e895bb25b6dff646d16f8eac8deebc4b4666b71ec0b09425f90a4
+wait __download/249973USA8.exe /Q:A /R:N
+action requires restart "26bb03e24ea67404880defae03f15b3dba621c6b"
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS00-005.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2000/MS00-005</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

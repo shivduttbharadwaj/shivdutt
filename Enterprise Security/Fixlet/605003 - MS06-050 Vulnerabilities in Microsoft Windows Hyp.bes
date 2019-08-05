@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS06-050: Vulnerabilities in Microsoft Windows Hyperlink Object Library Could Allow Remote Code Execution - Windows Server 2003</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+Microsoft has released an update that resolves two newly-discovered, privately-reported vulnerabilities. An attacker who successfully exploited the most severe of these vulnerabilities could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights.<BR><BR>After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><b>Note:</b> Microsoft has announced that this patch may be included in a future Service Pack or Update Rollup.
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+528 KB
+ </DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2003" AND (it = "" OR it = "Service Pack 1") of csd version of it) of operating system</Relevance>
+		<Relevance>NOT exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP2\KB920670" of registry</Relevance>
+		<Relevance><![CDATA[(csd version of operating system = "" AND ((exists file "hlink.dll" whose (version of it < "5.2.3790.560") of it) of system folder)) OR (csd version of operating system = "Service Pack 1" AND ((exists file "hlink.dll" whose (version of it < "5.2.3790.2748") of it) of system folder))]]></Relevance>
+		<Relevance>not exists key "HKLM\Software\Microsoft\Updates\Windows Server 2003\SP2\KB914961" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>541496</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB920670</SourceID>
+		<SourceReleaseDate>2006-08-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2006-3086; CVE-2006-3438</CVENames>
+		<SANSID>SANS W02</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Hyperlink Object Library</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003-KB920670-x86-ENU.exe sha1:f9ec023bd67459d0b1ccdfecd78bda284d4c802e size:541496 http://download.microsoft.com/download/5/0/5/505e7f20-0b36-4973-a9f3-07af44400348/WindowsServer2003-KB920670-x86-ENU.exe sha256:3a9b916fd0e390ceb690156aa217599250ab19ffd6ec47290cf92877da7aecd1
+
+wait __Download\WindowsServer2003-KB920670-x86-ENU.exe /quiet /passive /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS06-050.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2006/MS06-050</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

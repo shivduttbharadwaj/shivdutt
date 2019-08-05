@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3013767: Update rollup for Windows RT, Windows 8, and Windows Server 2012 - KB2999323 - Windows 8 Gold (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB3013767.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.50 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists key "Microsoft-Windows-ServerCore-FullServer-ExtraFoundation-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-SKU-Foundation-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-w..pdateclient-activex_31bf3856ad364e35_none_20b7be788b5163b0" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-w..pdateclient-activex_31bf3856ad364e35_none_2b0c68cabfb225ab" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-GroupPolicy-ClientTools-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-windowsupdate-adm_31bf3856ad364e35_none_273e14203ee8c34f" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Store-Client-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-s..e-windowsupdateauth_31bf3856ad364e35_none_3d4cfdadebc7819a" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21303" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "Microsoft-Windows-ServerCore-FullServer-ExtraFoundation-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-ServerCore-SKU-Foundation-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-SKU-Foundation-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) AND (exists key "Microsoft-Windows-Embedded-GroupPolicy-ClientTools-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-ServerCore-FullServer-ExtraFoundation-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-Embedded-Store-Client-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-Embedded-UpdateClient-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-GroupPolicy-ClientTools-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-SKU-Foundation-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-Store-Client-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-w..owsupdateclient-aux_31bf3856ad364e35_none_dc0c796981494ccc" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-w..wsupdateclient-core_31bf3856ad364e35_none_54ea0d262e25c877" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-w..owsupdateclient-aux_31bf3856ad364e35_none_e66123bbb5aa0ec7" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-ServerCore-FullServer-ExtraFoundation-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it OR exists key "Microsoft-Windows-SKU-Foundation-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-windowsupdateclient-ui_31bf3856ad364e35_none_6c15eb185541c10e" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-GroupPolicy-ClientTools-Package-enduser~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-windowsupdate-adm_31bf3856ad364e35_none_273e14203ee8c34f" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-Store-Client-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-s..e-windowsupdateauth_31bf3856ad364e35_none_3d4cfdadebc7819a" whose (exists key (if (exists default value of it) then default value of it as string else "6.2") whose ((it >= "6.2.9200.20000" AND it < "6.2.9200.21303" OR it >= "6.2.9200.10000" AND it < "6.2.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-UpdateClient-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-w..pdateclient-activex_31bf3856ad364e35_none_20b7be788b5163b0" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-w..pdateclient-activex_31bf3856ad364e35_none_2b0c68cabfb225ab" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-UpdateClient-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "wow64_microsoft-windows-w..owsupdateclient-aux_31bf3856ad364e35_none_e66123bbb5aa0ec7" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Embedded-UpdateClient-Package~31bf3856ad364e35~amd64~~6.2.9200.16384" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-w..owsupdateclient-aux_31bf3856ad364e35_none_dc0c796981494ccc" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-w..wsupdateclient-core_31bf3856ad364e35_none_54ea0d262e25c877" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-windowsupdateclient-ui_31bf3856ad364e35_none_6c15eb185541c10e" whose (exists key (if (exists default value of it) then default value of it as string else "7.8") whose ((it >= "7.8.9200.20000" AND it < "7.8.9200.21303" OR it >= "7.8.9200.10000" AND it < "7.8.9200.17185") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "b5f4a2a0a0bb3970c04de810ed6bd68733e361dd"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>4723262</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3013767</SourceID>
+		<SourceReleaseDate>2014-12-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 18 Dec 2014 17:37:02 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 29 Jul 2019 06:05:43 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB2999323-x64.msu sha1:b5f4a2a0a0bb3970c04de810ed6bd68733e361dd size:4723262 http://download.microsoft.com/download/D/F/5/DF58D993-2A3F-4AF1-B269-96E26B6EF9D2/Windows8-RT-KB2999323-x64.msu sha256:dc4255f64f79739a53b743a167915414ff3bdf52aea15d86eb532d3ce03704df
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB2999323-x64.msu"}" /quiet /norestart
+
+action requires restart "b5f4a2a0a0bb3970c04de810ed6bd68733e361dd"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3013767</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

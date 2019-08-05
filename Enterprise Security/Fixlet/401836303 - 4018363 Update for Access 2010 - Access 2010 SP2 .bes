@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4018363: Update for Access 2010 - Access 2010 SP2 - KB4018363</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft Access 2010 32-Bit Edition. This update provides the latest fixes to Microsoft Access 2010 32-Bit Edition. Additionally, this update contains stability and performance improvements.<p><B>Note:</B> This update is also referenced under KB4018363.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+15.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00004109D30000000000000000F01FEC";"00004119D11000000000000000F01FEC";"00004109110000000000000000F01FEC";"00004109510000000000000000F01FEC";"00004119510000000000000000F01FEC";"00004119110000000000000000F01FEC";"00004109C10000000000000000F01FEC";"00004119410000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.7015.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "3F74AEA684C543040BAA93BF62717BB9" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "14.0" AND "|ACCICONS.EXE|ACCWIZ.DLL|MSACC.OLB|MSACCESS.EXE|MSAEXP30.DLL|SOA.DLL|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "ACCICONS.EXE" AND (item 3 of it = "14.0.7120.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 15 Feb 2019 16:35:38 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7120.5000") OR item 0 of it = "ACCWIZ.DLL" AND (item 3 of it = "14.0.7162.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 15 Feb 2019 16:35:38 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7162.5000") OR item 0 of it = "MSACC.OLB" AND (item 3 of it = "14.0.7162.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 15 Feb 2019 16:35:38 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7162.5000") OR item 0 of it = "MSACCESS.EXE" AND (item 3 of it = "14.0.7230.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 15 Feb 2019 16:35:38 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7230.5000") OR item 0 of it = "MSAEXP30.DLL" AND (item 3 of it = "14.0.7162.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 15 Feb 2019 16:35:38 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7162.5000") OR item 0 of it = "SOA.DLL" AND (item 3 of it = "14.0.7180.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Fri, 15 Feb 2019 16:35:38 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7180.5000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{6AEA47F3-5C48-4034-B0AA-39FB2617B79B}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>15795448</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4018363</SourceID>
+		<SourceReleaseDate>2019-02-20</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 07 Mar 2019 00:56:56 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:access:2010:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Access</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 07 Mar 2019 00:56:56 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch access2010-kb4018363-fullfile-x86-glb.exe sha1:39aaabb3befff604f9167a77f0f6510ff3e06ce5 size:15795448 https://download.microsoft.com/download/E/3/9/E39460E7-1BD2-46D2-ABD9-E2AB5B056CD0/access2010-kb4018363-fullfile-x86-glb.exe sha256:423d6e554179821e30b5826617d33a6cc800d0f985b20468180eaf2ee5d0fa39
+
+waithidden __Download\access2010-kb4018363-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "39aaabb3befff604f9167a77f0f6510ff3e06ce5"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4018363</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

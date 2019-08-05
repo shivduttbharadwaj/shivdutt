@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS00-097: Severed Windows Media Server Connection Vulnerability</Title>
+		<Description><![CDATA[
+Microsoft has released a bulletin announcing a vulnerability in Windows Media Services. When a connection is made and released with the Unicast Server portion of WMS using a specific sequence of packets, WMS does not release all of the allocated resources. An attacker could connect and release many times in a row, degrading system performance until the resources became exhausted. This patch also eliminates previous vulnerabilities. <BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled. <BR><BR><b>Note: </b>After the patch has finished installing, a dialogue will appear asking that the computer be restarted.<BR><BR><b>File Size: </b>649 KB<BR><BR><b>Note:</b> This security update is also referenced under KB265714.<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists value "Installdir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Netshow" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "nsadmin.exe" of folder "Server" of folder (value "Installdir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Netshow" of registry as string)) AND (first 3 of (version of file "nsadmin.exe" of folder "Server" of folder (value "InstallDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Netshow" of registry as string) as string)>="4.1")]]></Relevance>
+		<Relevance><![CDATA[((name of operating system = "Win2000") AND (csd version of operating system does not contain "Service Pack" OR first 1 of following text of last "Service Pack " of csd version of operating system as integer < 3)  AND (version of file "nsum.exe" of folder "Server" of folder (value "InstallDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Netshow" of registry as string) <= "4.1.0.3921") AND (modification time of file "nsum.exe" of folder "Server" of folder (value "InstallDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Netshow" of registry as string) < ("Wed, 6 Dec 2000 00:00 -0800" as time))) OR ((name of operating system = "WinNT") AND (version of file "nsum.exe" of folder "Server" of folder (value "InstallDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Netshow" of registry as string) <= "4.1.0.3858") AND (modification time of file "nsum.exe" of folder "Server" of folder (value "InstallDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Netshow" of registry as string) < ("Wed, 6 Dec 2000 00:00 -0800" as time)))]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>665032</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB281256</SourceID>
+		<SourceReleaseDate>2000-12-15</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2001-0083</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WMSU35924.EXE sha1:02f7c5f5e40b70635a854feed9649f9cb4ee543e size:665032 http://download.microsoft.com/download/winmediatech40/Update/35924/NT45/EN-US/WMSU35924.EXE sha256:cea4ac79c95659ca63abacb5f383bfb9250af489eb71490c949d0f7d88f8cb54
+wait __download\WMSU35924.EXE /S
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS00-097.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2000/MS00-097</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

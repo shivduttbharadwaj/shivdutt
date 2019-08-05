@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Enforce Maintenance Window with Client Locking</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>This task will&nbsp;enforce&nbsp;the designated maintenance window&nbsp;on an endpoint by unlocking it during its maintenance window, and locking it at all other times. </P> <P>The first action with it's default settings will set up a policy action that will unlock a client at the beginning of the last maintenance window and lock a client at the end of&nbsp;the last maintenance window.</P> <P>Note that this task will override any previous locking/unlocking actions for the selected computers. Similarly, any locking/unlocking actions taken on the selected computers at a later time will override this action (you will need to re-take this task in this case)</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists settings whose(name of it = "MaintenanceWindow_StartTime" AND exists value of it) of client</Relevance>
+		<Relevance><![CDATA[((now > item 1 of it) AND (if (item 0 of it = "once") then ((item 1 of it & item 2 of it)) else if (item 0 of it = "daily") then ((item 1 of it + ((now - item 1 of it) / day / item 3 of it * (day * item 3 of it))) & item 2 of it) else if (item 0 of it = "weekly") then (it & ((value of setting "MaintenanceWindow_WindowSizeMinutes" of client as integer) * minute)) of (maximum of (it - 1*day; it - 2*day; it - 3*day; it - 4*day; it - 5*day; it -6 * day;it; it + 1*day; it + 2*day;it + 3*day;it + 4*day;it + 5*day;it + 6*day) whose (it < now AND (((value of setting "MaintenanceWindow_DaysOfWeek" of client as string as lowercase)) contains (first 3 of (it as string) as day_of_week as string as lowercase))) of (((current date - item 0 of it) / (item 3 of it * week) * (item 3 of it * week)) + item 0 of it & item 1 of it) of ((((date (local time zone) of item 1 of it - ((first 3 of (item 1 of it as string) as day_of_week) - sunday))) , time (local time zone) of item 1 of it, item 2 of it, item 3 of it))) else if (item 0 of it = "monthly") then (it & (value of setting "MaintenanceWindow_WindowSizeMinutes" of client as integer * minute)) of ((if (item 3 of it = 0) then (maximum of ((if exists (first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of (current month & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week)) then (((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of (current month & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else nothing) ; (if exists (first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - month) & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week)) then (if (current month as integer = 1) then (((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - month) & ((current year) - 1* year)) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else ((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - month) & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else nothing) ; (if exists (first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - (2*month)) & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week)) then (if (current month as integer = 1) then (((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - (2*month)) & ((current year) - 1* year)) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else ((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - (2*month)) & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else nothing)) whose (it < now)) else (maximum of ((if exists ((current month & (day_of_month (item 3 of it)))) then (((current month & (day_of_month (item 3 of it))) & current year) & time (local time zone) of item 1 of it) else nothing) ; (if exists (((current month - 1* month) & (day_of_month (item 3 of it)))) then (if (current month as integer = 1) then ((((current month - 1*month) & (day_of_month (item 3 of it))) & (current year - 1*year)) & time (local time zone) of item 1 of it) else (((current month - 1*month) & (day_of_month (item 3 of it))) & current year) & time (local time zone) of item 1 of it) else nothing) ; (if exists (((current month - 2*month) & (day_of_month (item 3 of it)))) then (if (current month as integer = 1) then ((((current month - 2*month) & (day_of_month (item 3 of it))) & (current year - 1*year)) & time (local time zone) of item 1 of it) else (((current month - 2*month) & (day_of_month (item 3 of it))) & current year) & time (local time zone) of item 1 of it) else nothing)) whose (it < now)))) else error "invalid maintenance type") contains now) of (value of setting "MaintenanceWindow_RepeatType" of client, (value of setting "MaintenanceWindow_StartTime" of client & " " & local time zone as string) as time, (value of setting "MaintenanceWindow_WindowSizeMinutes" of client as integer) * minute, value of setting "MaintenanceWindow_RepeatInterval" of client as integer) = value of setting "__Lockstate" of client as boolean]]></Relevance>
+		<Relevance><![CDATA[now > (value of setting "MaintenanceWindow_StartTime" of client & " " & local time zone as string) as time]]></Relevance>
+		<Category>Maintenance Window</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<CVENames>N/A</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 18 Nov 2010 23:39:31 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>Maintenance Window</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 12 Jul 2011 22:23:36 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to use locking to enforce the maintenance window.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[setting "MaintenanceWindow_TimesRun"="{value of setting "MaintenanceWindow_TimesRun" of client as integer +1}" on "{parameter "action issue date" of action}" for client
+
+if {((now > item 1 of it) AND (if (item 0 of it = "once") then ((item 1 of it & item 2 of it)) else if (item 0 of it = "daily") then ((item 1 of it + ((now - item 1 of it) / day / item 3 of it * (day * item 3 of it))) & item 2 of it) else if (item 0 of it = "weekly") then (it & ((value of setting "MaintenanceWindow_WindowSizeMinutes" of client as integer) * minute)) of (maximum of (it - 1*day; it - 2*day; it - 3*day; it - 4*day; it - 5*day; it -6 * day;it; it + 1*day; it + 2*day;it + 3*day;it + 4*day;it + 5*day;it + 6*day) whose (it < now AND (((value of setting "MaintenanceWindow_DaysOfWeek" of client as string as lowercase)) contains (first 3 of (it as string) as day_of_week as string as lowercase))) of (((current date - item 0 of it) / (item 3 of it * week) * (item 3 of it * week)) + item 0 of it & item 1 of it) of ((((date (local time zone) of item 1 of it - ((first 3 of (item 1 of it as string) as day_of_week) - sunday))) , time (local time zone) of item 1 of it, item 2 of it, item 3 of it))) else if (item 0 of it = "monthly") then (it & (value of setting "MaintenanceWindow_WindowSizeMinutes" of client as integer * minute)) of ((if (item 3 of it = 0) then (maximum of ((if exists (first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of (current month & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week)) then (((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of (current month & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else nothing) ; (if exists (first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - month) & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week)) then (if (current month as integer = 1) then (((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - month) & ((current year) - 1* year)) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else ((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - month) & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else nothing) ; (if exists (first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - (2*month)) & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week)) then (if (current month as integer = 1) then (((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - (2*month)) & ((current year) - 1* year)) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else ((first (value of setting "MaintenanceWindow_DaysOfWeek" of client as day_of_week) of ((current month - (2*month)) & current year) + ((value of setting "MaintenanceWindow_DayOrdinal" of client as integer - 1) * week))) & time (local time zone) of item 1 of it) else nothing)) whose (it < now)) else (maximum of ((if exists ((current month & (day_of_month (item 3 of it)))) then (((current month & (day_of_month (item 3 of it))) & current year) & time (local time zone) of item 1 of it) else nothing) ; (if exists (((current month - 1* month) & (day_of_month (item 3 of it)))) then (if (current month as integer = 1) then ((((current month - 1*month) & (day_of_month (item 3 of it))) & (current year - 1*year)) & time (local time zone) of item 1 of it) else (((current month - 1*month) & (day_of_month (item 3 of it))) & current year) & time (local time zone) of item 1 of it) else nothing) ; (if exists (((current month - 2*month) & (day_of_month (item 3 of it)))) then (if (current month as integer = 1) then ((((current month - 2*month) & (day_of_month (item 3 of it))) & (current year - 1*year)) & time (local time zone) of item 1 of it) else (((current month - 2*month) & (day_of_month (item 3 of it))) & current year) & time (local time zone) of item 1 of it) else nothing)) whose (it < now)))) else error "invalid maintenance type") contains now) of (value of setting "MaintenanceWindow_RepeatType" of client, (value of setting "MaintenanceWindow_StartTime" of client & " " & local time zone as string) as time, (value of setting "MaintenanceWindow_WindowSizeMinutes" of client as integer) * minute, value of setting "MaintenanceWindow_RepeatInterval" of client as integer)}
+
+action unlock "{(parameter "action issue date" of action as time) + (value of setting "MaintenanceWindow_TimesRun" of client as integer * second)}"
+
+else
+action lock indefinite "{(parameter "action issue date" of action as time) + (value of setting "MaintenanceWindow_TimesRun" of client as integer * second)}"
+endif]]></ActionScript>
+			<Settings>
+				<PreActionShowUI>false</PreActionShowUI>
+				<HasRunningMessage>false</HasRunningMessage>
+				<HasTimeRange>false</HasTimeRange>
+				<HasStartTime>false</HasStartTime>
+				<HasEndTime>false</HasEndTime>
+				<HasDayOfWeekConstraint>false</HasDayOfWeekConstraint>
+				<UseUTCTime>false</UseUTCTime>
+				<ActiveUserRequirement>NoRequirement</ActiveUserRequirement>
+				<ActiveUserType>AllUsers</ActiveUserType>
+				<HasWhose>false</HasWhose>
+				<PreActionCacheDownload>false</PreActionCacheDownload>
+				<Reapply>true</Reapply>
+				<HasReapplyLimit>false</HasReapplyLimit>
+				<HasReapplyInterval>false</HasReapplyInterval>
+				<HasRetry>true</HasRetry>
+				<RetryCount>10</RetryCount>
+				<RetryWait Behavior="WaitForInterval">PT10M</RetryWait>
+				<HasTemporalDistribution>false</HasTemporalDistribution>
+				<ContinueOnErrors>true</ContinueOnErrors>
+				<PostActionBehavior Behavior="Nothing"></PostActionBehavior>
+				<IsOffer>false</IsOffer>
+			</Settings>
+		</DefaultAction>
+	</Task>
+</BES>

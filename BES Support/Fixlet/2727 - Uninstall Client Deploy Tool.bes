@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Uninstall Client Deploy Tool</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>Uninstallation of the Client Deploy Tool </TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[version of client >= "9.1"]]></Relevance>
+		<Relevance>(if(windows of it)then(exists regapp "BESClientDeploy.exe" AND not exists regapp "BESConsole.exe")else(if(exists match(regex "(Red Hat|SuSE|CentOS)")of it)then(exists package "BESClientDeployTool" of rpm)else(if(it contains "Ubuntu")then(exists package "besclientdeploytool" of debianpackages)else(false)))of name of it)of operating system</Relevance>
+		<Category>Upgrade</Category>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-07-11</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 28 Mar 2017 17:03:44 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 18 Aug 2017 16:37:52 +0000</Value>
+		</MIMEField>
+		<Delay>PT5M</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {windows of operating system}
+	if {exists location of client}
+		delete "{location of client}\udtinstall.log"
+	endif
+	parameter "ProductID" = "{substring after "/X" of((value "UninstallString" of key whose(value "DisplayName" of it = "IBM BigFix Client Deploy Tool" and name of it starts with "{") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)as string)}"
+	wait msiexec /quiet /uninstall { parameter "ProductID" }
+elseif {name of operating system contains "Ubuntu"}
+	wait dpkg --remove besclientdeploytool
+else
+	wait /bin/rpm -e BESClientDeployTool
+endif</ActionScript>
+			<SuccessCriteria Option="CustomRelevance">(if(windows of it)then(exists regapp "BESClientDeploy.exe" AND not exists regapp "BESConsole.exe")else(if(exists match(regex "(Red Hat|SuSE|CentOS)")of it)then(exists package "BESClientDeployTool" of rpm)else(if(it contains "Ubuntu")then(exists package "besclientdeploytool" of debianpackages)else(false)))of name of it)of operating system</SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

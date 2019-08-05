@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-FEB: Security update for Excel 2010 - Excel 2010 SP2 - KB4462186 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4462230.<br /><br /><div><br><p>This security update resolves an information disclosure vulnerability that exists when Microsoft Excel incorrectly discloses the contents of its memory. To learn more about the&nbsp;information disclosure&nbsp;vulnerability, see <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-0669" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2019-0669</a>.<br><br><br><br><strong>Note</strong> To apply this security update, you must have the release version of <a data-content-id="" data-content-type="" href="http://support.microsoft.com/kb/2687455" managed-link="" target="_blank">Service Pack 2 for Office 2010</a> installed.</p><br></div><br><br><p><span>Be aware that the update in the Microsoft Download Center applies to the Microsoft Installer (.msi)-based edition of Office 2010. It doesn&#39;t apply to the Office 2010&nbsp;Click-to-Run editions, such as Microsoft Office 365 Home (see </span><a aria-label="CTRL+Click or CTRL+Enter to follow link https://blogs.technet.microsoft.com/office_integration__sharepoint/2016/06/23/determining-your-office-version-msi-vs-c2r/" data-content-id="" data-content-type="" href="https://blogs.technet.microsoft.com/office_integration__sharepoint/2016/06/23/determining-your-office-version-msi-vs-c2r/" managed-link="" target="_blank">Determining your Office version</a><span>).</span></p><br><p><B>Note:</B> This security update is also referenced under KB4462186.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+38.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ("00004109340000000100000000F01FEC";"00004109810000000100000000F01FEC";"00004119B80000000100000000F01FEC";"00004119110000000100000000F01FEC";"00004119D11000000100000000F01FEC";"00004109610000000100000000F01FEC";"00004109110000000100000000F01FEC";"00004119310000000100000000F01FEC";"00004119210000000100000000F01FEC";"00004109210000000100000000F01FEC";"00004119410000000100000000F01FEC";"00004119810000000100000000F01FEC";"00004119330000000100000000F01FEC";"00004119B10000000100000000F01FEC";"00004119610000000100000000F01FEC";"00004109B80000000100000000F01FEC";"00004109B10000000100000000F01FEC";"00004109D30000000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.7015.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F2380F64D3BA32E479EC0B78DEACA553" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "14.0" AND "|EXCEL.EXE|XL12CNV.EXE|XLCALL32.DLL|XLICONS.EXE|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "EXCEL.EXE" AND (item 3 of it = "14.0.7229.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Tue, 22 Jan 2019 16:32:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7229.5000") OR item 0 of it = "XL12CNV.EXE" AND (item 3 of it = "14.0.7229.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Tue, 22 Jan 2019 16:32:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7229.5000") OR item 0 of it = "XLCALL32.DLL" AND (item 3 of it = "14.0.7162.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Tue, 22 Jan 2019 16:32:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7162.5000") OR item 0 of it = "XLICONS.EXE" AND (item 3 of it = "14.0.7120.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Tue, 22 Jan 2019 16:32:44 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7120.5000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{46F0832F-AB3D-4E23-97CE-B087EDCA5A35}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>40617864</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4462186</SourceID>
+		<SourceReleaseDate>2019-02-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2019-0669</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Feb 2019 07:58:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4462230</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:excel:2010:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>446223001</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-04-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Excel</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Apr 2019 01:09:48 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch excel2010-kb4462186-fullfile-x64-glb.exe sha1:f11237ef2dc99661067b077d42fb4d6c1a466915 size:40617864 https://download.microsoft.com/download/5/4/4/544C015C-28A5-4D93-9CE2-780A7B485DE0/excel2010-kb4462186-fullfile-x64-glb.exe sha256:81012dccdf860e7994ff25ab652b02b13356d2d7b5c356eb928e93d4ad1ad5fb
+
+waithidden __Download\excel2010-kb4462186-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "f11237ef2dc99661067b077d42fb4d6c1a466915"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4462186</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

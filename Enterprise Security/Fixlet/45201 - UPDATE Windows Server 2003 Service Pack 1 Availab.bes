@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Windows Server 2003 Service Pack 1 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released a service pack for Windows Server 2003. Windows Server 2003 SP1 provides enhanced security, increased reliability, and simplified administration. Microsoft recommends that all Windows Server 2003 users download and install this service pack.<BR><BR><STRONG>Note:</STRONG> Installation of this update may take more than 30 minutes to complete.<BR><BR><STRONG>Note:</STRONG> Once this Fixlet has completed its action, affected computers will report back 'Pending Restart', but the vulnerability will not be closed until the affected computer is restarted.<BR></FONT><FONT size=2><BR><STRONG>Note: </STRONG> By default, the service pack installation will create a 'Security Configuration Wizard'  shortcut on the desktop. The actions below will remove the shortcut icon after installation. The 'Security Configuration Wizard' is an attack surface reduction tool. Click <A href="http://www.microsoft.com/technet/prodtechnol/windowsserver2003/library/ServerWhitepapers/D2F6FB86-5955-4DF2-B969-F51CA7CD10BA.mspx">here</A> for more information.<!--StartFragment --></FONT></P> <P><FONT size=2><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> This service pack includes several changes that may impair functionality of existing applications. BigFix <STRONG>strongly</STRONG> recommends that you fully test the deployment of this update prior to rolling out the update in your production environment.</FONT></P><P><B>Note:</B> There is no default action for this Fixlet message because it has multiple actions, none of which is clearly recommended over the others. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+329 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win2003"</Relevance>
+		<Relevance>csd version of operating system = ""</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP1\KB889101" of registry</Relevance>
+		<Relevance><![CDATA[((free space of drive of parent folder of system folder /1048576)>=700) AND (exists file "Hal.dll" whose (value "Company" of version block of it as lowercase contains "microsoft") of system folder) AND (sum of (preceding texts of firsts " " of following texts of firsts ".sys " of preceding texts of firsts "%00" of following texts of substrings "%00" of ("%00" & value "PagingFiles" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" of registry as string) as integer) >= 500)]]></Relevance>
+		<Relevance>not pending restart "cdf6552483a5a4491baa195ca76781eeaa059091"</Relevance>
+		<Relevance>not exists key "HKLM\Software\Microsoft\Updates\Windows Server 2003\SP2\KB914961" of registry</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>345322744</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB889101</SourceID>
+		<SourceReleaseDate>2005-03-30</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (Uninstall Enabled).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003-KB889101-SP1-x86-ENU.exe sha1:cdf6552483a5a4491baa195ca76781eeaa059091 size:345322744 http://download.microsoft.com/download/1/2/7/127c5938-d36a-4405-9df1-f00d57495652/WindowsServer2003-KB889101-SP1-x86-ENU.exe sha256:7e4987e43f31aab822702807bdf8572e129e6af536048e03d41792e574c5ac35
+
+wait __download/WindowsServer2003-KB889101-SP1-x86-ENU.exe /Quiet /Passive /Norestart
+
+action requires restart "cdf6552483a5a4491baa195ca76781eeaa059091"
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+continue if {exists file whose (exists shortcut whose (pathname of it as string as lowercase ends with "\hh.exe") of it) of folder (value "Common Desktop" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string)}
+
+delete {pathname of file whose (exists shortcut whose (pathname of it as string as lowercase ends with "\hh.exe") of it) of folder (value "Common Desktop" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string)}]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (Uninstall Disabled).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003-KB889101-SP1-x86-ENU.exe sha1:cdf6552483a5a4491baa195ca76781eeaa059091 size:345322744 http://download.microsoft.com/download/1/2/7/127c5938-d36a-4405-9df1-f00d57495652/WindowsServer2003-KB889101-SP1-x86-ENU.exe sha256:7e4987e43f31aab822702807bdf8572e129e6af536048e03d41792e574c5ac35
+
+wait __download/WindowsServer2003-KB889101-SP1-x86-ENU.exe /Quiet /Passive /Norestart /N
+
+action requires restart "cdf6552483a5a4491baa195ca76781eeaa059091"
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+continue if {exists file whose (exists shortcut whose (pathname of it as string as lowercase ends with "\hh.exe") of it) of folder (value "Common Desktop" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string)}
+
+delete {pathname of file whose (exists shortcut whose (pathname of it as string as lowercase ends with "\hh.exe") of it) of folder (value "Common Desktop" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string)}]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view more information about Microsoft Windows Server 2003 Service Pack 1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/prodtechnol/windowsserver2003/servicepack/default.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

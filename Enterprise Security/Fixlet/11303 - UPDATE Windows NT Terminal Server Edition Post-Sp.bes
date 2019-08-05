@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Windows NT Terminal Server Edition Post-Sp6 Security Rollup Package Available</Title>
+		<Description><![CDATA[
+Microsoft has released a Security Rollup Package for Windows NT, Terminal Server Edition. It fixes many known security flaws within the operating system. <BR><BR><b>Note</b>: Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted. <BR><BR><b>Note</b>: Client machines may briefly display progress and command prompt windows during installation of this update. <BR><BR><b>Note</b>: BigFix <b>Requires</b> this update to establish a baseline for vulnerability analyses.<BR><BR><b>File Size:</b> 11.8 MB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinNT"</Relevance>
+		<Relevance>(name of operating system = "WinNT") AND (csd version of operating system = "Service Pack 6") AND (value "ProductSuite" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ProductOptions" of registry as string contains "Terminal Server")</Relevance>
+		<Relevance>not exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\q317636" of registry</Relevance>
+		<Category>Rollup</Category>
+		<DownloadSize>12383944</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB317636</SourceID>
+		<SourceReleaseDate>2002-04-30</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch q317636i.exe sha1:1bd159935e373e71e1498ad41f83d6f8e079d3af size:12383944 http://download.microsoft.com/download/winntterminal/patch/q317636/nt4/en-us/q317636i.exe sha256:a5ea7bef8d21a80021f822df7ec6a23ecf3a37173b9b73aacfede6b68f300848
+
+wait __download\q317636i.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base article Q317636.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri"><![CDATA[http://support.microsoft.com/directory/article.asp?ID=KB;EN-US;Q317636&]]></ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

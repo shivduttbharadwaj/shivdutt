@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-017: Vulnerabilities in Microsoft Office Web Components Could Allow Remote Code Execution - Visual Studio .NET 2002 SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a critical update that resolves two privately reported vulnerabilities in Microsoft Office Web Components. These vulnerabilities could allow remote code execution if a user viewed a specially crafted Web page. An attacker who successfully exploited this vulnerability could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.</P> <P><STRONG>Note: </STRONG>Client machines may briefly display progress windows during installation of this update.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future update rollup.</P> <P><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT> There are known issues associated with the installation of this patch. See the Known Issues section of the security bulletin for more information.</P><P><B>Note:</B> This security update is also referenced under KB933367.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+6.63 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key whose (value "VersionMajor" of it = "7" AND value "VersionMinor" of it = "0" AND name of it as string contains "Visual Studio .NET") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\7.0\Setup\VS\BuildNumber" whose (exists value "1033" of it AND value "1033" of it as string as version >= "7.0.9955" AND value "1033" of it as string as version < "7.1") of registry]]></Relevance>
+		<Relevance>exists keys whose ((value "ProductName" of it as string contains "Visual Studio .NET") AND ((value "ProductName" of it as string contains "Professional") OR (value "ProductName" of it as string contains "Enterprise"))) of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry</Relevance>
+		<Relevance>NOT exists key "HKLM\Software\Microsoft\Updates\Visual Studio\7.0\M933367" of registry</Relevance>
+		<Relevance><![CDATA[exists key "HKLM\SOFTWARE\Microsoft\VisualStudio\7.0\Setup\VS" of registry AND ((exists file "Msowc.dll" whose (version of it < "9.0.0.8966") of it OR exists file "Msowcf.dll" whose (version of it < "9.0.0.2526") of it) of folder ((pathname of parent folder of folder (value "Path" of key "HKLM\SOFTWARE\Microsoft\Office\10.0\Common\InstallRoot" of registry as string) as string) & "\Office"))]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2.0") of system folder]]></Relevance>
+		<Relevance>(name of operating system != "WinVista" AND name of operating system != "Win2008")</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>6956152</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB933103</SourceID>
+		<SourceReleaseDate>2008-03-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2007-1201; CVE-2006-4695</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Visual Studio 2002</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Developer Tools, Runtimes, and Redistributables</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch VS7.0sp1-KB933367-X86.exe sha1:3111d9fbe5387e708b505596a6d1988a73d19e70 size:6956152 http://download.microsoft.com/download/6/a/8/6a85d3c5-2d31-4d27-af9d-e5e87f108899/VS7.0sp1-KB933367-X86.exe sha256:6a5ff767465b4681433042d5e5f482b0ebaac30cf6dc967683381123c066a98d
+
+wait __Download\VS7.0sp1-KB933367-X86.exe /q /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart "3111d9fbe5387e708b505596a6d1988a73d19e70"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-017.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-017.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

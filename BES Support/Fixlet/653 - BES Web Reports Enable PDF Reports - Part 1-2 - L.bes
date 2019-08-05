@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>BES Web Reports: Enable PDF Reports - Part 1/2 - Language Requirement Not Met</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>BES Web Reports now has the ability to generate PDF reports. PDFs can be sent by clicking the "Email Report" link or by setting the "PDF" format option when creating or editing a scheduled activity. </P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT> </STRONG>The listed computers do not meet the language requirement for the task&nbsp;<span id=partOneLink></span><SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false;  document.body.onload = SetPartOneLink; function SetPartOneLink() { try { partOneLink.innerHTML = EvaluateRelevance('link of fixlet whose (id of it = 602) of bes site whose (id of it = 1)'); } catch (e) {if (isEvansOrLater) { partOneLink.innerHTML ='<?jxlat BES Web Reports: Enable PDF Reports - Part 1/2 (ID: 602)?>';} else { partOneLink.innerHTML = 'BES Web Reports: Enable PDF Reports - Part 1/2 (ID: 602)';} } }</SCRIPT>. Please manually install Internet Explorer 7 or higher.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists service "BESWebReportsServer"</Relevance>
+		<Relevance><![CDATA[(name of it = "Win2003" AND service pack major version of it >= 1) of operating system]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\Software\Bigfix\Enterprise Server" whose (value "BESWebReportsInstalled" of it = 1) of registry</Relevance>
+		<Relevance><![CDATA[version of registration server >= "7.0.9"]]></Relevance>
+		<Relevance><![CDATA[NOT ((version of regapp "iexplore.exe" >= "7") AND (exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry) AND (exists folder "macromed\flash" whose (exists file whose (((it starts with "flash" AND it ends with ".ocx") OR (it = "swflash.ocx")) of (name of it as lowercase) AND version of it >= "9") of it) of system folder) AND (exists key ("HKEY_USERS\" & ((if it = "LocalSystem" then "S-1-5-18" else if it = "LocalService" then "S-1-5-19" else if it = "NetworkService" then "S-1-5-20" else (string value of select (("SID from Win32_UserAccount where NAME='" & following text of last "\" of it & "' and DOMAIN='" & ((if it = "." then computer name else it) of preceding text of last "\" of it) & "'") of ((login account of service "BESWebReportsServer") as string)) of wmi)) of login account of service "BESWebReportsServer") & "\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\" & (first match (regex "^[^:]+") of first match (regex "[^/]+$") of (it as string)) of value "Hostname" of key "HKLM\SOFTWARE\BigFix\Enterprise Server\Installer\" of registry) whose (exists value "http" whose (it = 2) of it AND exists value "https" whose (it = 2) of it) of registry) AND (exists key "HKLM\Software\BigFix\Enterprise Server\BESReports" whose (((exists value "PDFEnable" whose (it = "1") of it) OR (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports" whose (exists value ((((if x64 of operating system then value "ProgramFilesDir (x86)" of it else value "ProgramFilesDir" of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry) as string) & "\BigFix Enterprise\BES Server\BESReportsData\ArchiveData\__pdf\out.ps") of it) of native registry)) AND value "PDFPostScriptPath" of it = ((((if x64 of operating system then value "ProgramFilesDir (x86)" of it else value "ProgramFilesDir" of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry) as string) & "\BigFix Enterprise\BES Server\BESReportsData\ArchiveData\__pdf\out.ps") AND value "PDFPrinterName" of it = "BES Web Reports Printer") of registry) AND (exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" whose ((exists key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" whose (exists value "UninstallString" of it) of registry) AND ((it contains parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\bin" AND it contains parenthesized part 1 of (first match (regex "^(.*)uninstgs.exe") of (value "UninstallString" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\GPL Ghostscript 8.60" of registry as string)) & "gs8.60\lib") of (value "Path" of it as string))) of registry) AND (exists key "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports" whose (exists value ((((if x64 of operating system then value "ProgramFilesDir (x86)" of it else value "ProgramFilesDir" of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry) as string) & "\BigFix Enterprise\BES Server\BESReportsData\ArchiveData\__pdf\out.ps") of it) of native registry) AND (exists key ("HKU\" & ((if it = "LocalSystem" then "S-1-5-18" else if it = "LocalService" then "S-1-5-19" else if it = "NetworkService" then "S-1-5-20" else (string value of select (("SID from Win32_UserAccount where NAME='" & following text of last "\" of it & "' and DOMAIN='" & ((if it = "." then computer name else it) of preceding text of last "\" of it) & "'") of ((login account of service "BESWebReportsServer") as string)) of wmi)) of login account of service "BESWebReportsServer") & "\Software\Microsoft\Internet Explorer\PageSetup") of registry))]]></Relevance>
+		<Relevance><![CDATA[NOT (if (version of regapp "iexplore.exe" < "7") then (((it contains "English" OR (it contains "Turkish" AND NOT x64 of operating system) OR it contains "Italian" OR (it contains "Hungarian" AND NOT x64 of operating system) OR it contains "Spanish" OR (it contains "Polish" AND NOT x64 of operating system) OR (it contains "Dutch" AND NOT x64 of operating system) OR it contains "Korean" OR it contains "French" OR it contains "German" OR it contains "Japanese" OR (it contains "Czech" AND NOT x64 of operating system)) of language of version block of file "kernel32.dll" of system folder) OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)) else (true))]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 14 Apr 2009 01:34:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Web</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 May 2019 09:02:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about BES Web Reports.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/product/documents/BESWebReports-7.0.pdf</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about enabling the PDF Email Reports feature of BES Web Reports.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/support/knowledgecenter/en/SS2TKN_8.2.0/com.ibm.tem.doc_8.2/Platform/Web_Reports/c_exporting_web_reports_as_pdf_d.html</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Internet Explorer 7.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://msdn2.microsoft.com/en-us/ie/aa740486.aspx</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about GPL GhostScript 8.60.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://pages.cs.wisc.edu/~ghost/doc/GPL/gpl860.htm</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Adobe Flash Player required until 9.5.12.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/flashplayer/</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

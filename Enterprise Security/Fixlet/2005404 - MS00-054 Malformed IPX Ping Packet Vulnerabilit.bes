@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS00-054: "Malformed IPX Ping Packet" Vulnerability in Windows 95 (IPX installed)</Title>
+		<Description><![CDATA[
+Microsoft has released a patch that eliminates a security hole in the IPX network protocol. This vulnerability could be used to crash affected computers. After installing this patch, affected computers will no longer be susceptible to this vulnerability. <BR><BR><b>Note</b>: Client machines may briefly display progress windows during installation of this update. <BR><BR><b>File Size</b>: 173 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "Win95"</Relevance>
+		<Relevance>exists file "nwlink.vxd" of system folder</Relevance>
+		<Relevance>(not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{7c281154-4b81-462b-b157-c4c5c1b76349}" of registry) OR (value "IsInstalled" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{7c281154-4b81-462b-b157-c4c5c1b76349}" of registry as string != "01000000")</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>177832</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB265334</SourceID>
+		<SourceReleaseDate>2000-08-03</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2000-0742</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win95</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch 265334US5.EXE sha1:f542018c43f418089ee3ba2d8dd52caa7d196725 size:177832 http://download.microsoft.com/download/win95/Update/8982/W95/EN-US/265334US5.EXE sha256:ef4ab2821ee9531a7eedee04697a6401fe95d17fa78db3fa380bb7a983536044
+wait __download/265334US5.EXE /Q:A /R:N</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS00-054. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/ms00-054.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

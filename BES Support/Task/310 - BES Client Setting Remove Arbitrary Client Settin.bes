@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Client Setting: Remove Arbitrary Client Setting</Title>
+		<Description><![CDATA[
+Sometimes it is necessary to completely remove a client setting.&nbsp; This task will delete the registry key that corresponds to the client setting you would like to remove.&nbsp; The actions below will prompt you for the client setting name of the setting you'd like to remove.<BR><BR><b>Note:</b> If the client setting you specify does not exist for the client, the action will not have an effect. However, the action results will either be "failed" or "completed" depending on which action you choose to deploy from below.<BR><BR><b>Note:</b> Do <b>not</b> set the "Reapply" behavior when taking this action or you may cause the BES Client to constantly attempt to delete the specified client setting.
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>true</Relevance>
+		<Category>BES Client Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 21 Jul 2005 21:12:39 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 14 Nov 2017 18:36:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink><![CDATA[ to remove an arbitrary client setting. If the given setting does not exist on the client, the client will report back as "<b>failed</b>."]]></PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "ClientSetting" with description "Please enter the name of the client setting you would like to remove:" with default "<Enter Client Setting>"
+continue if {exists setting (parameter "ClientSetting" of action) of client}
+setting delete "{parameter "ClientSetting" of action}" on "{parameter "action issue date" of action}" for client]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink><![CDATA[ to remove an arbitrary client setting. If the given setting does not exist on the client, the client will report back as "<b>completed</b>."]]></PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "ClientSetting" with description "Please enter the name of the client setting you would like to remove:" with default "<Enter Client Setting>"
+setting delete "{parameter "ClientSetting" of action}" on "{parameter "action issue date" of action}" for client]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

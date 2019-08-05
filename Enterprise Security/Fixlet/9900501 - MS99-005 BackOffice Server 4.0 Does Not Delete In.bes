@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS99-005: BackOffice Server 4.0 Does Not Delete Installation Setup File</Title>
+		<Description><![CDATA[
+Microsoft has released a bulletin announcing a vulnerability in Backoffice Server 4.0. Computers whose installation of Backoffice Server included SQL Server, Exchange Server or Microsoft Transaction Server have a password vulnerability. When the programs were installed the passwords were saved in the reboot.ini file, which was not deleted after installation was completed. Anyone with access to the folder in which the file is stored would have access to the programs' passwords.&nbsp; After deleting the file, affected computers will no longer be susceptible to this vulnerability. <BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Backoffice" of registry</Relevance>
+		<Relevance>exists file "reboot.ini" of folder (value "BackOfficeProgramDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Backoffice" of registry as string)</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB217004</SourceID>
+		<SourceReleaseDate>1999-02-12</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-1999-0372</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to delete the file from computers.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">delete "{escapes of pathname of folder (value "BackOfficeProgramDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Backoffice" of registry as string)}\reboot.ini"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS99-005.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/1999/MS99-005</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-JUL: Security update for information disclosure vulnerability - Visual Studio 2012 Update 5 - KB4506162</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P>An information disclosure vulnerability exists when Microsoft Visual Studio 2012 incorrectly parses XML input in certain settings files. </P> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Note:</B> This security update is also referenced under KB4506162.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ((names of values of keys ("C4A80AAA24306F33B88BB43BAB8E0742";"8DAA03C51E6687E3E833AD8EA8E02B2A";"DDB1F72C0369F583790518A616E9797C";"779FF6EBB31E6843CABE9EA8F33F991E";"C73D0F560AF2D723CA4467B23B38B04C";"56467E638455F09359A5726785C2A6C6";"690C7DE54503C483EAD71D9DF01A3065";"5EBFF35B34529263A8E7145141119986";"822F50511C8BA103EAEE1A9F3C6B5002";"8193DE58358FC613AAAE32E35209B48D";"3C0F0530D84E88C3E8C3E1F497E36346";"7B07408B87C67F4369DE1A506DDDFE30") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "EFFAE96FE1197C23EB6F114B2CCAC576" OR name of it = "83BBA326395F60737B99EECE27DE694F" OR name of it = "6EFA2EB1E9022683EA54ADD9D312DB56" OR name of it = "3E64BAD6710DB2E3588D5FA73230480C" OR name of it = "393C5A04332CDDD358366382178DB196" OR name of it = "53E49AEAE924348339BBCB2CBCB50310" OR name of it = "BF9F139191EC71A39ABD16EA6A6E54E8" OR name of it = "8921E5D95C3CD3531A4EDAB8B87F0AC0" OR name of it = "9E455828E5007E43DAB2134074E86F13" OR name of it = "01A62FE6F0C9B3337A9E4FA25CC552C7" OR name of it = "8AC9843965660A335ACA0EDEDE1BC7E3" OR name of it = "EFEFE343BA08BDF3FBF3860DD1CA2648" OR name of it = "6E79F15B3F3820B3C8BB518FD6CF1EBD" OR name of it = "654B63CF1EDA08430A6CE86C674158C3") AND exists key "InstallProperties" whose ((it = "11.0.50727") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "C96D7387979955840AFE4EAD4335CF1C" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance>not exists keys whose (name of it contains "KB4506162") of keys of key "HKLM\Software\Microsoft\Updates" of registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>1460896</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4506162</SourceID>
+		<SourceReleaseDate>2019-07-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2019-1079</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 Jul 2019 09:14:44 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>true</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:visual_studio:2012:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Microsoft Visual Studio 2012 Update 5</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 10 Jul 2019 09:14:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch vs11-kb4506162_bda8a420b3ea1488a8b23f98504a1faebee74fb7.exe sha1:bda8a420b3ea1488a8b23f98504a1faebee74fb7 size:1460896 http://download.windowsupdate.com/d/msdownload/update/software/secu/2019/06/vs11-kb4506162_bda8a420b3ea1488a8b23f98504a1faebee74fb7.exe sha256:8e3ebb0109125c61f64717f159e2c0806ab44784a2cd62cd9d7a3cd067bde95a
+
+waithidden __Download\vs11-kb4506162_bda8a420b3ea1488a8b23f98504a1faebee74fb7.exe /Q /NoRestart
+
+action may require restart "bda8a420b3ea1488a8b23f98504a1faebee74fb7"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4506162</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

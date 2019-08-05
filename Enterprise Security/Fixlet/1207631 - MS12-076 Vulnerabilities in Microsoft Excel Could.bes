@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS12-076: Vulnerabilities in Microsoft Excel Could Allow Remote Code Execution - Excel Viewer 2007 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P>This update has been superseded because Microsoft has stopped offering the deployed binary.<br /><br /><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS13-073. Whereas this Fixlet message previously applied to Excel Viewer 2007 SP2/SP3, it now only applies to Excel Viewer 2007 SP2.</P>Microsoft has released a security update that resolves four privately reported vulnerabilities in Microsoft Office. The vulnerabilities could allow remote code execution if a user opens a specially crafted Excel file with an affected version of Microsoft Excel. An attacker who successfully exploited the vulnerabilities could gain the same user rights as the current user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2687313. <P><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</P> <P><SPAN id=dashboardLink></SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetOfficeOverviewLink; function SetOfficeOverviewLink() { try {if (isEvansOrLater) { dashboardLink.innerHTML = Relevance('(format "<?rxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the {0}.?>" + link "<?rxlat Microsoft Office Overview Dashboard?>" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string ) as string');} else { dashboardLink.innerHTML = EvaluateRelevance('"<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the " & link "Microsoft Office Overview Dashboard" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string & "."');} } catch (e) {if (isEvansOrLater) { dashboardLink.innerHTML ='<?jxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.?>';} else { dashboardLink.innerHTML = '<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.';} } } </SCRIPT> </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+7.42 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>((exists key whose ((name of it as string equals "00002159F30010400000000000F01FEC" OR name of it as string equals "00002159F30020400000000000F01FEC" OR name of it as string equals "00002159F30050400000000000F01FEC" OR name of it as string equals "00002159F30060400000000000F01FEC" OR name of it as string equals "00002159F30070400000000000F01FEC" OR name of it as string equals "00002159F30080400000000000F01FEC" OR name of it as string equals "00002159F30090400000000000F01FEC" OR name of it as string equals "00002159F300A0C00000000000F01FEC" OR name of it as string equals "00002159F30052400000000000F01FEC" OR name of it as string equals "00002159F300B0400000000000F01FEC" OR name of it as string equals "00002159F300C0400000000000F01FEC" OR name of it as string equals "00002159F300D0400000000000F01FEC" OR name of it as string equals "00002159F30093400000000000F01FEC" OR name of it as string equals "00002159F300A1400000000000F01FEC" OR name of it as string equals "00002159F300E0400000000000F01FEC" OR name of it as string equals "00002159F30001400000000000F01FEC" OR name of it as string equals "00002159F30011400000000000F01FEC" OR name of it as string equals "00002159F300F3400000000000F01FEC" OR name of it as string equals "00002159F30021400000000000F01FEC" OR name of it as string equals "00002159F30072400000000000F01FEC" OR name of it as string equals "00002159F30062400000000000F01FEC" OR name of it as string equals "00002159F30041400000000000F01FEC" OR name of it as string equals "00002159F30031400000000000F01FEC" OR name of it as string equals "00002159F30051400000000000F01FEC" OR name of it as string equals "00002159F30061400000000000F01FEC" OR name of it as string equals "00002159F30061800000000000F01FEC" OR name of it as string equals "00002159F30081400000000000F01FEC" OR name of it as string equals "00002159F30091400000000000F01FEC" OR name of it as string equals "00002159F300B1400000000000F01FEC" OR name of it as string equals "00002159F30042400000000000F01FEC" OR name of it as string equals "00002159F300A1800000000000F01FEC" OR name of it as string equals "00002159F300D1400000000000F01FEC" OR name of it as string equals "00002159F300E1400000000000F01FEC" OR name of it as string equals "00002159F300F1400000000000F01FEC" OR name of it as string equals "00002159F30022400000000000F01FEC" OR name of it as string equals "00002159F30040800000000000F01FEC" OR name of it as string equals "00002159F30040C00000000000F01FEC" OR name of it as string equals "00002159F30040400000000000F01FEC") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.9999.1000") of it) AND (not exists key whose (name of it as string equals "772E28598DDBB944AA462CBC64A501F1") of key "Patches" of it)) of it) OR (exists key whose ((name of it as string equals "00002159F30010400000000000F01FEC" OR name of it as string equals "00002159F30020400000000000F01FEC" OR name of it as string equals "00002159F30050400000000000F01FEC" OR name of it as string equals "00002159F30060400000000000F01FEC" OR name of it as string equals "00002159F30070400000000000F01FEC" OR name of it as string equals "00002159F30080400000000000F01FEC" OR name of it as string equals "00002159F30090400000000000F01FEC" OR name of it as string equals "00002159F300A0C00000000000F01FEC" OR name of it as string equals "00002159F30052400000000000F01FEC" OR name of it as string equals "00002159F300B0400000000000F01FEC" OR name of it as string equals "00002159F300C0400000000000F01FEC" OR name of it as string equals "00002159F300D0400000000000F01FEC" OR name of it as string equals "00002159F30093400000000000F01FEC" OR name of it as string equals "00002159F300A1400000000000F01FEC" OR name of it as string equals "00002159F300E0400000000000F01FEC" OR name of it as string equals "00002159F30001400000000000F01FEC" OR name of it as string equals "00002159F30011400000000000F01FEC" OR name of it as string equals "00002159F30021400000000000F01FEC" OR name of it as string equals "00002159F30072400000000000F01FEC" OR name of it as string equals "00002159F30062400000000000F01FEC" OR name of it as string equals "00002159F30041400000000000F01FEC" OR name of it as string equals "00002159F30031400000000000F01FEC" OR name of it as string equals "00002159F30051400000000000F01FEC" OR name of it as string equals "00002159F30061400000000000F01FEC" OR name of it as string equals "00002159F30061800000000000F01FEC" OR name of it as string equals "00002159F30081400000000000F01FEC" OR name of it as string equals "00002159F30091400000000000F01FEC" OR name of it as string equals "00002159F300B1400000000000F01FEC" OR name of it as string equals "00002159F30042400000000000F01FEC" OR name of it as string equals "00002159F300A1800000000000F01FEC" OR name of it as string equals "00002159F300D1400000000000F01FEC" OR name of it as string equals "00002159F300E1400000000000F01FEC" OR name of it as string equals "00002159F300F1400000000000F01FEC" OR name of it as string equals "00002159F30022400000000000F01FEC" OR name of it as string equals "00002159F30040800000000000F01FEC" OR name of it as string equals "00002159F30040C00000000000F01FEC" OR name of it as string equals "00002159F30040400000000000F01FEC") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.6425.1000") of it) AND (not exists key whose (name of it as string equals "772E28598DDBB944AA462CBC64A501F1") of key "Patches" of it)) of it) OR (exists key whose ((name of it as string equals "00002159F300F3400000000000F01FEC") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.9999.5000") of it) AND (not exists key whose (name of it as string equals "772E28598DDBB944AA462CBC64A501F1") of key "Patches" of it)) of it) OR (exists key whose ((name of it as string equals "00002159F300F3400000000000F01FEC") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "12.0.6415.1000") of it) AND (not exists key whose (name of it as string equals "772E28598DDBB944AA462CBC64A501F1") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>7776216</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2687313</SourceID>
+		<SourceReleaseDate>2012-11-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2012-1886; CVE-2012-2543</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-06-14</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Excel Viewer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:excel_viewer:2007:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 17 Jun 2019 23:03:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch xlview2007-kb2687313-fullfile-x86-glb.exe sha1:4a3f0c3c95cb6058f43c76642560e7b7dab38c4b size:7776216 http://download.microsoft.com/download/D/D/8/DD8BC966-AED8-4BB9-BADC-B32138D01E8E/xlview2007-kb2687313-fullfile-x86-glb.exe sha256:e8d7fd348cf1720a7ea60ebff9d424987676e6cfbc438c89b912ec42d2c9cbc6
+
+waithidden __Download\xlview2007-kb2687313-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "4a3f0c3c95cb6058f43c76642560e7b7dab38c4b"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://technet.microsoft.com/en-us/library/security/ms12-076</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

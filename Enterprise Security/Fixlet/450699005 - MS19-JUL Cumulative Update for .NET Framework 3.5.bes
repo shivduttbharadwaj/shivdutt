@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS19-JUL: Cumulative Update for .NET Framework 3.5, 4.8 for Windows 10 Version 1809 - Windows 10 Version 1809 - .NET Framework 3.5/4.8 - KB4506990</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>A remote code execution vulnerability exists in .NET software when the software fails to check the source markup of a file. An Authentication Bypass vulnerability exists in WCF and WIF, allowing signing of SAML tokens with arbitrary symmetric keys. This vulnerability allows an attacker to impersonate another user. The vulnerability exists in WCF, WIF 3.5 and above in .NET Framework, WIF 1.0 component in Windows, WIF Nuget package, and WIF implementation in Sharepoint. An information disclosure vulnerability exists when Exchange and Azure Active Directory allow creation of entities with Display Names having non-printable characters. <BR><BR>To learn more about the vulnerabilities, go to the following Common Vulnerabilities and Exposures (CVE). </P> <UL class=sbody-free_list> <LI><A id=kb-link-2 href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-1113" target=_self>CVE-2019-1113</A> <LI><A id=kb-link-2 href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-1006" target=_self>CVE-2019-1006</A> <LI><A id=kb-link-2 href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-1083" target=_self>CVE-2019-1083</A> </LI></UL> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</P> <P><B>Note:</B> This security update is also referenced under KB4507419.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+35.8 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>(it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance>(name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (exists key "Full" whose ((it = 528040 OR it = 528049) of value "Release" of it) of it) of native registry</Relevance>
+		<Relevance>exists value "ReleaseID" whose (it as string = "1809") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance><![CDATA[(not exists keys (names of values whose ((it >= "10.0.1.2819") of (following text of last "~" of name of it as version)) of keys "Package_for_DotNetRollup~31bf3856ad364e35~x86~~0.0.0.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackageIndex" of native registry) whose ((it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry)]]></Relevance>
+		<Relevance>not pending restart "e2150e4fec2ba64887d1dfb1b4f2d5e22fdd0edf"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>37490561</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4507419</SourceID>
+		<SourceReleaseDate>2019-07-09</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2019-1006; CVE-2019-1083; CVE-2019-1113</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 Jul 2019 08:34:19 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:3.5:*:*:*:*:*:*:*; cpe:2.3:a:microsoft:.net_framework:4.8:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win10</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 31 Jul 2019 00:00:56 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows10.0-kb4506990-x86_e2150e4fec2ba64887d1dfb1b4f2d5e22fdd0edf.msu sha1:e2150e4fec2ba64887d1dfb1b4f2d5e22fdd0edf size:37490561 http://download.windowsupdate.com/d/msdownload/update/software/secu/2019/07/windows10.0-kb4506990-x86_e2150e4fec2ba64887d1dfb1b4f2d5e22fdd0edf.msu sha256:911ea2f4d9565871676460c8ebff29b23ee29f6b224ffa45af12db4499860af8
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows10.0-kb4506990-x86_e2150e4fec2ba64887d1dfb1b4f2d5e22fdd0edf.msu"}" /quiet /norestart
+
+action requires restart "e2150e4fec2ba64887d1dfb1b4f2d5e22fdd0edf"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4507419</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

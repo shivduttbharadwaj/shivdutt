@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>967715: Update for Windows Autorun - Windows XP Gold (x64) - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This bulletin has been partially superseded by KB971029. Whereas this Fixlet message previously applied to Windows XP Gold/SP2 (x64), it now only applies to Windows XP Gold (x64).</P>The listed computers have faulty installations of a patch for the vulnerability described in 967715. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<br /><br /> <P>Microsoft has released an update that&nbsp;corrects an issue that prevents the NoDriveTypeAutoRun registry key from functioning as expected. </P> <P>When functioning as expected, the NoDriveTypeAutoRun registry key can be used to selectively disable Autorun functionality (e.g. AutoPlay, double click, and contextual menu features associated with Autorun) for drives on a user's system and network. Disabling Autorun functionality can help protect customers from attack vectors that involve the execution of arbitrary code by Autorun when inserting a CD-ROM device, USB device, network shares, or other media containing a file system with an Autorun.inf file.</P> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+23.1 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP-2003" AND (it = 1) of service pack major version of it)) of operating system</Relevance>
+		<Relevance><![CDATA[disjunction of (exists file "Shell32.dll" whose (version of it < "6.0.3790.3158" AND service pack major version of operating system = 1) of it OR exists file "Shell32.dll" whose (version of it < "6.0.3790.4315" AND service pack major version of operating system = 2) of it) of (system x64 folder; system wow64 folder)]]></Relevance>
+		<Relevance>NOT(NOT exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\windows xp version 2003\sp3\KB967715" of x64 registry)</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Advisory</Category>
+		<DownloadSize>24187280</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB967715</SourceID>
+		<SourceReleaseDate>2009-03-24</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2008-0951</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>96771509</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Apr 2019 18:34:48 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB967715-x64-ENU.exe sha1:cf9d3808ee8d25ea31df0f13ef82bf8bab6f5fde size:24187280 http://download.microsoft.com/download/7/F/D/7FD937BD-BF44-49B4-93AF-C092F3D24465/WindowsServer2003.WindowsXP-KB967715-x64-ENU.exe sha256:1ddb768de8de082e93faf75acd7e8bee4114eda47e7e496f7dfd103cc23a814f
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB967715-x64-ENU.exe /quiet /norestart
+
+action may require restart "cf9d3808ee8d25ea31df0f13ef82bf8bab6f5fde"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 967715.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/967715</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Advisory 967940.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/advisory/967940.mspx/en-us</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

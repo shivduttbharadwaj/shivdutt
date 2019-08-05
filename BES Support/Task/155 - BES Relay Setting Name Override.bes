@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Relay Setting: Name Override</Title>
+		<Description><![CDATA[
+By default, the BES Clients connect to their BES Relay by using the DNS name reported by the BES Relay. Depending on the configuration of the BES Relay computer and OS, this will be either a computer name (e.g., WINSERVER4) or a fully qualified DNS name (i.e., winserver4.company.com).<BR><BR>This name <b>must</b> be resolvable to all the BES Clients that will access the BES Relay or it will appear to the BES Clients like the relay does not exist.<BR><BR>You can change the BES Relays to use either a specific name or the IP address below.<BR><BR><b>Note:</b> If you have a lot of BES Relays (&gt;100), it is probably a good idea to switch the BES Relays to use IP addresses instead of DNS names to avoid extra load on the DNS servers when the BES Clients do their relay autoselection.<BR><BR><b>Note:</b> Do <b>not</b> set the "Reapply" behavior when taking this action or you may cause the BES Client to constantly reset this setting.
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>not exists main gather service</Relevance>
+		<Relevance>TRUE</Relevance>
+		<Category>BES Server/Relay Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 22 Jun 2004 20:55:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Relay</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to set the BES Relay to use its IP address instead of its DNS name. Note that if the computer has multiple different IP addresses, the DNS name will be used instead of the IPs.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">setting "_BESClient_Relay_NameOverride"="{if (number of (unique values of (addresses whose (it as string != "0.0.0.0") of ip interfaces whose (loopback of it = false) of network as string)) = 1) then (unique values of (address whose (it as string != "0.0.0.0") of ip interfaces whose (loopback of it = false) of network as string)) else (dns name) }" on "{parameter "action issue date" of action}" for client</ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to set an override on the DNS name of the listed BES Relay.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">action parameter query "_BESClient_Relay_NameOverride" with description "Please enter an override value for the listed BES Relay (do not include port number):"
+
+// Fail if value contains a colon
+// The port number should not be given
+continue if {parameter "_BESClient_Relay_NameOverride" of action does not contain ":"}
+
+setting "_BESClient_Relay_NameOverride"="{parameter "_BESClient_Relay_NameOverride" of action}" on "{parameter "action issue date" of action}" for client</ActionScript>
+		</Action>
+	</Task>
+</BES>

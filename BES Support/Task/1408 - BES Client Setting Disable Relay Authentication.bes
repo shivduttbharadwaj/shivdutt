@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>BES Client Setting: Disable Relay Authentication</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>When authentication is turned off for a given relay, that relay will communicate with&nbsp;all agents.</P> <P><FONT color=#ff0000><STRONG>All communication will NOT be secured through SSL.</STRONG></FONT></P> <P>Note: Clients reporting through this relay will be unavailable until they re-register (Default: 10 minutes). Also the Relay Service will be restarted.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>not exists main gather service</Relevance>
+		<Relevance>exists setting "_BESRelay_Comm_Authenticating" whose (value of it = "1") of client</Relevance>
+		<Relevance><![CDATA[version of client >= "9.0"]]></Relevance>
+		<Relevance>exists certificate of client</Relevance>
+		<Relevance><![CDATA[version of registration server >= "9.0"]]></Relevance>
+		<Relevance>(authenticating of current relay) and (authenticating of client)</Relevance>
+		<Relevance>(it starts with "127.0.0.1" OR it starts with "::1") of name of registration server</Relevance>
+		<Category></Category>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 May 2013 20:44:13 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[setting "_BESRelay_Comm_Authenticating"="0" on "{parameter "action issue date" of action}" for client
+if {name of operating system starts with "Win"}
+	delete __appendfile
+	appendfile net stop besrelay
+	appendfile net start besrelay
+	delete restartRelay.bat
+	move __appendfile restartRelay.bat
+	waithidden restartRelay.bat
+	delete restartRelay.bat
+elseif {name of operating system starts with "AIX"}
+	wait /etc/rc.d/rc2.d/KBESRelayd stop
+	wait /etc/rc.d/rc2.d/SBESRelayd start_skipclientrestart
+else
+	wait /etc/init.d/besrelay stop
+	wait /etc/init.d/besrelay start_skipclientrestart
+endif
+parameter "waitTime" = "{apparent registration server time}"
+pause while {((apparent registration server time) - time (parameter "waitTime")) < 5*second}
+relay select
+// if for some reason the BES Relay hasn't started yet, fail here
+continue if {exists running service "BESRelay"}]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

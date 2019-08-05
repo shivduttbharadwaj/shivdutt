@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Red Hat Enterprise Linux Client - IBM Endpoint Manager version 9.1.1314.0 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.1.1314.0 of IBM Endpoint Manager is now available for the Red Hat Enterprise Linux operating systems!<BR><BR></STRONG>The latest version of the IBM Endpoint Manager Client provides several enhancements and fixes. This Fixlet can upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to a 9.1 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM Endpoint Manager Server has been upgraded. It may take several hours for the Clients to notice that the Server is upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.<BR><BR><STRONG>Note: </STRONG>This client runs on supported Red Hat Enterprise Linux platforms on a 32-bit/64-bit x86 (versions 5, 6, 7), 64-bit PPC BigEndian (versions 5.5+) or s390x processor (versions 5, 6).</FONT></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+41.3 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client < "9.1.1314.0" and version of client >= "7.2"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.1"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (5|6|7)") of name of operating system</Relevance>
+		<Relevance>((it = "x86_64") OR ((exists match (regex "^i[6-9]86$") of it) of it) OR (it = "s390x") OR (it ="ppc64")) of architecture of operating system</Relevance>
+		<Relevance><![CDATA[(if ("ppc64" = architecture of it) then ((big endian of it) AND (version of it = "5") AND (version of it >= "5.5")) else (true)) of operating system]]></Relevance>
+		<Relevance><![CDATA[(if ("s390x" = architecture of it) then (major version of it < 7) else (true)) of operating system]]></Relevance>
+		<Relevance><![CDATA[if (version of client < "8") then true else ((not exists relay service) or (version of relay service >= "9.1.1314.0"))]]></Relevance>
+		<Relevance><![CDATA[if (version of client < "8") then true else ((not exists main gather service) or (version of main gather service >= "9.1.1314.0"))]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>43288156</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2017-04-24</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 27 Apr 2017 12:57:22 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager Client 9.1.1314.0 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {((exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (5|6|7)") of name of it) AND (architecture of it = "x86_64")) of operating system}
+	// Red Hat Enterprise Linux 5.x or 6.x or 7.x 64 bit x86
+	prefetch BESClientUpgrade.rpm sha1:e4c164dc08cefdf87a862f55ce85552a842716bd size:10566088 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1314.0-rhe5.x86_64.rpm sha256:021a67b29e0605f5135a37c45c33a3889a0bd70ed39f20efcf49e11147bd9b44
+elseif  {((exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (5|6)") of name of it) AND (exists match (regex "^i[6-9]86$") of architecture of it)) of operating system}
+	// Red Hat Enterprise 5.x or 6.x 32 bit x86 - i686 Minimum
+	prefetch BESClientUpgrade.rpm sha1:018ec22ad156c8410c84bc779d17a6332be6ec6a size:10203654 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1314.0-rhe5.i686.rpm sha256:0fe19d1e35d3bbe6895d497ce4eb51abc7b4451367c2eb51273ecba618d250e7
+elseif  {(if((exists match (regex "Red Hat Enterprise (Client|Server|Workstation) 5") of name of it) AND (architecture of it = "ppc64")) then (big endian of it) else false) of operating system}
+	// Red Hat Enterprise 5.5+ PPC64 BigEndian
+	prefetch BESClientUpgrade.rpm sha1:506db019f3bb06fd9d064021a161ea00418cbdd9 size:12054082 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1314.0-rhe5.ppc64.rpm sha256:f8c68974bb7191b61ecfaef4c510c72927b67e9b5d8fcc97f815d97cd09ef765
+elseif  {((exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (5|6)") of name of it) AND (architecture of it = "s390x")) of operating system}
+	// Red Hat Enterprise 5.x or 6.x s390x
+	prefetch BESClientUpgrade.rpm sha1:44f4ddca553e1f069643b6dbf00b13f8c02de3bc size:10464332 http://software.bigfix.com/download/bes/91/BESAgent-9.1.1314.0-rhe5.s390x.rpm sha256:ca92fb91e060e285900421a8e6e9bb2f515b83addd4f801b1bbea16e16370337
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESClientUpgrade.rpm"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {12054082 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESClientUpgrade.rpm __Local/Upgrade/BESClientUpgrade.rpm
+delete __appendfile
+appendfile #!/bin/sh
+if {exists file "/etc/init.d/besclient"}
+    appendfile /etc/init.d/besclient stop
+else
+    appendfile /etc/init.d/BESClient-{version of client as string} stop
+endif
+appendfile /bin/rpm -U __Local/Upgrade/BESClientUpgrade.rpm
+appendfile /etc/init.d/besclient start
+appendfile /bin/rm -f __Local/Upgrade/BESClientUpgrade.rpm
+move __appendfile __Local/Upgrade/besclientupgrade
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /bin/sh __Local/Upgrade/besclientupgrade]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.1.1314.0"]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

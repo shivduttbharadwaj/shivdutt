@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>HOTFIX: RDP clients and ICA clients cannot connect to a Windows Server 2003-based terminal server after hotfix 938759 is applied to the server - Windows Server 2003 SP1/SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released a hotfix to fix the connection issue that&nbsp; after applying&nbsp;hotfix 938759 on a Windows Server 2003-based terminal server and&nbsp;restarting the terminal server, Remote Desktop Protocol (RDP) clients or Independent Computing Architecture (ICA) clients may be unable to connect to the terminal server.</FONT></P> <P><FONT size=2><STRONG>Note: </STRONG>The hotfix is password protected by Microsoft, and&nbsp;has to be manually cached for it to run correctly. For more information on how to manually cache files see </FONT><A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=390"><FONT size=2>http://support.bigfix.com/cgi-bin/kbdirect.pl?id=390</FONT></A></P> <P><FONT size=2><B>Note:</B> There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #</FONT><A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474"><FONT size=2>474</FONT></A><FONT size=2>.</FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+676 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win2003" AND (service pack major version of it = 2 OR service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists file "Imagehlp.dll" whose ((service pack major version of operating system = 1 AND version of it < "5.2.3790.3249") OR (service pack major version of operating system = 2 AND version of it < "5.2.3790.4412")) of it) OR (exists file "Termsrv.dll" whose ((service pack major version of operating system = 1 AND version of it < "5.2.3790.3249") OR (service pack major version of operating system = 2 AND version of it < "5.2.3790.4412")) of it))) of (system folder)]]></Relevance>
+		<Relevance>Not exists key whose (name of it as string contains "KB958476")of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>692600</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB958476</SourceID>
+		<SourceReleaseDate>2011-10-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003-KB958476-x86-ENU.exe sha1:a8cf4036005c7034b55772fb9e8bf9f39dc75d99 size:692600 http://MANUAL_BES_CACHING_REQUIRED/WindowsServer2003-KB958476-x86-ENU.exe
+
+waithidden __Download\WindowsServer2003-KB958476-x86-ENU.exe /quiet /norestart
+
+action requires restart "a8cf4036005c7034b55772fb9e8bf9f39dc75d99"  </ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 958476, which contains the hotfix description and download link.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/958476</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

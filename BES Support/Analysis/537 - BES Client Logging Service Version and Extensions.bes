@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>BES Client Logging Service Version and Extensions</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>This analysis contains version information for the BES Client Logging Service and BigFix Extensions. BigFix Extensions are only installed for BES Client Logging versions 7.1 and above.</P> <P>These properties are evaluated <STRONG>daily</STRONG>.</P> <P>After activating this analysis you will see the following properties: <UL> <LI>BES Client Logging Service Version&nbsp; <LI>AntiVirus Extension Version <LI>AntiPest&nbsp;2 Extension&nbsp;Version <LI>Firewall Extension&nbsp;Version <LI>DLP Extension&nbsp;Version&nbsp; <LI>Firewall Compliance Extension Version</LI></UL></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "5.1"]]></Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists service "BESClientLoggingService"</Relevance>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 30 May 2008 23:18:45 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 14 Nov 2017 18:36:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Property Name="BES Client Logging Service Version" ID="1" EvaluationPeriod="P1D">version of file of service "BESClientLoggingService"</Property>
+		<Property Name="AntiVirus Extension Version" ID="2" EvaluationPeriod="P1D">(if (exists (key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\AntiVirus" of registry) AND exists (value "CA_AV" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry)) then (if (exists file (it as string)) then (version of file (it as string) as string) else ("Error: Invalid Path")) of value "CA_AV" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry else ("Not Installed"))</Property>
+		<Property Name="AntiPest 2 Extension Version" ID="3" EvaluationPeriod="P1D">(if (exists (key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\AntiPest" of registry) AND exists (value "CA_AP" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry)) then (if (exists file (it as string)) then (version of file (it as string) as string) else ("Error: Invalid Path")) of value "CA_AP" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry else ("Not Installed"))</Property>
+		<Property Name="Firewall Extension Version" ID="4" EvaluationPeriod="P1D">(if (exists (key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Firewall" of registry) AND exists (value "CA_FW" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry)) then (if (exists file (it as string)) then (version of file (it as string) as string) else ("Error: Invalid Path")) of value "CA_FW" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry else ("Not Installed"))</Property>
+		<Property Name="DLP Extension Version" ID="5" EvaluationPeriod="P1D">(if (exists (key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\DLP" of registry) AND exists (value "TM_DLP" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry)) then (if (exists file (it as string)) then (version of file (it as string) as string) else ("Error: Invalid Path")) of value "TM_DLP" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry else ("Not Installed"))</Property>
+		<Property Name="Firewall Compliance Extension Version" ID="6" EvaluationPeriod="P1D">(if (exists (key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Firewall" of registry) AND exists (value "BF_CP" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry)) then (if (exists file (it as string)) then (version of file (it as string) as string) else ("Error: Invalid Path")) of value "BF_CP" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\LoggingService\Plugins\Locations" of registry else ("Not Installed"))</Property>
+	</Analysis>
+</BES>

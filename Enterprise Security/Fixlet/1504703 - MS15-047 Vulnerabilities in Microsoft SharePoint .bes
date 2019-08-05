@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-047: Vulnerabilities in Microsoft SharePoint Server Could Allow Remote Code Execution - SharePoint Server 2007 SP3 - KB2760412 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft Office server and productivity software. The vulnerabilities could allow remote code execution if an authenticated attacker sends specially crafted page content to a SharePoint server. An attacker who successfully exploited these vulnerabilities could run arbitrary code in the security context of the W3WP service account on the target SharePoint site.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2760412.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+33.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00002109CF0100000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.6219.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "0410B38E2250AE94DB9BA325AD08CD77" of key "Patches" of it) of it OR exists keys ("00002109F70100001100000000F01FEC";"00002109F70100000100000000F01FEC";"00002109BF0100001100000000F01FEC";"00002109BF0100000100000000F01FEC";"00002109B40100000100000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.6612.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "0410B38E2250AE94DB9BA325AD08CD77" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>35330288</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2760412</SourceID>
+		<SourceReleaseDate>2015-05-12</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-1700</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 May 2015 02:31:16 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint_server:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch coreserver2007-kb2760412-fullfile-x64-glb.exe sha1:a8de853b51dc9f557c87109d2dafc9cf3fb17fc8 size:35330288 http://download.microsoft.com/download/D/9/C/D9C5691F-00FB-4585-867C-4C02A6212066/coreserver2007-kb2760412-fullfile-x64-glb.exe sha256:7d6e9cc9427a5f7ac1789010ee1c0c3c4b39fda656b4fca115b83fc8adebd54b
+
+waithidden __Download\coreserver2007-kb2760412-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "a8de853b51dc9f557c87109d2dafc9cf3fb17fc8"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-047</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

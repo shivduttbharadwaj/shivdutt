@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>811630: Update for HTML Help Control - Windows NT 4.0</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a patch that fixes an issue caused by cumulative patches for Internet Explorer released after February, 2003. After applying the cumulative patches, the URL specified by the window.showHelp method may no longer appear in the HTML Help window. Installing this patch will eliminate this bug.<br><br><b>Note:</b> Affected computers will report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<br><br><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<br><br><b>Important Note:</b> The Windows NT 4.0 version of this update is no longer available from the Microsoft Download Center. See the Microsoft Knowledge Base Article for more information.<br><FONT color=#ff0000></P> <P><STRONG>Important Note: </STRONG></FONT>Hotfixes have no default action.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+THIS LARGE
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinNT"</Relevance>
+		<Relevance><![CDATA[(exists file "Hhctrl.ocx" whose (version of it < "5.2.3735.0") of it OR exists file "Hhsetup.dll" whose (version of it < "5.2.3644.0") of it OR exists file "Itircl.dll" whose (version of it < "5.2.3644.0") of it OR exists file "Itss.dll" whose (version of it < "5.2.3644.0") of it) of system folder OR (exists file "Hh.exe" whose (version of it < "5.2.3644.0") of parent folder of system folder)]]></Relevance>
+		<Relevance><![CDATA[exists key "HKLM\Software\Microsoft\Internet Explorer" whose (exists value "version" whose (it as string as version >= "5.00.2014.0216") of it) of registry]]></Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB811630</SourceID>
+		<SourceReleaseDate>2003-02-05</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 25 Jul 2019 22:26:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base Article 811630.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/default.aspx?scid=kb;en-us;811630</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

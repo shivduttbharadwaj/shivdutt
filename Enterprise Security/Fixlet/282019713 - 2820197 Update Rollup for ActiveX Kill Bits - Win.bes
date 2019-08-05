@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2820197: Update Rollup for ActiveX Kill Bits - Windows XP SP2 (x64) (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This update has been superseded by MS13-090 Cumulative Security Update of ActiveX Kill Bits. For more information, look at the security updates for security bulletin MS13-090<br /><br />Microsoft is releasing a new set of ActiveX kill bits with this advisory.</P> <P>This update sets the kill bits for the following third-party software:</P> <P> <UL> <LI><STRONG>Honeywell Enterprise Buildings Integrator.</STRONG> The following Class Identifier relates to a request by Honeywell to set a kill bit for an ActiveX control that is vulnerable. The class identifiers (CLSIDs) for this ActiveX control are as listed in the <STRONG>Third-Party Kill Bits</STRONG> section of this advisory. <LI><STRONG>SymmetrE and ComfortPoint Open Manager.</STRONG> The following Class Identifier relates to a request by Honeywell to set a kill bit for an ActiveX control that is vulnerable. The class identifiers (CLSIDs) for this ActiveX control are as listed in the <STRONG>Third-Party Kill Bits</STRONG> section of this advisory.</LI></UL> <P></P> <P>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2820197.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+670 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(value of setting "_BESClient_WindowsOS_EnableSupersededEval" of client as integer = 1) | false</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "WinXP-2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance>NOT (((exists key "{0d080d7d-28d2-4f86-bfa1-d582e5ce4867}" whose (exists value "Compatibility Flags" whose (it as integer = 1024) of it) of it ) AND (exists key "{0d080d7d-28d2-4f86-bfa1-d582e5ce4867}" whose (exists value "Compatibility Flags" whose (it as integer = 1024) of it) of it ) AND (exists key "{29e9b436-dfac-42f9-b209-bd37bafe9317}" whose (exists value "Compatibility Flags" whose (it as integer = 1024) of it) of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\ActiveX Compatibility" of native registry)</Relevance>
+		<Relevance>(not exists key "hklm\software\microsoft\updates\windows xp version 2003\sp3\kb2820197" of x64 registry)</Relevance>
+		<Relevance>not pending restart "5ab2134b4dd446b09d4a1b3c460ff36dda8bd744"</Relevance>
+		<Category>Security Advisory</Category>
+		<DownloadSize>686248</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2820197</SourceID>
+		<SourceReleaseDate>2013-05-14</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows XP SP2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>MS13-090</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>1309003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-03-13</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ActiveX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 24 Jul 2019 20:44:22 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB2820197-x64-ENU.exe sha1:5ab2134b4dd446b09d4a1b3c460ff36dda8bd744 size:686248 http://download.microsoft.com/download/9/4/1/9419C664-3EBA-4670-B487-EB854C4D3DA8/WindowsServer2003.WindowsXP-KB2820197-x64-ENU.exe sha256:136dc80db0987b725d60740fec3cb12c17c0d63642c028635453dd45c5b4fd23
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB2820197-x64-ENU.exe /quiet /norestart
+
+action may require restart "5ab2134b4dd446b09d4a1b3c460ff36dda8bd744"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2820197</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

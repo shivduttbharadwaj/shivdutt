@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated WebUI Service - IBM BigFix version 9.5.10 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><b>Version 9.5.10 of IBM BigFix is now available! <BR></b><BR>The following list of computers have outdated IBM BigFix WebUI Services. It is recommended that you upgrade these services to keep the WebUI functionality up to date.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+10.5 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[version of client >= "9.5.3.191"]]></Relevance>
+		<Relevance>version of registration server = "9.5.10.79"</Relevance>
+		<Relevance>"x86_64" = architecture of operating system</Relevance>
+		<Relevance><![CDATA[if (windows of operating system) then (major version of it > 6 OR (major version of it = 6 AND minor version of it >= 1)) of operating system AND (platform id of it != 3) of operating system else (exists match (regex "Red Hat Enterprise (Client|Server|Workstation) (6|7)") of name of it) of operating system]]></Relevance>
+		<Relevance><![CDATA[exists webui service whose(version of it < "9.5.10.79")]]></Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>11041818</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2018-09-28</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 01 Oct 2018 09:20:40 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy WebUI</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 01 Oct 2018 09:20:40 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade your IBM BigFix WebUI Service.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[parameter "webUIRunning"="{exists webui service whose (running of it)}"
+if {windows of operating system}
+	parameter "webUIDir" = "{if (exists setting "_WebUIAppEnv_WebUI_DIR" whose (value of it != "") of client) then (value of setting "_WebUIAppEnv_WebUI_DIR" of client) else (pathname of program files x32 folder &"\BigFix Enterprise\BES WebUI")}"
+	if {"True" = parameter "webUIRunning"}
+		waithidden "{pathname of system folder}\cmd.exe" /C net stop BESWebUI
+		continue if {exists true whose (if true then (exit code of action = 0) else false)}
+		parameter "nodeDir" = "{parameter "webUIDir"}\WebUI\node.exe"
+        	parameter "winShutdownStartTime" = "{apparent registration server time}"
+  		pause while {(exists processes whose(pathname of image file of it is (parameter "nodeDir"))) AND (apparent registration server time - time(parameter "winShutdownStartTime")) < (120*second)}
+  		parameter "delayTime" = "{apparent registration server time}"
+  		pause while {(apparent registration server time - time(parameter "delayTime")) < (5*second)}
+	endif
+	prefetch WebUIService.bfz sha1:6a73f63391377e504b3252aed03d69cddc679396 size:5845817 http://software.bigfix.com/download/bes/95/BigFix-BES-WebUIService-9.5.10.79.bfz sha256:33624fdf33924cba965e6ef6ea66a0674f1194bd22afe0a9f8f740b3aba99434
+	extract WebUIService.bfz "{parameter "webUIDir"}"
+	continue if {"9.5.10.79" = version of file "WebUIService.exe" of folder (parameter "webUIDir")}
+	waithidden "{pathname of system folder}\cmd.exe" /C {pathname of system folder}\sc.exe description BESWebUI "BES WebUI Service"
+	if {"True" = parameter "webUIRunning"}
+        	waithidden "{pathname of system folder}\cmd.exe" /C net start BESWebUI
+        	continue if {exists true whose (if true then (exit code of action = 0) else false)}
+  		parameter "winStartDelayTime" = "{apparent registration server time}"
+  		pause while {(apparent registration server time - time(parameter "winStartDelayTime")) < (5*second)}
+		continue if {exists webui service whose(version of it = "9.5.10.79" AND running of it)}
+	endif
+	delete __Download\WebUIService.bfz
+else
+	if {"True" = parameter "webUIRunning"}
+		wait /etc/init.d/beswebui stop
+		parameter "unixShutdownStartTime" = "{apparent registration server time}"
+		pause while {(exists processes whose(name of it as string contains "WebUIService" or name of it as string contains "node")) AND (apparent registration server time - time(parameter "unixShutdownStartTime")) < (120*second)}
+	endif
+	prefetch BESWebUI.rpm sha1:29ed5fde387719481dfabc8e76ad5c762d109d2b size:5196001 http://software.bigfix.com/download/bes/95/BESWebUI-9.5.10.79-rhe6.x86_64.rpm sha256:73105a52ff0ab9c4e8287a5224f00da4519245988629bd0e724ced8fff30e8af
+	continue if {exists file "__Download/BESWebUI.rpm"}
+	folder delete "{(client folder of current site as string) & "/__Local/Upgrade"}"
+	folder create "{(client folder of current site as string) & "/__Local/Upgrade"}"
+	move __Download/BESWebUI.rpm __Local/Upgrade/BESWebUI.rpm
+	wait rpm -U __Local/Upgrade/BESWebUI.rpm
+	continue if {exit code of action = 0 AND version of webui service = "9.5.10.79"}
+	if {"True" = parameter "webUIRunning"}
+		wait /etc/init.d/beswebui start
+		continue if {exists true whose (if true then (exit code of action = 0) else false)}
+  		parameter "unixStartDelayTime" = "{apparent registration server time}"
+  		pause while {(apparent registration server time - time(parameter "unixStartDelayTime")) < (5*second)}
+		continue if {exists webui service whose(version of it = "9.5.10.79" AND running of it)}
+	endif
+	folder delete "{(client folder of current site as string) & "/__Local/Upgrade"}"
+endif]]></ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

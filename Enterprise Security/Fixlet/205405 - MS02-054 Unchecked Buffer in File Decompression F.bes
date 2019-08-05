@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-054: Unchecked Buffer in File Decompression Functions Could Lead to Code Execution - Windows 98 Plus!</Title>
+		<Description><![CDATA[
+Microsoft has released a patch that closes two security vulnerabilities in the Compressed Folders feature of Windows 98 Plus! The compressed folder feature allows compressed files to be treated as folders. The Compressed Folders feature can be used to create, add files to, and extract files from compressed files. Microsoft recommends that all users apply this patch to close this vulnerability. <BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Note:</b> Upon completion of its action, affected computers will report 'Pending Restart'. Once they have been restarted, they will report their final status. <BR><BR><b>File Size:</b> 267 KB<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system is "Win98"</Relevance>
+		<Relevance><![CDATA[exists file "dzip32.dll" whose (version of it < "3.0.0.18") of system folder or exists file "dunzip32.dll" whose (version of it < "3.0.0.18") of system folder or exists file "zipfldr.dll" whose (version of it < "5.0.531.0") of system folder ]]></Relevance>
+		<Relevance>not pending restart "b7304876548ca0fa458abd9449020bb6ef150a84"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>273744</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB329048</SourceID>
+		<SourceReleaseDate>2002-10-02</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2002-0370; CVE-2002-1139</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>File Decompression Functions</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win98</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch 329048USA8.EXE sha1:b7304876548ca0fa458abd9449020bb6ef150a84 size:273744 http://download.microsoft.com/download/WIN98/UPDATE/25556/W98/EN-US/329048USA8.EXE sha256:84fbb600e8cebff778df1f2b0b31a65e9fdef6588e6c2a0d8a1b19fdf721505b
+wait __download\329048USA8.EXE /Q:A /R:N
+action requires restart "b7304876548ca0fa458abd9449020bb6ef150a84"</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-054.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-054.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

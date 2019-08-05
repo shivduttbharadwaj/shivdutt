@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS15-038: Vulnerabilities in Microsoft Windows Could Allow Elevation of Privilege - Windows Server 2008 SP2 - KB3045685 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves vulnerabilities in Microsoft Windows. The vulnerabilities could allow elevation of privilege if an attacker logs on to the system and runs a specially crafted application. To exploit these vulnerabilities, an attacker would first have to log on to the system.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB3045685.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+435 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.0.6000.16386" of it AND (exists key "Package_137_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_252_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_27_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-commonlog_31bf3856ad364e35_none_2e17c9ebe743b8d3" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23639" OR it >= "6.0.6002.10000" AND it < "6.0.6002.19331") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.0.6000.16386" of it AND (exists key "Package_137_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_252_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_27_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_9c4934a44f3b5eeb" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23639") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_402a992096ddedb5" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23639") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_9c4934a44f3b5eeb" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0" AND it < "6.0.6002.19331") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_402a992096ddedb5" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0" AND it < "6.0.6002.19331") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.0.6001.18000" of it AND (exists key "Package_137_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_252_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_27_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_9c4934a44f3b5eeb" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23639") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_402a992096ddedb5" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23639") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_9c4934a44f3b5eeb" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0" AND it < "6.0.6002.19331") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_402a992096ddedb5" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0" AND it < "6.0.6002.19331") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.0.6001.18000" of it AND (exists key "Package_137_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_252_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_27_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-commonlog_31bf3856ad364e35_none_2e17c9ebe743b8d3" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23639" OR it >= "6.0.6002.10000" AND it < "6.0.6002.19331") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.0.6001.18000" of it AND (exists key "Package_137_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_252_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_27_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_9c4934a44f3b5eeb" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23639") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_402a992096ddedb5" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23639") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_9c4934a44f3b5eeb" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0" AND it < "6.0.6002.19331") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-commonlogservicesapi_31bf3856ad364e35_none_402a992096ddedb5" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0" AND it < "6.0.6002.19331") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.0.6001.18000" of it AND (exists key "Package_137_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_252_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it OR exists key "Package_27_for_KB948465~31bf3856ad364e35~amd64~~6.0.1.18005" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-commonlog_31bf3856ad364e35_none_2e17c9ebe743b8d3" whose (exists key (if (exists default value of it) then default value of it as string else "6.0") whose ((it >= "6.0.6002.20000" AND it < "6.0.6002.23639" OR it >= "6.0.6002.10000" AND it < "6.0.6002.19331") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "e01b78a19253a159e75a7434a19cfba053b9e6ac"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>445443</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3045685</SourceID>
+		<SourceReleaseDate>2015-04-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2015-1643; CVE-2015-1644</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 15 Apr 2015 00:46:07 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_server_2008:-:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB3045685-x64.msu sha1:e01b78a19253a159e75a7434a19cfba053b9e6ac size:445443 http://download.microsoft.com/download/9/3/6/93658E5E-92FF-47A9-8252-45B7A280B039/Windows6.0-KB3045685-x64.msu sha256:3f734fe8ed357af897df50a070997264c0e04ba8c9b8dd84175f56c82e179fe3
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB3045685-x64.msu"}" /quiet /norestart
+
+action requires restart "e01b78a19253a159e75a7434a19cfba053b9e6ac"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS15-038</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

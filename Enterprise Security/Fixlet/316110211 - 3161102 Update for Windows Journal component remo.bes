@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3161102: Update for Windows Journal component removal - Windows 10 - KB3161102 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB3161102.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+291.1 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry</Relevance>
+		<Relevance>(name of it = "Win10" OR (it starts with "Win" AND it does not start with "Win20") of name of it AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) of operating system</Relevance>
+		<Relevance>if (exists key "ApplicabilityEvaluationCache\Package_for_KB3161102~31bf3856ad364e35~amd64~~10.0.1.3" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3161102~31bf3856ad364e35~amd64~~10.0.1.3" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-CoreSingleLanguageEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EducationEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EducationNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseSEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseSEvalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseSNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseSNEvalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-PPIProEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists keys ("Microsoft-Windows-TabletPC-Package~31bf3856ad364e35~amd64~~10.0.10240.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-CoreCountrySpecificEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-CoreEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-CoreNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-CoreSingleLanguageEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EducationEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EducationNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseEvalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseNEvalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseSEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseSEvalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseSNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-EnterpriseSNEvalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-PPIProEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-ProfessionalEdition~31bf3856ad364e35~amd64~~10.0.10240.16384";"Microsoft-Windows-ProfessionalNEdition~31bf3856ad364e35~amd64~~10.0.10240.16384") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (not exists key "amd64_86e2d2f2295db16d5d5335f8648066b0_31bf3856ad364e35_none_11979ebf10dfa0d8" whose (exists value "10.0.10240.17062" of keys of it) of it OR not exists key "amd64_b553b95e1f938437c594c2250d218b51_31bf3856ad364e35_none_12d7cb5988909d9e" whose (exists value "10.0.10240.17062" of keys of it) of it OR not exists key "amd64_95b42ada47d41dcf4c93869f8d03e4f5_31bf3856ad364e35_none_cc6f51911215527b" whose (exists value "10.0.10240.17062" of keys of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)</Relevance>
+		<Relevance>not pending restart "2707817e3c3ae5c2451401355c699583694085c4"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>298113</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3161102</SourceID>
+		<SourceReleaseDate>2016-09-12</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 16 Sep 2016 13:19:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win10</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 16 Sep 2016 13:19:43 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows10.0-kb3161102-x64_2707817e3c3ae5c2451401355c699583694085c4.msu sha1:2707817e3c3ae5c2451401355c699583694085c4 size:298113 http://download.windowsupdate.com/d/msdownload/update/software/updt/2016/07/windows10.0-kb3161102-x64_2707817e3c3ae5c2451401355c699583694085c4.msu sha256:4383da86e8226951a9f3f29cd72fd626cbfbf59f322b00dd113b6008a5208bd8
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows10.0-kb3161102-x64_2707817e3c3ae5c2451401355c699583694085c4.msu"}" /quiet /norestart
+
+action requires restart "2707817e3c3ae5c2451401355c699583694085c4"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/3161102</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>3149737: Add Microsoft Certificate Authority 2011 certificate to the trusted root store - Windows Vista SP2 / Windows Server 2008 SP2 / Windows 7 SP1 / Windows Server 2008 R2 SP1</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>This BigFix task install the Microsoft Root Certificate Authority 2011, which might be required to install certain Microsoft patches.&nbsp;</TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "WinVista" OR name of it = "Win2008") AND service pack major version of it = 2) OR ((name of it = "Win7" OR name of it = "Win2008R2") AND service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance>not exists keys "Root\Certificates\8F43288AD272F3103B6FB1428485EA3014C0BCFE" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\SystemCertificates" of native registry</Relevance>
+		<Category>Unspecified</Category>
+		<Source>Internal</Source>
+		<SourceID>KB3149737</SourceID>
+		<SourceReleaseDate>2016-03-25</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 13 Jul 2016 14:54:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 31 Jul 2019 00:00:56 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch MicrosoftRootCertificateAuthority2011.cer sha1:8f43288ad272f3103b6fb1428485ea3014c0bcfe size:1521 http://download.microsoft.com/download/2/4/8/248D8A62-FCCD-475C-85E7-6ED59520FC0F/MicrosoftRootCertificateAuthority2011.cer sha256:847df6a78497943f27fc72eb93f9a637320a02b561d0a91b09e87a7807ed7c61
+
+waithidden {pathname of system folder & "\certutil.exe"} -addstore -f "Root" "{pathname of client folder of current site & "\__Download\MicrosoftRootCertificateAuthority2011.cer"}]]></ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

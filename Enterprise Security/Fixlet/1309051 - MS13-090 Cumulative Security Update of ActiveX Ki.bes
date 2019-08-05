@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS13-090: Cumulative Security Update of ActiveX Kill Bits - Windows 8 Gold - KB2900986 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Are Windows 8.1 Preview and Windows RT 8.1 Preview affected by the vulnerability addressed in this bulletin? Yes. The 2900986 update is available for Windows 8.1 Preview and Windows RT 8.1 Preview. Customers running these operating systems are encouraged to apply the updates to their systems. The updates are available on Windows Update.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This security update is also referenced under KB2900986.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+212 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2")) of operating system</Relevance>
+		<Relevance>((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB2900986~31bf3856ad364e35~amd64~~6.2.1.1" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB2900986~31bf3856ad364e35~amd64~~6.2.1.1" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Windows-Embedded-Killbits-Package~31bf3856ad364e35~amd64~~10.0.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-activexcompat_31bf3856ad364e35_none_1b5a1b86ced1aa0c" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.9200.20000" AND it < "10.0.9200.20868" OR it >= "10.0.9200.10000" AND it < "10.0.9200.16755") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-activexcompat_31bf3856ad364e35_none_bf3b8003167438d6" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.9200.20000" AND it < "10.0.9200.20868" OR it >= "10.0.9200.10000" AND it < "10.0.9200.16755") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Killbits-Package~31bf3856ad364e35~amd64~~10.0.9200.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-activexcompat_31bf3856ad364e35_none_1b5a1b86ced1aa0c" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.9200.20000" AND it < "10.0.9200.20868" OR it >= "10.0.9200.10000" AND it < "10.0.9200.16755") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-activexcompat_31bf3856ad364e35_none_bf3b8003167438d6" whose (exists key (if (exists default value of it) then default value of it as string else "10.0") whose ((it >= "10.0.9200.20000" AND it < "10.0.9200.20868" OR it >= "10.0.9200.10000" AND it < "10.0.9200.16755") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "42d98c5b4a81d3af7b99b86ba7148dbad679f7aa"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>217880</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2900986</SourceID>
+		<SourceReleaseDate>2016-02-22</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 25 Feb 2016 14:53:31 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:o:microsoft:windows_8:-:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ActiveX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8-RT-KB2900986-x64.msu sha1:42d98c5b4a81d3af7b99b86ba7148dbad679f7aa size:217880 https://download.microsoft.com/download/5/D/E/5DEF2288-2DBE-45D4-B549-65C7C523E564/Windows8-RT-KB2900986-x64.msu sha256:f1acd9a8fcab259bcfec25d1ed8aab23705bbf02195bf27fed40a22c302adaa2
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8-RT-KB2900986-x64.msu"}" /quiet /norestart
+
+action requires restart "42d98c5b4a81d3af7b99b86ba7148dbad679f7aa"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS13-090</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

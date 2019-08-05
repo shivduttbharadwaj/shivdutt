@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-030: Unchecked Buffer in DirectX Could Enable System Compromise - DirectX 8.0 - 8.1b on Windows 2000 SP3 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS03-030. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>Microsoft has released a patch eliminating a "buffer overrun" vulnerability in its DirectX technology. DirectX consists of a set of low-level interfaces that are used by Windows programs for multimedia support. A flaw exists in the function used by DirectShow, a client-side technology within DirectX, that checks parameters in a Musical Instrument Digital Interface (MIDI) file. By hosting a specially crafted MIDI file on a Web site or sending it through a HTML-based e-mail, an attacker could exploit this vulnerability if a user opens the file. A successful attack could cause DirectShow, or an application making use of DirectShow, to fail. A successful attack could also potentially cause an attacker's code to run on the user's computer in the security context of the user. After applying this patch, affected computers will no longer be susceptible to this vulnerability. <BR><BR><b>Note:</b> Affected computers will report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note:</b> Client machines may briefly display progress windows during installation of this update.<BR><BR><b>File Size:</b> 790 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\DirectX" whose (value "Version" of it >= "4.08.0" AND value "Version" of it < "4.08.01.902") of registry]]></Relevance>
+		<Relevance>(name of operating system = "Win2000") AND (csd version of operating system = "Service Pack 3")</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\DirectX\dx819696" whose (value "IsInstalled" of it = 1) of registry</Relevance>
+		<Relevance><![CDATA[exists file "quartz.dll" whose (version of it = "6.3.1" AND version of it < "6.3.1.886") of system folder]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows 2000\SP5\Update Rollup 1" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>809048</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB819696</SourceID>
+		<SourceReleaseDate>2003-07-23</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>303015</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>DirectX</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch DirectX8-KB819696-x86-ENU.exe sha1:26bb23290b0531f1cbbe3755ad76215df754d43a size:809048 http://download.microsoft.com/download/b/6/9/b69e8d84-7557-491c-bdc5-30db397264cb/DirectX8-KB819696-x86-ENU.exe sha256:6e0de227a4ad05d67103225efc8b70085ac1f8650edb404845fbc8d7f84e6651
+wait __download\DirectX8-KB819696-x86-ENU.exe /Q:A /R:N /C /T:{value of variable "temp" of environment & "\BigFix819696"}
+wait {pathname of system folder & "\\rundll32.exe setupapi,InstallHinfSection DefaultInstall 132 " & value of variable "temp" of environment & "\BigFix819696\dx819696_w2k.inf"}
+pause while {exists running application "rundll32.exe"}
+dos rmdir /Q /S {value of variable "temp" of environment & "\BigFix819696"}
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-030.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-030.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

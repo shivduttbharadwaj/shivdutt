@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-070: Vulnerabilities in Visual Basic 6.0 Runtime Extended Files (ActiveX Controls) Could Allow Remote Code Execution - Visual FoxPro 9.0 SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a security update that resolves five privately reported vulnerabilities and one publicly disclosed vulnerability in the ActiveX controls for the Microsoft Visual Basic 6.0 Runtime Extended Files. These vulnerabilities could allow remote code execution if a user browsed a Web site that contains specially crafted content. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack.<BR><BR><B>Note:</B> This security update is also referenced under KB958371.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Installation of this patch may require that the original&nbsp;Visual FoxPro&nbsp;9&nbsp;CD be supplied on the local drive. </P> <P><STRONG>Note:</STRONG> There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</A>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+4.60 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists file "vfp9.exe" whose (version of it >= "9.0.0.5815" as version) of folder (value "InstallLocation" of keys whose (name of it as string contains "Visual FoxPro 9.0 Professional") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry as string)]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Visual Studio\9.0\M958371" whose (value "Installed" of it = 1) of registry</Relevance>
+		<Relevance><![CDATA[(exists file "Comct232.ocx" whose (version of it < "6.0.98.12") of it OR exists file "Mschrt20.ocx" whose (version of it < "6.1.98.12") of it OR exists file "Mscomct2.ocx" whose (version of it < "6.1.98.12") of it OR exists file "Msflxgrd.ocx" whose (version of it < "6.1.98.11") of it OR exists file "Mshflxgd.ocx" whose (version of it < "6.1.98.12") of it OR exists file "Msmask32.ocx" whose (version of it < "6.1.98.12") of it OR exists file "Mswinsck.ocx" whose (version of it < "6.1.98.12") of it) of system folder]]></Relevance>
+		<Relevance>(exists keys ((names of values of keys ("4216DB2B7F221D54FA6A568F05E01BD9") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "369EAAB9D61E71E4FA6E91565FAA2029") AND exists key "InstallProperties" whose ((it = "9.00.5815") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "4E6D90F489683E54C86E30BCFCB1C77F" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>4820168</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB932349</SourceID>
+		<SourceReleaseDate>2008-12-09</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2008-3704; CVE-2008-4252; CVE-2008-4253; CVE-2008-4254; CVE-2008-4255; CVE-2008-4256</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Visual Studio 9</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Developer Tools, Runtimes, and Redistributables</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 14 Apr 2016 08:29:18 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch VFP9.0sp2-KB958371-X86-Enu.exe sha1:09d939a9eecfdc0c8a4ee679fba03df735945090 size:4820168 http://download.microsoft.com/download/A/2/E/A2EC02D1-C0E8-4541-B293-E6D2EEA04DF9/VFP9.0sp2-KB958371-X86-Enu.exe sha256:f268f091c68d5b1c082a9bd1bbefcca5467432e5eb0ad15a1731459912f3eac8
+
+waithidden __Download\VFP9.0sp2-KB958371-X86-Enu.exe /q:a /r:n /c:"msiexec /p VFP9.0sp2-KB958371-X86-Enu.msp REBOOT=ReallySuppress /qn"
+
+action may require restart "09d939a9eecfdc0c8a4ee679fba03df735945090"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-070.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-070.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

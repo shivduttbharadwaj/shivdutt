@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2817624: Description of the Office 2013 update - Office 2013 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released an update for Microsoft Office 2013 64-Bit Edition. This update provides the latest fixes to Microsoft Office 2013 64-Bit Edition. Additionally, this update contains stability and performance improvements.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2817624.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+65.2 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "MSORES.DLL" whose ((version of it < "15.0.4535.1000")) of it) of (folder ((value "CommonFilesDir" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion" of native registry) as string & "\Microsoft Shared\OFFICE15"))]]></Relevance>
+		<Relevance>((exists key whose ((name of it equals "00005119510000000100000000F01FEC" OR name of it equals "00005109510000000100000000F01FEC" OR name of it equals "00005119310000000100000000F01FEC" OR name of it equals "00005119610000000100000000F01FEC" OR name of it equals "00005109610000000100000000F01FEC" OR name of it equals "00005119F20000000100000000F01FEC" OR name of it equals "00005119440000000100000000F01FEC" OR name of it equals "00005109440000000100000000F01FEC" OR name of it equals "000051191A0000000100000000F01FEC" OR name of it equals "000051091A0000000100000000F01FEC" OR name of it equals "00005119A10000000100000000F01FEC" OR name of it equals "00005109A10000000100000000F01FEC" OR name of it equals "00005119330000000100000000F01FEC" OR name of it equals "00005119810000000100000000F01FEC" OR name of it equals "00005109810000000100000000F01FEC" OR name of it equals "00005119110000000100000000F01FEC" OR name of it equals "00005109110000000100000000F01FEC" OR name of it equals "00005119410000000100000000F01FEC" OR name of it equals "00005119910000000100000000F01FEC" OR name of it equals "00005109910000000100000000F01FEC" OR name of it equals "00005109710000000100000000F01FEC" OR name of it equals "00005109210000000100000000F01FEC" OR name of it equals "00005119150000000100000000F01FEC" OR name of it equals "00005109150000000100000000F01FEC" OR name of it equals "00005119350000000100000000F01FEC" OR name of it equals "00005109350000000100000000F01FEC" OR name of it equals "00005119B10000000100000000F01FEC" OR name of it equals "00005109B10000000100000000F01FEC" OR name of it equals "000051091C0000000100000000F01FEC" OR name of it equals "00005109D21000000100000000F01FEC" OR name of it equals "00005109E21000000100000000F01FEC" OR name of it equals "00005109C21000000100000000F01FEC" OR name of it equals "00005119B30000000100000000F01FEC" OR name of it equals "00005109B30000000100000000F01FEC" OR name of it equals "00005119A30000000100000000F01FEC" OR name of it equals "00005109A30000000100000000F01FEC") AND (exists key whose (name of it equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "15.0.4420.1017") of it) AND (not exists key whose (name of it equals "F9A197F21BDAAB54990D87B69025CC83") of key "Patches" of it)) of it)) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>68376256</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2817624</SourceID>
+		<SourceReleaseDate>2013-09-06</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows Server 2003 Gold |~| Windows Vista Gold |~| Windows XP Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch msores2013-kb2817624-fullfile-x64-glb.exe sha1:77d4923870ef8b1e9fa9da4981591a242edb8d21 size:68376256 http://download.microsoft.com/download/1/A/A/1AA721D9-1C44-401A-8CC6-57CBF762D172/msores2013-kb2817624-fullfile-x64-glb.exe sha256:0b95b1f323c818bc4ff51c8fc90d7bf45fd4827702e6e95f7285e3cbd800d058
+
+waithidden __Download\msores2013-kb2817624-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "77d4923870ef8b1e9fa9da4981591a242edb8d21"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2817624</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

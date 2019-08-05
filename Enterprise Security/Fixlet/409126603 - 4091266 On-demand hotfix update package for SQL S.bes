@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>4091266: On-demand hotfix update package for SQL Server 2012 SP4 - SQL Server 2012 - KB4091266 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>This update contains hotfixes for issues that were fixed after the release of SQL Server 2012 SP4.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> This update is also referenced under KB4091266.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+867 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system AND not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(exists keys whose (exists value "CurrentVersion" whose ((it >= "11.0.7001.0" AND it < "11.0.7469.6") of (it as string as version)) of key "MSSQLServer\CurrentVersion" of it) of (keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server" of it) of (x64 registry) AND exists ((((if exists match (regex "\((.*)\)") of it then parenthesized part 1 of first match (regex "\((.*)\)") of it else it) of (if it contains "$" then following text of first "$" of it else it)) of display name of it) of services whose (exists file (first match (case insensitive regex "[^%22]*sqlservr.exe") of (image path of it)) whose ((it >= "11.0.7001.0" AND it < "11.0.7469.6") of product version of it)) , names of values of keys "HKLM\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL" of (x64 registry)) whose (item 0 of it = item 1 of it))]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>909384368</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4091266</SourceID>
+		<SourceReleaseDate>2018-03-28</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 20 Jun 2018 18:26:54 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 10 |~| Windows 7 |~| Windows 7 SP1 |~| Windows 8 |~| Windows 8.1 |~| Windows Server 2008 R2 |~| Windows Server 2008 R2 SP1 |~| Windows Server 2012 |~| Windows Server 2012 R2 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2012</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 Jun 2018 18:26:54 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SQLServer2012-KB4091266-x64.exe sha1:64fc3a8a0ca3726d57852f1ebbb7247d3e58cbcf size:909384368 http://download.microsoft.com/download/3/D/9/3D95BF50-AED7-44A6-863B-BC7DC7C722CE/SQLServer2012-KB4091266-x64.exe sha256:98bdbfb1b479e32a37ffb3b301ff6cef61047941a38e8a09aa93076ba8bd26b8
+
+waithidden __Download\SQLServer2012-KB4091266-x64.exe /q /allinstances /IACCEPTSQLSERVERLICENSETERMS
+
+action requires restart "64fc3a8a0ca3726d57852f1ebbb7247d3e58cbcf"  
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process (non-Microsoft cluster environments).</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch SQLServer2012-KB4091266-x64.exe sha1:64fc3a8a0ca3726d57852f1ebbb7247d3e58cbcf size:909384368 http://download.microsoft.com/download/3/D/9/3D95BF50-AED7-44A6-863B-BC7DC7C722CE/SQLServer2012-KB4091266-x64.exe sha256:98bdbfb1b479e32a37ffb3b301ff6cef61047941a38e8a09aa93076ba8bd26b8
+
+waithidden __Download\SQLServer2012-KB4091266-x64.exe /q /allinstances /clusterpassive /IACCEPTSQLSERVERLICENSETERMS
+
+action requires restart "64fc3a8a0ca3726d57852f1ebbb7247d3e58cbcf"  </ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/4091266</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

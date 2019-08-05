@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-009: Flaw In ISA Server DNS Intrusion Detection Filter Can Cause Denial Of Service - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS03-009. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<BR><BR>Microsoft has released a patch eliminating a security vulnerability in ISA Server 2000. A flaw exists in the ISA Server DNS intrusion detection application filter that an attacker could exploit by sending a specially formed request to an ISA Server computer that is publishing a DNS server. This would then result in a denial of service to the published DNS server. DNS requests arriving at the ISA Server would be stopped at the firewall, and not passed through to the internal DNS server. All other ISA Server functionality would be unaffected. After downloading and installing this patch, affected computers will no longer be susceptible to this vulnerability.<BR><BR><b>Note:</b> Client machines may briefly display progress windows during installation of this update.<BR><BR><b>Note:</b> Microsoft has announced that this patch will be included in ISA Server 2000 Service Pack 2.<BR><BR><b>File Size:</b> 99 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system is "Win2000"</Relevance>
+		<Relevance><![CDATA[csd version of operating system >= "Service Pack 2"]]></Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry AND exists value "ImagePath" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry AND exists file (preceding text of last "%00" of (value "ImagePath" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry as string)) whose (version of it <"4")]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft ISA Server SP" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Fpc\Hotfixes\SP1\256" of registry</Relevance>
+		<Relevance><![CDATA[version of file "issfltr.dll" of (value "installdirectory" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Fpc" of registry as folder) < "3.0.1200.256"]]></Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>102056</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB331065</SourceID>
+		<SourceReleaseDate>2003-03-19</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2003-0011</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>300901</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>DNS Intrusion Detection Filter</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>ISA Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch isahf256.exe sha1:29c72eae673859e040761c6b358f08dad33d8c3a size:102056 http://download.microsoft.com/download/1/a/d/1ad2ab6d-fa07-41a0-8083-4f617b3b4658/isahf256.exe sha256:17652363782414268ebfdeef662e448a1676172adbe11be02f62376de535beaa
+wait __download/isahf256.exe /q:a /r:n
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-009.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-009.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

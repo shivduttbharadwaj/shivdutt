@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-074: Vulnerabilities in Microsoft SharePoint Could Allow Elevation of Privilege - Office SharePoint Server 2007 SP2 (dlc) (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves five privately reported vulnerabilities and one publicly disclosed vulnerability in Microsoft SharePoint and Windows SharePoint Services. The most severe vulnerabilities could allow elevation of privilege if a user clicked on a specially crafted URL or visited a specially crafted Web site. For the most severe vulnerabilities, Internet Explorer 8 and Internet Explorer 9 users browsing to a SharePoint site in the Internet Zone are at a reduced risk because, by default, the XSS Filter in Internet Explorer 8 and Internet Explorer 9 helps to block the attacks in the Internet Zone. The XSS Filter in Internet Explorer 8 and Internet Explorer 9, however, is not enabled by default in the Intranet Zone.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2553003.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.03 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[((exists file "MICROSOFT.OFFICE.POLICY.DLL" whose ((version of it < "12.0.6562.5000")) of (folder "ISAPI" of it)) OR (((exists file "MICROSOFT.OFFICE.DOCUMENTMANAGEMENT.PAGES.DLL" whose ((version of it < "12.0.6562.5000")) of it) OR (exists file "MICROSOFT.OFFICE.POLICY.PAGES.DLL" whose ((version of it < "12.0.6562.5000")) of it) OR (exists file "MICROSOFT.OFFICE.WORKFLOW.PAGES.DLL" whose ((version of it < "12.0.6562.5000")) of it) OR (exists file "MICROSOFT.OFFICE.WORKFLOWSOAP.DLL" whose ((version of it < "12.0.6562.5000")) of it)) of (folder "CONFIG\BIN" of it))) of (folder (value "Location" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\12.0" of x64 registry as string))]]></Relevance>
+		<Relevance><![CDATA[exists key whose (value "DisplayName" of it as string contains "Microsoft Office SharePoint Server 2007" AND value "DisplayVersion" of it as string as version >= "12.0.6425.1000" AND value "DisplayVersion" of it as string as version < "12.0.6612.1000") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of x64 registry]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2124480</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2553003</SourceID>
+		<SourceReleaseDate>2011-09-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-1892</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:sharepoint_server:2007:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Office2007-kb2553003-fullfile-x64-glb.exe sha1:be48cd753b19c7f7740a6f90f8f05f312aee3a0d size:2124480 http://download.microsoft.com/download/D/5/A/D5AA78E0-ECF1-4DE4-9105-BEDC14527220/Office2007-kb2553003-fullfile-x64-glb.exe sha256:2b096e08fdd7f671c963be7707d9385b17dc6fca6c23ec0cc59e1f095b055a42
+
+waithidden __Download\Office2007-kb2553003-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "be48cd753b19c7f7740a6f90f8f05f312aee3a0d"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-074.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS11-074.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

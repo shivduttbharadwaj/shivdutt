@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>BES Server Plugin Service is not Configured Correctly</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>The BES Server Plugin Service requires a Web Reports user name and password in order to automate the storage of historical data, and to run scheduled wakeups. </P> <P>To configure the BES Server Plug-in Service, use <?relevance ul of concatenation of lis of (if (version of datastore inspectors >= "9.0") then (links of fixlets (1295; 1294) of bes site whose (id of it = 1)) else (links of wizards whose (dashboard id of it = "MFSConfiguration.ojo") of bes site whose (id of it = 1))) ?>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance>exists service "BESPluginService"</Relevance>
+		<Relevance><![CDATA[NOT (if (name of operating system contains "Linux") then ((exists file "/var/opt/BESServer/Applications/MasterOperatorCredentials") and (exists file "/var/opt/BESServer/Applications/SOAPCredentials")) else ((exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\BESReports" whose (exists value "SOAPUsername" whose (it != "") of it OR exists value "SOAPPassword" whose (it != "") of it OR exists value "WRHTTP" whose (it != "") of it) of registry) and (if (if (version of client >= "8.2") then (version of main gather service >= "9.0") else (false)) then (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server\MFSConfig" whose ((exists value "RESTUsername" whose (it != "") of it) AND (exists value "RESTPassword" whose (it != "") of it)) of registry) else (true))))]]></Relevance>
+		<Category>Warnings</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2010-08-13</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 21 Nov 2011 20:46:09 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>Warnings</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+	</Fixlet>
+</BES>

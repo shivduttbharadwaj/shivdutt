@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Windows Server/Console Components - Manual Upgrade Required - IBM BigFix version 9.2.13</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><SPAN id="relTag2Script3"></SPAN><SCRIPT type="text/javascript">var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; try{if (isEvansOrLater) {document.getElementById("relTag2Script3").innerHTML=Relevance('if (applicable computer count of current fixlet = 0) then ((format "<?rxlat <B>If no computers are relevant for this Fixlet message, you may use the {0} Fixlet message to upgrade your IBM BigFix Server.</B><BR><BR>?>" + link of fixlet whose (display name of it contains "IBM BigFix - Updated Platform Server Components version 9.2.13") of site of current fixlet as string) as string) else ("")');} else {document.getElementById("relTag2Script3").innerHTML=EvaluateRelevance('if (applicable computer count of current fixlet = 0) then ("<B>If no computers are relevant for this Fixlet message, you may use the " & link of fixlet whose (display name of it contains "IBM BigFix - Updated Platform Server Components version 9.2.13") of site of current fixlet as string & " Fixlet message to upgrade your IBM BigFix Server.</B><BR><BR>") else ""');}}catch(e){}</SCRIPT><P><STRONG>Version&nbsp;9.2.13 of IBM BigFix is now available</STRONG>, but the current IBM BigFix Server is either running using NT authentication, or is a pre 9.1 server, and cannot be upgraded through a Fixlet message. Please follow the instructions in the links below to manually upgrade your Server. Note that when upgrading the Server, you need to configure the Root Server service to login as a user with access to the database. </P><P>The latest version of the IBM BigFix Server provides several enhancements and fixes.</P> <P>Please contact technical support if you have any questions regarding this upgrade.</P><P><SPAN style="FONT-WEIGHT: bold; COLOR: red">Important Note:</SPAN> If any IBM BigFix Consoles are open while the Server upgrade installer is running, the users may experience an error or a dialog that asks the user to shut down the Console. The user would have to exit the Console, and then re-open the Console again after the upgrade has completed on the IBM BigFix Server. Please perform the Server upgrade at a time when this service interruption is acceptable.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance><![CDATA[((windows of it) AND (major version of it > 6 OR (major version of it = 6 AND (minor version of it >= 1 OR service pack major version of it >= 2))) AND (platform id of it != 3) AND (architecture of it = "x86_64")) of operating system]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance><![CDATA[(it < "9.2.13.7" AND it >= "7.0.1") of version of main gather service]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[version of regapp "iexplore.exe" >= "7"]]></Relevance>
+		<Relevance><![CDATA[(version of registration server >= "9.0") AND ((version of registration server < "9.1") OR (((exists key "HKLM\System\CurrentControlSet\Services\BESRootServer" whose (value "ObjectName" of it != "LocalSystem") of it) or (exists key "HKLM\System\CurrentControlSet\Services\FillDB" whose (value "ObjectName" of it != "LocalSystem") of it) or (exists key "HKLM\System\CurrentControlSet\Services\GatherDB" whose (value "ObjectName" of it != "LocalSystem") of it) or (exists key "HKLM\System\CurrentControlSet\Services\BESWebReportsServer" whose (value "ObjectName" of it != "LocalSystem") of it)) of registry))]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Relevance><![CDATA[exists versions whose (it >= "2007.100.1600.22") of files (first matches (case insensitive regex "[^%22]*sqlservr.exe") of image paths whose (it as string contains "sqlservr.exe") of running services whose (service name of it contains "MSSQL" AND image path of it as string contains "sqlservr.exe")) OR exists value "UseRemoteDB" whose (it as string = "1") of key "HKLM\Software\BigFix\Enterprise Server" of registry]]></Relevance>
+		<Category>Audit</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2018-01-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 23 Jan 2018 14:28:00 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Server Console</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 16 May 2019 09:02:41 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for instructions to manually upgrade a IBM BigFix Server using a remote database and NT authentication.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://www.ibm.com/support/knowledgecenter/en/SSQL82_9.5.0/com.ibm.bigfix.doc/Platform/Installation/c_upgrade_remote_db.html</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for instructions to manually upgrade IBM BigFix Components.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.ibm.com/support/knowledgecenter/SSQL82_9.2.0/com.ibm.tivoli.tem.doc_9.2/Platform/Adm/c_manual_upgrade.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

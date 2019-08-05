@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: SQL Server 2000 Analysis Services Service Pack 4 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><FONT face=Verdana size=2>Microsoft has released Service Pack 4 (SP4) for the Analysis Services Component of SQL Server 2000. This Service Pack includes updates to the Analysis Server, Analysis Manager, and Analysis Services client components, including the PivotTable Service.<BR><BR><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><STRONG>Note:</STRONG> Installing this update may also upgrade the installed version of MDAC on affected computers. Refer to the Analysis Services SP4 Readme file for more information.<BR><BR><FONT color=red><STRONG>Important Note:</STRONG></FONT> Before upgrading to SP4, Microsoft recommends that you back up your Analysis Services database and repository and stop all services and applications that make connections to Analysis Services. After upgrading to SP4, there are several post-installation tasks that you may have to perform manually. Refer to the Analysis Services SP4 Readme file for more information.<BR><BR><FONT color=red><STRONG>Important Note:</STRONG></FONT> Running this update may shut down services related to Analysis Services. After the update is complete, services that were shut down by SP4 may or may not restart successfully. For this reason, install the patch when a disruption in these services is acceptable.</FONT><BR><BR><B>Note:</B> This security update is also referenced under KB884525.<BR><BR><B>Note:</B> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+44.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSSQLServer\MSSQLServer\CurrentVersion" of registry AND value "Language" of key  "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSSQLServer\MSSQLServer\CurrentVersion" of registry = 1033</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft SQL Server 2000 Analysis Services" of registry</Relevance>
+		<Relevance><![CDATA[(exists regapp "msmdsrv.exe" AND value "ProductVersion" of only version block of regapp "msmdsrv.exe" starts with "8" AND value "ProductVersion" of only version block of regapp "msmdsrv.exe" as version < "8.0.2039") OR (version of file "msmdadin.dll" of folder "bin" of folder (value "InstallLocation" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft SQL Server 2000 Analysis Services" of registry as string) < "8.0.0.2039")]]></Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>46600824</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB306908</SourceID>
+		<SourceReleaseDate>2005-05-06</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Apr 2019 06:11:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch SQL2000.AS-KB884525-SP4-x86-ENU.EXE sha1:a11cefb4326ecac7cf9f2757c88fa15d255a873c size:46600824 http://download.microsoft.com/download/1/b/d/1bdf5b78-584e-4de0-b36f-c44e06b0d2a3/SQL2000.AS-KB884525-SP4-x86-ENU.EXE sha256:5d6cef4245d9e0b96b12d68f0e87616869e08ab84426c648bac50c6c6a827334
+
+appendfile [InstallShield Silent]
+appendfile Version=v5.00.000
+appendfile File=Response File
+appendfile [File Transfer]
+appendfile OverwriteReadOnly=NoToAll
+appendfile [DlgOrder]
+appendfile Dlg0=SdWelcome-0
+appendfile Count=4
+appendfile Dlg1=SdLicense-0
+appendfile Dlg2=SdErrorReportingDlg-0
+appendfile Dlg3=SdFinishReboot-0
+appendfile [SdWelcome-0]
+appendfile Result=1
+appendfile [SdLicense-0]
+appendfile Result=1
+appendfile [SdErrorReportingDlg-0]
+appendfile EnableErrorReporting=0
+appendfile Result=1
+appendfile [Application]
+appendfile Name=OLAP Server
+appendfile Version=8.0
+appendfile Company=Microsoft
+appendfile Lang=0009
+appendfile [SdFinishReboot-0]
+appendfile Result=1
+appendfile BootOption=0
+
+delete msolapsp4.iss
+
+move __appendfile msolapsp4.iss
+
+wait __download/SQL2000.AS-KB884525-SP4-x86-ENU.EXE -s
+wait "C:\sql2ksp4\msolap\install\setup.exe" -s -f1"{pathname of client folder of current site}\msolapsp4.iss"
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft on Analysis Services Service Pack 4.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://download.microsoft.com/download/1/B/D/1BDF5B78-584E-4DE0-B36F-C44E06B0D2A3/ReadmeSql2k32sp4.htm</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view the Readme file for Analysis Services Service Pack 4.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://download.microsoft.com/download/1/B/D/1BDF5B78-584E-4DE0-B36F-C44E06B0D2A3/ReadmeSql2k32asp4.htm</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

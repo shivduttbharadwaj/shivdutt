@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated SuSE Linux Enterprise Client - IBM BigFix version 9.2.13 Now Available!</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.2.13 of IBM BigFix is now available for the SuSE Linux Enterprise operating system!<BR><BR></STRONG>The latest version of the IBM BigFix Client provides several enhancements and fixes. This Fixlet can upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays to a 9.2 version before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM BigFix Server and Relays have been upgraded. It may take several hours for the Clients to notice that the Server and Relays are upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.<BR><BR><STRONG>Note: </STRONG>This client runs on supported SuSE Enterprise Linux platforms on a 32-bit x86( versions 10, 11), 64-bit x86 (versions 10, 11, 12), 64-bit PPC BigEndian (versions 10, 11) or an s390x (versions 10, 11, 12).</FONT></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+91.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not windows of operating system</Relevance>
+		<Relevance><![CDATA[version of client < "9.2.13.7" and version of client >= "7.2"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.2"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>exists match (regex "SuSE Enterprise (Server|Desktop) (10|11|12)") of name of operating system</Relevance>
+		<Relevance>((it = "x86_64") OR ((exists match (regex "^i[6-9]86$") of it) of it) OR (it = "s390x") OR (it ="ppc64")) of architecture of operating system</Relevance>
+		<Relevance><![CDATA[(if ("ppc64" = architecture of it) then ((major version of it < 12) AND (big endian of it)) else (true)) of operating system]]></Relevance>
+		<Relevance><![CDATA[if (version of client < "8.0") then true else ((not exists relay service) or (version of relay service >= "9.2.13"))]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Relevance><![CDATA[not exists package "e2fsprogs" whose ( version of it < "1.39" ) of rpms]]></Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>96070135</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2018-01-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 23 Jan 2018 14:28:00 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 23 Jan 2018 14:28:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM BigFix Client 9.2.13 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {"x86_64" = architecture of operating system}
+	if {exists match (regex "SuSE.* (11|12)") of name of operating system}
+		// SuSE Enterprise Linux 11, 12 64 bit x86
+		prefetch BESClientUpgrade.rpm sha1:8020b111aaa27eb8c74dcbb05b393485031d5538 size:12778370 http://software.bigfix.com/download/bes/92/BESAgent-9.2.13.7-sle11.x86_64.rpm sha256:c1a11ef0e7b4c46aa43f7664311e25621ed99d9781821f3e10e3f44fbdabe73e
+	elseif {exists match (regex "SuSE.* 10") of name of operating system}
+		// SuSE Enterprise Linux 10 64 bit x86
+		prefetch BESClientUpgrade.rpm sha1:8c9754839df901d04326fcf14edeb14413e9fa5b size:16466748 http://software.bigfix.com/download/bes/92/BESAgent-9.2.13.7-sle9.x86_64.rpm sha256:029b248af593066a424fe70502a30998ed47eaabff221172d7b1771a5f5a04f6
+	endif
+elseif {exists match (regex "^i[6-9]86$") of architecture of operating system}
+	if {exists match (regex "SuSE.* 11") of name of operating system}
+		// SuSE Enterprise Linux 11 64 bit x86
+		prefetch BESClientUpgrade.rpm sha1:fb9b40eb224478e6613a68b7bc2bfd8f96678a5b size:11496043 http://software.bigfix.com/download/bes/92/BESAgent-9.2.13.7-sle11.i686.rpm sha256:bc3a29c56fb9d61c93be76be6028da483308221b3df9b79a734a1e14a4bc3d0d
+	elseif {exists match (regex "SuSE.* 10") of name of operating system}
+		// SuSE Enterprise Linux 1032 bit x86 - i686 Minimum
+		prefetch BESClientUpgrade.rpm sha1:ec7f4bd151b3e264a8b194c331f364640aa1c3df size:14156861 http://software.bigfix.com/download/bes/92/BESAgent-9.2.13.7-sle10.i686.rpm sha256:7888b430a9bc8031883885e39af2da9bfce05f096513789150fe87b7fc923bbf
+	endif
+elseif {(if ("ppc64" = architecture of it) then (big endian of it) else (false)) of operating system}
+        if {exists match (regex "SuSE.* (10|11)") of name of operating system}
+                // SuSE Enterprise Linux 10, 11 PPC BE
+                prefetch BESClientUpgrade.rpm sha1:c6a0b7fcf707e95cb8eff4667e6a3b4d6298e9d8 size:26307695 http://software.bigfix.com/download/bes/92/BESAgent-9.2.13.7-sle10.ppc64.rpm sha256:626d2968e5f70c79c2a0740a94720cbb0fe06d6ea73c5dc46c598e6f08298621
+        endif
+elseif {"s390x" = architecture of operating system}
+	if {exists match (regex "SuSE.* (10|11|12)") of name of operating system}
+		// SuSE Enterprise Linux 10, 11, 12 s390x
+		prefetch BESClientUpgrade.rpm sha1:edc969c814d568593d2fd5abbac492abf80026bd size:14864418 http://software.bigfix.com/download/bes/92/BESAgent-9.2.13.7-sle10.s390x.rpm sha256:be51476f2b2541b34f2274a4fe59e399ad42086033546f57929af57b17beeb4f
+	endif
+else
+	// No Known Configuration
+	continue if false
+endif
+continue if {exists file "__Download/BESClientUpgrade.rpm"}
+folder delete "{client folder of current site as string}/__Local/Upgrade"
+// If the next line fails, there is not enough free space to complete this action
+continue if {26307695 < free space of drive of client folder of current site}
+folder create "{client folder of current site as string}/__Local/Upgrade"
+move __Download/BESClientUpgrade.rpm __Local/Upgrade/BESClientUpgrade.rpm
+delete __appendfile
+appendfile #!/bin/sh
+if {exists file "/etc/init.d/besclient"}
+    appendfile /etc/init.d/besclient stop
+else
+    appendfile /etc/init.d/BESClient-{version of client as string} stop
+endif
+appendfile /bin/rpm -U __Local/Upgrade/BESClientUpgrade.rpm
+appendfile /etc/init.d/besclient start
+appendfile /bin/rm -f __Local/Upgrade/BESClientUpgrade.rpm
+move __appendfile __Local/Upgrade/besclientupgrade
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /bin/sh __Local/Upgrade/besclientupgrade]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.2.13.7"]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

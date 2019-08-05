@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>973686: Update for MSXML Core Services 6.0 Service Pack 2 - Windows XP SP2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This bulletin has been partially superseded by KB2957482. Whereas this Fixlet message previously applied to Windows XP SP2 / Windows Server 2003 SP2 (x64), it now only applies to Windows XP SP2 (x64).</P> <P><BR>Microsoft has issued an upate for MSXML 6.0 to fix an issue. When an application uses MSXML to process XHTML, redundant retrieval requests for well-known DTD files from the W3C Web server cause XHTML parsing to fail on a Windows-based computer.</P> <P>This update will update msxml6.dll to SP2 from all versions of MSXML 6.0.<BR></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+934 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "WinXP")) AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[exists file "msxml6.dll" whose (version of it < "6.20.2003.0") of system folder]]></Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>956248</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB973686</SourceID>
+		<SourceReleaseDate>2009-11-23</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>MSXML</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP|Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install the update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch msxml6-KB973686-enu-x86.exe sha1:e139664a78bc2806cf0c5bcf0bedec7ea073c3b1 size:956248 http://download.microsoft.com/download/1/5/8/158F681A-E595-472B-B15E-62B649B1B6FF/msxml6-KB973686-enu-x86.exe sha256:822c0c537300e1740e62ce1671b2202a6e1d6b3470fd9a040eae84d3a5471ead
+
+waithidden __Download\msxml6-KB973686-enu-x86.exe /quiet /norestart
+
+action may require restart "e139664a78bc2806cf0c5bcf0bedec7ea073c3b1"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Knowledge Base article 973686.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/?kbid=973686</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

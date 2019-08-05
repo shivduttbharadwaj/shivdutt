@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Clear BES Local Download Caches</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><P>When a client's download cache directory becomes too large, it prevents other actions from being run.&nbsp;Clearing these directories will allow actions to run correctly.</P><br><P>This task will clear files in these two directories:</P><FONT size=2><br><P>__BESData\__Global\__Cache\Downloads</FONT><BR><FONT size=2>__BESData\__Global\__Cache\Utilities</FONT><BR><FONT size=2>__BESData\__Global\__PeerCache</FONT><FONT size=2></P></FONT><br><P><STRONG>Note:</STRONG> Do not keep reapplying this task or the download cache will keep on clearing, preventing other actions that require the download cache from actually running.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[version of client >= "7.2"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(((exists files of folder "Downloads" of it) or (exists files of folder "Utilities" of it)) of folder "__Cache" of folder "__Global" of parent folder of client folder of current site) or (if exists folder "__PeerCache" of folder "__Global" of parent folder of client folder of current site then (exists files of folder "__PeerCache" of folder "__Global" of parent folder of client folder of current site) else false)</Relevance>
+		<Category>BES Client Setting</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceSeverity><![CDATA[<Unspecified>]]></SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 17 Jul 2009 18:59:46 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Component Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 18 Dec 2018 16:03:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to clear BES Local download caches on clients.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">parameter "Cache_Folder"="{folder "__Cache" of folder "__Global" of parent folder of client folder of current site}"
+folder delete "{parameter "Cache_Folder"}/Utilities"
+folder create "{parameter "Cache_Folder"}/Utilities"
+folder delete "{parameter "Cache_Folder"}/Downloads"
+folder create "{parameter "Cache_Folder"}/Downloads"
+if {exists folder "__PeerCache" of folder "__Global" of parent folder of client folder of current site}
+  parameter "PeerCache_Folder"="{folder "__PeerCache" of folder "__Global" of parent folder of client folder of current site}"
+  folder delete "{parameter "PeerCache_Folder"}"
+  folder create "{parameter "PeerCache_Folder"}"
+endif</ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2967486: Update Rollup for Windows Fabric v1 CU3 - Lync Server 2013 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <p>The cumulative update resolves the following issue:</p> <ul> <li>2983199 "Limited functionality is available due to outage" in Lync client when Lync Server 2013 replication queue is full</li> </ul>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This update is also referenced under KB2967486.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+10.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[(not exists keys ("C30953CD84D61A04BBDD03E7726E193A") whose (exists key "InstallProperties" whose ((it < "1.0.960.0") of (value "DisplayVersion" of it as string as version)) of it) of it AND exists keys ((names of values of keys ("7934C4623AC285F409A1D7769D74D4FB") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry)) whose ((name of it = "C30953CD84D61A04BBDD03E7726E193A") AND exists key "InstallProperties" whose ((it >= "1.0.960.0" AND it < "1.0.1008.0") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "B839858AE4E95C648A519D4A0AAA47FF" of key "Patches" of it) of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry]]></Relevance>
+		<Category>Update Rollup</Category>
+		<DownloadSize>10905078</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2967486</SourceID>
+		<SourceReleaseDate>2014-09-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 25 Mar 2015 08:28:36 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 R2 Gold |~| Windows Server 2008 SP2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Microsoft Lync Server and Microsoft Lync</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Lync Server 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windowsfabricpatch_ef0fcbaa870a7b9e5949793f1d96c515d5868c9b.cab sha1:ef0fcbaa870a7b9e5949793f1d96c515d5868c9b size:10905078 http://download.windowsupdate.com/c/msdownload/update/software/uprl/2014/08/windowsfabricpatch_ef0fcbaa870a7b9e5949793f1d96c515d5868c9b.cab sha256:7683e870d8a104476504c5b4cd0a5f83548926f9380aa43ff0efd4a283359e86
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\windowsfabricpatch_ef0fcbaa870a7b9e5949793f1d96c515d5868c9b.cab __Download\WindowsFabricPatch.msp
+
+waithidden msiexec.exe /p __Download\WindowsFabricPatch.msp /quiet /norestart
+
+action may require restart "ef0fcbaa870a7b9e5949793f1d96c515d5868c9b"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2967486</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2687467: Description of SharePoint Foundation 2010 Client Object Model Redistributable SP2 - KB2687467 - SharePoint Foundation 2010</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Service Pack 2 (SP2) for SharePoint Foundation 2010 Client Object Model Redistributable 32-Bit Edition contains new updates which improve security, performance, and stability. Additionally, the SP is a roll-up of all previously released updates.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB2687467.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.67 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance><![CDATA[disjunction of ((exists keys ("00004109310190400000000000F01FEC") whose (exists key "InstallProperties" whose (((it = "14.0.6029.1000" OR it = "14.0.4763.1041") AND it < "14.0.7015.1000" AND it < "14.0.7015.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "C260D73866CFFE747B7475D57C6F1A31" of key "Patches" of it) of it) of keys "Products" of keys whose (name of it is not "S-1-5-18") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\" of native registry)]]></Relevance>
+		<Relevance>exists current user</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>1747248</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2687467</SourceID>
+		<SourceReleaseDate>2013-07-18</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 18 Sep 2015 05:17:08 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows Server 2003 Gold |~| Windows Vista Gold |~| Windows XP Gold</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>SharePoint</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 18 Sep 2015 05:17:08 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch spclientsp2010-kb2687467-fullfile-x86-en-us.exe sha1:9c0e8b9006ced1cd4b83bb44f63bac78e842859e size:1747248 http://download.microsoft.com/download/3/4/5/345972B9-76F5-4E4E-A60C-32E915CC868E/spclientsp2010-kb2687467-fullfile-x86-en-us.exe sha256:76a74cf18be8e1bbe8b113211160ca81a90a990fb3e8e903164cee94161328d3
+
+prefetch RunAsCurrentUser-2.0.3.1.exe sha1:ee47505ebfb2790b9da8a20ed70e67158e9753d0 size:342528 http://software.bigfix.com/download/bes/util/RunAsCurrentUser-2.0.3.1.exe sha256:1a9b518c775e2a85a7c47801e9b8221df338a65ad8df326485e4cd2aea22fe52
+
+utility __Download\RunAsCurrentUser-2.0.3.1.exe
+
+waithidden __Download\RunAsCurrentUser-2.0.3.1.exe --w spclientsp2010-kb2687467-fullfile-x86-en-us.exe /quiet /norestart
+
+action may require restart "9c0e8b9006ced1cd4b83bb44f63bac78e842859e"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2687467</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

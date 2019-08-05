@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2264072: Elevation of Privilege Using Windows Service Isolation Bypass - Windows Server 2003 SP2 (x64) - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The listed computers have faulty installations of a patch for the vulnerability described in 2264072. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers.<br /><br /> <DIV id=summary> <P>Microsoft is aware of the potential for attacks that leverage the Windows Service Isolation feature to gain elevation of privilege. This advisory discusses potential attack scenarios and provides suggested actions that can help to protect against this issue. This advisory also offers a non-security update for one of the potential attack scenarios through Windows Telephony Application Programming Interfaces (TAPI). </P></DIV><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB982316.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+943 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2003") AND service pack major version of it = 2) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "tapisrv.dll" whose ((version of it < "5.2.3790.4699")) of it) of (system wow64 folder) OR (exists file "tapisrv.dll" whose ((version of it < "5.2.3790.4699")) of it) of (system x64 folder)]]></Relevance>
+		<Relevance>NOT((not exists key "hklm\software\microsoft\updates\windows server 2003\sp3\kb982316" of x64 registry))</Relevance>
+		<Relevance>not pending restart</Relevance>
+		<Category>Security Advisory</Category>
+		<DownloadSize>966016</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB982316</SourceID>
+		<SourceReleaseDate>2010-08-10</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>226407207</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB982316-x64-ENU.exe sha1:eeda945256e04c98c4f872b84b129ccfad00db75 size:966016 http://download.microsoft.com/download/7/4/2/742A5601-095B-42A4-919F-256BA642ED45/WindowsServer2003.WindowsXP-KB982316-x64-ENU.exe sha256:6868f801f9b250d625d16a61d63e8eb736e62d751131a133ee4fa6cc7c06f66f
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB982316-x64-ENU.exe /quiet /norestart
+
+action may require restart "eeda945256e04c98c4f872b84b129ccfad00db75"
+</ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to learn more about this Microsoft Security Advisory.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/security/advisory/2264072</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2791765: Application compatibility update for Windows 7 and Windows Server 2008 R2 - Windows 7 Gold/SP1</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve a set of known application compatibility issues with Windows.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<BR><BR><B>Note:</B> This update is also referenced under KB2791765.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.52 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((name of it = "Win7") AND (service pack major version of it = 1 OR service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance><![CDATA[((exists file "AcGenral.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7600.20000" AND version of it < "6.1.7600.21444") OR (version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22248"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7600.16000" AND version of it < "6.1.7600.17232") OR (version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18076")))) of it) OR (exists file "AcLayers.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7600.20000" AND version of it < "6.1.7600.21444") OR (version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22248"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7600.16000" AND version of it < "6.1.7600.17144") OR (version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.17974")))) of it) OR (exists file "AcRes.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "6.1.7600.16385"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "6.1.7600.16385") OR (version of it < "6.1.7600.16385")))) of it) OR (exists file "AcSpecfc.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7600.20000" AND version of it < "6.1.7600.21444") OR (version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22248"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it >= "6.1.7600.16000" AND version of it < "6.1.7600.17232") OR (version of it >= "6.1.7601.17000" AND version of it < "6.1.7601.18076")))) of it) OR (exists file "AcXtrnal.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it >= "6.1.7600.20000" AND version of it < "6.1.7600.21444") OR (version of it >= "6.1.7601.21000" AND version of it < "6.1.7601.22248"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "6.1.7600.16385") OR (version of it < "6.1.7600.16385")))) of it)) of (folder "APPPATCH\" of (windows folder))]]></Relevance>
+		<Relevance>not pending restart "5cbb98d3f3ab441dedadf20cfe24b35699698d0d"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>3686659</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2791765</SourceID>
+		<SourceReleaseDate>2013-03-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows 7 SP1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 20 May 2015 23:15:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2791765-x86.msu sha1:5cbb98d3f3ab441dedadf20cfe24b35699698d0d size:3686659 http://download.microsoft.com/download/9/5/4/954212C7-F186-41BB-839E-4DC09FBF57AC/Windows6.1-KB2791765-x86.msu sha256:4cfd67dd226e0b3b2ba5440fc255bd41dfbe3f6165f598e0844d990f2878ca1d
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2791765-x86.msu"}" /quiet /norestart
+
+action requires restart "5cbb98d3f3ab441dedadf20cfe24b35699698d0d"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2791765</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

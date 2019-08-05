@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: SQL Server 2005 Service Pack 1 Available (x64)</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size=2> <P>Microsoft has released Service Pack 1 for SQL Server 2005 (x64). This Service Pack includes various updates and bug fixes to the data engine, database client utilities, and database client connectivity components.</P> <P><STRONG>Note:</STRONG> This Fixlet message detects default and non-default instances of SQL Server 2005.</P> <P><STRONG>Note:</STRONG> Before upgrading to Service Pack 1 Microsoft recommends that you back up your databases. Instructions on doing so are available <A href="http://download.microsoft.com/download/b/d/1/bd1e0745-0e65-43a5-ac6a-f6173f58d80e/ReadmeSQL2005SP1.htm#_3461_prepare_for_a_sql_server_2005_sp1_i_d3jb"><FONT face=Verdana size=2>here</A>.</P> <P><STRONG>Note:</STRONG> Applying this update may cause SQL Server and other related services on the computer to restart or shut down. The service pack should be applied when a service interruption is acceptable.</P> <P><FONT color=red><STRONG>Important Note:</STRONG></FONT> Due to the complexity of this update, installation of the service pack must be completed manually.</FONT></FONT><BR></P><P><B>Note:</B> There is no default action for this Fixlet message because it does not have a deployment action. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server" of x64 registry </Relevance>
+		<Relevance><![CDATA[(exists key whose (name of it as lowercase starts with "mssql." AND value "Language" of key "Setup" of it as integer = 1033 AND ((exists file "sqlservr.exe" whose (version of it < "2005.90.2047.0" ) of (values "SQLBinRoot" of key "Setup" of it as folder)) OR (exists file "msmdsrv.exe" whose (version of it < "9.0.2047.0" ) of (values "SQLBinRoot" of key "Setup" of it as folder)) OR (value "PatchLevel" of key "Setup" of it as string as version < "9.1.2047" ))) of it OR exists key ( "90\Tools" ; "90\DTS" ; "90\NS" ) whose (value "Language" of key "Setup" of it as integer = 1033 AND value "PatchLevel" of key "Setup" of it as string as version < "9.1.2047" ) of it) of key "HKLM\Software\Microsoft\Microsoft SQL Server" of x64 registry]]></Relevance>
+		<Relevance>(NOT exists service "FillDB") AND (NOT exists service "GatherDB")</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB913090</SourceID>
+		<SourceReleaseDate>2006-04-18</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>SQL Server 2005</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>SQL Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft about SQL Server 2005 Service Pack 1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/913090</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS09-056: Vulnerabilities in Windows CryptoAPI Could Allow Spoofing - Windows Vista Gold/SP1/SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two publicly disclosed vulnerabilities in Microsoft Windows. The vulnerabilities could allow spoofing if an attacker gains access to the certificate used by the end user for authentication.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><STRONG>Note:</STRONG> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR> <P><STRONG>Note:</STRONG> This security update is also referenced under KB974571.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+251 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinVista" AND product type of it = nt workstation product type AND (service pack major version of it = 0 OR service pack major version of it = 1 OR service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[((((exists file "msasn1.dll" whose (((exists value "FileVersion" whose (it contains "ldr") of version blocks of it) AND (version of it < "6.0.6001.22515" AND version of it >= "6.0.6001.22000")) OR ((exists value "FileVersion" whose (it contains "ldr") of version blocks of it) AND (version of it < "6.0.6002.22218" AND version of it >= "6.0.6002.22000")) OR ((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it) AND version of it < "6.0.6000.16922") OR ((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it) AND (version of it < "6.0.6002.18106" AND version of it >= "6.0.6002.18000")) OR ((exists value "FileVersion" whose (not (it contains "ldr")) of version blocks of it) AND (version of it < "6.0.6001.18326" AND version of it >= "6.0.6001.18000")) OR ((exists value "FileVersion" whose (it contains "ldr") of version blocks of it) AND (version of it < "6.0.6000.21122" AND version of it >= "6.0.6000.21000"))) of it))) of ((folder (pathname of (system folder) & "\"))))]]></Relevance>
+		<Relevance>not pending restart "334b2d5ed261f8171bac7113ba74b3aa7a8188ad"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>257124</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB974571</SourceID>
+		<SourceReleaseDate>2009-10-13</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2009-2510; CVE-2009-2511</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>CryptoAPI</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.0-KB974571-x86.msu sha1:334b2d5ed261f8171bac7113ba74b3aa7a8188ad size:257124 http://download.microsoft.com/download/A/3/8/A3837AFD-F3F9-4E38-AA19-46AC01DD73C2/Windows6.0-KB974571-x86.msu sha256:36a5c2787df5a65e73c27c116243513d9693f15617634b40030de9d8b36ae53b
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB974571-x86.msu"}" /quiet /norestart
+
+action requires restart "334b2d5ed261f8171bac7113ba74b3aa7a8188ad"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS09-056.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS09-056.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

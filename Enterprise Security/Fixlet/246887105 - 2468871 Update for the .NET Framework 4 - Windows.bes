@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2468871: Update for the .NET Framework 4 - Windows XP SP2 / Windows 2003 SP2 / Windows Vista SP2 / Windows 2008 R2 SP1 / Windows 2008 SP2 / Windows 7 Gold/SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>The .NET Framework 4 update provides cumulative roll-up updates for customer reported issues found after the release of the .NET Framework 4.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB2468871.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+27.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "WinXP-2003") AND service pack major version of it = 2) OR ((name of it = "WinVista" AND product type of it = nt workstation product type) AND service pack major version of it = 2) OR ((name of it = "Win7") AND (service pack major version of it = 1 OR service pack major version of it = 0)) OR (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND service pack major version of it = 2) OR ((name of it = "Win2008R2") AND service pack major version of it = 1) OR ((name of it = "Win2003") AND service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance>exists file "explorer.exe" of windows folder</Relevance>
+		<Relevance>((exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "5C1093C35543A0E32A41B090A305076A") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.0.30320"  ) of it) AND (not exists key whose (name of it as string equals "79EB7C9295ED2A736A78A2DD351249A8") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "A9513C995E4C6E2389AFA74CB5BC982C" of it) then (names of values of key "A9513C995E4C6E2389AFA74CB5BC982C" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "FCDAC0A0AD874C333A05DC1548B97920") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.0.30320"  ) of it) AND (not exists key whose (name of it as string equals "79EB7C9295ED2A736A78A2DD351249A8") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "DFC90B5F2B0FFA63D84FD16F6BF37C4B") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.0.30320"  ) of it) AND (not exists key whose (name of it as string equals "79EB7C9295ED2A736A78A2DD351249A8") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "A9513C995E4C6E2389AFA74CB5BC982C" of it) then (names of values of key "A9513C995E4C6E2389AFA74CB5BC982C" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "C28643E881181F13CBC489DC69571E2C") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.0.30320"  ) of it) AND (not exists key whose (name of it as string equals "79EB7C9295ED2A736A78A2DD351249A8") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "5C1093C35543A0E32A41B090A305076A") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.0.30319"  ) of it) AND (not exists key whose (name of it as string equals "79EB7C9295ED2A736A78A2DD351249A8") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "A9513C995E4C6E2389AFA74CB5BC982C" of it) then (names of values of key "A9513C995E4C6E2389AFA74CB5BC982C" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "FCDAC0A0AD874C333A05DC1548B97920") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.0.30319"  ) of it) AND (not exists key whose (name of it as string equals "79EB7C9295ED2A736A78A2DD351249A8") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "9DD53E019628E1F3794F990FADC3C2CE" of it) then (names of values of key "9DD53E019628E1F3794F990FADC3C2CE" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "DFC90B5F2B0FFA63D84FD16F6BF37C4B") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.0.30319"  ) of it) AND (not exists key whose (name of it as string equals "79EB7C9295ED2A736A78A2DD351249A8") of key "Patches" of it))of it ) OR (exists keys ((if (exists key "A9513C995E4C6E2389AFA74CB5BC982C" of it) then (names of values of key "A9513C995E4C6E2389AFA74CB5BC982C" of it) else ("NOT EXISTS UPGRADE CODE")) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UpgradeCodes" of native registry) whose( (name of it = "C28643E881181F13CBC489DC69571E2C") AND (exists key whose (name of it as string equals "InstallProperties" AND value "DisplayVersion" of it as string as version = "4.0.30319"  ) of it) AND (not exists key whose (name of it as string equals "79EB7C9295ED2A736A78A2DD351249A8") of key "Patches" of it))of it )) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance><![CDATA[exists file whose ((it as string as lowercase equals "aspnet_compiler.exe" OR it as string as lowercase equals "aspnet_wp.exe" OR it as string as lowercase equals "clr.dll" OR it as string as lowercase equals "clrjit.dll" OR it as string as lowercase equals "microsoft.build.tasks.v4.0.dll" OR it as string as lowercase equals "microsoft.data.entity.build.tasks.dll" OR it as string as lowercase equals "mscordacwks.dll" OR it as string as lowercase equals "mscordbi.dll" OR it as string as lowercase equals "mscorlib.dll" OR it as string as lowercase equals "nlssorting.dll" OR it as string as lowercase equals "servicemodelreg.exe" OR it as string as lowercase equals "sos.dll" OR it as string as lowercase equals "system.core.dll" OR it as string as lowercase equals "system.data.entity.design.dll" OR it as string as lowercase equals "system.dll" OR it as string as lowercase equals "system.net.dll" OR it as string as lowercase equals "system.servicemodel.activation.dll" OR it as string as lowercase equals "system.servicemodel.dll" OR it as string as lowercase equals "system.servicemodel.web.dll" OR it as string as lowercase equals "system.web.extensions.dll" OR it as string as lowercase equals "system.xml.serialization.dll" OR it as string as lowercase equals "system.design.dll" OR it as string as lowercase equals "system.web.dll" OR it as string as lowercase equals "system.xml.dll" OR it as string as lowercase equals "webengine.dll" OR it as string as lowercase equals "webengine4.dll") of name of it AND (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND (version of it < "4.0.30319.450")) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND (version of it < "4.0.30319.233"))) of it) of folder (pathname of (windows folder) & "\Microsoft.NET\Framework\v4.0.30319") OR exists file whose ((it as string as lowercase equals "aspnet_compiler.exe" OR it as string as lowercase equals "aspnet_wp.exe" OR it as string as lowercase equals "clr.dll" OR it as string as lowercase equals "microsoft.build.tasks.v4.0.dll" OR it as string as lowercase equals "microsoft.data.entity.build.tasks.dll" OR it as string as lowercase equals "mscordacwks.dll" OR it as string as lowercase equals "mscordbi.dll" OR it as string as lowercase equals "mscorlib.dll" OR it as string as lowercase equals "nlssorting.dll" OR it as string as lowercase equals "servicemodelreg.exe" OR it as string as lowercase equals "sos.dll" OR it as string as lowercase equals "system.core.dll" OR it as string as lowercase equals "system.data.entity.design.dll" OR it as string as lowercase equals "system.dll" OR it as string as lowercase equals "system.net.dll" OR it as string as lowercase equals "system.servicemodel.activation.dll" OR it as string as lowercase equals "system.servicemodel.dll" OR it as string as lowercase equals "system.servicemodel.web.dll" OR it as string as lowercase equals "system.web.extensions.dll" OR it as string as lowercase equals "system.xml.serialization.dll" OR it as string as lowercase equals "system.design.dll" OR it as string as lowercase equals "system.web.dll" OR it as string as lowercase equals "system.xml.dll" OR it as string as lowercase equals "webengine.dll" OR it as string as lowercase equals "webengine4.dll") of name of it AND (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND (version of it < "4.0.30319.450")) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND (version of it < "4.0.30319.233"))) of it) of folder (pathname of (windows folder) & "\Microsoft.NET\Framework64\v4.0.30319")]]></Relevance>
+		<Category>Update</Category>
+		<DownloadSize>28640160</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2468871</SourceID>
+		<SourceReleaseDate>2011-06-08</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows XP SP3 |~| Windows Server 2003 SP2 |~| Windows Vista SP1 |~| Windows Server 2008 R2 SP1 |~| Windows Server 2008 Gold |~| Windows 7 SP1 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|Win2008R2|Win7|WinVista|WinXP|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP40-KB2468871-v2-x64.exe sha1:51840e466684608d431b728916cb8bc6efc1a552 size:28640160 http://download.microsoft.com/download/2/B/F/2BF4D7D1-E781-4EE0-9E4F-FDD44A2F8934/NDP40-KB2468871-v2-x64.exe sha256:b1b53c3953377b111fe394dd57592d342cfc8a3261a5575253b211c1c2e48ff8
+
+waithidden __Download\NDP40-KB2468871-v2-x64.exe /quiet /norestart
+
+action may require restart "51840e466684608d431b728916cb8bc6efc1a552"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2468871</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

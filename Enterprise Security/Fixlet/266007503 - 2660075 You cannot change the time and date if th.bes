@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2660075: You cannot change the time and date if the time zone is set to Samoa (UTC+13:00) and KB 2657025 is installed in Windows 7 or in Windows Server 2008 R2 - Windows 2008 R2 Gold / Windows 2008 R2 SP1 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB2660075.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+540 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2008R2") AND (service pack major version of it = 1 OR service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance><![CDATA[((((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "WinEmb-Shell-Foundation~31bf3856ad364e35~amd64~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-timedate_31bf3856ad364e35_none_08b925ac47ae9e99" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21888") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-timedate_31bf3856ad364e35_none_ac9a8a288f512d63" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21888" OR it >= "6.1.7601.10000" AND it < "6.1.7601.17753") of (default value of it as string as version)) of it) of it) of item 1 of it) OR (((exists key "WinEmb-Shell-Foundation~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "WinEmb-Shell-Foundation~31bf3856ad364e35~amd64~~6.1.7601.17514" of it) AND (exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7601.17514" of it OR exists key "WinEmb-Shell-Foundation~31bf3856ad364e35~amd64~~6.1.7601.17514" of it)) of item 0 of it AND (exists key "amd64_microsoft-windows-timedate_31bf3856ad364e35_none_08b925ac47ae9e99" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21888") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-timedate_31bf3856ad364e35_none_ac9a8a288f512d63" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.21888" OR it >= "6.1.7601.10000" AND it < "6.1.7601.17753") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "Microsoft-Windows-Foundation-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it OR exists key "Microsoft-Windows-ServerCore-Package~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-timedate_31bf3856ad364e35_none_08b925ac47ae9e99" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21118") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-timedate_31bf3856ad364e35_none_ac9a8a288f512d63" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21118" OR it >= "6.1.7600.10000" AND it < "6.1.7600.16940") of (default value of it as string as version)) of it) of it) of item 1 of it) OR ((exists key "WinEmb-Shell-Foundation~31bf3856ad364e35~amd64~~6.1.7600.16385" of it) of item 0 of it AND (exists key "amd64_microsoft-windows-timedate_31bf3856ad364e35_none_08b925ac47ae9e99" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21118") of (default value of it as string as version)) of it) of it OR exists key "x86_microsoft-windows-timedate_31bf3856ad364e35_none_ac9a8a288f512d63" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600.20000" AND it < "6.1.7600.21118" OR it >= "6.1.7600.10000" AND it < "6.1.7600.16940") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "5722b20af2ebb81da4661a350e21d005e2d2b09b"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>553514</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2660075</SourceID>
+		<SourceReleaseDate>2012-02-13</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 30 Sep 2014 06:06:49 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2008 R2 Gold |~| Windows Server 2008 R2 SP1 (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 00:42:24 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2660075-x64.msu sha1:5722b20af2ebb81da4661a350e21d005e2d2b09b size:553514 http://download.microsoft.com/download/C/F/D/CFDAAAEE-B84A-47E3-9CDC-73B41A90BF9C/Windows6.1-KB2660075-x64.msu sha256:f6d30648d5f19033fecc71c7f51a95f02c0cbb199de6dec41d1658b7c81fd663
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2660075-x64.msu"}" /quiet /norestart
+
+action requires restart "5722b20af2ebb81da4661a350e21d005e2d2b09b"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2660075</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

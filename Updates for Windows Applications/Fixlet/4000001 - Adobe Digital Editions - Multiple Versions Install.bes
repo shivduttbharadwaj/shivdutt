@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Digital Editions - Multiple Versions Installed - ADE 2.0 and Up</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>The listed computers have multiple versions of the Adobe Digital Editions installed. IBM Bigfix recommends keeping only the latest version of Adobe Digital Editions to properly guard against known security vulnerabilities. Deploying the action below will keep the latest installed version, and will uninstall all earlier Adobe Digital Editions versions.</P><P><B>Note:</B> Client machines may briefly display progress windows during the installation of this update. </P> <P><B>Note:</B> Once the patch has run successfully, affected computers might report back as 'Pending Restart' but will not report back their final status until the computer has been restarted.</P> <BR></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exist key "HKLM\Software\Adobe\" of registry AND exist key whose (name of it as lowercase contains "adobe digital editions") of key "HKLM\Software\Adobe\" of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(it > 1) of number of keys whose (value "DisplayName" of it as string contains "Adobe Digital Editions") of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of x32 registry]]></Relevance>
+		<Relevance><![CDATA[version of client >= "6.0"]]></Relevance>
+		<Category>Uninstall</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 28 Apr 2015 06:40:41 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings 3rdPartyApp Oracle JavaRuntimeEnvironment</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 09 Mar 2016 01:32:46 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to uninstall earlier versions of Adobe Digital Editions.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// ADE 2.0
+if {exists key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Digital Editions 2.0" of registry}
+waithidden {value "UninstallString" of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Digital Editions 2.0" of registry} /S
+endif
+
+// ADE 3.0
+if {exists key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Digital Editions 3.0" of registry}
+waithidden {value "UninstallString" of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall\Adobe Digital Editions 3.0" of registry} /S
+endif</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Digital Editions.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/solutions/ebook/digital-editions/download.html</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

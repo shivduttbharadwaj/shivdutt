@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-100: Vulnerabilities in .NET Framework Could Allow Elevation of Privilege - Microsoft .NET Framework 4 - Windows 7 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P><STRONG>Note:</STRONG> This bulletin has been partially superseded by MS13-082. Whereas this Fixlet message previously applied to Windows&nbsp;XP SP3&nbsp;/ 2003&nbsp;SP2&nbsp;/ Vista SP2&nbsp;/ 2008 SP2&nbsp;/ 7&nbsp;Gold/SP1, it now only applies to Windows 7 Gold.</P> <P>Microsoft has released a security update that resolves one publicly disclosed vulnerability and three privately reported vulnerabilities in Microsoft .NET Framework. The most severe of these vulnerabilities could allow elevation of privilege if an unauthenticated attacker sends a specially crafted web request to the target site. An attacker who successfully exploited this vulnerability could take any action in the context of an existing account on the ASP.NET site, including executing arbitrary commands. In order to exploit this vulnerability, an attacker must be able to register an account on the ASP.NET site, and must know an existing user name.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2656351.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+5.32 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win7") AND (service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance>NOT (exists names of values whose (name of it contains "CoreEdition") of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackageIndex\Product" of registry)</Relevance>
+		<Relevance><![CDATA[exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose (exists keys whose (name of it starts with "v4" AND (not exists value "SP" of it OR value "SP" of it < 1)) of it) of registry]]></Relevance>
+		<Relevance><![CDATA[((exists file "System.Web.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.547"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.272")))) of it) OR (exists file "ServiceModelReg.exe" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.547"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.272")))) of it) OR (exists file "System.Web.Extensions.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.547"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.272")))) of it) OR (exists file "webengine.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.547"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.272")))) of it) OR (exists file "webengine4.dll" whose (((exists value "FileVersion" whose (it as lowercase contains "qfe" OR it as lowercase contains "ldr") of version blocks of it) AND ((version of it < "4.0.30319.547"))) OR ((exists value "FileVersion" whose (not (it as lowercase contains "qfe" OR it as lowercase contains "ldr")) of version blocks of it) AND ((version of it < "4.0.30319.272")))) of it)) of folder (pathname of (windows folder) & "\MICROSOFT.NET\FRAMEWORK\V4.0.30319")]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>5579880</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2656351</SourceID>
+		<SourceReleaseDate>2011-12-29</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2011-3414; CVE-2011-3415; CVE-2011-3416; CVE-2011-3417</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:.net_framework:4:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch NDP40-KB2656351-x86.exe sha1:a50f297105485b122d9001b4e34455f294910772 size:5579880 http://download.microsoft.com/download/1/3/C/13CB303A-1D97-41BC-ADAC-137CBC8FF59A/NDP40-KB2656351-x86.exe sha256:d63027cc88cbe20a714df8184fbb889cc9af3e2eaad52c50401589b8ea7a8c3d
+
+waithidden __Download\NDP40-KB2656351-x86.exe /quiet /norestart
+
+action may require restart "a50f297105485b122d9001b4e34455f294910772"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-100.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2011/MS11-100</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

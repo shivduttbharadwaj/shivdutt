@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2898847: Description of the security update for the .NET Framework 3.5 on Windows 8.1 and Windows Server 2012 R2 - Windows 8.1 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>A security issue has been identified that could allow an unauthenticated remote attacker to compromise your system and gain access to information.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the Knowledge Base Article for more information.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB2898847.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.07 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance>((((name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.3" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) OR name of it = "Win2012R2") AND service pack major version of it = 0) OR (((name of it = "Win8" AND (value "CurrentVersion" of it as string is "6.3" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) OR name of it = "Win8.1") AND service pack major version of it = 0)) of operating system</Relevance>
+		<Relevance><![CDATA[((exists key "Microsoft-Windows-NetFx2-OC-Package~31bf3856ad364e35~x86~en-US~6.3.9600.16384" of it) of item 0 of it AND (exists key "msil_system.resources_b77a5c561934e089_en-us_c669db44e0bb7baf" whose (exists key whose ((it >= "6.3.9600.20000" AND it < "6.3.9600.20542" OR it >= "6.3.9600.10000" AND it < "6.3.9600.17080") of (default value of it as string as version)) of it) of it) of item 1 of it OR ((exists key "Microsoft-Windows-NetFx2-OC-Package~31bf3856ad364e35~x86~~6.3.9600.16384" of it) of item 0 of it AND (exists key "msil_system_b77a5c561934e089_none_fa79dfcceecd686a" whose (exists key whose ((it >= "6.3.9600.20000" AND it < "6.3.9600.20542" OR it >= "6.3.9600.10000" AND it < "6.3.9600.17080") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners\" of it) of native registry]]></Relevance>
+		<Relevance>not pending restart "99232a522bf0585d757107571d7c2e56a943e3ac"</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>2169990</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2898847</SourceID>
+		<SourceReleaseDate>2014-05-12</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 15 May 2014 15:03:43 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 8.1 Gold |~| Windows Server 2012 R2 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 29 Oct 2016 10:14:51 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB2898847-x86.msu sha1:99232a522bf0585d757107571d7c2e56a943e3ac size:2169990 http://download.microsoft.com/download/F/1/B/F1BF9452-5708-439E-87A2-9C11827ABD36/Windows8.1-KB2898847-x86.msu sha256:60dac5729c4d8460d1cbcf228fdd824426053b0830267dc82cb85f9d3cca8bb6
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB2898847-x86.msu"}" /quiet /norestart
+
+action requires restart "99232a522bf0585d757107571d7c2e56a943e3ac"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2898847</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

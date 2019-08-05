@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2853952: Loss of consistency with IDE-attached virtual hard disks when a Hyper-V host server experiences an unplanned restart - Windows 7 SP1 - KB2853952 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<p><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</p><p><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.</p><p><B>Note:</B> This update is also referenced under KB2853952.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.6 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win7" AND service pack major version of it = 1) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB2853952~31bf3856ad364e35~amd64~~6.1.1.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB2853952~31bf3856ad364e35~amd64~~6.1.1.2" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft-Hyper-V-Package~31bf3856ad364e35~amd64~~6.1.7601.17514") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-hyper-v-drivers-hypervisor_31bf3856ad364e35_none_b3aba722194478a1" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22414") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-hyper-v-vstack-vmwp_31bf3856ad364e35_none_7736ea0d8baec337" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22414") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-hyper-v-vstack-vmwp_31bf3856ad364e35_none_7736ea0d8baec337" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.10000" AND it < "6.1.7601.18231") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("WinEmb-INF-EmbeddedCore-Drivers-Package~31bf3856ad364e35~amd64~~6.1.7601.17514") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_mshdc.inf_31bf3856ad364e35_none_b842e180046069a4" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22414" OR it >= "6.1.7601.10000" AND it < "6.1.7601.18231") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft-Windows-Common-Drivers-Package~31bf3856ad364e35~amd64~~6.1.7601.17514") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND ((exists key "amd64_mshdc.inf_31bf3856ad364e35_none_b842e180046069a4" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22414" OR it >= "6.1.7601.10000" AND it < "6.1.7601.18231") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists key "amd64_mshdc.inf_31bf3856ad364e35_none_b842e180046069a4" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601.20000" AND it < "6.1.7601.22414" OR it >= "6.1.7601.10000" AND it < "6.1.7601.18231") of (default value of it as string as version)) of it) of it) of item 1 of it)) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "619538e685f0bc6bcde779a1a0b80ed5611f27e7"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>1665148</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2853952</SourceID>
+		<SourceReleaseDate>2013-09-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 24 Nov 2016 07:40:13 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows6.1-kb2853952-x64_619538e685f0bc6bcde779a1a0b80ed5611f27e7.msu sha1:619538e685f0bc6bcde779a1a0b80ed5611f27e7 size:1665148 http://download.windowsupdate.com/d/msdownload/update/software/updt/2013/08/windows6.1-kb2853952-x64_619538e685f0bc6bcde779a1a0b80ed5611f27e7.msu sha256:5873f233c72043378471765ad810fd967de69857ac9432cea8af0aebd3b464fe
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\windows6.1-kb2853952-x64_619538e685f0bc6bcde779a1a0b80ed5611f27e7.msu"}" /quiet /norestart
+
+action requires restart "619538e685f0bc6bcde779a1a0b80ed5611f27e7"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/2853952</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

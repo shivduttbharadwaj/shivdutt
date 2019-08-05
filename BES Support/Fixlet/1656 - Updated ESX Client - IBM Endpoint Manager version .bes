@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated ESX Client - IBM Endpoint Manager version 9.0.787.0 Now Available! (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.0.787.0 of IBM Endpoint Manager is now available!<BR><BR></STRONG>The latest version of the IBM Endpoint Manager Client provides several enhancements and fixes. This Fixlet message will upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM Endpoint Manager Server has been upgraded. It may take several hours for the Clients to notice that the IBM Endpoint Manager Server is upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.</FONT></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+8.51 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>name of operating system does not start with "Win"</Relevance>
+		<Relevance><![CDATA[version of client < "9.0.787.0" and version of client >= "7.0"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.0"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>name of operating system starts with "VMware ESX 4"</Relevance>
+		<Relevance>architecture of operating system = "x86_64"</Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>8924324</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-10-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 08 Oct 2013 09:45:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager Client 9.0.787.0 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {name of operating system starts with "VMware ESX 4"}
+	prefetch BESClientUpgrade.rpm sha1:e1245cb16d7595f7b38d54bba14d4c78f59abfd5 size:8924324 http://software.bigfix.com/download/bes/90/BESAgent-9.0.787.0-rhe5.x86_64.rpm
+else
+	// No Known Configuration
+	continue if false
+endif
+
+continue if {exists file "__Download/BESClientUpgrade.rpm"}
+delete "/var/tmp/BESClientUpgrade.rpm"
+// If the next line fails, there is not enough free space to complete this action
+continue if {8924324 < free space of drive of folder "/var/tmp"}
+move __Download/BESClientUpgrade.rpm "/var/tmp/BESClientUpgrade.rpm"
+
+delete "{(client folder of current site as string) & "/__appendfile"}"
+appendfile #!/bin/sh
+if {exists file "/etc/init.d/besclient"}
+    appendfile /etc/init.d/besclient stop
+else
+    appendfile /etc/init.d/BESClient-{version of client as string} stop
+endif
+appendfile /bin/rpm -U "/var/tmp/BESClientUpgrade.rpm"
+appendfile /etc/init.d/besclient start
+appendfile /bin/rm -f "/var/tmp/BESClientUpgrade.rpm"
+
+delete /var/tmp/besclientupgrade
+move "{(client folder of current site as string) & "/__appendfile"}" /var/tmp/besclientupgrade
+wait chmod +x /var/tmp/besclientupgrade
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /var/tmp/besclientupgrade]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.0.787.0"]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

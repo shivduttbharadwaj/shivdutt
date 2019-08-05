@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS05-042: Vulnerabilities in Kerberos Could Allow Denial of Service, Information Disclosure, and Spoofing - Windows XP/2003 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><FONT size=2>Microsoft has released a patch eliminating two security vulnerabilities in Kerberos. An attacker who successfully exploited the denial of service vulnerability could cause a server to stop responding to authentication requests. The information disclosure and spoofing vulnerability could allow an attacker to access sensitive client network information. After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities. <BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted. <BR><BR><B>Note:</B> Client machines may briefly display progress windows during installation of this update. <BR><BR><B>Note:</B> Microsoft has announced that this patch will be included in a future Service Pack or Update Rollup.</FONT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.29 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "Kdcsvc.dll" whose (version of it < "5.2.3790.2464") of it OR exists file "Kerberos.dll" whose (version of it < "5.2.3790.2464") of it) of system x64 folder OR exists file "Kerberos.dll" whose (version of it < "5.2.3790.2477") of system wow64 folder]]></Relevance>
+		<Relevance>(NOT exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP2\KB899587" of it AND NOT exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows XP Version 2003\SP2\KB899587" of it) of x64 registry</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP2\KB914961" of x64 registry AND not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows XP Version 2003\SP2\KB914961" of x64 registry</Relevance>
+		<Relevance><![CDATA[((name of it = "Win2003" OR name of it = "WinXP-2003") and service pack major version of it < 2) of operating system]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1363184</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB899587</SourceID>
+		<SourceReleaseDate>2005-08-09</SourceReleaseDate>
+		<SourceSeverity>Moderate</SourceSeverity>
+		<CVENames>CVE-2005-1981; CVE-2005-1982</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Kerberos</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch WindowsServer2003.WindowsXP-KB899587-x64-ENU.exe sha1:91857ab34556135a83817dece8755e0d2f2db6ec size:1363184 http://download.microsoft.com/download/8/f/9/8f9d7c6f-df77-4878-8d6e-00603a318028/WindowsServer2003.WindowsXP-KB899587-x64-ENU.exe sha256:fe9a0cfcb7a80f8de774423e665ecc68d8b851071fd8c1a5ea71ba2ff2ed07e5
+
+wait __download\WindowsServer2003.WindowsXP-KB899587-x64-ENU.exe /passive /quiet /norestart
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action may require restart]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS05-042.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS05-042.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

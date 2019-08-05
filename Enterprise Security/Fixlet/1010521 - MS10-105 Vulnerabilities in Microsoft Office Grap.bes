@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS10-105: Vulnerabilities in Microsoft Office Graphics Filters Could Allow for Remote Code Execution - Office 2010 x64</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released a security update that resolves seven privately reported vulnerabilities in Microsoft Office. The vulnerabilities could allow remote code execution if a user viewed a specially crafted image file using Microsoft Office. An attacker who successfully exploited any of these vulnerabilities could gain the same user rights as the local user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<BR><BR><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled. </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.20 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "MSCONV97.DLL" whose (version of it < "2010.1400.5114.5004") of it) of (folder (value "CommonFilesDir" of key "HKLM\Software\Microsoft\Windows\CurrentVersion" of x64 registry as string & "\Microsoft Shared\TextConv"))]]></Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "3.1") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((it = "14" AND it >= "14.0.4763.1000") of (value "DisplayVersion" of it as string as version) AND exists value "DisplayName" of it AND (((length of it = 38) AND (it contains "000000FF1CE%7D") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "0011" OR it = "0012" OR it = "0013" OR it = "0014" OR it = "002F" OR it = "008B") of last 4 of (first 14 of it)) AND ((it = "1000") of last 4 of (first 24 of it))) of (name of it))) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of x64 registry]]></Relevance>
+		<Relevance><![CDATA[exists regapp "powerpnt.exe" whose (version of it = "14" AND version of it >= "14.0.4754.1000") OR exists regapp "excel.exe" whose (version of it = "14" AND version of it >= "14.0.4756.1000") OR exists regapp "winword.exe" whose (version of it = "14" AND version of it >= "14.0.4762.1000") OR exists regapp "outlook.exe" whose (version of it = "14" AND version of it >= "14.0.4760.1000") OR exists regapp "mspub.exe" whose (version of it = "14" AND version of it >= "14.0.4750.1000") OR exists regapp "msaccess.exe" whose (version of it = "14" AND version of it >= "14.0.4750.1000") OR exists regapp "infopath.exe" whose (version of it = "14" AND version of it >= "14.0.4763.1000")]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1260456</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2289078</SourceID>
+		<SourceReleaseDate>2010-12-14</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2010-3945; CVE-2010-3951; CVE-2010-3952</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Graphics Filters</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:graphics_filters:2010:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 23 Apr 2018 09:45:23 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch Office2010-kb2289078-fullfile-x64-glb.exe sha1:99563f23fb5c723e9c17d2065a8ec9033c0f0b48 size:1260456 http://download.microsoft.com/download/D/A/4/DA48CAE1-F9A3-4099-9D0E-3C07E02DCE85/Office2010-kb2289078-fullfile-x64-glb.exe sha256:ec68d4b3c459ffd2267b9301a345ec010dbe79615f2b6c2a281dc35ea57f0a57
+
+waithidden __Download\Office2010-kb2289078-fullfile-x64-glb.exe /quiet /norestart
+
+action may require restart "99563f23fb5c723e9c17d2065a8ec9033c0f0b48"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS10-105.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS10-105.mspx</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

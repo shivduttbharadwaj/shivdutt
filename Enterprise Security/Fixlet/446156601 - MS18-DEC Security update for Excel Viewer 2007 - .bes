@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-DEC: Security update for Excel Viewer 2007 - Excel Viewer 2007 SP3 - KB4461566 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4461608.<br /><br /><div><p class="MsoNormal">This security update resolves vulnerabilities in Microsoft<br>Office that could allow remote code execution if a user opens a specially<br>crafted Office file. To learn more about these vulnerabilities, see <a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-8577" target="_blank"></a><a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-8627" aria-label="CTRL+Click or CTRL+Enter to follow link https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-8627">Microsoft Common Vulnerabilities and Exposures CVE-2018-8627</a>.</p><br><br><p class="MsoNormal"><span style="font-weight:bold;">Note</span> To apply this security update, you must have the<br>release version of <a href="https://support.microsoft.com/en-us/help/2526302/description-of-office-excel-viewer-2007-sp3" target="_blank">Service Pack 3 for Microsoft Office Excel Viewer 2007 </a>installed<br>on a computer that's running Windows Embedded POSReady 2009.</p></div><p><B>Note:</B> This security update is also referenced under KB4461566.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+7.4 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ("00002159F30050400000000000F01FEC";"00002159F30070400000000000F01FEC";"00002159F30060400000000000F01FEC";"00002159F30040400000000000F01FEC";"00002159F30080400000000000F01FEC";"00002159F30040800000000000F01FEC";"00002159F30093400000000000F01FEC";"00002159F30090400000000000F01FEC";"00002159F30042400000000000F01FEC";"00002159F300F3400000000000F01FEC";"00002159F300E0400000000000F01FEC";"00002159F30040C00000000000F01FEC";"00002159F30072400000000000F01FEC";"00002159F30022400000000000F01FEC";"00002159F30052400000000000F01FEC";"00002159F30062400000000000F01FEC";"00002159F30021400000000000F01FEC";"00002159F30041400000000000F01FEC";"00002159F300D0400000000000F01FEC";"00002159F30051400000000000F01FEC";"00002159F300C0400000000000F01FEC";"00002159F300B0400000000000F01FEC";"00002159F30031400000000000F01FEC";"00002159F30011400000000000F01FEC";"00002159F300A0C00000000000F01FEC";"00002159F30001400000000000F01FEC";"00002159F30081400000000000F01FEC";"00002159F30061400000000000F01FEC";"00002159F30091400000000000F01FEC";"00002159F30010400000000000F01FEC";"00002159F30061800000000000F01FEC";"00002159F300F1400000000000F01FEC";"00002159F30020400000000000F01FEC";"00002159F300A1400000000000F01FEC";"00002159F300E1400000000000F01FEC";"00002159F300A1800000000000F01FEC";"00002159F300B1400000000000F01FEC";"00002159F300D1400000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "12.0.6612.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "868FBC84AD6DFE4418BA6A2F52636B9F" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "12.0" AND "|XLVIEW.EXE|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "12.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "XLVIEW.EXE" AND (item 3 of it = "12.0.6805.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Mon, 26 Nov 2018 15:25:48 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "12.0.6805.5000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{48CBF868-D6DA-44EF-81AB-A6F22536B6F9}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>7745288</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4461566</SourceID>
+		<SourceReleaseDate>2018-12-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2018-8627</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Dec 2018 05:35:00 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4461608</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:excel_viewer:2007:sp3:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>446160801</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-02-12</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Excel Viewer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 13 Feb 2019 07:58:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch xlview2007-kb4461566-fullfile-x86-glb.exe sha1:936ec3fa873a9c5b23e342df343fa4edf6f7165b size:7745288 https://download.microsoft.com/download/9/3/4/93442566-C62B-4C14-9FA6-C312D0C1F565/xlview2007-kb4461566-fullfile-x86-glb.exe sha256:d23fc22545ea8092f8320b4466d6f76aaefd9d82eea84990f4514c6a928e5d84
+
+waithidden __Download\xlview2007-kb4461566-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "936ec3fa873a9c5b23e342df343fa4edf6f7165b"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4461566</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

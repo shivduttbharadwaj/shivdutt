@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3081399: Bing Sports app update for WSUS for Windows 8.1 - Windows 8.1 Gold</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows. For a complete listing of the issues that are included in this update, see the associated Microsoft Knowledge Base article for more information. After you install this item, you may have to restart your computer.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB3081399.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+25.9 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not (x64 of operating system OR ia64 of operating system)</Relevance>
+		<Relevance><![CDATA[(((name of it = "Win8" AND value "CurrentVersion" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry as string is "6.3" AND (not exists value "CurrentMajorVersionNumber" of it OR value "CurrentMajorVersionNumber" of it as integer < 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) OR name of it = "Win8.1") ) of operating system]]></Relevance>
+		<Relevance>not exists key "C1BFC7D83F3476E848D9CE6927758F37" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\" of native registry</Relevance>
+		<Relevance><![CDATA[((exists it whose (it starts with "Microsoft.BingSports") of names of folders of it) AND (not exists it whose (it starts with "Microsoft.BingSports" AND (it as version >= "2015.526.2135.5000") of preceding text of first "_" of following text of first "_" of it) of names of folders of it)) of folder (value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of native registry as string & "\WindowsApps")]]></Relevance>
+		<Relevance>not pending restart "607faded846bd3485930f676e83d610d419d77c5"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>27154585</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3081399</SourceID>
+		<SourceReleaseDate>2015-08-18</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 26 Aug 2015 17:58:13 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win8.1</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 17 Sep 2015 06:16:38 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch windows8.1-kb3081399-x86_607faded846bd3485930f676e83d610d419d77c5.cab sha1:607faded846bd3485930f676e83d610d419d77c5 size:27154585 http://download.windowsupdate.com/d/msdownload/update/software/updt/2015/08/windows8.1-kb3081399-x86_607faded846bd3485930f676e83d610d419d77c5.cab sha256:4a620ead9ccbc15909b613a25aa952e1b1cfcc1b576d43a541e9818678a9b947
+
+waithidden {pathname of system folder & "\expand.exe -F:*"} __Download\windows8.1-kb3081399-x86_607faded846bd3485930f676e83d610d419d77c5.cab __Download\windows8.1-kb3081399-x86.msi
+
+waithidden msiexec.exe /i __Download\windows8.1-kb3081399-x86.msi /quiet /norestart
+
+action may require restart "607faded846bd3485930f676e83d610d419d77c5"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3081399</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

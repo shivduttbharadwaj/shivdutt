@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Evaluation in Restricted Mode</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT face=Verdana>The listed computers have expired evaluation&nbsp;licenses. They have entered a restricted mode and will no longer report Fixlet message relevance or allow you to take actions.</FONT></P> <P><FONT face=Verdana>You should contact <A href="mailto:TEM@dk.ibm.com">TEM@dk.ibm.com</A>&nbsp;or your support technician.</FONT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>evaluation of client license = true</Relevance>
+		<Relevance>expiration state of client license = "Restricted"</Relevance>
+		<Relevance><![CDATA[((now - apparent registration server time) <= 1 * day) or (apparent registration server time >= (expiration date of client license + 30*day))]]></Relevance>
+		<Category>Licensing</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2002-10-16</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 15 Oct 2002 15:25:29 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Critical</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 23 May 2013 23:07:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+	</Fixlet>
+</BES>

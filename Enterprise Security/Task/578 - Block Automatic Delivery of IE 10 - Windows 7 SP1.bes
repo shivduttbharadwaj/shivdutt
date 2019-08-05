@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Block Automatic Delivery of IE 10 - Windows 7 SP1</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <p>To help our customers become more secure and up-to-date, Microsoft will distribute Windows Internet Explorer 10 as an important update through Automatic Updates for Windows 7 SP1 and higher for x64 and x86 and Windows Server 2008 R2 SP1 and higher for x64. <BR/> This Blocker Toolkit is made available to those who would like to block automatic delivery of Internet Explorer 10 to machines in environments where Automatic Updates is enabled. The Blocker Toolkit will not expire. <BR/> <BR/> Note: <UL> <LI>For computers running Windows 7 or Windows Server 2008 R2, the Blocker Toolkit prevents the machine from receiving Internet Explorer 10 via Automatic Updates on the Windows Update and Microsoft Update sites. </LI><LI>The Blocker Toolkit will not prevent users from manually installing Internet Explorer 10 from the Microsoft Download Center, or from external media. </LI><LI>Organizations do not need to deploy the Blocker Toolkit in environments managed with an update management solution such as Windows Server Update Services or Systems Management Server 2003. Organizations can use those products to fully manage deployment of updates released through Windows Update and Microsoft Update, including Internet Explorer 10, within their environment. </LI><LI>Even if you used the Blocker Toolkit to block Internet Explorer 8 or Internet Explorer 9 from being installed as a high-priority or important update, you will still need to use the Internet Explorer 10 version of the Blocker Toolkit to block Internet Explorer 10 from being installed. There are different registry keys used to block or unblock automatic delivery of Internet Explorer 8, Internet Explorer 9 and Internet Explorer 10. </LI> </UL> <BR/> See the "Additional Information" section below for detailed instructions on configuring and deploying the Blocker Toolkit. The same information is also provided in the Help file included in the download. <BR/> <BR/> <a href="http://go.microsoft.com/fwlink/?LinkId=278822">Answers to Frequently Asked Questions can be found here.</a> </p> <STRONG>Note:</STRONG> The action below sets the registry value "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Setup\10.0\DoNotAllowIE10" to "1" to block automatic delivery of IE 10. The task&nbsp;<SPAN id=fixletLink></SPAN> can be used to undo this action. <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = setLink; function setLink() { try { fixletLink.innerHTML = EvaluateRelevance('link of bes fixlets whose (id of it = 581 AND name of site of it = name of site of current fixlet)'); } catch (e) {if (isEvansOrLater) { fixletLink.innerHTML ='<?jxlat Unblock Automatic Delivery of IE 10 - Windows 7 SP1 (ID: 581)?>';} else { fixletLink.innerHTML = 'Unblock Automatic Delivery of IE 10 - Windows 7 SP1 (ID: 581)';} } } </SCRIPT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(((name of it = "Win7") AND ( service pack major version of it >= 1))) of operating system]]></Relevance>
+		<Relevance>NOT exists key "HKLM\SOFTWARE\Microsoft\Internet Explorer\Setup\10.0" whose (value "DoNotAllowIE10" of it = 1) of registry</Relevance>
+		<Category>Setting</Category>
+		<Source>Microsoft</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-01-30</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Internet Explorer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Configuration UpdateBlocking</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">regset "[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Setup\10.0]" "DoNotAllowIE10"=dword:00000001</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/en-us/download/details.aspx?id=36512</ActionScript>
+		</Action>
+	</Task>
+</BES>

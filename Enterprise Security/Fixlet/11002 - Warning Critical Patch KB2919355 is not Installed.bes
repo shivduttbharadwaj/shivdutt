@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Warning: Critical Patch KB2919355 is not Installed</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><p>KB2919355 is not installed on relevant endpoints. </p> <p>All future security and nonsecurity updates for Windows 8.1 and Windows Server 2012 R2 require installation of KB2919355. We highly suggest that you install this update on your Windows 8.1-based or Windows Server 2012 R2-based computer to continuously receive future updates. </p> <p>Use the following Fixlets to install KB2919355 and its prerequisite KB2919442: </p> <ul> <li> <?relevance (concatenation "</li><li>" of links of bes fixlets whose (source id of it is "KB2919442"))?> </li><li> <?relevance (concatenation "</li><li>" of links of bes fixlets whose (source id of it is "KB2919355"))?> </li> </ul></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(name of it = "Win2012R2" OR name of it = "Win8.1") of operating system</Relevance>
+		<Relevance>not exists key ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14"; "Package_for_KB2919355~31bf3856ad364e35~x86~~6.3.1.14") whose (112 = value "CurrentState" of it as integer) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of native registry</Relevance>
+		<Category>Audit</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2017-06-05</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 13 Jun 2017 08:55:56 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Warnings Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 22 Apr 2019 05:26:42 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Link1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/2919355</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

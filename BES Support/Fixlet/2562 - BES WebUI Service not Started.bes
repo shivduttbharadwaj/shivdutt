@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>BES WebUI Service not Started</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>The listed WebUI Service endpoints have a stopped service. This can happen if a service was manually stopped or if it failed for some reason. <br><br> Use the action to attempt to start the "BES WebUI" service. If the computer reports back as "&lt;not reported&gt", or if the services continue to fail for unknown reasons, contact BigFix technical support. </TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance><![CDATA[version of registration server >= "9.2.6"]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance><![CDATA[version of client >= "9.5.3.191"]]></Relevance>
+		<Relevance><![CDATA[version of registration server >= "9.5.3"]]></Relevance>
+		<Relevance>exists webui service</Relevance>
+		<Relevance>not exists running webui service</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2016-09-30</SourceReleaseDate>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 10 Oct 2016 17:58:06 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 23 Oct 2017 17:33:34 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to execute this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if{windows of operating system}
+  wait cmd.exe /C net start BESWebUI
+else
+  wait /etc/init.d/beswebui start
+endif</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

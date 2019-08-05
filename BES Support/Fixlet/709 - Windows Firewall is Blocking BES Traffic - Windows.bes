@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title><![CDATA[Windows Firewall is Blocking BES Traffic - Windows Vista / Windows 2008 / Windows 7 / Windows 2008R2 / Windows 8 / Windows 8.1 / Windows 2012 / Windows 2012R2 - BES Relay/Server >= 7.0]]></Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD><FONT size=2> <P><FONT size=2>The listed computers have the Windows Firewall enabled and&nbsp;configured to block inbound traffic on the port used by BES (BES uses port 52311 by default). <BR></FONT><FONT size=2><BR>Both UDP and TCP packets are used by the BES Server and BES Relays to send information about new actions and fixlets. After configuring Windows Firewall to allow inbound traffic on the BES Listen Port, BES Servers and BES Relays will resume normal communication.<BR><B><BR>Note:</B> After this action is applied, affected BES Relays will not report until they have performed their standard once-per-day gather or until the BES Relay is restarted.</FONT></P> <P><FONT size=2><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT>&nbsp;If the listed computers' firewall settings are being administered through a domain group policy, the results of this action may be overwritten by that policy. The actions below will only affect the local firewall policy, and will not affect any group firewall policy settings that may have been applied by a domain administrator. If your firewall has been configured via a domain group policy, these actions may report back as 'Failed', and the firewall must be disabled or configured through group policy instead.</FONT></P></FONT></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>exists relay service OR exists main gather service</Relevance>
+		<Relevance><![CDATA[version of client >= "7.0"]]></Relevance>
+		<Relevance>(it = "WinVista" or it = "Win2008" or it = "Win7" or it = "Win2008R2" or it = "Win8" or it = "Win8.1" or it = "Win2012" or it = "Win2012R2") of name of operating system</Relevance>
+		<Relevance>(firewall enabled of current profile of local policy of firewall|false) OR (exists key "HKLM\System\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile" whose (value "EnableFirewall" of it = 1) of registry) OR (exists key "HKLM\System\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile" whose (value "EnableFirewall" of it = 1) of registry) OR (exists key "HKLM\System\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile" whose (value "EnableFirewall" of it = 1) of registry)</Relevance>
+		<Relevance>exists file "netsh.exe" of system folder</Relevance>
+		<Relevance><![CDATA[NOT ((inbound connections allowed of current profile of local policy of firewall|false) OR (exist key "HKLM\Software\Policies\Microsoft\WindowsFirewall\FirewallRules" whose ((exists value whose (it as string as lowercase contains "|action=allow|" and it as string as lowercase contains "|active=true|" AND it as string as lowercase contains "|dir=in|" and NOT (it as string as lowercase contains "|protocol=") AND ((it as string as lowercase contains "|profile=" & (if (current profile type of firewall = domain firewall profile type) then "domain|" else if (current profile type of firewall = public firewall profile type) then "public|" else if (current profile type of firewall = private firewall profile type) then "private|" else "INVALID")) OR not (it as string as lowercase contains "|profile")) ) of it)) of native registry))]]></Relevance>
+		<Relevance><![CDATA[if (exists main gather service) then (NOT (exists rule whose ((inbound of it and enabled of it and profile (current profile type of firewall) of it and name of it = "BES Root Server")|false) of it) of firewall) else (if exists regapp "BESRelay.exe" then (if version of regapp "BESRelay.exe" >= "8.0" as version then (NOT (exists rule whose ((inbound of it and enabled of it and profile (current profile type of firewall) of it and name of it = "BES Relay")|false) of it) of firewall) else true) else true)]]></Relevance>
+		<Relevance><![CDATA[NOT (((exists rule whose (((NOT exists local ports string of it OR local ports string of it contains (value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry as string) OR local ports string of it = "*") AND (((application name of it ends with "\BESRelay.exe") AND NOT (service name of it = "BESRelay")) OR ((application name of it ends with "\BESRootServer.exe") AND NOT (service name of it = "BESRootServer")) OR (regex "^(\s)*$" = application name of it AND regex "^(\s)*$" = service name of it)) and enabled of it and protocol of it = udp and inbound of it and profile (current profile type of firewall) of it) |false) of firewall) OR (exists internet connection firewall whose (enabled of it AND exists port mapping whose (enabled of it AND protocol of it = "udp" AND internal port of it as string = (value "ListenPort" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry) as string) of it) of adapters of network) OR (exist values whose (((it as string as lowercase contains "|action=allow|" and it as string as lowercase contains "|active=true|" AND it as string as lowercase contains "|dir=in|" and (it as string as lowercase contains "|protocol=17|" or NOT (it as string as lowercase contains "|protocol")) AND (it as string as lowercase contains "|lport=" & (value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry as string) & "|" OR not (it as string as lowercase contains "|lport=")) AND (not (it as string as lowercase contains "|apppkgid=")) AND (not ((it as string as lowercase contains "|app=")) OR ((it as string as lowercase contains "|app=" and it as string contains "\BESRelay.exe|") OR (it as string as lowercase contains "|app=" and it as string contains "\BESRootServer.exe|"))) AND ((it as string as lowercase contains "|profile=" & (if ((current profile type of firewall = domain firewall profile type) | false) then "domain|" else if ((current profile type of firewall = public firewall profile type) | false) then "public|" else if ((current profile type of firewall = private firewall profile type) | false) then "private|" else "INVALID")) OR not (it as string as lowercase contains "|profile"))) of it)) of keys ("HKLM\Software\Policies\Microsoft\WindowsFirewall\FirewallRules"; "HKLM\SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules") of native registry) OR (((exists key ("HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\" & (if ((current profile type of firewall = domain firewall profile type) | false) then "DomainProfile" else "StandardProfile") & "\GloballyOpenPorts") whose (exists value whose ((name of it as lowercase = "enabled") AND (it = 1)) of it) of it) AND (exists key ("HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\" & (if ((current profile type of firewall = domain firewall profile type) | false) then "DomainProfile" else "StandardProfile") & "\GloballyOpenPorts\List") whose (exists value whose ((name of it starts with value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of x32 registry as string & ":") AND (regex "^(\d)+:UDP:(.+)?:enabled:(.+)$" = name of it)) of it) of it)) of native registry) OR (((exists key ("HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\" & (if ((current profile type of firewall = domain firewall profile type) | false) then "DomainProfile" else "StandardProfile") & "\AuthorizedApplications") whose (exists value whose ((name of it as lowercase = "enabled") AND (it = 1)) of it) of it) AND (exists key ("HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\" & (if ((current profile type of firewall = domain firewall profile type) | false) then "DomainProfile" else "StandardProfile") & "\AuthorizedApplications\List") whose (exists value whose ((regex "^(.+)?\\BESRootServer.exe:(.+)?:enabled:(.+)$" = name of it) OR (regex "^(.+)?\\BESRelay.exe:(.+)?:enabled:(.+)$" = name of it)) of it) of it)) of native registry)) AND ((exists rule whose ((enabled of it and (protocol of it = internet protocol 6) and inbound of it and profile (current profile type of firewall) of it and (regex "^(\s)*$" = application name of it OR application name of it ends with "\BESRelay.exe" OR application name of it ends with "\BESRootServer.exe") AND regex "^(\s)*$" = service name of it) |false) of firewall) OR (exist values whose ((it as string as lowercase contains "|action=allow|" and it as string as lowercase contains "|active=true|" AND it as string as lowercase contains "|dir=in|" and (it as string as lowercase contains "|protocol=6|" or NOT (it as string as lowercase contains "|protocol")) AND (it as string as lowercase contains "|lport=" & (value "ListenPort" of key "HKLM\SOFTWARE\BigFix\EnterpriseClient\GlobalOptions" of registry as string) & "|" OR not (it as string as lowercase contains "|lport=")) AND (not (it as string as lowercase contains "|apppkgid=")) AND (not ((it as string as lowercase contains "|app=")) OR (if (it as string as lowercase contains "|app=") then ((it as string contains "\BESRelay.exe|") OR (it as string contains "\BESRootServer.exe|")) else true) AND ((it as string as lowercase contains "|profile=" & (if ((current profile type of firewall = domain firewall profile type) | false) then "domain|" else if ((current profile type of firewall = public firewall profile type) | false) then "public|" else if ((current profile type of firewall = private firewall profile type) | false) then "private|" else "INVALID")) OR not (it as string as lowercase contains "|profile"))) of it) of it) of keys ("HKLM\Software\Policies\Microsoft\WindowsFirewall\FirewallRules"; "HKLM\SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules") of native registry)))]]></Relevance>
+		<Category>Support</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2008-03-18</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 26 May 2010 17:05:42 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Warn Important</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 11 Mar 2017 00:28:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to leave Windows Firewall enabled, but also allow incoming traffic on the port reserved for BES.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {exists main gather service}
+	wait "{pathname of system folder}\netsh.exe" advfirewall firewall delete rule name="BES Root Server"
+	wait "{pathname of system folder}\netsh.exe" advfirewall firewall add rule name="BES Root Server" dir=in action=allow description="BigFix Enterprise Server" enable=yes interfacetype=any
+else
+	wait "{pathname of system folder}\netsh.exe" advfirewall firewall delete rule name="BES Relay"
+	wait "{pathname of system folder}\netsh.exe" advfirewall firewall add rule name="BES Relay" dir=in action=allow description="BigFix Enterprise Relay" enable=yes interfacetype=any
+endif
+
+regset "{"[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\" & (if ((current profile type of firewall = domain firewall profile type)|false) then "DomainProfile]" else (if ((current profile type of firewall = private firewall profile type)|false) then "StandardProfile]" else "PublicProfile]"))}" "DoNotAllowExceptions"=dword:00000000
+
+delete restart_services.bat
+appendfile @echo off
+appendfile net stop "Windows Firewall"
+appendfile net start "Windows Firewall" 
+move __appendfile restart_services.bat
+
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" restart_services.bat]]></ActionScript>
+		</Action>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to disable Windows Firewall for the current network profile.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {(current profile type of firewall = domain firewall profile type)|false}
+ regset "{"[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile]"}" "EnableFirewall"=dword:00000000
+
+elseif {(current profile type of firewall = private firewall profile type)|false}
+ regset "{"[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile]"}" "EnableFirewall"=dword:00000000
+
+else
+ regset "{"[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile]"}" "EnableFirewall"=dword:00000000
+
+endif
+
+delete restart_services.bat
+appendfile @echo off
+appendfile net stop "Windows Firewall" 
+appendfile net start "Windows Firewall" 
+move __appendfile restart_services.bat
+
+wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" restart_services.bat ]]></ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Windows Firewall for Windows Vista.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/windows/products/windowsvista/features/details/firewall.mspx</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on how to make this action a "policy" action that will automatically open the BES port on any computer that has this Fixlet message relevant.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=113</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

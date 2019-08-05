@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS07-018: Vulnerabilities in Microsoft Content Management Server Could Allow Remote Code Execution - MCMS 2002 SP2 (v2, re-released 6/12/2007)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> This patch was re-released on June 12, 2007 to address known issues with the original patch. The action below deploys the revised version of the patch. <P>Microsoft has released an update resolving two newly discovered, privately reported vulnerabilities. An attacker who successfully exploited these vulnerabilities could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights.</P> <P>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.</P> <P><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><B><FONT color=#ff0000>Important Note:</FONT></B> There are several known issues associated with the installation of this patch. See the Caveats section of the security bulletin for more information.</P><P><B>Note:</B> This security update is also referenced under KB924429.</P><P><B>Note:</B> There is no default action for this Fixlet message due to known issues associated with the installation of this patch. Please review the Known Issues section of the security bulletin prior to deploying this patch. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+7.77 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "HKLM\Software\NCompass" of registry AND exists key whose ((name of it = "Resolution Content Server" or name of it = "NCompass Resolution Client" or name of it = "Staging Server") AND (exists key "VersionInfo" whose (exists value "Version" whose (it as string as version = "5") of it AND exists value "Patches" whose (it as string = "SP2") of it) of it)) of key "HKLM\Software\NCompass" of registry</Relevance>
+		<Relevance><![CDATA[exists (it) whose (it = TRUE) of ((exists file "aejavaproxy.dll" whose (version of it < "5.0.4484.0") of folders "Shared Files" of it) OR exists (it) whose (it = TRUE) of (exists file "AEServerObject.dll" whose (version of it < "5.0.5317.0") of it OR exists file "Microsoft.ContentManagement.Common.dll" whose (version of it < "5.0.5317.0") of it OR exists file "Microsoft.contentmanagement.webauthor.dll" whose (version of it < "5.0.5317.0") of it OR exists file "Microsoft.contentmanagement.webcontrols.dll" whose (version of it < "5.0.5317.0") of it OR exists file "Ncaspextensions.dll" whose (version of it < "5.0.5317.0") of it OR exists file "Nrsitedeployserver.dll" whose (version of it < "5.0.5317.0") of it OR exists file "Resolutionobjectmodel.dll" whose (version of it < "5.0.5317.0") of it OR exists file "Nrdcapplication.exe" whose (version of it < "5.0.0.5317") of it) of folders "Server\bin" of it OR exists (it) whose (it = TRUE) of (exists file "Ncbmprdr.dll" whose (version of it < "5.0.5317.0") of it OR exists file "Nrsitedeployclient.dll" whose (version of it < "5.0.5317.0") of it) of folders "Client" of it) of folders (unique values of (pathnames of parent folders of folders (values "dir" of keys "HKLM\SOFTWARE\NCompass\NCompass Resolution Client" of registry as string); pathnames of parent folders of folders (values "dir" of keys "HKLM\SOFTWARE\NCompass\Resolution Content Server" of registry as string) ; pathnames of parent folders of parent folders of files (values "exePath" of keys "HKLM\SOFTWARE\NCompass\Staging Server" of registry as string)))]]></Relevance>
+		<Relevance>not pending restart "816f08e9db5087137b648b7414a9c5874ab17a7b"</Relevance>
+		<Relevance>exists key "HKLM\Software\NCompass\Setup" whose (exists value "Language" whose (it as string = "EN") of it) of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>8142232</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB925939</SourceID>
+		<SourceReleaseDate>2007-04-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2007-0938; CVE-2007-0939</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Content Management Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>MCMS 2002</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 04 Nov 2015 08:47:07 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch CMS2002-KB924429-v2-FullFile-ENU.EXE sha1:816f08e9db5087137b648b7414a9c5874ab17a7b size:8142232 http://download.microsoft.com/download/f/d/a/fda2ee5d-b44f-4709-9eb2-095ebb6d49c7/CMS2002-KB924429-v2-FullFile-ENU.EXE sha256:5c84b83b54fb62b58989e7f2238fb634167d3c45389d926fbe43325c8e9d1b76
+
+wait __Download\CMS2002-KB924429-v2-FullFile-ENU.EXE /q:a /r:n
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart "816f08e9db5087137b648b7414a9c5874ab17a7b"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS07-018.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/ms07-018.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

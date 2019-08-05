@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Updated Mac OS X Client - IBM Endpoint Manager version 9.0.787.0 Now Available! (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><FONT size=2><FONT color=#ff0000><FONT color=#000000><STRONG>Version 9.0.787.0 of IBM Endpoint Manager is now available for the Mac OS X operating system!<BR><BR></STRONG>The latest version of the IBM Endpoint Manager Client provides several enhancements and fixes. This Fixlet message will upgrade Clients on all targeted computers. <BR><BR></FONT><STRONG><FONT color=red>You must upgrade your Relays before upgrading your Clients.</FONT><BR><BR><FONT color=#000000>Note: </FONT></STRONG></FONT><FONT color=#000000>This Fixlet message will only become relevant on computers after the IBM Endpoint Manager Server and Relays have been upgraded. It may take several hours for the Clients to notice that the IBM Endpoint Manager Server and Relays are upgraded.<BR><BR><STRONG>Note: </STRONG>It is recommended that you run this upgrade targeted to "All Computers" rather than to "Specific Computers" so that all old Clients will get upgraded.<BR><BR><STRONG>Note: </STRONG>This upgrade may take several minutes to run because the Client service will be restarted as part of the upgrade process and the Clients will not report their action results right away.<BR><BR><STRONG>Note: </STRONG>This client runs on supported OS X platforms on an x86 (versions 10.5, 10.6, 10.7, 10.8, 10.9) and a PPC (version 10.5).</FONT></FONT></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+21.8 MB
+ </DIV>
+]]></Description>
+		<Relevance><![CDATA[(version of client < version "9.2") OR (version of current relay < version "9.2") OR (version of registration server < version "9.2")]]></Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true)</Relevance>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>name of operating system does not start with "Win"</Relevance>
+		<Relevance><![CDATA[version of client < "9.0.787.0" and version of client >= "7.0"]]></Relevance>
+		<Relevance><![CDATA[version of current relay >= "9.0"]]></Relevance>
+		<Relevance>evaluation of client license = false</Relevance>
+		<Relevance>name of operating system starts with "Mac OS X"</Relevance>
+		<Relevance><![CDATA[system version >= "10.5"]]></Relevance>
+		<Relevance><![CDATA[if (version of client >= "8.1") then (brand of client = "BigFix") else (if (exists string "Brand" of dictionary of file "/Library/Preferences/com.bigfix.BESAgent.plist") then (string "Brand" of dictionary of file "/Library/Preferences/com.bigfix.BESAgent.plist" = "BigFix") else ("BigFix"="BigFix"))]]></Relevance>
+		<Relevance>if exists property "in agent context" then (in agent context) else true</Relevance>
+		<Category>Upgrade</Category>
+		<DownloadSize>22808400</DownloadSize>
+		<Source>IBM</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2013-10-08</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>N/A</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 08 Oct 2013 09:45:51 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>BES Deploy Client</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 30 Oct 2017 21:24:11 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy the IBM Endpoint Manager Client 9.0.787.0 upgrade.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {system version >= "10.6"}
+	delete "/tmp/BESAgent.pkg"
+else
+	wait /bin/sh -c "/bin/rm -rf /tmp/BESAgent.pkg; /bin/sleep 1; /bin/rm -rf /tmp/BESAgent.pkg"
+endif
+continue if {13710637 < free space of drive of folder "/tmp"}
+if {system version >= "10.6"}
+	prefetch BESAgent.pkg sha1:e75f7f4c5a2dfcb9cd468f94f43157406bf5bdb6 size:9097763 http://software.bigfix.com/download/bes/90/BESAgent-9.0.787.0-BigFix_MacOSX10.6.pkg
+	move __Download/BESAgent.pkg /tmp/BESAgent.pkg
+	continue if {exists file "/tmp/BESAgent.pkg"}
+elseif {system version >= "10.5"}
+	prefetch BESAgentUpgrade.dmg sha1:96397fbb2b423baebea15518fffa4af1e6c22898 size:13710637 http://software.bigfix.com/download/bes/90/BESAgent-9.0.787.0-BigFix_MacOSX10.5Upgrade.dmg
+	continue if {exists file "__Download/BESAgentUpgrade.dmg"}
+	delete "/tmp/BESAgentUpgrade.dmg"
+	move __Download/BESAgentUpgrade.dmg /tmp/BESAgentUpgrade.dmg 
+	wait hdiutil attach -quiet -private -mountpoint "/tmp/bfclientmnt" /tmp/BESAgentUpgrade.dmg
+	wait cp -r "/tmp/bfclientmnt/BESAgent-9.0.787.0-BigFix_MacOSX10.5.pkg" "/tmp/BESAgent.pkg"
+	wait /bin/sh -c "hdiutil detach -force `mount | grep /tmp/bfclientmnt | cut -f 1 -d \ | cut -f 3 -d / | head -1`"
+	delete "/tmp/BESAgentUpgrade.dmg"
+	continue if {exists folder "/tmp/BESAgent.pkg"}
+else
+	// No Known Configuration
+	continue if false
+endif
+// The following line may show as Failed if the command executes a restart of the client - This is normal behaviour on success
+wait /bin/sh -c "trap '' 15; installer -allowUntrusted -pkg /tmp/BESAgent.pkg -target /"
+// If we get here and this fails, the install didn't succeed
+continue if {exit code of action = 0}]]></ActionScript>
+			<SuccessCriteria Option="CustomRelevance"><![CDATA[version of client < "9.0.787.0"]]></SuccessCriteria>
+		</DefaultAction>
+	</Fixlet>
+</BES>

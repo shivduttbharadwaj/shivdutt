@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>3034348: "Access denied" error when you use a Windows Store app to configure printer property settings in Windows - Windows Server 2012 R2 Gold - KB3034348 (x64) (V3.0)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Install this update to resolve issues in Windows.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> To deploy this Fixlet, ensure that Windows Update service is not disabled.<br><br><B>Note:</B> This update is also referenced under KB3034348.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.47 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(((name of it = "Win2012" AND (value "CurrentVersion" of it as string is "6.3" AND value "ProductName" of it as string does not contain "2016") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry) OR name of it = "Win2012R2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB3034348~31bf3856ad364e35~amd64~~6.3.3.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB3034348~31bf3856ad364e35~amd64~~6.3.3.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else (((exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Client-Drivers-Package-printscan~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-ServerCore-Drivers-Package-printscan~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Server-Drivers-Package-printscan~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_prnms003.inf_31bf3856ad364e35_none_ef7bca8db7ac2aa4" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it OR exists key "x86_prnms003.inf_31bf3856ad364e35_none_935d2f09ff4eb96e" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-printscan~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Printing-Server-Print-Client-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-p..randprintui-asyncui_31bf3856ad364e35_none_2638ddda4287ee3b" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Client-Features-Package-AutoMerged-printscan~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Printing-Server-Subsystem-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-p..installerandprintui_31bf3856ad364e35_none_77bbbf5f5e8e5bd4" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-p..ooler-core-localspl_31bf3856ad364e35_none_96226b10143fef9d" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it OR exists key "amd64_microsoft-windows-p..ooler-networkclient_31bf3856ad364e35_none_6cd7f765df1cd57e" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Printing-PremiumTools-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Printing-Server-Features-Package~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "amd64_microsoft-windows-p..erandprintui-pmcppc_31bf3856ad364e35_none_977eec498806a718" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Printing-Server-Print-Client-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-printscan~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_microsoft-windows-p..randprintui-asyncui_31bf3856ad364e35_none_308d882c76e8b036" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it) of item 1 of it OR (exists keys ("Package_for_KB2919355~31bf3856ad364e35~amd64~~6.3.1.14") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it AND exists keys ("Microsoft-Windows-Printing-Server-Subsystem-WOW64-Package~31bf3856ad364e35~amd64~~6.3.9600.16384";"Microsoft-Windows-Client-Features-WOW64-Package-AutoMerged-printscan~31bf3856ad364e35~amd64~~6.3.9600.16384") whose ((it = 7 OR it = 112) of (value "CurrentState" of it as integer)) of it) of item 0 of it AND (exists key "wow64_microsoft-windows-p..installerandprintui_31bf3856ad364e35_none_821069b192ef1dcf" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it OR exists key "wow64_microsoft-windows-p..ooler-networkclient_31bf3856ad364e35_none_772ca1b8137d9779" whose (exists key (if (exists default value of it) then default value of it as string else "6.3") whose ((it >= "6.3.9600" AND it < "6.3.9600.18050") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "db3543dc23c9f12b06edfa5c89da9773bdd44576"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>3641578</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB3034348</SourceID>
+		<SourceReleaseDate>2015-10-20</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 16 Mar 2015 13:37:22 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2012 R2 Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2012R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 29 Oct 2016 10:14:51 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows8.1-KB3034348-v3-x64.msu sha1:db3543dc23c9f12b06edfa5c89da9773bdd44576 size:3641578 https://download.microsoft.com/download/B/4/8/B48FC642-E573-425B-BF94-A7E7D705E468/Windows8.1-KB3034348-v3-x64.msu sha256:d1de84bdbe843921e0b6b7f7264b4ed4254567e5bdd4a646f5c6fe670c5bae06
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows8.1-KB3034348-v3-x64.msu"}" /quiet /norestart
+
+action requires restart "db3543dc23c9f12b06edfa5c89da9773bdd44576"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/3034348</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

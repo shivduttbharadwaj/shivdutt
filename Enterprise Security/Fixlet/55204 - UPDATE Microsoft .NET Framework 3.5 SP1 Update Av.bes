@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Microsoft .NET Framework 3.5 SP1 Update Available - Windows Vista/2008 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released and update <SPAN>to address a set of known application compatibility issues with Microsoft .NET Framework 3.5 Service Pack 1.</SPAN></P> <P><SPAN><STRONG>Note: </STRONG>The following updates will be applied as part of this fixlet.</SPAN></P> <UL> <LI><SPAN><SPAN>Update for the .NET Framework 2.0 Service Pack 2 - <A href="http://support.microsoft.com/kb/958481">KB958481</A></SPAN></SPAN> <LI><SPAN><SPAN>Update for the .NET Framework 3.0 Service Pack 2 - <A href="http://support.microsoft.com/kb/958483">KB958483</A></SPAN></SPAN> <LI><SPAN><SPAN><SPAN>Update for the .NET Framework 3.5 Service Pack 1 - <A href="http://support.microsoft.com/kb/958484">KB958484</A></SPAN></SPAN></SPAN></LI></UL> <P><SPAN><SPAN><SPAN><STRONG>Note:</STRONG> Client machines may briefly display DOS windows during action execution.</SPAN></SPAN></SPAN></P> <P><SPAN><SPAN><SPAN><STRONG>Note:</STRONG> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</SPAN></SPAN></SPAN></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+27.0 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP" whose ((exists keys whose (name of it starts with "v2.0" and (value "SP" of it = 2)) of it) AND (exists keys whose (name of it starts with "v3.0" and (value "SP" of it = 2)) of it) AND (exists keys whose (name of it starts with "v3.5" and (value "SP" of it = 1)) of it)) of x64 registry</Relevance>
+		<Relevance>(it = "WinVista" OR it = "Win2008") of name of operating system</Relevance>
+		<Relevance>NOT exists key whose ((it contains "KB958484") of (value "DisplayName" of it as string)) of key "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Relevance>NOT pending restart "e69006433c1006c53da651914dc8162bbdd80d41"</Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>28391225</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB959209</SourceID>
+		<SourceReleaseDate>2009-01-21</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// Update for .NET Framework 2.0 SP2
+if {disjunction of ((exists file "aspnet_wp.exe" whose (version of it < "2.0.50727.3074") of it OR exists file "mscordacwks.dll" whose (version of it < "2.0.50727.3074") of it OR exists file "mscorjit.dll" whose (version of it < "2.0.50727.3074") of it OR exists file "mscorlib.dll" whose (version of it < "2.0.50727.3074") of it OR exists file "System.Data.OracleClient.dll" whose (version of it < "2.0.50727.3074") of it OR exists file "System.XML.dll" whose (version of it < "2.0.50727.3074") of it OR exists file "webengine.dll" whose (version of it < "2.0.50727.3074") of it OR exists file "mscorwks.dll" whose (version of it < "2.0.50727.3074") of it OR exists file "System.Web.dll" whose (version of it < "2.0.50727.3074") of it) of folders ((it as string & "v2.0.50727") of (values "InstallRoot" of keys "HKLM\Software\Microsoft\.NETFramework" of (registry ; x64 registry))))}
+prefetch Windows6.0-KB958481-x64.msu sha1:f7e13237b0f0c5af69163e52002a7bf2de0e2477 size:16675847 http://download.microsoft.com/download/B/4/2/B42197BD-AEE1-4FE6-8CB3-29D60D0C3727/Windows6.0-KB958481-x64.msu sha256:4c89ef119a47f4c802911feef536487f591e1d4da36922659234152f5e4f9f8f
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB958481-x64.msu"}" /quiet /norestart
+endif
+
+
+// Update for .NET Framework 3.0 SP2
+if {(disjunction of (((exists file "System.ServiceModel.dll" whose (version of it < "3.0.4506.2230") of folder "Windows Communication Foundation" of it) OR (exists file "Wpfgfx_v0300.dll" whose (version of it < "3.0.6920.1500") of folder "WPF" of it)) of folders ((it as string & "v3.0") of (values "InstallRoot" of keys "HKLM\Software\Microsoft\.NETFramework" of (registry ; x64 registry)))) OR disjunction of ((exists file "System.ServiceModel.dll" whose (version of it < "3.0.4506.2230") of it OR exists file "PresentationFramework.dll" whose (version of it < "3.0.6920.1500") of it) of folders ((it as string) of values "All Assemblies In" of keys "HKLM\Software\Microsoft\.NETFramework\AssemblyFolders\v3.0" of (registry ; x64 registry))))}
+prefetch Windows6.0-KB958483-x64.msu sha1:2a91d33f352abdae5c105990271a69d322221fb3 size:10243026 http://download.microsoft.com/download/B/4/2/B42197BD-AEE1-4FE6-8CB3-29D60D0C3727/Windows6.0-KB958483-x64.msu sha256:bb6b04ee0c5c4e2c31714c1abd96848763ece835a0c2260111251709755d3aa2
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.0-KB958483-x64.msu"}" /quiet /norestart
+endif
+
+
+// Update for .NET Framework 3.5 SP1
+prefetch NDP35SP1-KB958484-x64.exe sha1:e69006433c1006c53da651914dc8162bbdd80d41 size:1472352 http://download.microsoft.com/download/B/4/2/B42197BD-AEE1-4FE6-8CB3-29D60D0C3727/NDP35SP1-KB958484-x64.exe sha256:f6afdbc87868f361b5c6487ebcd060763b99e9d7c074c6df844810150d68be60
+
+waithidden "__Download\NDP35SP1-KB958484-x64.exe" /quiet /norestart
+
+
+action requires restart "e69006433c1006c53da651914dc8162bbdd80d41"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft. </PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/959209</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

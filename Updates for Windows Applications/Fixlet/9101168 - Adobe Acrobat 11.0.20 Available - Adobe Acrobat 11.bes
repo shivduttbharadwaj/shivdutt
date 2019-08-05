@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Acrobat 11.0.20 Available - Adobe Acrobat 11.x (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been superseded by Adobe 11.0.21.<br /><br />Adobe has released a new version of Adobe Acrobat. Use the action below to update Adobe Acrobat to the latest version (11.0.20).</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><SPAN id=fixletLinks></SPAN><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade Adobe Acrobat regardless of whether or not Adobe Acrobat is running" action will close any running instance of Adobe Acrobat on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable.</SPAN></P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+247 MB 
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2017-3011, CVE-2017-3012, CVE-2017-3013, CVE-2017-3014, CVE-2017-3015, CVE- 2017-3017, CVE-2017-3018, CVE-2017-3019, CVE-2017-3020, CVE-2017-3021, CVE-2017-3022, CVE- 2017-3023, CVE-2017-3024, CVE-2017-3025, CVE-2017-3026, CVE-2017-3027, CVE-2017-3028, CVE- 2017-3029, CVE-2017-3030, CVE-2017-3031, CVE-2017-3032, CVE-2017-3033, CVE-2017-3034, CVE- 2017-3035, CVE-2017-3036, CVE-2017-3037, CVE-2017-3038, CVE-2017-3039, CVE-2017-3040, CVE- 2017-3041, CVE-2017-3042, CVE-2017-3043, CVE-2017-3044, CVE-2017-3045, CVE-2017-3046, CVE- 2017-3047, CVE-2017-3048, CVE-2017-3049, CVE-2017-3050, CVE-2017-3051, CVE-2017-3052, CVE- 2017-3053, CVE-2017-3054, CVE-2017-3055, CVE-2017-3056, CVE-2017-3057, CVE-2017-3065
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>((NOT x64 of operating system AND (((name of it = "WinXP") AND service pack major version of it = 3) OR (value "ProductName" of it = "Microsoft Windows Server 2003 R2") of key "HKLM\Software\Microsoft\Windows NT\CurrentVersion\" of registry)) OR ((x64 of it AND service pack major version of it = 2) of operating system AND ((name of it = "WinXP-2003" AND exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows XP Version 2003\SP3\KB930627" of x64 registry) OR ((value "ProductName" of it = "Microsoft Windows Server 2003 R2") of key "HKLM\Software\Microsoft\Windows NT\CurrentVersion\" of registry AND exists key "HKLM\SOFTWARE\Microsoft\Updates\Windows Server 2003\SP3\KB930627" of x64 registry))) OR name of it = "Win2008" OR name of it = "Win2008R2" OR name of it = "Win7" OR name of it = "Win8" OR name of it = "Win2012" OR name of it = "Win8.1" OR name of it = "Win2012R2") of operating system OR ((it starts with "Win" AND it does not start with "Win20") of name of operating system AND (exists value "CurrentMajorVersionNumber" of it AND value "CurrentMajorVersionNumber" of it as integer = 10) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" of native registry)</Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "7")]]></Relevance>
+		<Relevance><![CDATA[(exists key whose (value "DisplayName" of it as string contains "Adobe Acrobat" AND (it >= "11.0.0" AND it < "11.0.20") of (value "DisplayVersion" of it as string as version)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>259026944</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB17-11</SourceID>
+		<SourceReleaseDate>2017-04-11</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2017-3011, CVE-2017-3012, CVE-2017-3013, CVE-2017-3014, CVE-2017-3015, CVE- 2017-3017, CVE-2017-3018, CVE-2017-3019, CVE-2017-3020, CVE-2017-3021, CVE-2017-3022, CVE- 2017-3023, CVE-2017-3024, CVE-2017-3025, CVE-2017-3026, CVE-2017-3027, CVE-2017-3028, CVE- 2017-3029, CVE-2017-3030, CVE-2017-3031, CVE-2017-3032, CVE-2017-3033, CVE-2017-3034, CVE- 2017-3035, CVE-2017-3036, CVE-2017-3037, CVE-2017-3038, CVE-2017-3039, CVE-2017-3040, CVE- 2017-3041, CVE-2017-3042, CVE-2017-3043, CVE-2017-3044, CVE-2017-3045, CVE-2017-3046, CVE- 2017-3047, CVE-2017-3048, CVE-2017-3049, CVE-2017-3050, CVE-2017-3051, CVE-2017-3052, CVE- 2017-3053, CVE-2017-3054, CVE-2017-3055, CVE-2017-3056, CVE-2017-3057, CVE-2017-3065</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 12 Apr 2017 11:04:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2017-08-09</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:acrobat:11.0.20:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Acrobat</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 18 Apr 2019 04:40:44 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AcrobatUpd11020.msp sha1:a9405720a3e8e7b64ced0c2451b2bd798d08e71a size:259026944 http://ardownload.adobe.com/pub/adobe/acrobat/win/11.x/11.0.20/misc/AcrobatUpd11020.msp sha256:46008fe68e2c7d2a00da29a9a2c85b52dea7fdcac3f84a71c6d3caa2e15223cd
+
+wait msiexec.exe /p "__Download\AcrobatUpd11020.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "a9405720a3e8e7b64ced0c2451b2bd798d08e71a"</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Adobe Acrobat regardless of whether or not Adobe Acrobat is running.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch AcrobatUpd11020.msp sha1:a9405720a3e8e7b64ced0c2451b2bd798d08e71a size:259026944 http://ardownload.adobe.com/pub/adobe/acrobat/win/11.x/11.0.20/misc/AcrobatUpd11020.msp sha256:46008fe68e2c7d2a00da29a9a2c85b52dea7fdcac3f84a71c6d3caa2e15223cd
+
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrobat /a" else "taskkill /F /IM acrobat.exe"}
+
+wait msiexec.exe /p "__Download\AcrobatUpd11020.msp" REINSTALL=ALL REINSTALLMODE=omu /qn
+
+action may require restart "a9405720a3e8e7b64ced0c2451b2bd798d08e71a"</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Acrobat.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=6137</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#acrobatwin</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

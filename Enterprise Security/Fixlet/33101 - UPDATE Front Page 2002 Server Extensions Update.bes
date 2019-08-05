@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Front Page 2002 Server Extensions Update</Title>
+		<Description><![CDATA[
+Microsoft has released an update for FrontPage 2002 Server Extensions. This update fixes several issues with FrontPage 2002 Server Extensions.<BR><BR><b>Note:</b> The BigFix program <b>requires</b> this update to establish a baseline for vulnerability analysis.<BR><BR><b>Note:</b> Affected computers will report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><b>Size:</b> 1.45 MB<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\FrontPage 5.0" of registry</Relevance>
+		<Relevance><![CDATA[exists file "fp5awel.dll" whose (version of it < "10.0.3214.0" and version of it >= "10.0.0.0") of folder (preceding text of last "\" of (value "EventMessageFile" of key "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\FrontPage 5.0" of registry as string))]]></Relevance>
+		<Relevance>not pending restart "155309844bbc53cef283859daf94f5b162d2c193"</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>1526304</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2002-04-19</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Front Page 2002</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch fpse1001.exe sha1:155309844bbc53cef283859daf94f5b162d2c193 size:1526304 http://download.microsoft.com/download/FrontPage2002/fpse1001/1/W98NT42KMeXP/EN-US/fpse1001.exe sha256:944241d5d79d3deb593a700d5579da0b5744113ece661d754ef38af6ea81ddaa
+wait __download/fpse1001.exe /Q:A /R:N
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart "155309844bbc53cef283859daf94f5b162d2c193"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/default.aspx?scid=kb;en-us;Q317296</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

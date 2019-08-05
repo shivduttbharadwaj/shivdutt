@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-036: Buffer Overrun in WordPerfect Converter Could Allow Code Execution - Office 2000 Applications - Windows 2000/NT/XP (Administrative Installation)</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P><FONT size=2>Microsoft has released a patch eliminating a vulnerability in the WordPerfect document converter.  The converter has an unchecked buffer which could result in an malicious user crafting a WordPerfect document that could allow the user to execute arbitrary code if an application that used the WordPerfect converter opened the document.  Microsoft Word, PowerPoint, FrontPage, Publisher, and the Microsoft Works Suite can all use the WordPerfect converter.  After installation of this patch, affected computers will no longer be susceptible to this vulnerability. </P> <P><STRONG>Note:</STRONG> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.</FONT></P> <P><FONT size=2><FONT face=Verdana><STRONG>Note: </STRONG>In preparation for deploying this update through an Administrative Installation Point, you must apply this patch to all Administrative Installation Points in your network. For instructions on how to install this patch to your Administrative Installation Point, please browse to the following link: <A href="http://www.microsoft.com/office/ork/xp/journ/wpft0901a.htm">http://www.microsoft.com/office/ork/xp/journ/wpft0901a.htm</A><A href="http://www.microsoft.com/office/ork/xp/journ/wpft1001a.htm"></A><A href="http://support.microsoft.com/default.aspx?kbid=824936"></A></FONT></FONT><FONT face=Verdana><FONT size=2>. Once you have updated your administrative installation point, you may deploy this patch.</FONT></FONT></P> <P><FONT size=2><STRONG>Note: </STRONG>Some Office updates will<STRONG> force</STRONG> the affected computer to restart without displaying a warning message if Office applications are open when this update is run. To prevent this from happening, shut down all Office applications prior to applying this update.</FONT></P> <P> </P><P><B>Note:</B> This security update is also referenced under KB824993.</P><P><B>Note:</B> There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #<a href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</a>.</P><P><SPAN id=dashboardLink></SPAN><SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false;  document.body.onload = SetOfficeOverviewLink; function SetOfficeOverviewLink() { try {if (isEvansOrLater) { dashboardLink.innerHTML = Relevance('(format "<?rxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the {0}.?>" +  link "<?rxlat Microsoft Office Overview Dashboard?>" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string ) as string');} else { dashboardLink.innerHTML = EvaluateRelevance('"<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the " & link "Microsoft Office Overview Dashboard" of bes wizard whose (dashboard id of it = "office_overview.ojo" AND id of site of it = 2) as string & "."');} } catch (e) {if (isEvansOrLater) { dashboardLink.innerHTML ='<?jxlat <b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.?>';} else { dashboardLink.innerHTML = '<b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.';} } } </SCRIPT></P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(exists file "wpft532.cnv" of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry as string & "\microsoft shared\textconv")) AND (version of file "wpft532.cnv" of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of registry as string & "\microsoft shared\textconv") < "2002.1100.5510.0")]]></Relevance>
+		<Relevance><![CDATA[(exists file "msiexec.exe" of system folder) AND (version of file "msiexec.exe" of system folder >= "2.0")]]></Relevance>
+		<Relevance><![CDATA[((exists regapp "winword.exe" AND version of regapp "winword.exe" = "9" AND version of regapp "winword.exe" >= "9.0.0.6926") OR (exists regapp "excel.exe" AND version of regapp "excel.exe" = "9" AND version of regapp "excel.exe" >= "9.0.0.6627") OR (exists regapp "powerpnt.exe" AND version of regapp "powerpnt.exe" = "9" AND version of regapp "powerpnt.exe" >= "9.0.0.6620") OR (exists regapp "outlook.exe" AND version of regapp "outlook.exe" = "9" AND version of regapp "outlook.exe" >= "9.0.0.6604"))]]></Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\OfficeControl" of registry) AND (value "DeploymentType" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\OfficeControl" of registry = 1)</Relevance>
+		<Relevance>exists key whose ((value "ProductName" of it as string contains "Office 2000") AND (value "ProductName" of it as string does not contain "Media Content") AND (value "ProductName" of it as string does not contain "Multilanguage Pack") AND (value "ProductName" of it) as string does not contain "Resource Kit") of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>302488</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB824938</SourceID>
+		<SourceReleaseDate>2003-09-03</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2003-0666</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>WordPerfect Converter</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process. Please only perform this action once the patch has been delivered to the installation point. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[wait {pathname of system folder}\msiexec.exe /i { "%22" & preceding text of (first "%00" of (following text of (last ";" of ((value "LastUsedSource" of key "SourceList" of key whose ((value "ProductName" of it as string contains "Office 2000") AND (value "ProductName" of it as string does not contain "Media Content") AND (value "ProductName" of it as string does not contain "Multilanguage Pack") AND (value "ProductName" of it as string does not contain "Disc") AND (value "ProductName" of it) as string does not contain "Resource Kit") of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry as string) & "%00")))) & value "PackageName" of key "SourceList" of key whose (value "ProductName" of it as string contains "Office 2000" AND (value "ProductName" of it as string does not contain "Media Content") AND (value "ProductName" of it as string does not contain "Multilanguage Pack") AND (value "ProductName" of it as string does not contain "Disc") AND (value "ProductName" of it as string does not contain "Resource Kit")) of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry as string & "%22"} REINSTALL=TextConverters,TCWP5Files REINSTALLMODE=vomus /Q]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-036.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-036.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

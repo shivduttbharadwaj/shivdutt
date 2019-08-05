@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS01-043: NNTP Service in Windows NT 4.0 Contains Memory Leak</Title>
+		<Description><![CDATA[
+Microsoft has released a patch to eliminate a memory leak in the NNTP (Network News Transport Protocol) service in Windows NT 4.0. According to Microsoft, the service contains a memory leak in a routine that processes news postings of a particular construction. If an attacker sent a large number of posts, the server memory could be depleted to the point at which normal service would be disrupted. An affected server could be restored to normal service by stopping and starting the IISAdmin service. <BR><BR><b>Note:</b> Affected computers will report back as 'Fixed' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR><BR><b>Note: </b>Client machines may briefly display a command prompt window during installation of this update.<BR><BR><b>File Size: </b>1.08 MB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[(name of operating system = "WinNT") AND (csd version of operating system >= "Service Pack 6") AND (exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix\Q246009" of registry) AND (value "Installed" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Hotfix\Q246009" of registry = 1)]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\MCIS 2.0 / 2.5\NOSP\Q304876" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\NntpSvc" of registry</Relevance>
+		<Relevance><![CDATA[name of operating system != "Win2000" OR (name of operating system = "Win2000" AND (csd version of operating system does not contain "Service Pack" OR first 1 of following text of last "Service Pack " of csd version of operating system as integer < 3))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>1137024</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB304876</SourceID>
+		<SourceReleaseDate>2001-08-14</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2001-0543</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinNT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q304876engi386.EXE sha1:0cabd52a3336135a6b764480502e7dd031c43fce size:1137024 http://download.microsoft.com/download/winntsp/Patch/q304876/NT4/EN-US/Q304876engi386.EXE sha256:05d630e495322eb98b5a64e8df488657fee234b9ad2769b9af047b8e5bcab26f
+wait __download\Q304876engi386.EXE /s
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS01-043.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2001/MS01-043</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

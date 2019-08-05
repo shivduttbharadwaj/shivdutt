@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS18-OCT: Security update for Word 2010 - Word 2010 SP2 - KB4092439 (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><STRONG>Note:</STRONG> This update has been superseded by KB4461526.<br /><br /><div><br><p>This security update resolves vulnerabilities in Microsoft Office that could allow remote code execution if a user opens a specially crafted Office file. To learn more about these vulnerabilities, see <a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/ADV180026" managed-link="" target="_blank">Security Advisory ADV180026</a>&nbsp;and&nbsp;<a data-content-id="" data-content-type="" href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-8504" managed-link="" target="_blank">Microsoft Common Vulnerabilities and Exposures CVE-2018-8504</a>.<br><br><br><br><strong>Note</strong> To apply this security update, you must have the release version of <a data-content-id="" data-content-type="" href="http://support.microsoft.com/kb/2687455" managed-link="" target="_blank">Service Pack 2 for Office 2010</a> installed on the computer.</p><br></div><br><p><B>Note:</B> This security update is also referenced under KB4092439.</p></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+27.0 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance>(exists keys ("00004109810000000000000000F01FEC";"00004119D11000000000000000F01FEC";"00004109710000000000000000F01FEC";"00004109D30000000000000000F01FEC";"00004109160000000000000000F01FEC";"00004119910000000000000000F01FEC";"00004109910000000000000000F01FEC";"00004109260000000000000000F01FEC";"00004119810000000000000000F01FEC";"00004119210000000000000000F01FEC";"00004119110000000000000000F01FEC";"00004119410000000000000000F01FEC";"00004119310000000000000000F01FEC";"00004119330000000000000000F01FEC";"00004109110000000000000000F01FEC";"00004109660000000000000000F01FEC";"00004109B80000000000000000F01FEC";"00004109210000000000000000F01FEC";"00004119B10000000000000000F01FEC";"00004119A10000000000000000F01FEC";"00004109A10000000000000000F01FEC";"00004119B80000000000000000F01FEC";"00004109B10000000000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "14.0.7015.1000") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "178AAF97E2B43A24ABDD31EB07968741" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((not exists key whose (exists key whose (value "ProductVersion" of it as string as version = "14.0" AND "|MSWORD.OLB|WINWORD.EXE|WORDICON.EXE|WRD12CNV.DLL|WWLIB.DLL|" contains ("|" & value "File" of it as string as uppercase & "|")) of it) of it) OR (exists keys whose (number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it > 0 AND number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version)) of it = number of keys whose ((it = "14.0") of (value "ProductVersion" of it as string as version) AND (item 0 of it = "MSWORD.OLB" AND (item 3 of it = "14.0.7162.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Thu, 13 Sep 2018 20:26:04 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7162.5000") OR item 0 of it = "WINWORD.EXE" AND (item 3 of it = "14.0.7214.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Thu, 13 Sep 2018 20:26:04 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7214.5000") OR item 0 of it = "WORDICON.EXE" AND (item 3 of it = "14.0.7120.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Thu, 13 Sep 2018 20:26:04 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7120.5000") OR item 0 of it = "WRD12CNV.DLL" AND (item 3 of it = "14.0.7214.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Thu, 13 Sep 2018 20:26:04 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7214.5000") OR item 0 of it = "WWLIB.DLL" AND (item 3 of it = "14.0.7214.5000" AND (item 1 of it OR item 2 of it AND (concatenation "|" of (names of keys whose (modification time of file (value "LocalPackage" of it as string) < "Thu, 13 Sep 2018 20:26:04 GMT" as time) of item 5 of it) contains item 4 of it)) OR item 3 of it < "14.0.7214.5000")) of (value "File" of it as string as uppercase, value "IsFullFile" of it as integer = 0, (exists value "PatchGUID" of it AND ("|{79FAA871-4B2E-42A3-BADD-13BE70697814}|" does not contain ("|" & value "PatchGUID" of it as string as uppercase & "|"))), value "ComponentVersion" of it as string as version, ((character 8 of it & character 7 of it & character 6 of it & character 5 of it & character 4 of it & character 3 of it & character 2 of it & character 1 of it & character 13 of it & character 12 of it & character 11 of it & character 10 of it & character 18 of it & character 17 of it & character 16 of it & character 15 of it & character 21 of it & character 20 of it & character 23 of it & character 22 of it & character 26 of it & character 25 of it & character 28 of it & character 27 of it & character 30 of it & character 29 of it & character 32 of it & character 31 of it & character 34 of it & character 33 of it & character 36 of it & character 35 of it) of (value "PatchGUID" of it as string) | ""), key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Patches" of native registry)) of it) of it)) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" of native registry]]></Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>28269392</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB4092439</SourceID>
+		<SourceReleaseDate>2018-10-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>ADV180026; CVE-2018-8504</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 10 Oct 2018 04:11:11 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>KB4461526</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:word:2010:sp2:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded-id</Name>
+			<Value>446152603</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2018-11-13</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2010</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Word</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 14 Nov 2018 07:28:23 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch word2010-kb4092439-fullfile-x86-glb.exe sha1:6f584c2b2ed3a20eba5152379decd395bb0dfd6a size:28269392 https://download.microsoft.com/download/3/6/5/365BCF8D-45B4-4A09-BD58-28120984FF52/word2010-kb4092439-fullfile-x86-glb.exe sha256:c179ec84fccb2ade99e6f03475fd0c17bb66e9243183456ed82bb1ca47d18add
+
+waithidden __Download\word2010-kb4092439-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "6f584c2b2ed3a20eba5152379decd395bb0dfd6a"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://support.microsoft.com/kb/4092439</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

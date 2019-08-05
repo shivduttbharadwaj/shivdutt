@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Windows 7 Service Pack 1 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Microsoft has released Service Pack&nbsp;1 (SP1) for Windows 7. Service Pack&nbsp;1 provides ongoing improvements to the Windows operating system (including previous updates delivered over Windows Update and incremental updates to the Windows 7 platforms based on customer and partner feedback) and makes it easy for organizations to deploy a single set of updates.</P> <P><STRONG>Note:</STRONG> Installation of this update may take more than 1 hour to complete.</P> <P><STRONG>Note:</STRONG> Once this Fixlet message has completed its action, affected computers will report back 'Pending Restart', but the Service Pack will not be installed until the affected computer is restarted.</P> <P><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> This service pack includes several changes that may impair functionality of existing applications. BigFix <STRONG><FONT color=#ff0000>strongly</FONT></STRONG> recommends that you fully test the deployment of this update prior to rolling out the update in your production environment. </P> <P><B>Note:</B> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #<A href="http://support.bigfix.com/cgi-bin/kbdirect.pl?id=474">474</FONT></A>.</P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+538 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "Win7") of operating system</Relevance>
+		<Relevance>service pack major version of operating system = 0</Relevance>
+		<Relevance>not pending restart "c3516bc5c9e69fee6d9ac4f981f5b95977a8a2fa"</Relevance>
+		<Relevance>not exists key "HKLM\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" whose (exists key whose (name of it starts with "Windows7SP1-KB976933" and (it = 96 or it = 112 or it = 6 or it = 7) of (value "CurrentState" of it as integer)) of it) of registry</Relevance>
+		<Category>Service Pack</Category>
+		<DownloadSize>563934504</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB976932</SourceID>
+		<SourceReleaseDate>2011-02-22</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win7</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 24 Jun 2019 18:53:50 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[continue if {(free space of drive of parent folder of system folder /1048576) >= 4100}
+
+prefetch windows6.1-KB976932-X86.exe sha1:c3516bc5c9e69fee6d9ac4f981f5b95977a8a2fa size:563934504 http://download.microsoft.com/download/0/A/F/0AFB5316-3062-494A-AB78-7FB0D4461357/windows6.1-KB976932-X86.exe sha256:e5449839955a22fc4dd596291aff1433b998f9797e1c784232226aba1f8abd97
+
+waithidden "__Download\windows6.1-KB976932-X86.exe" /quiet /norestart /nodialog
+
+action requires restart "c3516bc5c9e69fee6d9ac4f981f5b95977a8a2fa"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about Windows 7 Service Pack 1.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/en-us/windowsserver/gg635126.aspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS06-058: Vulnerabilities in Microsoft PowerPoint Could Allow Remote Code Execution - PowerPoint 2003 (Administrative Installation)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security patch for PowerPoint 2003. This update resolves several newly-discovered, privately reported and public vulnerabilities. On vulnerable versions of Office, if a user is logged on with administrative user rights, an attacker who successfully exploited this vulnerability could take complete control of the client workstation. <br><br>After downloading and installing this patch, affected computers will no longer be susceptible to these vulnerabilities. <br><br><b>Note:</b> Microsoft has announced that this patch will be included in a future Service Pack.<br><br><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted. <br><br><b>Note:</b> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled. <br><br><b>Note:</b> Some Office updates will <b>force</b> the affected computer to restart without displaying a warning message if Office applications are open when this update is run. To prevent this from happening, shut down all Office applications prior to applying this update. <br><br><B>Note:</B> This security update is also referenced under KB923091.<br><br><B>Note:</B> There is no default action for the Fixlet message because it requires additional preparation before deployment. For more information on default actions, see BigFix KB #474.<br><br><div class="HideFromWebUI"><b>Note:</b> For configuration controls and an overview of your Microsoft Office deployment(s), please see the Microsoft Office Overview Dashboard.</div></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+0
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance><![CDATA[exists regapp "powerpnt.exe" whose ((it >= "11.0.6361.0" AND it < "11.0.8110.0") of version of it)]]></Relevance>
+		<Relevance>((exists key "HKEY_CLASSES_ROOT\Installer\Products" of registry) AND (exists key whose ((value "ProductName" of it as string contains "Office") AND (value "ProductName" of it as string contains "2003") AND ((value "ProductName" of it as string contains "Professional Enterprise Edition") OR (value "ProductName" of it as string contains "Standard Edition") OR (value "ProductName" of it as string contains "Basic Edition") OR (value "ProductName" of it as string contains "Small Business Edition") OR (value "ProductName" of it as string contains "Professional Edition"))) of key "HKEY_CLASSES_ROOT\Installer\Products" of registry))</Relevance>
+		<Relevance><![CDATA[exists folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11") AND exists file "MSOINTL.DLL" whose (language of version block of it contains "English") of (folders of folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Office11"))]]></Relevance>
+		<Relevance>(exists key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\Office2003Control" of registry) AND (value "DeploymentType" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\Office2003Control" of registry = 1)</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2.0") of system folder]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>0</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB924163</SourceID>
+		<SourceReleaseDate>2006-10-10</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2006-3435; CVE-2006-3876; CVE-2006-3877; CVE-2006-4694</CVENames>
+		<SANSID>SANS W03</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>PowerPoint</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2003</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 17 Jul 2019 00:05:09 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[wait {pathname of system folder}\msiexec.exe /i {preceding text of (first "%00" of (following text of (last ";" of ((value "LastUsedSource" of key "SourceList" of key whose ((value "ProductName" of it as string contains "Office") AND (value "ProductName" of it as string contains "2003") AND ((value "ProductName" of it as string contains "Professional Enterprise Edition") OR (value "ProductName" of it as string contains "Standard Edition") OR (value "ProductName" of it as string contains "Basic Edition") OR (value "ProductName" of it as string contains "Small Business Edition") OR (value "ProductName" of it as string contains "Professional Edition"))) of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry as string) & "%00")))) & value "PackageName" of key "SourceList" of key whose ((value "ProductName" of it as string contains "Office") AND (value "ProductName" of it as string contains "2003") AND ((value "ProductName" of it as string contains "Professional Enterprise Edition") OR (value "ProductName" of it as string contains "Standard Edition") OR (value "ProductName" of it as string contains "Basic Edition") OR (value "ProductName" of it as string contains "Small Business Edition") OR (value "ProductName" of it as string contains "Professional Edition"))) of key "HKEY_CLASSES_ROOT\Installer\Products\" of registry as string} REINSTALL=All REINSTALLMODE=vomus REBOOT=REALLYSUPPRESS /Q
+
+action may require restart]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS06-058.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2006/MS06-058</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

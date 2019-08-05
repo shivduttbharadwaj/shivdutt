@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS03-012: Flaw In ISA Firewall Service</Title>
+		<Description><![CDATA[
+Microsoft has released a patch eliminating a security vulnerability in the Microsoft Firewall service in ISA Server 2000.&nbsp; An attacker on the internal network could potentially cause the server to stop responding to internal and external requests. Receipt of such a packet would cause CPU utilization on the server to reach 100%, and thus make the server unresponsive.&nbsp; After applying this patch, affected computers will no longer be susceptible to this vulnerability.<BR><BR><b>File Size:</b> 439 KB<BR><BR><b>Note:</b> This security update is also referenced under KB331066.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system is "Win2000"</Relevance>
+		<Relevance><![CDATA[csd version of operating system >= "Service Pack 2" ]]></Relevance>
+		<Relevance><![CDATA[exists key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry AND exists value "ImagePath" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry AND exists file (preceding text of last "%00" of (value "ImagePath" of key "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\isactrl" of registry as string)) whose (version of it <"4")]]></Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft ISA Server SP" of registry</Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Fpc\Hotfixes\SP1\257" of registry</Relevance>
+		<Relevance>exists running application "wspsrv.exe"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>450056</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB313139</SourceID>
+		<SourceReleaseDate>2003-04-09</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2003-0110</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>ISA Firewall Service</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>ISA Server</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch isahf257.exe sha1:8ecfdc1e26797c3c3b300db5e811985dae3aa60b size:450056 http://download.microsoft.com/download/7/2/6/726527a1-dbfe-4663-bf02-3d3cde3e7aa4/isahf257.exe sha256:460c8b38e2c0c50d3cc825575a89e85dcbf5d13ba02730f0245c8462d2eb6e32
+wait __download/isahf257.exe -q
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS03-012.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS03-012.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-055: Unchecked Buffer in Windows Help Facility - Windows ME</Title>
+		<Description><![CDATA[
+Microsoft has released a security bulletin relating to a vulnerability in the Windows Help Facility in Windows ME. If correctly exploited, it could allow someone to gain complete control of the affected machine. Microsoft recommends that all computers with this vulnerability apply this patch immediately. <BR><BR><b>Note: </b>If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled. <BR><BR><b>Note:</b> Upon completion of its action, affected computers will report 'Pending Restart'. Once they have been restarted, they will report their final status. <BR><BR><b>File Size: </b>493KB<BR><BR><b>Note:</b> This Fixlet message does not have a default action. For more information on default actions, see BigFix KB #474.
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system = "WinME"</Relevance>
+		<Relevance><![CDATA[(exists file "hhctrl.ocx" of system folder AND version of file "hhctrl.ocx" of   system folder < "5.2.3669.0") OR (exists file "hhsetup.dll" of system folder AND version of file "hhsetup.dll" of system folder < "5.2.3644.0") OR (exists file "itircl.dll" of system folder AND version of file "itircl.dll" of system folder < "5.2.3644.0") OR (exists file "itss.dll" of system folder AND version of file "itss.dll" of system folder < "5.2.3644.0") OR (exists file "hh.exe" of windows folder AND version of file "hh.exe" of windows folder < "5.2.3644.0")      ]]></Relevance>
+		<Relevance>not pending restart "e1dd90c4278177762399bccf33b4b58d6b193fa5"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>505664</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB323255</SourceID>
+		<SourceReleaseDate>2002-10-02</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2002-0693; CVE-2002-0694</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinME</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch 323255_ME_A8603D045DB293C8E94F3E330C128ED640938B0D.EXE sha1:e1dd90c4278177762399bccf33b4b58d6b193fa5 size:505664 http://www.download.windowsupdate.com/msdownload/update/v3-19990518/CabPool/323255_ME_A8603D045DB293C8E94F3E330C128ED640938B0D.EXE sha256:06f35785482d4cfb3b18c63f01933e767c356b2d1b8af5f7e3e65598a6e0b7b6
+wait __download\323255_ME_A8603D045DB293C8E94F3E330C128ED640938B0D.EXE /q:a /r:n
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+action requires restart "e1dd90c4278177762399bccf33b4b58d6b193fa5"]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-055.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-055.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

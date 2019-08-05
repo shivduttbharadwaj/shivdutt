@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS02-028: Heap Overrun in HTR chunked encoding - IIS 5.0 - CORRUPT PATCH</Title>
+		<Description><![CDATA[
+The listed computers have faulty installations of a patch for the vulnerability described in MS bulletin MS02-028. Some files being used by these computers have versions earlier than those of the corresponding files installed by the patch. Services or applications installed after the patch was distributed may have overwritten the files, or the initial installation may have been faulty. We recommend reinstalling this patch to ensure the safety of affected computers. <BR><BR>This patch eliminates a security vulnerability in IIS 5.0. A heap overrun vulnerability in the implementation of HTR scripting technology could allow an attacker to cause the server to fail. In some cases the attacker may be able to run arbitrary code on the server. HTR is an outdated scripting technology that is rarely used today. Installing this patch will eliminate the vulnerability. <BR><BR><b>Note:</b> Client machines may briefly display progress windows during installation of this update.<BR><BR><b>Note:</b> This patch is included in Windows 2000 Service Pack 3.<BR><BR><b>File Size:</b> 203 KB
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>exists key "Parameters" whose (value "MajorVersion" of it = 5 AND value "MinorVersion" of it = 0) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\InetMgr" of registry</Relevance>
+		<Relevance>exists key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates\Windows 2000\SP4\Q321599" of registry</Relevance>
+		<Relevance><![CDATA[csd version of operating system contains "Service Pack" AND first 1 of following text of last "Service Pack " of csd version of operating system as integer < 3]]></Relevance>
+		<Relevance><![CDATA[((exists file (pathname of system folder & "\inetsrv" & "\ism.dll")) AND (version of file (pathname of system folder & "\inetsrv" & "\ism.dll") < "5.0.2195.5671"))]]></Relevance>
+		<Relevance>not exists key "HKEY_LOCAL_MACHINE\Software\Microsoft\Updates\Windows 2000\SP4\Q327194" of registry</Relevance>
+		<Relevance>name of operating system = "Win2000"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>208360</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB321599</SourceID>
+		<SourceReleaseDate>2002-06-12</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2002-0364</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-corruptid</Name>
+			<Value>202801</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>IIS</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Q321599_W2K_SP4_X86_EN.exe sha1:9c46e1a15c5b57adb85748602660a1fa0cf495ef size:208360 http://download.microsoft.com/download/win2000platform/Patch/Q321599/NT5/EN-US/Q321599_W2K_SP4_X86_EN.exe sha256:6382b8636d7b238715ff60882a313f18e012e923e5cd3945015ffc68ab62dac7
+wait __download\Q321599_W2K_SP4_X86_EN.exe -q -z
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS02-028.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/bulletin/MS02-028.asp</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

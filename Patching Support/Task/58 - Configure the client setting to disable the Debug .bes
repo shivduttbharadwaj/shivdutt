@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Configure the client setting to disable the Debug Log for Linux Patching</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>Click the Action below to set the client setting to disable the Debug log for Linux patching. This reverts the setting to the standard log setting.</TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance><![CDATA[((name of it as lowercase contains "red hat" and version of it >= "6") or (name of it as lowercase starts with "linux centos" and version of it >= "6")) of operating system]]></Relevance>
+		<Relevance>exists setting "_BESClient_LinuxPatch_enable_debug_log" whose (value of it = "1") of client</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2014-03-21</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 28 Apr 2017 05:54:00 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 31 May 2017 04:56:00 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">setting delete "_BESClient_LinuxPatch_enable_debug_log" on "{parameter "action issue date" of action}" for client</ActionScript>
+		</DefaultAction>
+	</Task>
+</BES>

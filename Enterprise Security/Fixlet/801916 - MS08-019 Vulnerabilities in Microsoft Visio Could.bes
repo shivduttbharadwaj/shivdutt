@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS08-019: Vulnerabilities in Microsoft Visio Could Allow Remote Code Execution - Visio 2007 Gold (Superseded)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This update has been superseded because Microsoft has stopped offering the deployed binary.<br /><br />Microsoft has released a security update that resolves privately reported vulnerabilities in Microsoft Office Visio that could allow remote code execution if a user opens a specially crafted Visio file. An attacker who successfully exploited this vulnerability could take complete control of an affected system. An attacker could then install programs; view, change, or delete data; or create new accounts with full user rights. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B><FONT color=#ff0000>Important Note:</FONT></B> There are known issues associated with the installation of this update. See the Known Issues section of the security bulletin for more information.<BR><BR><B>Note:</B> Microsoft has announced that this update&nbsp;will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> If this patch has already been installed on computers reporting relevant, it means that one or more files updated by the patch have been downgraded to unsafe versions. In order to ensure security, it is recommended that the patch be reinstalled.<BR><BR><B>Note:</B> This security update is also referenced under KB947590.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+15.3 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>FALSE</Relevance>
+		<Relevance><![CDATA[exists file "msiexec.exe" whose (version of it >= "2.0") of system folder]]></Relevance>
+		<Relevance><![CDATA[exists key whose ((((length of it = 38) AND (it contains "000000FF1CE}") AND ((it = "0000" OR (hexadecimal integer it = 1033)) of last 4 of (first 19 of it)) AND ((it = "0051" OR it = "0053") of last 4 of (first 14 of it))) of (name of it)) AND exists value "DisplayName" whose (it as string contains "Visio") of it AND exists value "DisplayVersion" whose (it as string as version < "12.0.6215.1000") of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry]]></Relevance>
+		<Relevance><![CDATA[(exists file "aec.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "bstorm.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "dbengr.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "drilldwn.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "dwgdp.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "facility.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "gantt.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "hvac.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "orgchart.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "orgchwiz.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "pe.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "sg.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "timesoln.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "uml.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "visbrgr.dll" whose (version of it < "12.0.6303.5000") of it OR exists file "visgrf.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "visio.exe" whose (version of it < "12.0.6300.5000") of it OR exists file "vislib.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "visocx.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "visweb.dll" whose (version of it < "12.0.6300.5000") of it OR exists file "xfunc.dll" whose (version of it < "12.0.6300.5000") of it) of folder (pathname of parent folder of regapp "visio.exe" whose (version of it ="12")) OR exists file "visfilt.dll" whose (version of it < "12.0.6300.5000") of (folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Shared\Visio Shared"))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>16012528</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB949032</SourceID>
+		<SourceReleaseDate>2008-04-08</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2008-1089; CVE-2008-1090</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-superseded_date</Name>
+			<Value>2019-06-19</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Visio</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2007</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement Windows Applications Microsoft</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 20 Jun 2019 18:55:56 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch visio2007-kb947590-fullfile-x86-glb.exe sha1:49210f5f59aa01aac8d22bb48190d6a20cd832f8 size:16012528 http://download.microsoft.com/download/f/a/3/fa33f609-800c-494e-8fcc-3c5617485ec9/visio2007-kb947590-fullfile-x86-glb.exe sha256:955c03e37ba13f6d2c85d11a53bb4a366db049058d1eb9c2194b318f66c31253
+
+wait __Download\visio2007-kb947590-fullfile-x86-glb.exe /quiet /norestart
+
+run "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" "{pathname of client folder of site "BESSupport" & "\qchain.exe"}"
+
+action may require restart "49210f5f59aa01aac8d22bb48190d6a20cd832f8"
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS08-019.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS08-019.mspx</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for information on troubleshooting Office patches.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.bigfix.com/cgi-bin/kbdirect.pl?id=129</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

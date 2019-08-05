@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Windows Installer 4.5 for Windows XP SP2/SP3</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+Microsoft has released Windows Installer version 4.5. The Windows Installer is an installation and configuration service that is required to set up numerous new software products on Microsoft operating systems. The listed computers either have no Windows Installer installed or have an earlier version of the Windows Installer. <BR><BR><b>Note:</b> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but the vulnerability will not be closed until the affected computer is restarted.<BR>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+3.17 MB
+ </DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(name of it = "WinXP" AND (service pack major version of it = 3 OR service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[(not exists file "msiexec.exe" of system folder) OR (version of file "msiexec.exe" of system folder < "4.5.6001.22159") OR (not exists file "msi.dll" of system folder) OR (version of file "msi.dll" of system folder < "4.5.6001.22159")]]></Relevance>
+		<Relevance>not exists running application "msiexec.exe"</Relevance>
+		<Relevance>NOT exists key whose (name of it starts with "KB942288") of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\HotFix" of registry</Relevance>
+		<Category>Update</Category>
+		<DownloadSize>3327000</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB942288</SourceID>
+		<SourceReleaseDate>2008-06-02</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<SANSID>Unspecified</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Windows Installer</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 12 Aug 2016 17:01:58 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsXP-KB942288-v3-x86.exe sha1:86e1cc622dbf4979717b8f76ad73220cdb70400b size:3327000 http://download.microsoft.com/download/2/6/1/261fca42-22c0-4f91-9451-0e0f2e08356d/WindowsXP-KB942288-v3-x86.exe sha256:acd589b57ed104b5e04a7ce28dc166654c09060c9c31ae8e2c9301fa098bbfa5
+
+wait __download/WindowsXP-KB942288-v3-x86.exe /passive /quiet /norestart
+
+action may require restart</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft's download page for Windows Installer 4.5.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri"><![CDATA[http://www.microsoft.com/downloads/details.aspx?FamilyID=5a58b56f-60b6-4412-95b9-54d056d6f9f4&displaylang=en]]></ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

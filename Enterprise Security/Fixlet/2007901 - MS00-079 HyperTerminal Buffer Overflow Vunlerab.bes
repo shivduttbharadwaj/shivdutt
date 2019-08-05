@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS00-079: "HyperTerminal Buffer Overflow" Vunlerability in Windows ME</Title>
+		<Description><![CDATA[
+Microsoft has released a patch that eliminates a security vulnerability in Windows ME. Using this vulnerability, someone could gain access to affected computers by using the HyperTerminal program and perform any action on those computers. After downloading and installing this patch, affected computers will no longer be susceptible to this vulnerability. <BR><BR><b>Note</b>: Client machines may briefly display progress windows during installation of this update. <BR><BR><b>File Size</b>: 303 KB 
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists value of key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" of registry)</Relevance>
+		<Relevance>not exists key "HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion" whose (exists value "ProductId" of it OR exists value "CommonFilesDir" of it) of registry AND not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>name of operating system  = "WinME"</Relevance>
+		<Relevance>exists no key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Setup\Updates\WinME\UPD274548" of registry</Relevance>
+		<Relevance><![CDATA[(exists regapp "hypertrm.exe") and (version of regapp "hypertrm.exe" < "5.0.0.0")]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>310848</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB274548</SourceID>
+		<SourceReleaseDate>2000-10-18</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>CVE-2000-0991</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>N/A</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>WinME</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 02 Aug 2019 22:33:55 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch 274548USAM.EXE sha1:f48f8513853ca86096b2886fdd6006ac3ec1c2b3 size:310848 http://download.microsoft.com/download/winme/Update/12395/WinMe/EN-US/274548USAM.EXE sha256:3d586be704803e4adfda2b45acf7a3de25193c8b56ca5e84efea0e2a9b5f1655
+
+wait __download/274548USAM.EXE /Q:A /R:N</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS00-079.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2000/MS00-079</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>2450944: Some folders or files are unexpectedly deleted on the upstream server after you restart the DFS Replication service in Windows Server 2003 R2, in Windows Server 2008 or in Windows Server 2008 R2 - Windows Server 2008 R2 - KB2450944 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Install this update to resolve issues in Windows. </P> <P>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.</P><P><STRONG>Note:</STRONG> The hotfix must be manually cached for it to run correctly. For more information on how to manually cache files, see BigFix KB #<A href="http://www-01.ibm.com/support/docview.wss?uid=swg21506037">390</A>.<BR><BR><B><FONT color=#ff0000> <P></P> <P>Important Note: </B></FONT>Hotfixes have no default action.</P></B><B>Note:</B> This update is also referenced under KB2450944.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+1.57 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>((name of it = "Win2008R2")) of operating system</Relevance>
+		<Relevance><![CDATA[if (exists key "ApplicabilityEvaluationCache\Package_for_KB2450944~31bf3856ad364e35~amd64~~6.1.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) then ((set of (7;112) contains item 0 of it AND set of (0;2;4;32;64) contains item 1 of it) of (value "ApplicabilityState" of it as string as integer, value "CurrentState" of it as string as integer) of key "ApplicabilityEvaluationCache\Package_for_KB2450944~31bf3856ad364e35~amd64~~6.1.1.0" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" of native registry) else ((exists keys ("Microsoft.RemoteFileSystems.DFS-FullServerSKU~31bf3856ad364e35~amd64~~6.1.7600.16385";"Microsoft-Windows-DFSN-Server~31bf3856ad364e35~amd64~~6.1.7600.16385";"Microsoft-Windows-DFSR-ServerEdition-Package~31bf3856ad364e35~amd64~~6.1.7600.16385";"Microsoft-Windows-DirectoryServices-DomainController-Package~31bf3856ad364e35~amd64~~6.1.7600.16385";"Microsoft-Windows-DirectoryServices-DomainController-SrvFnd-Package~31bf3856ad364e35~amd64~~6.1.7600.16385") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-dfsr-core-serveronly_31bf3856ad364e35_none_018d6a002e599453" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7600" AND it < "6.1.7600.20928") of (default value of it as string as version)) of it) of it) of item 1 of it OR exists keys ("Microsoft.RemoteFileSystems.DFS-FullServerSKU~31bf3856ad364e35~amd64~~6.1.7601.17514";"Microsoft-Windows-DFSN-Server~31bf3856ad364e35~amd64~~6.1.7601.17514";"Microsoft-Windows-DFSR-ServerEdition-Package~31bf3856ad364e35~amd64~~6.1.7601.17514";"Microsoft-Windows-DirectoryServices-DomainController-Package~31bf3856ad364e35~amd64~~6.1.7601.17514";"Microsoft-Windows-DirectoryServices-DomainController-SrvFnd-Package~31bf3856ad364e35~amd64~~6.1.7601.17514") whose ((it = 6 OR it = 7 OR it = 96 OR it = 112) of (value "CurrentState" of it as integer)) of item 0 of it AND (exists key "amd64_microsoft-windows-dfsr-core-serveronly_31bf3856ad364e35_none_018d6a002e599453" whose (exists key (if (exists default value of it) then default value of it as string else "6.1") whose ((it >= "6.1.7601" AND it < "6.1.7601.21687") of (default value of it as string as version)) of it) of it) of item 1 of it) of (key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" of it, key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide\Winners" of it) of native registry)]]></Relevance>
+		<Relevance>not pending restart "0058b12ba06cbcfffaf6d41e192bb2bbacd69ecc"</Relevance>
+		<Category>Hotfix</Category>
+		<DownloadSize>1651677</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2450944</SourceID>
+		<SourceReleaseDate>2011-04-14</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 05 Aug 2016 10:23:38 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Fri, 05 Aug 2016 10:23:38 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2450944-x64.msu sha1:0058b12ba06cbcfffaf6d41e192bb2bbacd69ecc size:1651677 http://MANUAL_BES_CACHING_REQUIRED/Windows6.1-KB2450944-x64.msu sha256:72c8a6f5fa85052961c8c16688c60288e81f44045e4463ba94e363e3cce67334
+
+// Is Windows Update service running?
+continue if {exists running service "wuauserv" OR NOT exists service "wuauserv" whose (start type of it = "disabled")}
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2450944-x64.msu"}" /quiet /norestart
+
+action requires restart "0058b12ba06cbcfffaf6d41e192bb2bbacd69ecc"  ]]></ActionScript>
+		</Action>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/2450944</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

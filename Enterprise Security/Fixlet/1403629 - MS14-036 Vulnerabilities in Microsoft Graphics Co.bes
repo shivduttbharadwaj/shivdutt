@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS14-036: Vulnerabilities in Microsoft Graphics Component Could Allow Remote Code Execution - Lync Basic 2013 Gold / Lync 2013 Gold - KB2881013</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD><P><STRONG>Note:</STRONG> This patch has been partially superseded by MS15-044. Whereas this Fixlet previously applied to Lync Basic 2013 Gold/SP1 / Lync 2013 Gold/SP1, it now only applies to Lync Basic 2013 Gold / Lync 2013 Gold.</P>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Windows, Microsoft Office, and Microsoft Lync. The vulnerabilities could allow remote code execution if a user opens a specially crafted file or webpage. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This security update is also referenced under KB2881013.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+85.7 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not ia64 of operating system</Relevance>
+		<Relevance>(exists keys ("00005109B21081400000000000F01FEC";"00005109B210E1400000000000F01FEC";"00005109B210F1400000000000F01FEC";"00005109B21022400000000000F01FEC";"00005109B210E0400000000000F01FEC";"00005109B21080400000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4481.1005" OR it = "15.0.4454.1004") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F98630D0EF4DFD743BC66AA994D93C94" of key "Patches" of it) of it OR exists keys ("00005109B210E3400000000000F01FEC";"00005109B210A2400000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4481.1004" OR it = "15.0.4481.1005") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F98630D0EF4DFD743BC66AA994D93C94" of key "Patches" of it) of it OR exists keys ("00005109110000000000000000F01FEC";"00005109B21011400000000000F01FEC";"00005109B210A0C00000000000F01FEC";"00005109B21031400000000000F01FEC";"00005109B21021400000000000F01FEC";"00005109C21000000000000000F01FEC";"00005109B21040800000000000F01FEC";"00005109B21001400000000000F01FEC";"00005109B21090400000000000F01FEC";"00005109B21070400000000000F01FEC";"00005109B21040400000000000F01FEC";"00005109E21000000000000000F01FEC";"00005109D21000000000000000F01FEC";"00005109B210D0400000000000F01FEC";"00005109B21061400000000000F01FEC";"00005109B210C0400000000000F01FEC";"00005119110000000000000000F01FEC";"00005109A20000000100000000F01FEC";"00005109B21091400000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4420.1017") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F98630D0EF4DFD743BC66AA994D93C94" of key "Patches" of it) of it OR exists keys ("00005109B21062400000000000F01FEC";"00005109B21012400000000000F01FEC";"00005109B21050400000000000F01FEC";"00005109B21060400000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4481.1005") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F98630D0EF4DFD743BC66AA994D93C94" of key "Patches" of it) of it OR exists keys ("00005109B21041400000000000F01FEC";"00005109B210B0400000000000F01FEC";"00005109B210D1400000000000F01FEC";"00005109B21051400000000000F01FEC";"00005109B21093400000000000F01FEC";"00005109B21061800000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4481.1005" OR it = "15.0.4433.1507") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F98630D0EF4DFD743BC66AA994D93C94" of key "Patches" of it) of it OR exists keys ("00005109B21052400000000000F01FEC";"00005109B21042400000000000F01FEC";"00005109B210B1400000000000F01FEC";"00005109B21072400000000000F01FEC";"00005109B210A1800000000000F01FEC";"00005109B21020400000000000F01FEC";"00005109B210A1400000000000F01FEC";"00005109B210F3400000000000F01FEC") whose (exists key "InstallProperties" whose ((it = "15.0.4481.1005" OR it = "15.0.4454.1509") of (value "DisplayVersion" of it as string as version)) of it AND not exists key "F98630D0EF4DFD743BC66AA994D93C94" of key "Patches" of it) of it) of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products" of native registry</Relevance>
+		<Relevance><![CDATA[((exists file "AUTOHELPER.DLL" whose ((version of it < "15.0.4617.1000")) of it) OR (exists file "LYNC.APPSHAPI.DLL" whose ((version of it < "5.0.8308.217")) of it) OR (exists file "LYNC.APPSHARINGMEDIAPR.DLL" whose ((version of it < "15.0.4617.1000")) of it) OR (exists file "LYNC.APPSHCOM.DLL" whose ((version of it < "5.0.8308.217")) of it) OR (exists file "LYNC.APPSHVW.DLL" whose ((version of it < "5.0.8308.217")) of it) OR (exists file "LYNC.E.PROPERTYMODEL.DLL" whose ((version of it < "15.0.4519.1000")) of it) OR (exists file "LYNC.LYNC.EXE" whose ((version of it < "15.0.4623.1000")) of it) OR (exists file "LYNC.LYNCDESKTOPVIEWMO.DLL" whose ((version of it < "15.0.4623.1000")) of it) OR (exists file "LYNC.LYNCHTMLCONV.EXE" whose ((version of it < "15.0.4623.1000")) of it) OR (exists file "LYNC.LYNCHTMLCONVPXY.DLL" whose ((version of it < "15.0.4521.1000")) of it) OR (exists file "LYNC.LYNCMODELPROXY.DLL" whose ((version of it < "15.0.4623.1000")) of it) OR (exists file "LYNC.LYNCVDIPLUGIN.DLL" whose ((version of it < "15.0.4619.1000")) of it) OR (exists file "LYNC.MEETINGJOINAXOC.DLL" whose ((version of it < "15.0.4545.1000")) of it) OR (exists file "LYNC.OCHELPER.DLL" whose ((version of it < "15.0.4617.1000")) of it) OR (exists file "LYNC.OCIMPORT.DLL" whose ((version of it < "15.0.4619.1000")) of it) OR (exists file "LYNC.OCINTLDATE.DLL" whose ((version of it < "5.0.8308.224")) of it) OR (exists file "LYNC.OCMSPTLS.DLL" whose ((version of it < "5.0.8308.224")) of it) OR (exists file "LYNC.OCOFFICE.DLL" whose ((version of it < "15.0.4619.1000")) of it) OR (exists file "LYNC.OCOGL.DLL" whose ((version of it < "5.0.8308.224")) of it) OR (exists file "LYNC.OCPPTVIEW.DLL" whose ((version of it < "5.0.8308.224")) of it) OR (exists file "LYNC.OCPPVWINTL.DLL" whose ((version of it < "5.0.8308.224")) of it) OR (exists file "LYNC.OCPUBMGR.EXE" whose ((version of it < "15.0.4623.1000")) of it) OR (exists file "LYNC.OCREC.DLL" whose ((version of it < "15.0.4619.1000")) of it) OR (exists file "LYNC.OCSAEXT.DLL" whose ((version of it < "5.0.8308.224")) of it) OR (exists file "LYNC.PROPERTYMODELPROX.DLL" whose ((version of it < "15.0.4557.1000")) of it) OR (exists file "LYNC.PSOM.DLL" whose ((version of it < "15.0.4619.1000")) of it) OR (exists file "LYNC.RDPQOEMETRICS.DLL" whose ((version of it < "5.0.8308.217")) of it) OR (exists file "LYNC.RTMCODECS.DLL" whose ((version of it < "5.0.8687.86")) of it) OR (exists file "LYNC.RTMMEDIAMANAGER.DLL" whose ((version of it < "5.0.8687.86")) of it) OR (exists file "LYNC.RTMMVRAS.DLL" whose ((version of it < "5.0.8687.86")) of it) OR (exists file "LYNC.RTMMVRCS.DLL" whose ((version of it < "5.0.8687.86")) of it) OR (exists file "LYNC.RTMMVRHW.DLL" whose ((version of it < "5.0.8687.86")) of it) OR (exists file "LYNC.RTMPAL.DLL" whose ((version of it < "5.0.8687.86")) of it) OR (exists file "LYNC.RTMPLTFM.DLL" whose ((version of it < "5.0.8687.86")) of it) OR (exists file "LYNC.SCDEC.DLL" whose ((version of it < "15.0.4617.1000")) of it) OR (exists file "LYNC.UC.DLL" whose ((version of it < "15.0.4623.1000")) of it) OR (exists file "LYNC.UCADDIN.DLL" whose ((version of it < "15.0.4561.1000")) of it) OR (exists file "LYNC.UCCAPI.DLL" whose ((version of it < "15.0.4623.1000")) of it) OR (exists file "LYNC.UCMAPI.EXE" whose ((version of it < "15.0.4619.1000")) of it) OR (exists file "LYNC.UCVDI.DLL" whose ((version of it < "15.0.4623.1000")) of it) OR (exists file "LYNC.VC1DECODERMFTDLL.DLL" whose ((version of it < "5.0.8687.86")) of it) OR (exists file "LYNC.WIN32MSGQUEUE.DLL" whose ((version of it < "15.0.4619.1000")) of it) OR (exists file "LYNCWH.MMVRAIRSPACE.DLL" whose ((version of it < "5.0.7884.0")) of it) OR (exists file "LYNCWH.MMVRCUSTOM.DLL" whose ((version of it < "5.0.7884.0")) of it)) of  (folder (value "ProgramFilesDir" of key "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion" of registry as string & "\Microsoft Office\Office15"))]]></Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>89843464</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2881013</SourceID>
+		<SourceReleaseDate>2014-06-10</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2014-1817; CVE-2014-1818</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 11 Jun 2014 02:41:32 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Graphics Component</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Office 2013</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:lync:2013:gold:*:*:*:*:*:*; cpe:2.3:a:microsoft:lync_basic:2013:gold:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Office</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 02:20:47 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch lync2013-kb2881013-fullfile-x86-glb.exe sha1:e55a3563095b5f5f22b1940cb82244707f2f4f85 size:89843464 http://download.microsoft.com/download/1/F/3/1F3A78E5-0726-4091-92FD-33E1CE1B844D/lync2013-kb2881013-fullfile-x86-glb.exe sha256:eec137394d40265f8d122001c26b647e1475854477559a68e8ce58196d484de5
+
+waithidden __Download\lync2013-kb2881013-fullfile-x86-glb.exe /quiet /norestart
+
+action may require restart "e55a3563095b5f5f22b1940cb82244707f2f4f85"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view this Security Bulletin from Microsoft.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://technet.microsoft.com/library/security/MS14-036</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

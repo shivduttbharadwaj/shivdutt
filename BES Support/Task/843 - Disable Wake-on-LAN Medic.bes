@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Disable Wake-on-LAN Medic</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD>This Task will disable and remove the Wake-on-LAN Medic from the BES Server. This will prevent Scheduled Wake-on-LAN policies from running, and shut down Last Men Standing will no longer be revived.</TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>if (name of operating system contains "Linux") then ((exists folder "BESWoLMedic" of it and exists file whose (name of it = "BESWoLMedic") of folder "BESWoLMedic" of it) of folder "Applications" of folder "/var/opt/BESServer") else ((exists folder "BESWoLMedic" of it and exists file whose (name of it = "BESWoLMedic.exe") of folder "BESWoLMedic" of it) of folder "Applications" of folder (value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string))</Relevance>
+		<Category>Wake-on-LAN</Category>
+		<Source>BigFix</Source>
+		<SourceID><![CDATA[<Unspecified>]]></SourceID>
+		<SourceReleaseDate>2010-08-13</SourceReleaseDate>
+		<SourceSeverity>N/A</SourceSeverity>
+		<CVENames>N/A</CVENames>
+		<SANSID>N/A</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Thu, 17 Nov 2011 19:28:18 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 15 May 2013 22:17:21 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<Action ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to disable the Wake-on-LAN Medic utility.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[if {name of operating system contains "Linux"}
+
+	parameter "applicationsFolder" = "/var/opt/BESServer/Applications"
+	delete __appendfile
+
+	appendfile rm -rf {parameter "applicationsFolder"}/BESWoLMedic
+	appendfile rm -rf {parameter "applicationsFolder"}/Config/BESWoLMedic.xml
+
+	delete "{(pathname of client folder of current site) & "/script"}"
+	move "{pathname of client folder of current site}/__appendfile" "{pathname of client folder of current site}/script"
+	wait chmod 700 "{pathname of client folder of current site}/script"
+	wait "{(pathname of client folder of current site) & "/script"}"
+
+else
+	
+	delete __createfile
+	delete deleteDIR.bat
+
+	createfile until _end_
+	@ECHO OFF 
+	rmdir /S /Q "{ value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\BESWoLMedic" }" > NUL 2> NUL 
+	_end_
+
+	move __createfile deleteDIR.bat
+	wait "{pathname of client folder of site "BESSupport" & "\RunQuiet.exe"}" deleteDIR.bat
+
+	delete "{value "EnterpriseServerFolder" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\Enterprise Server" of registry as string & "Applications\Config\BESWoLMedic.xml"}"
+
+endif]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>MS11-002: Vulnerabilities in Microsoft Data Access Components Could Allow Remote Code Execution - Windows Data Access Components 6.0 - Windows Server 2008 R2 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>Microsoft has released a security update that resolves two privately reported vulnerabilities in Microsoft Data Access Components. The vulnerabilities could allow remote code execution if a user views a specially crafted Web page. An attacker who successfully exploited this vulnerability could gain the same user rights as the local user. Users whose accounts are configured to have fewer user rights on the system could be less impacted than users who operate with administrative user rights.<BR><BR>After downloading and installing this update, affected computers will no longer be susceptible to these vulnerabilities.<BR><BR><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<BR><BR><B>Note:</B> Microsoft has announced that this update will be included in a future service pack or update rollup.<BR><BR><B>Note:</B> This security update is also referenced under KB2419640.<BR></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+2.03 MB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2008R2") AND service pack major version of it = 0) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "odbc32.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) of (system x64 folder) OR (exists file "odbc32.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) of (system wow64 folder) OR ((exists file "msado15.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado20.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado21.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado25.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado26.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado27.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado28.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msadomd.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msadox.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it)) of (folder "SYSTEM\ADO\" of (folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of x32 registry as string)))  OR (exists file "msadco.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) of (folder "SYSTEM\MSADC\" of (folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of x32 registry as string)))  OR ((exists file "msado15.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado20.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado21.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado25.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado26.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado27.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msado28.tlb" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msadomd.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) OR (exists file "msadox.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it)) of  (folder "SYSTEM\ADO\" of (folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of x64 registry as string))) OR (exists file "msadco.dll" whose (((version of it >= "6.1.7600.20000") AND version of it < "6.1.7600.20818") OR (version of it < "6.1.7600.16688")) of it) of  (folder "SYSTEM\MSADC\" of (folder (value "CommonFilesDir" of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion" of x64 registry as string)))]]></Relevance>
+		<Relevance>not pending restart "2a2c8dfc152ca19d5b06eb2a3453abd334ba7c16"</Relevance>
+		<Category>Security Hotfix</Category>
+		<DownloadSize>2126286</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB2419640</SourceID>
+		<SourceReleaseDate>2011-01-11</SourceReleaseDate>
+		<SourceSeverity>Important</SourceSeverity>
+		<CVENames>CVE-2011-0026; CVE-2011-0027</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Wed, 29 Jan 2014 06:58:01 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Data Access Components</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:microsoft:data_access_components:6.0:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 22 Mar 2017 18:31:45 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[prefetch Windows6.1-KB2419640-x64.msu sha1:2a2c8dfc152ca19d5b06eb2a3453abd334ba7c16 size:2126286 http://download.microsoft.com/download/3/B/F/3BF2593D-C834-4C27-A262-81FC0E688B77/Windows6.1-KB2419640-x64.msu sha256:1108e2929431fefaff9d4d251f2118f0498a89caddbb30ab0bc4f3ab8b801731
+
+waithidden "{pathname of system folder & "\wusa.exe"}" "{pathname of client folder of current site & "\__Download\Windows6.1-KB2419640-x64.msu"}" /quiet /norestart
+
+action requires restart "2a2c8dfc152ca19d5b06eb2a3453abd334ba7c16"  
+]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to view Microsoft Security Bulletin MS11-002.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/technet/security/Bulletin/MS11-002.mspx</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

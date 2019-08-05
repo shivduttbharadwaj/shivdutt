@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Task>
+		<Title>Install packages by using zypper</Title>
+		<Description><![CDATA[
+<TABLE><TBODY><TR><TD> <P>This task uses Zypper commands to distribute and install software products and patches to endpoints by using the packages that are in the configured repository. You can install packages by specifying the package name or the Common Vulnerabilities and Exposures (CVE) ID number. This task accepts command-line flags and arguments for the Zypper install or update commands.</P> <P><STRONG>Note:</STRONG> Ensure that the repositories that are registered on the endpoint contain the target packages and all required dependency packages. You can use SLE Custom Repository Management dashboard in Patching Support site to manage repository configuration on the SUSE endpoints.</P> <P><STRONG>Note:</STRONG> If you do not specify the package that you want to install, all the packages on the endpoint will be updated to the latest versions that are available in the configured repositories.</P> <P><STRONG>Note:&nbsp;</STRONG>To specify a CVE number or a date to install patches, you must use Zypper version 1.5.3-3.2 or later.</P></TD></TR></TBODY></TABLE>
+]]></Description>
+		<Relevance>(if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) AND (if exists property "android" of type "operating system" then ( not android of operating system ) else true )  </Relevance>
+		<Relevance>not (name of operating system contains "Linux TinyCore")</Relevance>
+		<Relevance><![CDATA[version of client >= "8" AND (exists match (regex "Linux SuSE Enterprise (Server|Desktop) (11|12)") of name of operating system) AND NOT (family name of main processor = "zSeries") AND (if exists property "in proxy agent context" then (not in proxy agent context) else true) AND (if exists property "android" of type "operating system" then (not android of operating system) else true)]]></Relevance>
+		<Relevance>exists package "zypper" of rpm</Relevance>
+		<Category></Category>
+		<Source>IBM</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2014-08-12</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Tue, 12 Aug 2014 04:53:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 15 Aug 2016 06:40:20 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install packages.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// install one or update all (no flag)
+
+action parameter query "PackageNames" with description "Enter the names of the packages that are to be installed (separated by spaces). If the field is left blank, all the packages on the endpoint will be updated to the latest versions that are available in the configured repositories." 
+
+//Check the input for suspicious characters
+continue if {not exists matches (regex "^-| -|;|&&|\|") of parameter "PackageNames"}
+
+//Check if ARG_MAX is large enough to handle the parameters
+wait bash -c "echo $((( $(getconf ARG_MAX) - $(printenv | wc -c) - 2148 ))) > .argmax"
+parameter "ARG_MAX" = "{line 1 of file ".argmax" as integer}"
+delete ".argmax"
+continue if {parameter "ARG_MAX" as integer > length of parameter "PackageNames"}
+
+
+parameter "Log_Dir" = "{client folder of current site}/../../EDRDeployData/"
+parameter "Fixlet_ID" = "{origin fixlet id of action as string}"
+
+wait /bin/bash "{client folder of site whose (name of it as lowercase starts with "patching support")}/InstallPackages.sh" -p zypper -l "{parameter "Log_Dir"}" -f {parameter "Fixlet_ID"} {parameter "PackageNames"}
+continue if {exit code of action = 0}]]></ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install packages with custom zypper flags and options.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// install one or update all (with flag)
+
+action parameter query "PackageNames" with description "Enter the names of the packages that are to be installed (separated by spaces). If the field is left blank, all the packages on the endpoint will be updated to the latest versions that are available in the configured repositories." 
+action parameter query "ZypperFlags" with description "Enter the additional flags and arguments to be passed to the Zypper install or update commands." 
+
+//Check the input for suspicious characters
+continue if {not exists matches (regex "^-| -|;|&&|\|") of parameter "PackageNames"}
+continue if {not exists matches (regex ";|&&|\|") of parameter "ZypperFlags"}
+
+//Check if ARG_MAX is large enough to handle the parameters
+wait bash -c "echo $((( $(getconf ARG_MAX) - $(printenv | wc -c) - 2148 ))) > .argmax"
+parameter "ARG_MAX" = "{line 1 of file ".argmax" as integer}"
+delete ".argmax"
+continue if {parameter "ARG_MAX" as integer > length of parameter "PackageNames" + length of parameter "ZypperFlags"}
+
+parameter "Log_Dir" = "{client folder of current site}/../../EDRDeployData/"
+parameter "Fixlet_ID" = "{origin fixlet id of action as string}"
+
+wait /bin/bash "{client folder of site whose (name of it as lowercase starts with "patching support")}/InstallPackages.sh" -p zypper -a "{parameter "ZypperFlags"}" -l "{parameter "Log_Dir"}" -f {parameter "Fixlet_ID"} {parameter "PackageNames"}
+continue if {exit code of action = 0}]]></ActionScript>
+		</Action>
+		<Action ID="Action3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to test the installation of packages.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// test without flag
+
+action parameter query "PackageNames" with description "Enter the names of the packages to be tested (separated by spaces). Leave the field blank to test the latest versions of packages in the configured repositories, which correspond to packages on the endpoint." 
+
+//Check the input for suspicious characters
+continue if {not exists matches (regex "^-| -|;|&&|\|") of parameter "PackageNames"}
+
+//Check if ARG_MAX is large enough to handle the parameters
+wait bash -c "echo $((( $(getconf ARG_MAX) - $(printenv | wc -c) - 2148 ))) > .argmax"
+parameter "ARG_MAX" = "{line 1 of file ".argmax" as integer}"
+delete ".argmax"
+continue if {parameter "ARG_MAX" as integer > length of parameter "PackageNames"}
+
+parameter "Log_Dir" = "{client folder of current site}/../../EDRDeployData/"
+parameter "Fixlet_ID" = "{origin fixlet id of action as string}"
+
+wait /bin/bash "{client folder of site whose (name of it as lowercase starts with "patching support")}/InstallPackages.sh" -t -p zypper -l "{parameter "Log_Dir"}" -f {parameter "Fixlet_ID"} {parameter "PackageNames"}
+continue if {exit code of action = 0}]]></ActionScript>
+		</Action>
+		<Action ID="Action4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to test the installation of packages with custom zypper flags and options. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// test with flag
+
+action parameter query "PackageNames" with description "Enter the names of the packages to be tested (separated by spaces). Leave the field blank to test the latest versions of packages in the configured repositories, which correspond to packages on the endpoint.." 
+action parameter query "ZypperFlags" with description "Enter the additional flags and arguments to be passed to the Zypper install or update commands." 
+
+
+//Check the input for suspicious characters
+continue if {not exists matches (regex "^-| -|;|&&|\|") of parameter "PackageNames"}
+continue if {not exists matches (regex ";|&&|\|") of parameter "ZypperFlags"}
+
+//Check if ARG_MAX is large enough to handle the parameters
+wait bash -c "echo $((( $(getconf ARG_MAX) - $(printenv | wc -c) - 2148 ))) > .argmax"
+parameter "ARG_MAX" = "{line 1 of file ".argmax" as integer}"
+delete ".argmax"
+continue if {parameter "ARG_MAX" as integer > length of parameter "PackageNames" + length of parameter "ZypperFlags"}
+
+parameter "Log_Dir" = "{client folder of current site}/../../EDRDeployData/"
+parameter "Fixlet_ID" = "{origin fixlet id of action as string}"
+
+wait /bin/bash "{client folder of site whose (name of it as lowercase starts with "patching support")}/InstallPackages.sh" -t -p zypper -a "{parameter "ZypperFlags"}" -l "{parameter "Log_Dir"}" -f {parameter "Fixlet_ID"} {parameter "PackageNames"}
+continue if {exit code of action = 0}]]></ActionScript>
+		</Action>
+		<Action ID="Action5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install a security patch using a CVE number. </PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// Update one CVE
+
+action parameter query "PackageNames" with description "Enter the CVE number of the security patch that you want to install. You can specify one CVE reference only." 
+
+// Input cannot be empty
+continue if { length of (parameter "PackageNames" of action as trimmed string) >= 1}
+
+//Check the input for suspicious characters
+continue if {not exists matches (regex "^-| -|;|&&|\|") of parameter "PackageNames"}
+
+//Check if ARG_MAX is large enough to handle the parameters
+wait bash -c "echo $((( $(getconf ARG_MAX) - $(printenv | wc -c) - 2148 ))) > .argmax"
+parameter "ARG_MAX" = "{line 1 of file ".argmax" as integer}"
+delete ".argmax"
+continue if {parameter "ARG_MAX" as integer > length of parameter "PackageNames"}
+
+parameter "Log_Dir" = "{client folder of current site}/../../EDRDeployData/"
+parameter "Fixlet_ID" = "{origin fixlet id of action as string}"
+
+wait /bin/bash "{client folder of site whose (name of it as lowercase starts with "patching support")}/InstallPackages.sh" -p zypper -l "{parameter "Log_Dir"}" -f {parameter "Fixlet_ID"} -c {parameter "PackageNames"}
+continue if {exit code of action = 0}]]></ActionScript>
+		</Action>
+		<Action ID="Action6">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to test a security patch using a CVE number.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// Update one CVE
+
+action parameter query "PackageNames" with description "Enter the CVE number of the security patch that you want to install. You can specify one CVE reference only." 
+
+// Input cannot be empty
+continue if { length of (parameter "PackageNames" of action as trimmed string) >= 1}
+
+//Check the input for suspicious characters
+continue if {not exists matches (regex "^-| -|;|&&|\|") of parameter "PackageNames"}
+
+//Check if ARG_MAX is large enough to handle the parameters
+wait bash -c "echo $((( $(getconf ARG_MAX) - $(printenv | wc -c) - 2148 ))) > .argmax"
+parameter "ARG_MAX" = "{line 1 of file ".argmax" as integer}"
+delete ".argmax"
+continue if {parameter "ARG_MAX" as integer > length of parameter "PackageNames"}
+
+parameter "Log_Dir" = "{client folder of current site}/../../EDRDeployData/"
+parameter "Fixlet_ID" = "{origin fixlet id of action as string}"
+
+wait /bin/bash "{client folder of site whose (name of it as lowercase starts with "patching support")}/InstallPackages.sh" -t -p zypper -l "{parameter "Log_Dir"}" -f {parameter "Fixlet_ID"} -c {parameter "PackageNames"}
+continue if {exit code of action = 0}]]></ActionScript>
+		</Action>
+		<Action ID="Action7">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to install patches that were issued until a specified date.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "Date" with description "Enter a date that distinguishes which issued patches are to be installed up until the specified date. The date must be in the following format: <YYYY-MM-DD>. For example, 2012-06-23."
+
+// Input cannot be empty
+continue if { length of (parameter "Date" of action as trimmed string) = 10}
+
+//Check if the input follows this pattern: YYYY-MM-DD
+continue if {exists matches (regex "^20[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$") of (parameter "Date" of action as trimmed string)}
+
+parameter "Log_Dir" = "{client folder of current site}/../../EDRDeployData/"
+parameter "Fixlet_ID" = "{origin fixlet id of action as string}"
+
+wait /bin/bash InstallPackages.sh -p zypper -l "{parameter "Log_Dir"}" -f {parameter "Fixlet_ID"} -d {parameter "Date"}
+continue if {exit code of action = 0}]]></ActionScript>
+		</Action>
+		<Action ID="Action8">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to test installation of patches that were issued until a specified date.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[action parameter query "Date" with description "Enter a date that distinguishes which issued patches are to be installed up until the specified date. The date must be in the following format: <YYYY-MM-DD>. For example, 2012-06-23."
+
+// Input cannot be empty
+continue if { length of (parameter "Date" of action as trimmed string) = 10}
+
+//Check if the input follows this pattern: YYYY-MM-DD
+
+continue if {exists matches (regex "^20[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$") of (parameter "Date" of action as trimmed string)}
+
+parameter "Log_Dir" = "{client folder of current site}/../../EDRDeployData/"
+parameter "Fixlet_ID" = "{origin fixlet id of action as string}"
+
+wait /bin/bash InstallPackages.sh -t -p zypper -l "{parameter "Log_Dir"}" -f {parameter "Fixlet_ID"} -d {parameter "Date"}
+continue if {exit code of action = 0}]]></ActionScript>
+		</Action>
+	</Task>
+</BES>

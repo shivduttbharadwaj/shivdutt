@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>UPDATE: Microsoft .NET Framework 4.5 Available - Windows 7 SP1 / Windows 2008 SP2 / Windows 2008 R2 SP1 / Windows Vista SP2</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>The .NET Framework 4.5 is a highly compatible, in-place update to the .NET Framework 4. By using the .NET Framework 4.5 together with the C#, Visual Basic, or F# programming language, you can write Windows apps. The .NET Framework 4.5 includes significant language and framework enhancements for C#, Visual Basic, and F# (so that you can more easily write asynchronous code), the blending of control flow in synchronous code, a responsive UI, and web app scalability . The .NET Framework 4.5 adds substantial improvements to other functional areas such as ASP.NET, Managed Extensibility Framework, Windows Communication Foundation, Windows Workflow Foundation, and Windows Identity Foundation. The .NET Framework 4.5 delivers better performance, reliability, and security.</P> <P>For more information about these and other features of the .NET Framework 4.5, see the .NET Framework Developer Center website.</P> <P>Note: The .NET Framework 4.5 redistributable was updated on 10/9/2012 to correct an issue related to an improper timestamp on a digital certificate which causes the digital signature on files produced and signed by Microsoft to expire prematurely. We recommend customers that previously installed the .NET 4.5 redistributable package dated 8/16/2012 install this updated .NET 4.5 redistributable package. More information about the issue can be found Microsoft Security Advisory 2749655. </P></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+984 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>(((name of it = "WinVista" OR name of it = "Win2008") AND service pack major version of it = 2) OR ((name of it = "Win7" OR name of it = "Win2008R2") AND service pack major version of it = 1)) of operating system</Relevance>
+		<Relevance><![CDATA[not exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" of native registry OR exists key "HKLM\Software\Microsoft\NET Framework Setup\NDP\v4" whose (not exists key "Full" of it OR exists key "Full" whose (not exists value "Release" of it OR value "Release" of it < 378389) of it) of native registry]]></Relevance>
+		<Category>Feature Pack</Category>
+		<DownloadSize>1005568</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>Unspecified</SourceID>
+		<SourceReleaseDate>2012-10-09</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 26 Sep 2014 17:32:33 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows 7 Gold |~| Windows Server 2008 Gold |~| Windows Server 2008 R2 Gold |~| Windows Vista Gold (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>.NET Framework</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2008R2|Win7|WinVista|Win2008</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 18 Jul 2018 05:49:25 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch dotNetFx45_Full_setup.exe sha1:f6ba6f03c65c3996a258f58324a917463b2d6ff4 size:1005568 http://download.microsoft.com/download/B/A/4/BA4A7E71-2906-4B2D-A0E1-80CF16844F5F/dotNetFx45_Full_setup.exe sha256:e434828818f81e6e1f5955e84caec08662bd154a80b24a71a2eda530d8b2f66a
+
+waithidden __Download\dotNetFx45_Full_setup.exe /quiet /norestart
+
+action may require restart "f6ba6f03c65c3996a258f58324a917463b2d6ff4"</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.microsoft.com/downloads/details.aspx?FamilyID=2aff3c20-50b8-4c84-9a80-0a321545c1bc</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

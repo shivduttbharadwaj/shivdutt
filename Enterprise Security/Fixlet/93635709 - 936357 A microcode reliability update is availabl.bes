@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>936357: A microcode reliability update is available that improves the reliability of systems that use Intel processors - Windows XP SP1 / Windows XP SP2 - KB936357 (x64)</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD>This is a reliability update. Install this microcode update to improve the reliability of systems with Intel processors.<br><br>After downloading and installing this update, affected computers will no longer be susceptible to this vulnerability.<br><br><B>Note:</B> Affected computers may report back as 'Pending Restart' once the update has run successfully, but will not report back their final status until the computer has been restarted.<br><br><B>Note:</B> Microsoft has announced that this update may be included in a future service pack or update rollup.<br><br><B>Note:</B> This update is also referenced under KB936357.</TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+752 KB
+ </DIV>
+]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )</Relevance>
+		<Relevance>x64 of operating system</Relevance>
+		<Relevance>(language of version block of file "kernel32.dll" of system folder contains "English") OR (exists key "HKLM\System\CurrentControlSet\Control\Nls\MUILanguages" whose (exists value of it) of registry)</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "WinXP-2003") AND (service pack major version of it = 1 OR service pack major version of it = 2)) of operating system</Relevance>
+		<Relevance><![CDATA[(exists file "update.sys" whose ((service pack major version of operating system = 1 AND ((version of it < "5.2.3790.2944"))) OR (service pack major version of operating system = 2 AND ((version of it < "5.2.3790.4089")))) of it) of (folder "drivers" of system x64 folder) OR (exists file "update.sys" whose ((service pack major version of operating system = 1 AND ((version of it < "5.2.3790.2944"))) OR (service pack major version of operating system = 2 AND ((version of it < "5.2.3790.4089")))) of it) of (folder "drivers" of system wow64 folder)]]></Relevance>
+		<Category>Critical Updates</Category>
+		<DownloadSize>770440</DownloadSize>
+		<Source>Microsoft</Source>
+		<SourceID>KB936357</SourceID>
+		<SourceReleaseDate>2007-06-11</SourceReleaseDate>
+		<SourceSeverity>Unspecified</SourceSeverity>
+		<CVENames>Unspecified</CVENames>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-operating-system</Name>
+			<Value>Windows Server 2003 SP2 |~| Windows XP (x64)</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>no-relevance-health-check</Name>
+			<Value>false</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product-family</Name>
+			<Value>Windows</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-component</Name>
+			<Value>Unspecified</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-product</Name>
+			<Value>Win2003|WinXP</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Mon, 13 Jun 2016 07:48:17 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch WindowsServer2003.WindowsXP-KB936357-x64-ENU.exe sha1:fe4e2717ff4097c4648fb357fe17065b65352c32 size:770440 https://download.microsoft.com/download/6/2/e/62ea90be-4add-4608-8bc1-7e8ccbf5ab90/WindowsServer2003.WindowsXP-KB936357-x64-ENU.exe sha256:0b162b63495c2c58e9430dc231b944940607a73de3c6e0f0868e8edd75c5bf69
+
+waithidden __Download\WindowsServer2003.WindowsXP-KB936357-x64-ENU.exe /quiet /norestart
+
+action may require restart "fe4e2717ff4097c4648fb357fe17065b65352c32"
+</ActionScript>
+		</DefaultAction>
+		<Action ID="Link2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to see the Knowledge Base Article for this update.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://support.microsoft.com/kb/936357</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>

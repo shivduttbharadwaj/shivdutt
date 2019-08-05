@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Adobe Reader 9.5.5 Available</Title>
+		<Description><![CDATA[
+<DIV class=FixletMessage>
+<TABLE><TBODY><TR><TD> <P>Adobe has released a new version of Adobe Reader.&nbsp;Use the action below to update Adobe Reader to the latest version (9.5.5).</P> <P>This update&nbsp;disables Adobe Updater for all Adobe applications.</P> <P><B>Note:</B> Affected computers may report back as 'Pending Restart' once the patch has run successfully, but will not report back their final status until the computer has been restarted.</P> <P><SPAN id=fixletLinks><FONT color=#ff0000><STRONG>Important Note:</STRONG></FONT></SPAN> If Adobe Acrobat is installed,&nbsp;this update may modify existing .PDF file associations to point to Adobe Reader 9.5.</P><SPAN id=fixletLinks><STRONG><FONT color=#ff0000>Important Note:</FONT></STRONG> Choosing the "Upgrade to Adobe Reader regardless of whether or not Adobe Reader is running action" will close any running instance of Adobe Reader on the client machines. Please schedule the update to occur at a time when a service interruption is acceptable. </SPAN> <SCRIPT type=text/javascript>var isEvansOrLater = '<?relevance if (exists property "datastore inspectors") then (True) else (False)?>' == 'True'?true:false; document.body.onload = SetUpdatesForWindowsApplicationsFixletLinks; function SetUpdatesForWindowsApplicationsFixletLinks() { try {if (isEvansOrLater) { fixletLinks.innerHTML = Relevance('(format "<?rxlat <P><STRONG>Important Note: </STRONG>Manual installations of Adobe Reader 9 may automatically install <A href=%22http://www.adobe.com/products/air/%22>Adobe AIR</A> and <A href=%22http://www.adobe.com/acom/%22>Acrobat.com</A> as well. To remove Adobe AIR and Acrobat.com, please use the following Tasks:</P><ul><li>{0}</li><li>{1}</li></ul>?>" + (link of fixlet 8091003 of (bes site whose (name of it = "Updates for Windows Applications")) as string) + (link of fixlet 8091005 of (bes site whose (name of it = "Updates for Windows Applications")) as string) ) as string');} else { fixletLinks.innerHTML = EvaluateRelevance('"<P><STRONG>Important Note: </STRONG>Manual installations of Adobe Reader 9 may automatically install <A href=%22http://www.adobe.com/products/air/%22>Adobe AIR</A> and <A href=%22http://www.adobe.com/acom/%22>Acrobat.com</A> as well. To remove Adobe AIR and Acrobat.com, please use the following Tasks:</P><ul><li>" & (link of fixlet 8091003 of (bes site whose (name of it = "Updates for Windows Applications")) as string) & "</li><li>" & (link of fixlet 8091005 of (bes site whose (name of it = "Updates for Windows Applications")) as string) & "</li></ul>"');} } catch (e) {if (isEvansOrLater) { fixletLinks.innerHTML ='<?jxlat <P><STRONG>Important Note: </STRONG>Manual installations of Adobe Reader 9 may automatically install <A href="http://www.adobe.com/products/air/">Adobe AIR</A> and <A href="http://www.adobe.com/acom/">Acrobat.com</A> as well. To remove Adobe AIR and Acrobat.com, please use the following Tasks:</P><ul><li>Uninstall Adobe AIR (8091003)</li><li>Uninstall Acrobat.com (8091005)</li></ul>?>';} else { fixletLinks.innerHTML = '<P><STRONG>Important Note: </STRONG>Manual installations of Adobe Reader 9 may automatically install <A href="http://www.adobe.com/products/air/">Adobe AIR</A> and <A href="http://www.adobe.com/acom/">Acrobat.com</A> as well. To remove Adobe AIR and Acrobat.com, please use the following Tasks:</P><ul><li>Uninstall Adobe AIR (8091003)</li><li>Uninstall Acrobat.com (8091005)</li></ul>';} } } </SCRIPT></TD></TR></TBODY></TABLE>
+</DIV>
+<DIV class=FixletProperty>
+<H4>File Size:</H4>
+47.6 MB
+ </DIV>
+<DIV class=FixletProperty>
+<H4>CVE:</H4>
+CVE-2013-2549, CVE-2013-2550, CVE-2013-2718, CVE-2013-2719, CVE-2013-2720, CVE-2013-2721, CVE-2013-2722, CVE-2013-2723, CVE-2013-2724, CVE-2013-2725, CVE-2013-2726, CVE-2013-2727, CVE-2013-2729, CVE-2013-2730, CVE-2013-2731, CVE-2013-2732, CVE-2013-2733, CVE-2013-2734, CVE-2013-2735, CVE-2013-2736, CVE-2013-2737, CVE-2013-3337, CVE-2013-3338, CVE-2013-3339, CVE-2013-3340, CVE-2013-3341, CVE-2013-3342, CVE-2013-3346
+ 
+</DIV>]]></Description>
+		<Relevance>(if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true ) </Relevance>
+		<Relevance>name of operating system as lowercase starts with "win"</Relevance>
+		<Relevance>exists regapp "acrord32.exe"</Relevance>
+		<Relevance>(exists key "2017" of it OR exists key "DC" of it OR exists key "2015" of it OR exists key "11.0" of it OR exists key "10.0" of it OR exists key "9.0" of it OR exists key "8.0" of it OR exists key "7.0" of it OR exists key "6.0" of it OR exists key "5.0" of it) of key "HKLM\Software\Adobe\Acrobat Reader\" of registry</Relevance>
+		<Relevance>not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry</Relevance>
+		<Relevance>((name of it = "Win2000" and service pack major version of it = 4) or (name of it = "WinXP" and ((it = 2 OR it = 3) of service pack major version of it)) or (name of it = "WinXPe" and ((it = 2 OR it = 3) of service pack major version of it)) or (name of it = "Win2003") or (name of it = "WinXP-2003") or (name of it = "WinVista" AND product type of it = nt workstation product type) or (name of it = "Win7") or (((name of it = "WinVista" AND product type of it != nt workstation product type) OR (name of it = "Win2008")) AND (service pack major version of it = 1 OR service pack major version of it = 2)) or ((name of it = "Win2008R2") AND (service pack major version of it = 0 OR service pack major version of it = 1))) of operating system</Relevance>
+		<Relevance><![CDATA[exists regapp "acrord32.exe" whose (version of it < "9.5.5")]]></Relevance>
+		<Relevance><![CDATA[exists regapp "iexplore.exe" whose (version of it >= "6")]]></Relevance>
+		<Relevance>not (exists key whose (value whose (name of it contains "DisplayName") of it as string contains "Adobe Acrobat 5.0" AND exists value "UninstallString" of it) of key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry AND not exists regapp "acrobat.exe" whose (version of it = "5")) AND (not (exists key whose ((it as lowercase contains "adobe reader" and it as lowercase contains "mui") of (value "DisplayName" of it as string )) of it) of  key "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry)</Relevance>
+		<Relevance>exists key whose (value "UI" of it = "ARA" or value "UI" of it = "GRE" or value "UI" of it = "HEB") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry</Relevance>
+		<Category>Security Update</Category>
+		<DownloadSize>49903616</DownloadSize>
+		<Source>Adobe</Source>
+		<SourceID>APSB13-15</SourceID>
+		<SourceReleaseDate>2013-05-14</SourceReleaseDate>
+		<SourceSeverity>Critical</SourceSeverity>
+		<CVENames>CVE-2013-2549, CVE-2013-2550, CVE-2013-2718, CVE-2013-2719, CVE-2013-2720, CVE-2013-2721, CVE-2013-2722, CVE-2013-2723, CVE-2013-2724, CVE-2013-2725, CVE-2013-2726, CVE-2013-2727, CVE-2013-2729, CVE-2013-2730, CVE-2013-2731, CVE-2013-2732, CVE-2013-2733, CVE-2013-2734, CVE-2013-2735, CVE-2013-2736, CVE-2013-2737, CVE-2013-3337, CVE-2013-3338, CVE-2013-3339, CVE-2013-3340, CVE-2013-3341, CVE-2013-3342, CVE-2013-3346</CVENames>
+		<SANSID>SANS C2</SANSID>
+		<MIMEField>
+			<Name>x-fixlet-first-propagation</Name>
+			<Value>Fri, 21 Feb 2014 08:38:03 +0000</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-cpe23-item-name</Name>
+			<Value>cpe:2.3:a:adobe:reader:9.5.5:*:*:*:*:*:*:*</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-domain_attributes</Name>
+			<Value>PatchManagement 3rdPartyApp Adobe Reader</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sat, 18 Aug 2018 04:27:16 +0000</Value>
+		</MIMEField>
+		<Delay>PT1S</Delay>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to initiate the deployment process.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {exists key whose (value "UI" of it = "ARA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr955_ar_AE.msi sha1:cbef752892102438475d7e6dfbd0e6a7dde49014 size:49903616 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.5/ar_AE/AdbeRdr955_ar_AE.msi sha256:442e73ab221b3e76e333dc634f6a7cccbca15826f8dc902ce0cae7187b340bd0
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr955_ar_AE.msi"
+
+elseif {exists key whose (value "UI" of it = "GRE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr955_el_GR.msi sha1:8737ce83fdc69418b41f683d257a9376d4484237 size:49801216 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.5/el_GR/AdbeRdr955_el_GR.msi sha256:0d4d68352b9885894662a218e275a470d586c77201785cc0bf500eb16dc3927e
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr955_el_GR.msi"
+
+elseif {exists key whose (value "UI" of it = "HEB") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr955_he_IL.msi sha1:eec79f5bcef22e0fa36156cf815e3d6556f056f4 size:51628544 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.5/he_IL/AdbeRdr955_he_IL.msi sha256:c27f217147c919bcebed6c868d333fb7894752bde142b3810960d570c76a2f38
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr955_he_IL.msi"
+
+endif
+
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\9.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+delete temp.reg
+move __appendfile temp.reg
+wait regedit -s temp.reg
+action may require restart</ActionScript>
+		</DefaultAction>
+		<Action ID="Action2">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to upgrade Adobe Reader regardless of whether Adobe Reader is running</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">if {exists key whose (value "UI" of it = "ARA") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr955_ar_AE.msi sha1:cbef752892102438475d7e6dfbd0e6a7dde49014 size:49903616 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.5/ar_AE/AdbeRdr955_ar_AE.msi sha256:442e73ab221b3e76e333dc634f6a7cccbca15826f8dc902ce0cae7187b340bd0
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr955_ar_AE.msi"
+
+elseif {exists key whose (value "UI" of it = "GRE") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr955_el_GR.msi sha1:8737ce83fdc69418b41f683d257a9376d4484237 size:49801216 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.5/el_GR/AdbeRdr955_el_GR.msi sha256:0d4d68352b9885894662a218e275a470d586c77201785cc0bf500eb16dc3927e
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr955_el_GR.msi"
+
+elseif {exists key whose (value "UI" of it = "HEB") of keys of key "HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader" of registry}
+prefetch AdbeRdr955_he_IL.msi sha1:eec79f5bcef22e0fa36156cf815e3d6556f056f4 size:51628544 http://ardownload.adobe.com/pub/adobe/reader/win/9.x/9.5.5/he_IL/AdbeRdr955_he_IL.msi sha256:c27f217147c919bcebed6c868d333fb7894752bde142b3810960d570c76a2f38
+waithidden {if (name of operating system = "WinXP" AND personal bit (suite mask of operating system)) then "tskill acrord32 /a" else "taskkill /F /IM acrord32.exe"}
+waithidden msiexec.exe /qn /i "__Download\AdbeRdr955_he_IL.msi"
+
+endif
+
+delete __appendfile
+appendfile REGEDIT4
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Acrobat Reader\9.0\AdobeViewer]
+appendfile "EULA"=dword:00000001
+appendfile "Launched"=dword:00000001
+appendfile
+// Disable the updater
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Adobe\Adobe ARM\1.0\ARM]
+appendfile "iCheck"=dword:00000000
+appendfile
+appendfile [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+appendfile "Adobe ARM"=-
+appendfile
+delete temp.reg
+move __appendfile temp.reg
+wait regedit -s temp.reg
+action may require restart</ActionScript>
+		</Action>
+		<Action ID="Link3">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information about the latest version of Adobe Reader.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/downloads/detail.jsp?ftpID=5336</ActionScript>
+		</Action>
+		<Action ID="Link4">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for security-related information from Adobe.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.adobe.com/support/security/#readerwin</ActionScript>
+		</Action>
+		<Action ID="Link5">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> for more information from SANS on vulnerabilities in office software.</PostLink>
+			</Description>
+			<ActionScript MIMEType="text/x-uri">http://www.sans.org/top20/#c2</ActionScript>
+		</Action>
+	</Fixlet>
+</BES>
